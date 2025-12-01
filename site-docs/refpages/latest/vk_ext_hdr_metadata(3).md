@@ -143,7 +143,7 @@ Correct implicit validity for VkHdrMetadataEXT structure
 Revision 3, 2024-03-26 (Tobias Hector & Sebastian Wick)
 
 * 
-Clarifications and removal of erroneous "reference monitor" term
+Clarifications and removal of erroneous “reference monitor” term
 
 No cross-references are available
 

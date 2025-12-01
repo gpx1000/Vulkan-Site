@@ -30,9 +30,8 @@ typedef struct VkPhysicalDeviceRobustness2FeaturesKHR {
     VkBool32           nullDescriptor;
 } VkPhysicalDeviceRobustness2FeaturesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_robustness2
+// Equivalent to VkPhysicalDeviceRobustness2FeaturesKHR
 typedef VkPhysicalDeviceRobustness2FeaturesKHR VkPhysicalDeviceRobustness2FeaturesEXT;
 
 This structure describes the following features:
@@ -83,7 +82,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR`
 
-[VK_KHR_robustness2](VK_KHR_robustness2.html), `VkBool32`, [VkStructureType](VkStructureType.html)
+[VK_EXT_robustness2](VK_EXT_robustness2.html), [VK_KHR_robustness2](VK_KHR_robustness2.html), `VkBool32`, [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/features.html#VkPhysicalDeviceRobustness2FeaturesKHR).
 

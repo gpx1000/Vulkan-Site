@@ -92,7 +92,7 @@ The following **can** be used in
 
  `privateData` indicates
 whether the implementation supports private data.
-See [Private Data](../../../../spec/latest/chapters/VK_EXT_private_data.html#private-data).
+See [Private Data](../../../../spec/latest/chapters/private_data.html#private-data).
 
 `shaderDemoteToHelperInvocation` indicates whether the
 implementation supports the SPIR-V `DemoteToHelperInvocationEXT`

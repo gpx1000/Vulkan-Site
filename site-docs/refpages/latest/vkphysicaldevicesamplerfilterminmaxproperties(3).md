@@ -30,9 +30,8 @@ typedef struct VkPhysicalDeviceSamplerFilterMinmaxProperties {
     VkBool32           filterMinmaxImageComponentMapping;
 } VkPhysicalDeviceSamplerFilterMinmaxProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_sampler_filter_minmax
+// Equivalent to VkPhysicalDeviceSamplerFilterMinmaxProperties
 typedef VkPhysicalDeviceSamplerFilterMinmaxProperties VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT;
 
 * 

@@ -21,15 +21,14 @@ VkDescriptorUpdateTemplateCreateFlags - Reserved for future use
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkDescriptorUpdateTemplateCreateFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplateCreateFlags
 typedef VkDescriptorUpdateTemplateCreateFlags VkDescriptorUpdateTemplateCreateFlagsKHR;
 
 `VkDescriptorUpdateTemplateCreateFlags` is a bitmask type for setting a
 mask, but is currently reserved for future use.
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDescriptorUpdateTemplateCreateInfo](VkDescriptorUpdateTemplateCreateInfo.html), `VkFlags`
+[VK_KHR_descriptor_update_template](VK_KHR_descriptor_update_template.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDescriptorUpdateTemplateCreateInfo](VkDescriptorUpdateTemplateCreateInfo.html), `VkFlags`
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/descriptorsets.html#VkDescriptorUpdateTemplateCreateFlags).
 

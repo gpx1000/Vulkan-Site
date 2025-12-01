@@ -4,91 +4,124 @@
 
 - **Component**: tutorial
 - **Version**: latest
-- **URL**: /tutorial/latest/03_Drawing_a_triangle/03_Drawing/00_Framebuffers.html
+- **URL**: /tutorial/latest/courses/18_Ray_tracing/01_Dynamic_rendering.html
 
 ## Table of Contents
 
-- [Introduction to Dynamic Rendering](#_introduction_to_dynamic_rendering)
-- [Introduction_to_Dynamic_Rendering](#_introduction_to_dynamic_rendering)
-- [Command Buffer Recording with Dynamic Rendering](#_command_buffer_recording_with_dynamic_rendering)
-- [Command_Buffer_Recording_with_Dynamic_Rendering](#_command_buffer_recording_with_dynamic_rendering)
+- [Task 1: Check the setup for dynamic rendering](#_task_1_check_the_setup_for_dynamic_rendering)
+- [Task_1:_Check_the_setup_for_dynamic_rendering](#_task_1_check_the_setup_for_dynamic_rendering)
+- [Dynamic rendering with RenderDoc](#_dynamic_rendering_with_renderdoc)
+- [Dynamic_rendering_with_RenderDoc](#_dynamic_rendering_with_renderdoc)
+- [Navigation](#_navigation)
 
 ## Content
 
-In previous versions of Vulkan, we would need to create framebuffers to bind our image views to a render pass. However, with the introduction of dynamic rendering in Vulkan 1.3, we can now render directly to image views without creating framebuffers or render passes.
+**Objective**: Ensure the base project uses **dynamic rendering** and understand how to verify it using RenderDoc.
 
-Dynamic rendering simplifies the rendering process by eliminating the need for render pass and framebuffer objects. Instead, we can specify the color, depth, and stencil attachments directly when we begin rendering.
+In dynamic rendering, we no longer create a VkRenderPass or VkFrameBuffer; instead we begin rendering with `vkCmdBeginRenderingKHR`, specifying attachments on-the-fly. This makes our code more flexible (no need to predeclare subpasses) and is now the "modern" way to render in Vulkan.
 
-This approach offers several advantages:
-- Simplified code with fewer objects to manage
-- More flexibility in changing attachments during rendering
-- Better compatibility with modern rendering techniques
+In the provided code base, locate the initialization of the graphics pipeline:
 
-Let’s see how this works in practice. We’ll be using the `vk::RenderingAttachmentInfo` and `vk::RenderingInfo` structures to specify our attachments and rendering parameters.
+/* TASK01: Check the setup for dynamic rendering
+ *
+ * This new struct replaces what previously was the render pass in the pipeline creation.
+ * Note how this structure is now linked in .pNext below, and .renderPass is not used.
+ */
+vk::PipelineRenderingCreateInfo pipelineRenderingCreateInfo{
+    .colorAttachmentCount = 1,
+    .pColorAttachmentFormats = &swapChainImageFormat,
+    .depthAttachmentFormat = depthFormat
+};
 
-In the next chapter, we’ll create command buffers and record rendering commands. Here’s a preview of how we’ll use dynamic rendering:
+vk::GraphicsPipelineCreateInfo pipelineInfo{
+    .pNext = &pipelineRenderingCreateInfo,
+    .stageCount = 2,
+    .pStages = shaderStages,
+    .pVertexInputState = &vertexInputInfo,
+    .pInputAssemblyState = &inputAssembly,
+    .pViewportState = &viewportState,
+    .pRasterizationState = &rasterizer,
+    .pMultisampleState = &multisampling,
+    .pDepthStencilState = &depthStencil,
+    .pColorBlendState = &colorBlending,
+    .pDynamicState = &dynamicState,
+    .layout = pipelineLayout,
+    .renderPass = nullptr
+};
 
-void recordCommandBuffer(uint32_t imageIndex) {
-    commandBuffer.begin({});
+graphicsPipeline = vk::raii::Pipeline(device, nullptr, pipelineInfo);
 
-    // Transition the image layout for rendering
-    transition_image_layout(
-        imageIndex,
-        vk::ImageLayout::eUndefined,
-        vk::ImageLayout::eColorAttachmentOptimal,
-        {},
-        vk::AccessFlagBits2::eColorAttachmentWrite,
-        vk::PipelineStageFlagBits2::eTopOfPipe,
-        vk::PipelineStageFlagBits2::eColorAttachmentOutput
-    );
+And later on, the command buffer recording where we begin rendering:
 
-    // Set up the color attachment
-    vk::ClearValue clearColor = vk::ClearColorValue(0.0f, 0.0f, 0.0f, 1.0f);
-    vk::RenderingAttachmentInfo attachmentInfo = {
-        .imageView = swapChainImageViews[imageIndex],
-        .imageLayout = vk::ImageLayout::eColorAttachmentOptimal,
-        .loadOp = vk::AttachmentLoadOp::eClear,
-        .storeOp = vk::AttachmentStoreOp::eStore,
-        .clearValue = clearColor
-    };
+/* TASK01: Check the setup for dynamic rendering
+ *
+ * With dynamic rendering, we specify the image view and load/store operations directly
+ * in the vk::RenderingAttachmentInfo structure.
+ * This approach eliminates the need for explicit render pass and framebuffer objects,
+ * simplifying the code and providing flexibility to change attachments at runtime.
+ */
 
-    // Set up the rendering info
-    vk::RenderingInfo renderingInfo = {
-        .renderArea = { .offset = { 0, 0 }, .extent = swapChainExtent },
-        .layerCount = 1,
-        .colorAttachmentCount = 1,
-        .pColorAttachments = &attachmentInfo
-    };
+vk::RenderingAttachmentInfo colorAttachmentInfo = {
+    .imageView = swapChainImageViews[imageIndex],
+    .imageLayout = vk::ImageLayout::eColorAttachmentOptimal,
+    .loadOp = vk::AttachmentLoadOp::eClear,
+    .storeOp = vk::AttachmentStoreOp::eStore,
+    .clearValue = clearColor
+};
 
-    // Begin rendering
-    commandBuffer.beginRendering(renderingInfo);
+vk::RenderingAttachmentInfo depthAttachmentInfo = {
+    .imageView = depthImageView,
+    .imageLayout = vk::ImageLayout::eDepthStencilAttachmentOptimal,
+    .loadOp = vk::AttachmentLoadOp::eClear,
+    .storeOp = vk::AttachmentStoreOp::eDontCare,
+    .clearValue = clearDepth
+};
 
-    // Rendering commands will go here
+// The vk::RenderingInfo structure combines these attachments with other rendering parameters.
+vk::RenderingInfo renderingInfo = {
+    .renderArea = { .offset = { 0, 0 }, .extent = swapChainExtent },
+    .layerCount = 1,
+    .colorAttachmentCount = 1,
+    .pColorAttachments = &colorAttachmentInfo,
+    .pDepthAttachment = &depthAttachmentInfo
+};
 
-    // End rendering
-    commandBuffer.endRendering();
+// Note: .beginRendering replaces the previous .beginRenderPass call.
+commandBuffers[currentFrame].beginRendering(renderingInfo);
 
-    // Transition the image layout for presentation
-    transition_image_layout(
-        imageIndex,
-        vk::ImageLayout::eColorAttachmentOptimal,
-        vk::ImageLayout::ePresentSrcKHR,
-        vk::AccessFlagBits2::eColorAttachmentWrite,
-        {},
-        vk::PipelineStageFlagBits2::eColorAttachmentOutput,
-        vk::PipelineStageFlagBits2::eBottomOfPipe
-    );
+For more context, refer to the previous tutorial [chapter](../../03_Drawing_a_triangle/02_Graphics_pipeline_basics/03_Render_passes.adoc).
 
-    commandBuffer.end();
-}
+Use RenderDoc to launch the application and capture a frame:
 
-As you can see, we directly specify the image view to render to in the `vk::RenderingAttachmentInfo` structure. We also specify the load and store operations, similar to what we would do in a render pass. The `vk::RenderingInfo` structure then combines this with other rendering parameters.
+Specify executable path: `Vulkan-Tutorial\attachments\build\38_ray_tracing\Debug\38_ray_tracing.exe`.
 
-With this approach, we don’t need to create framebuffers or render passes, which simplifies our code and gives us more flexibility.
+Specify working directory: `Vulkan-Tutorial\attachments\build\38_ray_tracing`.
 
-In the [next chapter,](01_Command_buffers.html) we’ll create command buffers and write the first actual drawing commands using dynamic rendering.
+Launch the application.
 
-[C++ code](../../_attachments/14_command_buffers.cpp) /
-[Slang shader](../../_attachments/09_shader_base.slang) /
-[GLSL Vertex shader](../../_attachments/09_shader_base.vert) /
-[GLSL Fragment shader](../../_attachments/09_shader_base.frag)
+![38 TASK01 renderdoc launch](../../_images/images/38_TASK01_renderdoc_launch.png)
+
+In the Event Browser, you should see the calls that confirm that dynamic rendering is set up correctly:
+
+`vkCmdBeginRenderingKHR` and `vkCmdEndRenderingKHR`.
+
+`VkRenderingInfoKHR` replacing the old render pass/framebuffer concept.
+
+Color (and depth) attachments set via `VkRenderingAttachmentInfo`.
+
+![38 TASK01 renderdoc events](../../_images/images/38_TASK01_renderdoc_events.png)
+
+In RenderDoc’s Texture Viewer, you can inspect the color and depth attachments at various points:
+
+![38 TASK01 renderdoc color](../../_images/images/38_TASK01_renderdoc_color.gif)
+
+|  | Dynamic rendering reduces CPU overhead and, with the `VK_KHR_dynamic_rendering_local_read` extension, lets you do subpass-style tile-local reads without full render passes. This is great for techniques like deferred shading on tilers, where reading from a previous pass’s attachment can be done on-tile without extra memory bandwidth. While we won’t implement a deferred renderer here, be aware of this benefit for mobile. |
+| --- | --- |
+
+After this step, you should be comfortable that dynamic rendering is set up correctly. We can now move on to ray tracing features.
+
+* 
+Previous: [Overview](00_Overview.html)
+
+* 
+Next: [Acceleration structures](02_Acceleration_structures.html)

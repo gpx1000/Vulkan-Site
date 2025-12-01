@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceShaderAtomicInt64Features {
     VkBool32           shaderSharedInt64Atomics;
 } VkPhysicalDeviceShaderAtomicInt64Features;
 
-or the equivalent
-
 // Provided by VK_KHR_shader_atomic_int64
+// Equivalent to VkPhysicalDeviceShaderAtomicInt64Features
 typedef VkPhysicalDeviceShaderAtomicInt64Features VkPhysicalDeviceShaderAtomicInt64FeaturesKHR;
 
 This structure describes the following features:

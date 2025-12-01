@@ -45,9 +45,8 @@ typedef enum VkToolPurposeFlagBits {
     VK_TOOL_PURPOSE_MODIFYING_FEATURES_BIT_EXT = VK_TOOL_PURPOSE_MODIFYING_FEATURES_BIT,
 } VkToolPurposeFlagBits;
 
-or the equivalent
-
 // Provided by VK_EXT_tooling_info
+// Equivalent to VkToolPurposeFlagBits
 typedef VkToolPurposeFlagBits VkToolPurposeFlagBitsEXT;
 
 * 

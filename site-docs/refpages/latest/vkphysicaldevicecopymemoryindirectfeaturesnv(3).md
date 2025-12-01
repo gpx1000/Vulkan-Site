@@ -40,7 +40,7 @@ structure.
 
 * 
  `indirectCopy` indicates whether
-[indirect copies](../../../../spec/latest/chapters/copies.html#indirect-copies) are supported.
+[indirect memory to memory or, memory to image    copies](../../../../spec/latest/chapters/copies.html#indirect-copies) are supported.
 
 If the `VkPhysicalDeviceCopyMemoryIndirectFeaturesNV` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceFeatures2](VkPhysicalDeviceFeatures2.html) structure passed to

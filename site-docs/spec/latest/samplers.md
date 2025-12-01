@@ -156,15 +156,20 @@ mipmap filter to apply to lookups.
 
 * 
 `addressModeU` is a [VkSamplerAddressMode](#VkSamplerAddressMode) value specifying the
-addressing mode for U coordinates outside [0,1).
+[wrapping operation](textures.html#textures-wrapping-operation) used when the i
+coordinate used to sample the image would be out of bounds.
 
 * 
 `addressModeV` is a [VkSamplerAddressMode](#VkSamplerAddressMode) value specifying the
-addressing mode for V coordinates outside [0,1).
+[wrapping operation](textures.html#textures-wrapping-operation) used when the j
+coordinate used to sample the image would be out of bounds.
 
 * 
 `addressModeW` is a [VkSamplerAddressMode](#VkSamplerAddressMode) value specifying the
-addressing mode for W coordinates outside [0,1).
+[wrapping operation](textures.html#textures-wrapping-operation) used when the k
+coordinate used to sample the image would be out of bounds.
+If `unnormalizedCoordinates` is `VK_TRUE`, `addressModeW` is
+ignored.
 
 * 
  `mipLodBias` is the bias to be added to
@@ -711,9 +716,8 @@ typedef struct VkSamplerReductionModeCreateInfo {
     VkSamplerReductionMode    reductionMode;
 } VkSamplerReductionModeCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_sampler_filter_minmax
+// Equivalent to VkSamplerReductionModeCreateInfo
 typedef VkSamplerReductionModeCreateInfo VkSamplerReductionModeCreateInfoEXT;
 
 * 
@@ -764,9 +768,8 @@ typedef enum VkSamplerReductionMode {
     VK_SAMPLER_REDUCTION_MODE_MAX_EXT = VK_SAMPLER_REDUCTION_MODE_MAX,
 } VkSamplerReductionMode;
 
-or the equivalent
-
 // Provided by VK_EXT_sampler_filter_minmax
+// Equivalent to VkSamplerReductionMode
 typedef VkSamplerReductionMode VkSamplerReductionModeEXT;
 
 * 
@@ -900,10 +903,7 @@ typedef enum VkSamplerMipmapMode {
 These modes are described in detail in [Texel Filtering](textures.html#textures-texel-filtering).
 
 Possible values of the [VkSamplerCreateInfo](#VkSamplerCreateInfo)::`addressMode*`
-parameters, specifying the behavior of sampling with coordinates outside the
-range [0,1] for the respective u, v, or w coordinate
-as defined in the [Wrapping Operation](textures.html#textures-wrapping-operation)
-section, are:
+parameters, corresponding to different [wrapping operations](textures.html#textures-wrapping-operation) used during sampling, are:
 
 // Provided by VK_VERSION_1_0
 typedef enum VkSamplerAddressMode {
@@ -914,7 +914,7 @@ typedef enum VkSamplerAddressMode {
   // Provided by VK_VERSION_1_2, VK_KHR_sampler_mirror_clamp_to_edge
     VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE = 4,
   // Provided by VK_KHR_sampler_mirror_clamp_to_edge
-  // VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE_KHR is a deprecated alias
+  // VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE_KHR is a legacy alias
     VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE_KHR = VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE,
 } VkSamplerAddressMode;
 
@@ -1064,7 +1064,7 @@ data in floating-point format.
 the [VkSamplerCreateInfo](#VkSamplerCreateInfo)::`pNext` chain containing the color
 data in integer format.
 
-These colors are described in detail in [Texel Replacement](textures.html#textures-texel-replacement).
+These colors are described in detail in [Border Replacement](textures.html#textures-border-replacement).
 
 To destroy a sampler, call:
 
@@ -1157,9 +1157,8 @@ typedef struct VkSamplerYcbcrConversionInfo {
     VkSamplerYcbcrConversion    conversion;
 } VkSamplerYcbcrConversionInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrConversionInfo
 typedef VkSamplerYcbcrConversionInfo VkSamplerYcbcrConversionInfoKHR;
 
 * 
@@ -1192,9 +1191,8 @@ device-specific sampler Y′CBCR conversion description, represented as a
 // Provided by VK_VERSION_1_1
 VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkSamplerYcbcrConversion)
 
-or the equivalent
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrConversion
 typedef VkSamplerYcbcrConversion VkSamplerYcbcrConversionKHR;
 
 To create a [VkSamplerYcbcrConversion](#VkSamplerYcbcrConversion), call:
@@ -1206,9 +1204,8 @@ VkResult vkCreateSamplerYcbcrConversion(
     const VkAllocationCallbacks*                pAllocator,
     VkSamplerYcbcrConversion*                   pYcbcrConversion);
 
-or the equivalent command
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to vkCreateSamplerYcbcrConversion
 VkResult vkCreateSamplerYcbcrConversionKHR(
     VkDevice                                    device,
     const VkSamplerYcbcrConversionCreateInfo*   pCreateInfo,
@@ -1302,9 +1299,8 @@ typedef struct VkSamplerYcbcrConversionCreateInfo {
     VkBool32                         forceExplicitReconstruction;
 } VkSamplerYcbcrConversionCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrConversionCreateInfo
 typedef VkSamplerYcbcrConversionCreateInfo VkSamplerYcbcrConversionCreateInfoKHR;
 
 * 
@@ -1461,7 +1457,7 @@ correspond to components of the `format`; that is,
 `components.r`, `components.g`, and `components.b` **must** not
 be `VK_COMPONENT_SWIZZLE_ZERO` or `VK_COMPONENT_SWIZZLE_ONE`,
 and **must** not correspond to a component containing zero or one as a
-consequence of [conversion to RGBA](textures.html#textures-conversion-to-rgba)
+consequence of [component substitution](images.html#images-component-substitution)
 
 * 
 [](#VUID-VkSamplerYcbcrConversionCreateInfo-ycbcrRange-02748) VUID-VkSamplerYcbcrConversionCreateInfo-ycbcrRange-02748
@@ -1523,7 +1519,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkSamplerYcbcrConversionCreateInfo-pNext-pNext) VUID-VkSamplerYcbcrConversionCreateInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkExternalFormatANDROID](resources.html#VkExternalFormatANDROID), [VkExternalFormatQNX](resources.html#VkExternalFormatQNX), or [VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM](#VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkExternalFormatANDROID](resources.html#VkExternalFormatANDROID), [VkExternalFormatOHOS](resources.html#VkExternalFormatOHOS), [VkExternalFormatQNX](resources.html#VkExternalFormatQNX), or [VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM](#VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM)
 
 * 
 [](#VUID-VkSamplerYcbcrConversionCreateInfo-sType-unique) VUID-VkSamplerYcbcrConversionCreateInfo-sType-unique
@@ -1593,9 +1589,8 @@ typedef enum VkSamplerYcbcrModelConversion {
     VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_2020_KHR = VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_2020,
 } VkSamplerYcbcrModelConversion;
 
-or the equivalent
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrModelConversion
 typedef VkSamplerYcbcrModelConversion VkSamplerYcbcrModelConversionKHR;
 
 * 
@@ -1678,9 +1673,8 @@ typedef enum VkSamplerYcbcrRange {
     VK_SAMPLER_YCBCR_RANGE_ITU_NARROW_KHR = VK_SAMPLER_YCBCR_RANGE_ITU_NARROW,
 } VkSamplerYcbcrRange;
 
-or the equivalent
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrRange
 typedef VkSamplerYcbcrRange VkSamplerYcbcrRangeKHR;
 
 * 
@@ -1714,9 +1708,8 @@ typedef enum VkChromaLocation {
     VK_CHROMA_LOCATION_MIDPOINT_KHR = VK_CHROMA_LOCATION_MIDPOINT,
 } VkChromaLocation;
 
-or the equivalent
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkChromaLocation
 typedef VkChromaLocation VkChromaLocationKHR;
 
 * 
@@ -1729,9 +1722,9 @@ samples are located half way between each even luma sample and the
 nearest higher odd luma sample.
 
 Applications **can** enable sRGB to linear conversion for the R, G, and B
-components of a Y′CBCR image during [format conversion](textures.html#textures-ycbcr-degamma) by including
-`VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM` structure in the
-`pNext` chain of [VkSamplerYcbcrConversionCreateInfo](#VkSamplerYcbcrConversionCreateInfo).
+components of a Y′CBCR image during [sampling](textures.html#textures-YCbCr-degamma) by
+including `VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM` structure
+in the `pNext` chain of [VkSamplerYcbcrConversionCreateInfo](#VkSamplerYcbcrConversionCreateInfo).
 
 The `VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM` structure is
 defined as:
@@ -1752,11 +1745,10 @@ typedef struct VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM {
 structure.
 
 * 
-`enableYDegamma` indicates [sRGB to linear](textures.html#textures-ycbcr-degamma)
-conversion is enabled for the G component.
+`enableYDegamma` indicates [sRGB to    linear](textures.html#textures-YCbCr-degamma) conversion is enabled for the G component.
 
 * 
-`enableCbCrDegamma` indicates [sRGB to    linear](textures.html#textures-ycbcr-degamma) conversion is enabled for the R and B components.
+`enableCbCrDegamma` indicates [sRGB to    linear](textures.html#textures-YCbCr-degamma) conversion is enabled for the R and B components.
 
 Valid Usage (Implicit)
 
@@ -1773,9 +1765,8 @@ void vkDestroySamplerYcbcrConversion(
     VkSamplerYcbcrConversion                    ycbcrConversion,
     const VkAllocationCallbacks*                pAllocator);
 
-or the equivalent command
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to vkDestroySamplerYcbcrConversion
 void vkDestroySamplerYcbcrConversionKHR(
     VkDevice                                    device,
     VkSamplerYcbcrConversion                    ycbcrConversion,

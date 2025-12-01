@@ -21,9 +21,8 @@ VkDescriptorBindingFlags - Bitmask of VkDescriptorBindingFlagBits
 // Provided by VK_VERSION_1_2
 typedef VkFlags VkDescriptorBindingFlags;
 
-or the equivalent
-
 // Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorBindingFlags
 typedef VkDescriptorBindingFlags VkDescriptorBindingFlagsEXT;
 
 `VkDescriptorBindingFlags` is a bitmask type for setting a mask of zero

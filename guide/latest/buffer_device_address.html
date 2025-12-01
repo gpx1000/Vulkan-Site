@@ -255,6 +255,9 @@
   <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="buffer_device_address.html">Buffer Device Address</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="buffer_device_address_alignment.html">Buffer Device Address Alignment</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -284,6 +287,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="descriptor_dynamic_offset.html">Descriptor Dynamic Offset</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="descriptor_buffer.html">Descriptor Buffer</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="location_component_interface.html">Location and Component Interface</a>
@@ -612,117 +618,7 @@
 <div class="sect2">
 <h3 id="_alignment"><a class="anchor" href="#_alignment"></a>Alignment</h3>
 <div class="paragraph">
-<p>All variables accessed with <code>PhysicalStorageBuffer</code> must have an <code>Aligned</code> memory operand to it.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-swift hljs" data-lang="swift">%x = OpLoad %type %ptr Aligned 16
-OpStore %ptr %obj Aligned 16</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Shading languages will have a default, but can allow you to align it explicitly (ex <code>buffer_reference_alignment</code>).</p>
-</div>
-<div class="paragraph">
-<p>The goal of this alignment is this is a promise for how aligned this specific pointer is.
-The compiler has no idea what the address will be when the shader is compiled.
-By providing an alignment it can generate valid code to match the requirement.
-The user is responsible to confirm the address they use is aligned to it.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">layout(buffer_reference, buffer_reference_align = 64) buffer MyBDA {
-    uint data;
-};
-
-MyBDA ptr_a; // at 0x1000
-MyBDA ptr_b; // at 0x1010
-MyBDA ptr_c; // at 0x1040
-
-ptr_a.data = 0; // (Aligned 64) valid!
-ptr_b.data = 0; // (Aligned 64) invalid!
-ptr_c.data = 0; // (Aligned 64) valid!</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>When deciding on an alignment, the minimum value will always be the size greater than or equal to the largest scalar/component type in the block.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">// alignment must be at least 4
-layout(buffer_reference) buffer MyBDA {
-    vec4 a; // scalar is float
-};
-
-// alignment must be at least 1
-layout(buffer_reference) buffer MyBDA {
-    uint8_t a; // scalar is 8-bit int
-};
-
-// alignment must be at least 8
-layout(buffer_reference) buffer MyBDA {
-    uint a; // 32-bit
-    double b; // 64-bit
-};</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_alignment_example"><a class="anchor" href="#_alignment_example"></a>Alignment Example</h3>
-<div class="paragraph">
-<p>To help explain alignment, lets take an example of loading an array of vectors</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">layout(buffer_reference, buffer_reference_align = ???) buffer MyBDA {
-    uvec4 data[];
-};
-
-MyBDA ptr; // at 0x1000
-ptr.data[i] = uvec4(0);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Here we have 2 options, we could set the <code>Aligned</code> to be <code>4</code> or <code>16</code>.</p>
-</div>
-<div class="paragraph">
-<p>If we set alignment to <code>16</code> we are letting the compiler know it can load 16 bytes at a time, so it will hopefully do a vector load/store on the memory.</p>
-</div>
-<div class="paragraph">
-<p>If we set alignment to <code>4</code> the compiler will likely have no way to infer the real alignment and will now do 4 scalar int load/store on the memory.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Some GPUs can do vector load/store even on unaligned addresses.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>For the next case, if we had <code>uvec3</code> instead of <code>uvec4</code> such as</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">layout(buffer_reference, buffer_reference_align = 4, scalar) buffer MyBDA {
-    uvec3 data[];
-};
-
-data[0]; // 0x1000
-data[1]; // 0x100C
-data[2]; // 0x1018
-data[3]; // 0x1024</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>We know that setting the alignment to <code>16</code> would be violated at <code>data[1]</code> and therefore we need to use an alignment of <code>4</code> in this case.
-Luckily shading languages will help do this for you as seen in both <a href="https://godbolt.org/z/jWGKax1ed">glslang</a> and <a href="https://godbolt.org/z/Y7xW3Mfd4">slang</a> .</p>
+<p>See dedicated <a href="sparse_resources.html#sparse-resources" class="xref page">BDA Alignment chapter</a>.</p>
 </div>
 </div>
 <div class="sect2">

@@ -302,7 +302,40 @@
     <a class="nav-link" href="../17_Multithreading.html">Multithreading</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../courses/18_Ray_tracing/00_Overview.html">Ray Tracing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/00_Overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/01_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/02_Acceleration_structures.html">Acceleration structures</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/03_Ray_query_shadows.html">Ray query shadows</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/04_TLAS_animation.html">TLAS animation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/05_Shadow_transparency.html">Shadow transparency</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/06_Reflections.html">Reflections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/07_Conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../90_FAQ.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -463,8 +496,8 @@ Go to the <code>createDescriptorSets</code> function.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">for (size_t i = 0; i &lt; MAX_FRAMES_IN_FLIGHT; i++) {
-    vk::DescriptorBufferInfo bufferInfo(uniformBuffers[i], 0, sizeof(UniformBufferObject));
-    vk::DescriptorImageInfo imageInfo( textureSampler, textureImageView, vk::ImageLayout::eShaderReadOnlyOptimal );
+    vk::DescriptorBufferInfo bufferInfo{ .buffer = uniformBuffers[i], .offset = 0, .range = sizeof(UniformBufferObject) };
+    vk::DescriptorImageInfo imageInfo{ .sampler = textureSampler, .imageView = textureImageView, .imageLayout = vk::ImageLayout::eShaderReadOnlyOptimal};
 
     ...
 }</code></pre>
@@ -477,8 +510,10 @@ This is where the objects from the previous chapter come together.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">std::array descriptorWrites{
-    vk::WriteDescriptorSet( descriptorSets[i], 0, 0, 1, vk::DescriptorType::eUniformBuffer, nullptr, &amp;bufferInfo ),
-    vk::WriteDescriptorSet( descriptorSets[i], 1, 0, 1, vk::DescriptorType::eCombinedImageSampler, &amp;imageInfo)
+    vk::WriteDescriptorSet{ .dstSet = descriptorSets[i], .dstBinding = 0, .dstArrayElement = 0, .descriptorCount = 1,
+        .descriptorType = vk::DescriptorType::eUniformBuffer, .pBufferInfo = &amp;bufferInfo },
+    vk::WriteDescriptorSet{ .dstSet = descriptorSets[i], .dstBinding = 1, .dstArrayElement = 0, .descriptorCount = 1,
+        .descriptorType = vk::DescriptorType::eCombinedImageSampler, .pImageInfo = &amp;imageInfo }
 };
 device.updateDescriptorSets(descriptorWrites, {});</code></pre>
 </div>
@@ -656,7 +691,7 @@ float4 fragMain(VSOutput vertIn) : SV_TARGET {
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-slang hljs" data-lang="slang">[shader("fragment")]
 float4 fragMain(VSOutput vertIn) : SV_TARGET {
-   return vec4(vertIn.fragColor * texture.Sample(vertIn.fragTexCoord).rgb, 1.0);
+   return float4(vertIn.fragColor * texture.Sample(vertIn.fragTexCoord).rgb, 1.0);
 }</code></pre>
 </div>
 </div>

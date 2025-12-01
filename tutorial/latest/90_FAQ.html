@@ -301,8 +301,41 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="17_Multithreading.html">Multithreading</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="courses/18_Ray_tracing/00_Overview.html">Ray Tracing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/00_Overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/01_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/02_Acceleration_structures.html">Acceleration structures</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/03_Ray_query_shadows.html">Ray query shadows</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/04_TLAS_animation.html">TLAS animation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/05_Shadow_transparency.html">Shadow transparency</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/06_Reflections.html">Reflections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/07_Conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="90_FAQ.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -424,8 +457,20 @@ Also ensure that your SDK version is at least 1.1.106.0 to support the <code>VK_
 <div class="sectionbody">
 <div class="paragraph">
 <p>This appears to be a compatibility problem in the Steam client beta.
-There are a few possible workarounds:     * Opt out of the Steam beta program.
-* Set the <code>DISABLE_VK_LAYER_VALVE_steam_overlay_1</code> environment variable to <code>1</code>     * Delete the Steam overlay Vulkan layer entry in the registry under <code>HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers</code></p>
+There are a few possible workarounds:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Opt out of the Steam beta program.</p>
+</li>
+<li>
+<p>Set the <code>DISABLE_VK_LAYER_VALVE_steam_overlay_1</code> environment variable to <code>1</code></p>
+</li>
+<li>
+<p>Delete the Steam overlay Vulkan layer entry in the registry under <code>HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Example:</p>

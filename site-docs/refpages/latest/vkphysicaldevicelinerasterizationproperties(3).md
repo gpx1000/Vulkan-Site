@@ -29,14 +29,12 @@ typedef struct VkPhysicalDeviceLineRasterizationProperties {
     uint32_t           lineSubPixelPrecisionBits;
 } VkPhysicalDeviceLineRasterizationProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_line_rasterization
+// Equivalent to VkPhysicalDeviceLineRasterizationProperties
 typedef VkPhysicalDeviceLineRasterizationProperties VkPhysicalDeviceLineRasterizationPropertiesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_line_rasterization
+// Equivalent to VkPhysicalDeviceLineRasterizationProperties
 typedef VkPhysicalDeviceLineRasterizationProperties VkPhysicalDeviceLineRasterizationPropertiesEXT;
 
 * 

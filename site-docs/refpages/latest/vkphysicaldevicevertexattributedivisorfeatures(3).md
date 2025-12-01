@@ -30,14 +30,12 @@ typedef struct VkPhysicalDeviceVertexAttributeDivisorFeatures {
     VkBool32           vertexAttributeInstanceRateZeroDivisor;
 } VkPhysicalDeviceVertexAttributeDivisorFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_vertex_attribute_divisor
+// Equivalent to VkPhysicalDeviceVertexAttributeDivisorFeatures
 typedef VkPhysicalDeviceVertexAttributeDivisorFeatures VkPhysicalDeviceVertexAttributeDivisorFeaturesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_vertex_attribute_divisor
+// Equivalent to VkPhysicalDeviceVertexAttributeDivisorFeatures
 typedef VkPhysicalDeviceVertexAttributeDivisorFeatures VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT;
 
 This structure describes the following features:

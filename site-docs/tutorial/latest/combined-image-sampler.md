@@ -65,8 +65,10 @@ The resources for a combined image sampler structure must be specified in a `VkD
 This is where the objects from the previous chapter come together.
 
 std::array descriptorWrites{
-    vk::WriteDescriptorSet( descriptorSets[i], 0, 0, 1, vk::DescriptorType::eUniformBuffer, nullptr, &bufferInfo ),
-    vk::WriteDescriptorSet( descriptorSets[i], 1, 0, 1, vk::DescriptorType::eCombinedImageSampler, &imageInfo)
+    vk::WriteDescriptorSet{ .dstSet = descriptorSets[i], .dstBinding = 0, .dstArrayElement = 0, .descriptorCount = 1,
+        .descriptorType = vk::DescriptorType::eUniformBuffer, .pBufferInfo = &bufferInfo },
+    vk::WriteDescriptorSet{ .dstSet = descriptorSets[i], .dstBinding = 1, .dstArrayElement = 0, .descriptorCount = 1,
+        .descriptorType = vk::DescriptorType::eCombinedImageSampler, .pImageInfo = &imageInfo }
 };
 device.updateDescriptorSets(descriptorWrites, {});
 
@@ -192,7 +194,7 @@ You can also manipulate the texture colors using the vertex colors:
 
 [shader("fragment")]
 float4 fragMain(VSOutput vertIn) : SV_TARGET {
-   return vec4(vertIn.fragColor * texture.Sample(vertIn.fragTexCoord).rgb, 1.0);
+   return float4(vertIn.fragColor * texture.Sample(vertIn.fragTexCoord).rgb, 1.0);
 }
 
 I’ve separated the RGB and alpha channels here to not scale the alpha channel.

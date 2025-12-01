@@ -99,12 +99,13 @@ static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_COMPRESSED_DATA_DGF1_BIT_A
 static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_DATA_GRAPH_FOREIGN_DESCRIPTOR_BIT_ARM = 0x20000000ULL;
 // Provided by VK_QCOM_tile_memory_heap
 static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_TILE_MEMORY_BIT_QCOM = 0x08000000ULL;
+// Provided by VK_EXT_memory_decompression
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_MEMORY_DECOMPRESSION_BIT_EXT = 0x100000000ULL;
 // Provided by VK_EXT_device_generated_commands
 static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_PREPROCESS_BUFFER_BIT_EXT = 0x80000000ULL;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkBufferUsageFlagBits2
 typedef VkBufferUsageFlagBits2 VkBufferUsageFlagBits2KHR;
 
 * 
@@ -272,6 +273,10 @@ buffer is suitable as storage space for [Dense    Geometry Format](../../../../s
 that the buffer is suitable to contain resource descriptors when bound
 as a descriptor buffer in command buffers allocated from a command pool
 that **can** target foreign [data graph    processing engines](../../../../spec/latest/chapters/VK_ARM_data_graph/graphs.html#graphs-processing-engines).
+
+* 
+`VK_BUFFER_USAGE_2_MEMORY_DECOMPRESSION_BIT_EXT` specifies that the
+buffer **can** be used as a destination buffer in [    memory decompression](../../../../spec/latest/chapters/memory_decompression.html#memory-decompression).
 
 [VK_KHR_maintenance5](VK_KHR_maintenance5.html), [VK_VERSION_1_4](VK_VERSION_1_4.html), [VkBufferUsageFlags2](VkBufferUsageFlags2.html)
 

@@ -29,14 +29,12 @@ typedef struct VkQueueFamilyGlobalPriorityProperties {
     VkQueueGlobalPriority    priorities[VK_MAX_GLOBAL_PRIORITY_SIZE];
 } VkQueueFamilyGlobalPriorityProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_global_priority
+// Equivalent to VkQueueFamilyGlobalPriorityProperties
 typedef VkQueueFamilyGlobalPriorityProperties VkQueueFamilyGlobalPriorityPropertiesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_global_priority_query
+// Equivalent to VkQueueFamilyGlobalPriorityProperties
 typedef VkQueueFamilyGlobalPriorityProperties VkQueueFamilyGlobalPriorityPropertiesEXT;
 
 * 

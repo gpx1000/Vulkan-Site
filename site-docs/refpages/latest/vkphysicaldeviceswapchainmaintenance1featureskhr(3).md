@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR {
     VkBool32           swapchainMaintenance1;
 } VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR
 typedef VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT;
 
 This structure describes the following feature:

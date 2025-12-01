@@ -26,7 +26,7 @@ render pass.
 
 The `VkRenderPassMultiviewCreateInfo` structure is defined as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_1
@@ -41,9 +41,8 @@ typedef struct VkRenderPassMultiviewCreateInfo {
     const uint32_t*    pCorrelationMasks;
 } VkRenderPassMultiviewCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_multiview
+// Equivalent to VkRenderPassMultiviewCreateInfo
 typedef VkRenderPassMultiviewCreateInfo VkRenderPassMultiviewCreateInfoKHR;
 
 * 
@@ -215,7 +214,7 @@ Valid Usage (Implicit)
 
  If `correlationMaskCount` is not `0`, `pCorrelationMasks` **must** be a valid pointer to an array of `correlationMaskCount` `uint32_t` values
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_multiview](VK_KHR_multiview.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/renderpass.html#VkRenderPassMultiviewCreateInfo).
 

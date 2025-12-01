@@ -533,7 +533,7 @@ Both *target coordinates* and *reference coordinates* are integer texel coordina
 of the lower-left texel of the block to be matched in the *target image* and
 *reference image* respectively.
 The *block size* provides the height and width in integer texels of the regions to
-be matched.
+be matched and must be greater than 0 or *result* will contain an *undefined value*.
 
 Note that the coordinates and *block size* may result in a region that extends
 beyond the bounds of *target image* or *reference image*.  For *target image*,

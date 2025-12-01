@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -538,23 +547,19 @@ for any purpose.</p>
 <div class="sect2">
 <h3 id="fundamentals-queueoperation"><a class="anchor" href="#fundamentals-queueoperation"></a>Queue Operation</h3>
 <div class="paragraph">
-<p>Vulkan queues provide an interface to the execution engines of a device.
-Commands for these execution engines are recorded into command buffers ahead
-of execution time, and then submitted to a queue for execution.
-Once submitted to a queue, command buffers will begin and complete execution
-without further application intervention, though the order of this execution
-is dependent on a number of <a href="synchronization.html#synchronization" class="xref page">implicit and explicit ordering constraints</a>.</p>
+<p>Each device supports a number of <a href="devsandqueues.html#devsandqueues-queues" class="xref page">queues</a>, which
+provide an interface for <a href="devsandqueues.html#devsandqueues-submission" class="xref page">submitting work</a> for
+execution on the device.</p>
 </div>
 <div class="paragraph">
-<p>Work is submitted to queues using <em>queue submission commands</em> that typically
-take the form <code>vkQueue*</code> (e.g. <a href="cmdbuffers.html#vkQueueSubmit" class="xref page">vkQueueSubmit</a>
-, <a href="sparsemem.html#vkQueueBindSparse" class="xref page">vkQueueBindSparse</a>
-), and <strong>can</strong> take a list of semaphores upon which to wait before work begins
-and a list of semaphores to signal once work has completed.
-The work itself, as well as signaling and waiting on the semaphores are all
-<em>queue operations</em>.
-Queue submission commands return control to the application once queue
-operations have been submitted - they do not wait for completion.</p>
+<p><a href="devsandqueues.html#devsandqueues-submission" class="xref page"><em>Queue submission commands</em></a> are used to submit
+work, along with a set of <a href="synchronization.html#synchronization" class="xref page">synchronization primitives</a>
+used to constrain the order of submitted operations.
+Queues are intended for asynchronous execution of submitted workloads, and
+queue submission commands <strong>should</strong> return as soon as the work has been
+submitted, without waiting for the work to complete.
+Once submitted to a queue, work will begin and complete execution without
+further application intervention.</p>
 </div>
 <div class="paragraph">
 <p>There are no implicit ordering constraints between queue operations on
@@ -565,7 +570,9 @@ be expressed with <a href="synchronization.html#synchronization-semaphores" clas
 <a href="synchronization.html#synchronization-fences" class="xref page">fences</a>.</p>
 </div>
 <div class="paragraph">
-<p>Command buffer submissions to a single queue respect
+<p>Many commands for queues are recorded into <a href="cmdbuffers.html#commandbuffers" class="xref page"><em>command buffers</em></a> first, before the command buffers are then submitted to a queue
+for execution.
+Command buffer submissions to a single queue respect
 <a href="synchronization.html#synchronization-submission-order" class="xref page">submission order</a> and other
 <a href="synchronization.html#synchronization-implicit" class="xref page">implicit ordering guarantees</a>, but otherwise
 <strong>may</strong> overlap or execute out of order.
@@ -1391,6 +1398,75 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>semaphore</code> parameter in <a href="synchronization.html#vkDestroySemaphore" class="xref page">vkDestroySemaphore</a></p>
 </li>
 <li>
+<p>The <code>queryPool</code> parameter in <a href="queries.html#vkDestroyQueryPool" class="xref page">vkDestroyQueryPool</a></p>
+</li>
+<li>
+<p>The <code>buffer</code> parameter in <a href="resources.html#vkDestroyBuffer" class="xref page">vkDestroyBuffer</a></p>
+</li>
+<li>
+<p>The <code>image</code> parameter in <a href="resources.html#vkDestroyImage" class="xref page">vkDestroyImage</a></p>
+</li>
+<li>
+<p>The <code>imageView</code> parameter in <a href="resources.html#vkDestroyImageView" class="xref page">vkDestroyImageView</a></p>
+</li>
+<li>
+<p>The <code>commandPool</code> parameter in <a href="cmdbuffers.html#vkDestroyCommandPool" class="xref page">vkDestroyCommandPool</a></p>
+</li>
+<li>
+<p>The <code>commandPool</code> parameter in <a href="cmdbuffers.html#vkResetCommandPool" class="xref page">vkResetCommandPool</a></p>
+</li>
+<li>
+<p>The <code>commandPool</code> parameter in <a href="cmdbuffers.html#vkFreeCommandBuffers" class="xref page">vkFreeCommandBuffers</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="cmdbuffers.html#vkBeginCommandBuffer" class="xref page">vkBeginCommandBuffer</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="cmdbuffers.html#vkEndCommandBuffer" class="xref page">vkEndCommandBuffer</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="cmdbuffers.html#vkResetCommandBuffer" class="xref page">vkResetCommandBuffer</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdCopyBuffer" class="xref page">vkCmdCopyBuffer</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdCopyImage" class="xref page">vkCmdCopyImage</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdCopyBufferToImage" class="xref page">vkCmdCopyBufferToImage</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdCopyImageToBuffer" class="xref page">vkCmdCopyImageToBuffer</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="clears.html#vkCmdUpdateBuffer" class="xref page">vkCmdUpdateBuffer</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="clears.html#vkCmdFillBuffer" class="xref page">vkCmdFillBuffer</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdPipelineBarrier" class="xref page">vkCmdPipelineBarrier</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="queries.html#vkCmdBeginQuery" class="xref page">vkCmdBeginQuery</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="queries.html#vkCmdEndQuery" class="xref page">vkCmdEndQuery</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="queries.html#vkCmdResetQueryPool" class="xref page">vkCmdResetQueryPool</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="queries.html#vkCmdWriteTimestamp" class="xref page">vkCmdWriteTimestamp</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="queries.html#vkCmdCopyQueryPoolResults" class="xref page">vkCmdCopyQueryPoolResults</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="cmdbuffers.html#vkCmdExecuteCommands" class="xref page">vkCmdExecuteCommands</a></p>
+</li>
+<li>
 <p>The <code>event</code> parameter in <a href="synchronization.html#vkDestroyEvent" class="xref page">vkDestroyEvent</a></p>
 </li>
 <li>
@@ -1400,19 +1476,7 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>event</code> parameter in <a href="synchronization.html#vkResetEvent" class="xref page">vkResetEvent</a></p>
 </li>
 <li>
-<p>The <code>queryPool</code> parameter in <a href="queries.html#vkDestroyQueryPool" class="xref page">vkDestroyQueryPool</a></p>
-</li>
-<li>
-<p>The <code>buffer</code> parameter in <a href="resources.html#vkDestroyBuffer" class="xref page">vkDestroyBuffer</a></p>
-</li>
-<li>
 <p>The <code>bufferView</code> parameter in <a href="resources.html#vkDestroyBufferView" class="xref page">vkDestroyBufferView</a></p>
-</li>
-<li>
-<p>The <code>image</code> parameter in <a href="resources.html#vkDestroyImage" class="xref page">vkDestroyImage</a></p>
-</li>
-<li>
-<p>The <code>imageView</code> parameter in <a href="resources.html#vkDestroyImageView" class="xref page">vkDestroyImageView</a></p>
 </li>
 <li>
 <p>The <code>shaderModule</code> parameter in <a href="shaders.html#vkDestroyShaderModule" class="xref page">vkDestroyShaderModule</a></p>
@@ -1422,9 +1486,6 @@ These implicit parameters are documented as described below.</p>
 </li>
 <li>
 <p>The <code>dstCache</code> parameter in <a href="pipelines.html#vkMergePipelineCaches" class="xref page">vkMergePipelineCaches</a>, conditionally<sup>1</sup></p>
-</li>
-<li>
-<p>The <code>pipelineCache</code> parameter in <a href="pipelines.html#vkCreateGraphicsPipelines" class="xref page">vkCreateGraphicsPipelines</a>, conditionally<sup>1</sup></p>
 </li>
 <li>
 <p>The <code>pipelineCache</code> parameter in <a href="pipelines.html#vkCreateComputePipelines" class="xref page">vkCreateComputePipelines</a>, conditionally<sup>1</sup></p>
@@ -1451,31 +1512,40 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>descriptorPool</code> parameter in <a href="descriptorsets.html#vkFreeDescriptorSets" class="xref page">vkFreeDescriptorSets</a></p>
 </li>
 <li>
+<p>The <code>commandBuffer</code> parameter in <a href="pipelines.html#vkCmdBindPipeline" class="xref page">vkCmdBindPipeline</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="descriptorsets.html#vkCmdBindDescriptorSets" class="xref page">vkCmdBindDescriptorSets</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="clears.html#vkCmdClearColorImage" class="xref page">vkCmdClearColorImage</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="dispatch.html#vkCmdDispatch" class="xref page">vkCmdDispatch</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="dispatch.html#vkCmdDispatchIndirect" class="xref page">vkCmdDispatchIndirect</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdSetEvent" class="xref page">vkCmdSetEvent</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdResetEvent" class="xref page">vkCmdResetEvent</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdWaitEvents" class="xref page">vkCmdWaitEvents</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="descriptorsets.html#vkCmdPushConstants" class="xref page">vkCmdPushConstants</a></p>
+</li>
+<li>
+<p>The <code>pipelineCache</code> parameter in <a href="pipelines.html#vkCreateGraphicsPipelines" class="xref page">vkCreateGraphicsPipelines</a>, conditionally<sup>1</sup></p>
+</li>
+<li>
 <p>The <code>framebuffer</code> parameter in <a href="renderpass.html#vkDestroyFramebuffer" class="xref page">vkDestroyFramebuffer</a></p>
 </li>
 <li>
 <p>The <code>renderPass</code> parameter in <a href="renderpass.html#vkDestroyRenderPass" class="xref page">vkDestroyRenderPass</a></p>
-</li>
-<li>
-<p>The <code>commandPool</code> parameter in <a href="cmdbuffers.html#vkDestroyCommandPool" class="xref page">vkDestroyCommandPool</a></p>
-</li>
-<li>
-<p>The <code>commandPool</code> parameter in <a href="cmdbuffers.html#vkResetCommandPool" class="xref page">vkResetCommandPool</a></p>
-</li>
-<li>
-<p>The <code>commandPool</code> parameter in <a href="cmdbuffers.html#vkFreeCommandBuffers" class="xref page">vkFreeCommandBuffers</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="cmdbuffers.html#vkBeginCommandBuffer" class="xref page">vkBeginCommandBuffer</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="cmdbuffers.html#vkEndCommandBuffer" class="xref page">vkEndCommandBuffer</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="cmdbuffers.html#vkResetCommandBuffer" class="xref page">vkResetCommandBuffer</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="pipelines.html#vkCmdBindPipeline" class="xref page">vkCmdBindPipeline</a></p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="vertexpostproc.html#vkCmdSetViewport" class="xref page">vkCmdSetViewport</a></p>
@@ -1505,9 +1575,6 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>commandBuffer</code> parameter in <a href="fragops.html#vkCmdSetStencilReference" class="xref page">vkCmdSetStencilReference</a></p>
 </li>
 <li>
-<p>The <code>commandBuffer</code> parameter in <a href="descriptorsets.html#vkCmdBindDescriptorSets" class="xref page">vkCmdBindDescriptorSets</a></p>
-</li>
-<li>
 <p>The <code>commandBuffer</code> parameter in <a href="drawing.html#vkCmdBindIndexBuffer" class="xref page">vkCmdBindIndexBuffer</a></p>
 </li>
 <li>
@@ -1526,34 +1593,7 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>commandBuffer</code> parameter in <a href="drawing.html#vkCmdDrawIndexedIndirect" class="xref page">vkCmdDrawIndexedIndirect</a></p>
 </li>
 <li>
-<p>The <code>commandBuffer</code> parameter in <a href="dispatch.html#vkCmdDispatch" class="xref page">vkCmdDispatch</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="dispatch.html#vkCmdDispatchIndirect" class="xref page">vkCmdDispatchIndirect</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdCopyBuffer" class="xref page">vkCmdCopyBuffer</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdCopyImage" class="xref page">vkCmdCopyImage</a></p>
-</li>
-<li>
 <p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdBlitImage" class="xref page">vkCmdBlitImage</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdCopyBufferToImage" class="xref page">vkCmdCopyBufferToImage</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdCopyImageToBuffer" class="xref page">vkCmdCopyImageToBuffer</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="clears.html#vkCmdUpdateBuffer" class="xref page">vkCmdUpdateBuffer</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="clears.html#vkCmdFillBuffer" class="xref page">vkCmdFillBuffer</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="clears.html#vkCmdClearColorImage" class="xref page">vkCmdClearColorImage</a></p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="clears.html#vkCmdClearDepthStencilImage" class="xref page">vkCmdClearDepthStencilImage</a></p>
@@ -1565,36 +1605,6 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdResolveImage" class="xref page">vkCmdResolveImage</a></p>
 </li>
 <li>
-<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdSetEvent" class="xref page">vkCmdSetEvent</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdResetEvent" class="xref page">vkCmdResetEvent</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdWaitEvents" class="xref page">vkCmdWaitEvents</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdPipelineBarrier" class="xref page">vkCmdPipelineBarrier</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="queries.html#vkCmdBeginQuery" class="xref page">vkCmdBeginQuery</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="queries.html#vkCmdEndQuery" class="xref page">vkCmdEndQuery</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="queries.html#vkCmdResetQueryPool" class="xref page">vkCmdResetQueryPool</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="queries.html#vkCmdWriteTimestamp" class="xref page">vkCmdWriteTimestamp</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="queries.html#vkCmdCopyQueryPoolResults" class="xref page">vkCmdCopyQueryPoolResults</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="descriptorsets.html#vkCmdPushConstants" class="xref page">vkCmdPushConstants</a></p>
-</li>
-<li>
 <p>The <code>commandBuffer</code> parameter in <a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">vkCmdBeginRenderPass</a></p>
 </li>
 <li>
@@ -1604,25 +1614,22 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>commandBuffer</code> parameter in <a href="renderpass.html#vkCmdEndRenderPass" class="xref page">vkCmdEndRenderPass</a></p>
 </li>
 <li>
-<p>The <code>commandBuffer</code> parameter in <a href="cmdbuffers.html#vkCmdExecuteCommands" class="xref page">vkCmdExecuteCommands</a></p>
-</li>
-<li>
 <p>The <code>commandBuffer</code> parameter in <a href="cmdbuffers.html#vkCmdSetDeviceMask" class="xref page">vkCmdSetDeviceMask</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="dispatch.html#vkCmdDispatchBase" class="xref page">vkCmdDispatchBase</a></p>
 </li>
 <li>
 <p>The <code>commandPool</code> parameter in <a href="cmdbuffers.html#vkTrimCommandPool" class="xref page">vkTrimCommandPool</a></p>
 </li>
 <li>
-<p>The <code>ycbcrConversion</code> parameter in <a href="samplers.html#vkDestroySamplerYcbcrConversion" class="xref page">vkDestroySamplerYcbcrConversion</a></p>
+<p>The <code>commandBuffer</code> parameter in <a href="dispatch.html#vkCmdDispatchBase" class="xref page">vkCmdDispatchBase</a></p>
 </li>
 <li>
 <p>The <code>descriptorUpdateTemplate</code> parameter in <a href="descriptorsets.html#vkDestroyDescriptorUpdateTemplate" class="xref page">vkDestroyDescriptorUpdateTemplate</a></p>
 </li>
 <li>
 <p>The <code>descriptorSet</code> parameter in <a href="descriptorsets.html#vkUpdateDescriptorSetWithTemplate" class="xref page">vkUpdateDescriptorSetWithTemplate</a>, conditionally<sup>1</sup></p>
+</li>
+<li>
+<p>The <code>ycbcrConversion</code> parameter in <a href="samplers.html#vkDestroySamplerYcbcrConversion" class="xref page">vkDestroySamplerYcbcrConversion</a></p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="drawing.html#vkCmdDrawIndirectCount" class="xref page">vkCmdDrawIndirectCount</a></p>
@@ -1640,16 +1647,7 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>commandBuffer</code> parameter in <a href="renderpass.html#vkCmdEndRenderPass2" class="xref page">vkCmdEndRenderPass2</a></p>
 </li>
 <li>
-<p>The <code>privateDataSlot</code> parameter in <a href="VK_EXT_private_data.html#vkDestroyPrivateDataSlot" class="xref page">vkDestroyPrivateDataSlot</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdSetEvent2" class="xref page">vkCmdSetEvent2</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdResetEvent2" class="xref page">vkCmdResetEvent2</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdWaitEvents2" class="xref page">vkCmdWaitEvents2</a></p>
+<p>The <code>privateDataSlot</code> parameter in <a href="private_data.html#vkDestroyPrivateDataSlot" class="xref page">vkDestroyPrivateDataSlot</a></p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdPipelineBarrier2" class="xref page">vkCmdPipelineBarrier2</a></p>
@@ -1674,6 +1672,15 @@ These implicit parameters are documented as described below.</p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdCopyImageToBuffer2" class="xref page">vkCmdCopyImageToBuffer2</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdSetEvent2" class="xref page">vkCmdSetEvent2</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdResetEvent2" class="xref page">vkCmdResetEvent2</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="synchronization.html#vkCmdWaitEvents2" class="xref page">vkCmdWaitEvents2</a></p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdBlitImage2" class="xref page">vkCmdBlitImage2</a></p>
@@ -1733,22 +1740,10 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>commandBuffer</code> parameter in <a href="drawing.html#vkCmdSetPrimitiveRestartEnable" class="xref page">vkCmdSetPrimitiveRestartEnable</a></p>
 </li>
 <li>
-<p>The <code>commandBuffer</code> parameter in <a href="primsrast.html#vkCmdSetLineStipple" class="xref page">vkCmdSetLineStipple</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="drawing.html#vkCmdBindIndexBuffer2" class="xref page">vkCmdBindIndexBuffer2</a></p>
-</li>
-<li>
 <p>The <code>commandBuffer</code> parameter in <a href="descriptorsets.html#vkCmdPushDescriptorSet" class="xref page">vkCmdPushDescriptorSet</a></p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="descriptorsets.html#vkCmdPushDescriptorSetWithTemplate" class="xref page">vkCmdPushDescriptorSetWithTemplate</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="interfaces.html#vkCmdSetRenderingAttachmentLocations" class="xref page">vkCmdSetRenderingAttachmentLocations</a></p>
-</li>
-<li>
-<p>The <code>commandBuffer</code> parameter in <a href="interfaces.html#vkCmdSetRenderingInputAttachmentIndices" class="xref page">vkCmdSetRenderingInputAttachmentIndices</a></p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="descriptorsets.html#vkCmdBindDescriptorSets2" class="xref page">vkCmdBindDescriptorSets2</a></p>
@@ -1761,6 +1756,18 @@ These implicit parameters are documented as described below.</p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="descriptorsets.html#vkCmdPushDescriptorSetWithTemplate2" class="xref page">vkCmdPushDescriptorSetWithTemplate2</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="primsrast.html#vkCmdSetLineStipple" class="xref page">vkCmdSetLineStipple</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="drawing.html#vkCmdBindIndexBuffer2" class="xref page">vkCmdBindIndexBuffer2</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="interfaces.html#vkCmdSetRenderingAttachmentLocations" class="xref page">vkCmdSetRenderingAttachmentLocations</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="interfaces.html#vkCmdSetRenderingInputAttachmentIndices" class="xref page">vkCmdSetRenderingInputAttachmentIndices</a></p>
 </li>
 <li>
 <p>The <code>surface</code> parameter in <a href="VK_KHR_surface/wsi.html#vkDestroySurfaceKHR" class="xref page">vkDestroySurfaceKHR</a></p>
@@ -1952,6 +1959,15 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>commandBuffer</code> parameter in <a href="descriptorsets.html#vkCmdBindDescriptorBufferEmbeddedSamplers2EXT" class="xref page">vkCmdBindDescriptorBufferEmbeddedSamplers2EXT</a></p>
 </li>
 <li>
+<p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdCopyMemoryIndirectKHR" class="xref page">vkCmdCopyMemoryIndirectKHR</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdCopyMemoryToImageIndirectKHR" class="xref page">vkCmdCopyMemoryToImageIndirectKHR</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="renderpass.html#vkCmdEndRendering2KHR" class="xref page">vkCmdEndRendering2KHR</a></p>
+</li>
+<li>
 <p>The <code>callback</code> parameter in <a href="debugging.html#vkDestroyDebugReportCallbackEXT" class="xref page">vkDestroyDebugReportCallbackEXT</a></p>
 </li>
 <li>
@@ -2099,6 +2115,15 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>commandBuffer</code> parameter in <a href="debugging.html#vkCmdSetCheckpointNV" class="xref page">vkCmdSetCheckpointNV</a></p>
 </li>
 <li>
+<p>The <code>swapchain</code> parameter in <a href="VK_KHR_surface/wsi.html#vkSetSwapchainPresentTimingQueueSizeEXT" class="xref page">vkSetSwapchainPresentTimingQueueSizeEXT</a></p>
+</li>
+<li>
+<p>The <code>swapchain</code> parameter in <a href="VK_KHR_surface/wsi.html#vkGetSwapchainTimingPropertiesEXT" class="xref page">vkGetSwapchainTimingPropertiesEXT</a></p>
+</li>
+<li>
+<p>The <code>swapchain</code> parameter in <a href="VK_KHR_surface/wsi.html#vkGetSwapchainTimeDomainPropertiesEXT" class="xref page">vkGetSwapchainTimeDomainPropertiesEXT</a></p>
+</li>
+<li>
 <p>The <code>commandBuffer</code> parameter in <a href="queries.html#vkCmdSetPerformanceMarkerINTEL" class="xref page">vkCmdSetPerformanceMarkerINTEL</a></p>
 </li>
 <li>
@@ -2168,7 +2193,7 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>commandBuffer</code> parameter in <a href="primsrast.html#vkCmdSetDepthBias2EXT" class="xref page">vkCmdSetDepthBias2EXT</a></p>
 </li>
 <li>
-<p>The <code>privateDataSlot</code> parameter in <a href="VK_EXT_private_data.html#vkDestroyPrivateDataSlotEXT" class="xref page">vkDestroyPrivateDataSlotEXT</a></p>
+<p>The <code>privateDataSlot</code> parameter in <a href="private_data.html#vkDestroyPrivateDataSlotEXT" class="xref page">vkDestroyPrivateDataSlotEXT</a></p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="descriptorsets.html#vkCmdBindDescriptorBuffersEXT" class="xref page">vkCmdBindDescriptorBuffersEXT</a></p>
@@ -2246,10 +2271,10 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>commandBuffer</code> parameter in <a href="copies.html#vkCmdCopyMemoryToImageIndirectNV" class="xref page">vkCmdCopyMemoryToImageIndirectNV</a></p>
 </li>
 <li>
-<p>The <code>commandBuffer</code> parameter in <a href="VK_NV_memory_decompression.html#vkCmdDecompressMemoryNV" class="xref page">vkCmdDecompressMemoryNV</a></p>
+<p>The <code>commandBuffer</code> parameter in <a href="memory_decompression.html#vkCmdDecompressMemoryNV" class="xref page">vkCmdDecompressMemoryNV</a></p>
 </li>
 <li>
-<p>The <code>commandBuffer</code> parameter in <a href="VK_NV_memory_decompression.html#vkCmdDecompressMemoryIndirectCountNV" class="xref page">vkCmdDecompressMemoryIndirectCountNV</a></p>
+<p>The <code>commandBuffer</code> parameter in <a href="memory_decompression.html#vkCmdDecompressMemoryIndirectCountNV" class="xref page">vkCmdDecompressMemoryIndirectCountNV</a></p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="pipelines.html#vkCmdUpdatePipelineIndirectBufferNV" class="xref page">vkCmdUpdatePipelineIndirectBufferNV</a></p>
@@ -2381,6 +2406,12 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>commandBuffer</code> parameter in <a href="memory.html#vkCmdBindTileMemoryQCOM" class="xref page">vkCmdBindTileMemoryQCOM</a></p>
 </li>
 <li>
+<p>The <code>commandBuffer</code> parameter in <a href="memory_decompression.html#vkCmdDecompressMemoryEXT" class="xref page">vkCmdDecompressMemoryEXT</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="memory_decompression.html#vkCmdDecompressMemoryIndirectCountEXT" class="xref page">vkCmdDecompressMemoryIndirectCountEXT</a></p>
+</li>
+<li>
 <p>The <code>commandBuffer</code> parameter in <a href="accelstructures.html#vkCmdBuildClusterAccelerationStructureIndirectNV" class="xref page">vkCmdBuildClusterAccelerationStructureIndirectNV</a></p>
 </li>
 <li>
@@ -2409,6 +2440,9 @@ These implicit parameters are documented as described below.</p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="renderpass.html#vkCmdEndRendering2EXT" class="xref page">vkCmdEndRendering2EXT</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="renderpass.html#vkCmdBeginCustomResolveEXT" class="xref page">vkCmdBeginCustomResolveEXT</a></p>
 </li>
 <li>
 <p>The <code>accelerationStructure</code> parameter in <a href="resources.html#vkDestroyAccelerationStructureKHR" class="xref page">vkDestroyAccelerationStructureKHR</a></p>
@@ -2453,13 +2487,13 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>commandBuffer</code> parameter in <a href="drawing.html#vkCmdDrawMeshTasksIndirectCountEXT" class="xref page">vkCmdDrawMeshTasksIndirectCountEXT</a></p>
 </li>
 <li>
+<p>The <code>commandPool</code> member of <a href="cmdbuffers.html#VkCommandBufferAllocateInfo" class="xref page">VkCommandBufferAllocateInfo</a></p>
+</li>
+<li>
 <p>The <code>dstSet</code> member of <a href="descriptorsets.html#VkCopyDescriptorSet" class="xref page">VkCopyDescriptorSet</a>, conditionally<sup>1</sup></p>
 </li>
 <li>
 <p>The <code>descriptorPool</code> member of <a href="descriptorsets.html#VkDescriptorSetAllocateInfo" class="xref page">VkDescriptorSetAllocateInfo</a></p>
-</li>
-<li>
-<p>The <code>commandPool</code> member of <a href="cmdbuffers.html#VkCommandBufferAllocateInfo" class="xref page">VkCommandBufferAllocateInfo</a></p>
 </li>
 <li>
 <p>The <code>buffer</code> member of <a href="resources.html#VkBindBufferMemoryInfo" class="xref page">VkBindBufferMemoryInfo</a></p>
@@ -2522,6 +2556,12 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>objectHandle</code> member of <a href="debugging.html#VkDebugUtilsObjectTagInfoEXT" class="xref page">VkDebugUtilsObjectTagInfoEXT</a></p>
 </li>
 <li>
+<p>The <code>swapchain</code> member of <a href="synchronization.html#VkSwapchainCalibratedTimestampInfoEXT" class="xref page">VkSwapchainCalibratedTimestampInfoEXT</a></p>
+</li>
+<li>
+<p>The <code>swapchain</code> member of <a href="VK_KHR_surface/wsi.html#VkPastPresentationTimingInfoEXT" class="xref page">VkPastPresentationTimingInfoEXT</a></p>
+</li>
+<li>
 <p>The <code>semaphore</code> member of <a href="synchronization.html#VkImportSemaphoreZirconHandleInfoFUCHSIA" class="xref page">VkImportSemaphoreZirconHandleInfoFUCHSIA</a></p>
 </li>
 <li>
@@ -2551,13 +2591,13 @@ These parameters are listed below.</p>
 <p>Each element of the <code>pFences</code> parameter in <a href="synchronization.html#vkResetFences" class="xref page">vkResetFences</a></p>
 </li>
 <li>
+<p>Each element of the <code>pCommandBuffers</code> parameter in <a href="cmdbuffers.html#vkFreeCommandBuffers" class="xref page">vkFreeCommandBuffers</a></p>
+</li>
+<li>
 <p>Each element of the <code>pDescriptorSets</code> parameter in <a href="descriptorsets.html#vkFreeDescriptorSets" class="xref page">vkFreeDescriptorSets</a></p>
 </li>
 <li>
 <p>The <code>dstSet</code> member of each element of the <code>pDescriptorWrites</code> parameter in <a href="descriptorsets.html#vkUpdateDescriptorSets" class="xref page">vkUpdateDescriptorSets</a>, conditionally<sup>1</sup></p>
-</li>
-<li>
-<p>Each element of the <code>pCommandBuffers</code> parameter in <a href="cmdbuffers.html#vkFreeCommandBuffers" class="xref page">vkFreeCommandBuffers</a></p>
 </li>
 <li>
 <p>Each element of the <code>pWaitSemaphores</code> member of <a href="VK_KHR_surface/wsi.html#VkPresentInfoKHR" class="xref page">VkPresentInfoKHR</a></p>
@@ -2595,9 +2635,6 @@ The implicit parameters and their associated object are listed below.</p>
 <p>All <code>VkQueue</code> objects created from <code>device</code> in <a href="synchronization.html#vkDeviceWaitIdle" class="xref page">vkDeviceWaitIdle</a></p>
 </li>
 <li>
-<p>Any <code>VkDescriptorSet</code> objects allocated from <code>descriptorPool</code> in <a href="descriptorsets.html#vkResetDescriptorPool" class="xref page">vkResetDescriptorPool</a></p>
-</li>
-<li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from in <a href="cmdbuffers.html#vkBeginCommandBuffer" class="xref page">vkBeginCommandBuffer</a></p>
 </li>
 <li>
@@ -2607,7 +2644,73 @@ The implicit parameters and their associated object are listed below.</p>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from in <a href="cmdbuffers.html#vkResetCommandBuffer" class="xref page">vkResetCommandBuffer</a></p>
 </li>
 <li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdCopyBuffer" class="xref page">vkCmdCopyBuffer</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdCopyImage" class="xref page">vkCmdCopyImage</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdCopyBufferToImage" class="xref page">vkCmdCopyBufferToImage</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdCopyImageToBuffer" class="xref page">vkCmdCopyImageToBuffer</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="clears.html#vkCmdUpdateBuffer" class="xref page">vkCmdUpdateBuffer</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="clears.html#vkCmdFillBuffer" class="xref page">vkCmdFillBuffer</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdPipelineBarrier" class="xref page">vkCmdPipelineBarrier</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="queries.html#vkCmdBeginQuery" class="xref page">vkCmdBeginQuery</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="queries.html#vkCmdEndQuery" class="xref page">vkCmdEndQuery</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="queries.html#vkCmdResetQueryPool" class="xref page">vkCmdResetQueryPool</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="queries.html#vkCmdWriteTimestamp" class="xref page">vkCmdWriteTimestamp</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="queries.html#vkCmdCopyQueryPoolResults" class="xref page">vkCmdCopyQueryPoolResults</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="cmdbuffers.html#vkCmdExecuteCommands" class="xref page">vkCmdExecuteCommands</a></p>
+</li>
+<li>
+<p>Any <code>VkDescriptorSet</code> objects allocated from <code>descriptorPool</code> in <a href="descriptorsets.html#vkResetDescriptorPool" class="xref page">vkResetDescriptorPool</a></p>
+</li>
+<li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="pipelines.html#vkCmdBindPipeline" class="xref page">vkCmdBindPipeline</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="descriptorsets.html#vkCmdBindDescriptorSets" class="xref page">vkCmdBindDescriptorSets</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="clears.html#vkCmdClearColorImage" class="xref page">vkCmdClearColorImage</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="dispatch.html#vkCmdDispatch" class="xref page">vkCmdDispatch</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="dispatch.html#vkCmdDispatchIndirect" class="xref page">vkCmdDispatchIndirect</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdSetEvent" class="xref page">vkCmdSetEvent</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdResetEvent" class="xref page">vkCmdResetEvent</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdWaitEvents" class="xref page">vkCmdWaitEvents</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="descriptorsets.html#vkCmdPushConstants" class="xref page">vkCmdPushConstants</a></p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="vertexpostproc.html#vkCmdSetViewport" class="xref page">vkCmdSetViewport</a></p>
@@ -2637,9 +2740,6 @@ The implicit parameters and their associated object are listed below.</p>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="fragops.html#vkCmdSetStencilReference" class="xref page">vkCmdSetStencilReference</a></p>
 </li>
 <li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="descriptorsets.html#vkCmdBindDescriptorSets" class="xref page">vkCmdBindDescriptorSets</a></p>
-</li>
-<li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="drawing.html#vkCmdBindIndexBuffer" class="xref page">vkCmdBindIndexBuffer</a></p>
 </li>
 <li>
@@ -2658,34 +2758,7 @@ The implicit parameters and their associated object are listed below.</p>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="drawing.html#vkCmdDrawIndexedIndirect" class="xref page">vkCmdDrawIndexedIndirect</a></p>
 </li>
 <li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="dispatch.html#vkCmdDispatch" class="xref page">vkCmdDispatch</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="dispatch.html#vkCmdDispatchIndirect" class="xref page">vkCmdDispatchIndirect</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdCopyBuffer" class="xref page">vkCmdCopyBuffer</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdCopyImage" class="xref page">vkCmdCopyImage</a></p>
-</li>
-<li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdBlitImage" class="xref page">vkCmdBlitImage</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdCopyBufferToImage" class="xref page">vkCmdCopyBufferToImage</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdCopyImageToBuffer" class="xref page">vkCmdCopyImageToBuffer</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="clears.html#vkCmdUpdateBuffer" class="xref page">vkCmdUpdateBuffer</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="clears.html#vkCmdFillBuffer" class="xref page">vkCmdFillBuffer</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="clears.html#vkCmdClearColorImage" class="xref page">vkCmdClearColorImage</a></p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="clears.html#vkCmdClearDepthStencilImage" class="xref page">vkCmdClearDepthStencilImage</a></p>
@@ -2697,36 +2770,6 @@ The implicit parameters and their associated object are listed below.</p>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdResolveImage" class="xref page">vkCmdResolveImage</a></p>
 </li>
 <li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdSetEvent" class="xref page">vkCmdSetEvent</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdResetEvent" class="xref page">vkCmdResetEvent</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdWaitEvents" class="xref page">vkCmdWaitEvents</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdPipelineBarrier" class="xref page">vkCmdPipelineBarrier</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="queries.html#vkCmdBeginQuery" class="xref page">vkCmdBeginQuery</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="queries.html#vkCmdEndQuery" class="xref page">vkCmdEndQuery</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="queries.html#vkCmdResetQueryPool" class="xref page">vkCmdResetQueryPool</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="queries.html#vkCmdWriteTimestamp" class="xref page">vkCmdWriteTimestamp</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="queries.html#vkCmdCopyQueryPoolResults" class="xref page">vkCmdCopyQueryPoolResults</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="descriptorsets.html#vkCmdPushConstants" class="xref page">vkCmdPushConstants</a></p>
-</li>
-<li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">vkCmdBeginRenderPass</a></p>
 </li>
 <li>
@@ -2734,9 +2777,6 @@ The implicit parameters and their associated object are listed below.</p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="renderpass.html#vkCmdEndRenderPass" class="xref page">vkCmdEndRenderPass</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="cmdbuffers.html#vkCmdExecuteCommands" class="xref page">vkCmdExecuteCommands</a></p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="cmdbuffers.html#vkCmdSetDeviceMask" class="xref page">vkCmdSetDeviceMask</a></p>
@@ -2760,15 +2800,6 @@ The implicit parameters and their associated object are listed below.</p>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="renderpass.html#vkCmdEndRenderPass2" class="xref page">vkCmdEndRenderPass2</a></p>
 </li>
 <li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdSetEvent2" class="xref page">vkCmdSetEvent2</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdResetEvent2" class="xref page">vkCmdResetEvent2</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdWaitEvents2" class="xref page">vkCmdWaitEvents2</a></p>
-</li>
-<li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdPipelineBarrier2" class="xref page">vkCmdPipelineBarrier2</a></p>
 </li>
 <li>
@@ -2785,6 +2816,15 @@ The implicit parameters and their associated object are listed below.</p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdCopyImageToBuffer2" class="xref page">vkCmdCopyImageToBuffer2</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdSetEvent2" class="xref page">vkCmdSetEvent2</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdResetEvent2" class="xref page">vkCmdResetEvent2</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="synchronization.html#vkCmdWaitEvents2" class="xref page">vkCmdWaitEvents2</a></p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdBlitImage2" class="xref page">vkCmdBlitImage2</a></p>
@@ -2844,22 +2884,10 @@ The implicit parameters and their associated object are listed below.</p>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="drawing.html#vkCmdSetPrimitiveRestartEnable" class="xref page">vkCmdSetPrimitiveRestartEnable</a></p>
 </li>
 <li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="primsrast.html#vkCmdSetLineStipple" class="xref page">vkCmdSetLineStipple</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="drawing.html#vkCmdBindIndexBuffer2" class="xref page">vkCmdBindIndexBuffer2</a></p>
-</li>
-<li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="descriptorsets.html#vkCmdPushDescriptorSet" class="xref page">vkCmdPushDescriptorSet</a></p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="descriptorsets.html#vkCmdPushDescriptorSetWithTemplate" class="xref page">vkCmdPushDescriptorSetWithTemplate</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="interfaces.html#vkCmdSetRenderingAttachmentLocations" class="xref page">vkCmdSetRenderingAttachmentLocations</a></p>
-</li>
-<li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="interfaces.html#vkCmdSetRenderingInputAttachmentIndices" class="xref page">vkCmdSetRenderingInputAttachmentIndices</a></p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="descriptorsets.html#vkCmdBindDescriptorSets2" class="xref page">vkCmdBindDescriptorSets2</a></p>
@@ -2872,6 +2900,18 @@ The implicit parameters and their associated object are listed below.</p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="descriptorsets.html#vkCmdPushDescriptorSetWithTemplate2" class="xref page">vkCmdPushDescriptorSetWithTemplate2</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="primsrast.html#vkCmdSetLineStipple" class="xref page">vkCmdSetLineStipple</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="drawing.html#vkCmdBindIndexBuffer2" class="xref page">vkCmdBindIndexBuffer2</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="interfaces.html#vkCmdSetRenderingAttachmentLocations" class="xref page">vkCmdSetRenderingAttachmentLocations</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="interfaces.html#vkCmdSetRenderingInputAttachmentIndices" class="xref page">vkCmdSetRenderingInputAttachmentIndices</a></p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">vkCmdBeginVideoCodingKHR</a></p>
@@ -2989,6 +3029,15 @@ The implicit parameters and their associated object are listed below.</p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="descriptorsets.html#vkCmdBindDescriptorBufferEmbeddedSamplers2EXT" class="xref page">vkCmdBindDescriptorBufferEmbeddedSamplers2EXT</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdCopyMemoryIndirectKHR" class="xref page">vkCmdCopyMemoryIndirectKHR</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdCopyMemoryToImageIndirectKHR" class="xref page">vkCmdCopyMemoryToImageIndirectKHR</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="renderpass.html#vkCmdEndRendering2KHR" class="xref page">vkCmdEndRendering2KHR</a></p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="debugging.html#vkCmdDebugMarkerBeginEXT" class="xref page">vkCmdDebugMarkerBeginEXT</a></p>
@@ -3258,10 +3307,10 @@ The implicit parameters and their associated object are listed below.</p>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="copies.html#vkCmdCopyMemoryToImageIndirectNV" class="xref page">vkCmdCopyMemoryToImageIndirectNV</a></p>
 </li>
 <li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="VK_NV_memory_decompression.html#vkCmdDecompressMemoryNV" class="xref page">vkCmdDecompressMemoryNV</a></p>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="memory_decompression.html#vkCmdDecompressMemoryNV" class="xref page">vkCmdDecompressMemoryNV</a></p>
 </li>
 <li>
-<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="VK_NV_memory_decompression.html#vkCmdDecompressMemoryIndirectCountNV" class="xref page">vkCmdDecompressMemoryIndirectCountNV</a></p>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="memory_decompression.html#vkCmdDecompressMemoryIndirectCountNV" class="xref page">vkCmdDecompressMemoryIndirectCountNV</a></p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="pipelines.html#vkCmdUpdatePipelineIndirectBufferNV" class="xref page">vkCmdUpdatePipelineIndirectBufferNV</a></p>
@@ -3384,6 +3433,12 @@ The implicit parameters and their associated object are listed below.</p>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="memory.html#vkCmdBindTileMemoryQCOM" class="xref page">vkCmdBindTileMemoryQCOM</a></p>
 </li>
 <li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="memory_decompression.html#vkCmdDecompressMemoryEXT" class="xref page">vkCmdDecompressMemoryEXT</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="memory_decompression.html#vkCmdDecompressMemoryIndirectCountEXT" class="xref page">vkCmdDecompressMemoryIndirectCountEXT</a></p>
+</li>
+<li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="accelstructures.html#vkCmdBuildClusterAccelerationStructureIndirectNV" class="xref page">vkCmdBuildClusterAccelerationStructureIndirectNV</a></p>
 </li>
 <li>
@@ -3397,6 +3452,9 @@ The implicit parameters and their associated object are listed below.</p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="renderpass.html#vkCmdEndRendering2EXT" class="xref page">vkCmdEndRendering2EXT</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="renderpass.html#vkCmdBeginCustomResolveEXT" class="xref page">vkCmdBeginCustomResolveEXT</a></p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="accelstructures.html#vkCmdBuildAccelerationStructuresKHR" class="xref page">vkCmdBuildAccelerationStructuresKHR</a></p>
@@ -4152,9 +4210,9 @@ typedef enum VkResult {
   // Provided by VK_VERSION_1_1
     VK_ERROR_INVALID_EXTERNAL_HANDLE = -1000072003,
   // Provided by VK_VERSION_1_2
-    VK_ERROR_FRAGMENTATION = -1000161000,
-  // Provided by VK_VERSION_1_2
     VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS = -1000257000,
+  // Provided by VK_VERSION_1_2
+    VK_ERROR_FRAGMENTATION = -1000161000,
   // Provided by VK_VERSION_1_3
     VK_PIPELINE_COMPILE_REQUIRED = 1000297000,
   // Provided by VK_VERSION_1_4
@@ -4185,6 +4243,8 @@ typedef enum VkResult {
     VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR = -1000023005,
   // Provided by VK_EXT_image_drm_format_modifier
     VK_ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT = -1000158000,
+  // Provided by VK_EXT_present_timing
+    VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT = -1000208000,
   // Provided by VK_EXT_full_screen_exclusive
     VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT = -1000255000,
   // Provided by VK_KHR_deferred_host_operations
@@ -4226,7 +4286,7 @@ typedef enum VkResult {
   // Provided by VK_EXT_pipeline_creation_cache_control
     VK_ERROR_PIPELINE_COMPILE_REQUIRED_EXT = VK_PIPELINE_COMPILE_REQUIRED,
   // Provided by VK_EXT_shader_object
-  // VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT is a deprecated alias
+  // VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT is a legacy alias
     VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT = VK_INCOMPATIBLE_SHADER_BINARY_EXT,
 } VkResult;</code></pre>
 </div>
@@ -5047,6 +5107,80 @@ typedef struct VkRect2D {
 </div>
 </div>
 <div class="sect2">
+<h3 id="_device_address_ranges"><a class="anchor" href="#_device_address_ranges"></a>Device Address Ranges</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>A strided device address range is defined by the structure:</p>
+</div>
+<div id="VkStridedDeviceAddressRangeKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_copy_memory_indirect
+typedef struct VkStridedDeviceAddressRangeKHR {
+    VkDeviceAddress    address;
+    VkDeviceSize       size;
+    VkDeviceSize       stride;
+} VkStridedDeviceAddressRangeKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>address</code> is a <code>VkDeviceAddress</code> specifying the start of the
+range.</p>
+</li>
+<li>
+<p><code>size</code> is a <code>VkDeviceSize</code> specifying the size of the range.</p>
+</li>
+<li>
+<p><code>stride</code> is a <code>VkDeviceSize</code> specifying the stride of
+elements over the range.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkStridedDeviceAddressRangeKHR-size-11411" href="#VUID-VkStridedDeviceAddressRangeKHR-size-11411"></a> <span class="vuid">VUID-VkStridedDeviceAddressRangeKHR-size-11411</span><br>
+
+If <code>size</code> is not 0, <code>address</code> <strong>must</strong> not be 0</p>
+</li>
+<li>
+<p><a id="VUID-VkStridedDeviceAddressRangeKHR-address-11365" href="#VUID-VkStridedDeviceAddressRangeKHR-address-11365"></a> <span class="vuid">VUID-VkStridedDeviceAddressRangeKHR-address-11365</span><br>
+
+The sum of <code>address</code> and <code>size</code> <strong>must</strong> be less than or equal to
+the sum of an address retrieved from a <a href="resources.html#VkBuffer" class="xref page">VkBuffer</a> and the value of
+<a href="resources.html#VkBufferCreateInfo" class="xref page">VkBufferCreateInfo</a>::<code>size</code> used to create that <a href="resources.html#VkBuffer" class="xref page">VkBuffer</a></p>
+</li>
+<li>
+<p><a id="VUID-VkStridedDeviceAddressRangeKHR-stride-10957" href="#VUID-VkStridedDeviceAddressRangeKHR-stride-10957"></a> <span class="vuid">VUID-VkStridedDeviceAddressRangeKHR-stride-10957</span><br>
+
+<code>stride</code> <strong>must</strong> be less than or equal to <code>size</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkStridedDeviceAddressRangeKHR-address-parameter" href="#VUID-VkStridedDeviceAddressRangeKHR-address-parameter"></a> <span class="vuid">VUID-VkStridedDeviceAddressRangeKHR-address-parameter</span><br>
+ If <code>address</code> is not <code>0</code>, <code>address</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code> value</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_structure_types"><a class="anchor" href="#_structure_types"></a>Structure Types</h3>
 <div class="openblock">
 <div class="content">
@@ -5125,21 +5259,15 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_LOADER_INSTANCE_CREATE_INFO = 47,
     VK_STRUCTURE_TYPE_LOADER_DEVICE_CREATE_INFO = 48,
   // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES = 1000094000,
-  // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_INFO = 1000157000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_INFO = 1000157001,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES = 1000083000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS = 1000127000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO = 1000127001,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_FLAGS_INFO = 1000060000,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_DEVICE_GROUP_RENDER_PASS_BEGIN_INFO = 1000060003,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO = 1000060004,
   // Provided by VK_VERSION_1_1
@@ -5183,21 +5311,7 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2 = 1000059008,
   // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES = 1000117000,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO = 1000117001,
-  // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO = 1000117002,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO = 1000117003,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_RENDER_PASS_MULTIVIEW_CREATE_INFO = 1000053000,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_FEATURES = 1000053001,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES = 1000053002,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES = 1000120000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PROTECTED_SUBMIT_INFO = 1000145000,
   // Provided by VK_VERSION_1_1
@@ -5206,20 +5320,6 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES = 1000145002,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_DEVICE_QUEUE_INFO_2 = 1000145003,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_CREATE_INFO = 1000156000,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_INFO = 1000156001,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_BIND_IMAGE_PLANE_MEMORY_INFO = 1000156002,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO = 1000156003,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES = 1000156004,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES = 1000156005,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO = 1000085000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO = 1000071000,
   // Provided by VK_VERSION_1_1
@@ -5249,9 +5349,43 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_EXTERNAL_SEMAPHORE_PROPERTIES = 1000076001,
   // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES = 1000094000,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES = 1000083000,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES = 1000120000,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO = 1000085000,
+  // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES = 1000168000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_SUPPORT = 1000168001,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_CREATE_INFO = 1000156000,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_INFO = 1000156001,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_BIND_IMAGE_PLANE_MEMORY_INFO = 1000156002,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO = 1000156003,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES = 1000156004,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES = 1000156005,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_DEVICE_GROUP_RENDER_PASS_BEGIN_INFO = 1000060003,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES = 1000117000,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO = 1000117001,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO = 1000117003,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_RENDER_PASS_MULTIVIEW_CREATE_INFO = 1000053000,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_FEATURES = 1000053001,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES = 1000053002,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES = 1000063000,
   // Provided by VK_VERSION_1_2
@@ -5265,71 +5399,9 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_2
     VK_STRUCTURE_TYPE_IMAGE_FORMAT_LIST_CREATE_INFO = 1000147000,
   // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2 = 1000109000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_2 = 1000109001,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2 = 1000109002,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_SUBPASS_DEPENDENCY_2 = 1000109003,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO_2 = 1000109004,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO = 1000109005,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_SUBPASS_END_INFO = 1000109006,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES = 1000177000,
-  // Provided by VK_VERSION_1_2
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRIVER_PROPERTIES = 1000196000,
   // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES = 1000180000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES = 1000082000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES = 1000197000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO = 1000161000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES = 1000161001,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES = 1000161002,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO = 1000161003,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT = 1000161004,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES = 1000199000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE = 1000199001,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES = 1000221000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO = 1000246000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES = 1000130000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO = 1000130001,
-  // Provided by VK_VERSION_1_2
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES = 1000211000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES = 1000108000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENTS_CREATE_INFO = 1000108001,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENT_IMAGE_INFO = 1000108002,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_RENDER_PASS_ATTACHMENT_BEGIN_INFO = 1000108003,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES = 1000253000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES = 1000175000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES = 1000241000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_STENCIL_LAYOUT = 1000241001,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT = 1000241002,
   // Provided by VK_VERSION_1_2
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES = 1000261000,
   // Provided by VK_VERSION_1_2
@@ -5354,26 +5426,80 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO = 1000257003,
   // Provided by VK_VERSION_1_2
     VK_STRUCTURE_TYPE_DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO = 1000257004,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES = 1000177000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES = 1000180000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES = 1000082000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES = 1000197000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO = 1000161000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES = 1000161001,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES = 1000161002,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO = 1000161003,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT = 1000161004,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES = 1000221000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES = 1000130000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO = 1000130001,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES = 1000253000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES = 1000175000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2 = 1000109000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_2 = 1000109001,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2 = 1000109002,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_SUBPASS_DEPENDENCY_2 = 1000109003,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO_2 = 1000109004,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO = 1000109005,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_SUBPASS_END_INFO = 1000109006,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES = 1000199000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE = 1000199001,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO = 1000246000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES = 1000108000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENTS_CREATE_INFO = 1000108001,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENT_IMAGE_INFO = 1000108002,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_RENDER_PASS_ATTACHMENT_BEGIN_INFO = 1000108003,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES = 1000241000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_STENCIL_LAYOUT = 1000241001,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT = 1000241002,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES = 53,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES = 54,
   // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PIPELINE_CREATION_FEEDBACK_CREATE_INFO = 1000192000,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES = 1000215000,
-  // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TOOL_PROPERTIES = 1000245000,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES = 1000276000,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES = 1000295000,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_DEVICE_PRIVATE_DATA_CREATE_INFO = 1000295001,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PRIVATE_DATA_SLOT_CREATE_INFO = 1000295002,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES = 1000297000,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_MEMORY_BARRIER_2 = 1000314000,
   // Provided by VK_VERSION_1_3
@@ -5391,10 +5517,6 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES = 1000314007,
   // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES = 1000325000,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES = 1000335000,
-  // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_COPY_BUFFER_INFO_2 = 1000337000,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_COPY_IMAGE_INFO_2 = 1000337001,
@@ -5403,19 +5525,35 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_COPY_IMAGE_TO_BUFFER_INFO_2 = 1000337003,
   // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_BLIT_IMAGE_INFO_2 = 1000337004,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2 = 1000337005,
-  // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_BUFFER_COPY_2 = 1000337006,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_IMAGE_COPY_2 = 1000337007,
   // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_IMAGE_BLIT_2 = 1000337008,
-  // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_BUFFER_IMAGE_COPY_2 = 1000337009,
   // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_IMAGE_RESOLVE_2 = 1000337010,
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES = 1000066000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_3 = 1000360000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES = 1000413000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES = 1000413001,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_DEVICE_BUFFER_MEMORY_REQUIREMENTS = 1000413002,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS = 1000413003,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PIPELINE_CREATION_FEEDBACK_CREATE_INFO = 1000192000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES = 1000215000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES = 1000276000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES = 1000297000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES = 1000325000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES = 1000335000,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES = 1000225000,
   // Provided by VK_VERSION_1_3
@@ -5431,7 +5569,19 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO = 1000138003,
   // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES = 1000066000,
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES = 1000280000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES = 1000280001,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES = 1000281001,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_BLIT_IMAGE_INFO_2 = 1000337004,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2 = 1000337005,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_IMAGE_BLIT_2 = 1000337008,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_IMAGE_RESOLVE_2 = 1000337010,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_RENDERING_INFO = 1000044000,
   // Provided by VK_VERSION_1_3
@@ -5442,22 +5592,6 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES = 1000044003,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_RENDERING_INFO = 1000044004,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES = 1000280000,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES = 1000280001,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES = 1000281001,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_3 = 1000360000,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES = 1000413000,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES = 1000413001,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_DEVICE_BUFFER_MEMORY_REQUIREMENTS = 1000413002,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS = 1000413003,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_4_FEATURES = 55,
   // Provided by VK_VERSION_1_4
@@ -5469,24 +5603,6 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES = 1000388001,
   // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES = 1000416000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES = 1000528000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES = 1000544000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES = 1000259000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO = 1000259001,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES = 1000259002,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES = 1000525000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO = 1000190001,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES = 1000190002,
-  // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES = 1000265000,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_MEMORY_MAP_INFO = 1000271000,
@@ -5497,47 +5613,19 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES = 1000470001,
   // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_RENDERING_AREA_INFO = 1000470003,
-  // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_DEVICE_IMAGE_SUBRESOURCE_INFO = 1000470004,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_SUBRESOURCE_LAYOUT_2 = 1000338002,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2 = 1000338003,
   // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO = 1000470005,
-  // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_BUFFER_USAGE_FLAGS_2_CREATE_INFO = 1000470006,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES = 1000080000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES = 1000232000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_LOCATION_INFO = 1000232001,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_RENDERING_INPUT_ATTACHMENT_INDEX_INFO = 1000232002,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES = 1000545000,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES = 1000545001,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_BIND_MEMORY_STATUS = 1000545002,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_SETS_INFO = 1000545003,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PUSH_CONSTANTS_INFO = 1000545004,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO = 1000545005,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO = 1000545006,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES = 1000466000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PIPELINE_ROBUSTNESS_CREATE_INFO = 1000068000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES = 1000068001,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES = 1000068002,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES = 1000270000,
   // Provided by VK_VERSION_1_4
@@ -5558,6 +5646,52 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_SUBRESOURCE_HOST_MEMCPY_SIZE = 1000270008,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY = 1000270009,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES = 1000416000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES = 1000528000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES = 1000544000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO = 1000470005,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES = 1000080000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_SETS_INFO = 1000545003,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PUSH_CONSTANTS_INFO = 1000545004,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO = 1000545005,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO = 1000545006,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES = 1000466000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PIPELINE_ROBUSTNESS_CREATE_INFO = 1000068000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES = 1000068001,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES = 1000068002,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES = 1000259000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO = 1000259001,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES = 1000259002,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES = 1000525000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO = 1000190001,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES = 1000190002,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_RENDERING_AREA_INFO = 1000470003,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES = 1000232000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_LOCATION_INFO = 1000232001,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_RENDERING_INPUT_ATTACHMENT_INDEX_INFO = 1000232002,
   // Provided by VK_KHR_swapchain
     VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR = 1000001000,
   // Provided by VK_KHR_swapchain
@@ -6098,6 +6232,26 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV = 1000314008,
   // Provided by VK_NV_device_diagnostic_checkpoints with VK_VERSION_1_3 or VK_KHR_synchronization2
     VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV = 1000314009,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT = 1000208000,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_SWAPCHAIN_TIMING_PROPERTIES_EXT = 1000208001,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT = 1000208002,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PRESENT_TIMINGS_INFO_EXT = 1000208003,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PRESENT_TIMING_INFO_EXT = 1000208004,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_INFO_EXT = 1000208005,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_PROPERTIES_EXT = 1000208006,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_EXT = 1000208007,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PRESENT_TIMING_SURFACE_CAPABILITIES_EXT = 1000208008,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT = 1000208009,
   // Provided by VK_INTEL_shader_integer_functions2
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL = 1000209000,
   // Provided by VK_INTEL_performance_query
@@ -6536,6 +6690,14 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR = 1000386000,
   // Provided by VK_KHR_shader_untyped_pointers
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR = 1000387000,
+  // Provided by VK_VALVE_video_encode_rgb_conversion
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE = 1000390000,
+  // Provided by VK_VALVE_video_encode_rgb_conversion
+    VK_STRUCTURE_TYPE_VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE = 1000390001,
+  // Provided by VK_VALVE_video_encode_rgb_conversion
+    VK_STRUCTURE_TYPE_VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE = 1000390002,
+  // Provided by VK_VALVE_video_encode_rgb_conversion
+    VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE = 1000390003,
   // Provided by VK_EXT_image_view_min_lod
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT = 1000391000,
   // Provided by VK_EXT_image_view_min_lod
@@ -6626,12 +6788,6 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_RENDER_PASS_STRIPE_SUBMIT_INFO_ARM = 1000424004,
   // Provided by VK_NV_copy_memory_indirect
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV = 1000426000,
-  // Provided by VK_NV_copy_memory_indirect
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV = 1000426001,
-  // Provided by VK_NV_memory_decompression
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_NV = 1000427000,
-  // Provided by VK_NV_memory_decompression
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_NV = 1000427001,
   // Provided by VK_NV_device_generated_commands_compute
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV = 1000428000,
   // Provided by VK_NV_device_generated_commands_compute
@@ -6660,6 +6816,18 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT = 1000451000,
   // Provided by VK_EXT_nested_command_buffer
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT = 1000451001,
+  // Provided by VK_OHOS_external_memory
+    VK_STRUCTURE_TYPE_NATIVE_BUFFER_USAGE_OHOS = 1000452000,
+  // Provided by VK_OHOS_external_memory
+    VK_STRUCTURE_TYPE_NATIVE_BUFFER_PROPERTIES_OHOS = 1000452001,
+  // Provided by VK_OHOS_external_memory
+    VK_STRUCTURE_TYPE_NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS = 1000452002,
+  // Provided by VK_OHOS_external_memory
+    VK_STRUCTURE_TYPE_IMPORT_NATIVE_BUFFER_INFO_OHOS = 1000452003,
+  // Provided by VK_OHOS_external_memory
+    VK_STRUCTURE_TYPE_MEMORY_GET_NATIVE_BUFFER_INFO_OHOS = 1000452004,
+  // Provided by VK_OHOS_external_memory
+    VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_OHOS = 1000452005,
   // Provided by VK_EXT_external_memory_acquire_unmodified
     VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT = 1000453000,
   // Provided by VK_EXT_extended_dynamic_state3
@@ -7046,6 +7214,20 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_TILE_MEMORY_BIND_INFO_QCOM = 1000547003,
   // Provided by VK_QCOM_tile_memory_heap with VK_QCOM_tile_properties
     VK_STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM = 1000547004,
+  // Provided by VK_KHR_copy_memory_indirect
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR = 1000549000,
+  // Provided by VK_KHR_copy_memory_indirect
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR = 1000426001,
+  // Provided by VK_KHR_copy_memory_indirect
+    VK_STRUCTURE_TYPE_COPY_MEMORY_INDIRECT_INFO_KHR = 1000549002,
+  // Provided by VK_KHR_copy_memory_indirect
+    VK_STRUCTURE_TYPE_COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR = 1000549003,
+  // Provided by VK_EXT_memory_decompression
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT = 1000427000,
+  // Provided by VK_EXT_memory_decompression
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT = 1000427001,
+  // Provided by VK_EXT_memory_decompression
+    VK_STRUCTURE_TYPE_DECOMPRESS_MEMORY_INFO_EXT = 1000550002,
   // Provided by VK_NV_display_stereo
     VK_STRUCTURE_TYPE_DISPLAY_SURFACE_STEREO_CREATE_INFO_NV = 1000551000,
   // Provided by VK_NV_display_stereo
@@ -7178,6 +7360,12 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA = 1000575001,
   // Provided by VK_MESA_image_alignment_control
     VK_STRUCTURE_TYPE_IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA = 1000575002,
+  // Provided by VK_KHR_shader_fma
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR = 1000579000,
+  // Provided by VK_EXT_ray_tracing_invocation_reorder
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT = 1000581000,
+  // Provided by VK_EXT_ray_tracing_invocation_reorder
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT = 1000581001,
   // Provided by VK_EXT_depth_clamp_control
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT = 1000582000,
   // Provided by VK_EXT_depth_clamp_control
@@ -7198,6 +7386,12 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR = 1000586003,
   // Provided by VK_OHOS_surface
     VK_STRUCTURE_TYPE_SURFACE_CREATE_INFO_OHOS = 1000685000,
+  // Provided by VK_OHOS_native_buffer
+    VK_STRUCTURE_TYPE_NATIVE_BUFFER_OHOS = 1000453001,
+  // Provided by VK_OHOS_native_buffer
+    VK_STRUCTURE_TYPE_SWAPCHAIN_IMAGE_CREATE_INFO_OHOS = 1000453002,
+  // Provided by VK_OHOS_native_buffer
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENTATION_PROPERTIES_OHOS = 1000453003,
   // Provided by VK_HUAWEI_hdr_vivid
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI = 1000590000,
   // Provided by VK_HUAWEI_hdr_vivid
@@ -7218,6 +7412,16 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_MEMORY_GET_METAL_HANDLE_INFO_EXT = 1000602002,
   // Provided by VK_KHR_depth_clamp_zero_one
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR = 1000421000,
+  // Provided by VK_ARM_performance_counters_by_region
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM = 1000605000,
+  // Provided by VK_ARM_performance_counters_by_region
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM = 1000605001,
+  // Provided by VK_ARM_performance_counters_by_region
+    VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_ARM = 1000605002,
+  // Provided by VK_ARM_performance_counters_by_region
+    VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_DESCRIPTION_ARM = 1000605003,
+  // Provided by VK_ARM_performance_counters_by_region
+    VK_STRUCTURE_TYPE_RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM = 1000605004,
   // Provided by VK_EXT_vertex_attribute_robustness
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT = 1000608000,
   // Provided by VK_ARM_format_pack
@@ -7246,20 +7450,42 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT = 1000425001,
   // Provided by VK_EXT_fragment_density_map_offset
     VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT = 1000425002,
-  // Provided by VK_EXT_fragment_density_map_offset
-    VK_STRUCTURE_TYPE_RENDERING_END_INFO_EXT = 1000619003,
   // Provided by VK_EXT_zero_initialize_device_memory
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT = 1000620000,
   // Provided by VK_KHR_present_mode_fifo_latest_ready
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR = 1000361000,
+  // Provided by VK_EXT_shader_64bit_indexing
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT = 1000627000,
+  // Provided by VK_EXT_custom_resolve
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT = 1000628000,
+  // Provided by VK_EXT_custom_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_BEGIN_CUSTOM_RESOLVE_INFO_EXT = 1000628001,
+  // Provided by VK_EXT_custom_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_CUSTOM_RESOLVE_CREATE_INFO_EXT = 1000628002,
+  // Provided by VK_QCOM_data_graph_model
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM = 1000629000,
+  // Provided by VK_QCOM_data_graph_model
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM = 1000629001,
+  // Provided by VK_KHR_maintenance10
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR = 1000630000,
+  // Provided by VK_KHR_maintenance10
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR = 1000630001,
+  // Provided by VK_KHR_maintenance10
+    VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_FLAGS_INFO_KHR = 1000630002,
+  // Provided by VK_KHR_maintenance10
+    VK_STRUCTURE_TYPE_RENDERING_END_INFO_KHR = 1000619003,
+  // Provided by VK_KHR_maintenance10
+    VK_STRUCTURE_TYPE_RESOLVE_IMAGE_MODE_INFO_KHR = 1000630004,
   // Provided by VK_SEC_pipeline_cache_incremental_mode
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC = 1000637000,
+  // Provided by VK_EXT_shader_uniform_buffer_unsized_array
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT = 1000642000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTER_FEATURES = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DRAW_PARAMETER_FEATURES = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES,
   // Provided by VK_EXT_debug_report
-  // VK_STRUCTURE_TYPE_DEBUG_REPORT_CREATE_INFO_EXT is a deprecated alias
+  // VK_STRUCTURE_TYPE_DEBUG_REPORT_CREATE_INFO_EXT is a legacy alias
     VK_STRUCTURE_TYPE_DEBUG_REPORT_CREATE_INFO_EXT = VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT,
   // Provided by VK_KHR_dynamic_rendering
     VK_STRUCTURE_TYPE_RENDERING_INFO_KHR = VK_STRUCTURE_TYPE_RENDERING_INFO,
@@ -7354,7 +7580,7 @@ typedef enum VkStructureType {
   // Provided by VK_KHR_descriptor_update_template
     VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO_KHR = VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO,
   // Provided by VK_EXT_display_surface_counter
-  // VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES2_EXT is a deprecated alias
+  // VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES2_EXT is a legacy alias
     VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES2_EXT = VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_EXT,
   // Provided by VK_KHR_imageless_framebuffer
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES_KHR = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES,
@@ -7503,7 +7729,7 @@ typedef enum VkStructureType {
   // Provided by VK_KHR_timeline_semaphore
     VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO_KHR = VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO,
   // Provided by VK_INTEL_performance_query
-  // VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO_INTEL is a deprecated alias
+  // VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO_INTEL is a legacy alias
     VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO_INTEL = VK_STRUCTURE_TYPE_QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL,
   // Provided by VK_KHR_vulkan_memory_model
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES_KHR = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES,
@@ -7701,6 +7927,12 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_QCOM = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT,
   // Provided by VK_QCOM_fragment_density_map_offset
     VK_STRUCTURE_TYPE_SUBPASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_QCOM = VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT,
+  // Provided by VK_NV_copy_memory_indirect
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR,
+  // Provided by VK_NV_memory_decompression
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_NV = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT,
+  // Provided by VK_NV_memory_decompression
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_NV = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT,
   // Provided by VK_EXT_pipeline_protected_access
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES_EXT = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES,
   // Provided by VK_KHR_maintenance5
@@ -7753,6 +7985,8 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO_KHR = VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO,
   // Provided by VK_KHR_maintenance6 with VK_KHR_push_descriptor
     VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO_KHR = VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO,
+  // Provided by VK_EXT_fragment_density_map_offset
+    VK_STRUCTURE_TYPE_RENDERING_END_INFO_EXT = VK_STRUCTURE_TYPE_RENDERING_END_INFO_KHR,
 } VkStructureType;</code></pre>
 </div>
 </div>
@@ -7770,7 +8004,7 @@ For consistency, when we discover an API name that violates the naming
 conventions, we rename it in the Specification, XML, and header files.
 For backwards compatibility, the original (incorrect) name is retained as a
 &#8220;typo alias&#8221;.
-The alias is deprecated and should not be used, but will be retained
+The alias is legacy and should not be used, but will be retained
 indefinitely.</p>
 </div>
 <div class="admonitionblock note">

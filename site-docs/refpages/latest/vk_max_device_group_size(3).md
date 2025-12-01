@@ -24,8 +24,6 @@ group, as returned in
 
 #define VK_MAX_DEVICE_GROUP_SIZE          32U
 
-or the equivalent
-
 #define VK_MAX_DEVICE_GROUP_SIZE_KHR      VK_MAX_DEVICE_GROUP_SIZE
 
 [VK_KHR_device_group_creation](VK_KHR_device_group_creation.html), [VK_VERSION_1_1](VK_VERSION_1_1.html)

@@ -28,9 +28,8 @@ typedef struct VkPhysicalDeviceMaintenance4Features {
     VkBool32           maintenance4;
 } VkPhysicalDeviceMaintenance4Features;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance4
+// Equivalent to VkPhysicalDeviceMaintenance4Features
 typedef VkPhysicalDeviceMaintenance4Features VkPhysicalDeviceMaintenance4FeaturesKHR;
 
 This structure describes the following feature:

@@ -57,7 +57,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkDescriptorGetTensorInfoARM-tensorView-parameter) VUID-VkDescriptorGetTensorInfoARM-tensorView-parameter
 
- `tensorView` **must** be a valid [VkTensorViewARM](VkTensorViewARM.html) handle
+ If `tensorView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), `tensorView` **must** be a valid [VkTensorViewARM](VkTensorViewARM.html) handle
 
 [VK_ARM_tensors](VK_ARM_tensors.html), [VK_EXT_descriptor_buffer](VK_EXT_descriptor_buffer.html), [VkStructureType](VkStructureType.html), [VkTensorViewARM](VkTensorViewARM.html)
 

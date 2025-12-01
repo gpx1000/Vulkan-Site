@@ -129,8 +129,8 @@ Each instruction computes an error metric, that describes whether a
 block of texels in the *target image* matches a corresponding block of
 texels in the *reference image*.
 The error metric is computed per-component.
-`OpImageBlockMatchSADQCOM` computes "Sum Of Absolute Difference" and
-`OpImageBlockMatchSSDQCOM` computes "Sum of Squared Difference".
+`OpImageBlockMatchSADQCOM` computes “Sum Of Absolute Difference” and
+`OpImageBlockMatchSSDQCOM` computes “Sum of Squared Difference”.
 
 Each of the image processing instructions operate only on 2D images.
 The instructions do not-support sampling of mipmap, multi-plane,

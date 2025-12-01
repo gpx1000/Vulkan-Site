@@ -550,7 +550,7 @@ and primitive count
 * 
 [](#VUID-vkBuildAccelerationStructuresKHR-pInfos-03771) VUID-vkBuildAccelerationStructuresKHR-pInfos-03771
 
-For any element of `pInfos`[i].`pGeometries` or
+For each element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_TRIANGLES_KHR`,
 `geometry.triangles.vertexData.hostAddress` **must** be a valid host
@@ -559,7 +559,7 @@ address
 * 
 [](#VUID-vkBuildAccelerationStructuresKHR-pInfos-03772) VUID-vkBuildAccelerationStructuresKHR-pInfos-03772
 
-For any element of `pInfos`[i].`pGeometries` or
+For each element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if
 `geometry.triangles.indexType` is not `VK_INDEX_TYPE_NONE_KHR`,
@@ -569,7 +569,7 @@ address
 * 
 [](#VUID-vkBuildAccelerationStructuresKHR-pInfos-03773) VUID-vkBuildAccelerationStructuresKHR-pInfos-03773
 
-For any element of `pInfos`[i].`pGeometries` or
+For each element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if
 `geometry.triangles.transformData.hostAddress` is not `0`, it **must**
@@ -578,7 +578,7 @@ be a valid host address
 * 
 [](#VUID-vkBuildAccelerationStructuresKHR-pInfos-03774) VUID-vkBuildAccelerationStructuresKHR-pInfos-03774
 
-For any element of `pInfos`[i].`pGeometries` or
+For each element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_AABBS_KHR`, `geometry.aabbs.data.hostAddress`
 **must** be a valid host address
@@ -610,7 +610,7 @@ bound to memory that was not allocated with multiple instances
 * 
 [](#VUID-vkBuildAccelerationStructuresKHR-pInfos-03778) VUID-vkBuildAccelerationStructuresKHR-pInfos-03778
 
-For any element of `pInfos`[i].`pGeometries` or
+For each element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_INSTANCES_KHR`,
 `geometry.instances.data.hostAddress` **must** be a valid host address
@@ -618,7 +618,7 @@ For any element of `pInfos`[i].`pGeometries` or
 * 
 [](#VUID-vkBuildAccelerationStructuresKHR-pInfos-03779) VUID-vkBuildAccelerationStructuresKHR-pInfos-03779
 
-For any element of `pInfos`[i].`pGeometries` or
+For each element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_INSTANCES_KHR`, each
 [VkAccelerationStructureInstanceKHR](VkAccelerationStructureInstanceKHR.html)::`accelerationStructureReference`
@@ -628,7 +628,7 @@ value in `geometry.instances.data.hostAddress` **must** be a valid
 * 
 [](#VUID-vkBuildAccelerationStructuresKHR-pInfos-04930) VUID-vkBuildAccelerationStructuresKHR-pInfos-04930
 
-For any element of `pInfos`[i].`pGeometries` or
+For each element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_INSTANCES_KHR` with
 `VK_BUILD_ACCELERATION_STRUCTURE_MOTION_BIT_NV` set, each
@@ -638,9 +638,19 @@ For any element of `pInfos`[i].`pGeometries` or
 [VkAccelerationStructureKHR](VkAccelerationStructureKHR.html) object
 
 * 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-11820) VUID-vkBuildAccelerationStructuresKHR-pInfos-11820
+
+For each element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if there is an instance of
+[VkAccelerationStructureGeometryMotionTrianglesDataNV](VkAccelerationStructureGeometryMotionTrianglesDataNV.html) in the
+`geometry.triangles.pNext` chain, then its
+`vertexData.hostAddress` **must** not be 0
+
+* 
 [](#VUID-vkBuildAccelerationStructuresKHR-pInfos-10892) VUID-vkBuildAccelerationStructuresKHR-pInfos-10892
 
-For any element of `pInfos`[i].`pGeometries` or
+For each element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if there is an instance of
 [VkAccelerationStructureTrianglesOpacityMicromapEXT](VkAccelerationStructureTrianglesOpacityMicromapEXT.html) in the
@@ -649,9 +659,96 @@ For any element of `pInfos`[i].`pGeometries` or
 **must** be 0
 
 * 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-11821) VUID-vkBuildAccelerationStructuresKHR-pInfos-11821
+
+For each element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if there is an instance of
+[VkAccelerationStructureTrianglesOpacityMicromapEXT](VkAccelerationStructureTrianglesOpacityMicromapEXT.html) in the
+`geometry.triangles.pNext` chain, and its `indexType` is not
+`VK_INDEX_TYPE_NONE_KHR`, then its `indexBuffer.hostAddress`
+**must** not be 0
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-11822) VUID-vkBuildAccelerationStructuresKHR-pInfos-11822
+
+For each element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_SPHERES_NV`,
+[VkAccelerationStructureGeometrySpheresDataNV](VkAccelerationStructureGeometrySpheresDataNV.html)::`indexType` is
+`VK_INDEX_TYPE_NONE_KHR`, then its `indexData.hostAddress` **must**
+be 0
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-11823) VUID-vkBuildAccelerationStructuresKHR-pInfos-11823
+
+For each element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_SPHERES_NV`,
+[VkAccelerationStructureGeometrySpheresDataNV](VkAccelerationStructureGeometrySpheresDataNV.html)::`indexType` is
+not `VK_INDEX_TYPE_NONE_KHR`, then its `indexData.hostAddress`
+**must** not be 0
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-11824) VUID-vkBuildAccelerationStructuresKHR-pInfos-11824
+
+For each element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_SPHERES_NV`,
+[VkAccelerationStructureGeometrySpheresDataNV](VkAccelerationStructureGeometrySpheresDataNV.html)::`vertexData.hostAddress`
+**must** not be 0
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-11825) VUID-vkBuildAccelerationStructuresKHR-pInfos-11825
+
+For each element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_SPHERES_NV`,
+[VkAccelerationStructureGeometrySpheresDataNV](VkAccelerationStructureGeometrySpheresDataNV.html)::`radiusData.hostAddress`
+**must** not be 0
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-11826) VUID-vkBuildAccelerationStructuresKHR-pInfos-11826
+
+For each element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV`,
+[VkAccelerationStructureGeometryLinearSweptSpheresDataNV](VkAccelerationStructureGeometryLinearSweptSpheresDataNV.html)::`indexType`
+is `VK_INDEX_TYPE_NONE_KHR`, then its `indexData.hostAddress`
+**must** be 0
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-11827) VUID-vkBuildAccelerationStructuresKHR-pInfos-11827
+
+For each element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV`,
+[VkAccelerationStructureGeometryLinearSweptSpheresDataNV](VkAccelerationStructureGeometryLinearSweptSpheresDataNV.html)::`indexType`
+is not `VK_INDEX_TYPE_NONE_KHR`, then its
+`indexData.hostAddress` **must** not be 0
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-11828) VUID-vkBuildAccelerationStructuresKHR-pInfos-11828
+
+For each element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV`,
+[VkAccelerationStructureGeometryLinearSweptSpheresDataNV](VkAccelerationStructureGeometryLinearSweptSpheresDataNV.html)::`vertexData.hostAddress`
+**must** not be 0
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-11829) VUID-vkBuildAccelerationStructuresKHR-pInfos-11829
+
+For each element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV`,
+[VkAccelerationStructureGeometryLinearSweptSpheresDataNV](VkAccelerationStructureGeometryLinearSweptSpheresDataNV.html)::`radiusData.hostAddress`
+**must** not be 0
+
+* 
 [](#VUID-vkBuildAccelerationStructuresKHR-pInfos-10893) VUID-vkBuildAccelerationStructuresKHR-pInfos-10893
 
-For any element of `pInfos`[i].`pGeometries` or
+For each element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries`, `geometryType` **must** not be
 `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`
 

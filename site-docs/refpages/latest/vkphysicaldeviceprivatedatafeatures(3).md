@@ -28,9 +28,8 @@ typedef struct VkPhysicalDevicePrivateDataFeatures {
     VkBool32           privateData;
 } VkPhysicalDevicePrivateDataFeatures;
 
-or the equivalent
-
 // Provided by VK_EXT_private_data
+// Equivalent to VkPhysicalDevicePrivateDataFeatures
 typedef VkPhysicalDevicePrivateDataFeatures VkPhysicalDevicePrivateDataFeaturesEXT;
 
 This structure describes the following feature:
@@ -45,7 +44,7 @@ structure.
 * 
  `privateData` indicates
 whether the implementation supports private data.
-See [Private Data](../../../../spec/latest/chapters/VK_EXT_private_data.html#private-data).
+See [Private Data](../../../../spec/latest/chapters/private_data.html#private-data).
 
 If the `VkPhysicalDevicePrivateDataFeatures` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceFeatures2](VkPhysicalDeviceFeatures2.html) structure passed to

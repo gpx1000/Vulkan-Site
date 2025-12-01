@@ -19,10 +19,7 @@
 VkSamplerAddressMode - Specify behavior of sampling with texture coordinates outside an image
 
 Possible values of the [VkSamplerCreateInfo](VkSamplerCreateInfo.html)::`addressMode*`
-parameters, specifying the behavior of sampling with coordinates outside the
-range [0,1] for the respective u, v, or w coordinate
-as defined in the [Wrapping Operation](../../../../spec/latest/chapters/textures.html#textures-wrapping-operation)
-section, are:
+parameters, corresponding to different [wrapping operations](../../../../spec/latest/chapters/textures.html#textures-wrapping-operation) used during sampling, are:
 
 // Provided by VK_VERSION_1_0
 typedef enum VkSamplerAddressMode {
@@ -33,7 +30,7 @@ typedef enum VkSamplerAddressMode {
   // Provided by VK_VERSION_1_2, VK_KHR_sampler_mirror_clamp_to_edge
     VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE = 4,
   // Provided by VK_KHR_sampler_mirror_clamp_to_edge
-  // VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE_KHR is a deprecated alias
+  // VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE_KHR is a legacy alias
     VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE_KHR = VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE,
 } VkSamplerAddressMode;
 

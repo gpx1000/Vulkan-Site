@@ -27,9 +27,8 @@ typedef enum VkMemoryUnmapFlagBits {
     VK_MEMORY_UNMAP_RESERVE_BIT_EXT = 0x00000001,
 } VkMemoryUnmapFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_map_memory2
+// Equivalent to VkMemoryUnmapFlagBits
 typedef VkMemoryUnmapFlagBits VkMemoryUnmapFlagBitsKHR;
 
 * 

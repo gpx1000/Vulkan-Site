@@ -21,9 +21,8 @@ VkRenderingFlags - Bitmask of VkRenderingFlagBits
 // Provided by VK_VERSION_1_3
 typedef VkFlags VkRenderingFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_dynamic_rendering
+// Equivalent to VkRenderingFlags
 typedef VkRenderingFlags VkRenderingFlagsKHR;
 
 `VkRenderingFlags` is a bitmask type for setting a mask of zero or more

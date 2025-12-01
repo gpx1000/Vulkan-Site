@@ -33,9 +33,8 @@ typedef struct VkPhysicalDeviceHostImageCopyProperties {
     VkBool32           identicalMemoryTypeRequirements;
 } VkPhysicalDeviceHostImageCopyProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to VkPhysicalDeviceHostImageCopyProperties
 typedef VkPhysicalDeviceHostImageCopyProperties VkPhysicalDeviceHostImageCopyPropertiesEXT;
 
 * 
@@ -96,8 +95,9 @@ written to `pCopyDstLayouts`.
 The implementation **must** include the `VK_IMAGE_LAYOUT_GENERAL` image
 layout in `pCopyDstLayouts`.
 If the [`unifiedImageLayouts`](../../../../spec/latest/chapters/features.html#features-unifiedImageLayouts) feature
-is enabled, the implementation **must** include all the image layouts that are
-interchangeable with `VK_IMAGE_LAYOUT_GENERAL` in `pCopyDstLayouts`.
+is supported, the implementation **must** include all the image layouts that
+are interchangeable with `VK_IMAGE_LAYOUT_GENERAL` in
+`pCopyDstLayouts`.
 
 If `pCopySrcLayouts` is `NULL`, then the number of image layouts that
 are supported in [VkCopyImageToMemoryInfo](VkCopyImageToMemoryInfo.html)::`srcImageLayout` and
@@ -113,8 +113,9 @@ written to `pCopySrcLayouts`.
 The implementation **must** include the `VK_IMAGE_LAYOUT_GENERAL` image
 layout in `pCopySrcLayouts`.
 If the [`unifiedImageLayouts`](../../../../spec/latest/chapters/features.html#features-unifiedImageLayouts) feature
-is enabled, the implementation **must** include all the image layouts that are
-interchangeable with `VK_IMAGE_LAYOUT_GENERAL` in `pCopySrcLayouts`.
+is supported, the implementation **must** include all the image layouts that
+are interchangeable with `VK_IMAGE_LAYOUT_GENERAL` in
+`pCopySrcLayouts`.
 
 The `optimalTilingLayoutUUID` value can be used to ensure compatible
 data layouts when using the `VK_HOST_IMAGE_COPY_MEMCPY_BIT` flag in

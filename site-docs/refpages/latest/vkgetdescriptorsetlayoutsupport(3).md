@@ -28,9 +28,8 @@ void vkGetDescriptorSetLayoutSupport(
     const VkDescriptorSetLayoutCreateInfo*      pCreateInfo,
     VkDescriptorSetLayoutSupport*               pSupport);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance3
+// Equivalent to vkGetDescriptorSetLayoutSupport
 void vkGetDescriptorSetLayoutSupportKHR(
     VkDevice                                    device,
     const VkDescriptorSetLayoutCreateInfo*      pCreateInfo,
@@ -93,7 +92,7 @@ Valid Usage (Implicit)
 
  `pSupport` **must** be a valid pointer to a [VkDescriptorSetLayoutSupport](VkDescriptorSetLayoutSupport.html) structure
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDescriptorSetLayoutCreateInfo](VkDescriptorSetLayoutCreateInfo.html), [VkDescriptorSetLayoutSupport](VkDescriptorSetLayoutSupport.html), [VkDevice](VkDevice.html)
+[VK_KHR_maintenance3](VK_KHR_maintenance3.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDescriptorSetLayoutCreateInfo](VkDescriptorSetLayoutCreateInfo.html), [VkDescriptorSetLayoutSupport](VkDescriptorSetLayoutSupport.html), [VkDevice](VkDevice.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/descriptorsets.html#vkGetDescriptorSetLayoutSupport).
 

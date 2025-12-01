@@ -4,86 +4,59 @@
 
 - **Component**: tutorial
 - **Version**: latest
-- **URL**: /tutorial/latest/03_Drawing_a_triangle/02_Graphics_pipeline_basics/04_Conclusion.html
+- **URL**: /tutorial/latest/courses/18_Ray_tracing/07_Conclusion.html
+
+## Table of Contents
+
+- [References](#_references)
+- [Navigation](#_navigation)
 
 ## Content
 
-We can now combine all the structures and objects from the previous chapters to create the graphics pipeline!
-Here are the types of objects we have now, as a quick recap:
+In this course, you’ve implemented ray traced effects into a Vulkan rasterization pipeline using dynamic rendering and ray queries. Let’s summarize the key points:
 
 * 
-Shader stages: the shader modules that define the functionality of the programmable stages of the graphics pipeline
+**Dynamic rendering**: Simplifies render pass setup and is now the preferred way to start rendering in Vulkan. We verified its usage via RenderDoc. Especially for mobile, it’s a boon when combined with extensions for local attachment reads.
 
 * 
-Fixed-function state: all the structures that define the fixed-function stages of the pipeline, like input assembly, rasterizer, viewport and color blending
+**Acceleration structures**: We created BLASes and a TLAS from a loaded model. Using Nsight Graphics, we confirmed the structures were built correctly.
 
 * 
-Pipeline layout: the uniform and push values referenced by the shader that can be updated at draw time
+**Ray queries for shadows**: We cast shadow rays in the fragment shader. Initially considering only opaque geometry, then we refined it to handle alpha-tested transparency by manually checking texture alpha for intersections.
 
 * 
-Dynamic rendering: the formats of the attachments that will be used during rendering
+**Ray queries for reflections**: As a bonus, we shot reflection rays and used the hit result to modulate the fragment color for reflective materials. This leveraged the same acceleration structure and used similar `Proceed()` loop logic. You can imagine extending this to refractions, ambient occlusion rays, etc.
 
-All of these combined fully define the functionality of the graphics pipeline, so we can now begin filling in the `VkGraphicsPipelineCreateInfo` structure at the end of the `createGraphicsPipeline` function.
-But before the calls to  `vkDestroyShaderModule` because these are still to be used during the creation.
+We hope this lab gave you a hands-on taste of hybrid rendering with Vulkan’s latest features. Happy rendering with Vulkan, and enjoy creating more advanced ray traced effects in your applications!
 
-vk::GraphicsPipelineCreateInfo pipelineInfo({}, 2, shaderStages);
+* 
+Complete the full Vulkan Tutorial at [https://github.com/KhronosGroup/Vulkan-Tutorial](https://github.com/KhronosGroup/Vulkan-Tutorial)
 
-We start by referencing the array of `VkPipelineShaderStageCreateInfo` structs.
+* 
+Find more Vulkan documentation and resources at [https://www.khronos.org/vulkan](https://www.khronos.org/vulkan)
 
-vk::GraphicsPipelineCreateInfo pipelineInfo({}, 2, shaderStages, &vertexInputInfo, &inputAssembly, {}, &viewportState, &rasterizer, &multisampling, {}, &colorBlending,
-            &dynamicState);
+* 
+Read Arm’s Vulkan Best Practice guide at [https://developer.arm.com/mobile-graphics-and-gaming/vulkan-api-best-practices-on-arm-gpus](https://developer.arm.com/mobile-graphics-and-gaming/vulkan-api-best-practices-on-arm-gpus)
 
-Then we reference all the structures describing the fixed-function stage.
+* 
+Download RenderDoc at [https://github.com/baldurk/renderdoc](https://github.com/baldurk/renderdoc)
 
-vk::GraphicsPipelineCreateInfo pipelineInfo({}, 2, shaderStages, &vertexInputInfo, &inputAssembly, {}, &viewportState, &rasterizer, &multisampling, {}, &colorBlending,
-            &dynamicState, *pipelineLayout);
+* 
+Download NVIDIA Nsight Graphics at [https://developer.nvidia.com/nsight-graphics](https://developer.nvidia.com/nsight-graphics)
 
-After that comes the pipeline layout, which is a Vulkan handle rather than a struct pointer.
+* 
+Learn more about the Slang shading language at [https://shader-slang.org](https://shader-slang.org)
 
-vk::PipelineRenderingCreateInfo pipelineRenderingCreateInfo{ .colorAttachmentCount = 1, .pColorAttachmentFormats = &swapChainImageFormat };
-vk::GraphicsPipelineCreateInfo pipelineInfo{ .pNext = &pipelineRenderingCreateInfo,
-    .stageCount = 2, .pStages = shaderStages,
-    .pVertexInputState = &vertexInputInfo, .pInputAssemblyState = &inputAssembly,
-    .pViewportState = &viewportState, .pRasterizationState = &rasterizer,
-    .pMultisampleState = &multisampling, .pColorBlendState = &colorBlending,
-    .pDynamicState = &dynamicState, .layout = pipelineLayout, .renderPass = nullptr };
+The 3D assets were provided by Poly Haven and combined using Blender:
 
-Note that we’re using dynamic rendering instead of a traditional render pass, so we set the `renderPass` parameter to `nullptr` and include a `vk::PipelineRenderingCreateInfo` structure in the `pNext` chain. This structure specifies the formats of the attachments that will be used during rendering.
+* 
+[https://polyhaven.com/a/nettle_plant](https://polyhaven.com/a/nettle_plant)
 
-pipelineInfo.basePipelineHandle = VK_NULL_HANDLE; // Optional
-pipelineInfo.basePipelineIndex = -1; // Optional
+* 
+[https://polyhaven.com/a/potted_plant_02](https://polyhaven.com/a/potted_plant_02)
 
-There are actually two more parameters: `basePipelineHandle` and `basePipelineIndex`.
-Vulkan allows you to create a new graphics pipeline by deriving from an existing pipeline.
-The idea of pipeline derivatives is that it is less expensive to set up pipelines when they have much functionality in common with an existing pipeline and switching between pipelines from the same parent can also be done quicker.
-You can either specify the handle of an existing pipeline with `basePipelineHandle` or reference another pipeline that is about to be created by index with `basePipelineIndex`.
-Right now there is only a single pipeline, so we’ll simply specify a null handle and an invalid index.
-These values are only used if the `VK_PIPELINE_CREATE_DERIVATIVE_BIT` flag is also specified in the `flags` field of `VkGraphicsPipelineCreateInfo`.
+* 
+[https://polyhaven.com/a/wooden_picnic_table](https://polyhaven.com/a/wooden_picnic_table)
 
-Now prepare for the final step by creating a class member to hold the `VkPipeline` object:
-
-vk::raii::Pipeline graphicsPipeline = nullptr;
-
-And finally, create the graphics pipeline:
-
-graphicsPipeline = vk::raii::Pipeline(device, nullptr, pipelineInfo);
-
-The `vkCreateGraphicsPipelines` function actually has more parameters than the usual object creation functions in Vulkan.
-It is designed to take multiple `VkGraphicsPipelineCreateInfo` objects and create multiple `VkPipeline` objects in a single call.
-
-The second parameter, for which we’ve passed the `VK_NULL_HANDLE` argument, references an optional `VkPipelineCache` object.
-A pipeline cache can be used to store and reuse data relevant to pipeline creation across multiple calls to `vkCreateGraphicsPipelines` and even across program executions if the cache is stored to a file.
-This makes it possible to significantly speed up pipeline creation at a later time.
-We’ll get into this in the pipeline cache chapter.
-
-The graphics pipeline is required for all common drawing operations.
-
-Now run your program to confirm that all this hard work has resulted in a successful pipeline creation!
-We are already getting quite close to seeing something pop up on the screen.
-In the [next couple of chapters,](../03_Drawing/00_Framebuffers.html)
-we’ll set up the actual framebuffers from the swap chain images and prepare the drawing commands.
-
-[C++ code](../../_attachments/12_graphics_pipeline_complete.cpp) /
-[Slang shader](../../_attachments/09_shader_base.slang) /
-[GLSL Vertex shader](../../_attachments/09_shader_base.vert) /
-[GLSL Fragment shader](../../_attachments/09_shader_base.frag)
+* 
+Previous: [Reflections](06_Reflections.html)

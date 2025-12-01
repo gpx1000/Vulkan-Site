@@ -152,7 +152,7 @@ If the `pNext` chain includes a
 If `pDescription->usage` does not have any of the following bits set
 (i.e. if it is not possible to create a tensor view for this tensor),
 then the [format features](../../../../spec/latest/chapters/resources.html#resources-tensor-view-format-features) **must**
-contain the format feature flags required by the `usage` flags
+contain the format feature flags required by the `usage` flags for
 `pDescription->format` as indicated in the
 [Format Feature Dependent Usage Flags](../../../../spec/latest/chapters/formats.html#format-feature-dependent-usage-flags) section
 

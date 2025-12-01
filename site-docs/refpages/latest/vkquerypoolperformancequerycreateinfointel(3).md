@@ -30,6 +30,7 @@ typedef struct VkQueryPoolPerformanceQueryCreateInfoINTEL {
 } VkQueryPoolPerformanceQueryCreateInfoINTEL;
 
 // Provided by VK_INTEL_performance_query
+// Equivalent to VkQueryPoolPerformanceQueryCreateInfoINTEL
 typedef VkQueryPoolPerformanceQueryCreateInfoINTEL VkQueryPoolCreateInfoINTEL;
 
 To create a pool for Intel performance queries, set

@@ -30,9 +30,8 @@ VkResult vkSetPrivateData(
     VkPrivateDataSlot                           privateDataSlot,
     uint64_t                                    data);
 
-or the equivalent command
-
 // Provided by VK_EXT_private_data
+// Equivalent to vkSetPrivateData
 VkResult vkSetPrivateDataEXT(
     VkDevice                                    device,
     VkObjectType                                objectType,
@@ -113,7 +112,7 @@ Return Codes
 
 [VK_EXT_private_data](VK_EXT_private_data.html), [VK_VERSION_1_3](VK_VERSION_1_3.html), [VkDevice](VkDevice.html), [VkObjectType](VkObjectType.html), [VkPrivateDataSlot](VkPrivateDataSlot.html)
 
-For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/VK_EXT_private_data.html#vkSetPrivateData).
+For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/private_data.html#vkSetPrivateData).
 
 This page is extracted from the Vulkan Specification.
 Fixes and changes should be made to the Specification, not directly.

@@ -48,9 +48,8 @@ typedef struct VkPhysicalDeviceDescriptorIndexingFeatures {
     VkBool32           runtimeDescriptorArray;
 } VkPhysicalDeviceDescriptorIndexingFeatures;
 
-or the equivalent
-
 // Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkPhysicalDeviceDescriptorIndexingFeatures
 typedef VkPhysicalDeviceDescriptorIndexingFeatures VkPhysicalDeviceDescriptorIndexingFeaturesEXT;
 
 This structure describes the following features:

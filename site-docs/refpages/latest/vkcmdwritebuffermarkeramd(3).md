@@ -47,22 +47,31 @@ be written to.
 * 
 `marker` is the 32-bit value of the marker.
 
-The command will write the 32-bit marker value into the buffer only after
-all preceding commands have finished executing up to at least the specified
-pipeline stage.
-This includes the completion of other preceding
-`vkCmdWriteBufferMarkerAMD` commands so long as their specified pipeline
-stages occur either at the same time or earlier than this command’s
-specified `pipelineStage`.
+When `vkCmdWriteBufferMarkerAMD` is submitted to a queue, it defines an
+execution dependency between prior operations and writing the marker value,
+as well as a memory dependency from earlier [buffer marker write commands](../../../../spec/latest/chapters/copies.html#copies-buffer-markers).
 
-While consecutive buffer marker writes with the same `pipelineStage`
-parameter are implicitly complete in submission order, memory and execution
-dependencies between buffer marker writes and other operations **must** still
-be explicitly ordered using synchronization commands.
+The first [synchronization scope](../../../../spec/latest/chapters/synchronization.html#synchronization-dependencies-scopes)
+includes operations performed by operations that occur earlier in
+[submission order](../../../../spec/latest/chapters/synchronization.html#synchronization-submission-order) in the pipeline stage
+identified by `pipelineStage`.
+It additionally includes other [buffer marker write commands](../../../../spec/latest/chapters/copies.html#copies-buffer-markers) that occur earlier in [submission order](../../../../spec/latest/chapters/synchronization.html#synchronization-submission-order) that specified either the same `pipelineStage` or a
+stage that is [logically earlier](../../../../spec/latest/chapters/synchronization.html#synchronization-pipeline-stages-order).
+
+The second [synchronization scope](../../../../spec/latest/chapters/synchronization.html#synchronization-dependencies-scopes)
+includes only the buffer marker write.
+
+The first [access scope](../../../../spec/latest/chapters/synchronization.html#synchronization-dependencies-access-scopes)
+includes only accesses performed by other [buffer marker write commands](../../../../spec/latest/chapters/copies.html#copies-buffer-markers).
+
+The second [access scope](../../../../spec/latest/chapters/synchronization.html#synchronization-dependencies-access-scopes) is
+empty.
+
 The access scope for buffer marker writes falls under the
-`VK_ACCESS_TRANSFER_WRITE_BIT`, and the pipeline stages for identifying
-the synchronization scope **must** include both `pipelineStage` and
-`VK_PIPELINE_STAGE_TRANSFER_BIT`.
+`VK_ACCESS_TRANSFER_WRITE_BIT` flag, and is performed by either
+`pipelineStage` or `VK_PIPELINE_STAGE_TRANSFER_BIT`.
+[Synchronization commands](../../../../spec/latest/chapters/synchronization.html#synchronization) should specify this access
+flag and both pipeline stages when defining dependencies with this command.
 
 |  | Similar to `vkCmdWriteTimestamp`, if an implementation is unable to
 | --- | --- |
@@ -166,8 +175,8 @@ enabled, `pipelineStage` **must** not be
 * 
 [](#VUID-vkCmdWriteBufferMarkerAMD-dstBuffer-01799) VUID-vkCmdWriteBufferMarkerAMD-dstBuffer-01799
 
-`dstBuffer` **must** have been created with
-`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag
+`dstBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdWriteBufferMarkerAMD-dstBuffer-01800) VUID-vkCmdWriteBufferMarkerAMD-dstBuffer-01800
@@ -205,7 +214,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdWriteBufferMarkerAMD-commandBuffer-cmdpool) VUID-vkCmdWriteBufferMarkerAMD-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
+
+* 
+[](#VUID-vkCmdWriteBufferMarkerAMD-suspended) VUID-vkCmdWriteBufferMarkerAMD-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdWriteBufferMarkerAMD-videocoding) VUID-vkCmdWriteBufferMarkerAMD-videocoding
@@ -230,11 +244,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Transfer
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 

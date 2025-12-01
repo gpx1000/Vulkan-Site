@@ -149,14 +149,23 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_VECTOR_BI
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_NV = 0x40000000000ULL;
 // Provided by VK_ARM_data_graph
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TENSOR_DATA_GRAPH_BIT_ARM = 0x1000000000000ULL;
+// Provided by VK_KHR_copy_memory_indirect
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR = 0x800000000000000ULL;
 // Provided by VK_KHR_video_encode_quantization_map
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR = 0x2000000000000ULL;
 // Provided by VK_KHR_video_encode_quantization_map
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR = 0x4000000000000ULL;
-
-or the equivalent
+// Provided by VK_KHR_maintenance10 with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_COMPUTE_QUEUE_BIT_KHR = 0x10000000000000ULL;
+// Provided by VK_KHR_maintenance10 with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_TRANSFER_QUEUE_BIT_KHR = 0x20000000000000ULL;
+// Provided by VK_KHR_maintenance10 with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_COMPUTE_QUEUE_BIT_KHR = 0x40000000000000ULL;
+// Provided by VK_KHR_maintenance10 with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_TRANSFER_QUEUE_BIT_KHR = 0x80000000000000ULL;
 
 // Provided by VK_KHR_format_feature_flags2
+// Equivalent to VkFormatFeatureFlagBits2
 typedef VkFormatFeatureFlagBits2 VkFormatFeatureFlagBits2KHR;
 
 The following bits **may** be set in `linearTilingFeatures` and
@@ -353,6 +362,30 @@ image view with this format **can** be used as an output
 [reference picture](../../../../spec/latest/chapters/videocoding.html#reference-picture) in
 [video encode operations](../../../../spec/latest/chapters/videocoding.html#video-encode-operations).
 
+* 
+`VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_COMPUTE_QUEUE_BIT_KHR` specifies
+that the depth aspect of this format can be copied using a queue family
+that supports `VK_QUEUE_COMPUTE_BIT` but does not support
+`VK_QUEUE_GRAPHICS_BIT`.
+
+* 
+`VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_TRANSFER_QUEUE_BIT_KHR` specifies
+that the depth aspect of this format can be copied using a queue family
+that supports `VK_QUEUE_TRANSFER_BIT` but does not support
+`VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT`.
+
+* 
+`VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_COMPUTE_QUEUE_BIT_KHR`
+specifies that the stencil aspect of this format can be copied using a
+queue family that supports `VK_QUEUE_COMPUTE_BIT` but does not
+support `VK_QUEUE_GRAPHICS_BIT`.
+
+* 
+`VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_TRANSFER_QUEUE_BIT_KHR`
+specifies that the stencil aspect of this format can be copied using a
+queue family that supports `VK_QUEUE_TRANSFER_BIT` but does not
+support `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT`.
+
 |  | Specific [video profiles](../../../../spec/latest/chapters/videocoding.html#video-profiles) **may** have additional restrictions
 | --- | --- |
 on the format and other image creation parameters corresponding to image
@@ -410,7 +443,12 @@ image views created with this format **can** be sampled in
 
 * 
 `VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT` specifies that an
-image **can** be created with `VK_IMAGE_USAGE_HOST_TRANSFER_BIT`.
+image **can** be created with the `VK_IMAGE_USAGE_HOST_TRANSFER_BIT`
+usage flag set.
+
+* 
+`VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR` specifies that
+a [VkImage](VkImage.html) **can** be used as destination for [    indirect copies](../../../../spec/latest/chapters/copies.html#indirect-copies).
 
 * 
 `VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR`

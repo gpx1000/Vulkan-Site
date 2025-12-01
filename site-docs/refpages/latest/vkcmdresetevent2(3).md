@@ -27,9 +27,8 @@ void vkCmdResetEvent2(
     VkEvent                                     event,
     VkPipelineStageFlags2                       stageMask);
 
-or the equivalent command
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to vkCmdResetEvent2
 void vkCmdResetEvent2KHR(
     VkCommandBuffer                             commandBuffer,
     VkEvent                                     event,
@@ -224,12 +223,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdResetEvent2-commandBuffer-cmdpool) VUID-vkCmdResetEvent2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdResetEvent2-renderpass) VUID-vkCmdResetEvent2-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdResetEvent2-suspended) VUID-vkCmdResetEvent2-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdResetEvent2-commonparent) VUID-vkCmdResetEvent2-commonparent
@@ -249,13 +253,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Both | Graphics
+Secondary | Outside | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Synchronization |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Synchronization |
 
 Conditional Rendering
 

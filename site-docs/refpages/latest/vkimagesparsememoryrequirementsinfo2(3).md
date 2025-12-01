@@ -28,9 +28,8 @@ typedef struct VkImageSparseMemoryRequirementsInfo2 {
     VkImage            image;
 } VkImageSparseMemoryRequirementsInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_memory_requirements2
+// Equivalent to VkImageSparseMemoryRequirementsInfo2
 typedef VkImageSparseMemoryRequirementsInfo2 VkImageSparseMemoryRequirementsInfo2KHR;
 
 * 
@@ -60,7 +59,7 @@ Valid Usage (Implicit)
 
  `image` **must** be a valid [VkImage](VkImage.html) handle
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImage](VkImage.html), [VkStructureType](VkStructureType.html), [vkGetImageSparseMemoryRequirements2](vkGetImageSparseMemoryRequirements2.html), [vkGetImageSparseMemoryRequirements2](vkGetImageSparseMemoryRequirements2.html)
+[VK_KHR_get_memory_requirements2](VK_KHR_get_memory_requirements2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImage](VkImage.html), [VkStructureType](VkStructureType.html), [vkGetImageSparseMemoryRequirements2](vkGetImageSparseMemoryRequirements2.html), [vkGetImageSparseMemoryRequirements2](vkGetImageSparseMemoryRequirements2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/sparsemem.html#VkImageSparseMemoryRequirementsInfo2).
 

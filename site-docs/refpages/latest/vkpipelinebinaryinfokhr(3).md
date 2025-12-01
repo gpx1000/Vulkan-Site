@@ -49,8 +49,9 @@ greater than 0 is included in the `pNext` chain of any
 `Vk*PipelineCreateInfo` structure when creating a pipeline,
 implementations **must** use the data in `pPipelineBinaries` instead of
 recalculating it.
-Any shader module identifiers or shader modules declared in
-[VkPipelineShaderStageCreateInfo](VkPipelineShaderStageCreateInfo.html) instances are ignored.
+Any shader module identifiers, shader modules, or chained
+[VkShaderModuleCreateInfo](VkShaderModuleCreateInfo.html) structures declared in
+[VkPipelineShaderStageCreateInfo](VkPipelineShaderStageCreateInfo.html) instances, are ignored.
 
 If this structure is not included in the `pNext` chain, it is equivalent
 to specifying this structure with a `binaryCount` of `0`.
@@ -66,8 +67,9 @@ Valid Usage
 `Vk*PipelineCreateInfo` structure and its `pNext` chain,
 ignoring the presence of the `VkPipelineBinaryInfoKHR` structure,
 the presence of the `VK_PIPELINE_CREATE_2_CAPTURE_DATA_BIT_KHR`
-flag, and absence of any shader module identifiers or shader modules,
-for the same [global pipeline key](../../../../spec/latest/chapters/pipelines.html#global-pipeline-key), from either:
+flag, and absence of any shader module identifiers, shader modules, or
+`VkShaderModuleCreateInfo` structures, for the same
+[global pipeline key](../../../../spec/latest/chapters/pipelines.html#global-pipeline-key), from either:
 
 [VkPipelineBinaryCreateInfoKHR](VkPipelineBinaryCreateInfoKHR.html)::`pPipelineCreateInfo`, or
 

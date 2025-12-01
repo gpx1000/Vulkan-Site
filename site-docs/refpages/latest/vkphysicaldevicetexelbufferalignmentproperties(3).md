@@ -32,9 +32,8 @@ typedef struct VkPhysicalDeviceTexelBufferAlignmentProperties {
     VkBool32           uniformTexelBufferOffsetSingleTexelAlignment;
 } VkPhysicalDeviceTexelBufferAlignmentProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_texel_buffer_alignment
+// Equivalent to VkPhysicalDeviceTexelBufferAlignmentProperties
 typedef VkPhysicalDeviceTexelBufferAlignmentProperties VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT;
 
 * 

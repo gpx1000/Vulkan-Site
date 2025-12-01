@@ -302,7 +302,40 @@
     <a class="nav-link" href="17_Multithreading.html">Multithreading</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="courses/18_Ray_tracing/00_Overview.html">Ray Tracing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/00_Overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/01_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/02_Acceleration_structures.html">Acceleration structures</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/03_Ray_query_shadows.html">Ray query shadows</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/04_TLAS_animation.html">TLAS animation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/05_Shadow_transparency.html">Shadow transparency</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/06_Reflections.html">Reflections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/07_Conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="90_FAQ.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -518,7 +551,7 @@ You can look up Vulkan support in detail at the community driven
 <div class="ulist">
 <ul>
 <li>
-<p>Visual Studio 2017+, GCC 7+, Or Clang 5+</p>
+<p>Visual Studio 2017+, GCC 7+, or Clang 5+</p>
 </li>
 </ul>
 </div>
@@ -564,17 +597,12 @@ We will use C&#43;&#43; features like classes and RAII to organize logic and
 <p>To make it easier to learn to work with Vulkan, we&#8217;ll be using the newer
 <a href="https://github.com/KhronosGroup/Vulkan-Hpp">Vulkan-Hpp</a> bindings that
   abstract some of the dirty work and help prevent certain classes of errors.
-We&#8217;ll also use Vulkan raii and the Vulkan C&#43;&#43;20 module. With this
-combination, we show how to use Vulkan in a method that will translate
-directly into large projects where C&#43;&#43; libraries have traditionally caused
-large build times while also showing one method of making Vulkan a joy to
-work with.</p>
-</div>
-<div class="paragraph">
-<p>To make it easier to understand the core concepts and to follow along for
-developers using other programming languages, also to get some experience with
-the base API we&#8217;ll be using the original C API when we describe the objects
-and the concepts that are being used.</p>
+We&#8217;ll also use Vulkan RAII and, optionally, the Vulkan C&#43;&#43;20 module. The
+attachments template has modules disabled by default for maximum compatibility,
+but we recommend enabling them if your toolchain supports it. With this
+combination, we show how to use Vulkan in a way that translates directly into
+large projects where C&#43;&#43; libraries have traditionally caused long build times,
+while also showing one method of making Vulkan a joy to work with.</p>
 </div>
 </div>
 </div>

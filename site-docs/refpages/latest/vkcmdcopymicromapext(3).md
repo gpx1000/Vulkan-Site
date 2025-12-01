@@ -79,12 +79,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyMicromapEXT-commandBuffer-cmdpool) VUID-vkCmdCopyMicromapEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyMicromapEXT-renderpass) VUID-vkCmdCopyMicromapEXT-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyMicromapEXT-suspended) VUID-vkCmdCopyMicromapEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyMicromapEXT-videocoding) VUID-vkCmdCopyMicromapEXT-videocoding
@@ -104,7 +109,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 

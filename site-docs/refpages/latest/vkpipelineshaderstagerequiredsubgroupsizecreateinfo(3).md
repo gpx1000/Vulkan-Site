@@ -25,18 +25,18 @@ defined as:
 // Provided by VK_VERSION_1_3
 typedef struct VkPipelineShaderStageRequiredSubgroupSizeCreateInfo {
     VkStructureType    sType;
-    void*              pNext;
+    const void*        pNext;
     uint32_t           requiredSubgroupSize;
 } VkPipelineShaderStageRequiredSubgroupSizeCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_subgroup_size_control
+// Equivalent to VkPipelineShaderStageRequiredSubgroupSizeCreateInfo
 typedef VkPipelineShaderStageRequiredSubgroupSizeCreateInfo VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT;
 
 or the equiavlent
 
 // Provided by VK_EXT_shader_object
+// Equivalent to VkPipelineShaderStageRequiredSubgroupSizeCreateInfo
 typedef VkPipelineShaderStageRequiredSubgroupSizeCreateInfo VkShaderRequiredSubgroupSizeCreateInfoEXT;
 
 * 
@@ -86,7 +86,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO`
 
-[VK_EXT_subgroup_size_control](VK_EXT_subgroup_size_control.html), [VK_VERSION_1_3](VK_VERSION_1_3.html), [VkStructureType](VkStructureType.html)
+[VK_EXT_shader_object](VK_EXT_shader_object.html), [VK_EXT_subgroup_size_control](VK_EXT_subgroup_size_control.html), [VK_VERSION_1_3](VK_VERSION_1_3.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/pipelines.html#VkPipelineShaderStageRequiredSubgroupSizeCreateInfo).
 

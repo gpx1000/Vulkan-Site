@@ -34,9 +34,8 @@ typedef enum VkPipelineCreationFeedbackFlagBits {
     VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT_EXT = VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT,
 } VkPipelineCreationFeedbackFlagBits;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_creation_feedback
+// Equivalent to VkPipelineCreationFeedbackFlagBits
 typedef VkPipelineCreationFeedbackFlagBits VkPipelineCreationFeedbackFlagBitsEXT;
 
 * 

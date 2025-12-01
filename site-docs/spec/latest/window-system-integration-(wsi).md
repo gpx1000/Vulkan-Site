@@ -47,6 +47,7 @@
 - [XCB Platform](#platformQuerySupport_xcb)
 - [Xlib Platform](#platformQuerySupport_xlib)
 - [DirectFB Platform](#platformQuerySupport_directfb)
+- [Metal Platform](#platformQuerySupport_metal)
 - [Fuchsia Platform](#platformQuerySupport_fuchsia)
 - [Google Games Platform](#platformQuerySupport_streamdescriptor)
 - [Google_Games_Platform](#platformQuerySupport_streamdescriptor)
@@ -67,8 +68,8 @@
 - [Full_Screen_Exclusive_Control](#_full_screen_exclusive_control)
 - [Device Group Queries](#_device_group_queries)
 - [Device_Group_Queries](#_device_group_queries)
-- [Display Timing Queries](#_display_timing_queries)
-- [Display_Timing_Queries](#_display_timing_queries)
+- [Present Timing Queries](#_present_timing_queries)
+- [Present_Timing_Queries](#_present_timing_queries)
 - [Present Wait](#present-wait2)
 - [WSI Swapchain](#wsi-swapchain)
 - [HDR Metadata](#_hdr_metadata)
@@ -1412,7 +1413,7 @@ surface object when there is no more specific allocator available (see
 `pSurface` is a pointer to a [VkSurfaceKHR](#VkSurfaceKHR) handle in which the
 created surface object is returned.
 
-|  | The `vkCreateIOSSurfaceMVK` function is considered deprecated and has been
+|  | The `vkCreateIOSSurfaceMVK` function is considered legacy and has been
 | --- | --- |
 superseded by [vkCreateMetalSurfaceEXT](#vkCreateMetalSurfaceEXT) from the
 `[VK_EXT_metal_surface](../../appendices/extensions.html#VK_EXT_metal_surface)` extension. |
@@ -1552,7 +1553,7 @@ surface object when there is no more specific allocator available (see
 `pSurface` is a pointer to a [VkSurfaceKHR](#VkSurfaceKHR) handle in which the
 created surface object is returned.
 
-|  | The `vkCreateMacOSSurfaceMVK` function is considered deprecated and has been
+|  | The `vkCreateMacOSSurfaceMVK` function is considered legacy and has been
 | --- | --- |
 superseded by [vkCreateMetalSurfaceEXT](#vkCreateMetalSurfaceEXT) from the
 `[VK_EXT_metal_surface](../../appendices/extensions.html#VK_EXT_metal_surface)` extension. |
@@ -3573,7 +3574,7 @@ The `VkDisplayModeStereoPropertiesNV` structure is defined as:
 // Provided by VK_NV_display_stereo
 typedef struct VkDisplayModeStereoPropertiesNV {
     VkStructureType    sType;
-    const void*        pNext;
+    void*              pNext;
     VkBool32           hdmi3DSupported;
 } VkDisplayModeStereoPropertiesNV;
 
@@ -4954,6 +4955,10 @@ Valid Usage (Implicit)
 
  `dfb` **must** be a valid pointer to an `IDirectFB` value
 
+On Apple platforms with Metal support, all physical devices and queue
+families **must** be capable of presentation with any layer.
+As a result there is no Apple-specific query for these capabilities.
+
 On Fuchsia, all physical devices and queue families **must** be capable of
 presentation with any ImagePipe.
 As a result there is no Fuchsia-specific query for these capabilities.
@@ -5581,7 +5586,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkSurfaceCapabilities2KHR-pNext-pNext) VUID-VkSurfaceCapabilities2KHR-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDisplayNativeHdrSurfaceCapabilitiesAMD](#VkDisplayNativeHdrSurfaceCapabilitiesAMD), [VkLatencySurfaceCapabilitiesNV](#VkLatencySurfaceCapabilitiesNV), [VkSharedPresentSurfaceCapabilitiesKHR](#VkSharedPresentSurfaceCapabilitiesKHR), [VkSurfaceCapabilitiesFullScreenExclusiveEXT](#VkSurfaceCapabilitiesFullScreenExclusiveEXT), [VkSurfaceCapabilitiesPresentBarrierNV](#VkSurfaceCapabilitiesPresentBarrierNV), [VkSurfaceCapabilitiesPresentId2KHR](#VkSurfaceCapabilitiesPresentId2KHR), [VkSurfaceCapabilitiesPresentWait2KHR](#VkSurfaceCapabilitiesPresentWait2KHR), [VkSurfacePresentModeCompatibilityKHR](#VkSurfacePresentModeCompatibilityKHR), [VkSurfacePresentScalingCapabilitiesKHR](#VkSurfacePresentScalingCapabilitiesKHR), or [VkSurfaceProtectedCapabilitiesKHR](#VkSurfaceProtectedCapabilitiesKHR)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDisplayNativeHdrSurfaceCapabilitiesAMD](#VkDisplayNativeHdrSurfaceCapabilitiesAMD), [VkLatencySurfaceCapabilitiesNV](#VkLatencySurfaceCapabilitiesNV), [VkPresentTimingSurfaceCapabilitiesEXT](#VkPresentTimingSurfaceCapabilitiesEXT), [VkSharedPresentSurfaceCapabilitiesKHR](#VkSharedPresentSurfaceCapabilitiesKHR), [VkSurfaceCapabilitiesFullScreenExclusiveEXT](#VkSurfaceCapabilitiesFullScreenExclusiveEXT), [VkSurfaceCapabilitiesPresentBarrierNV](#VkSurfaceCapabilitiesPresentBarrierNV), [VkSurfaceCapabilitiesPresentId2KHR](#VkSurfaceCapabilitiesPresentId2KHR), [VkSurfaceCapabilitiesPresentWait2KHR](#VkSurfaceCapabilitiesPresentWait2KHR), [VkSurfacePresentModeCompatibilityKHR](#VkSurfacePresentModeCompatibilityKHR), [VkSurfacePresentScalingCapabilitiesKHR](#VkSurfacePresentScalingCapabilitiesKHR), or [VkSurfaceProtectedCapabilitiesKHR](#VkSurfaceProtectedCapabilitiesKHR)
 
 * 
 [](#VUID-VkSurfaceCapabilities2KHR-sType-unique) VUID-VkSurfaceCapabilities2KHR-sType-unique
@@ -5598,7 +5603,7 @@ The `VkSurfaceProtectedCapabilitiesKHR` structure is defined as:
 // Provided by VK_KHR_surface_protected_capabilities
 typedef struct VkSurfaceProtectedCapabilitiesKHR {
     VkStructureType    sType;
-    const void*        pNext;
+    void*              pNext;
     VkBool32           supportsProtected;
 } VkSurfaceProtectedCapabilitiesKHR;
 
@@ -5647,9 +5652,8 @@ typedef struct VkSurfacePresentScalingCapabilitiesKHR {
     VkExtent2D                  maxScaledImageExtent;
 } VkSurfacePresentScalingCapabilitiesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkSurfacePresentScalingCapabilitiesKHR
 typedef VkSurfacePresentScalingCapabilitiesKHR VkSurfacePresentScalingCapabilitiesEXT;
 
 * 
@@ -5744,9 +5748,8 @@ typedef enum VkPresentScalingFlagBitsKHR {
     VK_PRESENT_SCALING_STRETCH_BIT_EXT = VK_PRESENT_SCALING_STRETCH_BIT_KHR,
 } VkPresentScalingFlagBitsKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkPresentScalingFlagBitsKHR
 typedef VkPresentScalingFlagBitsKHR VkPresentScalingFlagBitsEXT;
 
 * 
@@ -5772,9 +5775,8 @@ dimensions are equal to those of the surface.
 // Provided by VK_KHR_surface_maintenance1
 typedef VkFlags VkPresentScalingFlagsKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkPresentScalingFlagsKHR
 typedef VkPresentScalingFlagsKHR VkPresentScalingFlagsEXT;
 
 `VkPresentScalingFlagsKHR` is a bitmask type for setting a mask of zero
@@ -5795,9 +5797,8 @@ typedef enum VkPresentGravityFlagBitsKHR {
     VK_PRESENT_GRAVITY_CENTERED_BIT_EXT = VK_PRESENT_GRAVITY_CENTERED_BIT_KHR,
 } VkPresentGravityFlagBitsKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkPresentGravityFlagBitsKHR
 typedef VkPresentGravityFlagBitsKHR VkPresentGravityFlagBitsEXT;
 
 * 
@@ -5820,9 +5821,8 @@ presented image before or after transformation.
 // Provided by VK_KHR_surface_maintenance1
 typedef VkFlags VkPresentGravityFlagsKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkPresentGravityFlagsKHR
 typedef VkPresentGravityFlagsKHR VkPresentGravityFlagsEXT;
 
 `VkPresentGravityFlagsKHR` is a bitmask type for setting a mask of zero
@@ -5837,9 +5837,8 @@ typedef struct VkSurfacePresentModeKHR {
     VkPresentModeKHR    presentMode;
 } VkSurfacePresentModeKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkSurfacePresentModeKHR
 typedef VkSurfacePresentModeKHR VkSurfacePresentModeEXT;
 
 * 
@@ -5916,9 +5915,8 @@ typedef struct VkSurfacePresentModeCompatibilityKHR {
     VkPresentModeKHR*    pPresentModes;
 } VkSurfacePresentModeCompatibilityKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkSurfacePresentModeCompatibilityKHR
 typedef VkSurfacePresentModeCompatibilityKHR VkSurfacePresentModeCompatibilityEXT;
 
 * 
@@ -6179,6 +6177,64 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR`
 
+The `VkPresentTimingSurfaceCapabilitiesEXT` structure is defined as:
+
+// Provided by VK_EXT_present_timing
+typedef struct VkPresentTimingSurfaceCapabilitiesEXT {
+    VkStructureType           sType;
+    void*                     pNext;
+    VkBool32                  presentTimingSupported;
+    VkBool32                  presentAtAbsoluteTimeSupported;
+    VkBool32                  presentAtRelativeTimeSupported;
+    VkPresentStageFlagsEXT    presentStageQueries;
+} VkPresentTimingSurfaceCapabilitiesEXT;
+
+* 
+`sType` is a [VkStructureType](../fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`presentTimingSupported` indicates whether querying presentation
+timestamps is supported for a swapchain created from
+[VkPhysicalDeviceSurfaceInfo2KHR](#VkPhysicalDeviceSurfaceInfo2KHR)::`surface`.
+
+* 
+`presentAtAbsoluteTimeSupported` indicates whether a swapchain
+created from [VkPhysicalDeviceSurfaceInfo2KHR](#VkPhysicalDeviceSurfaceInfo2KHR)::`surface`
+supports presenting images with absolute times.
+
+* 
+`presentAtRelativeTimeSupported` indicates whether a swapchain
+created from [VkPhysicalDeviceSurfaceInfo2KHR](#VkPhysicalDeviceSurfaceInfo2KHR)::`surface`
+supports presenting images with relative times.
+
+* 
+`presentStageQueries` is a bitmask of
+[VkPresentStageFlagBitsEXT](#VkPresentStageFlagBitsEXT) indicating which present stages a
+swapchain created from
+[VkPhysicalDeviceSurfaceInfo2KHR](#VkPhysicalDeviceSurfaceInfo2KHR)::`surface` is able to provide
+timing information for.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPresentTimingSurfaceCapabilitiesEXT-sType-sType) VUID-VkPresentTimingSurfaceCapabilitiesEXT-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PRESENT_TIMING_SURFACE_CAPABILITIES_EXT`
+
+* 
+[](#VUID-VkPresentTimingSurfaceCapabilitiesEXT-presentStageQueries-parameter) VUID-VkPresentTimingSurfaceCapabilitiesEXT-presentStageQueries-parameter
+
+ `presentStageQueries` **must** be a valid combination of [VkPresentStageFlagBitsEXT](#VkPresentStageFlagBitsEXT) values
+
+* 
+[](#VUID-VkPresentTimingSurfaceCapabilitiesEXT-presentStageQueries-requiredbitmask) VUID-VkPresentTimingSurfaceCapabilitiesEXT-presentStageQueries-requiredbitmask
+
+ `presentStageQueries` **must** not be `0`
+
 To query the basic capabilities of a surface, needed in order to create a
 swapchain, call:
 
@@ -6395,7 +6451,7 @@ supported surface counter types, are:
 // Provided by VK_EXT_display_surface_counter
 typedef enum VkSurfaceCounterFlagBitsEXT {
     VK_SURFACE_COUNTER_VBLANK_BIT_EXT = 0x00000001,
-  // VK_SURFACE_COUNTER_VBLANK_EXT is a deprecated alias
+  // VK_SURFACE_COUNTER_VBLANK_EXT is a legacy alias
     VK_SURFACE_COUNTER_VBLANK_EXT = VK_SURFACE_COUNTER_VBLANK_BIT_EXT,
 } VkSurfaceCounterFlagBitsEXT;
 
@@ -6859,7 +6915,7 @@ typedef enum VkColorSpaceKHR {
   // Provided by VK_EXT_swapchain_colorspace
     VK_COLOR_SPACE_HDR10_ST2084_EXT = 1000104008,
   // Provided by VK_EXT_swapchain_colorspace
-  // VK_COLOR_SPACE_DOLBYVISION_EXT is deprecated, but no reason was given in the API XML
+  // VK_COLOR_SPACE_DOLBYVISION_EXT is legacy, but no reason was given in the API XML
     VK_COLOR_SPACE_DOLBYVISION_EXT = 1000104009,
   // Provided by VK_EXT_swapchain_colorspace
     VK_COLOR_SPACE_HDR10_HLG_EXT = 1000104010,
@@ -6873,10 +6929,10 @@ typedef enum VkColorSpaceKHR {
     VK_COLOR_SPACE_EXTENDED_SRGB_NONLINEAR_EXT = 1000104014,
   // Provided by VK_AMD_display_native_hdr
     VK_COLOR_SPACE_DISPLAY_NATIVE_AMD = 1000213000,
-  // VK_COLORSPACE_SRGB_NONLINEAR_KHR is a deprecated alias
+  // VK_COLORSPACE_SRGB_NONLINEAR_KHR is a legacy alias
     VK_COLORSPACE_SRGB_NONLINEAR_KHR = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR,
   // Provided by VK_EXT_swapchain_colorspace
-  // VK_COLOR_SPACE_DCI_P3_LINEAR_EXT is a deprecated alias
+  // VK_COLOR_SPACE_DCI_P3_LINEAR_EXT is a legacy alias
     VK_COLOR_SPACE_DCI_P3_LINEAR_EXT = VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT,
 } VkColorSpaceKHR;
 
@@ -6970,7 +7026,7 @@ The older enum is still available for backwards compatibility. |
 `VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT` was misnamed
 `VK_COLOR_SPACE_DCI_P3_LINEAR_EXT`.
 This has been updated to indicate that it uses RGB color encoding, not XYZ.
-The old name is deprecated but is maintained for backwards compatibility. |
+The old name is legacy but is maintained for backwards compatibility. |
 
 |  | In older versions of the `[VK_EXT_swapchain_colorspace](../../appendices/extensions.html#VK_EXT_swapchain_colorspace)` extension,
 | --- | --- |
@@ -6981,7 +7037,7 @@ proprietary OOTF to process the image.
 However, Dolby Vision profile 8.4 describes an encoding using the Hybrid Log
 Gamma (HLG) OETF, and there is no swapchain extension for signaling Dolby
 Vision metadata to be used by a proprietary OOTF.
-This enum is deprecated but is maintained for backwards compatibility. |
+This enum is legacy but is maintained for backwards compatibility. |
 
 |  | For a traditional “Linear” or non-gamma transfer function color space use
 | --- | --- |
@@ -6999,10 +7055,9 @@ The presentation engine interprets the pixel values of the R, G, and B
 components as having been encoded using an appropriate transfer function.
 Applications **should** ensure that the appropriate transfer function has been
 applied.
-[Textures Output Format Conversion](../textures.html#textures-output-format-conversion)
-requires that all implementations implicitly apply the sRGB EOTF-1 on R,
-G, and B components when shaders write to an sRGB pixel format image, which
-is useful for sRGB color spaces.
+[Texel encode](../images.html#images-texel-encode) requires that all implementations
+implicitly apply the sRGB EOTF-1 on R, G, and B components when shaders
+write to an sRGB pixel format image, which is useful for sRGB color spaces.
 For sRGB color spaces with other pixel formats, or other non-linear color
 spaces, applications **can** apply the transfer function explicitly in a
 shader.
@@ -7323,21 +7378,25 @@ each vertical blanking period in which the queue is non-empty.
 
 * 
 `VK_PRESENT_MODE_FIFO_LATEST_READY_KHR` specifies that the
-presentation engine waits for the next vertical blanking period to
-update the current image.
-Tearing **cannot** be observed.
-An internal queue is used to hold pending presentation requests.
-New requests are appended to the end of the queue.
-At each vertical blanking period, the presentation engine dequeues all
-successive requests that are ready to be presented from the beginning of
-the queue.
-If using `[VK_GOOGLE_display_timing](../../appendices/extensions.html#VK_GOOGLE_display_timing)` to provide a target present
-time, the presentation engine will check the specified time for each
-image.
-If the target present time is less-than or equal-to the current time,
-the presentation engine will dequeue the image and check the next one.
-The image of the last dequeued request will be presented.
-The other dequeued requests will be dropped.
+    presentation engine waits for the next vertical blanking period to
+    update the current image.
+    Tearing **cannot** be observed.
+    An internal queue is used to hold pending presentation requests.
+    New requests are appended to the end of the queue.
+    At each vertical blanking period, the presentation engine dequeues all
+    successive requests that are ready to be presented from the beginning of
+    the queue.
+    If using
+    the `[VK_GOOGLE_display_timing](../../appendices/extensions.html#VK_GOOGLE_display_timing)` extension
+or
+    the [`presentAtAbsoluteTime`](../features.html#features-presentAtAbsoluteTime)
+    feature
+    to provide a target present time, the presentation engine checks the
+    specified time for each image.
+    If the target present time is less-than or equal-to the current time,
+    the presentation engine dequeues the image and checks the next one.
+    The image of the last dequeued request is presented.
+    The other dequeued requests are dropped.
 
 * 
 `VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR` specifies that the
@@ -7982,7 +8041,8 @@ Traditional game and real-time-animation applications frequently use
 `VK_PRESENT_MODE_FIFO_KHR` so that presentable images are updated during
 the vertical blanking period of a given refresh cycle (RC) of the
 presentation engine’s display.
-This avoids the visual anomaly known as tearing.
+On fixed refresh rate displays, this avoids the visual anomaly known as
+tearing.
 
 However, synchronizing the presentation of images with the RC does not
 prevent all forms of visual anomalies.
@@ -7991,30 +8051,924 @@ accurately positioned for when that image will be displayed.
 The geometry may appear to move too little some RCs, and too much for
 others.
 Sometimes the animation appears to freeze, when the same image is used for
-more than one RC.
+more RCs than other images.
 
-In order to minimize stuttering, an application needs to correctly position
-their geometry for when the presentable image will be displayed to the user.
-To accomplish this, applications need various timing information about the
-presentation engine’s display.
-They need to know when presentable images were actually presented, and when
-they could have been presented.
-Applications also need to tell the presentation engine to display an image
-no sooner than a given time.
-This can allow the application’s animation to look smooth to the user, with
-no stuttering.
-The `[VK_GOOGLE_display_timing](../../appendices/extensions.html#VK_GOOGLE_display_timing)` extension allows an application to
-satisfy these needs.
+In order to minimize stuttering, an application needs to: 1) render and
+present images at a consistent rate that is, on fixed refresh rate displays,
+a multiple of the presentation engine’s refresh rate; 2) correctly position
+its geometry for when the presentable image will be displayed to the user.
+The
+`[VK_EXT_present_timing](../../appendices/extensions.html#VK_EXT_present_timing)`
+or
+`[VK_GOOGLE_display_timing](../../appendices/extensions.html#VK_GOOGLE_display_timing)`
+extension allows an application to satisfy these needs.
 
 The presentation engine’s display typically refreshes the pixels that are
 displayed to the user on a periodic basis.
-The period may be fixed or variable.
-In many cases, the presentation engine is associated with fixed refresh rate
-(FRR) display technology, with a fixed refresh rate (RR, e.g. 60Hz).
-In some cases, the presentation engine is associated with variable refresh
-rate (VRR) display technology, where each refresh cycle (RC) can vary in
-length.
-This extension treats VRR displays as if they are FRR.
+This period **may** be fixed (Fixed Refresh Rate, FRR) or variable (Variable
+Refresh Rate, VRR).
+
+In order to collect timing information about presentation, a swapchain needs
+an internal queue to store asynchronously updated results until applications
+collect them.
+
+To allocate the swapchain’s internal timing results queue, call:
+
+// Provided by VK_EXT_present_timing
+VkResult vkSetSwapchainPresentTimingQueueSizeEXT(
+    VkDevice                                    device,
+    VkSwapchainKHR                              swapchain,
+    uint32_t                                    size);
+
+* 
+`device` is the device associated with `swapchain`.
+
+* 
+`swapchain` is the swapchain to allocate a results queue for.
+
+* 
+`size` is the requested number of slots in the internal results
+queue.
+
+If this function is called multiple times, the internal queue is reallocated
+to fit the new `size`.
+If the new `size` is less than the current number of outstanding
+results, `VK_NOT_READY` is returned and no allocation is performed.
+
+Valid Usage
+
+* 
+[](#VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-12229) VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-12229
+
+`swapchain` **must** have been created with
+`VkSwapchainCreateInfoKHR`::`flags` containing
+`VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkSetSwapchainPresentTimingQueueSizeEXT-device-parameter) VUID-vkSetSwapchainPresentTimingQueueSizeEXT-device-parameter
+
+ `device` **must** be a valid [VkDevice](../devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-parameter) VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-parameter
+
+ `swapchain` **must** be a valid [VkSwapchainKHR](#VkSwapchainKHR) handle
+
+* 
+[](#VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-parent) VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-parent
+
+ `swapchain` **must** have been created, allocated, or retrieved from `device`
+
+Host Synchronization
+
+* 
+Host access to `swapchain` **must** be externally synchronized
+
+Return Codes
+
+[Success](../fundamentals.html#fundamentals-successcodes)
+
+* 
+`VK_NOT_READY`
+
+* 
+`VK_SUCCESS`
+
+[Failure](../fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
+The implementation maintains an internal monotonically increasing counter
+which updates when the presentation engine’s timing properties are modified.
+
+To query the presentation engine’s current timing properties for a given
+swapchain, call:
+
+// Provided by VK_EXT_present_timing
+VkResult vkGetSwapchainTimingPropertiesEXT(
+    VkDevice                                    device,
+    VkSwapchainKHR                              swapchain,
+    VkSwapchainTimingPropertiesEXT*             pSwapchainTimingProperties,
+    uint64_t*                                   pSwapchainTimingPropertiesCounter);
+
+* 
+`device` is the device associated with `swapchain`.
+
+* 
+`swapchain` is the swapchain to obtain timing properties for.
+
+* 
+`pSwapchainTimingProperties` is a pointer to an instance of the
+[VkSwapchainTimingPropertiesEXT](#VkSwapchainTimingPropertiesEXT) structure.
+
+* 
+`pSwapchainTimingPropertiesCounter` is `NULL` or a pointer to a
+64-bit unsigned integer set by the implementation to the current value
+of the swapchain’s internal timing properties counter.
+
+If `vkGetSwapchainTimingPropertiesEXT` returns `VK_NOT_READY`, the
+implementation was not able to determine the current refresh cycle duration.
+Some platforms **may** not provide timing properties until after at least one
+image has been presented to the `swapchain`.
+If timing properties change for the `swapchain`, these platforms **may**
+not provide updated results until after at least one additional image has
+been presented to the `swapchain`.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkGetSwapchainTimingPropertiesEXT-device-parameter) VUID-vkGetSwapchainTimingPropertiesEXT-device-parameter
+
+ `device` **must** be a valid [VkDevice](../devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkGetSwapchainTimingPropertiesEXT-swapchain-parameter) VUID-vkGetSwapchainTimingPropertiesEXT-swapchain-parameter
+
+ `swapchain` **must** be a valid [VkSwapchainKHR](#VkSwapchainKHR) handle
+
+* 
+[](#VUID-vkGetSwapchainTimingPropertiesEXT-pSwapchainTimingProperties-parameter) VUID-vkGetSwapchainTimingPropertiesEXT-pSwapchainTimingProperties-parameter
+
+ `pSwapchainTimingProperties` **must** be a valid pointer to a [VkSwapchainTimingPropertiesEXT](#VkSwapchainTimingPropertiesEXT) structure
+
+* 
+[](#VUID-vkGetSwapchainTimingPropertiesEXT-pSwapchainTimingPropertiesCounter-parameter) VUID-vkGetSwapchainTimingPropertiesEXT-pSwapchainTimingPropertiesCounter-parameter
+
+ If `pSwapchainTimingPropertiesCounter` is not `NULL`, `pSwapchainTimingPropertiesCounter` **must** be a valid pointer to a `uint64_t` value
+
+* 
+[](#VUID-vkGetSwapchainTimingPropertiesEXT-swapchain-parent) VUID-vkGetSwapchainTimingPropertiesEXT-swapchain-parent
+
+ `swapchain` **must** have been created, allocated, or retrieved from `device`
+
+Host Synchronization
+
+* 
+Host access to `swapchain` **must** be externally synchronized
+
+Return Codes
+
+[Success](../fundamentals.html#fundamentals-successcodes)
+
+* 
+`VK_NOT_READY`
+
+* 
+`VK_SUCCESS`
+
+[Failure](../fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_SURFACE_LOST_KHR`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
+The `VkSwapchainTimingPropertiesEXT` structure is defined as:
+
+// Provided by VK_EXT_present_timing
+typedef struct VkSwapchainTimingPropertiesEXT {
+    VkStructureType    sType;
+    void*              pNext;
+    uint64_t           refreshDuration;
+    uint64_t           refreshInterval;
+} VkSwapchainTimingPropertiesEXT;
+
+* 
+`sType` is a [VkStructureType](../fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`refreshDuration` is zero or an indication of the duration of a
+refresh cycle.
+
+* 
+`refreshInterval` is zero or a duration in nanoseconds indicating
+the interval between refresh cycle durations.
+
+If `refreshDuration` is zero, the presentation engine is not able to
+determine the duration of the refresh cycle.
+Similarly, if `refreshInterval` is zero, the presentation engine is not
+able to determine whether it is operating in VRR mode.
+
+Otherwise, if `refreshInterval` is the same as `refreshDuration`,
+the presentation engine is operating in FRR mode.
+In this case, `refreshDuration` is the number of nanoseconds from the
+start of one refresh cycle to the start of the next refresh cycle.
+
+If `refreshInterval` is `UINT64_MAX`, the presentation engine is
+operating in VRR mode, and `refreshDuration` is the minimum number of
+nanoseconds from the start of one refresh cycle to the start of the next
+refresh cycle.
+
+If `refreshDuration` and `refreshInterval` are not zero,
+`refreshInterval` is a factor of `refreshDuration`.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkSwapchainTimingPropertiesEXT-sType-sType) VUID-VkSwapchainTimingPropertiesEXT-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_SWAPCHAIN_TIMING_PROPERTIES_EXT`
+
+* 
+[](#VUID-VkSwapchainTimingPropertiesEXT-pNext-pNext) VUID-VkSwapchainTimingPropertiesEXT-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+|  | The rate at which an application renders and presents new images is known as
+| --- | --- |
+the image present rate (IPR, a.k.a.
+frame rate).
+The inverse of IPR, or the duration between each image present, is the image
+present duration (IPD).
+
+In order to provide a smooth, stutter-free animation on non-VRR displays, an
+application needs its IPD to be a multiple of `refreshInterval` that is
+at least equal to `refreshDuration`.
+
+For example, if a FRR display has a set 60Hz refresh rate, where
+`refreshDuration` is equal to `refreshInterval`,
+`refreshDuration` will be a value in nanoseconds that is approximately
+equal to 16.67ms.
+In such a case, an application will want an IPD of 16.67ms (1X multiplier of
+`refreshInterval`), or 33.33ms (2X multiplier of `refreshInterval`),
+or 50.0ms (3X multiplier of `refreshInterval`), etc.
+
+In order to determine a target IPD for a display (i.e. a multiple of
+`refreshInterval`), an application needs to determine when its images
+are actually displayed.
+
+Consider an application that has an initial target IPD of 16.67ms (1X
+multiplier of `refreshDuration`).
+It will therefore position the geometry of a new image 16.67ms later than
+the previous image.
+
+If this application is running on slower hardware, so that it actually takes
+20ms to render each new image, the images will not be displayed to the user
+every 16.67ms, nor every 20ms, which will create visual anomalies.
+In this case, it is better for the application to adjust its target IPD to
+33.33ms (i.e. a 2X multiplier of `refreshDuration`), and tell the
+presentation engine to not present images any sooner than every 33.33ms.
+This will allow the geometry to be correctly positioned for each presentable
+image.
+
+On VRR displays, where `refreshInterval` is `UINT64_MAX`,
+applications **should** target an IPD that is at least equal to
+`refreshDuration`.
+
+Adjustments to an application’s IPD may be needed because different views of
+an application’s geometry can take different amounts of time to render.
+For example, looking at the sky may take less time to render than looking at
+multiple, complex items in a room.
+
+In general, it is good to not frequently change IPD, as that can cause
+visual anomalies.
+
+Adjustments to a larger IPD because of late images should happen quickly,
+but adjustments to a smaller IPD should only happen if the periodic feedback
+of [VkPastPresentationTimingEXT](#VkPastPresentationTimingEXT) values indicates that the target IPD
+can be durably achieved. |
+
+The implementation maintains an internal monotonically increasing counter
+which updates when the presentation engine’s list of supported time domains
+for a swapchain is modified.
+
+To query the time domains supported by the presentation engine for a given
+swapchain, call:
+
+// Provided by VK_EXT_present_timing
+VkResult vkGetSwapchainTimeDomainPropertiesEXT(
+    VkDevice                                    device,
+    VkSwapchainKHR                              swapchain,
+    VkSwapchainTimeDomainPropertiesEXT*         pSwapchainTimeDomainProperties,
+    uint64_t*                                   pTimeDomainsCounter);
+
+* 
+`device` is the device associated with `swapchain`.
+
+* 
+`swapchain` is the swapchain to obtain time domain properties for.
+
+* 
+`pSwapchainTimeDomainProperties` is a pointer to an instance of the
+[VkSwapchainTimeDomainPropertiesEXT](#VkSwapchainTimeDomainPropertiesEXT) structure.
+
+* 
+`pTimeDomainsCounter` is `NULL` or a pointer to a 64-bit unsigned
+integer set by the implementation to the current value of the
+swapchain’s internal time domain properties counter.
+
+If upon return
+[VkSwapchainTimeDomainPropertiesEXT](#VkSwapchainTimeDomainPropertiesEXT)::`timeDomainCount` is smaller
+than the number of time domains supported for the given `swapchain`,
+`VK_INCOMPLETE` will be returned instead of `VK_SUCCESS` to indicate
+that not all the available values were returned.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkGetSwapchainTimeDomainPropertiesEXT-device-parameter) VUID-vkGetSwapchainTimeDomainPropertiesEXT-device-parameter
+
+ `device` **must** be a valid [VkDevice](../devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkGetSwapchainTimeDomainPropertiesEXT-swapchain-parameter) VUID-vkGetSwapchainTimeDomainPropertiesEXT-swapchain-parameter
+
+ `swapchain` **must** be a valid [VkSwapchainKHR](#VkSwapchainKHR) handle
+
+* 
+[](#VUID-vkGetSwapchainTimeDomainPropertiesEXT-pSwapchainTimeDomainProperties-parameter) VUID-vkGetSwapchainTimeDomainPropertiesEXT-pSwapchainTimeDomainProperties-parameter
+
+ `pSwapchainTimeDomainProperties` **must** be a valid pointer to a [VkSwapchainTimeDomainPropertiesEXT](#VkSwapchainTimeDomainPropertiesEXT) structure
+
+* 
+[](#VUID-vkGetSwapchainTimeDomainPropertiesEXT-pTimeDomainsCounter-parameter) VUID-vkGetSwapchainTimeDomainPropertiesEXT-pTimeDomainsCounter-parameter
+
+ If `pTimeDomainsCounter` is not `NULL`, `pTimeDomainsCounter` **must** be a valid pointer to a `uint64_t` value
+
+* 
+[](#VUID-vkGetSwapchainTimeDomainPropertiesEXT-swapchain-parent) VUID-vkGetSwapchainTimeDomainPropertiesEXT-swapchain-parent
+
+ `swapchain` **must** have been created, allocated, or retrieved from `device`
+
+Host Synchronization
+
+* 
+Host access to `swapchain` **must** be externally synchronized
+
+Return Codes
+
+[Success](../fundamentals.html#fundamentals-successcodes)
+
+* 
+`VK_INCOMPLETE`
+
+* 
+`VK_SUCCESS`
+
+[Failure](../fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_SURFACE_LOST_KHR`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
+The `VkSwapchainTimeDomainPropertiesEXT` structure is defined as:
+
+// Provided by VK_EXT_present_timing
+typedef struct VkSwapchainTimeDomainPropertiesEXT {
+    VkStructureType     sType;
+    void*               pNext;
+    uint32_t            timeDomainCount;
+    VkTimeDomainKHR*    pTimeDomains;
+    uint64_t*           pTimeDomainIds;
+} VkSwapchainTimeDomainPropertiesEXT;
+
+* 
+`sType` is a [VkStructureType](../fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`timeDomainCount` is an integer related to the number of time
+domains available or queried, as described below.
+
+* 
+`pTimeDomains` is a pointer to an array of [VkTimeDomainKHR](../synchronization.html#VkTimeDomainKHR)
+values representing time domains that are available for the swapchain.
+
+* 
+`pTimeDomainIds` is a pointer to an array of unique identifiers for
+each time domain.
+
+When calling [vkGetSwapchainTimeDomainPropertiesEXT](#vkGetSwapchainTimeDomainPropertiesEXT), if
+`pTimeDomains` is `NULL` and `pTimeDomainIds` is `NULL`, then the
+number of time domains supported for the given `swapchain` is returned
+in `timeDomainCount`.
+Otherwise, `timeDomainCount` **must** specify the number of elements in the
+`pTimeDomains`, `pTimeDomainIds`, or both arrays, and on return the
+variable is overwritten with the number of values actually written to either
+array.
+
+|  | Due to the dynamic nature of their underlying `VkSurfaceKHR` properties,
+| --- | --- |
+swapchains may need to expose multiple swapchain-local opaque time domains
+using the same [VkTimeDomainKHR](../synchronization.html#VkTimeDomainKHR) value over time, for example when a
+surface is moved from one display hardware to another.
+Arbitrary identifiers, provided in `timeDomainIds`, are used by the
+implementation to differentiate opaque time domains of identical scopes. |
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkSwapchainTimeDomainPropertiesEXT-sType-sType) VUID-VkSwapchainTimeDomainPropertiesEXT-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT`
+
+* 
+[](#VUID-VkSwapchainTimeDomainPropertiesEXT-pNext-pNext) VUID-VkSwapchainTimeDomainPropertiesEXT-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkSwapchainTimeDomainPropertiesEXT-pTimeDomains-parameter) VUID-VkSwapchainTimeDomainPropertiesEXT-pTimeDomains-parameter
+
+ If `pTimeDomains` is not `NULL`, `pTimeDomains` **must** be a valid pointer to an array of `timeDomainCount` [VkTimeDomainKHR](../synchronization.html#VkTimeDomainKHR) values
+
+* 
+[](#VUID-VkSwapchainTimeDomainPropertiesEXT-pTimeDomainIds-parameter) VUID-VkSwapchainTimeDomainPropertiesEXT-pTimeDomainIds-parameter
+
+ If `pTimeDomainIds` is not `NULL`, `pTimeDomainIds` **must** be a valid pointer to an array of `timeDomainCount` `uint64_t` values
+
+* 
+[](#VUID-VkSwapchainTimeDomainPropertiesEXT-timeDomainCount-arraylength) VUID-VkSwapchainTimeDomainPropertiesEXT-timeDomainCount-arraylength
+
+ `timeDomainCount` **must** be greater than `0`
+
+Because of the asynchronous nature of the presentation engine, the timing
+information for a given [vkQueuePresentKHR](#vkQueuePresentKHR) command **may** only becomes
+available some time after the presentation has occurred.
+These time values **should** be asynchronously queried, and are returned if
+available.
+All time values are in nanoseconds, according to the time-domain being used.
+
+To asynchronously query the presentation engine for newly-available timing
+information about one or more previous presents to a given swapchain, call:
+
+// Provided by VK_EXT_present_timing
+VkResult vkGetPastPresentationTimingEXT(
+    VkDevice                                    device,
+    const VkPastPresentationTimingInfoEXT*      pPastPresentationTimingInfo,
+    VkPastPresentationTimingPropertiesEXT*      pPastPresentationTimingProperties);
+
+* 
+`device` is the device associated with `swapchain`.
+
+* 
+`pPastPresentationTimingInfo` is a pointer to an instance of the
+[VkPastPresentationTimingInfoEXT](#VkPastPresentationTimingInfoEXT) structure.
+
+* 
+`pPastPresentationTimingProperties` is a pointer to an instance of
+the [VkPastPresentationTimingPropertiesEXT](#VkPastPresentationTimingPropertiesEXT) structure.
+
+If upon return the value of
+`VkPastPresentationTimingPropertiesEXT`::`presentationTimingCount`
+is less than the number of available timing records for the given
+`VkPastPresentationTimingInfoEXT`::`swapchain`, `VK_INCOMPLETE`
+is returned instead of `VK_SUCCESS` to indicate that not all the
+available values were returned.
+
+Upon return, zero or more slots of the `swapchain` internal timing
+results queue, equal to the number of entries written to
+`VkPastPresentationTimingPropertiesEXT`::`pPresentationTimings` for
+which `reportComplete` is `VK_TRUE`, are made available for future
+`vkQueuePresentKHR` calls.
+Elements of `pPresentationTimings` are arranged in ascending order of
+present ids.
+
+Timing information **may** become available out of order with regards to their
+associated [vkQueuePresentKHR](#vkQueuePresentKHR) order.
+`VK_PAST_PRESENTATION_TIMING_ALLOW_OUT_OF_ORDER_RESULTS_BIT_EXT` **can** be
+set in `VkPastPresentationTimingInfoEXT`::`flags` to allow
+`vkGetPastPresentationTimingEXT` to return results in that same order.
+Otherwise, results are returned in the order of their associated
+[vkQueuePresentKHR](#vkQueuePresentKHR) calls.
+
+There is no requirement for any precise timing relationship between the
+completion of a present stage and the availability of any associated timing
+information.
+However, results **must** be made available in finite time.
+
+As an exception to the normal rules for objects which are externally
+synchronized, `swapchain` **may** be simultaneously used by other threads
+in calls to functions other than [vkDestroySwapchainKHR](#vkDestroySwapchainKHR) and
+[vkCreateSwapchainKHR](#vkCreateSwapchainKHR) with `swapchain` used as an
+`oldSwapchain`.
+Access to the swapchain timing information **must** be atomic within the
+implementation.
+
+Valid Usage
+
+* 
+[](#VUID-vkGetPastPresentationTimingEXT-flags-12230) VUID-vkGetPastPresentationTimingEXT-flags-12230
+
+If `VK_PAST_PRESENTATION_TIMING_ALLOW_OUT_OF_ORDER_RESULTS_BIT_EXT`
+is set in `VkPastPresentationTimingInfoEXT`::`flags`, the
+`presentStageCount` value of each element of
+`VkPastPresentationTimingPropertiesEXT`::`pPresentationTimings`
+**must** be at least the maximum number of present stages set in
+[VkPresentTimingInfoEXT](#VkPresentTimingInfoEXT)::`presentStageQueries` among all
+[vkQueuePresentKHR](#vkQueuePresentKHR) calls, with a non-zero
+`presentStageQueries`, for which complete results have not been
+returned yet by a previous call
+
+* 
+[](#VUID-vkGetPastPresentationTimingEXT-flags-12231) VUID-vkGetPastPresentationTimingEXT-flags-12231
+
+If `VK_PAST_PRESENTATION_TIMING_ALLOW_OUT_OF_ORDER_RESULTS_BIT_EXT`
+is not set in `VkPastPresentationTimingInfoEXT`::`flags`, the
+`presentStageCount` value of each element of
+`VkPastPresentationTimingPropertiesEXT`::`pPresentationTimings`
+**must** be at least the number of present stages set in
+`VkPresentTimingInfoEXT`::`presentStageQueries` for the earliest
+call to `vkQueuePresentKHR`, with a non-zero
+`presentStageQueries`, that corresponds to that element’s index and
+for which complete results have not been returned yet by a previous call
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkGetPastPresentationTimingEXT-device-parameter) VUID-vkGetPastPresentationTimingEXT-device-parameter
+
+ `device` **must** be a valid [VkDevice](../devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkGetPastPresentationTimingEXT-pPastPresentationTimingInfo-parameter) VUID-vkGetPastPresentationTimingEXT-pPastPresentationTimingInfo-parameter
+
+ `pPastPresentationTimingInfo` **must** be a valid pointer to a valid [VkPastPresentationTimingInfoEXT](#VkPastPresentationTimingInfoEXT) structure
+
+* 
+[](#VUID-vkGetPastPresentationTimingEXT-pPastPresentationTimingProperties-parameter) VUID-vkGetPastPresentationTimingEXT-pPastPresentationTimingProperties-parameter
+
+ `pPastPresentationTimingProperties` **must** be a valid pointer to a [VkPastPresentationTimingPropertiesEXT](#VkPastPresentationTimingPropertiesEXT) structure
+
+Return Codes
+
+[Success](../fundamentals.html#fundamentals-successcodes)
+
+* 
+`VK_INCOMPLETE`
+
+* 
+`VK_SUCCESS`
+
+[Failure](../fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_DEVICE_LOST`
+
+* 
+`VK_ERROR_OUT_OF_DATE_KHR`
+
+* 
+`VK_ERROR_SURFACE_LOST_KHR`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
+The `VkPastPresentationTimingInfoEXT` structure is defined as:
+
+// Provided by VK_EXT_present_timing
+typedef struct VkPastPresentationTimingInfoEXT {
+    VkStructureType                     sType;
+    const void*                         pNext;
+    VkPastPresentationTimingFlagsEXT    flags;
+    VkSwapchainKHR                      swapchain;
+} VkPastPresentationTimingInfoEXT;
+
+* 
+`sType` is a [VkStructureType](../fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`flags` is a bitmask of [VkPastPresentationTimingFlagBitsEXT](#VkPastPresentationTimingFlagBitsEXT)
+specifying options for queries of past presentation timing information.
+
+* 
+`swapchain` is the swapchain to obtain presentation timing
+information for.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPastPresentationTimingInfoEXT-sType-sType) VUID-VkPastPresentationTimingInfoEXT-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_INFO_EXT`
+
+* 
+[](#VUID-VkPastPresentationTimingInfoEXT-pNext-pNext) VUID-VkPastPresentationTimingInfoEXT-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkPastPresentationTimingInfoEXT-flags-parameter) VUID-VkPastPresentationTimingInfoEXT-flags-parameter
+
+ `flags` **must** be a valid combination of [VkPastPresentationTimingFlagBitsEXT](#VkPastPresentationTimingFlagBitsEXT) values
+
+* 
+[](#VUID-VkPastPresentationTimingInfoEXT-swapchain-parameter) VUID-VkPastPresentationTimingInfoEXT-swapchain-parameter
+
+ `swapchain` **must** be a valid [VkSwapchainKHR](#VkSwapchainKHR) handle
+
+Host Synchronization
+
+* 
+Host access to `swapchain` **must** be externally synchronized
+
+// Provided by VK_EXT_present_timing
+typedef VkFlags VkPastPresentationTimingFlagsEXT;
+
+`VkPastPresentationTimingFlagsEXT` is a bitmask type for setting a mask
+of zero or more [VkPastPresentationTimingFlagBitsEXT](#VkPastPresentationTimingFlagBitsEXT).
+
+Bits which **can** be set in
+[VkPastPresentationTimingInfoEXT](#VkPastPresentationTimingInfoEXT)::`flags`, specifying options for
+queries of past presentation timing information, are:
+
+// Provided by VK_EXT_present_timing
+typedef enum VkPastPresentationTimingFlagBitsEXT {
+    VK_PAST_PRESENTATION_TIMING_ALLOW_PARTIAL_RESULTS_BIT_EXT = 0x00000001,
+    VK_PAST_PRESENTATION_TIMING_ALLOW_OUT_OF_ORDER_RESULTS_BIT_EXT = 0x00000002,
+} VkPastPresentationTimingFlagBitsEXT;
+
+* 
+`VK_PAST_PRESENTATION_TIMING_ALLOW_PARTIAL_RESULTS_BIT_EXT`
+specifies that [vkGetPastPresentationTimingEXT](#vkGetPastPresentationTimingEXT) **may** return partial
+results for presentation requests that have not completed all requested
+present stages.
+
+* 
+`VK_PAST_PRESENTATION_TIMING_ALLOW_OUT_OF_ORDER_RESULTS_BIT_EXT`
+specifies that [vkGetPastPresentationTimingEXT](#vkGetPastPresentationTimingEXT) **may** return results
+out of order with respect to the presentation order.
+
+The `VkPastPresentationTimingPropertiesEXT` structure is defined as:
+
+// Provided by VK_EXT_present_timing
+typedef struct VkPastPresentationTimingPropertiesEXT {
+    VkStructureType                 sType;
+    void*                           pNext;
+    uint64_t                        timingPropertiesCounter;
+    uint64_t                        timeDomainsCounter;
+    uint32_t                        presentationTimingCount;
+    VkPastPresentationTimingEXT*    pPresentationTimings;
+} VkPastPresentationTimingPropertiesEXT;
+
+* 
+`sType` is a [VkStructureType](../fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`timingPropertiesCounter` is a 64-bit unsigned integer set by the
+implementation to the current value of the swapchain’s internal timing
+properties counter.
+
+* 
+`timeDomainsCounter` is a 64-bit unsigned integer set by the
+implementation to the current value of the swapchain’s internal time
+domains list counter.
+
+* 
+`presentationTimingCount` is an integer related to the number of
+[VkPastPresentationTimingEXT](#VkPastPresentationTimingEXT) structures available or queried, as
+described below.
+
+* 
+`pPresentationTimings` is `NULL` or a pointer to an array of
+[VkPastPresentationTimingEXT](#VkPastPresentationTimingEXT) structures.
+
+When calling [vkGetPastPresentationTimingEXT](#vkGetPastPresentationTimingEXT), if
+`pPresentationTimings` is `NULL`, then the number of available timing
+records for the given `swapchain` is returned in
+`presentationTimingCount`.
+Otherwise, `presentationTimingCount` **must** specify the number of
+elements in the `pPresentationTimings` array, and on return the variable
+is overwritten with the number of structures actually written to
+`pPresentationTimings`.
+
+if `VK_PAST_PRESENTATION_TIMING_ALLOW_PARTIAL_RESULTS_BIT_EXT` is
+specified in [VkPastPresentationTimingInfoEXT](#VkPastPresentationTimingInfoEXT)::`flags`,
+`vkGetPastPresentationTimingEXT` **may** return incomplete results,
+containing only information for a subset of the requested present stages.
+Further calls to `vkGetPastPresentationTimingEXT` will keep providing
+all available results for a previously incomplete entry until it is
+complete.
+
+The implementation **must** return a [VkPastPresentationTimingEXT](#VkPastPresentationTimingEXT) for
+every [vkQueuePresentKHR](#vkQueuePresentKHR) referencing `swapchain` where a non-zero
+[VkPresentTimingInfoEXT](#VkPresentTimingInfoEXT)::`presentStageQueries` was specified and at
+least one present stage has available results.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPastPresentationTimingPropertiesEXT-sType-sType) VUID-VkPastPresentationTimingPropertiesEXT-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_PROPERTIES_EXT`
+
+* 
+[](#VUID-VkPastPresentationTimingPropertiesEXT-pNext-pNext) VUID-VkPastPresentationTimingPropertiesEXT-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkPastPresentationTimingPropertiesEXT-pPresentationTimings-parameter) VUID-VkPastPresentationTimingPropertiesEXT-pPresentationTimings-parameter
+
+ `pPresentationTimings` **must** be a valid pointer to an array of `presentationTimingCount` [VkPastPresentationTimingEXT](#VkPastPresentationTimingEXT) structures
+
+* 
+[](#VUID-VkPastPresentationTimingPropertiesEXT-presentationTimingCount-arraylength) VUID-VkPastPresentationTimingPropertiesEXT-presentationTimingCount-arraylength
+
+ `presentationTimingCount` **must** be greater than `0`
+
+|  | The presentation engine **may** change the timing properties of the
+| --- | --- |
+`swapchain` for a variety of reasons.
+
+This **may** occur, for example, if the window system changes its mode,
+including the refresh rate of the display.
+Another example is if an application’s surface is being composited with
+other windows of a window system, and then the surface’s window becomes a
+borderless, full-screen window.
+While composited, the timing properties **may** be FRR, and while full-screen,
+the timing properties **may** be VRR.
+
+The available time domains for a swapchain **may** change for similar or
+identical reasons.
+Therefore, it is possible that the same event will cause both the
+swapchain’s internal timing properties counter and time domains list counter
+to update. |
+
+The `VkPastPresentationTimingEXT` structure is defined as:
+
+// Provided by VK_EXT_present_timing
+typedef struct VkPastPresentationTimingEXT {
+    VkStructureType           sType;
+    void*                     pNext;
+    uint64_t                  presentId;
+    uint64_t                  targetTime;
+    uint32_t                  presentStageCount;
+    VkPresentStageTimeEXT*    pPresentStages;
+    VkTimeDomainKHR           timeDomain;
+    uint64_t                  timeDomainId;
+    VkBool32                  reportComplete;
+} VkPastPresentationTimingEXT;
+
+* 
+`sType` is a [VkStructureType](../fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`presentId` is zero or a value that was given to a previous
+`vkQueuePresentKHR` command via
+[VkPresentId2KHR](#VkPresentId2KHR)::`pPresentIds`.
+
+* 
+`targetTime` is the application-provided target absolute time or
+duration of the associated presentation request in
+[VkPresentTimingInfoEXT](#VkPresentTimingInfoEXT)::`targetTime`.
+
+* 
+`presentStageCount` is a count of items contained in
+`pPresentStages`.
+
+* 
+`pPresentStages` a pointer to an array of
+[VkPresentStageTimeEXT](#VkPresentStageTimeEXT) providing timing information for the
+presentation request associated with `presentId`.
+
+* 
+`timeDomain` is the time domain used by the presentation engine to
+report times in `pPresentStages`.
+
+* 
+`timeDomainId` is the id associated with `timeDomain`.
+
+* 
+`reportComplete` is `VK_TRUE` if the presentation engine has
+reported all the requested results in `pPresentStages`.
+
+When calling [vkGetPastPresentationTimingEXT](#vkGetPastPresentationTimingEXT), the implementation sets
+`presentStageCount` to the number of present stages it has written
+results for.
+If `VK_PAST_PRESENTATION_TIMING_ALLOW_PARTIAL_RESULTS_BIT_EXT` was
+specified in [VkPastPresentationTimingInfoEXT](#VkPastPresentationTimingInfoEXT)::`flags`, the
+implementation **may** return an incomplete report containing fewer present
+stage results than were queried by the associated presentation request.
+Otherwise, results for all the present stages queried by the presentation
+request are written by the implementation.
+
+Timing information for some present stages **may** have a time value of 0,
+indicating that results for that present stage are not available.
+
+For systems with multiple entities operating within the presentation engine,
+such as multiple displays, `pPresentStages` will return timing results
+for one entity which has been affected by the presentation.
+
+`timeDomainId` **may** be different than the time domain that was specified
+in `VkPresentTimingInfoEXT`::`timeDomainId` if the requirements for
+using this time domain could not be met at the time the presentation engine
+processed the presentation request.
+In such a case, the presentation engine **may** pick a time domain to fall back
+to, if one is available, and report results in that domain.
+Applications **can** continue to use this fallback time domain in future
+`vkQueuePresentKHR` calls, or they **can** call
+[vkGetSwapchainTimeDomainPropertiesEXT](#vkGetSwapchainTimeDomainPropertiesEXT) to choose from the currently
+supported time domains.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPastPresentationTimingEXT-sType-sType) VUID-VkPastPresentationTimingEXT-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_EXT`
+
+* 
+[](#VUID-VkPastPresentationTimingEXT-pNext-pNext) VUID-VkPastPresentationTimingEXT-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkPastPresentationTimingEXT-pPresentStages-parameter) VUID-VkPastPresentationTimingEXT-pPresentStages-parameter
+
+ `pPresentStages` **must** be a valid pointer to an array of `presentStageCount` [VkPresentStageTimeEXT](#VkPresentStageTimeEXT) structures
+
+* 
+[](#VUID-VkPastPresentationTimingEXT-timeDomain-parameter) VUID-VkPastPresentationTimingEXT-timeDomain-parameter
+
+ `timeDomain` **must** be a valid [VkTimeDomainKHR](../synchronization.html#VkTimeDomainKHR) value
+
+* 
+[](#VUID-VkPastPresentationTimingEXT-presentStageCount-arraylength) VUID-VkPastPresentationTimingEXT-presentStageCount-arraylength
+
+ `presentStageCount` **must** be greater than `0`
+
+The `VkPresentStageTimeEXT` structure is defined as:
+
+// Provided by VK_EXT_present_timing
+typedef struct VkPresentStageTimeEXT {
+    VkPresentStageFlagsEXT    stage;
+    uint64_t                  time;
+} VkPresentStageTimeEXT;
+
+* 
+`stage` is a [VkPresentStageFlagsEXT](#VkPresentStageFlagsEXT) value specifying a present
+stage.
+
+* 
+`time` is a time in nanoseconds associated with the `stage`.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPresentStageTimeEXT-stage-parameter) VUID-VkPresentStageTimeEXT-stage-parameter
+
+ `stage` **must** be a valid combination of [VkPresentStageFlagBitsEXT](#VkPresentStageFlagBitsEXT) values
+
+* 
+[](#VUID-VkPresentStageTimeEXT-stage-requiredbitmask) VUID-VkPresentStageTimeEXT-stage-requiredbitmask
+
+ `stage` **must** not be `0`
 
 To query the duration of a refresh cycle (RC) for the presentation engine’s
 display, call:
@@ -8096,48 +9050,6 @@ typedef struct VkRefreshCycleDurationGOOGLE {
 * 
 `refreshDuration` is the number of nanoseconds from the start of one
 refresh cycle to the next.
-
-|  | The rate at which an application renders and presents new images is known as
-| --- | --- |
-the image present rate (IPR, aka frame rate).
-The inverse of IPR, or the duration between each image present, is the image
-present duration (IPD).
-In order to provide a smooth, stutter-free animation, an application will
-want its IPD to be a multiple of `refreshDuration`.
-For example, if a display has a 60Hz refresh rate, `refreshDuration`
-will be a value in nanoseconds that is approximately equal to 16.67ms.
-In such a case, an application will want an IPD of 16.67ms (1X multiplier of
-`refreshDuration`), or 33.33ms (2X multiplier of `refreshDuration`),
-or 50.0ms (3X multiplier of `refreshDuration`), etc.
-
-In order to determine a target IPD for a display (i.e. a multiple of
-`refreshDuration`), an application needs to determine when its images
-are actually displayed.
-Suppose an application has an initial target IPD of 16.67ms (1X multiplier
-of `refreshDuration`).
-It will therefore position the geometry of a new image 16.67ms later than
-the previous image.
-But suppose this application is running on slower hardware, so that it
-actually takes 20ms to render each new image.
-This will create visual anomalies, because the images will not be displayed
-to the user every 16.67ms, nor every 20ms.
-In this case, it is better for the application to adjust its target IPD to
-33.33ms (i.e. a 2X multiplier of `refreshDuration`), and tell the
-presentation engine to not present images any sooner than every 33.33ms.
-This will allow the geometry to be correctly positioned for each presentable
-image.
-
-Adjustments to an application’s IPD may be needed because different views of
-an application’s geometry can take different amounts of time to render.
-For example, looking at the sky may take less time to render than looking at
-multiple, complex items in a room.
-In general, it is good to not frequently change IPD, as that can cause
-visual anomalies.
-Adjustments to a larger IPD because of late images should happen quickly,
-but adjustments to a smaller IPD should only happen if the
-`actualPresentTime` and `earliestPresentTime` members of the
-[VkPastPresentationTimingGOOGLE](#VkPastPresentationTimingGOOGLE) structure are consistently different,
-and if `presentMargin` is consistently large, over multiple images. |
 
 The implementation will maintain a limited amount of history of timing
 information about previous presents.
@@ -8357,8 +9269,8 @@ For example, if `VkPresentTimeGOOGLE`::`desiredPresentTime` is
 far enough in the future that an image is not presented before
 `vkQueuePresentKHR` is called to present another image, the first
 image will not be displayed to the user.
-If the application continues to do that, the presentation **may** not
-display new images.
+If the application continues to do that, the presentation engine **may**
+not display new images.
 
 * 
 `VK_PRESENT_MODE_FIFO_RELAXED_KHR`.
@@ -9257,6 +10169,15 @@ If the [    `imageCompressionControlSwapchain`](../features.html#features-imageC
 `pNext` chain **must** not include an
 [VkImageCompressionControlEXT](../resources.html#VkImageCompressionControlEXT) structure
 
+* 
+[](#VUID-VkSwapchainCreateInfoKHR-presentTiming-12232) VUID-VkSwapchainCreateInfoKHR-presentTiming-12232
+
+If none of the [`presentTiming`](../features.html#features-presentTiming),
+[`presentAtAbsoluteTime`](../features.html#features-presentAtAbsoluteTime), or
+[`presentAtRelativeTime`](../features.html#features-presentAtRelativeTime) features
+are enabled, `flags` **must** not contain
+`VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT`
+
 Valid Usage (Implicit)
 
 * 
@@ -9353,6 +10274,8 @@ typedef enum VkSwapchainCreateFlagBitsKHR {
     VK_SWAPCHAIN_CREATE_PROTECTED_BIT_KHR = 0x00000002,
   // Provided by VK_KHR_swapchain_mutable_format
     VK_SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR = 0x00000004,
+  // Provided by VK_EXT_present_timing
+    VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT = 0x00000200,
   // Provided by VK_KHR_present_id2
     VK_SWAPCHAIN_CREATE_PRESENT_ID_2_BIT_KHR = 0x00000040,
   // Provided by VK_KHR_present_wait2
@@ -9405,6 +10328,12 @@ applications **can** use `vkWaitForPresent2KHR` to wait for the
 presentation engine to have begun presentation of the presentation
 request associated with [VkPresentWait2InfoKHR](#VkPresentWait2InfoKHR)::`presentId` on
 `swapchain`.
+
+* 
+`VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT` specifies that features
+supported by the swapchain device in
+[VkPhysicalDevicePresentTimingFeaturesEXT](../features.html#VkPhysicalDevicePresentTimingFeaturesEXT) **can** be used to collect
+timing information or schedule presentation requests at specific times.
 
 // Provided by VK_KHR_swapchain
 typedef VkFlags VkSwapchainCreateFlagsKHR;
@@ -9703,9 +10632,8 @@ typedef struct VkSwapchainPresentModesCreateInfoKHR {
     const VkPresentModeKHR*    pPresentModes;
 } VkSwapchainPresentModesCreateInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkSwapchainPresentModesCreateInfoKHR
 typedef VkSwapchainPresentModesCreateInfoKHR VkSwapchainPresentModesCreateInfoEXT;
 
 * 
@@ -9799,9 +10727,8 @@ typedef struct VkSwapchainPresentScalingCreateInfoKHR {
     VkPresentGravityFlagsKHR    presentGravityY;
 } VkSwapchainPresentScalingCreateInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkSwapchainPresentScalingCreateInfoKHR
 typedef VkSwapchainPresentScalingCreateInfoKHR VkSwapchainPresentScalingCreateInfoEXT;
 
 * 
@@ -10948,6 +11875,11 @@ If any of the presents would have a result of
 
 * 
 If any of the presents would have a result of
+`VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT` if issued separately then
+`VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT` is returned.
+
+* 
+If any of the presents would have a result of
 `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT` if issued separately
 then `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT` is returned.
 
@@ -11132,6 +12064,9 @@ Return Codes
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
+`VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT`
+
+* 
 `VK_ERROR_SURFACE_LOST_KHR`
 
 * 
@@ -11278,7 +12213,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkPresentInfoKHR-pNext-pNext) VUID-VkPresentInfoKHR-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDeviceGroupPresentInfoKHR](#VkDeviceGroupPresentInfoKHR), [VkDisplayPresentInfoKHR](#VkDisplayPresentInfoKHR), [VkFrameBoundaryEXT](../debugging.html#VkFrameBoundaryEXT), [VkFrameBoundaryTensorsARM](../debugging.html#VkFrameBoundaryTensorsARM), [VkPresentFrameTokenGGP](#VkPresentFrameTokenGGP), [VkPresentId2KHR](#VkPresentId2KHR), [VkPresentIdKHR](#VkPresentIdKHR), [VkPresentRegionsKHR](#VkPresentRegionsKHR), [VkPresentTimesInfoGOOGLE](#VkPresentTimesInfoGOOGLE), [VkSetPresentConfigNV](#VkSetPresentConfigNV), [VkSwapchainPresentFenceInfoKHR](#VkSwapchainPresentFenceInfoKHR), or [VkSwapchainPresentModeInfoKHR](#VkSwapchainPresentModeInfoKHR)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDeviceGroupPresentInfoKHR](#VkDeviceGroupPresentInfoKHR), [VkDisplayPresentInfoKHR](#VkDisplayPresentInfoKHR), [VkFrameBoundaryEXT](../debugging.html#VkFrameBoundaryEXT), [VkFrameBoundaryTensorsARM](../debugging.html#VkFrameBoundaryTensorsARM), [VkPresentFrameTokenGGP](#VkPresentFrameTokenGGP), [VkPresentId2KHR](#VkPresentId2KHR), [VkPresentIdKHR](#VkPresentIdKHR), [VkPresentRegionsKHR](#VkPresentRegionsKHR), [VkPresentTimesInfoGOOGLE](#VkPresentTimesInfoGOOGLE), [VkPresentTimingsInfoEXT](#VkPresentTimingsInfoEXT), [VkSetPresentConfigNV](#VkSetPresentConfigNV), [VkSwapchainPresentFenceInfoKHR](#VkSwapchainPresentFenceInfoKHR), or [VkSwapchainPresentModeInfoKHR](#VkSwapchainPresentModeInfoKHR)
 
 * 
 [](#VUID-VkPresentInfoKHR-sType-unique) VUID-VkPresentInfoKHR-sType-unique
@@ -11698,6 +12633,294 @@ Valid Usage (Implicit)
 [](#VUID-VkDeviceGroupPresentInfoKHR-mode-parameter) VUID-VkDeviceGroupPresentInfoKHR-mode-parameter
 
  `mode` **must** be a valid [VkDeviceGroupPresentModeFlagBitsKHR](#VkDeviceGroupPresentModeFlagBitsKHR) value
+
+When the [`presentAtAbsoluteTime`](../features.html#features-presentAtAbsoluteTime) or
+[`presentAtRelativeTime`](../features.html#features-presentAtRelativeTime) feature is
+enabled, an application **can** instruct the presentation engine to attempt to
+display an image at a specified time, or for a minimum duration, by
+including the `VkPresentTimingsInfoEXT` structure in the `pNext`
+chain of the [VkPresentInfoKHR](#VkPresentInfoKHR) structure.
+
+The `VkPresentTimingsInfoEXT` structure is defined as:
+
+// Provided by VK_EXT_present_timing
+typedef struct VkPresentTimingsInfoEXT {
+    VkStructureType                  sType;
+    const void*                      pNext;
+    uint32_t                         swapchainCount;
+    const VkPresentTimingInfoEXT*    pTimingInfos;
+} VkPresentTimingsInfoEXT;
+
+* 
+`sType` is a [VkStructureType](../fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`swapchainCount` is the number of swapchains being presented to by
+this command.
+
+* 
+`pTimingInfos` is `NULL` or a pointer to an array of
+`VkPresentTimingInfoEXT` elements with `swapchainCount` entries.
+If not `NULL`, each element of `pTimingInfos` contains timing
+information for the presentation of the image corresponding to the entry
+in the `VkPresentInfoKHR`::`pImageIndices` array.
+
+Valid Usage
+
+* 
+[](#VUID-VkPresentTimingsInfoEXT-swapchainCount-12233) VUID-VkPresentTimingsInfoEXT-swapchainCount-12233
+
+`swapchainCount` **must** be equal to
+[VkPresentInfoKHR](#VkPresentInfoKHR)::`swapchainCount`
+
+* 
+[](#VUID-VkPresentTimingsInfoEXT-pSwapchains-12234) VUID-VkPresentTimingsInfoEXT-pSwapchains-12234
+
+All swapchains in [VkPresentInfoKHR](#VkPresentInfoKHR)::`pSwapchains` **must** have
+been created with the [VkSwapchainCreateInfoKHR](#VkSwapchainCreateInfoKHR)::`flags` field
+containing `VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT`
+
+* 
+[](#VUID-VkPresentTimingsInfoEXT-pSwapchains-12235) VUID-VkPresentTimingsInfoEXT-pSwapchains-12235
+
+For each member of `VkPresentInfoKHR`::`pSwapchains`, if the
+associated [VkPresentTimingInfoEXT](#VkPresentTimingInfoEXT)::`targetTime` is not zero,
+the swapchain’s current present mode **must** be
+`VK_PRESENT_MODE_FIFO_LATEST_READY_KHR`,
+`VK_PRESENT_MODE_FIFO_KHR` or `VK_PRESENT_MODE_FIFO_RELAXED_KHR`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPresentTimingsInfoEXT-sType-sType) VUID-VkPresentTimingsInfoEXT-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PRESENT_TIMINGS_INFO_EXT`
+
+* 
+[](#VUID-VkPresentTimingsInfoEXT-pTimingInfos-parameter) VUID-VkPresentTimingsInfoEXT-pTimingInfos-parameter
+
+ If `pTimingInfos` is not `NULL`, `pTimingInfos` **must** be a valid pointer to an array of `swapchainCount` valid [VkPresentTimingInfoEXT](#VkPresentTimingInfoEXT) structures
+
+* 
+[](#VUID-VkPresentTimingsInfoEXT-swapchainCount-arraylength) VUID-VkPresentTimingsInfoEXT-swapchainCount-arraylength
+
+ `swapchainCount` **must** be greater than `0`
+
+The `VkPresentTimingInfoEXT` structure is defined as:
+
+// Provided by VK_EXT_present_timing
+typedef struct VkPresentTimingInfoEXT {
+    VkStructureType                sType;
+    const void*                    pNext;
+    VkPresentTimingInfoFlagsEXT    flags;
+    uint64_t                       targetTime;
+    uint64_t                       timeDomainId;
+    VkPresentStageFlagsEXT         presentStageQueries;
+    VkPresentStageFlagsEXT         targetTimeDomainPresentStage;
+} VkPresentTimingInfoEXT;
+
+* 
+`sType` is a [VkStructureType](../fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`flags` is a bitmask of [VkPresentTimingInfoFlagBitsEXT](#VkPresentTimingInfoFlagBitsEXT)
+specifying options for how to interpret the timing information.
+
+* 
+`targetTime` is zero or a value specifying the target present time
+or duration, in nanoseconds, of the presentation request.
+
+* 
+`timeDomainId` is the id of the time domain used to specify the
+absolute target present time and the timing results obtained in a
+subsequent [vkGetPastPresentationTimingEXT](#vkGetPastPresentationTimingEXT) call for the current
+presentation request.
+
+* 
+`presentStageQueries` is a valid [VkPresentStageFlagsEXT](#VkPresentStageFlagsEXT) value
+indicating which present stages the presentation engine will collect
+timing information for.
+
+* 
+`targetTimeDomainPresentStage` is a valid
+[VkPresentStageFlagsEXT](#VkPresentStageFlagsEXT) specifying a single present stage used to
+interpret `targetTime`.
+
+If `targetTime` is not zero, the implementation attempts to align the
+`VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_VISIBLE_BIT_EXT` present stage of
+that presentation request with the time specified in `targetTime`
+according to the time domain used.
+If `VK_PRESENT_TIMING_INFO_PRESENT_AT_NEAREST_REFRESH_CYCLE_BIT_EXT` is
+not set in `flags`, it indicates that the application would strictly
+prefer the image to not be visible before `targetTime` has lapsed.
+
+If `targetTime` is not zero and `timeDomainId` is associated with a
+`VK_TIME_DOMAIN_PRESENT_STAGE_LOCAL_EXT` time domain,
+`targetTimeDomainPresentStage` is used to specify which present stage’s
+time domain `targetTime` is specified for.
+Otherwise, `targetTimeDomainPresentStage` is ignored.
+
+|  | Some platforms, due to hardware or system limitations, **may** not be able to
+| --- | --- |
+accurately time `targetTime` with the actual physical event of the image
+becoming visible on the display.
+However, those timing capabilities **may** still be useful and result in
+improved animation quality.
+
+As such, the [`presentAtAbsoluteTime`](../features.html#features-presentAtAbsoluteTime)
+and [`presentAtRelativeTime`](../features.html#features-presentAtRelativeTime) features
+do not provide a strict guarantee regarding the completion of the
+`VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_VISIBLE_BIT_EXT` present stage
+relative to the `targetTime`, and implementations **must** strive to make
+it as consistent and accurate as possible. |
+
+|  | Applications that specify an absolute present time **should** regularly rebase
+| --- | --- |
+their calculations for their next target time on the feedback from
+[vkGetPastPresentationTimingEXT](#vkGetPastPresentationTimingEXT) to compensate for accumulated precision
+errors or potential clock drift.
+It is recommended that when targeting the time of a vertical blanking
+period, applications set
+`VK_PRESENT_TIMING_INFO_PRESENT_AT_NEAREST_REFRESH_CYCLE_BIT_EXT` to
+allow the implementation to compensate for small precision errors that may
+cause an image to be displayed one refresh cycle later than intended. |
+
+Valid Usage
+
+* 
+[](#VUID-VkPresentTimingInfoEXT-targetTime-12236) VUID-VkPresentTimingInfoEXT-targetTime-12236
+
+If `targetTime` is not zero and `flags` does not contain
+`VK_PRESENT_TIMING_INFO_PRESENT_AT_RELATIVE_TIME_BIT_EXT`, the
+[`presentAtAbsoluteTime`](../features.html#features-presentAtAbsoluteTime) feature
+**must** be enabled
+
+* 
+[](#VUID-VkPresentTimingInfoEXT-targetTime-12237) VUID-VkPresentTimingInfoEXT-targetTime-12237
+
+If `targetTime` is not zero and `flags` contains
+`VK_PRESENT_TIMING_INFO_PRESENT_AT_RELATIVE_TIME_BIT_EXT`, the
+[`presentAtRelativeTime`](../features.html#features-presentAtRelativeTime) feature
+**must** be enabled
+
+* 
+[](#VUID-VkPresentTimingInfoEXT-timeDomainId-12238) VUID-VkPresentTimingInfoEXT-timeDomainId-12238
+
+If `timeDomainId` is associated with a
+`VK_TIME_DOMAIN_PRESENT_STAGE_LOCAL_EXT` time domain, and
+`targetTime` is not zero, `targetTimeDomainPresentStage` **must**
+be a single `VkPresentStageFlagsEXT` value
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPresentTimingInfoEXT-sType-sType) VUID-VkPresentTimingInfoEXT-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PRESENT_TIMING_INFO_EXT`
+
+* 
+[](#VUID-VkPresentTimingInfoEXT-pNext-pNext) VUID-VkPresentTimingInfoEXT-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkPresentTimingInfoEXT-flags-parameter) VUID-VkPresentTimingInfoEXT-flags-parameter
+
+ `flags` **must** be a valid combination of [VkPresentTimingInfoFlagBitsEXT](#VkPresentTimingInfoFlagBitsEXT) values
+
+* 
+[](#VUID-VkPresentTimingInfoEXT-presentStageQueries-parameter) VUID-VkPresentTimingInfoEXT-presentStageQueries-parameter
+
+ `presentStageQueries` **must** be a valid combination of [VkPresentStageFlagBitsEXT](#VkPresentStageFlagBitsEXT) values
+
+* 
+[](#VUID-VkPresentTimingInfoEXT-targetTimeDomainPresentStage-parameter) VUID-VkPresentTimingInfoEXT-targetTimeDomainPresentStage-parameter
+
+ `targetTimeDomainPresentStage` **must** be a valid combination of [VkPresentStageFlagBitsEXT](#VkPresentStageFlagBitsEXT) values
+
+Bits which **can** be set in [VkPresentTimingInfoEXT](#VkPresentTimingInfoEXT)::`flags`,
+specifying options for how to interpret timing information:
+
+// Provided by VK_EXT_present_timing
+typedef enum VkPresentTimingInfoFlagBitsEXT {
+    VK_PRESENT_TIMING_INFO_PRESENT_AT_RELATIVE_TIME_BIT_EXT = 0x00000001,
+    VK_PRESENT_TIMING_INFO_PRESENT_AT_NEAREST_REFRESH_CYCLE_BIT_EXT = 0x00000002,
+} VkPresentTimingInfoFlagBitsEXT;
+
+* 
+`VK_PRESENT_TIMING_INFO_PRESENT_AT_RELATIVE_TIME_BIT_EXT` specifies
+that `VkPresentTimingInfoEXT`::`targetTime` is to be interpreted
+as a relative time from the previous presentation’s
+`VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_VISIBLE_BIT_EXT` stage.
+If the `swapchain` has never been used to present an image, the
+provided `targetTime` is ignored.
+
+* 
+`VK_PRESENT_TIMING_INFO_PRESENT_AT_NEAREST_REFRESH_CYCLE_BIT_EXT`
+specifies that the application would prefer the image to be presented
+earlier than the time specified in
+`VkPresentTimingInfoEXT`::`targetTime` if that time falls within
+the first half of a refresh cycle.
+In that case, the presentation engine **may** choose to display the image
+at the start of that refresh cycle.
+
+// Provided by VK_EXT_present_timing
+typedef VkFlags VkPresentTimingInfoFlagsEXT;
+
+`VkPresentTimingInfoFlagsEXT` is a bitmask type for setting a mask of
+zero or more [VkPresentTimingInfoFlagBitsEXT](#VkPresentTimingInfoFlagBitsEXT).
+
+Presenting an image to the user typically involves multiple stages.
+Bits which **can** be set to specify present stages are:
+
+// Provided by VK_EXT_present_timing
+typedef enum VkPresentStageFlagBitsEXT {
+    VK_PRESENT_STAGE_QUEUE_OPERATIONS_END_BIT_EXT = 0x00000001,
+    VK_PRESENT_STAGE_REQUEST_DEQUEUED_BIT_EXT = 0x00000002,
+    VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_OUT_BIT_EXT = 0x00000004,
+    VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_VISIBLE_BIT_EXT = 0x00000008,
+} VkPresentStageFlagBitsEXT;
+
+* 
+`VK_PRESENT_STAGE_QUEUE_OPERATIONS_END_BIT_EXT` marks the end of the
+set of queue operations enqueued by [vkQueuePresentKHR](#vkQueuePresentKHR) on the
+provided `VkQueue` for a presentation request.
+
+* 
+`VK_PRESENT_STAGE_REQUEST_DEQUEUED_BIT_EXT` is the stage after which
+the presentation request has been dequeued from the swapchain’s internal
+presentation request queue, if any, as specified by the present mode
+associated with that request.
+
+* 
+`VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_OUT_BIT_EXT` is the stage after
+which data for the first pixel of the presentation request associated
+with the image has left the presentation engine for a display hardware.
+
+* 
+`VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_VISIBLE_BIT_EXT` is the stage
+after which a display hardware has made the first pixel visible for the
+presentation request associated with the image to be presented.
+
+|  | The set of queue operations delimited by
+| --- | --- |
+`VK_PRESENT_STAGE_QUEUE_OPERATIONS_END_BIT_EXT` includes the wait for
+the semaphores specified in [VkPresentInfoKHR](#VkPresentInfoKHR)::`pWaitSemaphores`,
+if any, and any work implicitly enqueued by the implementation. |
+
+// Provided by VK_EXT_present_timing
+typedef VkFlags VkPresentStageFlagsEXT;
+
+`VkPresentStageFlagsEXT` is a bitmask type for setting a mask of zero or
+more [VkPresentStageFlagBitsEXT](#VkPresentStageFlagBitsEXT).
 
 When the `[VK_GOOGLE_display_timing](../../appendices/extensions.html#VK_GOOGLE_display_timing)` extension is enabled, additional
 fields **can** be specified that allow an application to specify the earliest
@@ -12314,9 +13537,8 @@ typedef struct VkSwapchainPresentModeInfoKHR {
     const VkPresentModeKHR*    pPresentModes;
 } VkSwapchainPresentModeInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkSwapchainPresentModeInfoKHR
 typedef VkSwapchainPresentModeInfoKHR VkSwapchainPresentModeInfoEXT;
 
 * 
@@ -12454,9 +13676,8 @@ typedef struct VkSwapchainPresentFenceInfoKHR {
     const VkFence*     pFences;
 } VkSwapchainPresentFenceInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkSwapchainPresentFenceInfoKHR
 typedef VkSwapchainPresentFenceInfoKHR VkSwapchainPresentFenceInfoEXT;
 
 * 
@@ -12561,9 +13782,8 @@ VkResult vkReleaseSwapchainImagesKHR(
     VkDevice                                    device,
     const VkReleaseSwapchainImagesInfoKHR*      pReleaseInfo);
 
-or the equivalent
-
 // Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to vkReleaseSwapchainImagesKHR
 VkResult vkReleaseSwapchainImagesEXT(
     VkDevice                                    device,
     const VkReleaseSwapchainImagesInfoKHR*      pReleaseInfo);
@@ -12640,9 +13860,8 @@ typedef struct VkReleaseSwapchainImagesInfoKHR {
     const uint32_t*    pImageIndices;
 } VkReleaseSwapchainImagesInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkReleaseSwapchainImagesInfoKHR
 typedef VkReleaseSwapchainImagesInfoKHR VkReleaseSwapchainImagesInfoEXT;
 
 * 
@@ -13575,7 +14794,7 @@ returned by [vkGetLatencyTimingsNV](#vkGetLatencyTimingsNV)
 // Provided by VK_NV_low_latency2
 typedef struct VkLatencyTimingsFrameReportNV {
     VkStructureType    sType;
-    const void*        pNext;
+    void*              pNext;
     uint64_t           presentID;
     uint64_t           inputSampleTimeUs;
     uint64_t           simStartTimeUs;

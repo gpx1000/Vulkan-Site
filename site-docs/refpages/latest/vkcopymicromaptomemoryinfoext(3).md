@@ -39,7 +39,7 @@ structure.
 `src` is the source micromap for the copy
 
 * 
-`dst` is the device or host address to memory which is the target
+`dst` is the device or host address of memory which is the target
 for the copy
 
 * 

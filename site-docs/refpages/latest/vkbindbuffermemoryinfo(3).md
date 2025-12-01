@@ -33,9 +33,8 @@ typedef struct VkBindBufferMemoryInfo {
     VkDeviceSize       memoryOffset;
 } VkBindBufferMemoryInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_bind_memory2
+// Equivalent to VkBindBufferMemoryInfo
 typedef VkBindBufferMemoryInfo VkBindBufferMemoryInfoKHR;
 
 * 
@@ -143,6 +142,14 @@ its `pNext` chain, and
 `memoryOffset` **must** be zero
 
 * 
+[](#VUID-VkBindBufferMemoryInfo-memory-10925) VUID-VkBindBufferMemoryInfo-memory-10925
+
+If the `VkMemoryAllocateInfo` provided when `memory` was
+allocated included a [VkMemoryDedicatedAllocateInfo](VkMemoryDedicatedAllocateInfo.html) structure in
+its `pNext` chain, [VkMemoryDedicatedAllocateInfo](VkMemoryDedicatedAllocateInfo.html)::`image`
+**must** have been [VK_NULL_HANDLE](VK_NULL_HANDLE.html)
+
+* 
 [](#VUID-VkBindBufferMemoryInfo-None-01898) VUID-VkBindBufferMemoryInfo-None-01898
 
 If `buffer` was created with the
@@ -217,8 +224,8 @@ with a non-`NULL` `buffer` value,
 If the
 [VkPhysicalDeviceBufferDeviceAddressFeatures](VkPhysicalDeviceBufferDeviceAddressFeatures.html)::`bufferDeviceAddress`
 feature is enabled and `buffer` was created with the
-`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` bit set, `memory`
-**must** have been allocated with the
+`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` usage flag set,
+`memory` **must** have been allocated with the
 `VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT` bit set
 
 * 
@@ -302,7 +309,7 @@ Host Synchronization
 * 
 Host access to `buffer` **must** be externally synchronized
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkBuffer](VkBuffer.html), [VkDeviceMemory](VkDeviceMemory.html), `VkDeviceSize`, [VkStructureType](VkStructureType.html), [vkBindBufferMemory2](vkBindBufferMemory2.html), [vkBindBufferMemory2](vkBindBufferMemory2.html)
+[VK_KHR_bind_memory2](VK_KHR_bind_memory2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkBuffer](VkBuffer.html), [VkDeviceMemory](VkDeviceMemory.html), `VkDeviceSize`, [VkStructureType](VkStructureType.html), [vkBindBufferMemory2](vkBindBufferMemory2.html), [vkBindBufferMemory2](vkBindBufferMemory2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/resources.html#VkBindBufferMemoryInfo).
 

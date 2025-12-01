@@ -53,7 +53,7 @@ extensions like [VK_KHR_external_memory_win32](https://docs.vulkan.org/spec/late
 
 This means that external Metal resources will be imported through [VkDeviceMemory](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VkDeviceMemory.html) to later be bound.
 
-3 new bit values will be added to [VkExternalMemoryHandleTypeFlagBits](https://docs.vulkan.org/spec/latest/chapters/capabilities.html#VkExternalMemoryHandleTypeFlagBits.html):
+3 new bit values will be added to [VkExternalMemoryHandleTypeFlagBits](https://docs.vulkan.org/spec/latest/chapters/capabilities.html#VkExternalMemoryHandleTypeFlagBits):
 
 * 
 `VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLBUFFER_BIT_EXT` to accommodate for Metal buffers (MTLBuffer)

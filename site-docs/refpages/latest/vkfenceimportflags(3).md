@@ -21,15 +21,14 @@ VkFenceImportFlags - Bitmask of VkFenceImportFlagBits
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkFenceImportFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence
+// Equivalent to VkFenceImportFlags
 typedef VkFenceImportFlags VkFenceImportFlagsKHR;
 
 `VkFenceImportFlags` is a bitmask type for setting a mask of zero or
 more [VkFenceImportFlagBits](VkFenceImportFlagBits.html).
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkFenceImportFlagBits](VkFenceImportFlagBits.html), `VkFlags`, [VkImportFenceFdInfoKHR](VkImportFenceFdInfoKHR.html), [VkImportFenceWin32HandleInfoKHR](VkImportFenceWin32HandleInfoKHR.html)
+[VK_KHR_external_fence](VK_KHR_external_fence.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkFenceImportFlagBits](VkFenceImportFlagBits.html), `VkFlags`, [VkImportFenceFdInfoKHR](VkImportFenceFdInfoKHR.html), [VkImportFenceWin32HandleInfoKHR](VkImportFenceWin32HandleInfoKHR.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/synchronization.html#VkFenceImportFlags).
 

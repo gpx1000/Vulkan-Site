@@ -27,9 +27,8 @@ VkResult vkEnumeratePhysicalDeviceGroups(
     uint32_t*                                   pPhysicalDeviceGroupCount,
     VkPhysicalDeviceGroupProperties*            pPhysicalDeviceGroupProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_device_group_creation
+// Equivalent to vkEnumeratePhysicalDeviceGroups
 VkResult vkEnumeratePhysicalDeviceGroupsKHR(
     VkInstance                                  instance,
     uint32_t*                                   pPhysicalDeviceGroupCount,
@@ -106,7 +105,7 @@ Return Codes
 * 
 `VK_ERROR_VALIDATION_FAILED`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkInstance](VkInstance.html), [VkPhysicalDeviceGroupProperties](VkPhysicalDeviceGroupProperties.html)
+[VK_KHR_device_group_creation](VK_KHR_device_group_creation.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkInstance](VkInstance.html), [VkPhysicalDeviceGroupProperties](VkPhysicalDeviceGroupProperties.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/devsandqueues.html#vkEnumeratePhysicalDeviceGroups).
 

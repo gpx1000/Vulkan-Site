@@ -31,9 +31,8 @@ typedef struct VkPhysicalDeviceDriverProperties {
     VkConformanceVersion    conformanceVersion;
 } VkPhysicalDeviceDriverProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_driver_properties
+// Equivalent to VkPhysicalDeviceDriverProperties
 typedef VkPhysicalDeviceDriverProperties VkPhysicalDeviceDriverPropertiesKHR;
 
 * 

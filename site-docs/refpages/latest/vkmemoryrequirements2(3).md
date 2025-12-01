@@ -28,9 +28,8 @@ typedef struct VkMemoryRequirements2 {
     VkMemoryRequirements    memoryRequirements;
 } VkMemoryRequirements2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_memory_requirements2, VK_NV_ray_tracing with VK_KHR_get_memory_requirements2 or VK_VERSION_1_1
+// Equivalent to VkMemoryRequirements2
 typedef VkMemoryRequirements2 VkMemoryRequirements2KHR;
 
 * 
@@ -61,7 +60,7 @@ Valid Usage (Implicit)
 
  The `sType` value of each structure in the `pNext` chain **must** be unique
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkMemoryRequirements](VkMemoryRequirements.html), [VkStructureType](VkStructureType.html), [vkGetBufferMemoryRequirements2](vkGetBufferMemoryRequirements2.html), [vkGetBufferMemoryRequirements2](vkGetBufferMemoryRequirements2.html), [vkGetDataGraphPipelineSessionMemoryRequirementsARM](vkGetDataGraphPipelineSessionMemoryRequirementsARM.html), [vkGetDeviceBufferMemoryRequirements](vkGetDeviceBufferMemoryRequirements.html), [vkGetDeviceBufferMemoryRequirements](vkGetDeviceBufferMemoryRequirements.html), [vkGetDeviceImageMemoryRequirements](vkGetDeviceImageMemoryRequirements.html), [vkGetDeviceImageMemoryRequirements](vkGetDeviceImageMemoryRequirements.html), [vkGetDeviceTensorMemoryRequirementsARM](vkGetDeviceTensorMemoryRequirementsARM.html), [vkGetGeneratedCommandsMemoryRequirementsEXT](vkGetGeneratedCommandsMemoryRequirementsEXT.html), [vkGetGeneratedCommandsMemoryRequirementsNV](vkGetGeneratedCommandsMemoryRequirementsNV.html), [vkGetImageMemoryRequirements2](vkGetImageMemoryRequirements2.html), [vkGetImageMemoryRequirements2](vkGetImageMemoryRequirements2.html), [vkGetPipelineIndirectMemoryRequirementsNV](vkGetPipelineIndirectMemoryRequirementsNV.html), [vkGetTensorMemoryRequirementsARM](vkGetTensorMemoryRequirementsARM.html)
+[VK_KHR_get_memory_requirements2](VK_KHR_get_memory_requirements2.html), [VK_NV_ray_tracing](VK_NV_ray_tracing.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkMemoryRequirements](VkMemoryRequirements.html), [VkStructureType](VkStructureType.html), [vkGetAccelerationStructureMemoryRequirementsNV](vkGetAccelerationStructureMemoryRequirementsNV.html), [vkGetBufferMemoryRequirements2](vkGetBufferMemoryRequirements2.html), [vkGetBufferMemoryRequirements2](vkGetBufferMemoryRequirements2.html), [vkGetDataGraphPipelineSessionMemoryRequirementsARM](vkGetDataGraphPipelineSessionMemoryRequirementsARM.html), [vkGetDeviceBufferMemoryRequirements](vkGetDeviceBufferMemoryRequirements.html), [vkGetDeviceBufferMemoryRequirements](vkGetDeviceBufferMemoryRequirements.html), [vkGetDeviceImageMemoryRequirements](vkGetDeviceImageMemoryRequirements.html), [vkGetDeviceImageMemoryRequirements](vkGetDeviceImageMemoryRequirements.html), [vkGetDeviceTensorMemoryRequirementsARM](vkGetDeviceTensorMemoryRequirementsARM.html), [vkGetGeneratedCommandsMemoryRequirementsEXT](vkGetGeneratedCommandsMemoryRequirementsEXT.html), [vkGetGeneratedCommandsMemoryRequirementsNV](vkGetGeneratedCommandsMemoryRequirementsNV.html), [vkGetImageMemoryRequirements2](vkGetImageMemoryRequirements2.html), [vkGetImageMemoryRequirements2](vkGetImageMemoryRequirements2.html), [vkGetPipelineIndirectMemoryRequirementsNV](vkGetPipelineIndirectMemoryRequirementsNV.html), [vkGetTensorMemoryRequirementsARM](vkGetTensorMemoryRequirementsARM.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/resources.html#VkMemoryRequirements2).
 

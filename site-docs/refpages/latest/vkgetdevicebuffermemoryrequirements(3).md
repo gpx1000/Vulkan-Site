@@ -28,9 +28,8 @@ void vkGetDeviceBufferMemoryRequirements(
     const VkDeviceBufferMemoryRequirements*     pInfo,
     VkMemoryRequirements2*                      pMemoryRequirements);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance4
+// Equivalent to vkGetDeviceBufferMemoryRequirements
 void vkGetDeviceBufferMemoryRequirementsKHR(
     VkDevice                                    device,
     const VkDeviceBufferMemoryRequirements*     pInfo,

@@ -29,7 +29,7 @@ The `VkSurfaceProtectedCapabilitiesKHR` structure is defined as:
 // Provided by VK_KHR_surface_protected_capabilities
 typedef struct VkSurfaceProtectedCapabilitiesKHR {
     VkStructureType    sType;
-    const void*        pNext;
+    void*              pNext;
     VkBool32           supportsProtected;
 } VkSurfaceProtectedCapabilitiesKHR;
 

@@ -43,8 +43,8 @@ structure.
 `attachmentFeedbackLoopLayout` indicates whether the implementation
 supports using
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` image layout
-for images created with
-`VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT`.
+for images created with the
+`VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT` usage flag set.
 
 Valid Usage (Implicit)
 

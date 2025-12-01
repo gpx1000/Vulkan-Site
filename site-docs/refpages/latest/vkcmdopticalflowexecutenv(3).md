@@ -72,12 +72,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdOpticalFlowExecuteNV-commandBuffer-cmdpool) VUID-vkCmdOpticalFlowExecuteNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support optical flow operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_OPTICAL_FLOW_BIT_NV` operations
 
 * 
 [](#VUID-vkCmdOpticalFlowExecuteNV-renderpass) VUID-vkCmdOpticalFlowExecuteNV-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdOpticalFlowExecuteNV-suspended) VUID-vkCmdOpticalFlowExecuteNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdOpticalFlowExecuteNV-videocoding) VUID-vkCmdOpticalFlowExecuteNV-videocoding
@@ -99,7 +104,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Opticalflow | Action |
+Secondary | Outside | Outside | VK_QUEUE_OPTICAL_FLOW_BIT_NV | Action |
 
 Conditional Rendering
 

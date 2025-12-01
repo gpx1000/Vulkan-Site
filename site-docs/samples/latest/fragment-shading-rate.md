@@ -25,8 +25,8 @@ The KHR fragment shading rate extension introduces the ability to selectively re
 This can be useful when rendering at very high resolutions or when the frequency content is not evenly spread through the rendered image.
 This tutorial demonstrates one way of controlling that sample rate by estimating the frequency content of each pixel of the rendered image.
 
-The fragment shading rate extension can be enabled through the [`VK_KHR_fragment_shading_rate`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_fragment_shading_rate.html) device extension and the [`VkPhysicalDeviceFragmentShadingRateFeaturesKHR`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShadingRateFeaturesKHR.html) device features.
-This sample demonstrates the attachment capability, in which the render pass directly references the shading rate image through a [`VkFragmentShadingRateAttachmentInfoKHR`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFragmentShadingRateAttachmentInfoKHR.html) struct attached to the `.pNext` of a sub-pass.
+The fragment shading rate extension can be enabled through the [`VK_KHR_fragment_shading_rate`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_KHR_fragment_shading_rate.html) device extension and the [`VkPhysicalDeviceFragmentShadingRateFeaturesKHR`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateFeaturesKHR.html) device features.
+This sample demonstrates the attachment capability, in which the render pass directly references the shading rate image through a [`VkFragmentShadingRateAttachmentInfoKHR`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFragmentShadingRateAttachmentInfoKHR.html) struct attached to the `.pNext` of a sub-pass.
 
 The image below shows the scene from this sample.
 Note the areas of high image variation in the center of each cube face, and the areas of low image variation in the sky and plain corners of each cube face.
@@ -35,7 +35,7 @@ Note the areas of high image variation in the center of each cube face, and the 
 
 When used as an attachment, each pixel within the shading rate image controls a "texel", or fixed region within the output image, specified by `shadingRateAttachmentTexelSize`.
 For example, each pixel in the shading rate image might control the shading rate of a 4x4 texel within the rendered image, since all output pixels of the texel are shaded at the same rate, the shading rate image has a lower resolution.
-The number and type of possible shading rates is controlled by the device and can be queried through the [`vkGetPhysicalDeviceFragmentShadingRatesKHR`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html) function, and may include shading rates that vary in both the x- and y-directions, for instance 1x2 or 4x2 pixel texels.
+The number and type of possible shading rates is controlled by the device and can be queried through the [`vkGetPhysicalDeviceFragmentShadingRatesKHR`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html) function, and may include shading rates that vary in both the x- and y-directions, for instance 1x2 or 4x2 pixel texels.
 These supported shading rate values are provided to the "compute shader" when determining the optimal shading rate.
 
 This sample demonstrates how to use a dynamic shading rate that responds to the frequency content of the image.

@@ -763,7 +763,7 @@ there is no “baseInstance” relevant for these shaders, and so ID makes
 it more obvious that this is zero-based.
 
 (6) Why is `[VK_KHR_pipeline_library](VK_KHR_pipeline_library.html)` an interaction instead of a
-required dependency, particularly when the “Feature Requirements” section
+required dependency, particularly when the “Device Extensions” section
 says it is required to be supported anyhow?
 
 **RESOLVED**: If the `[VK_KHR_pipeline_library](VK_KHR_pipeline_library.html)` extension were a
@@ -772,7 +772,7 @@ extension whether or not they actually want to use the pipeline library
 functionality.
 Developers found this to be annoying and unfriendly behavior.
 We do wish to require all **implementations** to support it though, and thus
-it is listed in the feature requirements section.
+it is listed as a requirement in device extensions section.
 
 Example ray generation GLSL shader
 

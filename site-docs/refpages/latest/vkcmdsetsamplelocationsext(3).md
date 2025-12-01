@@ -80,7 +80,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetSampleLocationsEXT-commandBuffer-cmdpool) VUID-vkCmdSetSampleLocationsEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetSampleLocationsEXT-videocoding) VUID-vkCmdSetSampleLocationsEXT-videocoding
@@ -100,7 +100,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

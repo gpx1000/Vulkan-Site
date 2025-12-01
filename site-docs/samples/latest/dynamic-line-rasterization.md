@@ -60,12 +60,12 @@ The sample also contains a grid rendered beneath the cube using a different pipe
 
 The infinite grid shader is based on the code from the [asliceofrendering.com](https://asliceofrendering.com/scene%20helper/2020/01/05/InfiniteGrid/) blog.
 
-[https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineStippleEXT.html](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineStippleEXT.html)
+[https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineStippleEXT.html](https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineStippleEXT.html)
 
-[https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPolygonModeEXT.html](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPolygonModeEXT.html)
+[https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPolygonModeEXT.html](https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPolygonModeEXT.html)
 
-[https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineRasterizationModeEXT.html](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineRasterizationModeEXT.html)
+[https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineRasterizationModeEXT.html](https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineRasterizationModeEXT.html)
 
-[https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineStippleEnableEXT.html](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineStippleEnableEXT.html)
+[https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineStippleEnableEXT.html](https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineStippleEnableEXT.html)
 
-[https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineWidth.html](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineWidth.html)
+[https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineWidth.html](https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineWidth.html)

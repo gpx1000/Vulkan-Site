@@ -25,7 +25,7 @@ returned by [vkGetLatencyTimingsNV](vkGetLatencyTimingsNV.html)
 // Provided by VK_NV_low_latency2
 typedef struct VkLatencyTimingsFrameReportNV {
     VkStructureType    sType;
-    const void*        pNext;
+    void*              pNext;
     uint64_t           presentID;
     uint64_t           inputSampleTimeUs;
     uint64_t           simStartTimeUs;

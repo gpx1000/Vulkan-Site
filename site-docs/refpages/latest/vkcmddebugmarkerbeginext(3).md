@@ -63,7 +63,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDebugMarkerBeginEXT-commandBuffer-cmdpool) VUID-vkCmdDebugMarkerBeginEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_OPTICAL_FLOW_BIT_NV`, `VK_QUEUE_TRANSFER_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 Host Synchronization
 
@@ -78,17 +78,17 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Transfer
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute
+VK_QUEUE_OPTICAL_FLOW_BIT_NV
 
-Decode
+VK_QUEUE_TRANSFER_BIT
 
-Encode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Opticalflow | Action |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | State |
 
 Conditional Rendering
 

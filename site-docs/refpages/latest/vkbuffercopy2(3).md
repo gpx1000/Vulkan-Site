@@ -30,9 +30,8 @@ typedef struct VkBufferCopy2 {
     VkDeviceSize       size;
 } VkBufferCopy2;
 
-or the equivalent
-
 // Provided by VK_KHR_copy_commands2
+// Equivalent to VkBufferCopy2
 typedef VkBufferCopy2 VkBufferCopy2KHR;
 
 * 

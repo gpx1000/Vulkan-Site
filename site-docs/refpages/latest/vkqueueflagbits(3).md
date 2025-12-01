@@ -81,6 +81,22 @@ support the `VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT` bit.
 If the physical device supports the [    `protectedMemory`](../../../../spec/latest/chapters/features.html#features-protectedMemory) feature, at least one of its queue families
 **must** support this bit.
 
+At least one queue family of at least one physical device exposed by the
+implementation **must** support at least one of the following sets of
+operations:
+
+* 
+graphics operations
+
+* 
+compute operations
+
+* 
+video encode operations
+
+* 
+video decode operations
+
 If an implementation exposes any queue family that supports graphics
 operations, at least one queue family of at least one physical device
 exposed by the implementation **must** support both graphics and compute

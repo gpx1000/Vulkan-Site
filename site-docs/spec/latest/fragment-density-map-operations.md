@@ -46,14 +46,14 @@ following operations:
 * 
 [Fragment area clamp](#fragmentdensitymap-fragment-area-clamp)
 
-Each local framebuffer region at center coordinate (x,y) fetches a
-texel from the fragment density map.
+Each local framebuffer region at center coordinate (x,y) reads a texel
+from the fragment density map.
 
 First, the local framebuffer region center coordinate (x,y) is offset
 by the value specified in
 [VkRenderPassFragmentDensityMapOffsetEndInfoEXT](renderpass.html#VkRenderPassFragmentDensityMapOffsetEndInfoEXT).
 If no offset is specified, then the default offset (0,0) is used.
-The offsetted coordinate (x',y') is computed as follows:
+The offset coordinate (x',y') is computed as follows:
 
   
 
@@ -68,14 +68,14 @@ In other words, applying a positive offset in the x component will shift the
 fragment density map to the right relative to the framebuffer.
 This means the framebuffer coordinates need to undergo a shift to the left. |
 
-The offsetted coordinate (x',y') fetches a texel from the fragment
-density map at integer coordinates:
+The offset fragment coordinate (x',y') [reads a texel from the fragment density map](images.html#images-reads) at image coordinates
+(x,y,0,layer,0,0), where (x,y) are calculated as:
 
-\(i =
+\(x =
 \mathbin{clamp}(\left\lfloor{\frac{x'}{fragmentDensityTexelSize_{width}}}\right\rfloor,
 0, fragmentDensityMap_{width} - 1)\)
 
-\(j =
+\(y =
 \mathbin{clamp}(\left\lfloor{\frac{y'}{fragmentDensityTexelSize_{height}}}\right\rfloor,
 0, fragmentDensityMap_{height} - 1)\)
 
@@ -86,6 +86,17 @@ Where the size of each region in the framebuffer is:
 
 \(fragmentDensityTexelSize'_{height} =
 {2^{\lceil{\log_2(\frac{framebuffer_{height}}{fragmentDensityMap_{height}})}\rceil}}\)
+
+If using [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), then    and
+   are defined as:
+
+\(framebuffer_{width} = renderAreaOffset_{x} {plus}
+renderAreaExtent_{width}\)
+
+\(framebuffer_{height} = renderAreaOffset_{y} {plus}
+renderAreaExtent_{height}\)
+
+using [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`renderArea`.
 
 This region is subject to the limits in
 `VkPhysicalDeviceFragmentDensityMapPropertiesEXT` and therefore the
@@ -115,7 +126,7 @@ Otherwise:
 
   
 
-The texel fetched from the density map at (i,j,layer) is next
+The texel fetched from the density map at (x,y,0,layer,0,0) is next
 converted to density with the following operations.
 
 The `components` member of [VkImageViewCreateInfo](resources.html#VkImageViewCreateInfo) is applied to the

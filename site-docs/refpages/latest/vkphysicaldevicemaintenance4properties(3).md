@@ -28,9 +28,8 @@ typedef struct VkPhysicalDeviceMaintenance4Properties {
     VkDeviceSize       maxBufferSize;
 } VkPhysicalDeviceMaintenance4Properties;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance4
+// Equivalent to VkPhysicalDeviceMaintenance4Properties
 typedef VkPhysicalDeviceMaintenance4Properties VkPhysicalDeviceMaintenance4PropertiesKHR;
 
 * 

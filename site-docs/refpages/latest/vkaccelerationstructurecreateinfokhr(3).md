@@ -167,8 +167,9 @@ If `createFlags` includes
 * 
 [](#VUID-VkAccelerationStructureCreateInfoKHR-buffer-03614) VUID-VkAccelerationStructureCreateInfoKHR-buffer-03614
 
-`buffer` **must** have been created with a `usage` value containing
-`VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR`
+`buffer` **must** have been created with the
+`VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR` usage flag
+set
 
 * 
 [](#VUID-VkAccelerationStructureCreateInfoKHR-buffer-03615) VUID-VkAccelerationStructureCreateInfoKHR-buffer-03615

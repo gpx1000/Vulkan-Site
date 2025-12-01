@@ -35,14 +35,12 @@ typedef struct VkPipelineRasterizationLineStateCreateInfo {
     uint16_t                   lineStipplePattern;
 } VkPipelineRasterizationLineStateCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_line_rasterization
+// Equivalent to VkPipelineRasterizationLineStateCreateInfo
 typedef VkPipelineRasterizationLineStateCreateInfo VkPipelineRasterizationLineStateCreateInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_line_rasterization
+// Equivalent to VkPipelineRasterizationLineStateCreateInfo
 typedef VkPipelineRasterizationLineStateCreateInfo VkPipelineRasterizationLineStateCreateInfoEXT;
 
 * 

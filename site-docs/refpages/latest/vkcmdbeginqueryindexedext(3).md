@@ -376,7 +376,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBeginQueryIndexedEXT-commandBuffer-cmdpool) VUID-vkCmdBeginQueryIndexedEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdBeginQueryIndexedEXT-suspended) VUID-vkCmdBeginQueryIndexedEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBeginQueryIndexedEXT-videocoding) VUID-vkCmdBeginQueryIndexedEXT-videocoding
@@ -401,13 +406,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Action
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action
 
 State |
 

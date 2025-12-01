@@ -228,8 +228,8 @@ The [format features](../../../../spec/latest/chapters/resources.html#resources-
 * 
 [](#VUID-vkCmdBlitImage-srcImage-00219) VUID-vkCmdBlitImage-srcImage-00219
 
-`srcImage` **must** have been created with
-`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag
+`srcImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdBlitImage-srcImage-00220) VUID-vkCmdBlitImage-srcImage-00220
@@ -276,8 +276,8 @@ The [format features](../../../../spec/latest/chapters/resources.html#resources-
 * 
 [](#VUID-vkCmdBlitImage-dstImage-00224) VUID-vkCmdBlitImage-dstImage-00224
 
-`dstImage` **must** have been created with
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag
+`dstImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdBlitImage-dstImage-00225) VUID-vkCmdBlitImage-dstImage-00225
@@ -580,12 +580,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBlitImage-commandBuffer-cmdpool) VUID-vkCmdBlitImage-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBlitImage-renderpass) VUID-vkCmdBlitImage-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdBlitImage-suspended) VUID-vkCmdBlitImage-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBlitImage-videocoding) VUID-vkCmdBlitImage-videocoding
@@ -615,7 +620,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics | Action |
+Secondary | Outside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

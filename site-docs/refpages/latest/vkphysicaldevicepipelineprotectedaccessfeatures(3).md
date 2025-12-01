@@ -29,9 +29,8 @@ typedef struct VkPhysicalDevicePipelineProtectedAccessFeatures {
     VkBool32           pipelineProtectedAccess;
 } VkPhysicalDevicePipelineProtectedAccessFeatures;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_protected_access
+// Equivalent to VkPhysicalDevicePipelineProtectedAccessFeatures
 typedef VkPhysicalDevicePipelineProtectedAccessFeatures VkPhysicalDevicePipelineProtectedAccessFeaturesEXT;
 
 This structure describes the following feature:

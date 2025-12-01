@@ -32,9 +32,8 @@ typedef struct VkDevicePrivateDataCreateInfo {
     uint32_t           privateDataSlotRequestCount;
 } VkDevicePrivateDataCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_private_data
+// Equivalent to VkDevicePrivateDataCreateInfo
 typedef VkDevicePrivateDataCreateInfo VkDevicePrivateDataCreateInfoEXT;
 
 * 

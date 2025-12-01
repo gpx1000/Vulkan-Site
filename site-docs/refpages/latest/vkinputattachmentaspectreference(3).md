@@ -21,7 +21,7 @@ VkInputAttachmentAspectReference - Structure specifying a subpass/input attachme
 
 The `VkInputAttachmentAspectReference` structure is defined as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_1
@@ -31,9 +31,8 @@ typedef struct VkInputAttachmentAspectReference {
     VkImageAspectFlags    aspectMask;
 } VkInputAttachmentAspectReference;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance2
+// Equivalent to VkInputAttachmentAspectReference
 typedef VkInputAttachmentAspectReference VkInputAttachmentAspectReferenceKHR;
 
 * 
@@ -80,7 +79,7 @@ Valid Usage (Implicit)
 
  `aspectMask` **must** not be `0`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImageAspectFlags](VkImageAspectFlags.html), [VkRenderPassInputAttachmentAspectCreateInfo](VkRenderPassInputAttachmentAspectCreateInfo.html)
+[VK_KHR_maintenance2](VK_KHR_maintenance2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImageAspectFlags](VkImageAspectFlags.html), [VkRenderPassInputAttachmentAspectCreateInfo](VkRenderPassInputAttachmentAspectCreateInfo.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/renderpass.html#VkInputAttachmentAspectReference).
 

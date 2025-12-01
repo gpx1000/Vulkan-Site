@@ -26,9 +26,8 @@ void vkGetPhysicalDeviceFeatures2(
     VkPhysicalDevice                            physicalDevice,
     VkPhysicalDeviceFeatures2*                  pFeatures);
 
-or the equivalent command
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to vkGetPhysicalDeviceFeatures2
 void vkGetPhysicalDeviceFeatures2KHR(
     VkPhysicalDevice                            physicalDevice,
     VkPhysicalDeviceFeatures2*                  pFeatures);
@@ -61,7 +60,7 @@ Valid Usage (Implicit)
 
  `pFeatures` **must** be a valid pointer to a [VkPhysicalDeviceFeatures2](VkPhysicalDeviceFeatures2.html) structure
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceFeatures2](VkPhysicalDeviceFeatures2.html)
+[VK_KHR_get_physical_device_properties2](VK_KHR_get_physical_device_properties2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceFeatures2](VkPhysicalDeviceFeatures2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/features.html#vkGetPhysicalDeviceFeatures2).
 

@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="../VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="../private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="../raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="../memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../appendices/boilerplate.html">API Boilerplate</a>
@@ -597,15 +606,16 @@ given by the <code>buildScratchSize</code> member of the
 The buffers from which the buffer device addresses for all of the
 <code>data</code> and <code>triangleArray</code> members of all <code>pInfos</code>[i] are
 queried <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT</code> usage flag</p>
+<code>VK_BUFFER_USAGE_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT</code> usage flag
+set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildMicromapsEXT-pInfos-07511" href="#VUID-vkCmdBuildMicromapsEXT-pInfos-07511"></a> <span class="vuid">VUID-vkCmdBuildMicromapsEXT-pInfos-07511</span><br>
 
 For each element of <code>pInfos</code>[i] the buffer from which the buffer
 device address <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> is
-queried <strong>must</strong> have been created with
-<code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> usage flag</p>
+queried <strong>must</strong> have been created with the
+<code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildMicromapsEXT-pInfos-07512" href="#VUID-vkCmdBuildMicromapsEXT-pInfos-07512"></a> <span class="vuid">VUID-vkCmdBuildMicromapsEXT-pInfos-07512</span><br>
@@ -661,11 +671,15 @@ and <code>data.deviceAddress</code> members <strong>must</strong> be a multiple 
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildMicromapsEXT-commandBuffer-cmdpool" href="#VUID-vkCmdBuildMicromapsEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBuildMicromapsEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildMicromapsEXT-renderpass" href="#VUID-vkCmdBuildMicromapsEXT-renderpass"></a> <span class="vuid">VUID-vkCmdBuildMicromapsEXT-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildMicromapsEXT-suspended" href="#VUID-vkCmdBuildMicromapsEXT-suspended"></a> <span class="vuid">VUID-vkCmdBuildMicromapsEXT-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildMicromapsEXT-videocoding" href="#VUID-vkCmdBuildMicromapsEXT-videocoding"></a> <span class="vuid">VUID-vkCmdBuildMicromapsEXT-videocoding</span><br>
@@ -720,7 +734,7 @@ and <code>data.deviceAddress</code> members <strong>must</strong> be a multiple 
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -898,15 +912,15 @@ structures.</p>
 <a href="#VkMicromapUsageEXT">VkMicromapUsageEXT</a> structures.</p>
 </li>
 <li>
-<p><code>data</code> is the device or host address to memory which contains the
+<p><code>data</code> is the device or host address of memory which contains the
 data for the micromap.</p>
 </li>
 <li>
-<p><code>scratchData</code> is the device or host address to memory that will be
+<p><code>scratchData</code> is the device or host address of memory that will be
 used as scratch memory for the build.</p>
 </li>
 <li>
-<p><code>triangleArray</code> is the device or host address to memory containing
+<p><code>triangleArray</code> is the device or host address of memory containing
 the <a href="#VkMicromapTriangleEXT">VkMicromapTriangleEXT</a> data</p>
 </li>
 <li>
@@ -1385,11 +1399,15 @@ or <code>VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdWriteMicromapsPropertiesEXT-commandBuffer-cmdpool" href="#VUID-vkCmdWriteMicromapsPropertiesEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdWriteMicromapsPropertiesEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdWriteMicromapsPropertiesEXT-renderpass" href="#VUID-vkCmdWriteMicromapsPropertiesEXT-renderpass"></a> <span class="vuid">VUID-vkCmdWriteMicromapsPropertiesEXT-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdWriteMicromapsPropertiesEXT-suspended" href="#VUID-vkCmdWriteMicromapsPropertiesEXT-suspended"></a> <span class="vuid">VUID-vkCmdWriteMicromapsPropertiesEXT-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdWriteMicromapsPropertiesEXT-videocoding" href="#VUID-vkCmdWriteMicromapsPropertiesEXT-videocoding"></a> <span class="vuid">VUID-vkCmdWriteMicromapsPropertiesEXT-videocoding</span><br>
@@ -1448,7 +1466,7 @@ or <code>VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT</code></p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -1543,11 +1561,15 @@ device memory</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMicromapEXT-commandBuffer-cmdpool" href="#VUID-vkCmdCopyMicromapEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdCopyMicromapEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMicromapEXT-renderpass" href="#VUID-vkCmdCopyMicromapEXT-renderpass"></a> <span class="vuid">VUID-vkCmdCopyMicromapEXT-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdCopyMicromapEXT-suspended" href="#VUID-vkCmdCopyMicromapEXT-suspended"></a> <span class="vuid">VUID-vkCmdCopyMicromapEXT-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMicromapEXT-videocoding" href="#VUID-vkCmdCopyMicromapEXT-videocoding"></a> <span class="vuid">VUID-vkCmdCopyMicromapEXT-videocoding</span><br>
@@ -1598,7 +1620,7 @@ device memory</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -1882,11 +1904,15 @@ device memory</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMicromapToMemoryEXT-commandBuffer-cmdpool" href="#VUID-vkCmdCopyMicromapToMemoryEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdCopyMicromapToMemoryEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMicromapToMemoryEXT-renderpass" href="#VUID-vkCmdCopyMicromapToMemoryEXT-renderpass"></a> <span class="vuid">VUID-vkCmdCopyMicromapToMemoryEXT-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdCopyMicromapToMemoryEXT-suspended" href="#VUID-vkCmdCopyMicromapToMemoryEXT-suspended"></a> <span class="vuid">VUID-vkCmdCopyMicromapToMemoryEXT-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMicromapToMemoryEXT-videocoding" href="#VUID-vkCmdCopyMicromapToMemoryEXT-videocoding"></a> <span class="vuid">VUID-vkCmdCopyMicromapToMemoryEXT-videocoding</span><br>
@@ -1937,7 +1963,7 @@ device memory</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -1981,7 +2007,7 @@ structure.</p>
 <p><code>src</code> is the source micromap for the copy</p>
 </li>
 <li>
-<p><code>dst</code> is the device or host address to memory which is the target
+<p><code>dst</code> is the device or host address of memory which is the target
 for the copy</p>
 </li>
 <li>
@@ -2135,11 +2161,15 @@ device memory</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMemoryToMicromapEXT-commandBuffer-cmdpool" href="#VUID-vkCmdCopyMemoryToMicromapEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdCopyMemoryToMicromapEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMemoryToMicromapEXT-renderpass" href="#VUID-vkCmdCopyMemoryToMicromapEXT-renderpass"></a> <span class="vuid">VUID-vkCmdCopyMemoryToMicromapEXT-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdCopyMemoryToMicromapEXT-suspended" href="#VUID-vkCmdCopyMemoryToMicromapEXT-suspended"></a> <span class="vuid">VUID-vkCmdCopyMemoryToMicromapEXT-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMemoryToMicromapEXT-videocoding" href="#VUID-vkCmdCopyMemoryToMicromapEXT-videocoding"></a> <span class="vuid">VUID-vkCmdCopyMemoryToMicromapEXT-videocoding</span><br>
@@ -2190,7 +2220,7 @@ device memory</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -2234,7 +2264,7 @@ typedef struct VkCopyMemoryToMicromapInfoEXT {
 structure.</p>
 </li>
 <li>
-<p><code>src</code> is the device or host address to memory containing the source
+<p><code>src</code> is the device or host address of memory containing the source
 data for the copy.</p>
 </li>
 <li>

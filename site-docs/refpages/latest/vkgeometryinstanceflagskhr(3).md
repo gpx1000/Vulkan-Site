@@ -21,9 +21,8 @@ VkGeometryInstanceFlagsKHR - Bitmask of VkGeometryInstanceFlagBitsKHR
 // Provided by VK_KHR_acceleration_structure
 typedef VkFlags VkGeometryInstanceFlagsKHR;
 
-or the equivalent
-
 // Provided by VK_NV_ray_tracing
+// Equivalent to VkGeometryInstanceFlagsKHR
 typedef VkGeometryInstanceFlagsKHR VkGeometryInstanceFlagsNV;
 
 `VkGeometryInstanceFlagsKHR` is a bitmask type for setting a mask of

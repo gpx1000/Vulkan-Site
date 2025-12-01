@@ -30,9 +30,8 @@ typedef struct VkPhysicalDeviceMaintenance6Properties {
     VkBool32           fragmentShadingRateClampCombinerInputs;
 } VkPhysicalDeviceMaintenance6Properties;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance6
+// Equivalent to VkPhysicalDeviceMaintenance6Properties
 typedef VkPhysicalDeviceMaintenance6Properties VkPhysicalDeviceMaintenance6PropertiesKHR;
 
 * 

@@ -28,9 +28,8 @@ typedef struct VkSurfacePresentModeKHR {
     VkPresentModeKHR    presentMode;
 } VkSurfacePresentModeKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkSurfacePresentModeKHR
 typedef VkSurfacePresentModeKHR VkSurfacePresentModeEXT;
 
 * 

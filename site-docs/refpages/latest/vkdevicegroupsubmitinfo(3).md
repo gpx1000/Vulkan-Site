@@ -38,9 +38,8 @@ typedef struct VkDeviceGroupSubmitInfo {
     const uint32_t*    pSignalSemaphoreDeviceIndices;
 } VkDeviceGroupSubmitInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_device_group
+// Equivalent to VkDeviceGroupSubmitInfo
 typedef VkDeviceGroupSubmitInfo VkDeviceGroupSubmitInfoKHR;
 
 * 
@@ -139,7 +138,7 @@ Valid Usage (Implicit)
 
  If `signalSemaphoreCount` is not `0`, `pSignalSemaphoreDeviceIndices` **must** be a valid pointer to an array of `signalSemaphoreCount` `uint32_t` values
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_device_group](VK_KHR_device_group.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/cmdbuffers.html#VkDeviceGroupSubmitInfo).
 

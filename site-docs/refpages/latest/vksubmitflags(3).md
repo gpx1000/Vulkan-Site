@@ -21,9 +21,8 @@ VkSubmitFlags - Bitmask of VkSubmitFlagBits
 // Provided by VK_VERSION_1_3
 typedef VkFlags VkSubmitFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkSubmitFlags
 typedef VkSubmitFlags VkSubmitFlagsKHR;
 
 `VkSubmitFlags` is a bitmask type for setting a mask of zero or more

@@ -71,9 +71,8 @@ typedef enum VkComponentTypeKHR {
     VK_COMPONENT_TYPE_FLOAT_E5M2_NV = VK_COMPONENT_TYPE_FLOAT8_E5M2_EXT,
 } VkComponentTypeKHR;
 
-or the equivalent
-
 // Provided by VK_NV_cooperative_matrix
+// Equivalent to VkComponentTypeKHR
 typedef VkComponentTypeKHR VkComponentTypeNV;
 
 * 
@@ -150,7 +149,7 @@ exponent bits, followed by two mantissa bits.
 `VK_COMPONENT_TYPE_FLOAT8_E5M2_EXT` corresponds to SPIR-V
 `OpTypeFloat` 8 Float8E5M2EXT.
 
-[VK_KHR_cooperative_matrix](VK_KHR_cooperative_matrix.html), [VK_NV_cooperative_vector](VK_NV_cooperative_vector.html), [VkConvertCooperativeVectorMatrixInfoNV](VkConvertCooperativeVectorMatrixInfoNV.html), [VkCooperativeMatrixFlexibleDimensionsPropertiesNV](VkCooperativeMatrixFlexibleDimensionsPropertiesNV.html), [VkCooperativeMatrixPropertiesKHR](VkCooperativeMatrixPropertiesKHR.html), [VkCooperativeVectorPropertiesNV](VkCooperativeVectorPropertiesNV.html)
+[VK_KHR_cooperative_matrix](VK_KHR_cooperative_matrix.html), [VK_NV_cooperative_matrix](VK_NV_cooperative_matrix.html), [VK_NV_cooperative_vector](VK_NV_cooperative_vector.html), [VkConvertCooperativeVectorMatrixInfoNV](VkConvertCooperativeVectorMatrixInfoNV.html), [VkCooperativeMatrixFlexibleDimensionsPropertiesNV](VkCooperativeMatrixFlexibleDimensionsPropertiesNV.html), [VkCooperativeMatrixPropertiesKHR](VkCooperativeMatrixPropertiesKHR.html), [VkCooperativeMatrixPropertiesNV](VkCooperativeMatrixPropertiesNV.html), [VkCooperativeVectorPropertiesNV](VkCooperativeVectorPropertiesNV.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/shaders.html#VkComponentTypeKHR).
 

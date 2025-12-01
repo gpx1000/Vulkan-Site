@@ -88,7 +88,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetViewportSwizzleNV-commandBuffer-cmdpool) VUID-vkCmdSetViewportSwizzleNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetViewportSwizzleNV-videocoding) VUID-vkCmdSetViewportSwizzleNV-videocoding
@@ -113,7 +113,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

@@ -198,6 +198,15 @@ have been recorded once for each pass as retrieved via a call to
 [vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR](vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html)
 
 * 
+[](#VUID-vkCmdCopyQueryPoolResults-queryType-11874) VUID-vkCmdCopyQueryPoolResults-queryType-11874
+
+If the `queryType` used to create `queryPool` was not
+`VK_QUERY_TYPE_RESULT_STATUS_ONLY_KHR`
+or `VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR`,
+then `flags` **must** not include
+`VK_QUERY_RESULT_WITH_STATUS_BIT_KHR`
+
+* 
 [](#VUID-vkCmdCopyQueryPoolResults-queryType-09442) VUID-vkCmdCopyQueryPoolResults-queryType-09442
 
 If the `queryType` used to create `queryPool` was
@@ -243,8 +252,8 @@ contain the result of each query, as described
 * 
 [](#VUID-vkCmdCopyQueryPoolResults-dstBuffer-00825) VUID-vkCmdCopyQueryPoolResults-dstBuffer-00825
 
-`dstBuffer` **must** have been created with
-`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag
+`dstBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdCopyQueryPoolResults-dstBuffer-00826) VUID-vkCmdCopyQueryPoolResults-dstBuffer-00826
@@ -308,12 +317,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyQueryPoolResults-commandBuffer-cmdpool) VUID-vkCmdCopyQueryPoolResults-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyQueryPoolResults-renderpass) VUID-vkCmdCopyQueryPoolResults-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyQueryPoolResults-suspended) VUID-vkCmdCopyQueryPoolResults-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyQueryPoolResults-videocoding) VUID-vkCmdCopyQueryPoolResults-videocoding
@@ -338,9 +352,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

@@ -28,9 +28,8 @@ typedef struct VkPhysicalDeviceScalarBlockLayoutFeatures {
     VkBool32           scalarBlockLayout;
 } VkPhysicalDeviceScalarBlockLayoutFeatures;
 
-or the equivalent
-
 // Provided by VK_EXT_scalar_block_layout
+// Equivalent to VkPhysicalDeviceScalarBlockLayoutFeatures
 typedef VkPhysicalDeviceScalarBlockLayoutFeatures VkPhysicalDeviceScalarBlockLayoutFeaturesEXT;
 
 This structure describes the following feature:

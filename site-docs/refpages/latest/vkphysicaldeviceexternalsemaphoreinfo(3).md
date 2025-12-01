@@ -28,9 +28,8 @@ typedef struct VkPhysicalDeviceExternalSemaphoreInfo {
     VkExternalSemaphoreHandleTypeFlagBits    handleType;
 } VkPhysicalDeviceExternalSemaphoreInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkPhysicalDeviceExternalSemaphoreInfo
 typedef VkPhysicalDeviceExternalSemaphoreInfo VkPhysicalDeviceExternalSemaphoreInfoKHR;
 
 * 
@@ -67,7 +66,7 @@ Valid Usage (Implicit)
 
  `handleType` **must** be a valid [VkExternalSemaphoreHandleTypeFlagBits](VkExternalSemaphoreHandleTypeFlagBits.html) value
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalSemaphoreHandleTypeFlagBits](VkExternalSemaphoreHandleTypeFlagBits.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceExternalSemaphoreProperties](vkGetPhysicalDeviceExternalSemaphoreProperties.html), [vkGetPhysicalDeviceExternalSemaphoreProperties](vkGetPhysicalDeviceExternalSemaphoreProperties.html)
+[VK_KHR_external_semaphore_capabilities](VK_KHR_external_semaphore_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalSemaphoreHandleTypeFlagBits](VkExternalSemaphoreHandleTypeFlagBits.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceExternalSemaphoreProperties](vkGetPhysicalDeviceExternalSemaphoreProperties.html), [vkGetPhysicalDeviceExternalSemaphoreProperties](vkGetPhysicalDeviceExternalSemaphoreProperties.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkPhysicalDeviceExternalSemaphoreInfo).
 

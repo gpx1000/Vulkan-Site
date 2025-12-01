@@ -29,9 +29,8 @@ typedef struct VkMemoryUnmapInfo {
     VkDeviceMemory        memory;
 } VkMemoryUnmapInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_map_memory2
+// Equivalent to VkMemoryUnmapInfo
 typedef VkMemoryUnmapInfo VkMemoryUnmapInfoKHR;
 
 * 

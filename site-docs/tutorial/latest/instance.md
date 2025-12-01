@@ -147,10 +147,9 @@ returned from `vkCreateInstance`. According to the
 Beginning with the 1.3.216 Vulkan SDK, the `VK_KHR_PORTABILITY_subset`
 extension is mandatory.
 
-To get over this error, first add the
- `vk::InstanceCreateFlagBits::eEnumeratePortabilityKHR` bit
+To get over this error, first add the `vk::InstanceCreateFlagBits::eEnumeratePortabilityKHR` bit
 to `VkInstanceCreateInfo` struct flags, then add
-`vk::KHRPortabilityEnumerationExtensionName`to instance enabled
+`vk::KHRPortabilityEnumerationExtensionName` to instance enabled
 extension list.
 
 Typically, the code could be like this:
@@ -161,11 +160,11 @@ constexpr vk::ApplicationInfo appInfo{ .pApplicationName   = "Hello Triangle",
             .engineVersion      = VK_MAKE_VERSION( 1, 0, 0 ),
             .apiVersion         = vk::ApiVersion14 };
 vk::InstanceCreateInfo createInfo{
-    .flas = vk::InstanceCreateFlagBits::eEnumeratePortabilityKHR,
+    .flags = vk::InstanceCreateFlagBits::eEnumeratePortabilityKHR,
     .pApplicationInfo = &appInfo,
     .ppEnabledExtensionNames = { vk::KHRPortabilityEnumerationExtensionName }
 };
-instance = std::make_unique(context, createInfo);
+instance = vk::raii::Instance(m_context, createInfo);
 
 If you look at the `vkCreateInstance` documentation then you’ll see that one of
 the possible error codes is `VK_ERROR_EXTENSION_NOT_PRESENT`. We could simply

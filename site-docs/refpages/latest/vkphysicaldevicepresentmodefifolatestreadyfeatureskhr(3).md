@@ -29,9 +29,8 @@ typedef struct VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR {
     VkBool32           presentModeFifoLatestReady;
 } VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_present_mode_fifo_latest_ready
+// Equivalent to VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR
 typedef VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT;
 
 * 
@@ -62,7 +61,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR`
 
-[VK_KHR_present_mode_fifo_latest_ready](VK_KHR_present_mode_fifo_latest_ready.html), `VkBool32`, [VkStructureType](VkStructureType.html)
+[VK_EXT_present_mode_fifo_latest_ready](VK_EXT_present_mode_fifo_latest_ready.html), [VK_KHR_present_mode_fifo_latest_ready](VK_KHR_present_mode_fifo_latest_ready.html), `VkBool32`, [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/features.html#VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR).
 

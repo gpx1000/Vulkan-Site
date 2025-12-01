@@ -44,7 +44,9 @@ structure.
 which the resulting shader module object is returned.
 
 Once a shader module has been created, any entry points it contains **can** be
-used in pipeline shader stages as described in [Compute Pipelines](../../../../spec/latest/chapters/pipelines.html#pipelines-compute) and [Graphics Pipelines](../../../../spec/latest/chapters/pipelines.html#pipelines-graphics).
+used in pipeline shader stages as described in [Compute Pipelines](../../../../spec/latest/chapters/pipelines.html#pipelines-compute)
+and [Graphics Pipelines](../../../../spec/latest/chapters/pipelines.html#pipelines-graphics)
+.
 
 |  | If
 | --- | --- |

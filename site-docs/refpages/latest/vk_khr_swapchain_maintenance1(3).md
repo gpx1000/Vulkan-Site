@@ -94,7 +94,7 @@ Yiwei Zhang, Google
 Charlie Lao, Google
 
 * 
-Chad Versace, Google
+Lina Versace, Google
 
 * 
 Ralph Potter, Samsung

@@ -37,9 +37,8 @@ typedef enum VkPipelineRobustnessBufferBehavior {
     VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2_EXT = VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2,
 } VkPipelineRobustnessBufferBehavior;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_robustness
+// Equivalent to VkPipelineRobustnessBufferBehavior
 typedef VkPipelineRobustnessBufferBehavior VkPipelineRobustnessBufferBehaviorEXT;
 
 * 

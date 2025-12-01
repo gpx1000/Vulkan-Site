@@ -49,11 +49,10 @@ queries managed by the pool.
 `queryCount` is the number of queries managed by the pool.
 
 * 
-`pipelineStatistics` is a bitmask of
-[VkQueryPipelineStatisticFlagBits](VkQueryPipelineStatisticFlagBits.html) specifying which counters will be
-returned in queries on the new pool, as described below in
-[Pipeline Statistics Queries](../../../../spec/latest/chapters/queries.html#queries-pipestats).
-
+`pipelineStatistics`
+is a bitmask of [VkQueryPipelineStatisticFlagBits](VkQueryPipelineStatisticFlagBits.html) specifying which
+counters will be returned in queries on the new pool, as described below
+in [Pipeline Statistics Queries](../../../../spec/latest/chapters/queries.html#queries-pipestats).
 `pipelineStatistics` is ignored if `queryType` is not
 `VK_QUERY_TYPE_PIPELINE_STATISTICS`.
 
@@ -108,6 +107,14 @@ If `queryType` is `VK_QUERY_TYPE_PERFORMANCE_QUERY_KHR`, the
 `queryCount` **must** be greater than 0
 
 * 
+[](#VUID-VkQueryPoolCreateInfo-queryType-11839) VUID-VkQueryPoolCreateInfo-queryType-11839
+
+If `queryType` is `VK_QUERY_TYPE_RESULT_STATUS_ONLY_KHR`, then
+at least one of the queue families of the device **must** support
+[result status queries](../../../../spec/latest/chapters/queries.html#queries-result-status-only), as indicated by
+[VkQueueFamilyQueryResultStatusPropertiesKHR](VkQueueFamilyQueryResultStatusPropertiesKHR.html)::`queryResultStatusSupport`
+
+* 
 [](#VUID-VkQueryPoolCreateInfo-pNext-10779) VUID-VkQueryPoolCreateInfo-pNext-10779
 
 If the `pNext` chain includes a [VkVideoProfileInfoKHR](VkVideoProfileInfoKHR.html)
@@ -151,6 +158,14 @@ structure and its `videoCodecOperation` member is
 `VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR`, then the
 [`videoEncodeAV1`](../../../../spec/latest/chapters/features.html#features-videoEncodeAV1) feature **must** be
 enabled
+
+* 
+[](#VUID-VkQueryPoolCreateInfo-pNext-10918) VUID-VkQueryPoolCreateInfo-pNext-10918
+
+If the `pNext` chain includes a
+[VkVideoEncodeProfileRgbConversionInfoVALVE](VkVideoEncodeProfileRgbConversionInfoVALVE.html) structure, then the
+[`videoEncodeRgbConversion`](../../../../spec/latest/chapters/features.html#features-videoEncodeRgbConversion)
+feature **must** be enabled
 
 Valid Usage (Implicit)
 

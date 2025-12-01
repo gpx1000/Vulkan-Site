@@ -42,8 +42,8 @@ structure.
 accessible via `pIdentifier`.
 
 * 
-`pIdentifer` is a pointer to `identifierSize` bytes of data that
-describe the pipeline being created.
+`pIdentifier` is a pointer to `identifierSize` bytes of data
+that describe the pipeline being created.
 
 The `pIdentifier` **can** be retrieved from the device by calling
 [vkGetDataGraphPipelinePropertiesARM](vkGetDataGraphPipelinePropertiesARM.html) and searching the results for a

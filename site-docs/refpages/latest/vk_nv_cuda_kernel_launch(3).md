@@ -50,7 +50,11 @@ Not ratified
 
 **Extension and Version Dependencies**
 
-None
+[VK_KHR_get_physical_device_properties2](VK_KHR_get_physical_device_properties2.html)
+
+or
+
+[Vulkan Version 1.1](../../../../spec/latest/appendices/versions.html#versions-1.1)
 
 * 
 **This is a *provisional* extension and must** be used with caution.

@@ -98,6 +98,19 @@ be enabled
 `layout` **must** have been created with the
 `VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT` flag set
 
+* 
+[](#VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11813) VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11813
+
+`layout` **must** have not been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT` flag set
+
+* 
+[](#VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11814) VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11814
+
+`layout` **must** have not been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT`
+flag set
+
 Valid Usage (Implicit)
 
 * 

@@ -312,6 +312,9 @@
     <a class="nav-link" href="../../extensions/extended_dynamic_state2/README.html">Extended dynamic state2</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../extensions/fragment_density_map/README.html">Fragment density map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/fragment_shader_barycentric/README.html">Fragment shader barycentric</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -397,6 +400,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/synchronization_2/README.html">Synchronization 2</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../extensions/tensor_and_data_graph/README.html">Tensor and Data Graph</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../extensions/tensor_and_data_graph/simple_tensor_and_data_graph/README.html">Simple Tensor and Data Graph</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/timeline_semaphore/README.html">Timeline semaphore</a>
@@ -535,6 +547,9 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Samples" target="_blank" rel="noopener">GitHub Repository</a></span>
+  </li>
 </ul>
   </li>
 </ul>
@@ -671,12 +686,12 @@ This sample analyzes the available options and their performance implications.</
 <div class="sectionbody">
 <div class="paragraph">
 <p>The control over the number of swapchain images is shared between the application and the platform.
-The application can ask for a minimum number of images by setting the <code>minImageCount</code> parameter in <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkCreateSwapchainKHR.html">vk::Device::createSwapchainKHR</a>.
-The exact number of images created can then be polled via <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetSwapchainImagesKHR.html">vk::Device::getSwapchainImagesKHR</a>.</p>
+The application can ask for a minimum number of images by setting the <code>minImageCount</code> parameter in <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateSwapchainKHR.html">vk::Device::createSwapchainKHR</a>.
+The exact number of images created can then be polled via <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetSwapchainImagesKHR.html">vk::Device::getSwapchainImagesKHR</a>.</p>
 </div>
 <div class="paragraph">
-<p>In order to properly set the <code>minImageCount</code> parameter, the application should get the surface capabilities of the physical device via <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html">vk::PhysicalDevice::getSurfaceCapabilitiesKHR</a>.
-The <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSurfaceCapabilitiesKHR.html">vk::SurfaceCapabilitiesKHR</a> structure has the <code>minImageCount</code> and <code>maxImageCount</code> parameters, which set the boundaries for the image count that can be safely requested.</p>
+<p>In order to properly set the <code>minImageCount</code> parameter, the application should get the surface capabilities of the physical device via <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html">vk::PhysicalDevice::getSurfaceCapabilitiesKHR</a>.
+The <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesKHR.html">vk::SurfaceCapabilitiesKHR</a> structure has the <code>minImageCount</code> and <code>maxImageCount</code> parameters, which set the boundaries for the image count that can be safely requested.</p>
 </div>
 <div class="paragraph">
 <p>As a rule of thumb on mobile, <code>pSurfaceCapabilities-&gt;minImageCount</code> is usually 2, while <code>pSurfaceCapabilities-&gt;maxImageCount</code> is large enough to not pose any problem with common applications (though it is still good practice to check its value).</p>
@@ -704,7 +719,7 @@ We will discuss present modes in the next section.</p>
 <h2 id="_choosing_a_present_mode"><a class="anchor" href="#_choosing_a_present_mode"></a>Choosing a present mode</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The available present modes can be queried via <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html">vk::PhysicalDevice::getSurfacePresentModesKHR</a>.</p>
+<p>The available present modes can be queried via <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html">vk::PhysicalDevice::getSurfacePresentModesKHR</a>.</p>
 </div>
 <div class="paragraph">
 <p>There are several presentation modes in Vulkan, but mobile GPUs do not support the ones in which the image is directly presented to the screen (immediate mode).
@@ -828,7 +843,7 @@ After the marker we switch to double buffering and we confirm what we predicted 
 <div class="ulist">
 <ul>
 <li>
-<p>Ensure that the value of <code>minImageCount</code> is within the valid range from <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html">vk::PhysicalDevice::getSurfaceCapabilitiesKHR</a> (between <code>minImageCount</code> and <code>maxImageCount</code>).</p>
+<p>Ensure that the value of <code>minImageCount</code> is within the valid range from <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html">vk::PhysicalDevice::getSurfaceCapabilitiesKHR</a> (between <code>minImageCount</code> and <code>maxImageCount</code>).</p>
 </li>
 <li>
 <p>Use <code>vk::PresentModeKHR::eFifo</code> to avoid unnecessary CPU and GPU load.</p>
@@ -869,7 +884,7 @@ If you want to cap framerate to 30 FPS to save power, this can be achieved on th
 <div class="ulist">
 <ul>
 <li>
-<p>It is possible to check how many images are created via <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetSwapchainImagesKHR.html">vk::Device::getSwapchainImagesKHR</a>.
+<p>It is possible to check how many images are created via <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetSwapchainImagesKHR.html">vk::Device::getSwapchainImagesKHR</a>.
 If only 2 images are being created, <code>minImageCount</code> should be increased to 3, if the physical device allows for it (it normally does).</p>
 </li>
 </ul>

@@ -47,6 +47,12 @@ be selected
 `Subgroup`
 
 * 
+[](#VUID-StandaloneSpirv-Scope-12243) VUID-StandaloneSpirv-Scope-12243
+
+The `Scope` operand of `OpTypeCooperativeMatrixKHR` **must** be
+limited to `Workgroup` or `Subgroup`
+
+* 
 [](#VUID-StandaloneSpirv-None-04637) VUID-StandaloneSpirv-None-04637
 
 If the `Scope` for execution is `Workgroup`, then it **must** only be
@@ -665,6 +671,10 @@ the last member of a `Block`-decorated `OpTypeStruct` in
 storage `Storage` `Class`
 
 * 
+the last member of a `Block`-decorated `OpTypeStruct` in the
+`Uniform` storage `Storage` `Class`
+
+* 
 the outermost dimension of an arrayed variable in the
 `StorageBuffer`, `Uniform`, or `UniformConstant` storage
 `Storage` `Class`
@@ -672,6 +682,13 @@ the outermost dimension of an arrayed variable in the
 * 
 the `NodePayloadAMDX` storage `Storage` `Class` when the
 `CoalescingAMDX` `Execution` `Mode` is specified
+
+[](#VUID-StandaloneSpirv-OpArrayLength-11805) VUID-StandaloneSpirv-OpArrayLength-11805
+
+`OpArrayLength` and `OpUntypedArrayLengthKHR` **must** not be used
+with an `OpTypeRuntimeArray` that is the last member of a
+`Block`-decorated `OpTypeStruct` in the `Uniform` storage
+`Storage` `Class`
 
 [](#VUID-StandaloneSpirv-Function-04681) VUID-StandaloneSpirv-Function-04681
 
@@ -981,7 +998,7 @@ In mesh shaders using the `MeshEXT` `Execution` `Model`
 [](#VUID-StandaloneSpirv-MeshEXT-07107) VUID-StandaloneSpirv-MeshEXT-07107
 
 In mesh shaders using the `MeshEXT` `Execution` `Model` all variables
-declared as output **must** not be read from
+declared in the `Output` `Storage` `Class` **must** not be read
 
 [](#VUID-StandaloneSpirv-MeshEXT-07108) VUID-StandaloneSpirv-MeshEXT-07108
 
@@ -1082,7 +1099,7 @@ image through which that memory is accessed **must** be determined by
 
 If the `InputAttachmentArrayDynamicIndexing` capability is not
 declared, and an instruction accesses memory through an input
-attachment, the input attachmnet through which that memory is accessed
+attachment, the input attachment through which that memory is accessed
 **must** be determined by [constant    integral expressions](../../../../spec/latest/appendices/glossary.html#glossary-constant-integral-expression)
 
 [](#VUID-StandaloneSpirv-UniformTexelBufferArrayDynamicIndexing-10132) VUID-StandaloneSpirv-UniformTexelBufferArrayDynamicIndexing-10132

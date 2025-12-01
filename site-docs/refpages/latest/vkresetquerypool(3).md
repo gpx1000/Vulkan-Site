@@ -28,9 +28,8 @@ void vkResetQueryPool(
     uint32_t                                    firstQuery,
     uint32_t                                    queryCount);
 
-or the equivalent command
-
 // Provided by VK_EXT_host_query_reset
+// Equivalent to vkResetQueryPool
 void vkResetQueryPoolEXT(
     VkDevice                                    device,
     VkQueryPool                                 queryPool,

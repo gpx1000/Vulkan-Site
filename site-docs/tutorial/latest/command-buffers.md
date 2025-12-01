@@ -206,10 +206,10 @@ transition_image_layout(
     imageIndex,
     vk::ImageLayout::eUndefined,
     vk::ImageLayout::eColorAttachmentOptimal,
-    {},                                                     // srcAccessMask (no need to wait for previous operations)
-    vk::AccessFlagBits2::eColorAttachmentWrite,                // dstAccessMask
-    vk::PipelineStageFlagBits2::eTopOfPipe,                   // srcStage
-    vk::PipelineStageFlagBits2::eColorAttachmentOutput        // dstStage
+    {},                                                         // srcAccessMask (no need to wait for previous operations)
+    vk::AccessFlagBits2::eColorAttachmentWrite,                 // dstAccessMask
+    vk::PipelineStageFlagBits2::eColorAttachmentOutput,         // srcStage
+    vk::PipelineStageFlagBits2::eColorAttachmentOutput          // dstStage
 );
 
 First, we transition the image layout to `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL`. Then, we set up the color attachment:
@@ -287,10 +287,10 @@ transition_image_layout(
     imageIndex,
     vk::ImageLayout::eColorAttachmentOptimal,
     vk::ImageLayout::ePresentSrcKHR,
-    vk::AccessFlagBits2::eColorAttachmentWrite,                 // srcAccessMask
-    {},                                                      // dstAccessMask
-    vk::PipelineStageFlagBits2::eColorAttachmentOutput,        // srcStage
-    vk::PipelineStageFlagBits2::eBottomOfPipe                  // dstStage
+    vk::AccessFlagBits2::eColorAttachmentWrite,             // srcAccessMask
+    {},                                                     // dstAccessMask
+    vk::PipelineStageFlagBits2::eColorAttachmentOutput,     // srcStage
+    vk::PipelineStageFlagBits2::eBottomOfPipe               // dstStage
 );
 
 And we’ve finished recording the command buffer:

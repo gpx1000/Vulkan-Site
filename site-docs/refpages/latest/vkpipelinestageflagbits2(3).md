@@ -138,7 +138,7 @@ static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT = 
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT = 0x00100000ULL;
 // Provided by VK_HUAWEI_subpass_shading
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI = 0x8000000000ULL;
-// VK_PIPELINE_STAGE_2_SUBPASS_SHADING_BIT_HUAWEI is a deprecated alias
+// VK_PIPELINE_STAGE_2_SUBPASS_SHADING_BIT_HUAWEI is a legacy alias
 // Provided by VK_HUAWEI_subpass_shading
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_SUBPASS_SHADING_BIT_HUAWEI = 0x8000000000ULL;
 // Provided by VK_HUAWEI_invocation_mask
@@ -155,10 +155,13 @@ static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_OPTICAL_FLOW_BIT_NV = 
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV = 0x100000000000ULL;
 // Provided by VK_ARM_data_graph
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM = 0x40000000000ULL;
-
-or the equivalent
+// Provided by VK_KHR_copy_memory_indirect
+static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR = 0x400000000000ULL;
+// Provided by VK_EXT_memory_decompression
+static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT = 0x200000000000ULL;
 
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkPipelineStageFlagBits2
 typedef VkPipelineStageFlagBits2 VkPipelineStageFlagBits2KHR;
 
 * 
@@ -310,6 +313,9 @@ all graphics pipeline stages, and is equivalent to the logical OR of:
 `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`
 
 * 
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR`
+
+* 
 `VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT`
 
 * 
@@ -420,6 +426,10 @@ the cluster culling shader stage.
 `VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV`
 specifies the execution of [vkCmdConvertCooperativeVectorMatrixNV](vkCmdConvertCooperativeVectorMatrixNV.html).
 
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR` specifies the stage of
+the pipeline where indirect copy commands (vkCmdCopyMemoryIndirect* and
+vkCmdCopyMemoryToImageIndirect*) parameters are consumed.
+
 `VK_PIPELINE_STAGE_2_TOP_OF_PIPE_BIT` is equivalent to
 `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT` with [VkAccessFlags2](VkAccessFlags2.html) set
 to `0` when specified in the second synchronization scope, but
@@ -430,9 +440,9 @@ equivalent to `VK_PIPELINE_STAGE_2_NONE` in the first scope.
 to `0` when specified in the first synchronization scope, but equivalent
 to `VK_PIPELINE_STAGE_2_NONE` in the second scope.
 
-|  | The `TOP` and `BOTTOM` pipeline stages are deprecated, and
+|  | The `TOP` and `BOTTOM` pipeline stages are legacy, and applications
 | --- | --- |
-applications should prefer `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT` and
+should prefer `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT` and
 `VK_PIPELINE_STAGE_2_NONE`. |
 
 |  | The `VkPipelineStageFlags2` bitmask goes beyond the 31 individual bit

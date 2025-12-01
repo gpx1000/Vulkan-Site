@@ -28,9 +28,8 @@ typedef struct VkExternalMemoryProperties {
     VkExternalMemoryHandleTypeFlags    compatibleHandleTypes;
 } VkExternalMemoryProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryProperties
 typedef VkExternalMemoryProperties VkExternalMemoryPropertiesKHR;
 
 * 
@@ -58,7 +57,7 @@ The application is responsible for querying the capabilities of all handle
 types intended for concurrent use in a single image and intersecting them to
 obtain the compatible set of capabilities.
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalBufferProperties](VkExternalBufferProperties.html), [VkExternalImageFormatProperties](VkExternalImageFormatProperties.html), [VkExternalMemoryFeatureFlags](VkExternalMemoryFeatureFlags.html), [VkExternalMemoryHandleTypeFlags](VkExternalMemoryHandleTypeFlags.html), [VkExternalTensorPropertiesARM](VkExternalTensorPropertiesARM.html)
+[VK_KHR_external_memory_capabilities](VK_KHR_external_memory_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalBufferProperties](VkExternalBufferProperties.html), [VkExternalImageFormatProperties](VkExternalImageFormatProperties.html), [VkExternalMemoryFeatureFlags](VkExternalMemoryFeatureFlags.html), [VkExternalMemoryHandleTypeFlags](VkExternalMemoryHandleTypeFlags.html), [VkExternalTensorPropertiesARM](VkExternalTensorPropertiesARM.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkExternalMemoryProperties).
 

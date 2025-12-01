@@ -28,9 +28,8 @@ typedef struct VkPhysicalDeviceHostImageCopyFeatures {
     VkBool32           hostImageCopy;
 } VkPhysicalDeviceHostImageCopyFeatures;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to VkPhysicalDeviceHostImageCopyFeatures
 typedef VkPhysicalDeviceHostImageCopyFeatures VkPhysicalDeviceHostImageCopyFeaturesEXT;
 
 This structure describes the following feature:

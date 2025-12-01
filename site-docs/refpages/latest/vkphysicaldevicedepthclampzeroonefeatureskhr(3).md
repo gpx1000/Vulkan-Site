@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceDepthClampZeroOneFeaturesKHR {
     VkBool32           depthClampZeroOne;
 } VkPhysicalDeviceDepthClampZeroOneFeaturesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_depth_clamp_zero_one
+// Equivalent to VkPhysicalDeviceDepthClampZeroOneFeaturesKHR
 typedef VkPhysicalDeviceDepthClampZeroOneFeaturesKHR VkPhysicalDeviceDepthClampZeroOneFeaturesEXT;
 
 This structure describes the following feature:

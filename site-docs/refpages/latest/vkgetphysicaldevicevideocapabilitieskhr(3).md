@@ -117,6 +117,14 @@ If `pVideoProfile->videoCodecOperation` is
 chain of `pCapabilities` **must** include a
 [VkVideoEncodeAV1CapabilitiesKHR](VkVideoEncodeAV1CapabilitiesKHR.html) structure
 
+* 
+[](#VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pNext-10921) VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pNext-10921
+
+If the `pNext` chain of `pVideoProfile` includes a
+[VkVideoEncodeProfileRgbConversionInfoVALVE](VkVideoEncodeProfileRgbConversionInfoVALVE.html) structure, then the
+[`videoEncodeRgbConversion`](../../../../spec/latest/chapters/features.html#features-videoEncodeRgbConversion)
+feature **must** be supported
+
 Valid Usage (Implicit)
 
 * 

@@ -58,7 +58,7 @@ buffers in the buffer collection
 `fuchsia.sysmem/image_formats.fidl` FIDL interface
 
 * 
-`colorSpaceCount` the element count of `pColorSpaces`
+`colorSpaceCount` is the element count of `pColorSpaces`
 
 * 
 `pColorSpaces` is a pointer to an array of

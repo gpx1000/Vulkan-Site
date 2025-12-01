@@ -27,9 +27,8 @@ void vkGetPhysicalDeviceQueueFamilyProperties2(
     uint32_t*                                   pQueueFamilyPropertyCount,
     VkQueueFamilyProperties2*                   pQueueFamilyProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to vkGetPhysicalDeviceQueueFamilyProperties2
 void vkGetPhysicalDeviceQueueFamilyProperties2KHR(
     VkPhysicalDevice                            physicalDevice,
     uint32_t*                                   pQueueFamilyPropertyCount,
@@ -69,7 +68,7 @@ Valid Usage (Implicit)
 
  If the value referenced by `pQueueFamilyPropertyCount` is not `0`, and `pQueueFamilyProperties` is not `NULL`, `pQueueFamilyProperties` **must** be a valid pointer to an array of `pQueueFamilyPropertyCount` [VkQueueFamilyProperties2](VkQueueFamilyProperties2.html) structures
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkQueueFamilyProperties2](VkQueueFamilyProperties2.html)
+[VK_KHR_get_physical_device_properties2](VK_KHR_get_physical_device_properties2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkQueueFamilyProperties2](VkQueueFamilyProperties2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2).
 

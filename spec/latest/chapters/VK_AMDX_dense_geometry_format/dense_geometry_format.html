@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="../VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="../private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="../raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="../memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../appendices/boilerplate.html">API Boilerplate</a>
@@ -412,6 +421,13 @@
 <h2 id="dense-geometry-format"><a class="anchor" href="#dense-geometry-format"></a>Dense Geometry Format Version 1 (DGF1)</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>The provisional <code><a href="../../appendices/extensions.html#VK_AMDX_dense_geometry_format" class="xref page">VK_AMDX_dense_geometry_format</a></code> extension provides a
+way for applications to build acceleration structures from pre-compressed
+Dense Geometry Format (DGF) triangle geometry data, enabling improved build
+times and reducing both the storage required on disk and the memory
+footprint of acceleration structures.</p>
+</div>
+<div class="paragraph">
 <p>The dense geometry format consists of an array of 128B blocks that encode
 triangle data.
 Each block holds a maximum of 64 triangles and 64 vertices.</p>
@@ -497,7 +513,7 @@ following the vertex data and OMM palette.</p>
 </div>
 <div class="paragraph">
 <p>The region containing the vertex data, geomID palette, and OMM palette is
-referred to as the "front buffer".
+referred to as the &#8220;front buffer&#8221;.
 It is byte-aligned, and its total size may not exceed 96B.</p>
 </div>
 <div class="paragraph">
@@ -529,7 +545,8 @@ to floating-point world coordinates (stored as an IEEE biased exponent).</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>An equivalent fixed-point encoding scheme is used by Epic&#8217;s "Nanite" system.</p>
+<p>An equivalent fixed-point encoding scheme is used by Epic&#8217;s &#8220;Nanite&#8221;
+system.</p>
 </div>
 <div class="paragraph">
 <p>The decoded floating-point vertex position is computed as follows:</p>
@@ -682,7 +699,7 @@ the control bits.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>An array of "is-first" bits</p>
+<p>An array of &#8220;is-first&#8221; bits</p>
 <div class="ulist">
 <ul>
 <li>
@@ -694,8 +711,8 @@ given vertex.</p>
 counter.</p>
 </li>
 <li>
-<p>The first three indices are always "first", so their "is-first" bits
-are not stored.</p>
+<p>The first three indices are always &#8220;first&#8221;, so their &#8220;is-first&#8221;
+bits are not stored.</p>
 </li>
 <li>
 <p>Ordered back to front (earlier indices occupy higher bit positions).</p>
@@ -704,11 +721,11 @@ are not stored.</p>
 </div>
 </li>
 <li>
-<p>A "reuse buffer" containing the indices of reused vertices</p>
+<p>A &#8220;reuse buffer&#8221; containing the indices of reused vertices</p>
 <div class="ulist">
 <ul>
 <li>
-<p>There is one index for each zero bit in the "is-first" bit vector.</p>
+<p>There is one index for each zero bit in the &#8220;is-first&#8221; bit vector.</p>
 </li>
 <li>
 <p>The number of bits per index is stored in the header.
@@ -771,7 +788,7 @@ The triangle control bits are located at the end of the block, and the
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BACKTRACK</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The opposite edge of the predecessor&#8217;s predecessor is reused.  "Opposite edge" means EDGE1 if the predecessor used EDGE2, or EDGE2 if the predecessor used EDGE1.  BACKTRACK is not allowed unless the predecessor used EDGE1 or EDGE2.  A BACKTRACK triangle may not occur after a RESTART or another BACKTRACK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The opposite edge of the predecessor&#8217;s predecessor is reused.  &#8220;Opposite edge&#8221; means EDGE1 if the predecessor used EDGE2, or EDGE2 if the predecessor used EDGE1.  BACKTRACK is not allowed unless the predecessor used EDGE1 or EDGE2.  A BACKTRACK triangle may not occur after a RESTART or another BACKTRACK</p></td>
 </tr>
 </tbody>
 </table>
@@ -927,7 +944,7 @@ the array.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If palette mode is in use, there is no requirement that the "opaque" flags
+<p>If palette mode is in use, there is no requirement that the &#8220;opaque&#8221; flags
 are consistent for triangles with the same geometry index.</p>
 </div>
 <div class="paragraph">
@@ -1074,7 +1091,7 @@ block to collectively reference a limited number of OMMs.
 The OMM support in DGF is best suited for scenarios in which a small set of
 OMMs is repeated many times over a large mesh (e.g. tree leaves).
 For intricate alpha cutouts applied to high-poly models, it is potentially
-more efficient to tessellate the geometry and "bake in" the alpha cutout.</p>
+more efficient to tessellate the geometry and &#8220;bake in&#8221; the alpha cutout.</p>
 </div>
 <div class="paragraph">
 <p>Because OMMs are constructed independently of acceleration structure
@@ -1112,7 +1129,7 @@ uint get_omm_index( uint primIDBase, uint triangleIndexInBlock )
 </div>
 <div class="paragraph">
 <p>If an OMM index buffer is used to select OMMs, then each distinct index
-value (including "special indices") counts as one descriptor.
+value (including &#8220;special indices&#8221;) counts as one descriptor.
 If there is no OMM index buffer, then a simple linear mapping is used
 instead.
 This implies that the number of OMM descriptors equals the number of
@@ -1125,18 +1142,18 @@ This opaque flag is used whenever OMMs are disabled via ray/instance flags.</p>
 <div class="sect3">
 <h4 id="_opacity_micromap_palette"><a class="anchor" href="#_opacity_micromap_palette"></a>Opacity Micromap Palette</h4>
 <div class="paragraph">
-<p>If <code>omm_descriptor_count</code> is non-zero, then an "OMM palette" is present.
+<p>If <code>omm_descriptor_count</code> is non-zero, then an &#8220;OMM palette&#8221; is present.
 The OMM palette, if present, is byte-aligned.
 Pad bits are inserted as required.
 All pad bits must be zero.</p>
 </div>
 <div class="paragraph">
-<p>The OMM palette consists of a "hot-patched" section, and a "pre-computed"
-section.
-The "hot-patched" section is so named because it is expected to be patched
+<p>The OMM palette consists of a &#8220;hot-patched&#8221; section, and a
+&#8220;pre-computed&#8221; section.
+The &#8220;hot-patched&#8221; section is so named because it is expected to be patched
 at runtime with OMM information when an acceleration structure is
 constructed.
-The "pre-computed" section is computed by the application at DGF encoding
+The &#8220;pre-computed&#8221; section is computed by the application at DGF encoding
 time.
 The size and position of the hot-patched section are exposed to applications
 through the API, but its precise contents are not.</p>
@@ -1149,13 +1166,13 @@ section immediately after it.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The "hot-patched" section contains 8 bytes, plus 4 bytes for each OMM
+<p>The &#8220;hot-patched&#8221; section contains 8 bytes, plus 4 bytes for each OMM
 descriptor.
 The application must initialize this space with zeros.</p>
 </li>
 <li>
-<p>The "pre-computed" section contains a per-triangle index indicating which
-OMM descriptor to use.</p>
+<p>The &#8220;pre-computed&#8221; section contains a per-triangle index indicating
+which OMM descriptor to use.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1242,14 +1259,14 @@ all pad bits must be zero.</p>
 <pre class="highlightjs highlight"><code class="language-c hljs" data-lang="c">int compute_palette_size( uint numDescriptors, uint numTriangles )
 {
     if( numDescriptors == 0 )
-	    return 0;
+            return 0;
 
-	uint hotPatchSize    = 64 + 32*numTriangles;
-	uint bitsPerIndex    = ceil( log2(numDescriptors) );
-	uint precomputedSize = bitsPerIndex*numTriangles;
+        uint hotPatchSize    = 64 + 32*numTriangles;
+        uint bitsPerIndex    = ceil( log2(numDescriptors) );
+        uint precomputedSize = bitsPerIndex*numTriangles;
     precomputedSize = (precomputedSize + 7) &amp; ~7; // byte align
 
-	return hotPatchSize + precomputedSize;
+        return hotPatchSize + precomputedSize;
 }</code></pre>
 </div>
 </div>
@@ -1272,38 +1289,38 @@ int build_omm_palette( uint descriptorIndices[], uint numTriangles, const int* o
 
     for( uint triangleIndex = 0; triangleIndex &lt; numTriangles; triangleIndex++ )
     {
-	    // determine the OMM index assigned to this triangle
+            // determine the OMM index assigned to this triangle
         int ommIndex = ommIndices[triangleIndex];
 
-		// search for an existing descriptor for this OMM or special-index value
-		uint descriptorIndex=0;
+                // search for an existing descriptor for this OMM or special-index value
+                uint descriptorIndex=0;
 
         while(descriptorIndex &lt; numDescriptors )
-		{
-			if( ommPalette[descriptorIndex] == ommIndex )
-            	break;
+                {
+                        if( ommPalette[descriptorIndex] == ommIndex )
+                break;
 
             descriptorIndex++;
         }
 
-		// if an existing descriptor was not found, attempt to allocate one
-		//  if unsuccessful, the encoder must split the triangles into multiple blocks
-		if( descriptorIndex == numDescriptors )
-		{
-			if( numDescriptors == MAX_DESCRIPTORS )
-			    return -1; // block must be split
-			else
-			    ommPalette[numDescriptors++] = ommIndex;
+                // if an existing descriptor was not found, attempt to allocate one
+                //  if unsuccessful, the encoder must split the triangles into multiple blocks
+                if( descriptorIndex == numDescriptors )
+                {
+                        if( numDescriptors == MAX_DESCRIPTORS )
+                            return -1; // block must be split
+                        else
+                            ommPalette[numDescriptors++] = ommIndex;
             }
 
-		descriptorIndices[triangleIndex] = descriptorIndex;
+                descriptorIndices[triangleIndex] = descriptorIndex;
     }
 
-	// split the triangles if the resulting palette cannot fit in the block
-	if( compute_palette_size(numTriangles,numDescriptors) &gt; spaceAvailable )
-	    return -1;
+        // split the triangles if the resulting palette cannot fit in the block
+        if( compute_palette_size(numTriangles,numDescriptors) &gt; spaceAvailable )
+            return -1;
 
-	return numDescriptors;
+        return numDescriptors;
 }</code></pre>
 </div>
 </div>

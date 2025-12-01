@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceUniformBufferStandardLayoutFeatures {
     VkBool32           uniformBufferStandardLayout;
 } VkPhysicalDeviceUniformBufferStandardLayoutFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_uniform_buffer_standard_layout
+// Equivalent to VkPhysicalDeviceUniformBufferStandardLayoutFeatures
 typedef VkPhysicalDeviceUniformBufferStandardLayoutFeatures VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR;
 
 This structure describes the following feature:

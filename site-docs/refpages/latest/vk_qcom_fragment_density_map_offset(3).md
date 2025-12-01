@@ -111,7 +111,7 @@ Extending [VkPhysicalDeviceProperties2](VkPhysicalDeviceProperties2.html):
 * 
 [VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM](VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT.html)
 
-Extending [VkSubpassEndInfo](VkSubpassEndInfo.html), [VkRenderingEndInfoEXT](VkRenderingEndInfoEXT.html):
+Extending [VkSubpassEndInfo](VkSubpassEndInfo.html), [VkRenderingEndInfoKHR](VkRenderingEndInfoKHR.html):
 
 * 
 [VkSubpassFragmentDensityMapOffsetEndInfoQCOM](VkRenderPassFragmentDensityMapOffsetEndInfoEXT.html)

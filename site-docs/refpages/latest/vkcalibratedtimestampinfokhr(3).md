@@ -28,9 +28,8 @@ typedef struct VkCalibratedTimestampInfoKHR {
     VkTimeDomainKHR    timeDomain;
 } VkCalibratedTimestampInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_calibrated_timestamps
+// Equivalent to VkCalibratedTimestampInfoKHR
 typedef VkCalibratedTimestampInfoKHR VkCalibratedTimestampInfoEXT;
 
 * 
@@ -52,6 +51,13 @@ Valid Usage
 `timeDomain` **must** be one of the [VkTimeDomainKHR](VkTimeDomainKHR.html) values
 returned by [vkGetPhysicalDeviceCalibrateableTimeDomainsKHR](vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html)
 
+* 
+[](#VUID-VkCalibratedTimestampInfoKHR-timeDomain-12227) VUID-VkCalibratedTimestampInfoKHR-timeDomain-12227
+
+If `timeDomain` is `VK_TIME_DOMAIN_SWAPCHAIN_LOCAL_EXT` or
+`VK_TIME_DOMAIN_PRESENT_STAGE_LOCAL_EXT`, the `pNext` chain
+**must** include a [VkSwapchainCalibratedTimestampInfoEXT](VkSwapchainCalibratedTimestampInfoEXT.html) structure.
+
 Valid Usage (Implicit)
 
 * 
@@ -62,7 +68,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkCalibratedTimestampInfoKHR-pNext-pNext) VUID-VkCalibratedTimestampInfoKHR-pNext-pNext
 
- `pNext` **must** be `NULL`
+ `pNext` **must** be `NULL` or a pointer to a valid instance of [VkSwapchainCalibratedTimestampInfoEXT](VkSwapchainCalibratedTimestampInfoEXT.html)
+
+* 
+[](#VUID-VkCalibratedTimestampInfoKHR-sType-unique) VUID-VkCalibratedTimestampInfoKHR-sType-unique
+
+ The `sType` value of each structure in the `pNext` chain **must** be unique
 
 * 
 [](#VUID-VkCalibratedTimestampInfoKHR-timeDomain-parameter) VUID-VkCalibratedTimestampInfoKHR-timeDomain-parameter

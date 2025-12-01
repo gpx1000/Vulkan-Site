@@ -32,9 +32,8 @@ typedef struct VkPhysicalDeviceImageFormatInfo2 {
     VkImageCreateFlags    flags;
 } VkPhysicalDeviceImageFormatInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkPhysicalDeviceImageFormatInfo2
 typedef VkPhysicalDeviceImageFormatInfo2 VkPhysicalDeviceImageFormatInfo2KHR;
 
 * 
@@ -137,7 +136,7 @@ Valid Usage (Implicit)
 
  `flags` **must** be a valid combination of [VkImageCreateFlagBits](VkImageCreateFlagBits.html) values
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkFormat](VkFormat.html), [VkImageCreateFlags](VkImageCreateFlags.html), [VkImageTiling](VkImageTiling.html), [VkImageType](VkImageType.html), [VkImageUsageFlags](VkImageUsageFlags.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceImageFormatProperties2](vkGetPhysicalDeviceImageFormatProperties2.html), [vkGetPhysicalDeviceImageFormatProperties2](vkGetPhysicalDeviceImageFormatProperties2.html)
+[VK_KHR_get_physical_device_properties2](VK_KHR_get_physical_device_properties2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkFormat](VkFormat.html), [VkImageCreateFlags](VkImageCreateFlags.html), [VkImageTiling](VkImageTiling.html), [VkImageType](VkImageType.html), [VkImageUsageFlags](VkImageUsageFlags.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceImageFormatProperties2](vkGetPhysicalDeviceImageFormatProperties2.html), [vkGetPhysicalDeviceImageFormatProperties2](vkGetPhysicalDeviceImageFormatProperties2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkPhysicalDeviceImageFormatInfo2).
 

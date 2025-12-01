@@ -24,11 +24,27 @@ describing additional properties of the attachment, are:
 // Provided by VK_VERSION_1_0
 typedef enum VkAttachmentDescriptionFlagBits {
     VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT = 0x00000001,
+  // Provided by VK_KHR_maintenance10
+    VK_ATTACHMENT_DESCRIPTION_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR = 0x00000002,
+  // Provided by VK_KHR_maintenance10
+    VK_ATTACHMENT_DESCRIPTION_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR = 0x00000004,
 } VkAttachmentDescriptionFlagBits;
 
 * 
 `VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT` specifies that the
 attachment aliases the same device memory as other attachments.
+
+* 
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR`
+specifies that resolve operations happening to an sRGB encoded
+attachment **must** not convert samples from nonlinear to linear before
+averaging.
+
+* 
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`
+specifies that resolve operations happening to an sRGB encoded
+attachment **must** convert samples from nonlinear to linear before
+averaging.
 
 [VK_VERSION_1_0](VK_VERSION_1_0.html), [VkAttachmentDescriptionFlags](VkAttachmentDescriptionFlags.html)
 

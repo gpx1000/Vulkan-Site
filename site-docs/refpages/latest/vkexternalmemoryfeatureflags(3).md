@@ -21,15 +21,14 @@ VkExternalMemoryFeatureFlags - Bitmask of VkExternalMemoryFeatureFlagBits
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkExternalMemoryFeatureFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryFeatureFlags
 typedef VkExternalMemoryFeatureFlags VkExternalMemoryFeatureFlagsKHR;
 
 `VkExternalMemoryFeatureFlags` is a bitmask type for setting a mask of
 zero or more [VkExternalMemoryFeatureFlagBits](VkExternalMemoryFeatureFlagBits.html).
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalMemoryFeatureFlagBits](VkExternalMemoryFeatureFlagBits.html), [VkExternalMemoryProperties](VkExternalMemoryProperties.html), `VkFlags`
+[VK_KHR_external_memory_capabilities](VK_KHR_external_memory_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalMemoryFeatureFlagBits](VkExternalMemoryFeatureFlagBits.html), [VkExternalMemoryProperties](VkExternalMemoryProperties.html), `VkFlags`
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkExternalMemoryFeatureFlags).
 

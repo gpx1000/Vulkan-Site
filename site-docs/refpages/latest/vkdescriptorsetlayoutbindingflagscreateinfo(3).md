@@ -35,9 +35,8 @@ typedef struct VkDescriptorSetLayoutBindingFlagsCreateInfo {
     const VkDescriptorBindingFlags*    pBindingFlags;
 } VkDescriptorSetLayoutBindingFlagsCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorSetLayoutBindingFlagsCreateInfo
 typedef VkDescriptorSetLayoutBindingFlagsCreateInfo VkDescriptorSetLayoutBindingFlagsCreateInfoEXT;
 
 * 

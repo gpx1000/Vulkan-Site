@@ -40,19 +40,34 @@ Instead, their results, and their availability status are stored in a
 The state of these queries **can** be read back on the host, or copied to a
 buffer object on the device.
 
-The supported query types are [Occlusion Queries](#queries-occlusion),
-[Pipeline Statistics Queries](#queries-pipestats),
-[Result Status Queries](#queries-result-status-only),
+The supported query types are:
+
+* 
+[Occlusion Queries](#queries-occlusion)
+
+* 
+[Pipeline Statistics Queries](#queries-pipestats)
+
+* 
+[Timestamp Queries](#queries-timestamps)
+
+* 
+[Result Status Queries](#queries-result-status-only)
+
+* 
 [Video Encode Feedback Queries](#queries-video-encode-feedback)
-and [Timestamp Queries](#queries-timestamps).
-[Performance Queries](#queries-performance) are supported if the associated
-extension is available.
-[Transform Feedback Queries](#queries-transform-feedback) are supported if
-the associated extension is available.
-[Intel Performance Queries](#queries-performance-intel) are supported if the associated extension is
-available.
-[Mesh Shader Queries](#queries-mesh-shader) are supported if the associated
-extension is available.
+
+* 
+[Performance Queries](#queries-performance)
+
+* 
+[Transform Feedback Queries](#queries-transform-feedback)
+
+* 
+[Intel Performance Queries](#queries-performance-intel)
+
+* 
+[Mesh Shader Queries](#queries-mesh-shader)
 
 Several additional queries with specific purposes associated with ray
 tracing are available if the corresponding extensions are supported, as
@@ -180,11 +195,10 @@ queries managed by the pool.
 `queryCount` is the number of queries managed by the pool.
 
 * 
-`pipelineStatistics` is a bitmask of
-[VkQueryPipelineStatisticFlagBits](#VkQueryPipelineStatisticFlagBits) specifying which counters will be
-returned in queries on the new pool, as described below in
-[Pipeline Statistics Queries](#queries-pipestats).
-
+`pipelineStatistics`
+is a bitmask of [VkQueryPipelineStatisticFlagBits](#VkQueryPipelineStatisticFlagBits) specifying which
+counters will be returned in queries on the new pool, as described below
+in [Pipeline Statistics Queries](#queries-pipestats).
 `pipelineStatistics` is ignored if `queryType` is not
 `VK_QUERY_TYPE_PIPELINE_STATISTICS`.
 
@@ -239,6 +253,14 @@ If `queryType` is `VK_QUERY_TYPE_PERFORMANCE_QUERY_KHR`, the
 `queryCount` **must** be greater than 0
 
 * 
+[](#VUID-VkQueryPoolCreateInfo-queryType-11839) VUID-VkQueryPoolCreateInfo-queryType-11839
+
+If `queryType` is `VK_QUERY_TYPE_RESULT_STATUS_ONLY_KHR`, then
+at least one of the queue families of the device **must** support
+[result status queries](#queries-result-status-only), as indicated by
+[VkQueueFamilyQueryResultStatusPropertiesKHR](devsandqueues.html#VkQueueFamilyQueryResultStatusPropertiesKHR)::`queryResultStatusSupport`
+
+* 
 [](#VUID-VkQueryPoolCreateInfo-pNext-10779) VUID-VkQueryPoolCreateInfo-pNext-10779
 
 If the `pNext` chain includes a [VkVideoProfileInfoKHR](videocoding.html#VkVideoProfileInfoKHR)
@@ -282,6 +304,14 @@ structure and its `videoCodecOperation` member is
 `VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR`, then the
 [`videoEncodeAV1`](features.html#features-videoEncodeAV1) feature **must** be
 enabled
+
+* 
+[](#VUID-VkQueryPoolCreateInfo-pNext-10918) VUID-VkQueryPoolCreateInfo-pNext-10918
+
+If the `pNext` chain includes a
+[VkVideoEncodeProfileRgbConversionInfoVALVE](videocoding.html#VkVideoEncodeProfileRgbConversionInfoVALVE) structure, then the
+[`videoEncodeRgbConversion`](features.html#features-videoEncodeRgbConversion)
+feature **must** be enabled
 
 Valid Usage (Implicit)
 
@@ -767,12 +797,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdResetQueryPool-commandBuffer-cmdpool) VUID-vkCmdResetQueryPool-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, encode, or optical flow operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_OPTICAL_FLOW_BIT_NV`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdResetQueryPool-renderpass) VUID-vkCmdResetQueryPool-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdResetQueryPool-suspended) VUID-vkCmdResetQueryPool-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdResetQueryPool-videocoding) VUID-vkCmdResetQueryPool-videocoding
@@ -797,15 +832,15 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_OPTICAL_FLOW_BIT_NV
 
-Encode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Opticalflow | Action |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action |
 
 Conditional Rendering
 
@@ -820,9 +855,8 @@ void vkResetQueryPool(
     uint32_t                                    firstQuery,
     uint32_t                                    queryCount);
 
-or the equivalent command
-
 // Provided by VK_EXT_host_query_reset
+// Equivalent to vkResetQueryPool
 void vkResetQueryPoolEXT(
     VkDevice                                    device,
     VkQueryPool                                 queryPool,
@@ -901,11 +935,13 @@ Valid Usage (Implicit)
 
 Once queries are reset and ready for use, query commands **can** be issued to a
 command buffer.
-Occlusion queries and pipeline statistics queries count events - drawn
-samples and pipeline stage invocations, respectively - resulting from
-commands that are recorded between a [vkCmdBeginQuery](#vkCmdBeginQuery) command and a
-[vkCmdEndQuery](#vkCmdEndQuery) command within a specified command buffer, effectively
-scoping a set of drawing and/or dispatching commands.
+Pipeline statistics queries count pipeline stage invocations
+and occlusion queries count drawn samples
+resulting from commands that are recorded between a [vkCmdBeginQuery](#vkCmdBeginQuery)
+command and a [vkCmdEndQuery](#vkCmdEndQuery) command within a specified command buffer,
+effectively scoping a set of dispatching
+and/or drawing
+commands.
 Timestamp queries write timestamps to a query pool.
 Performance queries record performance counters to a query pool.
 
@@ -1291,7 +1327,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBeginQuery-commandBuffer-cmdpool) VUID-vkCmdBeginQuery-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdBeginQuery-suspended) VUID-vkCmdBeginQuery-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBeginQuery-commonparent) VUID-vkCmdBeginQuery-commonparent
@@ -1311,13 +1352,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Graphics
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Action
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action
 
 State |
 
@@ -1682,7 +1723,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBeginQueryIndexedEXT-commandBuffer-cmdpool) VUID-vkCmdBeginQueryIndexedEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdBeginQueryIndexedEXT-suspended) VUID-vkCmdBeginQueryIndexedEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBeginQueryIndexedEXT-videocoding) VUID-vkCmdBeginQueryIndexedEXT-videocoding
@@ -1707,13 +1753,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Action
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action
 
 State |
 
@@ -1739,8 +1785,7 @@ typedef VkFlags VkQueryControlFlags;
 `VkQueryControlFlags` is a bitmask type for setting a mask of zero or
 more [VkQueryControlFlagBits](#VkQueryControlFlagBits).
 
-To end a query after the set of desired drawing or dispatching commands is
-executed, call:
+To end a query after the set of desired commands is recorded, call:
 
 // Provided by VK_VERSION_1_0
 void vkCmdEndQuery(
@@ -1856,7 +1901,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdEndQuery-commandBuffer-cmdpool) VUID-vkCmdEndQuery-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdEndQuery-suspended) VUID-vkCmdEndQuery-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdEndQuery-commonparent) VUID-vkCmdEndQuery-commonparent
@@ -1876,13 +1926,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Graphics
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Action
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action
 
 State |
 
@@ -2018,7 +2068,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdEndQueryIndexedEXT-commandBuffer-cmdpool) VUID-vkCmdEndQueryIndexedEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdEndQueryIndexedEXT-suspended) VUID-vkCmdEndQueryIndexedEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdEndQueryIndexedEXT-videocoding) VUID-vkCmdEndQueryIndexedEXT-videocoding
@@ -2043,13 +2098,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Action
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action
 
 State |
 
@@ -2068,71 +2123,75 @@ by the command, and each subsequent query’s result begins `stride`
 bytes later.
 
 * 
-Occlusion queries, pipeline statistics queries,
-transform feedback queries,
-primitives generated queries,
-mesh shader queries,
-video encode feedback queries,
-and timestamp queries store results in a tightly packed array of
-unsigned integers, either 32- or 64-bits as requested by the command,
-storing the numerical results and, if requested, the availability
-status.
+Each query writes results in a tightly packed array of result values as
+follows:
+
+Occlusion queries write one unsigned integer value - the number of
+samples passed.
 
 * 
-Performance queries store results in a tightly packed array whose type
-is determined by the `unit` member of the corresponding
-[VkPerformanceCounterKHR](devsandqueues.html#VkPerformanceCounterKHR).
+Pipeline statistics queries write one unsigned integer value for each
+bit that is enabled in the `pipelineStatistics` when the pool is
+created, and the statistics values are written in bit order starting
+from the least significant bit.
 
 * 
-If `VK_QUERY_RESULT_WITH_AVAILABILITY_BIT` is used, the final
-element of each query’s result is an integer indicating whether the
-query’s result is available, with any non-zero value indicating that it
-is available.
+Timestamp queries write one unsigned integer value.
 
 * 
-If `VK_QUERY_RESULT_WITH_STATUS_BIT_KHR` is used, the final element
-of each query’s result is an integer value indicating that status of the
-query result.
-Positive values indicate success, negative values indicate failure, and
-0 indicates that the result is not yet available.
-Specific error codes are encoded in the [VkQueryResultStatusKHR](#VkQueryResultStatusKHR)
-enumeration.
-
-* 
-Occlusion queries write one integer value - the number of samples
-passed.
-Pipeline statistics queries write one integer value for each bit that is
-enabled in the `pipelineStatistics` when the pool is created, and
-the statistics values are written in bit order starting from the least
-significant bit.
-Timestamp queries write one integer value.
 Performance queries write one [VkPerformanceCounterResultKHR](#VkPerformanceCounterResultKHR) value
 for each [VkPerformanceCounterKHR](devsandqueues.html#VkPerformanceCounterKHR) in the query.
-Transform feedback queries write two integers; the first integer is the
-number of primitives successfully written to the corresponding transform
-feedback buffer and the second is the number of primitives output to the
-vertex stream, regardless of whether they were successfully captured or
-not.
-In other words, if the transform feedback buffer was sized too small for
-the number of primitives output by the vertex stream, the first integer
-represents the number of primitives actually written and the second is
-the number that would have been written if all the transform feedback
-buffers associated with that vertex stream were large enough.
-Primitives generated queries write the number of primitives output to
-the vertex stream, regardless of whether transform feedback is active or
-not, or whether they were successfully captured by transform feedback or
-not.
-This is identical to the second integer of the transform feedback
-queries if transform feedback is active.
-Mesh shader queries write a single integer.
-Video encode feedback queries write one or more integer values for each
-bit that is enabled in
+
+* 
+Transform feedback queries write two unsigned integer values; the first
+integer is the number of primitives successfully written to the
+corresponding transform feedback buffer and the second is the number of
+primitives output to the vertex stream, regardless of whether they were
+successfully captured or not.
+In other words, if the transform feedback buffer was sized too small
+for the number of primitives output by the vertex stream, the first
+integer represents the number of primitives actually written and the
+second is the number that would have been written if all the transform
+feedback buffers associated with that vertex stream were large enough.
+
+* 
+Primitives generated queries write one unsigned integer value: the
+number of primitives output to the vertex stream, regardless of whether
+transform feedback is active or not, or whether they were successfully
+captured by transform feedback or not.
+This is identical to the second integer result value produced by
+transform feedback queries if transform feedback is active.
+
+* 
+Mesh shader queries write a single unsigned integer.
+
+* 
+Video encode feedback queries write one or more signed or unsigned
+integer values for each bit that is enabled in
 [VkQueryPoolVideoEncodeFeedbackCreateInfoKHR](#VkQueryPoolVideoEncodeFeedbackCreateInfoKHR)::`encodeFeedbackFlags`
 when the pool is created, and the feedback values are written in bit
 order starting from the least significant bit, as described
 [here](#queries-video-encode-feedback).
 
-* 
+If `VK_QUERY_RESULT_WITH_AVAILABILITY_BIT` is specified, an
+additional unsigned integer result value is written indicating whether
+the query’s result is available, with any non-zero value indicating that
+it is available.
+
+If `VK_QUERY_RESULT_WITH_STATUS_BIT_KHR` is specified, an additional
+signed integer result value is written indicating the status of the
+query result.
+Positive values indicate success, negative values indicate failure, and
+zero indicates that the result is not yet available.
+Specific error codes are as defined in the [VkQueryResultStatusKHR](#VkQueryResultStatusKHR)
+enumeration.
+
+The bit width of all integer result values written by all query types is
+either 32- or 64-bits, as requested by the command.
+The only exceptions are the [VkPerformanceCounterResultKHR](#VkPerformanceCounterResultKHR) values
+written by performance queries whose type is determined by the
+`unit` member of the corresponding [VkPerformanceCounterKHR](devsandqueues.html#VkPerformanceCounterKHR).
+
 If more than one query is retrieved and `stride` is not at least as
 large as the size of the array of values corresponding to a single
 query, the values written to memory are **undefined**.
@@ -2345,6 +2404,15 @@ If the `queryType` used to create `queryPool` was
 `VK_QUERY_TYPE_PERFORMANCE_QUERY_KHR`, the `queryPool` **must**
 have been recorded once for each pass as retrieved via a call to
 [vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR](#vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR)
+
+* 
+[](#VUID-vkGetQueryPoolResults-queryType-11874) VUID-vkGetQueryPoolResults-queryType-11874
+
+If the `queryType` used to create `queryPool` was not
+`VK_QUERY_TYPE_RESULT_STATUS_ONLY_KHR`
+or `VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR`,
+then `flags` **must** not include
+`VK_QUERY_RESULT_WITH_STATUS_BIT_KHR`
 
 * 
 [](#VUID-vkGetQueryPoolResults-queryType-09442) VUID-vkGetQueryPoolResults-queryType-09442
@@ -2723,6 +2791,15 @@ have been recorded once for each pass as retrieved via a call to
 [vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR](#vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR)
 
 * 
+[](#VUID-vkCmdCopyQueryPoolResults-queryType-11874) VUID-vkCmdCopyQueryPoolResults-queryType-11874
+
+If the `queryType` used to create `queryPool` was not
+`VK_QUERY_TYPE_RESULT_STATUS_ONLY_KHR`
+or `VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR`,
+then `flags` **must** not include
+`VK_QUERY_RESULT_WITH_STATUS_BIT_KHR`
+
+* 
 [](#VUID-vkCmdCopyQueryPoolResults-queryType-09442) VUID-vkCmdCopyQueryPoolResults-queryType-09442
 
 If the `queryType` used to create `queryPool` was
@@ -2768,8 +2845,8 @@ contain the result of each query, as described
 * 
 [](#VUID-vkCmdCopyQueryPoolResults-dstBuffer-00825) VUID-vkCmdCopyQueryPoolResults-dstBuffer-00825
 
-`dstBuffer` **must** have been created with
-`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag
+`dstBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdCopyQueryPoolResults-dstBuffer-00826) VUID-vkCmdCopyQueryPoolResults-dstBuffer-00826
@@ -2833,12 +2910,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyQueryPoolResults-commandBuffer-cmdpool) VUID-vkCmdCopyQueryPoolResults-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyQueryPoolResults-renderpass) VUID-vkCmdCopyQueryPoolResults-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyQueryPoolResults-suspended) VUID-vkCmdCopyQueryPoolResults-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyQueryPoolResults-videocoding) VUID-vkCmdCopyQueryPoolResults-videocoding
@@ -2863,9 +2945,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -2898,8 +2980,8 @@ count of passing samples is non-zero.
 | --- | --- |
 on some implementations, and **should** be used where it is sufficient to know
 a boolean result on whether any samples passed the per-fragment tests.
-In this case, some implementations **may** only return zero or one, indifferent
-to the actual number of samples passing the per-fragment tests.
+In this case, some implementations **may** only return zero or one, regardless
+of the actual number of samples passing the per-fragment tests.
 
 Setting `VK_QUERY_CONTROL_PRECISE_BIT` does not guarantee that different
 implementations return the same number of samples in an occlusion query.
@@ -2921,10 +3003,13 @@ but still not be visible in a final image. |
 
 Pipeline statistics queries allow the application to sample a specified set
 of `VkPipeline` counters.
-These counters are accumulated by Vulkan for a set of either drawing or
+These counters are accumulated by Vulkan for a set of
+either drawing or
 dispatching commands while a pipeline statistics query is active.
 As such, pipeline statistics queries are available on queue families
-supporting either graphics or compute operations.
+supporting
+
+compute operations.
 The availability of pipeline statistics queries is indicated by the
 `pipelineStatisticsQuery` member of the `VkPhysicalDeviceFeatures`
 object (see `vkGetPhysicalDeviceFeatures` and `vkCreateDevice` for
@@ -3144,9 +3229,8 @@ void vkCmdWriteTimestamp2(
     VkQueryPool                                 queryPool,
     uint32_t                                    query);
 
-or the equivalent command
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to vkCmdWriteTimestamp2
 void vkCmdWriteTimestamp2KHR(
     VkCommandBuffer                             commandBuffer,
     VkPipelineStageFlags2                       stage,
@@ -3407,7 +3491,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdWriteTimestamp2-commandBuffer-cmdpool) VUID-vkCmdWriteTimestamp2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_TRANSFER_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdWriteTimestamp2-suspended) VUID-vkCmdWriteTimestamp2-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdWriteTimestamp2-commonparent) VUID-vkCmdWriteTimestamp2-commonparent
@@ -3427,15 +3516,15 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Transfer
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute
+VK_QUEUE_TRANSFER_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Action |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action |
 
 Conditional Rendering
 
@@ -3667,7 +3756,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdWriteTimestamp-commandBuffer-cmdpool) VUID-vkCmdWriteTimestamp-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_OPTICAL_FLOW_BIT_NV`, `VK_QUEUE_TRANSFER_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdWriteTimestamp-suspended) VUID-vkCmdWriteTimestamp-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdWriteTimestamp-commonparent) VUID-vkCmdWriteTimestamp-commonparent
@@ -3687,17 +3781,17 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Transfer
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute
+VK_QUEUE_OPTICAL_FLOW_BIT_NV
 
-Decode
+VK_QUEUE_TRANSFER_BIT
 
-Encode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Opticalflow | Action |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action |
 
 Conditional Rendering
 
@@ -3732,7 +3826,7 @@ The number of passes required for a given performance query pool **can** be
 queried via a call to
 [vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR](#vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR).
 
-|  | Command buffers created with
+|  | Command buffers recorded with
 | --- | --- |
 `VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT` **must** not be re-submitted.
 Changing command buffer usage bits **may** affect performance.
@@ -4254,6 +4348,7 @@ typedef struct VkQueryPoolPerformanceQueryCreateInfoINTEL {
 } VkQueryPoolPerformanceQueryCreateInfoINTEL;
 
 // Provided by VK_INTEL_performance_query
+// Equivalent to VkQueryPoolPerformanceQueryCreateInfoINTEL
 typedef VkQueryPoolPerformanceQueryCreateInfoINTEL VkQueryPoolCreateInfoINTEL;
 
 To create a pool for Intel performance queries, set
@@ -4331,7 +4426,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetPerformanceMarkerINTEL-commandBuffer-cmdpool) VUID-vkCmdSetPerformanceMarkerINTEL-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or transfer operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
+
+* 
+[](#VUID-vkCmdSetPerformanceMarkerINTEL-suspended) VUID-vkCmdSetPerformanceMarkerINTEL-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdSetPerformanceMarkerINTEL-videocoding) VUID-vkCmdSetPerformanceMarkerINTEL-videocoding
@@ -4351,11 +4451,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Transfer | Action
+VK_QUEUE_TRANSFER_BIT | Action
 
 State |
 
@@ -4456,7 +4556,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetPerformanceStreamMarkerINTEL-commandBuffer-cmdpool) VUID-vkCmdSetPerformanceStreamMarkerINTEL-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or transfer operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
+
+* 
+[](#VUID-vkCmdSetPerformanceStreamMarkerINTEL-suspended) VUID-vkCmdSetPerformanceStreamMarkerINTEL-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdSetPerformanceStreamMarkerINTEL-videocoding) VUID-vkCmdSetPerformanceStreamMarkerINTEL-videocoding
@@ -4476,11 +4581,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Transfer | Action
+VK_QUEUE_TRANSFER_BIT | Action
 
 State |
 
@@ -4597,7 +4702,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetPerformanceOverrideINTEL-commandBuffer-cmdpool) VUID-vkCmdSetPerformanceOverrideINTEL-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or transfer operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdSetPerformanceOverrideINTEL-videocoding) VUID-vkCmdSetPerformanceOverrideINTEL-videocoding
@@ -4617,11 +4722,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Transfer | State |
+VK_QUEUE_TRANSFER_BIT | State |
 
 Conditional Rendering
 

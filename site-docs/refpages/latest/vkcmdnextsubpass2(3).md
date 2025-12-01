@@ -22,7 +22,7 @@ vkCmdNextSubpass2 - Transition to the next subpass of a render pass
 To transition to the next subpass in the render pass instance after
 recording the commands for a subpass, call:
 
-|  | This functionality is deprecated by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -31,9 +31,8 @@ void vkCmdNextSubpass2(
     const VkSubpassBeginInfo*                   pSubpassBeginInfo,
     const VkSubpassEndInfo*                     pSubpassEndInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_create_renderpass2
+// Equivalent to vkCmdNextSubpass2
 void vkCmdNextSubpass2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkSubpassBeginInfo*                   pSubpassBeginInfo,
@@ -94,12 +93,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdNextSubpass2-commandBuffer-cmdpool) VUID-vkCmdNextSubpass2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdNextSubpass2-renderpass) VUID-vkCmdNextSubpass2-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdNextSubpass2-suspended) VUID-vkCmdNextSubpass2-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdNextSubpass2-videocoding) VUID-vkCmdNextSubpass2-videocoding
@@ -122,7 +126,7 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](../../../../spec/latest/chapters/cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../../../../spec/latest/chapters/renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../../../../spec/latest/chapters/videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../../../../spec/latest/chapters/devsandqueues.html#VkQueueFlagBits) | [Command Type](../../../../spec/latest/chapters/fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Inside | Outside | Graphics | Action
+| Primary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action
 
 State
 

@@ -34,9 +34,8 @@ typedef struct VkImageToMemoryCopy {
     VkExtent3D                  imageExtent;
 } VkImageToMemoryCopy;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to VkImageToMemoryCopy
 typedef VkImageToMemoryCopy VkImageToMemoryCopyEXT;
 
 * 

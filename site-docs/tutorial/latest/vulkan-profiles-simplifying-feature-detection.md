@@ -135,18 +135,18 @@ It is only available if you use the Vulkan SDK. Make sure you have the Vulkan SD
 
 Instead of manually checking for features and extensions, you can define your profile requirements:
 
-// Define the Best Practices profile
-const VpProfileProperties bestPracticesProfile = {
-    VP_BEST_PRACTICES_PROFILE_NAME,
-    VP_BEST_PRACTICES_PROFILE_SPEC_VERSION
+// Define the profile we want to use
+const VpProfileProperties profile = {
+    VP_KHR_ROADMAP_2022_NAME,
+    VP_KHR_ROADMAP_2022_SPEC_VERSION
 };
 
 // Check if the profile is supported
 VkBool32 supported = false;
-vpGetPhysicalDeviceProfileSupport(instance, physicalDevice, &bestPracticesProfile, &supported);
+vpGetPhysicalDeviceProfileSupport(instance, physicalDevice, &profile, &supported);
 
 if (!supported) {
-    throw std::runtime_error("Best Practices profile is not supported on this device");
+    throw std::runtime_error("Roadmap 2022 profile is not supported on this device");
 }
 
 When creating a logical device, you can use the profile to automatically enable the required features and extensions:
@@ -262,18 +262,18 @@ We had to repeat this pattern for **every feature** we wanted to use conditional
 With profiles, all of that complexity is reduced to:
 
 // Define the profile
-const VpProfileProperties bestPracticesProfile = {
-    VP_BEST_PRACTICES_PROFILE_NAME,
-    VP_BEST_PRACTICES_PROFILE_SPEC_VERSION
+const VpProfileProperties profile = {
+    VP_KHR_ROADMAP_2022_NAME,
+    VP_KHR_ROADMAP_2022_SPEC_VERSION
 };
 
 // Check if the profile is supported
 VkBool32 supported = false;
-vpGetPhysicalDeviceProfileSupport(instance, physicalDevice, &bestPracticesProfile, &supported);
+vpGetPhysicalDeviceProfileSupport(instance, physicalDevice, &profile, &supported);
 
 if (supported) {
     // Create device with the profile - all features enabled automatically
-    vpCreateDevice(physicalDevice, &deviceCreateInfo, &bestPracticesProfile, nullptr, &device);
+    vpCreateDevice(physicalDevice, &deviceCreateInfo, &profile, nullptr, &device);
 
     // Now we can use any feature guaranteed by the profile without checks
     // For example, dynamic rendering is always available:

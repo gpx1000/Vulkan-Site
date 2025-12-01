@@ -22,8 +22,6 @@ ray generation, miss, or callable shader member is not used.
 
 #define VK_SHADER_UNUSED_KHR              (~0U)
 
-or the equivalent
-
 #define VK_SHADER_UNUSED_NV               VK_SHADER_UNUSED_KHR
 
 [VK_KHR_ray_tracing_pipeline](VK_KHR_ray_tracing_pipeline.html), [VK_NV_ray_tracing](VK_NV_ray_tracing.html)

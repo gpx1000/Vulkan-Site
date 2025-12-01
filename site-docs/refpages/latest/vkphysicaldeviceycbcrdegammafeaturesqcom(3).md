@@ -39,7 +39,7 @@ structure.
 
 * 
  `ycbcrDegamma` indicates whether the
-implementation supports [Y′CBCR degamma](../../../../spec/latest/chapters/textures.html#textures-ycbcr-degamma).
+implementation supports [Y′CBCR degamma](../../../../spec/latest/chapters/textures.html#textures-YCbCr-degamma).
 
 If the `VkPhysicalDeviceYcbcrDegammaFeaturesQCOM` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceFeatures2](VkPhysicalDeviceFeatures2.html) structure passed to

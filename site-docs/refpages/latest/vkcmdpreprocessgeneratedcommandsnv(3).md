@@ -75,12 +75,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPreprocessGeneratedCommandsNV-commandBuffer-cmdpool) VUID-vkCmdPreprocessGeneratedCommandsNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdPreprocessGeneratedCommandsNV-renderpass) VUID-vkCmdPreprocessGeneratedCommandsNV-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdPreprocessGeneratedCommandsNV-suspended) VUID-vkCmdPreprocessGeneratedCommandsNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdPreprocessGeneratedCommandsNV-videocoding) VUID-vkCmdPreprocessGeneratedCommandsNV-videocoding
@@ -100,9 +105,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

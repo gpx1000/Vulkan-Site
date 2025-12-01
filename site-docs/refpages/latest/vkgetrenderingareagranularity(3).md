@@ -27,9 +27,8 @@ void vkGetRenderingAreaGranularity(
     const VkRenderingAreaInfo*                  pRenderingAreaInfo,
     VkExtent2D*                                 pGranularity);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to vkGetRenderingAreaGranularity
 void vkGetRenderingAreaGranularityKHR(
     VkDevice                                    device,
     const VkRenderingAreaInfo*                  pRenderingAreaInfo,

@@ -36,7 +36,7 @@ specifies whether the implementation supports using the
 application-provided value for
 `StdVideoAV1TileInfoFlags`::`uniform_tile_spacing_flag` in the
 [AV1 tile parameters](../../../../spec/latest/chapters/videocoding.html#encode-av1-tile-params) when that value is `1`,
-indifferent of the coded extent of the [encode    input picture](../../../../spec/latest/chapters/videocoding.html#encode-input-picture) and the number of tile columns and rows requested in the
+regardless of the coded extent of the [encode    input picture](../../../../spec/latest/chapters/videocoding.html#encode-input-picture) and the number of tile columns and rows requested in the
 `TileCols` and `TileRows` members of `StdVideoAV1TileInfo`.
 
 * 

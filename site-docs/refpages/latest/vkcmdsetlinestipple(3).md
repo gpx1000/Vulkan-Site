@@ -28,17 +28,15 @@ void vkCmdSetLineStipple(
     uint32_t                                    lineStippleFactor,
     uint16_t                                    lineStipplePattern);
 
-or the equivalent command
-
 // Provided by VK_KHR_line_rasterization
+// Equivalent to vkCmdSetLineStipple
 void vkCmdSetLineStippleKHR(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    lineStippleFactor,
     uint16_t                                    lineStipplePattern);
 
-or the equivalent command
-
 // Provided by VK_EXT_line_rasterization
+// Equivalent to vkCmdSetLineStipple
 void vkCmdSetLineStippleEXT(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    lineStippleFactor,
@@ -89,7 +87,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetLineStipple-commandBuffer-cmdpool) VUID-vkCmdSetLineStipple-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetLineStipple-videocoding) VUID-vkCmdSetLineStipple-videocoding
@@ -109,7 +107,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

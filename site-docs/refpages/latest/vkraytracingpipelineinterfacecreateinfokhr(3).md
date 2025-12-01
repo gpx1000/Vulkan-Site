@@ -49,7 +49,9 @@ size in bytes used by any shader in the pipeline.
 block (in bytes) declared in the `RayPayloadKHR` or
 `IncomingRayPayloadKHR` storage classes.
 `maxPipelineRayHitAttributeSize` is calculated as the maximum size of
-any block (in bytes) declared in the `HitAttributeKHR` storage class.
+any block (in bytes) declared in the `HitAttributeKHR`
+or `HitObjectAttributeEXT`
+storage class.
 As variables in these storage classes do not have explicit offsets, the size
 should be calculated as if each variable has a
 [scalar alignment](../../../../spec/latest/chapters/interfaces.html#interfaces-alignment-requirements) equal to the largest

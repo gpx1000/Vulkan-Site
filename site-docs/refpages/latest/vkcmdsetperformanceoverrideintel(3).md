@@ -66,7 +66,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetPerformanceOverrideINTEL-commandBuffer-cmdpool) VUID-vkCmdSetPerformanceOverrideINTEL-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or transfer operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdSetPerformanceOverrideINTEL-videocoding) VUID-vkCmdSetPerformanceOverrideINTEL-videocoding
@@ -86,11 +86,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Transfer | State |
+VK_QUEUE_TRANSFER_BIT | State |
 
 Conditional Rendering
 

@@ -33,9 +33,8 @@ typedef struct VkCopyImageInfo2 {
     const VkImageCopy2*    pRegions;
 } VkCopyImageInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_copy_commands2
+// Equivalent to VkCopyImageInfo2
 typedef VkCopyImageInfo2 VkCopyImageInfo2KHR;
 
 * 
@@ -182,6 +181,15 @@ and the [`maintenance8`](../../../../spec/latest/chapters/features.html#features
     and `dstSubresource.aspectMask` **must** match
 
 * 
+[](#VUID-VkCopyImageInfo2-pRegions-12201) VUID-VkCopyImageInfo2-pRegions-12201
+
+For each element of `pRegions` where `srcSubresource.aspectMask`
+and `dstSubresource.aspectMask` each contain at least one of
+`VK_IMAGE_ASPECT_DEPTH_BIT` or `VK_IMAGE_ASPECT_STENCIL_BIT`,
+`srcSubresource.aspectMask` and `dstSubresource.aspectMask`
+**must** match
+
+* 
 [](#VUID-VkCopyImageInfo2-srcSubresource-10214) VUID-VkCopyImageInfo2-srcSubresource-10214
 
 If `srcSubresource.aspectMask` is `VK_IMAGE_ASPECT_COLOR_BIT`,
@@ -192,7 +200,7 @@ then `dstSubresource.aspectMask` **must** not contain both
 [](#VUID-VkCopyImageInfo2-dstSubresource-10215) VUID-VkCopyImageInfo2-dstSubresource-10215
 
 If `dstSubresource.aspectMask` is `VK_IMAGE_ASPECT_COLOR_BIT`,
-then `srSubresource.aspectMask` **must** not contain both
+then `srcSubresource.aspectMask` **must** not contain both
 `VK_IMAGE_ASPECT_DEPTH_BIT` and `VK_IMAGE_ASPECT_STENCIL_BIT`
 
 * 
@@ -532,8 +540,8 @@ by `srcSubresource`, `extent.depth` **must** be a multiple of the
 If the `aspect` member of any element of `pRegions` includes any
 flag other than `VK_IMAGE_ASPECT_STENCIL_BIT` or `srcImage` was
 not created with [separate stencil    usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` **must** have been included in the
-[VkImageCreateInfo](VkImageCreateInfo.html)::`usage` used to create `srcImage`
+`srcImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag set
 
 * 
 [](#VUID-VkCopyImageInfo2-aspect-06663) VUID-VkCopyImageInfo2-aspect-06663
@@ -541,34 +549,32 @@ not created with [separate stencil    usage](../../../../spec/latest/chapters/re
 If the `aspect` member of any element of `pRegions` includes any
 flag other than `VK_IMAGE_ASPECT_STENCIL_BIT` or `dstImage` was
 not created with [separate stencil    usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` **must** have been included in the
-[VkImageCreateInfo](VkImageCreateInfo.html)::`usage` used to create `dstImage`
+`dstImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-VkCopyImageInfo2-aspect-06664) VUID-VkCopyImageInfo2-aspect-06664
 
 If the `aspect` member of any element of `pRegions` includes
 `VK_IMAGE_ASPECT_STENCIL_BIT`, and `srcImage` was created with
-[separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` **must** have been included in the
-[VkImageStencilUsageCreateInfo](VkImageStencilUsageCreateInfo.html)::`stencilUsage` used to create
-`srcImage`
+[separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo), `srcImage`
+**must** have been created with the `VK_IMAGE_USAGE_TRANSFER_SRC_BIT`
+usage flag set
 
 * 
 [](#VUID-VkCopyImageInfo2-aspect-06665) VUID-VkCopyImageInfo2-aspect-06665
 
 If the `aspect` member of any element of `pRegions` includes
 `VK_IMAGE_ASPECT_STENCIL_BIT`, and `dstImage` was created with
-[separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` **must** have been included in the
-[VkImageStencilUsageCreateInfo](VkImageStencilUsageCreateInfo.html)::`stencilUsage` used to create
-`dstImage`
+[separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo), `srcImage`
+**must** have been created with the `VK_IMAGE_USAGE_TRANSFER_DST_BIT`
+usage flag set
 
 * 
 [](#VUID-VkCopyImageInfo2-srcImage-07966) VUID-VkCopyImageInfo2-srcImage-07966
 
 If `srcImage` is non-sparse then the image
-or the specified *disjoint* plane
+or each specified *disjoint* plane
 **must** be bound completely and contiguously to a single
 `VkDeviceMemory` object
 
@@ -599,7 +605,7 @@ containing `VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT`
 [](#VUID-VkCopyImageInfo2-dstImage-07966) VUID-VkCopyImageInfo2-dstImage-07966
 
 If `dstImage` is non-sparse then the image
-or the specified *disjoint* plane
+or each specified *disjoint* plane
 **must** be bound completely and contiguously to a single
 `VkDeviceMemory` object
 

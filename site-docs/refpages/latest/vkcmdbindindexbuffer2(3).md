@@ -29,9 +29,8 @@ void vkCmdBindIndexBuffer2(
     VkDeviceSize                                size,
     VkIndexType                                 indexType);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to vkCmdBindIndexBuffer2
 void vkCmdBindIndexBuffer2KHR(
     VkCommandBuffer                             commandBuffer,
     VkBuffer                                    buffer,
@@ -85,7 +84,7 @@ multiple of the size of the type indicated by `indexType`
 [](#VUID-vkCmdBindIndexBuffer2-buffer-08784) VUID-vkCmdBindIndexBuffer2-buffer-08784
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDEX_BUFFER_BIT` flag
+`VK_BUFFER_USAGE_INDEX_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdBindIndexBuffer2-buffer-08785) VUID-vkCmdBindIndexBuffer2-buffer-08785
@@ -154,7 +153,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindIndexBuffer2-commandBuffer-cmdpool) VUID-vkCmdBindIndexBuffer2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindIndexBuffer2-videocoding) VUID-vkCmdBindIndexBuffer2-videocoding
@@ -179,7 +178,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

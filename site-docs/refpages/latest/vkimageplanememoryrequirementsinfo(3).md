@@ -32,9 +32,8 @@ typedef struct VkImagePlaneMemoryRequirementsInfo {
     VkImageAspectFlagBits    planeAspect;
 } VkImagePlaneMemoryRequirementsInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkImagePlaneMemoryRequirementsInfo
 typedef VkImagePlaneMemoryRequirementsInfo VkImagePlaneMemoryRequirementsInfoKHR;
 
 * 
@@ -80,7 +79,7 @@ Valid Usage (Implicit)
 
  `planeAspect` **must** be a valid [VkImageAspectFlagBits](VkImageAspectFlagBits.html) value
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImageAspectFlagBits](VkImageAspectFlagBits.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_sampler_ycbcr_conversion](VK_KHR_sampler_ycbcr_conversion.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImageAspectFlagBits](VkImageAspectFlagBits.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/resources.html#VkImagePlaneMemoryRequirementsInfo).
 

@@ -26,9 +26,8 @@ void vkCmdSetDeviceMask(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    deviceMask);
 
-or the equivalent command
-
 // Provided by VK_KHR_device_group
+// Equivalent to vkCmdSetDeviceMask
 void vkCmdSetDeviceMaskKHR(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    deviceMask);
@@ -91,7 +90,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDeviceMask-commandBuffer-cmdpool) VUID-vkCmdSetDeviceMask-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or transfer operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 Host Synchronization
 
@@ -106,17 +105,17 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Graphics
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Transfer | State |
+VK_QUEUE_TRANSFER_BIT | State |
 
 Conditional Rendering
 
 vkCmdSetDeviceMask is not affected by [conditional rendering](../../../../spec/latest/chapters/drawing.html#drawing-conditional-rendering)
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkCommandBuffer](VkCommandBuffer.html)
+[VK_KHR_device_group](VK_KHR_device_group.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkCommandBuffer](VkCommandBuffer.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/cmdbuffers.html#vkCmdSetDeviceMask).
 

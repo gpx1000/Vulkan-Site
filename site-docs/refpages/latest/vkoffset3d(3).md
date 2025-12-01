@@ -37,7 +37,7 @@ typedef struct VkOffset3D {
 * 
 `z` is the z offset.
 
-[VK_VERSION_1_0](VK_VERSION_1_0.html), [VkBufferImageCopy](VkBufferImageCopy.html), [VkBufferImageCopy2](VkBufferImageCopy2.html), [VkCopyMemoryToImageIndirectCommandNV](VkCopyMemoryToImageIndirectCommandNV.html), [VkImageBlit](VkImageBlit.html), [VkImageBlit2](VkImageBlit2.html), [VkImageCopy](VkImageCopy.html), [VkImageCopy2](VkImageCopy2.html), [VkImageResolve](VkImageResolve.html), [VkImageResolve2](VkImageResolve2.html), [VkImageToMemoryCopy](VkImageToMemoryCopy.html), [VkMemoryToImageCopy](VkMemoryToImageCopy.html), [VkSparseImageMemoryBind](VkSparseImageMemoryBind.html)
+[VK_VERSION_1_0](VK_VERSION_1_0.html), [VkBufferImageCopy](VkBufferImageCopy.html), [VkBufferImageCopy2](VkBufferImageCopy2.html), [VkCopyMemoryToImageIndirectCommandKHR](VkCopyMemoryToImageIndirectCommandKHR.html), [VkImageBlit](VkImageBlit.html), [VkImageBlit2](VkImageBlit2.html), [VkImageCopy](VkImageCopy.html), [VkImageCopy2](VkImageCopy2.html), [VkImageResolve](VkImageResolve.html), [VkImageResolve2](VkImageResolve2.html), [VkImageToMemoryCopy](VkImageToMemoryCopy.html), [VkMemoryToImageCopy](VkMemoryToImageCopy.html), [VkSparseImageMemoryBind](VkSparseImageMemoryBind.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/fundamentals.html#VkOffset3D).
 

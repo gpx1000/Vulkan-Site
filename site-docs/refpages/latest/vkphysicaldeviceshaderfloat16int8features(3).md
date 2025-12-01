@@ -29,12 +29,12 @@ typedef struct VkPhysicalDeviceShaderFloat16Int8Features {
     VkBool32           shaderInt8;
 } VkPhysicalDeviceShaderFloat16Int8Features;
 
-or the equivalent
-
 // Provided by VK_KHR_shader_float16_int8
+// Equivalent to VkPhysicalDeviceShaderFloat16Int8Features
 typedef VkPhysicalDeviceShaderFloat16Int8Features VkPhysicalDeviceShaderFloat16Int8FeaturesKHR;
 
 // Provided by VK_KHR_shader_float16_int8
+// Equivalent to VkPhysicalDeviceShaderFloat16Int8Features
 typedef VkPhysicalDeviceShaderFloat16Int8Features VkPhysicalDeviceFloat16Int8FeaturesKHR;
 
 This structure describes the following features:

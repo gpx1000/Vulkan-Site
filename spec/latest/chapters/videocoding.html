@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -1843,6 +1852,14 @@ If <code>pVideoProfile-&gt;videoCodecOperation</code> is
 chain of <code>pCapabilities</code> <strong>must</strong> include a
 <a href="#VkVideoEncodeAV1CapabilitiesKHR">VkVideoEncodeAV1CapabilitiesKHR</a> structure</p>
 </li>
+<li>
+<p><a id="VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pNext-10921" href="#VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pNext-10921"></a> <span class="vuid">VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pNext-10921</span><br>
+
+If the <code>pNext</code> chain of <code>pVideoProfile</code> includes a
+<a href="#VkVideoEncodeProfileRgbConversionInfoVALVE">VkVideoEncodeProfileRgbConversionInfoVALVE</a> structure, then the
+<a href="features.html#features-videoEncodeRgbConversion" class="xref page"><code>videoEncodeRgbConversion</code></a>
+feature <strong>must</strong> be supported</p>
+</li>
 </ul>
 </div>
 </div>
@@ -2023,7 +2040,7 @@ value of <code>maxActiveReferencePictures</code> often equals
 </li>
 <li>
 <p><a id="VUID-VkVideoCapabilitiesKHR-pNext-pNext" href="#VUID-VkVideoCapabilitiesKHR-pNext-pNext"></a> <span class="vuid">VUID-VkVideoCapabilitiesKHR-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoDecodeAV1CapabilitiesKHR">VkVideoDecodeAV1CapabilitiesKHR</a>, <a href="#VkVideoDecodeCapabilitiesKHR">VkVideoDecodeCapabilitiesKHR</a>, <a href="#VkVideoDecodeH264CapabilitiesKHR">VkVideoDecodeH264CapabilitiesKHR</a>, <a href="#VkVideoDecodeH265CapabilitiesKHR">VkVideoDecodeH265CapabilitiesKHR</a>, <a href="#VkVideoDecodeVP9CapabilitiesKHR">VkVideoDecodeVP9CapabilitiesKHR</a>, <a href="#VkVideoEncodeAV1CapabilitiesKHR">VkVideoEncodeAV1CapabilitiesKHR</a>, <a href="#VkVideoEncodeAV1QuantizationMapCapabilitiesKHR">VkVideoEncodeAV1QuantizationMapCapabilitiesKHR</a>, <a href="#VkVideoEncodeCapabilitiesKHR">VkVideoEncodeCapabilitiesKHR</a>, <a href="#VkVideoEncodeH264CapabilitiesKHR">VkVideoEncodeH264CapabilitiesKHR</a>, <a href="#VkVideoEncodeH264QuantizationMapCapabilitiesKHR">VkVideoEncodeH264QuantizationMapCapabilitiesKHR</a>, <a href="#VkVideoEncodeH265CapabilitiesKHR">VkVideoEncodeH265CapabilitiesKHR</a>, <a href="#VkVideoEncodeH265QuantizationMapCapabilitiesKHR">VkVideoEncodeH265QuantizationMapCapabilitiesKHR</a>, <a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>, or <a href="#VkVideoEncodeQuantizationMapCapabilitiesKHR">VkVideoEncodeQuantizationMapCapabilitiesKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoDecodeAV1CapabilitiesKHR">VkVideoDecodeAV1CapabilitiesKHR</a>, <a href="#VkVideoDecodeCapabilitiesKHR">VkVideoDecodeCapabilitiesKHR</a>, <a href="#VkVideoDecodeH264CapabilitiesKHR">VkVideoDecodeH264CapabilitiesKHR</a>, <a href="#VkVideoDecodeH265CapabilitiesKHR">VkVideoDecodeH265CapabilitiesKHR</a>, <a href="#VkVideoDecodeVP9CapabilitiesKHR">VkVideoDecodeVP9CapabilitiesKHR</a>, <a href="#VkVideoEncodeAV1CapabilitiesKHR">VkVideoEncodeAV1CapabilitiesKHR</a>, <a href="#VkVideoEncodeAV1QuantizationMapCapabilitiesKHR">VkVideoEncodeAV1QuantizationMapCapabilitiesKHR</a>, <a href="#VkVideoEncodeCapabilitiesKHR">VkVideoEncodeCapabilitiesKHR</a>, <a href="#VkVideoEncodeH264CapabilitiesKHR">VkVideoEncodeH264CapabilitiesKHR</a>, <a href="#VkVideoEncodeH264QuantizationMapCapabilitiesKHR">VkVideoEncodeH264QuantizationMapCapabilitiesKHR</a>, <a href="#VkVideoEncodeH265CapabilitiesKHR">VkVideoEncodeH265CapabilitiesKHR</a>, <a href="#VkVideoEncodeH265QuantizationMapCapabilitiesKHR">VkVideoEncodeH265QuantizationMapCapabilitiesKHR</a>, <a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>, <a href="#VkVideoEncodeQuantizationMapCapabilitiesKHR">VkVideoEncodeQuantizationMapCapabilitiesKHR</a>, or <a href="#VkVideoEncodeRgbConversionCapabilitiesVALVE">VkVideoEncodeRgbConversionCapabilitiesVALVE</a></p>
 </li>
 <li>
 <p><a id="VUID-VkVideoCapabilitiesKHR-sType-unique" href="#VUID-VkVideoCapabilitiesKHR-sType-unique"></a> <span class="vuid">VUID-VkVideoCapabilitiesKHR-sType-unique</span><br>
@@ -2166,40 +2183,38 @@ profiles, then this command returns
 <code>VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR</code>.</p>
 </div>
 <div class="paragraph">
-<p>This command also returns <code>VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR</code> if
-<a href="#VkPhysicalDeviceVideoFormatInfoKHR">VkPhysicalDeviceVideoFormatInfoKHR</a>::<code>imageUsage</code> does not include
-the appropriate flags as dictated by the decode capability flags returned in
-<a href="#VkVideoDecodeCapabilitiesKHR">VkVideoDecodeCapabilitiesKHR</a>::<code>flags</code> for any of the profiles
-specified in the <a href="#VkVideoProfileListInfoKHR">VkVideoProfileListInfoKHR</a> structure provided in the
-<code>pNext</code> chain of <code>pVideoFormatInfo</code>.</p>
-</div>
-<div class="paragraph">
 <p>If the decode capability flags include
-<code>VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR</code> but not
-<code>VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR</code>, then in
-order to query video format properties for decode DPB and output usage,
-<a href="#VkPhysicalDeviceVideoFormatInfoKHR">VkPhysicalDeviceVideoFormatInfoKHR</a>::<code>imageUsage</code> <strong>must</strong> include
-both <code>VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR</code> and
-<code>VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR</code>.
-Otherwise, the call will fail with
-<code>VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR</code>.</p>
+<code>VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR</code>, then
+querying video format properties that support both decode DPB and output
+usage <strong>can</strong> be done by including both
+<code>VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR</code> and
+<code>VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR</code> in
+<a href="#VkPhysicalDeviceVideoFormatInfoKHR">VkPhysicalDeviceVideoFormatInfoKHR</a>::<code>imageUsage</code>.
+However, even in this case, querying video format properties with
+<a href="#VkPhysicalDeviceVideoFormatInfoKHR">VkPhysicalDeviceVideoFormatInfoKHR</a>::<code>imageUsage</code> including only
+<code>VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR</code> or
+<code>VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR</code> will also return formats
+supporting both.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>If the decode capability flags include
-<code>VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR</code> but not
-<code>VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR</code>, then in
-order to query video format properties for decode DPB usage,
-<a href="#VkPhysicalDeviceVideoFormatInfoKHR">VkPhysicalDeviceVideoFormatInfoKHR</a>::<code>imageUsage</code> <strong>must</strong> include
-<code>VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR</code>, but not
-<code>VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR</code>.
-Otherwise, the call will fail with
-<code>VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR</code>.
-Similarly, to query video format properties for decode output usage,
-<a href="#VkPhysicalDeviceVideoFormatInfoKHR">VkPhysicalDeviceVideoFormatInfoKHR</a>::<code>imageUsage</code> <strong>must</strong> include
-<code>VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR</code>, but not
-<code>VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR</code>.
-Otherwise, the call will fail with
-<code>VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR</code>.</p>
+<p>This enables application to be able to query all formats supporting
+<code>VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR</code> and/or
+<code>VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR</code> by just including one of the
+flags, respectively, regardless of whether the implementation supports
+<code>VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR</code>,
+<code>VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR</code>, or both.
+This makes enumerating decode DPB and output formats simpler and unified.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The <code>imageUsage</code> member of the <a href="#VkPhysicalDeviceVideoFormatInfoKHR">VkPhysicalDeviceVideoFormatInfoKHR</a>
@@ -2365,6 +2380,14 @@ components.a = VK_COMPONENT_SWIZZLE_IDENTITY; // unused, defaults to 1.0</code><
 The <code>pNext</code> chain of <code>pVideoFormatInfo</code> <strong>must</strong> include a
 <a href="#VkVideoProfileListInfoKHR">VkVideoProfileListInfoKHR</a> structure with <code>profileCount</code>
 greater than <code>0</code></p>
+</li>
+<li>
+<p><a id="VUID-vkGetPhysicalDeviceVideoFormatPropertiesKHR-pNext-10922" href="#VUID-vkGetPhysicalDeviceVideoFormatPropertiesKHR-pNext-10922"></a> <span class="vuid">VUID-vkGetPhysicalDeviceVideoFormatPropertiesKHR-pNext-10922</span><br>
+
+If the <code>pNext</code> chain of <code>pVideoFormatInfo</code> includes a
+<a href="#VkVideoEncodeProfileRgbConversionInfoVALVE">VkVideoEncodeProfileRgbConversionInfoVALVE</a> structure, then the
+<a href="features.html#features-videoEncodeRgbConversion" class="xref page"><code>videoEncodeRgbConversion</code></a>
+feature <strong>must</strong> be supported</p>
 </li>
 </ul>
 </div>
@@ -3002,6 +3025,13 @@ specified by <code>pVideoProfile</code>, then <code>flags</code> <strong>must</s
 <code>VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR</code></p>
 </li>
 <li>
+<p><a id="VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-11759" href="#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-11759"></a> <span class="vuid">VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-11759</span><br>
+
+<code>pVideoProfile-&gt;videoCodecOperation</code> <strong>must</strong> be supported by the queue
+family index specified in <code>queueFamilyIndex</code>, as reported in
+<a href="devsandqueues.html#VkQueueFamilyVideoPropertiesKHR" class="xref page">VkQueueFamilyVideoPropertiesKHR</a>::<code>videoCodecOperations</code></p>
+</li>
+<li>
 <p><a id="VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-04845" href="#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-04845"></a> <span class="vuid">VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-04845</span><br>
 
 <code>pVideoProfile</code> <strong>must</strong> be a <a href="#video-profile-support">supported video    profile</a></p>
@@ -3188,6 +3218,24 @@ chain of this structure includes a
 <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the video profile
 specified in <code>pVideoProfile</code></p>
 </li>
+<li>
+<p><a id="VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10923" href="#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10923"></a> <span class="vuid">VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10923</span><br>
+
+If the <code>pVideoProfile-&gt;pNext</code> chain includes a
+<a href="#VkVideoEncodeProfileRgbConversionInfoVALVE">VkVideoEncodeProfileRgbConversionInfoVALVE</a> structure, then the
+<a href="features.html#features-videoEncodeRgbConversion" class="xref page"><code>videoEncodeRgbConversion</code></a>
+feature <strong>must</strong> be enabled</p>
+</li>
+<li>
+<p><a id="VUID-VkVideoSessionCreateInfoKHR-pNext-10924" href="#VUID-VkVideoSessionCreateInfoKHR-pNext-10924"></a> <span class="vuid">VUID-VkVideoSessionCreateInfoKHR-pNext-10924</span><br>
+
+If a <a href="#VkVideoEncodeProfileRgbConversionInfoVALVE">VkVideoEncodeProfileRgbConversionInfoVALVE</a> structure is
+included in the <code>pNext</code> chain of <code>pVideoProfile</code> and
+<code>VkVideoEncodeProfileRgbConversionInfoVALVE</code>::<code>performEncodeRgbConversion</code>
+is enabled, a <a href="#VkVideoEncodeSessionRgbConversionCreateInfoVALVE">VkVideoEncodeSessionRgbConversionCreateInfoVALVE</a>
+structure <strong>must</strong> be included in the <code>pNext</code> chain of
+<a href="#VkVideoSessionCreateInfoKHR">VkVideoSessionCreateInfoKHR</a>.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -3203,7 +3251,7 @@ specified in <code>pVideoProfile</code></p>
 </li>
 <li>
 <p><a id="VUID-VkVideoSessionCreateInfoKHR-pNext-pNext" href="#VUID-VkVideoSessionCreateInfoKHR-pNext-pNext"></a> <span class="vuid">VUID-VkVideoSessionCreateInfoKHR-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoEncodeAV1SessionCreateInfoKHR">VkVideoEncodeAV1SessionCreateInfoKHR</a>, <a href="#VkVideoEncodeH264SessionCreateInfoKHR">VkVideoEncodeH264SessionCreateInfoKHR</a>, <a href="#VkVideoEncodeH265SessionCreateInfoKHR">VkVideoEncodeH265SessionCreateInfoKHR</a>, or <a href="#VkVideoEncodeSessionIntraRefreshCreateInfoKHR">VkVideoEncodeSessionIntraRefreshCreateInfoKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoEncodeAV1SessionCreateInfoKHR">VkVideoEncodeAV1SessionCreateInfoKHR</a>, <a href="#VkVideoEncodeH264SessionCreateInfoKHR">VkVideoEncodeH264SessionCreateInfoKHR</a>, <a href="#VkVideoEncodeH265SessionCreateInfoKHR">VkVideoEncodeH265SessionCreateInfoKHR</a>, <a href="#VkVideoEncodeSessionIntraRefreshCreateInfoKHR">VkVideoEncodeSessionIntraRefreshCreateInfoKHR</a>, or <a href="#VkVideoEncodeSessionRgbConversionCreateInfoVALVE">VkVideoEncodeSessionRgbConversionCreateInfoVALVE</a></p>
 </li>
 <li>
 <p><a id="VUID-VkVideoSessionCreateInfoKHR-sType-unique" href="#VUID-VkVideoSessionCreateInfoKHR-sType-unique"></a> <span class="vuid">VUID-VkVideoSessionCreateInfoKHR-sType-unique</span><br>
@@ -6416,13 +6464,11 @@ and <a href="#encode-rate-control-state">Rate Control State</a> sections.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkCmdBeginVideoCodingKHR-commandBuffer-07231" href="#VUID-vkCmdBeginVideoCodingKHR-commandBuffer-07231"></a> <span class="vuid">VUID-vkCmdBeginVideoCodingKHR-commandBuffer-07231</span><br>
+<p><a id="VUID-vkCmdBeginVideoCodingKHR-commandBuffer-11760" href="#VUID-vkCmdBeginVideoCodingKHR-commandBuffer-11760"></a> <span class="vuid">VUID-vkCmdBeginVideoCodingKHR-commandBuffer-11760</span><br>
 
 The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from
-<strong>must</strong> support the video codec operation <code>pBeginInfo-&gt;videoSession</code>
-was created with, as returned by
-<a href="devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2" class="xref page">vkGetPhysicalDeviceQueueFamilyProperties2</a> in
-<a href="devsandqueues.html#VkQueueFamilyVideoPropertiesKHR" class="xref page">VkQueueFamilyVideoPropertiesKHR</a>::<code>videoCodecOperations</code></p>
+<strong>must</strong> have been created with the same queue family index that
+<code>pBeginInfo-&gt;videoSession</code> was created with</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginVideoCodingKHR-None-07232" href="#VUID-vkCmdBeginVideoCodingKHR-None-07232"></a> <span class="vuid">VUID-vkCmdBeginVideoCodingKHR-None-07232</span><br>
@@ -6576,11 +6622,15 @@ chain of <code>pBeginInfo</code> <strong>must</strong> include an instance of th
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginVideoCodingKHR-commandBuffer-cmdpool" href="#VUID-vkCmdBeginVideoCodingKHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBeginVideoCodingKHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support decode, or encode operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginVideoCodingKHR-renderpass" href="#VUID-vkCmdBeginVideoCodingKHR-renderpass"></a> <span class="vuid">VUID-vkCmdBeginVideoCodingKHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBeginVideoCodingKHR-suspended" href="#VUID-vkCmdBeginVideoCodingKHR-suspended"></a> <span class="vuid">VUID-vkCmdBeginVideoCodingKHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginVideoCodingKHR-videocoding" href="#VUID-vkCmdBeginVideoCodingKHR-videocoding"></a> <span class="vuid">VUID-vkCmdBeginVideoCodingKHR-videocoding</span><br>
@@ -6634,8 +6684,8 @@ chain of <code>pBeginInfo</code> <strong>must</strong> include an instance of th
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Decode<br>
-Encode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action<br>
 State</p></td>
 </tr>
@@ -6813,7 +6863,8 @@ If <code>videoSession</code> was created with a decode operation and the
 <code>slotIndex</code> member of any element of <code>pReferenceSlots</code> is not
 negative, then the image view specified in
 <code>pPictureResource-&gt;imageViewBinding</code> for that element <strong>must</strong> have
-been created with <code>VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR</code></p>
+been created with the <code>VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR</code>
+usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkVideoBeginCodingInfoKHR-slotIndex-07246" href="#VUID-VkVideoBeginCodingInfoKHR-slotIndex-07246"></a> <span class="vuid">VUID-VkVideoBeginCodingInfoKHR-slotIndex-07246</span><br>
@@ -6822,7 +6873,8 @@ If <code>videoSession</code> was created with an encode operation and the
 <code>slotIndex</code> member of any element of <code>pReferenceSlots</code> is not
 negative, then the image view specified in
 <code>pPictureResource-&gt;imageViewBinding</code> for that element <strong>must</strong> have
-been created with <code>VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR</code></p>
+been created with the <code>VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR</code>
+usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkVideoBeginCodingInfoKHR-videoSession-07247" href="#VUID-VkVideoBeginCodingInfoKHR-videoSession-07247"></a> <span class="vuid">VUID-VkVideoBeginCodingInfoKHR-videoSession-07247</span><br>
@@ -7073,11 +7125,15 @@ There <strong>must</strong> be no <a href="queries.html#queries-operation-active
 </li>
 <li>
 <p><a id="VUID-vkCmdEndVideoCodingKHR-commandBuffer-cmdpool" href="#VUID-vkCmdEndVideoCodingKHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdEndVideoCodingKHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support decode, or encode operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEndVideoCodingKHR-renderpass" href="#VUID-vkCmdEndVideoCodingKHR-renderpass"></a> <span class="vuid">VUID-vkCmdEndVideoCodingKHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEndVideoCodingKHR-suspended" href="#VUID-vkCmdEndVideoCodingKHR-suspended"></a> <span class="vuid">VUID-vkCmdEndVideoCodingKHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEndVideoCodingKHR-videocoding" href="#VUID-vkCmdEndVideoCodingKHR-videocoding"></a> <span class="vuid">VUID-vkCmdEndVideoCodingKHR-videocoding</span><br>
@@ -7131,8 +7187,8 @@ There <strong>must</strong> be no <a href="queries.html#queries-operation-active
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Inside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Decode<br>
-Encode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action<br>
 State</p></td>
 </tr>
@@ -7334,11 +7390,15 @@ then <code>pCodingControlInfo-&gt;flags</code> <strong>must</strong> not include
 </li>
 <li>
 <p><a id="VUID-vkCmdControlVideoCodingKHR-commandBuffer-cmdpool" href="#VUID-vkCmdControlVideoCodingKHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdControlVideoCodingKHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support decode, or encode operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdControlVideoCodingKHR-renderpass" href="#VUID-vkCmdControlVideoCodingKHR-renderpass"></a> <span class="vuid">VUID-vkCmdControlVideoCodingKHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdControlVideoCodingKHR-suspended" href="#VUID-vkCmdControlVideoCodingKHR-suspended"></a> <span class="vuid">VUID-vkCmdControlVideoCodingKHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdControlVideoCodingKHR-videocoding" href="#VUID-vkCmdControlVideoCodingKHR-videocoding"></a> <span class="vuid">VUID-vkCmdControlVideoCodingKHR-videocoding</span><br>
@@ -7392,8 +7452,8 @@ then <code>pCodingControlInfo-&gt;flags</code> <strong>must</strong> not include
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Inside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Decode<br>
-Encode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -7880,7 +7940,7 @@ is <a href="#dpb-slot-states">activated</a> with the
 <div class="paragraph">
 <p>When <a href="#decode-reconstructed-picture-info">reconstructed picture information</a>
 is provided, the specified <a href="#dpb-slot">DPB slot</a> index is associated with
-the corresponding <a href="#bound-reference-picture-resources">bound reference picture resource</a>, indifferent of whether <a href="#decode-ref-pic-setup">reference picture setup</a> is requested.</p>
+the corresponding <a href="#bound-reference-picture-resources">bound reference picture resource</a>, regardless of whether <a href="#decode-ref-pic-setup">reference picture setup</a> is requested.</p>
 </div>
 </div>
 <div class="sect2">
@@ -8551,7 +8611,8 @@ video session was created with</p>
 <p><a id="VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07146" href="#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07146"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07146</span><br>
 
 <code>pDecodeInfo-&gt;dstPictureResource.imageViewBinding</code> <strong>must</strong> have been
-created with <code>VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR</code></p>
+created with the <code>VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR</code> usage
+flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDecodeVideoKHR-commandBuffer-07147" href="#VUID-vkCmdDecodeVideoKHR-commandBuffer-07147"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-commandBuffer-07147</span><br>
@@ -9327,11 +9388,15 @@ in the <code>pNext</code> chain of <code>pDecodeInfo</code> is not <code>NULL</c
 </li>
 <li>
 <p><a id="VUID-vkCmdDecodeVideoKHR-commandBuffer-cmdpool" href="#VUID-vkCmdDecodeVideoKHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support decode operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDecodeVideoKHR-renderpass" href="#VUID-vkCmdDecodeVideoKHR-renderpass"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDecodeVideoKHR-suspended" href="#VUID-vkCmdDecodeVideoKHR-suspended"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDecodeVideoKHR-videocoding" href="#VUID-vkCmdDecodeVideoKHR-videocoding"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-videocoding</span><br>
@@ -9385,7 +9450,7 @@ in the <code>pNext</code> chain of <code>pDecodeInfo</code> is not <code>NULL</c
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Inside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Decode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_VIDEO_DECODE_BIT_KHR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -9478,8 +9543,8 @@ use in this video decode operation (the set of
 <li>
 <p><a id="VUID-VkVideoDecodeInfoKHR-srcBuffer-07165" href="#VUID-VkVideoDecodeInfoKHR-srcBuffer-07165"></a> <span class="vuid">VUID-VkVideoDecodeInfoKHR-srcBuffer-07165</span><br>
 
-<code>srcBuffer</code> <strong>must</strong> have been created with
-<code>VK_BUFFER_USAGE_VIDEO_DECODE_SRC_BIT_KHR</code> set</p>
+<code>srcBuffer</code> <strong>must</strong> have been created with the
+<code>VK_BUFFER_USAGE_VIDEO_DECODE_SRC_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkVideoDecodeInfoKHR-srcBufferOffset-07166" href="#VUID-VkVideoDecodeInfoKHR-srcBufferOffset-07166"></a> <span class="vuid">VUID-VkVideoDecodeInfoKHR-srcBufferOffset-07166</span><br>
@@ -14746,7 +14811,7 @@ is <a href="#dpb-slot-states">activated</a> with the
 <div class="paragraph">
 <p>When <a href="#encode-reconstructed-picture-info">reconstructed picture information</a>
 is provided, the specified <a href="#dpb-slot">DPB slot</a> index is associated with
-the corresponding <a href="#bound-reference-picture-resources">bound reference picture resource</a>, indifferent of whether <a href="#encode-ref-pic-setup">reference picture setup</a> is requested.</p>
+the corresponding <a href="#bound-reference-picture-resources">bound reference picture resource</a>, regardless of whether <a href="#encode-ref-pic-setup">reference picture setup</a> is requested.</p>
 </div>
 </div>
 <div class="sect2">
@@ -16398,7 +16463,8 @@ video session was created with</p>
 <p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08210" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08210"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08210</span><br>
 
 <code>pEncodeInfo-&gt;srcPictureResource.imageViewBinding</code> <strong>must</strong> have been
-created with <code>VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR</code></p>
+created with the <code>VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR</code> usage
+flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-commandBuffer-08211" href="#VUID-vkCmdEncodeVideoKHR-commandBuffer-08211"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-commandBuffer-08211</span><br>
@@ -16570,8 +16636,9 @@ If <code>pEncodeInfo-&gt;flags</code> includes
 <code>VK_VIDEO_ENCODE_WITH_QUANTIZATION_DELTA_MAP_BIT_KHR</code>, then the
 <code>VkImageView</code> specified by the <code>quantizationMap</code> member of the
 <a href="#VkVideoEncodeQuantizationMapInfoKHR">VkVideoEncodeQuantizationMapInfoKHR</a> structure included in the
-<code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> have been created with
-<code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code></p>
+<code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> have been created with the
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code> usage
+flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10312" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10312"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10312</span><br>
@@ -16580,8 +16647,8 @@ If <code>pEncodeInfo-&gt;flags</code> includes
 <code>VK_VIDEO_ENCODE_WITH_EMPHASIS_MAP_BIT_KHR</code>, then the
 <code>VkImageView</code> specified by the <code>quantizationMap</code> member of the
 <a href="#VkVideoEncodeQuantizationMapInfoKHR">VkVideoEncodeQuantizationMapInfoKHR</a> structure included in the
-<code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> have been created with
-<code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code></p>
+<code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> have been created with the
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-pNext-10313" href="#VUID-vkCmdEncodeVideoKHR-pNext-10313"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pNext-10313</span><br>
@@ -17796,11 +17863,15 @@ for the <a href="#VkVideoEncodeAV1PictureInfoKHR">VkVideoEncodeAV1PictureInfoKHR
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-commandBuffer-cmdpool" href="#VUID-vkCmdEncodeVideoKHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support encode operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-renderpass" href="#VUID-vkCmdEncodeVideoKHR-renderpass"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-suspended" href="#VUID-vkCmdEncodeVideoKHR-suspended"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-videocoding" href="#VUID-vkCmdEncodeVideoKHR-videocoding"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-videocoding</span><br>
@@ -17854,7 +17925,7 @@ for the <a href="#VkVideoEncodeAV1PictureInfoKHR">VkVideoEncodeAV1PictureInfoKHR
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Inside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Encode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -17954,8 +18025,8 @@ externally encoded bytes.</p>
 <li>
 <p><a id="VUID-VkVideoEncodeInfoKHR-dstBuffer-08236" href="#VUID-VkVideoEncodeInfoKHR-dstBuffer-08236"></a> <span class="vuid">VUID-VkVideoEncodeInfoKHR-dstBuffer-08236</span><br>
 
-<code>dstBuffer</code> <strong>must</strong> have been created with
-<code>VK_BUFFER_USAGE_VIDEO_ENCODE_DST_BIT_KHR</code> set</p>
+<code>dstBuffer</code> <strong>must</strong> have been created with the
+<code>VK_BUFFER_USAGE_VIDEO_ENCODE_DST_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkVideoEncodeInfoKHR-dstBufferOffset-08237" href="#VUID-VkVideoEncodeInfoKHR-dstBufferOffset-08237"></a> <span class="vuid">VUID-VkVideoEncodeInfoKHR-dstBufferOffset-08237</span><br>
@@ -20398,6 +20469,590 @@ height of <code>quantizationMap</code></p>
 <li>
 <p><a id="VUID-VkVideoEncodeQuantizationMapInfoKHR-quantizationMap-parameter" href="#VUID-VkVideoEncodeQuantizationMapInfoKHR-quantizationMap-parameter"></a> <span class="vuid">VUID-VkVideoEncodeQuantizationMapInfoKHR-quantizationMap-parameter</span><br>
  If <code>quantizationMap</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>quantizationMap</code> <strong>must</strong> be a valid <a href="resources.html#VkImageView" class="xref page">VkImageView</a> handle</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="encode-rgb-conversion"><a class="anchor" href="#encode-rgb-conversion"></a>Video Encode R′G′B′ Conversion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>R′G′B′ to Y′C<sub>B</sub>C<sub>R</sub> conversion performs the following operations to the
+<a href="#encode-input-picture">encode input picture</a> before video coding:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#encode-rgb-conversion-range-compression">R′G′B′ Range Compression</a></p>
+</li>
+<li>
+<p><a href="#encode-rgb-conversion-model-conversion">R′G′B′ Model Conversion</a></p>
+</li>
+<li>
+<p><a href="#encode-rgb-conversion-chroma-subsampling-and-quantization">R′G′B′  Chroma Subsampling and Quantization</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="encode-rgb-conversion-capabilities"><a class="anchor" href="#encode-rgb-conversion-capabilities"></a>R′G′B′ Conversion Capabilities</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>When calling <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> with
+<code>pVideoProfile-&gt;videoCodecOperation</code> specifying an encode operation, the
+<a href="#VkVideoEncodeRgbConversionCapabilitiesVALVE">VkVideoEncodeRgbConversionCapabilitiesVALVE</a> structure <strong>can</strong> be included
+in the <code>pNext</code> chain of the <a href="#VkVideoCapabilitiesKHR">VkVideoCapabilitiesKHR</a> structure to
+retrieve capabilities specific to video encode R′G′B′ conversion.</p>
+</div>
+<div class="paragraph">
+<p>The <code>VkVideoEncodeRgbConversionCapabilitiesVALVE</code> structure is defined
+as:</p>
+</div>
+<div id="VkVideoEncodeRgbConversionCapabilitiesVALVE" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef struct VkVideoEncodeRgbConversionCapabilitiesVALVE {
+    VkStructureType                               sType;
+    void*                                         pNext;
+    VkVideoEncodeRgbModelConversionFlagsVALVE     rgbModels;
+    VkVideoEncodeRgbRangeCompressionFlagsVALVE    rgbRanges;
+    VkVideoEncodeRgbChromaOffsetFlagsVALVE        xChromaOffsets;
+    VkVideoEncodeRgbChromaOffsetFlagsVALVE        yChromaOffsets;
+} VkVideoEncodeRgbConversionCapabilitiesVALVE;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>rgbModels</code> is a bitmask of
+<a href="#VkVideoEncodeRgbModelConversionFlagBitsVALVE">VkVideoEncodeRgbModelConversionFlagBitsVALVE</a> describing supported
+<a href="#encode-rgb-conversion-model-conversion">model conversions</a> for video
+encode R′G′B′ conversion.</p>
+</li>
+<li>
+<p><code>rgbRanges</code> is a bitmask of
+<a href="#VkVideoEncodeRgbRangeCompressionFlagBitsVALVE">VkVideoEncodeRgbRangeCompressionFlagBitsVALVE</a> describing supported
+<a href="#encode-rgb-conversion-range-compression">range compressions</a> for video
+encode R′G′B′ conversion.</p>
+</li>
+<li>
+<p><code>xChromaOffsets</code> is a bitmask of
+<a href="#VkVideoEncodeRgbChromaOffsetFlagBitsVALVE">VkVideoEncodeRgbChromaOffsetFlagBitsVALVE</a> describing supported
+offsets of the output location of the downsampled chroma component on
+the X axis for video encode R′G′B′ conversion.</p>
+</li>
+<li>
+<p><code>yChromaOffsets</code> is a bitmask of
+<a href="#VkVideoEncodeRgbChromaOffsetFlagBitsVALVE">VkVideoEncodeRgbChromaOffsetFlagBitsVALVE</a> describing supported
+offsets of the output location of the downsampled chroma component on
+the Y axis for video encode R′G′B′ conversion.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkVideoEncodeRgbConversionCapabilitiesVALVE-sType-sType" href="#VUID-VkVideoEncodeRgbConversionCapabilitiesVALVE-sType-sType"></a> <span class="vuid">VUID-VkVideoEncodeRgbConversionCapabilitiesVALVE-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="encode-rgb-conversion-range-compression"><a class="anchor" href="#encode-rgb-conversion-range-compression"></a>R′G′B′ Range Compression</h4>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The video encode R′G′B′ range compression to be applied to color
+component values of the <a href="#encode-input-picture">encode input picture</a> before
+video coding is defined by the <code>rgbRange</code> member of the
+<a href="#VkVideoEncodeSessionRgbConversionCreateInfoVALVE">VkVideoEncodeSessionRgbConversionCreateInfoVALVE</a> structure.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="#VkVideoEncodeRgbRangeCompressionFlagBitsVALVE">VkVideoEncodeRgbRangeCompressionFlagBitsVALVE</a> enum describes
+whether color components are encoded using the full range of numerical
+values or whether values are reserved for headroom and foot room:</p>
+</div>
+<div id="VkVideoEncodeRgbRangeCompressionFlagBitsVALVE" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef enum VkVideoEncodeRgbRangeCompressionFlagBitsVALVE {
+    VK_VIDEO_ENCODE_RGB_RANGE_COMPRESSION_FULL_RANGE_BIT_VALVE = 0x00000001,
+    VK_VIDEO_ENCODE_RGB_RANGE_COMPRESSION_NARROW_RANGE_BIT_VALVE = 0x00000002,
+} VkVideoEncodeRgbRangeCompressionFlagBitsVALVE;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_VIDEO_ENCODE_RGB_RANGE_COMPRESSION_FULL_RANGE_BIT_VALVE</code>
+specifies the following transformations are applied:</p>
+<div class="stemblock">
+  <div class="content halign-center valign-middle" style="padding-top: 1rem">
+<svg style="vertical-align: -7.194ex; overflow: visible;" xmlns="http://www.w3.org/2000/svg" width="25.532ex" height="15.519ex" role="img" focusable="false" viewBox="0 -3679.8 11285 6859.6"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtable"><g data-mml-node="mtr" transform="translate(0,2870.8)"><g data-mml-node="mtd" transform="translate(235.1,0)"><g data-mml-node="msup"><g data-mml-node="mi"><path data-c="1D44C" d="M66 637Q54 637 49 637T39 638T32 641T30 647T33 664T42 682Q44 683 56 683Q104 680 165 680Q288 680 306 683H316Q322 677 322 674T320 656Q316 643 310 637H298Q242 637 242 624Q242 619 292 477T343 333L346 336Q350 340 358 349T379 373T411 410T454 461Q546 568 561 587T577 618Q577 634 545 637Q528 637 528 647Q528 649 530 661Q533 676 535 679T549 683Q551 683 578 682T657 680Q684 680 713 681T746 682Q763 682 763 673Q763 669 760 657T755 643Q753 637 734 637Q662 632 617 587Q608 578 477 424L348 273L322 169Q295 62 295 57Q295 46 363 46Q379 46 384 45T390 35Q390 33 388 23Q384 6 382 4T366 1Q361 1 324 1T232 2Q170 2 138 2T102 1Q84 1 84 9Q84 14 87 24Q88 27 89 30T90 35T91 39T93 42T96 44T101 45T107 45T116 46T129 46Q168 47 180 50T198 63Q201 68 227 171L252 274L129 623Q128 624 127 625T125 627T122 629T118 631T113 633T105 634T96 635T83 636T66 637Z"></path></g><g data-mml-node="mo" transform="translate(855.1,413) scale(0.707)"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path></g></g></g><g data-mml-node="mtd" transform="translate(1334.7,0)"><g data-mml-node="mi"></g><g data-mml-node="mo" transform="translate(277.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msubsup" transform="translate(1333.6,0)"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(845.3,413) scale(0.707)"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path></g><g data-mml-node="TeXAtom" transform="translate(748,-247) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(451,0)"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mi" transform="translate(928,0)"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g><g data-mml-node="mi" transform="translate(1357,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g></g></g><g data-mml-node="mo" transform="translate(3465.2,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mi" transform="translate(3743.2,0)"><path data-c="1D43A" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q492 659 471 656T418 643T357 615T294 567T236 496T189 394T158 260Q156 242 156 221Q156 173 170 136T206 79T256 45T308 28T353 24Q407 24 452 47T514 106Q517 114 529 161T541 214Q541 222 528 224T468 227H431Q425 233 425 235T427 254Q431 267 437 273H454Q494 271 594 271Q634 271 659 271T695 272T707 272Q721 272 721 263Q721 261 719 249Q714 230 709 228Q706 227 694 227Q674 227 653 224Q646 221 643 215T629 164Q620 131 614 108Q589 6 586 3Q584 1 581 1Q571 1 553 21T530 52Q530 53 528 52T522 47Q448 -22 322 -22Q201 -22 126 55T50 252Z"></path></g><g data-mml-node="mo" transform="translate(4529.2,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g></g></g><g data-mml-node="mtr" transform="translate(0,609.5)"><g data-mml-node="mtd"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mi" transform="translate(748,-150) scale(0.707)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g></g></g><g data-mml-node="mtd" transform="translate(1334.7,0)"><g data-mml-node="mi"></g><g data-mml-node="mo" transform="translate(277.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msubsup" transform="translate(1333.6,0)"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(845.3,413) scale(0.707)"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path></g><g data-mml-node="TeXAtom" transform="translate(748,-247) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(451,0)"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mi" transform="translate(928,0)"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g><g data-mml-node="mi" transform="translate(1357,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g></g></g><g data-mml-node="mo" transform="translate(3465.2,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mi" transform="translate(3743.2,0)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g><g data-mml-node="mo" transform="translate(4502.2,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g><g data-mml-node="mo" transform="translate(5002.4,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(6002.6,0)"><g data-mml-node="mfrac"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(743.3,676)"><g data-mml-node="msup"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(389,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(989,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1767,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(2267,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(220,-710)"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(389,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(533,289) scale(0.707)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(1396.3,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(2007.5,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(3007.7,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><rect width="3707.7" height="60" x="120" y="220"></rect></g></g></g></g><g data-mml-node="mtr" transform="translate(0,-2219.8)"><g data-mml-node="mtd"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mi" transform="translate(748,-150) scale(0.707)"><path data-c="1D445" d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z"></path></g></g></g><g data-mml-node="mtd" transform="translate(1334.7,0)"><g data-mml-node="mi"></g><g data-mml-node="mo" transform="translate(277.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msubsup" transform="translate(1333.6,0)"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(845.3,413) scale(0.707)"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path></g><g data-mml-node="TeXAtom" transform="translate(748,-247) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(451,0)"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mi" transform="translate(928,0)"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g><g data-mml-node="mi" transform="translate(1357,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g></g></g><g data-mml-node="mo" transform="translate(3465.2,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mi" transform="translate(3743.2,0)"><path data-c="1D445" d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z"></path></g><g data-mml-node="mo" transform="translate(4502.2,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g><g data-mml-node="mo" transform="translate(5002.4,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(6002.6,0)"><g data-mml-node="mfrac"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(743.3,676)"><g data-mml-node="msup"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(389,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(989,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1767,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(2267,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(220,-710)"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(389,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(533,289) scale(0.707)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(1396.3,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(2007.5,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(3007.7,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><rect width="3707.7" height="60" x="120" y="220"></rect></g></g></g></g></g></g></g></svg>
+  </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>These formulae correspond to the &#8220;full range&#8221; encoding in the
+&#8220;Quantization schemes&#8221; chapter of the <a href="introduction.html#data-format" class="xref page">Khronos Data Format Specification</a>.</p>
+</div>
+<div class="paragraph">
+<p>Should any future amendments be made to the ITU specifications from which
+these equations are derived, the formulae used by Vulkan <strong>may</strong> also be
+updated to maintain parity.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_RGB_RANGE_COMPRESSION_NARROW_RANGE_BIT_VALVE</code>
+specifies the following transformations are applied:</p>
+<div class="stemblock">
+  <div class="content halign-center valign-middle" style="padding-top: 1rem">
+<svg style="vertical-align: -8.405ex; overflow: visible;" xmlns="http://www.w3.org/2000/svg" width="38.78ex" height="17.942ex" role="img" focusable="false" viewBox="0 -4215.2 17140.8 7930.4"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtable"><g data-mml-node="mtr" transform="translate(0,2499)"><g data-mml-node="mtd" transform="translate(235.1,0)"><g data-mml-node="msup"><g data-mml-node="mi"><path data-c="1D44C" d="M66 637Q54 637 49 637T39 638T32 641T30 647T33 664T42 682Q44 683 56 683Q104 680 165 680Q288 680 306 683H316Q322 677 322 674T320 656Q316 643 310 637H298Q242 637 242 624Q242 619 292 477T343 333L346 336Q350 340 358 349T379 373T411 410T454 461Q546 568 561 587T577 618Q577 634 545 637Q528 637 528 647Q528 649 530 661Q533 676 535 679T549 683Q551 683 578 682T657 680Q684 680 713 681T746 682Q763 682 763 673Q763 669 760 657T755 643Q753 637 734 637Q662 632 617 587Q608 578 477 424L348 273L322 169Q295 62 295 57Q295 46 363 46Q379 46 384 45T390 35Q390 33 388 23Q384 6 382 4T366 1Q361 1 324 1T232 2Q170 2 138 2T102 1Q84 1 84 9Q84 14 87 24Q88 27 89 30T90 35T91 39T93 42T96 44T101 45T107 45T116 46T129 46Q168 47 180 50T198 63Q201 68 227 171L252 274L129 623Q128 624 127 625T125 627T122 629T118 631T113 633T105 634T96 635T83 636T66 637Z"></path></g><g data-mml-node="mo" transform="translate(855.1,413) scale(0.707)"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path></g></g></g><g data-mml-node="mtd" transform="translate(1334.7,0)"><g data-mml-node="mi"></g><g data-mml-node="mo" transform="translate(277.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(1333.6,0)"><g data-mml-node="mfrac"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(220,882.3)"><g data-mml-node="msubsup"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(845.3,363) scale(0.707)"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path></g><g data-mml-node="TeXAtom" transform="translate(748,-277.3) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(451,0)"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mi" transform="translate(928,0)"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g><g data-mml-node="mi" transform="translate(1357,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g></g></g><g data-mml-node="mo" transform="translate(2131.6,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mi" transform="translate(2409.6,0)"><path data-c="1D43A" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q492 659 471 656T418 643T357 615T294 567T236 496T189 394T158 260Q156 242 156 221Q156 173 170 136T206 79T256 45T308 28T353 24Q407 24 452 47T514 106Q517 114 529 161T541 214Q541 222 528 224T468 227H431Q425 233 425 235T427 254Q431 267 437 273H454Q494 271 594 271Q634 271 659 271T695 272T707 272Q721 272 721 263Q721 261 719 249Q714 230 709 228Q706 227 694 227Q674 227 653 224Q646 221 643 215T629 164Q620 131 614 108Q589 6 586 3Q584 1 581 1Q571 1 553 21T530 52Q530 53 528 52T522 47Q448 -22 322 -22Q201 -22 126 55T50 252Z"></path></g><g data-mml-node="mo" transform="translate(3195.6,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g><g data-mml-node="mo" transform="translate(3695.8,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mo" transform="translate(4696,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(5085,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(533,363) scale(0.707)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(6314.5,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(7314.8,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(7814.8,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(8426,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(9426.2,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="36" d="M42 313Q42 476 123 571T303 666Q372 666 402 630T432 550Q432 525 418 510T379 495Q356 495 341 509T326 548Q326 592 373 601Q351 623 311 626Q240 626 194 566Q147 500 147 364L148 360Q153 366 156 373Q197 433 263 433H267Q313 433 348 414Q372 400 396 374T435 317Q456 268 456 210V192Q456 169 451 149Q440 90 387 34T253 -22Q225 -22 199 -14T143 16T92 75T56 172T42 313ZM257 397Q227 397 205 380T171 335T154 278T148 216Q148 133 160 97T198 39Q222 21 251 21Q302 21 329 59Q342 77 347 104T352 209Q352 289 347 316T329 361Q302 397 257 397Z" transform="translate(500,0)"></path></g><g data-mml-node="mo" transform="translate(10648.4,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="msup" transform="translate(11648.6,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(600,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1378,0)"><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z"></path></g></g></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(4683.1,-719.9)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" transform="translate(500,0)"></path><path data-c="39" d="M352 287Q304 211 232 211Q154 211 104 270T44 396Q42 412 42 436V444Q42 537 111 606Q171 666 243 666Q245 666 249 666T257 665H261Q273 665 286 663T323 651T370 619T413 560Q456 472 456 334Q456 194 396 97Q361 41 312 10T208 -22Q147 -22 108 7T68 93T121 149Q143 149 158 135T173 96Q173 78 164 65T148 49T135 44L131 43Q131 41 138 37T164 27T206 22H212Q272 22 313 86Q352 142 352 280V287ZM244 248Q292 248 321 297T351 430Q351 508 343 542Q341 552 337 562T323 588T293 615T246 625Q208 625 181 598Q160 576 154 546T147 441Q147 358 152 329T172 282Q197 248 244 248Z" transform="translate(1000,0)"></path></g><g data-mml-node="mo" transform="translate(1722.2,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="msup" transform="translate(2722.4,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,289) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(600,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1378,0)"><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z"></path></g></g></g></g><rect width="13759.6" height="60" x="120" y="220"></rect></g></g></g></g><g data-mml-node="mtr" transform="translate(0,-259.1)"><g data-mml-node="mtd"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mi" transform="translate(748,-150) scale(0.707)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g></g></g><g data-mml-node="mtd" transform="translate(1334.7,0)"><g data-mml-node="mi"></g><g data-mml-node="mo" transform="translate(277.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(1333.6,0)"><g data-mml-node="mfrac"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(220,882.3)"><g data-mml-node="msubsup"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(845.3,363) scale(0.707)"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path></g><g data-mml-node="TeXAtom" transform="translate(748,-277.3) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(451,0)"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mi" transform="translate(928,0)"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g><g data-mml-node="mi" transform="translate(1357,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g></g></g><g data-mml-node="mo" transform="translate(2131.6,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mi" transform="translate(2409.6,0)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g><g data-mml-node="mo" transform="translate(3168.6,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g><g data-mml-node="mo" transform="translate(3668.8,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mrow" transform="translate(4669,0)"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(389,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(533,363) scale(0.707)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(1618.5,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(2618.7,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(3118.7,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g><g data-mml-node="mo" transform="translate(8399,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(9399.2,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(500,0)"></path><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z" transform="translate(1000,0)"></path></g><g data-mml-node="mo" transform="translate(11121.4,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="msup" transform="translate(12121.6,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(600,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1378,0)"><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z"></path></g></g></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(4919.6,-719.9)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(500,0)"></path><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z" transform="translate(1000,0)"></path></g><g data-mml-node="mo" transform="translate(1722.2,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="msup" transform="translate(2722.4,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,289) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(600,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1378,0)"><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z"></path></g></g></g></g><rect width="14232.6" height="60" x="120" y="220"></rect></g></g></g></g><g data-mml-node="mtr" transform="translate(0,-2995.3)"><g data-mml-node="mtd"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mi" transform="translate(748,-150) scale(0.707)"><path data-c="1D445" d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z"></path></g></g></g><g data-mml-node="mtd" transform="translate(1334.7,0)"><g data-mml-node="mi"></g><g data-mml-node="mo" transform="translate(277.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(1333.6,0)"><g data-mml-node="mfrac"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(220,882.3)"><g data-mml-node="msubsup"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(845.3,363) scale(0.707)"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path></g><g data-mml-node="TeXAtom" transform="translate(748,-277.3) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(451,0)"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mi" transform="translate(928,0)"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g><g data-mml-node="mi" transform="translate(1357,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g></g></g><g data-mml-node="mo" transform="translate(2131.6,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mi" transform="translate(2409.6,0)"><path data-c="1D445" d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z"></path></g><g data-mml-node="mo" transform="translate(3168.6,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g><g data-mml-node="mo" transform="translate(3668.8,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mrow" transform="translate(4669,0)"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(389,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(533,363) scale(0.707)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(1618.5,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(2618.7,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(3118.7,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g><g data-mml-node="mo" transform="translate(8399,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(9399.2,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(500,0)"></path><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z" transform="translate(1000,0)"></path></g><g data-mml-node="mo" transform="translate(11121.4,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="msup" transform="translate(12121.6,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(600,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1378,0)"><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z"></path></g></g></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(4919.6,-719.9)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(500,0)"></path><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z" transform="translate(1000,0)"></path></g><g data-mml-node="mo" transform="translate(1722.2,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="msup" transform="translate(2722.4,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,289) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(600,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1378,0)"><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z"></path></g></g></g></g><rect width="14232.6" height="60" x="120" y="220"></rect></g></g></g></g></g></g></g></svg>
+  </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>These formulae correspond to the &#8220;narrow range&#8221; encoding in the
+&#8220;Quantization schemes&#8221; chapter of the <a href="introduction.html#data-format" class="xref page">Khronos Data Format Specification</a>.</p>
+</div>
+<div class="paragraph">
+<p>Unlike <a href="textures.html#textures-sampler-YCbCr-conversion-rangeexpand" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> range expansion</a>, no precision guarantees are made for video encode
+R′G′B′ range compression.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><em>n</em> is the bit-depth of the components in the bound video session&#8217;s
+<code>pictureFormat</code>.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Video encode R′G′B′ range compression transformations have the inverse
+definition of the <a href="textures.html#textures-sampler-YCbCr-conversion-rangeexpand" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> range expansion</a> transformations.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div id="VkVideoEncodeRgbRangeCompressionFlagsVALVE" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef VkFlags VkVideoEncodeRgbRangeCompressionFlagsVALVE;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#VkVideoEncodeRgbRangeCompressionFlagsVALVE">VkVideoEncodeRgbRangeCompressionFlagsVALVE</a> is a bitmask type for
+setting a mask of zero or more
+<a href="#VkVideoEncodeRgbRangeCompressionFlagBitsVALVE">VkVideoEncodeRgbRangeCompressionFlagBitsVALVE</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="encode-rgb-conversion-model-conversion"><a class="anchor" href="#encode-rgb-conversion-model-conversion"></a>R′G′B′ Model Conversion</h4>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The range-compressed values are converted between color models, according to
+the color model conversion specified in the <code>rgbModel</code> member of the
+<a href="#VkVideoEncodeSessionRgbConversionCreateInfoVALVE">VkVideoEncodeSessionRgbConversionCreateInfoVALVE</a> structure.</p>
+</div>
+<div class="paragraph">
+<p><a href="#VkVideoEncodeRgbModelConversionFlagBitsVALVE">VkVideoEncodeRgbModelConversionFlagBitsVALVE</a> defines the conversion
+from the <a href="#encode-input-picture-info">encode input picture</a>'s color model to
+the encode color model.</p>
+</div>
+<div id="VkVideoEncodeRgbModelConversionFlagBitsVALVE" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef enum VkVideoEncodeRgbModelConversionFlagBitsVALVE {
+    VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_RGB_IDENTITY_BIT_VALVE = 0x00000001,
+    VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_IDENTITY_BIT_VALVE = 0x00000002,
+    VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_709_BIT_VALVE = 0x00000004,
+    VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_601_BIT_VALVE = 0x00000008,
+    VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_2020_BIT_VALVE = 0x00000010,
+} VkVideoEncodeRgbModelConversionFlagBitsVALVE;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_RGB_IDENTITY_BIT_VALVE</code>
+specifies the color components are not modified by the color model
+conversion since they are assumed to represent the desired color model
+for video coding; R′G′B′ range compression is applied to the
+components.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_IDENTITY_BIT_VALVE</code>
+specifies the color components are not modified by the color model
+conversion are assumed to be treated as though in Y′C<sub>B</sub>C<sub>R</sub> form; video
+encode R′G′B′ range compression and video encode R′G′B′ chroma
+subsampling is also ignored.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_709_BIT_VALVE</code> specifies
+the color components are transformed from an R′G′B′ representation
+to a Y′C<sub>B</sub>C<sub>R</sub> representation as described in the &#8220;BT.709 Y′C<sub>B</sub>C<sub>R</sub>
+conversion&#8221; section of the <a href="introduction.html#data-format" class="xref page">Khronos Data Format    Specification</a>.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_601_BIT_VALVE</code> specifies
+the color components are transformed from an R′G′B′ representation
+to a Y′C<sub>B</sub>C<sub>R</sub> representation as described in the &#8220;BT.601 Y′C<sub>B</sub>C<sub>R</sub>
+conversion&#8221; section of the <a href="introduction.html#data-format" class="xref page">Khronos Data Format    Specification</a>.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_2020_BIT_VALVE</code>
+specifies the color components are transformed from an R′G′B′
+representation to a Y′C<sub>B</sub>C<sub>R</sub> representation as described in the &#8220;BT.2020
+Y′C<sub>B</sub>C<sub>R</sub> conversion&#8221; section of the <a href="introduction.html#data-format" class="xref page">Khronos Data Format    Specification</a>.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Video encode R′G′B′ model conversion transformations have the inverse
+definition of <a href="textures.html#textures-sampler-YCbCr-conversion-modelconversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> model conversion</a> transformations.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The video encode R′G′B′ model conversion step does not apply any
+transfer function, only converting from R′G′B′ to Y′C<sub>B</sub>C<sub>R</sub> using the
+primaries of the specified <code>rgbModel</code> color model.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div id="VkVideoEncodeRgbModelConversionFlagsVALVE" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef VkFlags VkVideoEncodeRgbModelConversionFlagsVALVE;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#VkVideoEncodeRgbModelConversionFlagsVALVE">VkVideoEncodeRgbModelConversionFlagsVALVE</a> is a bitmask type for
+setting a mask of zero or more
+<a href="#VkVideoEncodeRgbModelConversionFlagBitsVALVE">VkVideoEncodeRgbModelConversionFlagBitsVALVE</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="encode-rgb-conversion-chroma-subsampling-and-quantization"><a class="anchor" href="#encode-rgb-conversion-chroma-subsampling-and-quantization"></a>R′G′B′ Chroma Subsampling and Quantization</h4>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The model-converted values are chroma subsampled and quantized, according to
+the <code>chromaSubsampling</code>, <code>lumaBitDepth</code> and <code>chromaBitDepth</code>
+values specified by the bound video session.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="#VkVideoEncodeRgbChromaOffsetFlagBitsVALVE">VkVideoEncodeRgbChromaOffsetFlagBitsVALVE</a> enum defines the
+location of downsampled chroma component samples relative to the luma
+samples for video encode R′G′B′ conversion, and is defined as:</p>
+</div>
+<div id="VkVideoEncodeRgbChromaOffsetFlagBitsVALVE" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef enum VkVideoEncodeRgbChromaOffsetFlagBitsVALVE {
+    VK_VIDEO_ENCODE_RGB_CHROMA_OFFSET_COSITED_EVEN_BIT_VALVE = 0x00000001,
+    VK_VIDEO_ENCODE_RGB_CHROMA_OFFSET_MIDPOINT_BIT_VALVE = 0x00000002,
+} VkVideoEncodeRgbChromaOffsetFlagBitsVALVE;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_VIDEO_ENCODE_RGB_CHROMA_OFFSET_COSITED_EVEN_BIT_VALVE</code> specifies
+that downsampled chroma samples are aligned with luma samples with even
+coordinates.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_RGB_CHROMA_OFFSET_MIDPOINT_BIT_VALVE</code> specifies
+that downsampled chroma samples are located half way between each even
+luma sample and the nearest higher odd luma sample.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The output location of downsampled chroma components are specified by the
+<code>xChromaOffset</code> and <code>yChromaOffset</code> values of the
+<a href="#VkVideoEncodeSessionRgbConversionCreateInfoVALVE">VkVideoEncodeSessionRgbConversionCreateInfoVALVE</a> structure:</p>
+</div>
+<div class="paragraph">
+<p>Chroma subsampling is described in more detail in the
+<a href="textures.html#textures-chroma-reconstruction" class="xref page">Chroma Reconstruction</a> section.</p>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div id="VkVideoEncodeRgbChromaOffsetFlagsVALVE" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef VkFlags VkVideoEncodeRgbChromaOffsetFlagsVALVE;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#VkVideoEncodeRgbChromaOffsetFlagsVALVE">VkVideoEncodeRgbChromaOffsetFlagsVALVE</a> is a bitmask type for setting a
+mask of zero or more <a href="#VkVideoEncodeRgbChromaOffsetFlagBitsVALVE">VkVideoEncodeRgbChromaOffsetFlagBitsVALVE</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_encoding_pictures_with_rgb_conversion"><a class="anchor" href="#_encoding_pictures_with_rgb_conversion"></a>Encoding Pictures with R′G′B′ Conversion</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>A video profile supporting video encode R′G′B′ conversion is specified
+by an <code>pVideoProfile-&gt;videoCodecOperation</code> specifying an encode
+operation and including a <code>VkVideoEncodeProfileRgbConversionInfoVALVE</code>
+structure in the <code>pNext</code> chain of the <a href="#VkVideoProfileInfoKHR">VkVideoProfileInfoKHR</a>
+structure and enabling <code>performEncodeRgbConversion</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>VkVideoEncodeProfileRgbConversionInfoVALVE</code> structure is defined
+as:</p>
+</div>
+<div id="VkVideoEncodeProfileRgbConversionInfoVALVE" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef struct VkVideoEncodeProfileRgbConversionInfoVALVE {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkBool32           performEncodeRgbConversion;
+} VkVideoEncodeProfileRgbConversionInfoVALVE;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>performEncodeRgbConversion</code> is a boolean value indicating whether
+video encode R′G′B′ conversion will be used for the encode
+operation.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkVideoEncodeProfileRgbConversionInfoVALVE-sType-sType" href="#VUID-VkVideoEncodeProfileRgbConversionInfoVALVE-sType-sType"></a> <span class="vuid">VUID-VkVideoEncodeProfileRgbConversionInfoVALVE-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>VkVideoEncodeSessionRgbConversionCreateInfoVALVE</code> structure <strong>can</strong> be
+included in the <code>pNext</code> chain of the <a href="#VkVideoSessionCreateInfoKHR">VkVideoSessionCreateInfoKHR</a>
+to specify the R′G′B′ conversion parameters used by the issued video
+encode operations of the video session.</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkVideoEncodeSessionRgbConversionCreateInfoVALVE</code> structure is
+defined as:</p>
+</div>
+<div id="VkVideoEncodeSessionRgbConversionCreateInfoVALVE" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef struct VkVideoEncodeSessionRgbConversionCreateInfoVALVE {
+    VkStructureType                                  sType;
+    const void*                                      pNext;
+    VkVideoEncodeRgbModelConversionFlagBitsVALVE     rgbModel;
+    VkVideoEncodeRgbRangeCompressionFlagBitsVALVE    rgbRange;
+    VkVideoEncodeRgbChromaOffsetFlagBitsVALVE        xChromaOffset;
+    VkVideoEncodeRgbChromaOffsetFlagBitsVALVE        yChromaOffset;
+} VkVideoEncodeSessionRgbConversionCreateInfoVALVE;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>rgbModel</code> is the used
+<a href="#encode-rgb-conversion-model-conversion">R′G′B′ model conversion</a>
+for the R′G′B′ conversion.</p>
+</li>
+<li>
+<p><code>rgbRange</code> is the used
+<a href="#encode-rgb-conversion-range-compression">R′G′B′ range compression</a>
+for the R′G′B′ conversion.</p>
+</li>
+<li>
+<p><code>xChromaOffset</code> describes the output location of downsampled chroma
+components in the x dimension for the R′G′B′ conversion.</p>
+</li>
+<li>
+<p><code>yChromaOffset</code> describes the output location of downsampled chroma
+components in the y dimension for the R′G′B′ conversion.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbModel-10930" href="#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbModel-10930"></a> <span class="vuid">VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbModel-10930</span><br>
+
+<code>rgbModel</code> <strong>must</strong> only be a bit set in
+<a href="#VkVideoEncodeRgbConversionCapabilitiesVALVE">VkVideoEncodeRgbConversionCapabilitiesVALVE</a>::<code>rgbModels</code> as
+returned by <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> with
+<code>VkVideoEncodeRgbConversionCapabilitiesVALVE</code> in the <code>pNext</code>
+chain of <code>VkVideoCapabilitiesKHR</code> with the given <code>pVideoProfile</code></p>
+</li>
+<li>
+<p><a id="VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbRange-10931" href="#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbRange-10931"></a> <span class="vuid">VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbRange-10931</span><br>
+
+<code>rgbRange</code> <strong>must</strong> only be a bit set in
+<a href="#VkVideoEncodeRgbConversionCapabilitiesVALVE">VkVideoEncodeRgbConversionCapabilitiesVALVE</a>::<code>rgbRanges</code> as
+returned by <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> with
+<code>VkVideoEncodeRgbConversionCapabilitiesVALVE</code> in the <code>pNext</code>
+chain of <code>VkVideoCapabilitiesKHR</code> with the given <code>pVideoProfile</code></p>
+</li>
+<li>
+<p><a id="VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-xChromaOffset-10932" href="#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-xChromaOffset-10932"></a> <span class="vuid">VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-xChromaOffset-10932</span><br>
+
+<code>xChromaOffset</code> <strong>must</strong> only be a bit set in
+<a href="#VkVideoEncodeRgbConversionCapabilitiesVALVE">VkVideoEncodeRgbConversionCapabilitiesVALVE</a>::<code>xChromaOffsets</code>
+as returned by <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> with
+<code>VkVideoEncodeRgbConversionCapabilitiesVALVE</code> in the <code>pNext</code>
+chain of <code>VkVideoCapabilitiesKHR</code> with the given <code>pVideoProfile</code></p>
+</li>
+<li>
+<p><a id="VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-yChromaOffset-10933" href="#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-yChromaOffset-10933"></a> <span class="vuid">VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-yChromaOffset-10933</span><br>
+
+<code>yChromaOffset</code> <strong>must</strong> only be a bit set in
+<a href="#VkVideoEncodeRgbConversionCapabilitiesVALVE">VkVideoEncodeRgbConversionCapabilitiesVALVE</a>::<code>yChromaOffsets</code>
+as returned by <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> with
+<code>VkVideoEncodeRgbConversionCapabilitiesVALVE</code> in the <code>pNext</code>
+chain of <code>VkVideoCapabilitiesKHR</code> with the given <code>pVideoProfile</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-sType-sType" href="#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-sType-sType"></a> <span class="vuid">VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE</code></p>
+</li>
+<li>
+<p><a id="VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbModel-parameter" href="#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbModel-parameter"></a> <span class="vuid">VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbModel-parameter</span><br>
+ <code>rgbModel</code> <strong>must</strong> be a valid <a href="#VkVideoEncodeRgbModelConversionFlagBitsVALVE">VkVideoEncodeRgbModelConversionFlagBitsVALVE</a> value</p>
+</li>
+<li>
+<p><a id="VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbRange-parameter" href="#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbRange-parameter"></a> <span class="vuid">VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbRange-parameter</span><br>
+ <code>rgbRange</code> <strong>must</strong> be a valid <a href="#VkVideoEncodeRgbRangeCompressionFlagBitsVALVE">VkVideoEncodeRgbRangeCompressionFlagBitsVALVE</a> value</p>
+</li>
+<li>
+<p><a id="VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-xChromaOffset-parameter" href="#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-xChromaOffset-parameter"></a> <span class="vuid">VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-xChromaOffset-parameter</span><br>
+ <code>xChromaOffset</code> <strong>must</strong> be a valid <a href="#VkVideoEncodeRgbChromaOffsetFlagBitsVALVE">VkVideoEncodeRgbChromaOffsetFlagBitsVALVE</a> value</p>
+</li>
+<li>
+<p><a id="VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-yChromaOffset-parameter" href="#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-yChromaOffset-parameter"></a> <span class="vuid">VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-yChromaOffset-parameter</span><br>
+ <code>yChromaOffset</code> <strong>must</strong> be a valid <a href="#VkVideoEncodeRgbChromaOffsetFlagBitsVALVE">VkVideoEncodeRgbChromaOffsetFlagBitsVALVE</a> value</p>
 </li>
 </ul>
 </div>
@@ -29206,7 +29861,7 @@ specifies whether the implementation supports using the
 application-provided value for
 <code>StdVideoAV1TileInfoFlags</code>::<code>uniform_tile_spacing_flag</code> in the
 <a href="#encode-av1-tile-params">AV1 tile parameters</a> when that value is <code>1</code>,
-indifferent of the coded extent of the <a href="#encode-input-picture">encode    input picture</a> and the number of tile columns and rows requested in the
+regardless of the coded extent of the <a href="#encode-input-picture">encode    input picture</a> and the number of tile columns and rows requested in the
 <code>TileCols</code> and <code>TileRows</code> members of <code>StdVideoAV1TileInfo</code>.</p>
 </li>
 <li>
@@ -30428,7 +31083,7 @@ display order.</p>
 <td class="content">
 <div class="paragraph">
 <p>While the application can specify any rate control group for any frame,
-indifferent of the frame type, prediction mode, or prediction direction,
+regardless of the frame type, prediction mode, or prediction direction,
 specifying a rate control group that does not reflect the prediction
 direction used by the encoded frame may result in unexpected behavior of the
 implementation&#8217;s rate control algorithm.</p>

@@ -37,6 +37,10 @@ The value **may** vary across a single draw call, and for fragment shaders **may
 vary across a single primitive.
 In compute dispatches, `SubgroupSize` **must** be uniform with
 [command scope](../../../../spec/latest/chapters/shaders.html#shaders-scope-command).
+In mesh and task shaders, `SubgroupSize` **must** be uniform with
+[command scope](../../../../spec/latest/chapters/shaders.html#shaders-scope-command).
+In a single [command scope](../../../../spec/latest/chapters/shaders.html#shaders-scope-command), the mesh and task
+shader **may** have different `SubgroupSize`.
 
 If the pipeline was created with a chained
 [VkPipelineShaderStageRequiredSubgroupSizeCreateInfo](VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.html) structure,
@@ -60,7 +64,7 @@ variable decorated with `SubgroupSize` will match [`subgroupSize`](../../../../s
 The maximum number of invocations that an implementation can support per
 subgroup is 128.
 
-|  | The old behavior for `SubgroupSize` is considered deprecated as certain
+|  | The old behavior for `SubgroupSize` is considered legacy as certain
 | --- | --- |
 compute algorithms cannot be easily implemented without the guarantees of
 `VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT` and

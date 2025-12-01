@@ -27,9 +27,8 @@ typedef struct VkPipelineCreationFeedback {
     uint64_t                           duration;
 } VkPipelineCreationFeedback;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_creation_feedback
+// Equivalent to VkPipelineCreationFeedback
 typedef VkPipelineCreationFeedback VkPipelineCreationFeedbackEXT;
 
 * 

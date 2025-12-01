@@ -20,9 +20,9 @@
 VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM - Structure specifying Y′CBCR degamma parameters
 
 Applications **can** enable sRGB to linear conversion for the R, G, and B
-components of a Y′CBCR image during [format conversion](../../../../spec/latest/chapters/textures.html#textures-ycbcr-degamma) by including
-`VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM` structure in the
-`pNext` chain of [VkSamplerYcbcrConversionCreateInfo](VkSamplerYcbcrConversionCreateInfo.html).
+components of a Y′CBCR image during [sampling](../../../../spec/latest/chapters/textures.html#textures-YCbCr-degamma) by
+including `VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM` structure
+in the `pNext` chain of [VkSamplerYcbcrConversionCreateInfo](VkSamplerYcbcrConversionCreateInfo.html).
 
 The `VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM` structure is
 defined as:
@@ -43,11 +43,10 @@ typedef struct VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM {
 structure.
 
 * 
-`enableYDegamma` indicates [sRGB to linear](../../../../spec/latest/chapters/textures.html#textures-ycbcr-degamma)
-conversion is enabled for the G component.
+`enableYDegamma` indicates [sRGB to    linear](../../../../spec/latest/chapters/textures.html#textures-YCbCr-degamma) conversion is enabled for the G component.
 
 * 
-`enableCbCrDegamma` indicates [sRGB to    linear](../../../../spec/latest/chapters/textures.html#textures-ycbcr-degamma) conversion is enabled for the R and B components.
+`enableCbCrDegamma` indicates [sRGB to    linear](../../../../spec/latest/chapters/textures.html#textures-YCbCr-degamma) conversion is enabled for the R and B components.
 
 Valid Usage (Implicit)
 

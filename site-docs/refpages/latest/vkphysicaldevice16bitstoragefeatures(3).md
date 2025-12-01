@@ -31,9 +31,8 @@ typedef struct VkPhysicalDevice16BitStorageFeatures {
     VkBool32           storageInputOutput16;
 } VkPhysicalDevice16BitStorageFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_16bit_storage
+// Equivalent to VkPhysicalDevice16BitStorageFeatures
 typedef VkPhysicalDevice16BitStorageFeatures VkPhysicalDevice16BitStorageFeaturesKHR;
 
 This structure describes the following features:
@@ -112,7 +111,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), `VkBool32`, [VkStructureType](VkStructureType.html)
+[VK_KHR_16bit_storage](VK_KHR_16bit_storage.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), `VkBool32`, [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/features.html#VkPhysicalDevice16BitStorageFeatures).
 

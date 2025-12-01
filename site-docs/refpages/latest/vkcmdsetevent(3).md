@@ -168,12 +168,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetEvent-commandBuffer-cmdpool) VUID-vkCmdSetEvent-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdSetEvent-renderpass) VUID-vkCmdSetEvent-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdSetEvent-suspended) VUID-vkCmdSetEvent-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdSetEvent-commonparent) VUID-vkCmdSetEvent-commonparent
@@ -193,13 +198,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Both | Graphics
+Secondary | Outside | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Synchronization |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Synchronization |
 
 Conditional Rendering
 

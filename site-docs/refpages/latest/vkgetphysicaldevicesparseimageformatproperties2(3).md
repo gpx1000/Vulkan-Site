@@ -35,9 +35,8 @@ void vkGetPhysicalDeviceSparseImageFormatProperties2(
     uint32_t*                                   pPropertyCount,
     VkSparseImageFormatProperties2*             pProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to vkGetPhysicalDeviceSparseImageFormatProperties2
 void vkGetPhysicalDeviceSparseImageFormatProperties2KHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceSparseImageFormatInfo2* pFormatInfo,
@@ -88,7 +87,7 @@ Valid Usage (Implicit)
 
  If the value referenced by `pPropertyCount` is not `0`, and `pProperties` is not `NULL`, `pProperties` **must** be a valid pointer to an array of `pPropertyCount` [VkSparseImageFormatProperties2](VkSparseImageFormatProperties2.html) structures
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceSparseImageFormatInfo2](VkPhysicalDeviceSparseImageFormatInfo2.html), [VkSparseImageFormatProperties2](VkSparseImageFormatProperties2.html)
+[VK_KHR_get_physical_device_properties2](VK_KHR_get_physical_device_properties2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceSparseImageFormatInfo2](VkPhysicalDeviceSparseImageFormatInfo2.html), [VkSparseImageFormatProperties2](VkSparseImageFormatProperties2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/sparsemem.html#vkGetPhysicalDeviceSparseImageFormatProperties2).
 

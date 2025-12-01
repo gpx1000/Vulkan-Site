@@ -26,7 +26,7 @@ is defined as:
 // Provided by VK_KHR_acceleration_structure
 typedef struct VkAccelerationStructureBuildSizesInfoKHR {
     VkStructureType    sType;
-    const void*        pNext;
+    void*              pNext;
     VkDeviceSize       accelerationStructureSize;
     VkDeviceSize       updateScratchSize;
     VkDeviceSize       buildScratchSize;

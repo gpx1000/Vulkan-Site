@@ -39,9 +39,8 @@ typedef struct VkAccelerationStructureInstanceKHR {
     uint64_t                      accelerationStructureReference;
 } VkAccelerationStructureInstanceKHR;
 
-or the equivalent
-
 // Provided by VK_NV_ray_tracing
+// Equivalent to VkAccelerationStructureInstanceKHR
 typedef VkAccelerationStructureInstanceKHR VkAccelerationStructureInstanceNV;
 
 * 

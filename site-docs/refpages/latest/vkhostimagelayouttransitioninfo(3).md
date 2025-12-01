@@ -31,9 +31,8 @@ typedef struct VkHostImageLayoutTransitionInfo {
     VkImageSubresourceRange    subresourceRange;
 } VkHostImageLayoutTransitionInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to VkHostImageLayoutTransitionInfo
 typedef VkHostImageLayoutTransitionInfo VkHostImageLayoutTransitionInfoEXT;
 
 * 
@@ -97,8 +96,8 @@ Valid Usage
 * 
 [](#VUID-VkHostImageLayoutTransitionInfo-image-09055) VUID-VkHostImageLayoutTransitionInfo-image-09055
 
-`image` **must** have been created with
-`VK_IMAGE_USAGE_HOST_TRANSFER_BIT`
+`image` **must** have been created with the
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` usage flag set
 
 * 
 [](#VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01486) VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01486
@@ -179,8 +178,10 @@ the formula defined in [Image Mip    Level Sizing](../../../../spec/latest/chapt
 * 
 [](#VUID-VkHostImageLayoutTransitionInfo-image-01932) VUID-VkHostImageLayoutTransitionInfo-image-01932
 
-If `image` is non-sparse then it **must** be bound completely and
-contiguously to a single `VkDeviceMemory` object
+If `image` is non-sparse then the image
+or each specified *disjoint* plane
+**must** be bound completely and contiguously to a single
+`VkDeviceMemory` object
 
 * 
 [](#VUID-VkHostImageLayoutTransitionInfo-image-09241) VUID-VkHostImageLayoutTransitionInfo-image-09241

@@ -85,8 +85,8 @@ returned by [vkGetPipelineIndirectMemoryRequirementsNV](vkGetPipelineIndirectMem
 [](#VUID-VkComputePipelineIndirectBufferInfoNV-deviceAddress-09012) VUID-VkComputePipelineIndirectBufferInfoNV-deviceAddress-09012
 
 `deviceAddress` **must** have been allocated from a buffer that was
-created with usage `VK_BUFFER_USAGE_TRANSFER_DST_BIT` and
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT`
+created with both the `VK_BUFFER_USAGE_TRANSFER_DST_BIT` and
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flags set
 
 * 
 [](#VUID-VkComputePipelineIndirectBufferInfoNV-size-09013) VUID-VkComputePipelineIndirectBufferInfoNV-size-09013

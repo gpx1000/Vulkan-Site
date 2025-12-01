@@ -32,9 +32,8 @@ typedef struct VkPushDescriptorSetInfo {
     const VkWriteDescriptorSet*    pDescriptorWrites;
 } VkPushDescriptorSetInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance6 with VK_KHR_push_descriptor
+// Equivalent to VkPushDescriptorSetInfo
 typedef VkPushDescriptorSetInfo VkPushDescriptorSetInfoKHR;
 
 * 

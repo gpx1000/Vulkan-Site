@@ -29,14 +29,12 @@ typedef struct VkSubresourceLayout2 {
     VkSubresourceLayout    subresourceLayout;
 } VkSubresourceLayout2;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkSubresourceLayout2
 typedef VkSubresourceLayout2 VkSubresourceLayout2KHR;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy, VK_EXT_image_compression_control
+// Equivalent to VkSubresourceLayout2
 typedef VkSubresourceLayout2 VkSubresourceLayout2EXT;
 
 * 

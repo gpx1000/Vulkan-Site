@@ -608,7 +608,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetVertexInputEXT-commandBuffer-cmdpool) VUID-vkCmdSetVertexInputEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetVertexInputEXT-videocoding) VUID-vkCmdSetVertexInputEXT-videocoding
@@ -628,7 +628,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -883,7 +883,7 @@ corresponding element in `pBuffers`
 [](#VUID-vkCmdBindVertexBuffers-pBuffers-00627) VUID-vkCmdBindVertexBuffers-pBuffers-00627
 
 All elements of `pBuffers` **must** have been created with the
-`VK_BUFFER_USAGE_VERTEX_BUFFER_BIT` flag
+`VK_BUFFER_USAGE_VERTEX_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdBindVertexBuffers-pBuffers-00628) VUID-vkCmdBindVertexBuffers-pBuffers-00628
@@ -929,7 +929,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindVertexBuffers-commandBuffer-cmdpool) VUID-vkCmdBindVertexBuffers-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindVertexBuffers-videocoding) VUID-vkCmdBindVertexBuffers-videocoding
@@ -959,7 +959,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -978,9 +978,8 @@ void vkCmdBindVertexBuffers2(
     const VkDeviceSize*                         pSizes,
     const VkDeviceSize*                         pStrides);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdBindVertexBuffers2
 void vkCmdBindVertexBuffers2EXT(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    firstBinding,
@@ -1107,7 +1106,7 @@ If `pSizes` is not `NULL`, all elements of `pOffsets` plus
 [](#VUID-vkCmdBindVertexBuffers2-pBuffers-03359) VUID-vkCmdBindVertexBuffers2-pBuffers-03359
 
 All elements of `pBuffers` **must** have been created with the
-`VK_BUFFER_USAGE_VERTEX_BUFFER_BIT` flag
+`VK_BUFFER_USAGE_VERTEX_BUFFER_BIT` usage flag set
 
 [](#VUID-vkCmdBindVertexBuffers2-pBuffers-03360) VUID-vkCmdBindVertexBuffers2-pBuffers-03360
 
@@ -1175,7 +1174,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindVertexBuffers2-commandBuffer-cmdpool) VUID-vkCmdBindVertexBuffers2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindVertexBuffers2-videocoding) VUID-vkCmdBindVertexBuffers2-videocoding
@@ -1205,7 +1204,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1228,14 +1227,12 @@ typedef struct VkPipelineVertexInputDivisorStateCreateInfo {
     const VkVertexInputBindingDivisorDescription*    pVertexBindingDivisors;
 } VkPipelineVertexInputDivisorStateCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_vertex_attribute_divisor
+// Equivalent to VkPipelineVertexInputDivisorStateCreateInfo
 typedef VkPipelineVertexInputDivisorStateCreateInfo VkPipelineVertexInputDivisorStateCreateInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_vertex_attribute_divisor
+// Equivalent to VkPipelineVertexInputDivisorStateCreateInfo
 typedef VkPipelineVertexInputDivisorStateCreateInfo VkPipelineVertexInputDivisorStateCreateInfoEXT;
 
 * 
@@ -1280,14 +1277,12 @@ typedef struct VkVertexInputBindingDivisorDescription {
     uint32_t    divisor;
 } VkVertexInputBindingDivisorDescription;
 
-or the equivalent
-
 // Provided by VK_KHR_vertex_attribute_divisor
+// Equivalent to VkVertexInputBindingDivisorDescription
 typedef VkVertexInputBindingDivisorDescription VkVertexInputBindingDivisorDescriptionKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_vertex_attribute_divisor
+// Equivalent to VkVertexInputBindingDivisorDescription
 typedef VkVertexInputBindingDivisorDescription VkVertexInputBindingDivisorDescriptionEXT;
 
 * 
@@ -1408,13 +1403,17 @@ else
 attribAddress = bufferBindingAddress + effectiveVertexOffset + attribDesc.offset;
 
 For each attribute, raw data is extracted starting at `attribAddress` and is
-converted from the [VkVertexInputAttributeDescription](#VkVertexInputAttributeDescription)’s `format` to
-either floating-point, unsigned integer, or signed integer based on the
-[numeric type](formats.html#formats-numericformat) of `format`.
-The numeric type of `format` **must** match the numeric type of the input
-variable in the shader.
+converted from the [VkVertexInputAttributeDescription](#VkVertexInputAttributeDescription)’s `format` in
+the same manner as described for [image reads](images.html#images-reads) as if a texel
+were read from that address.
+The numeric type of the attribute’s `format` **must** match the numeric
+type of the input variable in the shader.
 The input variable in the shader **must** be declared as a 64-bit data type if
 and only if `format` is a 64-bit data type.
+If the sum of `attribAddress` and the data extracted is outside of the bound
+vertex buffer, behavior is as described by
+[Shader Out-of-Bounds Memory Access](shaders.html#shaders-execution-memory-access-bounds).
+
 If
 either `format` is a 64-bit format or the
 [`legacyVertexAttributes`](features.html#features-legacyVertexAttributes) feature is
@@ -1428,15 +1427,18 @@ if either `format` is a 64-bit format or the
 not enabled,
 `attribAddress` **must** be a multiple of the size in bytes of the component
 type indicated by `format` (see [Formats](formats.html#formats)).
-For attributes that are not 64-bit data types, each component is converted
-to the format of the input variable based on its type and size (as defined
-in the [Format Definition](formats.html#formats-definition) section for each
-[VkFormat](formats.html#VkFormat)), using the appropriate equations in [16-Bit Floating-Point Numbers](fundamentals.html#fundamentals-fp16), [Unsigned 11-Bit Floating-Point Numbers](fundamentals.html#fundamentals-fp11), [Unsigned 10-Bit Floating-Point Numbers](fundamentals.html#fundamentals-fp10), [Fixed-Point Data Conversion](fundamentals.html#fundamentals-fixedconv), and
-[Shared Exponent to RGB](textures.html#textures-sexp-RGB).
-Signed integer components smaller than 32 bits are sign-extended.
-Attributes that are not 64-bit data types are expanded to four components in
-the same way as described in [conversion to RGBA](textures.html#textures-conversion-to-rgba).
+
 The number of components in the vertex shader input variable need not
 exactly match the number of components in the format.
 If the vertex shader has fewer components, the extra components are
 discarded.
+If the [numeric format](formats.html#formats-numericformat) of `format` uses sRGB
+encoding, and the [`maintenance10`](features.html#features-maintenance10) feature is
+enabled, the implementation **must** convert values from nonlinear to linear as
+described in the “sRGB EOTF” section of the [Khronos Data Format Specification](introduction.html#data-format).
+If the [`maintenance10`](features.html#features-maintenance10) feature is not
+enabled, the implementation **should** convert values from nonlinear to linear.
+Implementations
+which do not support [`maintenance10`](features.html#features-maintenance10), and
+which do not convert nonlinear to linear for sRGB formats **should** not expose
+`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` for such formats.

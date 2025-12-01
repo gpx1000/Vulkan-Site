@@ -21,9 +21,8 @@ VkResolveModeFlags - Bitmask of VkResolveModeFlagBits
 // Provided by VK_VERSION_1_2
 typedef VkFlags VkResolveModeFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_depth_stencil_resolve
+// Equivalent to VkResolveModeFlags
 typedef VkResolveModeFlags VkResolveModeFlagsKHR;
 
 `VkResolveModeFlags` is a bitmask type for setting a mask of zero or

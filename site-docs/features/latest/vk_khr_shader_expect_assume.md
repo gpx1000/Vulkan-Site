@@ -50,13 +50,13 @@ metadata about the iteration count of loops or desired unrolling behavior.
 There is however no exposed generic mechanism for SPIR-V producers to communicate
 optimization information to consumers. SPIR-V does support dedicated instructions,
 introduced by the
-[SPV_KHR_expect_assume](http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_expect_assume.html)
+[SPV_KHR_expect_assume](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_expect_assume.html)
 extension, that make it possible for producers to communicate to consumers the
 likely value of an object or whether a given condition holds, but this extension
 is currently not exposed in Vulkan.
 
 Expose the
-[SPV_KHR_expect_assume](http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_expect_assume.html)
+[SPV_KHR_expect_assume](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_expect_assume.html)
 extension in Vulkan.
 
 The `SPV_KHR_expect_assume` extension introduces two new instructions:

@@ -72,7 +72,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetLineStippleEnableEXT-commandBuffer-cmdpool) VUID-vkCmdSetLineStippleEnableEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetLineStippleEnableEXT-videocoding) VUID-vkCmdSetLineStippleEnableEXT-videocoding
@@ -92,7 +92,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

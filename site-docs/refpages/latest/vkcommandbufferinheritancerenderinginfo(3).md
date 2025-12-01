@@ -34,9 +34,8 @@ typedef struct VkCommandBufferInheritanceRenderingInfo {
     VkSampleCountFlagBits    rasterizationSamples;
 } VkCommandBufferInheritanceRenderingInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_dynamic_rendering
+// Equivalent to VkCommandBufferInheritanceRenderingInfo
 typedef VkCommandBufferInheritanceRenderingInfo VkCommandBufferInheritanceRenderingInfoKHR;
 
 * 

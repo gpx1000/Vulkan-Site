@@ -21,7 +21,7 @@ vkGetRenderAreaGranularity - Returns the granularity for optimal render area
 
 To query the render area granularity, call:
 
-|  | This functionality is deprecated by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0

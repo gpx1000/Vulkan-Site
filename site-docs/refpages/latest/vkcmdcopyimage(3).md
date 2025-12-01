@@ -121,22 +121,138 @@ If `commandBuffer` is a protected command buffer and
 
 If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
 `commandBuffer` was allocated from does not support
-`VK_QUEUE_GRAPHICS_BIT`, for each element of `pRegions`, where
-the `aspectMask` member of `srcSubresource` is
-`VK_IMAGE_ASPECT_COLOR_BIT`, the `aspectMask` of
-`dstSubresource` **must** not be `VK_IMAGE_ASPECT_DEPTH_BIT` or
-`VK_IMAGE_ASPECT_STENCIL_BIT`
+`VK_QUEUE_GRAPHICS_BIT`,
+and the [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is not
+enabled,
+for each element of `pRegions`, where the `aspectMask` member of
+`srcSubresource` is `VK_IMAGE_ASPECT_COLOR_BIT`, the
+`aspectMask` of `dstSubresource` **must** not be
+`VK_IMAGE_ASPECT_DEPTH_BIT` or `VK_IMAGE_ASPECT_STENCIL_BIT`
+
+* 
+[](#VUID-vkCmdCopyImage-commandBuffer-11782) VUID-vkCmdCopyImage-commandBuffer-11782
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` but does support `VK_QUEUE_COMPUTE_BIT`,
+and in any element of `pRegions` the `aspectMask` member of
+`srcSubresource` is `VK_IMAGE_ASPECT_COLOR_BIT` and the
+`aspectMask` of `dstSubresource` is
+`VK_IMAGE_ASPECT_DEPTH_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `dstImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_COMPUTE_QUEUE_BIT_KHR`
+
+* 
+[](#VUID-vkCmdCopyImage-commandBuffer-11783) VUID-vkCmdCopyImage-commandBuffer-11783
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` and `VK_QUEUE_COMPUTE_BIT`, but does
+support `VK_QUEUE_TRANSFER_BIT`, and in any element of
+`pRegions` the `aspectMask` member of `srcSubresource` is
+`VK_IMAGE_ASPECT_COLOR_BIT` and the `aspectMask` of
+`dstSubresource` is `VK_IMAGE_ASPECT_DEPTH_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `dstImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_TRANSFER_QUEUE_BIT_KHR`
+
+* 
+[](#VUID-vkCmdCopyImage-commandBuffer-11784) VUID-vkCmdCopyImage-commandBuffer-11784
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` but does support `VK_QUEUE_COMPUTE_BIT`,
+and in any element of `pRegions` the `aspectMask` member of
+`srcSubresource` is `VK_IMAGE_ASPECT_COLOR_BIT` and the
+`aspectMask` of `dstSubresource` is
+`VK_IMAGE_ASPECT_STENCIL_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `dstImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_COMPUTE_QUEUE_BIT_KHR`
+
+* 
+[](#VUID-vkCmdCopyImage-commandBuffer-11785) VUID-vkCmdCopyImage-commandBuffer-11785
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` and `VK_QUEUE_COMPUTE_BIT`, but does
+support `VK_QUEUE_TRANSFER_BIT`, and in any element of
+`pRegions` the `aspectMask` member of `srcSubresource` is
+`VK_IMAGE_ASPECT_COLOR_BIT` and the `aspectMask` of
+`dstSubresource` is `VK_IMAGE_ASPECT_STENCIL_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `dstImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_TRANSFER_QUEUE_BIT_KHR`
 
 * 
 [](#VUID-vkCmdCopyImage-commandBuffer-10218) VUID-vkCmdCopyImage-commandBuffer-10218
 
 If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
 `commandBuffer` was allocated from does not support
-`VK_QUEUE_GRAPHICS_BIT`, for each element of `pRegions`, where
-the `aspectMask` member of `dstSubresource` is
-`VK_IMAGE_ASPECT_COLOR_BIT` then the `aspectMask` of
-`srcSubresource` **must** not be `VK_IMAGE_ASPECT_DEPTH_BIT` or
-`VK_IMAGE_ASPECT_STENCIL_BIT`
+`VK_QUEUE_GRAPHICS_BIT`,
+and the [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is not
+enabled,
+for each element of `pRegions`, where the `aspectMask` member of
+`dstSubresource` is `VK_IMAGE_ASPECT_COLOR_BIT` then the
+`aspectMask` of `srcSubresource` **must** not be
+`VK_IMAGE_ASPECT_DEPTH_BIT` or `VK_IMAGE_ASPECT_STENCIL_BIT`
+
+* 
+[](#VUID-vkCmdCopyImage-commandBuffer-11786) VUID-vkCmdCopyImage-commandBuffer-11786
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` but does support `VK_QUEUE_COMPUTE_BIT`,
+and in any element of `pRegions` the `aspectMask` member of
+`dstSubresource` is `VK_IMAGE_ASPECT_COLOR_BIT` and the
+`aspectMask` of `srcSubresource` is
+`VK_IMAGE_ASPECT_DEPTH_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `srcImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_COMPUTE_QUEUE_BIT_KHR`
+
+* 
+[](#VUID-vkCmdCopyImage-commandBuffer-11787) VUID-vkCmdCopyImage-commandBuffer-11787
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` and `VK_QUEUE_COMPUTE_BIT`, but does
+support `VK_QUEUE_TRANSFER_BIT`, and in any element of
+`pRegions` the `aspectMask` member of `dstSubresource` is
+`VK_IMAGE_ASPECT_COLOR_BIT` and the `aspectMask` of
+`srcSubresource` is `VK_IMAGE_ASPECT_DEPTH_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `srcImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_TRANSFER_QUEUE_BIT_KHR`
+
+* 
+[](#VUID-vkCmdCopyImage-commandBuffer-11788) VUID-vkCmdCopyImage-commandBuffer-11788
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` but does support `VK_QUEUE_COMPUTE_BIT`,
+and in any element of `pRegions` the `aspectMask` member of
+`dstSubresource` is `VK_IMAGE_ASPECT_COLOR_BIT` and the
+`aspectMask` of `srcSubresource` is
+`VK_IMAGE_ASPECT_STENCIL_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `srcImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_COMPUTE_QUEUE_BIT_KHR`
+
+* 
+[](#VUID-vkCmdCopyImage-commandBuffer-11789) VUID-vkCmdCopyImage-commandBuffer-11789
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` and `VK_QUEUE_COMPUTE_BIT`, but does
+support `VK_QUEUE_TRANSFER_BIT`, and in any element of
+`pRegions` the `aspectMask` member of `dstSubresource` is
+`VK_IMAGE_ASPECT_COLOR_BIT` and the `aspectMask` of
+`srcSubresource` is `VK_IMAGE_ASPECT_STENCIL_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `srcImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_TRANSFER_QUEUE_BIT_KHR`
 
 * 
 [](#VUID-vkCmdCopyImage-pRegions-00124) VUID-vkCmdCopyImage-pRegions-00124
@@ -252,6 +368,15 @@ and the [`maintenance8`](../../../../spec/latest/chapters/features.html#features
     and `dstSubresource.aspectMask` **must** match
 
 * 
+[](#VUID-vkCmdCopyImage-pRegions-12201) VUID-vkCmdCopyImage-pRegions-12201
+
+For each element of `pRegions` where `srcSubresource.aspectMask`
+and `dstSubresource.aspectMask` each contain at least one of
+`VK_IMAGE_ASPECT_DEPTH_BIT` or `VK_IMAGE_ASPECT_STENCIL_BIT`,
+`srcSubresource.aspectMask` and `dstSubresource.aspectMask`
+**must** match
+
+* 
 [](#VUID-vkCmdCopyImage-srcSubresource-10214) VUID-vkCmdCopyImage-srcSubresource-10214
 
 If `srcSubresource.aspectMask` is `VK_IMAGE_ASPECT_COLOR_BIT`,
@@ -262,7 +387,7 @@ then `dstSubresource.aspectMask` **must** not contain both
 [](#VUID-vkCmdCopyImage-dstSubresource-10215) VUID-vkCmdCopyImage-dstSubresource-10215
 
 If `dstSubresource.aspectMask` is `VK_IMAGE_ASPECT_COLOR_BIT`,
-then `srSubresource.aspectMask` **must** not contain both
+then `srcSubresource.aspectMask` **must** not contain both
 `VK_IMAGE_ASPECT_DEPTH_BIT` and `VK_IMAGE_ASPECT_STENCIL_BIT`
 
 * 
@@ -602,8 +727,8 @@ by `srcSubresource`, `extent.depth` **must** be a multiple of the
 If the `aspect` member of any element of `pRegions` includes any
 flag other than `VK_IMAGE_ASPECT_STENCIL_BIT` or `srcImage` was
 not created with [separate stencil    usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` **must** have been included in the
-[VkImageCreateInfo](VkImageCreateInfo.html)::`usage` used to create `srcImage`
+`srcImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdCopyImage-aspect-06663) VUID-vkCmdCopyImage-aspect-06663
@@ -611,34 +736,32 @@ not created with [separate stencil    usage](../../../../spec/latest/chapters/re
 If the `aspect` member of any element of `pRegions` includes any
 flag other than `VK_IMAGE_ASPECT_STENCIL_BIT` or `dstImage` was
 not created with [separate stencil    usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` **must** have been included in the
-[VkImageCreateInfo](VkImageCreateInfo.html)::`usage` used to create `dstImage`
+`dstImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdCopyImage-aspect-06664) VUID-vkCmdCopyImage-aspect-06664
 
 If the `aspect` member of any element of `pRegions` includes
 `VK_IMAGE_ASPECT_STENCIL_BIT`, and `srcImage` was created with
-[separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` **must** have been included in the
-[VkImageStencilUsageCreateInfo](VkImageStencilUsageCreateInfo.html)::`stencilUsage` used to create
-`srcImage`
+[separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo), `srcImage`
+**must** have been created with the `VK_IMAGE_USAGE_TRANSFER_SRC_BIT`
+usage flag set
 
 * 
 [](#VUID-vkCmdCopyImage-aspect-06665) VUID-vkCmdCopyImage-aspect-06665
 
 If the `aspect` member of any element of `pRegions` includes
 `VK_IMAGE_ASPECT_STENCIL_BIT`, and `dstImage` was created with
-[separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` **must** have been included in the
-[VkImageStencilUsageCreateInfo](VkImageStencilUsageCreateInfo.html)::`stencilUsage` used to create
-`dstImage`
+[separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo), `srcImage`
+**must** have been created with the `VK_IMAGE_USAGE_TRANSFER_DST_BIT`
+usage flag set
 
 * 
 [](#VUID-vkCmdCopyImage-srcImage-07966) VUID-vkCmdCopyImage-srcImage-07966
 
 If `srcImage` is non-sparse then the image
-or the specified *disjoint* plane
+or each specified *disjoint* plane
 **must** be bound completely and contiguously to a single
 `VkDeviceMemory` object
 
@@ -669,7 +792,7 @@ containing `VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT`
 [](#VUID-vkCmdCopyImage-dstImage-07966) VUID-vkCmdCopyImage-dstImage-07966
 
 If `dstImage` is non-sparse then the image
-or the specified *disjoint* plane
+or each specified *disjoint* plane
 **must** be bound completely and contiguously to a single
 `VkDeviceMemory` object
 
@@ -736,12 +859,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyImage-commandBuffer-cmdpool) VUID-vkCmdCopyImage-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyImage-renderpass) VUID-vkCmdCopyImage-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyImage-suspended) VUID-vkCmdCopyImage-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyImage-videocoding) VUID-vkCmdCopyImage-videocoding
@@ -771,11 +899,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 

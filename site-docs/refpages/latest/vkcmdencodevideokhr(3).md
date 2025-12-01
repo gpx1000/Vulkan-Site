@@ -473,7 +473,8 @@ video session was created with
 [](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08210) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08210
 
 `pEncodeInfo->srcPictureResource.imageViewBinding` **must** have been
-created with `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR`
+created with the `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR` usage
+flag set
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-commandBuffer-08211) VUID-vkCmdEncodeVideoKHR-commandBuffer-08211
@@ -645,8 +646,9 @@ If `pEncodeInfo->flags` includes
 `VK_VIDEO_ENCODE_WITH_QUANTIZATION_DELTA_MAP_BIT_KHR`, then the
 `VkImageView` specified by the `quantizationMap` member of the
 [VkVideoEncodeQuantizationMapInfoKHR](VkVideoEncodeQuantizationMapInfoKHR.html) structure included in the
-`pNext` chain of `pEncodeInfo` **must** have been created with
-`VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR`
+`pNext` chain of `pEncodeInfo` **must** have been created with the
+`VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR` usage
+flag set
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10312) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10312
@@ -655,8 +657,8 @@ If `pEncodeInfo->flags` includes
 `VK_VIDEO_ENCODE_WITH_EMPHASIS_MAP_BIT_KHR`, then the
 `VkImageView` specified by the `quantizationMap` member of the
 [VkVideoEncodeQuantizationMapInfoKHR](VkVideoEncodeQuantizationMapInfoKHR.html) structure included in the
-`pNext` chain of `pEncodeInfo` **must** have been created with
-`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR`
+`pNext` chain of `pEncodeInfo` **must** have been created with the
+`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` usage flag set
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-pNext-10313) VUID-vkCmdEncodeVideoKHR-pNext-10313
@@ -1868,12 +1870,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdEncodeVideoKHR-commandBuffer-cmdpool) VUID-vkCmdEncodeVideoKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-renderpass) VUID-vkCmdEncodeVideoKHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-suspended) VUID-vkCmdEncodeVideoKHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-videocoding) VUID-vkCmdEncodeVideoKHR-videocoding
@@ -1896,7 +1903,7 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](../../../../spec/latest/chapters/cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../../../../spec/latest/chapters/renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../../../../spec/latest/chapters/videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../../../../spec/latest/chapters/devsandqueues.html#VkQueueFlagBits) | [Command Type](../../../../spec/latest/chapters/fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Outside | Inside | Encode | Action |
+| Primary | Outside | Inside | VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action |
 
 Conditional Rendering
 

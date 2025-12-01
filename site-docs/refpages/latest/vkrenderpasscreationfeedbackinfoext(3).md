@@ -21,7 +21,7 @@ VkRenderPassCreationFeedbackInfoEXT - Feedback about the creation of a render pa
 
 The `VkRenderPassCreationFeedbackInfoEXT` structure is defined as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_EXT_subpass_merge_feedback

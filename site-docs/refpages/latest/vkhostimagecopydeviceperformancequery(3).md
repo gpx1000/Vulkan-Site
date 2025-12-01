@@ -36,9 +36,8 @@ typedef struct VkHostImageCopyDevicePerformanceQuery {
     VkBool32           identicalMemoryLayout;
 } VkHostImageCopyDevicePerformanceQuery;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to VkHostImageCopyDevicePerformanceQuery
 typedef VkHostImageCopyDevicePerformanceQuery VkHostImageCopyDevicePerformanceQueryEXT;
 
 * 
@@ -52,8 +51,8 @@ structure.
 `optimalDeviceAccess` returns `VK_TRUE` if use of host image
 copy has no adverse effect on device access performance, compared to an
 image that is created with exact same creation parameters, and bound to
-the same [VkDeviceMemory](VkDeviceMemory.html), except that
-`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` is replaced with
+the same [VkDeviceMemory](VkDeviceMemory.html), except that the
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` usage flag is replaced with
 `VK_IMAGE_USAGE_TRANSFER_SRC_BIT` and
 `VK_IMAGE_USAGE_TRANSFER_DST_BIT`.
 
@@ -61,8 +60,9 @@ the same [VkDeviceMemory](VkDeviceMemory.html), except that
 `identicalMemoryLayout` returns `VK_TRUE` if use of host image
 copy has no impact on memory layout compared to an image that is created
 with exact same creation parameters, and bound to the same
-[VkDeviceMemory](VkDeviceMemory.html), except that `VK_IMAGE_USAGE_HOST_TRANSFER_BIT`
-is replaced with `VK_IMAGE_USAGE_TRANSFER_SRC_BIT` and
+[VkDeviceMemory](VkDeviceMemory.html), except that the
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` usage flag is replaced with
+`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` and
 `VK_IMAGE_USAGE_TRANSFER_DST_BIT`.
 
 The implementation **may** return `VK_FALSE` in `optimalDeviceAccess`

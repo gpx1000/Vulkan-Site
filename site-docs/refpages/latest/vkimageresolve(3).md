@@ -36,6 +36,8 @@ typedef struct VkImageResolve {
 subresources of the images used for the source and destination image
 data, respectively.
 Resolve of depth/stencil images is not supported.
+[VkImageResolve2](VkImageResolve2.html) **can** support resolve of depth/stencil images with
+[`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) instead.
 
 * 
 `srcOffset` and `dstOffset` select the initial `x`, `y`,
@@ -49,7 +51,7 @@ destination image data.
 Valid Usage
 
 * 
-[](#VUID-VkImageResolve-aspectMask-00266) VUID-VkImageResolve-aspectMask-00266
+[](#VUID-VkImageResolve-aspectMask-10981) VUID-VkImageResolve-aspectMask-10981
 
 The `aspectMask` member of `srcSubresource` and
 `dstSubresource` **must** only contain `VK_IMAGE_ASPECT_COLOR_BIT`

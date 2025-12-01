@@ -29,9 +29,8 @@ typedef struct VkDescriptorSetLayoutSupport {
     VkBool32           supported;
 } VkDescriptorSetLayoutSupport;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance3
+// Equivalent to VkDescriptorSetLayoutSupport
 typedef VkDescriptorSetLayoutSupport VkDescriptorSetLayoutSupportKHR;
 
 * 
@@ -65,7 +64,7 @@ Valid Usage (Implicit)
 
  The `sType` value of each structure in the `pNext` chain **must** be unique
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), `VkBool32`, [VkStructureType](VkStructureType.html), [vkGetDescriptorSetLayoutSupport](vkGetDescriptorSetLayoutSupport.html), [vkGetDescriptorSetLayoutSupport](vkGetDescriptorSetLayoutSupport.html)
+[VK_KHR_maintenance3](VK_KHR_maintenance3.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), `VkBool32`, [VkStructureType](VkStructureType.html), [vkGetDescriptorSetLayoutSupport](vkGetDescriptorSetLayoutSupport.html), [vkGetDescriptorSetLayoutSupport](vkGetDescriptorSetLayoutSupport.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/descriptorsets.html#VkDescriptorSetLayoutSupport).
 

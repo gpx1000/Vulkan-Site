@@ -29,9 +29,8 @@ void vkCmdWaitEvents2(
     const VkEvent*                              pEvents,
     const VkDependencyInfo*                     pDependencyInfos);
 
-or the equivalent command
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to vkCmdWaitEvents2
 void vkCmdWaitEvents2KHR(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    eventCount,
@@ -120,7 +119,7 @@ Members of `pEvents` **must** not have been signaled by
 * 
 [](#VUID-vkCmdWaitEvents2-pEvents-10788) VUID-vkCmdWaitEvents2-pEvents-10788
 
-For any element i of `pEvents`,
+For each element i of `pEvents`,
 if the `dependencyFlags` member of the ith element of
 `pDependencyInfos` does not include
 `VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`, and
@@ -131,7 +130,7 @@ element of `pDependencyInfos`
 * 
 [](#VUID-vkCmdWaitEvents2-pEvents-10789) VUID-vkCmdWaitEvents2-pEvents-10789
 
-For any element i of `pEvents`, if the `dependencyFlags`
+For each element i of `pEvents`, if the `dependencyFlags`
 member of the ith element of `pDependencyInfos` includes
 `VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`, that event **must** be
 signaled by [vkCmdSetEvent2](vkCmdSetEvent2.html) with
@@ -140,7 +139,7 @@ signaled by [vkCmdSetEvent2](vkCmdSetEvent2.html) with
 * 
 [](#VUID-vkCmdWaitEvents2-pEvents-10790) VUID-vkCmdWaitEvents2-pEvents-10790
 
-For any element i of `pEvents`, if the `dependencyFlags`
+For each element i of `pEvents`, if the `dependencyFlags`
 member of the ith element of `pDependencyInfos` includes
 `VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`, the union of
 `srcStageMask` members of all elements of `pMemoryBarriers`,
@@ -152,7 +151,7 @@ ith element of `pDependencyInfos` **must** equal
 * 
 [](#VUID-vkCmdWaitEvents2-pEvents-03839) VUID-vkCmdWaitEvents2-pEvents-03839
 
-For any element i of `pEvents`, if that event is signaled by
+For each element i of `pEvents`, if that event is signaled by
 [vkSetEvent](vkSetEvent.html), barriers in the ith element of
 `pDependencyInfos` **must** include only host operations in their first
 [synchronization scope](../../../../spec/latest/chapters/synchronization.html#synchronization-dependencies-scopes)
@@ -160,18 +159,18 @@ For any element i of `pEvents`, if that event is signaled by
 * 
 [](#VUID-vkCmdWaitEvents2-pEvents-03840) VUID-vkCmdWaitEvents2-pEvents-03840
 
-For any element i of `pEvents`, if barriers in the ith
-element of `pDependencyInfos` include only host operations, the
-ith element of `pEvents` **must** be signaled before
-[vkCmdWaitEvents2](#) is executed
+For each element i of `pEvents`, if barriers in the
+ith element of `pDependencyInfos` include only host
+operations, the ith element of `pEvents` **must** be signaled
+before [vkCmdWaitEvents2](#) is executed
 
 * 
 [](#VUID-vkCmdWaitEvents2-pEvents-03841) VUID-vkCmdWaitEvents2-pEvents-03841
 
-For any element i of `pEvents`, if barriers in the ith
-element of `pDependencyInfos` do not include host operations, the
-ith element of `pEvents` **must** be signaled by a
-corresponding [vkCmdSetEvent2](vkCmdSetEvent2.html) that occurred earlier in
+For each element i of `pEvents`, if barriers in the
+ith element of `pDependencyInfos` do not include host
+operations, the ith element of `pEvents` **must** be signaled
+by a corresponding [vkCmdSetEvent2](vkCmdSetEvent2.html) that occurred earlier in
 [submission order](../../../../spec/latest/chapters/synchronization.html#synchronization-submission-order)
 
 * 
@@ -218,11 +217,11 @@ enabled, the `dependencyFlags` members of any element of
 
 [](#VUID-vkCmdWaitEvents2-dependencyFlags-03844) VUID-vkCmdWaitEvents2-dependencyFlags-03844
 
-If `vkCmdWaitEvents2` is being called inside a render pass instance,
-the `srcStageMask` member of any element of the
-`pMemoryBarriers`, `pBufferMemoryBarriers`, or
-`pImageMemoryBarriers` members of `pDependencyInfos` **must** not
-include `VK_PIPELINE_STAGE_2_HOST_BIT`
+If this command is called inside a render pass instance, the
+`srcStageMask` member of any element of the `pMemoryBarriers`,
+`pBufferMemoryBarriers`, or `pImageMemoryBarriers` members of
+`pDependencyInfos` **must** not include
+`VK_PIPELINE_STAGE_2_HOST_BIT`
 
 [](#VUID-vkCmdWaitEvents2-commandBuffer-03846) VUID-vkCmdWaitEvents2-commandBuffer-03846
 
@@ -260,7 +259,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdWaitEvents2-commandBuffer-cmdpool) VUID-vkCmdWaitEvents2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdWaitEvents2-suspended) VUID-vkCmdWaitEvents2-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdWaitEvents2-eventCount-arraylength) VUID-vkCmdWaitEvents2-eventCount-arraylength
@@ -285,13 +289,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Graphics
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Synchronization |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Synchronization |
 
 Conditional Rendering
 

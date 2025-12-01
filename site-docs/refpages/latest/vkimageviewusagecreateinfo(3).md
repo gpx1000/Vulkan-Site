@@ -33,9 +33,8 @@ typedef struct VkImageViewUsageCreateInfo {
     VkImageUsageFlags    usage;
 } VkImageViewUsageCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance2
+// Equivalent to VkImageViewUsageCreateInfo
 typedef VkImageViewUsageCreateInfo VkImageViewUsageCreateInfoKHR;
 
 * 
@@ -71,7 +70,7 @@ Valid Usage (Implicit)
 
  `usage` **must** not be `0`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImageUsageFlags](VkImageUsageFlags.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_maintenance2](VK_KHR_maintenance2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImageUsageFlags](VkImageUsageFlags.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/resources.html#VkImageViewUsageCreateInfo).
 

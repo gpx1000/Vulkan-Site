@@ -28,9 +28,8 @@ typedef struct VkPhysicalDeviceHostQueryResetFeatures {
     VkBool32           hostQueryReset;
 } VkPhysicalDeviceHostQueryResetFeatures;
 
-or the equivalent
-
 // Provided by VK_EXT_host_query_reset
+// Equivalent to VkPhysicalDeviceHostQueryResetFeatures
 typedef VkPhysicalDeviceHostQueryResetFeatures VkPhysicalDeviceHostQueryResetFeaturesEXT;
 
 This structure describes the following feature:

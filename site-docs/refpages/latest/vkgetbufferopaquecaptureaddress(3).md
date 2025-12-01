@@ -26,9 +26,8 @@ uint64_t vkGetBufferOpaqueCaptureAddress(
     VkDevice                                    device,
     const VkBufferDeviceAddressInfo*            pInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_buffer_device_address
+// Equivalent to vkGetBufferOpaqueCaptureAddress
 uint64_t vkGetBufferOpaqueCaptureAddressKHR(
     VkDevice                                    device,
     const VkBufferDeviceAddressInfo*            pInfo);

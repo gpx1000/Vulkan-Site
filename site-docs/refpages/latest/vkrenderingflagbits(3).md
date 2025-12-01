@@ -32,6 +32,12 @@ typedef enum VkRenderingFlagBits {
     VK_RENDERING_CONTENTS_INLINE_BIT_KHR = 0x00000010,
   // Provided by VK_VALVE_fragment_density_map_layered
     VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE = 0x00000020,
+  // Provided by VK_EXT_custom_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
+    VK_RENDERING_FRAGMENT_REGION_BIT_EXT = 0x00000040,
+  // Provided by VK_EXT_custom_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
+    VK_RENDERING_CUSTOM_RESOLVE_BIT_EXT = 0x00000080,
+  // Provided by VK_KHR_maintenance10 with (VK_VERSION_1_4 or VK_KHR_dynamic_rendering_local_read) and (VK_VERSION_1_3 or VK_KHR_dynamic_rendering)
+    VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR = 0x00000100,
   // Provided by VK_KHR_dynamic_rendering
     VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT_KHR = VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT,
   // Provided by VK_KHR_dynamic_rendering
@@ -42,9 +48,8 @@ typedef enum VkRenderingFlagBits {
     VK_RENDERING_CONTENTS_INLINE_BIT_EXT = VK_RENDERING_CONTENTS_INLINE_BIT_KHR,
 } VkRenderingFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_dynamic_rendering
+// Equivalent to VkRenderingFlagBits
 typedef VkRenderingFlagBits VkRenderingFlagBitsKHR;
 
 * 
@@ -79,6 +84,22 @@ draw calls to be recorded both inline and in secondary command buffers.
 * 
 `VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE` specifies that
 the render pass **can** be used with layered fragment density maps.
+
+* 
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR`
+specifies that
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR` will
+always be specified for any attachment which invokes the behavior
+described by [that    flag](../../../../spec/latest/chapters/renderpass.html#rendering-attachment-input-attachment-feedback).
+
+* 
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT` specifies that the render
+pass **can** access samples which are not covered in its `SampleMask`.
+
+* 
+`VK_RENDERING_CUSTOM_RESOLVE_BIT_EXT` specifies that the render pass
+contains a custom resolve.
+When this bit is set, [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) **can** be called.
 
 The contents of `pRenderingInfo` **must** match between suspended render
 pass instances and the render pass instances that resume them, other than

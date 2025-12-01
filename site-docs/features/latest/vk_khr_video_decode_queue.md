@@ -317,7 +317,7 @@ Optionally, an additional image usable as the decode output picture when the rec
 
 The application should always create the image(s) backing the DPB with the `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` usage flag. If only the *coincide* mode is supported for reconstructed pictures, then the DPB image(s) that may be used as a reconstructed picture in a video decode operation have to also include the `VK_IMAGE_USAGE_VIDEO_DECODE_DST_KHR` usage flag to allow them to be used as coinciding decode output and reconstructed pictures.
 
-The image backing the decode output picture should always be created with the `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` usage flag.
+The image backing the decode output picture should always be created with the `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` usage flag set.
 
 The DPB image(s) are expected to be in the `VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR` layout while in use by video decode operations, while the decode output image is expected to be in the `VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR` layout.
 
@@ -327,7 +327,7 @@ When a reconstructed picture is specified; and
 
 When one is not needed (as the video session was created without any DPB slots)
 
-In case of (2), the application can use the image created for the decode output picture in `dstPictureResource`, indifferent of whether the *distinct* or *coincide* mode is used.
+In case of (2), the application can use the image created for the decode output picture in `dstPictureResource`, regardless of whether the *distinct* or *coincide* mode is used.
 
 In case of (1), the behavior is as follows:
 

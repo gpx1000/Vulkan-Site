@@ -114,10 +114,10 @@ density map attachment, changing the framebuffer location where density
 values are applied to without having to regenerate the fragment density map.
 
 * 
-[vkCmdEndRendering2EXT](vkCmdEndRendering2EXT.html)
+[vkCmdEndRendering2EXT](vkCmdEndRendering2KHR.html)
 
 * 
-[VkRenderingEndInfoEXT](VkRenderingEndInfoEXT.html)
+[VkRenderingEndInfoEXT](VkRenderingEndInfoKHR.html)
 
 * 
 Extending [VkPhysicalDeviceFeatures2](VkPhysicalDeviceFeatures2.html), [VkDeviceCreateInfo](VkDeviceCreateInfo.html):
@@ -129,7 +129,7 @@ Extending [VkPhysicalDeviceProperties2](VkPhysicalDeviceProperties2.html):
 * 
 [VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT](VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT.html)
 
-Extending [VkSubpassEndInfo](VkSubpassEndInfo.html), [VkRenderingEndInfoEXT](VkRenderingEndInfoEXT.html):
+Extending [VkSubpassEndInfo](VkSubpassEndInfo.html), [VkRenderingEndInfoKHR](VkRenderingEndInfoKHR.html):
 
 * 
 [VkRenderPassFragmentDensityMapOffsetEndInfoEXT](VkRenderPassFragmentDensityMapOffsetEndInfoEXT.html)

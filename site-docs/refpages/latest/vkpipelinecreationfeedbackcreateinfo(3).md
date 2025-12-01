@@ -37,9 +37,8 @@ typedef struct VkPipelineCreationFeedbackCreateInfo {
     VkPipelineCreationFeedback*    pPipelineStageCreationFeedbacks;
 } VkPipelineCreationFeedbackCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_creation_feedback
+// Equivalent to VkPipelineCreationFeedbackCreateInfo
 typedef VkPipelineCreationFeedbackCreateInfo VkPipelineCreationFeedbackCreateInfoEXT;
 
 * 

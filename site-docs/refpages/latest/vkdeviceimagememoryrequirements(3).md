@@ -29,9 +29,8 @@ typedef struct VkDeviceImageMemoryRequirements {
     VkImageAspectFlagBits       planeAspect;
 } VkDeviceImageMemoryRequirements;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance4
+// Equivalent to VkDeviceImageMemoryRequirements
 typedef VkDeviceImageMemoryRequirements VkDeviceImageMemoryRequirementsKHR;
 
 * 

@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -454,9 +463,9 @@ typedef enum VkObjectType {
     VK_OBJECT_TYPE_FRAMEBUFFER = 24,
     VK_OBJECT_TYPE_COMMAND_POOL = 25,
   // Provided by VK_VERSION_1_1
-    VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION = 1000156000,
-  // Provided by VK_VERSION_1_1
     VK_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE = 1000085000,
+  // Provided by VK_VERSION_1_1
+    VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION = 1000156000,
   // Provided by VK_VERSION_1_3
     VK_OBJECT_TYPE_PRIVATE_DATA_SLOT = 1000295000,
   // Provided by VK_KHR_surface
@@ -657,7 +666,7 @@ typedef enum VkObjectType {
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_PRIVATE_DATA_SLOT</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="VK_EXT_private_data.html#VkPrivateDataSlot" class="xref page">VkPrivateDataSlot</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="private_data.html#VkPrivateDataSlot" class="xref page">VkPrivateDataSlot</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_SURFACE_KHR</code></p></td>
@@ -797,15 +806,23 @@ specific Vulkan object.</p>
 application-defined information with Vulkan objects.
 These commands are device-level commands but they <strong>may</strong> reference
 instance-level objects (such as <a href="initialization.html#VkInstance" class="xref page">VkInstance</a>) and physical device-level
-objects (such as <a href="devsandqueues.html#VkPhysicalDevice" class="xref page">VkPhysicalDevice</a>) with a few restrictions:
-  * The data for the corresponding object <strong>may</strong> still be available after the
-    <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> used in the corresponding API call to set it is
-    destroyed, but access to this data is not guaranteed and should be
-    avoided.
-  * Subsequent calls to change the data of the same object across multiple
-    <code>VkDevice</code> objects, <strong>may</strong> result in the data being changed to the
-    most recent version for all <code>VkDevice</code> objects and not just the
-    <code>VkDevice</code> used in the most recent API call.</p>
+objects (such as <a href="devsandqueues.html#VkPhysicalDevice" class="xref page">VkPhysicalDevice</a>) with a few restrictions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The data for the corresponding object <strong>may</strong> still be available after the
+<a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> used in the corresponding API call to set it is
+destroyed, but access to this data is not guaranteed and should be
+avoided.</p>
+</li>
+<li>
+<p>Subsequent calls to change the data of the same object across multiple
+<code>VkDevice</code> objects, <strong>may</strong> result in the data being changed to the
+most recent version for all <code>VkDevice</code> objects and not just the
+<code>VkDevice</code> used in the most recent API call.</p>
+</li>
+</ul>
 </div>
 <div class="sect3">
 <h4 id="debugging-object-naming"><a class="anchor" href="#debugging-object-naming"></a>Object Naming</h4>
@@ -1708,7 +1725,7 @@ specifying parameters of the label region to open.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginDebugUtilsLabelEXT-commandBuffer-cmdpool" href="#VUID-vkCmdBeginDebugUtilsLabelEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBeginDebugUtilsLabelEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, encode, or optical flow operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, <code>VK_QUEUE_OPTICAL_FLOW_BIT_NV</code>, <code>VK_QUEUE_TRANSFER_BIT</code>, <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
 </li>
 </ul>
 </div>
@@ -1755,14 +1772,13 @@ specifying parameters of the label region to open.</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
-Graphics<br>
-Compute<br>
-Decode<br>
-Encode<br>
-Opticalflow</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Action<br>
-State</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_OPTICAL_FLOW_BIT_NV<br>
+VK_QUEUE_TRANSFER_BIT<br>
+VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
 </table>
@@ -1857,7 +1873,7 @@ outstanding <code>vkCmdBeginDebugUtilsLabelEXT</code> command recorded to
 </li>
 <li>
 <p><a id="VUID-vkCmdEndDebugUtilsLabelEXT-commandBuffer-cmdpool" href="#VUID-vkCmdEndDebugUtilsLabelEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdEndDebugUtilsLabelEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, encode, or optical flow operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, <code>VK_QUEUE_OPTICAL_FLOW_BIT_NV</code>, <code>VK_QUEUE_TRANSFER_BIT</code>, <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
 </li>
 </ul>
 </div>
@@ -1904,14 +1920,13 @@ outstanding <code>vkCmdBeginDebugUtilsLabelEXT</code> command recorded to
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
-Graphics<br>
-Compute<br>
-Decode<br>
-Encode<br>
-Opticalflow</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Action<br>
-State</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_OPTICAL_FLOW_BIT_NV<br>
+VK_QUEUE_TRANSFER_BIT<br>
+VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
 </table>
@@ -1971,7 +1986,7 @@ specifying parameters of the label to insert.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdInsertDebugUtilsLabelEXT-commandBuffer-cmdpool" href="#VUID-vkCmdInsertDebugUtilsLabelEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdInsertDebugUtilsLabelEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, encode, or optical flow operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, <code>VK_QUEUE_OPTICAL_FLOW_BIT_NV</code>, <code>VK_QUEUE_TRANSFER_BIT</code>, <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
 </li>
 </ul>
 </div>
@@ -2018,13 +2033,13 @@ specifying parameters of the label to insert.</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
-Graphics<br>
-Compute<br>
-Decode<br>
-Encode<br>
-Opticalflow</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_OPTICAL_FLOW_BIT_NV<br>
+VK_QUEUE_TRANSFER_BIT<br>
+VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
 </table>
@@ -3638,7 +3653,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDebugMarkerBeginEXT-commandBuffer-cmdpool" href="#VUID-vkCmdDebugMarkerBeginEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdDebugMarkerBeginEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, encode, or optical flow operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, <code>VK_QUEUE_OPTICAL_FLOW_BIT_NV</code>, <code>VK_QUEUE_TRANSFER_BIT</code>, <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
 </li>
 </ul>
 </div>
@@ -3685,13 +3700,13 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
-Graphics<br>
-Compute<br>
-Decode<br>
-Encode<br>
-Opticalflow</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_OPTICAL_FLOW_BIT_NV<br>
+VK_QUEUE_TRANSFER_BIT<br>
+VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
 </table>
@@ -3842,7 +3857,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDebugMarkerEndEXT-commandBuffer-cmdpool" href="#VUID-vkCmdDebugMarkerEndEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdDebugMarkerEndEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, encode, or optical flow operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, <code>VK_QUEUE_OPTICAL_FLOW_BIT_NV</code>, <code>VK_QUEUE_TRANSFER_BIT</code>, <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
 </li>
 </ul>
 </div>
@@ -3889,13 +3904,13 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
-Graphics<br>
-Compute<br>
-Decode<br>
-Encode<br>
-Opticalflow</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_OPTICAL_FLOW_BIT_NV<br>
+VK_QUEUE_TRANSFER_BIT<br>
+VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
 </table>
@@ -3955,7 +3970,7 @@ structure specifying the parameters of the marker to insert.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDebugMarkerInsertEXT-commandBuffer-cmdpool" href="#VUID-vkCmdDebugMarkerInsertEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdDebugMarkerInsertEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, encode, or optical flow operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, <code>VK_QUEUE_OPTICAL_FLOW_BIT_NV</code>, <code>VK_QUEUE_TRANSFER_BIT</code>, <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
 </li>
 </ul>
 </div>
@@ -4002,13 +4017,13 @@ structure specifying the parameters of the marker to insert.</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
-Graphics<br>
-Compute<br>
-Decode<br>
-Encode<br>
-Opticalflow</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_OPTICAL_FLOW_BIT_NV<br>
+VK_QUEUE_TRANSFER_BIT<br>
+VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
 </table>
@@ -4440,9 +4455,9 @@ typedef enum VkDebugReportObjectTypeEXT {
     VK_DEBUG_REPORT_OBJECT_TYPE_CUDA_FUNCTION_NV_EXT = 1000307001,
   // Provided by VK_EXT_debug_report with VK_FUCHSIA_buffer_collection
     VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA_EXT = 1000366000,
-  // VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_EXT is a deprecated alias
+  // VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_EXT is a legacy alias
     VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_EXT = VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT_EXT,
-  // VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT is a deprecated alias
+  // VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT is a legacy alias
     VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT = VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT_EXT,
   // Provided by VK_KHR_descriptor_update_template with VK_EXT_debug_report
     VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_KHR_EXT = VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_EXT,
@@ -4879,7 +4894,11 @@ will be associated with the checkpoint.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCheckpointNV-commandBuffer-cmdpool" href="#VUID-vkCmdSetCheckpointNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetCheckpointNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, compute, or transfer operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, or <code>VK_QUEUE_TRANSFER_BIT</code> operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdSetCheckpointNV-suspended" href="#VUID-vkCmdSetCheckpointNV-suspended"></a> <span class="vuid">VUID-vkCmdSetCheckpointNV-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCheckpointNV-videocoding" href="#VUID-vkCmdSetCheckpointNV-videocoding"></a> <span class="vuid">VUID-vkCmdSetCheckpointNV-videocoding</span><br>
@@ -4930,9 +4949,9 @@ will be associated with the checkpoint.</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute<br>
-Transfer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_TRANSFER_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -6010,12 +6029,10 @@ VkResult vkGetPhysicalDeviceToolProperties(
     VkPhysicalDeviceToolProperties*             pToolProperties);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkGetPhysicalDeviceToolPropertiesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_tooling_info
+// Equivalent to vkGetPhysicalDeviceToolProperties
 VkResult vkGetPhysicalDeviceToolPropertiesEXT(
     VkPhysicalDevice                            physicalDevice,
     uint32_t*                                   pToolCount,
@@ -6134,12 +6151,10 @@ typedef struct VkPhysicalDeviceToolProperties {
 } VkPhysicalDeviceToolProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceToolPropertiesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_tooling_info
+// Equivalent to VkPhysicalDeviceToolProperties
 typedef VkPhysicalDeviceToolProperties VkPhysicalDeviceToolPropertiesEXT;</code></pre>
 </div>
 </div>
@@ -6227,12 +6242,10 @@ typedef enum VkToolPurposeFlagBits {
 } VkToolPurposeFlagBits;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkToolPurposeFlagBitsEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_tooling_info
+// Equivalent to VkToolPurposeFlagBits
 typedef VkToolPurposeFlagBits VkToolPurposeFlagBitsEXT;</code></pre>
 </div>
 </div>
@@ -6290,12 +6303,10 @@ or
 typedef VkFlags VkToolPurposeFlags;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkToolPurposeFlagsEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_tooling_info
+// Equivalent to VkToolPurposeFlags
 typedef VkToolPurposeFlags VkToolPurposeFlagsEXT;</code></pre>
 </div>
 </div>
@@ -6409,7 +6420,7 @@ identifier and not reuse identifiers between frames.</p>
 </div>
 <div class="paragraph">
 <p>The <code>pImages</code> and <code>pBuffers</code> arrays contain a list of images and
-buffers which store the "end result" of the frame.
+buffers which store the &#8220;end result&#8221; of the frame.
 As the concept of frame is application-dependent, not all frames <strong>may</strong>
 produce their results in images or buffers, yet this is a sufficiently
 common case to be handled by <code>VkFrameBoundaryEXT</code>.

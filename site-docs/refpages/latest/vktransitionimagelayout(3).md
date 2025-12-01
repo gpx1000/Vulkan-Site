@@ -27,9 +27,8 @@ VkResult vkTransitionImageLayout(
     uint32_t                                    transitionCount,
     const VkHostImageLayoutTransitionInfo*      pTransitions);
 
-or the equivalent command
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to vkTransitionImageLayout
 VkResult vkTransitionImageLayoutEXT(
     VkDevice                                    device,
     uint32_t                                    transitionCount,

@@ -70,7 +70,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-VkConditionalRenderingBeginInfoEXT-buffer-01982) VUID-VkConditionalRenderingBeginInfoEXT-buffer-01982
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_CONDITIONAL_RENDERING_BIT_EXT` bit set
+`VK_BUFFER_USAGE_CONDITIONAL_RENDERING_BIT_EXT` usage flag set
 
 * 
 [](#VUID-VkConditionalRenderingBeginInfoEXT-offset-01983) VUID-VkConditionalRenderingBeginInfoEXT-offset-01983

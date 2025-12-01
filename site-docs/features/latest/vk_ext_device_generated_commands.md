@@ -319,14 +319,14 @@ Metal is similar in expressivity to `VK_NV_device_generated_commands` and suppor
 
 Indirect buffer layout is opaque and can be encoded on host through the API or on device using a compute shader.  For example:
 
-​struct arguments { command_buffer cmd_buffer; };​
-​
-kernel void producer(device arguments& args, ushort cmd_idx [[thread_position_in_grid]])​
-{​
-    render_command cmd(args.cmd_buffer, cmd_idx);​
-    cmd.set_render_pipeline_state(...);​
-    cmd.set_vertex_buffer(...);​
-    cmd.draw_primitives(...);​
+struct arguments { command_buffer cmd_buffer; };
+
+kernel void producer(device arguments& args, ushort cmd_idx [[thread_position_in_grid]])
+{
+    render_command cmd(args.cmd_buffer, cmd_idx);
+    cmd.set_render_pipeline_state(...);
+    cmd.set_vertex_buffer(...);
+    cmd.draw_primitives(...);
 }
 
 Supporting multiple commands in an indirect buffer can either be done with a homogeneous structure where the layout is fixed and the same pattern of operations is executed.  Another alternative is a heterogeneous structure where there is no restriction on command ordering.  For heterogeneous layout, the size of the arguments for each command may also vary.

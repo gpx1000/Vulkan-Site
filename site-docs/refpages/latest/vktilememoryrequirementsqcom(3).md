@@ -42,8 +42,8 @@ typedef struct VkTileMemoryRequirementsQCOM {
 structure.
 
 * 
-`size` size is the size, in bytes, of the tile memory allocation
-required for the resource.
+`size` is the size, in bytes, of the tile memory allocation required
+for the resource.
 
 * 
 `alignment` is the alignment, in bytes, of the offset within the

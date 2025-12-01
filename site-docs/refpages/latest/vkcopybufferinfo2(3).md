@@ -31,9 +31,8 @@ typedef struct VkCopyBufferInfo2 {
     const VkBufferCopy2*    pRegions;
 } VkCopyBufferInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_copy_commands2
+// Equivalent to VkCopyBufferInfo2
 typedef VkCopyBufferInfo2 VkCopyBufferInfo2KHR;
 
 * 
@@ -92,8 +91,8 @@ in memory
 * 
 [](#VUID-VkCopyBufferInfo2-srcBuffer-00118) VUID-VkCopyBufferInfo2-srcBuffer-00118
 
-`srcBuffer` **must** have been created with
-`VK_BUFFER_USAGE_TRANSFER_SRC_BIT` usage flag
+`srcBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFER_SRC_BIT` usage flag set
 
 * 
 [](#VUID-VkCopyBufferInfo2-srcBuffer-00119) VUID-VkCopyBufferInfo2-srcBuffer-00119
@@ -104,8 +103,8 @@ contiguously to a single `VkDeviceMemory` object
 * 
 [](#VUID-VkCopyBufferInfo2-dstBuffer-00120) VUID-VkCopyBufferInfo2-dstBuffer-00120
 
-`dstBuffer` **must** have been created with
-`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag
+`dstBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-VkCopyBufferInfo2-dstBuffer-00121) VUID-VkCopyBufferInfo2-dstBuffer-00121

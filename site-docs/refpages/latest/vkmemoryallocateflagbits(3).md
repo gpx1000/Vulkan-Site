@@ -38,9 +38,8 @@ typedef enum VkMemoryAllocateFlagBits {
     VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_KHR = VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT,
 } VkMemoryAllocateFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_device_group
+// Equivalent to VkMemoryAllocateFlagBits
 typedef VkMemoryAllocateFlagBits VkMemoryAllocateFlagBitsKHR;
 
 * 
@@ -51,9 +50,9 @@ allocated for the devices in
 * 
 `VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT` specifies that the memory
 **can** be attached to a buffer object created with the
-`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` bit set in `usage`,
-and that the memory handle **can** be used to retrieve an opaque address
-via [vkGetDeviceMemoryOpaqueCaptureAddress](vkGetDeviceMemoryOpaqueCaptureAddress.html).
+`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` usage flag set, and that
+the memory handle **can** be used to retrieve an opaque address via
+[vkGetDeviceMemoryOpaqueCaptureAddress](vkGetDeviceMemoryOpaqueCaptureAddress.html).
 
 * 
 `VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT` specifies
@@ -66,7 +65,7 @@ that the memory’s address **can** be saved and reused on a subsequent run
 memory will be zeroed automatically by the implementation before
 application is able to access it.
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkMemoryAllocateFlags](VkMemoryAllocateFlags.html)
+[VK_KHR_device_group](VK_KHR_device_group.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkMemoryAllocateFlags](VkMemoryAllocateFlags.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/memory.html#VkMemoryAllocateFlagBits).
 

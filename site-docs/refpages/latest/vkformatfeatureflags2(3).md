@@ -21,9 +21,8 @@ VkFormatFeatureFlags2 - Bitmask of VkFormatFeatureFlagBits2
 // Provided by VK_VERSION_1_3
 typedef VkFlags64 VkFormatFeatureFlags2;
 
-or the equivalent
-
 // Provided by VK_KHR_format_feature_flags2
+// Equivalent to VkFormatFeatureFlags2
 typedef VkFormatFeatureFlags2 VkFormatFeatureFlags2KHR;
 
 `VkFormatFeatureFlags2` is a bitmask type for setting a mask of zero or

@@ -302,7 +302,40 @@
     <a class="nav-link" href="../../17_Multithreading.html">Multithreading</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../courses/18_Ray_tracing/00_Overview.html">Ray Tracing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/00_Overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/01_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/02_Acceleration_structures.html">Acceleration structures</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/03_Ray_query_shadows.html">Ray query shadows</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/04_TLAS_animation.html">TLAS animation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/05_Shadow_transparency.html">Shadow transparency</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/06_Reflections.html">Reflections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/07_Conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../90_FAQ.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -594,10 +627,9 @@ Beginning with the 1.3.216 Vulkan SDK, the <code>VK_KHR_PORTABILITY_subset</code
 extension is mandatory.</p>
 </div>
 <div class="paragraph">
-<p>To get over this error, first add the
- <code>vk::InstanceCreateFlagBits::eEnumeratePortabilityKHR</code> bit
+<p>To get over this error, first add the <code>vk::InstanceCreateFlagBits::eEnumeratePortabilityKHR</code> bit
 to <code>VkInstanceCreateInfo</code> struct flags, then add
-`vk::KHRPortabilityEnumerationExtensionName`to instance enabled
+<code>vk::KHRPortabilityEnumerationExtensionName</code> to instance enabled
 extension list.</p>
 </div>
 <div class="paragraph">
@@ -611,11 +643,11 @@ extension list.</p>
             .engineVersion      = VK_MAKE_VERSION( 1, 0, 0 ),
             .apiVersion         = vk::ApiVersion14 };
 vk::InstanceCreateInfo createInfo{
-    .flas = vk::InstanceCreateFlagBits::eEnumeratePortabilityKHR,
+    .flags = vk::InstanceCreateFlagBits::eEnumeratePortabilityKHR,
     .pApplicationInfo = &amp;appInfo,
     .ppEnabledExtensionNames = { vk::KHRPortabilityEnumerationExtensionName }
 };
-instance = std::make_unique&lt;vk::raii::Instance&gt;(context, createInfo);</code></pre>
+instance = vk::raii::Instance(m_context, createInfo);</code></pre>
 </div>
 </div>
 </div>

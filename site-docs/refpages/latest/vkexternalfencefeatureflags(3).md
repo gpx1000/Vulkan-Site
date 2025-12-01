@@ -21,15 +21,14 @@ VkExternalFenceFeatureFlags - Bitmask of VkExternalFenceFeatureFlagBits
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkExternalFenceFeatureFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkExternalFenceFeatureFlags
 typedef VkExternalFenceFeatureFlags VkExternalFenceFeatureFlagsKHR;
 
 `VkExternalFenceFeatureFlags` is a bitmask type for setting a mask of
 zero or more [VkExternalFenceFeatureFlagBits](VkExternalFenceFeatureFlagBits.html).
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalFenceFeatureFlagBits](VkExternalFenceFeatureFlagBits.html), [VkExternalFenceProperties](VkExternalFenceProperties.html), `VkFlags`
+[VK_KHR_external_fence_capabilities](VK_KHR_external_fence_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalFenceFeatureFlagBits](VkExternalFenceFeatureFlagBits.html), [VkExternalFenceProperties](VkExternalFenceProperties.html), `VkFlags`
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkExternalFenceFeatureFlags).
 

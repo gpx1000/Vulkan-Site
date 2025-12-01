@@ -156,7 +156,8 @@ If `videoSession` was created with a decode operation and the
 `slotIndex` member of any element of `pReferenceSlots` is not
 negative, then the image view specified in
 `pPictureResource->imageViewBinding` for that element **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkVideoBeginCodingInfoKHR-slotIndex-07246) VUID-VkVideoBeginCodingInfoKHR-slotIndex-07246
@@ -165,7 +166,8 @@ If `videoSession` was created with an encode operation and the
 `slotIndex` member of any element of `pReferenceSlots` is not
 negative, then the image view specified in
 `pPictureResource->imageViewBinding` for that element **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkVideoBeginCodingInfoKHR-videoSession-07247) VUID-VkVideoBeginCodingInfoKHR-videoSession-07247

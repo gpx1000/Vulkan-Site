@@ -30,9 +30,8 @@ typedef struct VkPhysicalDevice8BitStorageFeatures {
     VkBool32           storagePushConstant8;
 } VkPhysicalDevice8BitStorageFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_8bit_storage
+// Equivalent to VkPhysicalDevice8BitStorageFeatures
 typedef VkPhysicalDevice8BitStorageFeatures VkPhysicalDevice8BitStorageFeaturesKHR;
 
 This structure describes the following features:

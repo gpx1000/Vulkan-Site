@@ -131,6 +131,6 @@ The type bitwidth refers to the size of the input vectors and whether it is a pa
 `{Unsigned|Signed|MixedSignedness}` in the property correspond to `{U|S|SU}` in the instruction name.
 ---
 
-This proposal uses an existing SPIR-V extension: [SPV_KHR_integer_dot_product](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_integer_dot_product.html).
+This proposal uses an existing SPIR-V extension: [SPV_KHR_integer_dot_product](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_integer_dot_product.html).
 
 TODO

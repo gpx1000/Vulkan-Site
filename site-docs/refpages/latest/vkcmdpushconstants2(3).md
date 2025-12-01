@@ -26,9 +26,8 @@ void vkCmdPushConstants2(
     VkCommandBuffer                             commandBuffer,
     const VkPushConstantsInfo*                  pPushConstantsInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance6
+// Equivalent to vkCmdPushConstants2
 void vkCmdPushConstants2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkPushConstantsInfo*                  pPushConstantsInfo);
@@ -61,7 +60,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPushConstants2-commandBuffer-cmdpool) VUID-vkCmdPushConstants2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdPushConstants2-videocoding) VUID-vkCmdPushConstants2-videocoding
@@ -81,9 +80,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

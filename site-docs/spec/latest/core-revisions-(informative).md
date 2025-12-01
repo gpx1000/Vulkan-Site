@@ -1099,7 +1099,7 @@ size of all inline uniform block bindings in a pipeline layout.
 `VkFlags64`
 
 * 
-[VkPrivateDataSlot](../chapters/VK_EXT_private_data.html#VkPrivateDataSlot)
+[VkPrivateDataSlot](../chapters/private_data.html#VkPrivateDataSlot)
 
 * 
 [vkCmdBeginRendering](../chapters/renderpass.html#vkCmdBeginRendering)
@@ -1186,10 +1186,10 @@ size of all inline uniform block bindings in a pipeline layout.
 [vkCmdWriteTimestamp2](../chapters/queries.html#vkCmdWriteTimestamp2)
 
 * 
-[vkCreatePrivateDataSlot](../chapters/VK_EXT_private_data.html#vkCreatePrivateDataSlot)
+[vkCreatePrivateDataSlot](../chapters/private_data.html#vkCreatePrivateDataSlot)
 
 * 
-[vkDestroyPrivateDataSlot](../chapters/VK_EXT_private_data.html#vkDestroyPrivateDataSlot)
+[vkDestroyPrivateDataSlot](../chapters/private_data.html#vkDestroyPrivateDataSlot)
 
 * 
 [vkGetDeviceBufferMemoryRequirements](../chapters/resources.html#vkGetDeviceBufferMemoryRequirements)
@@ -1204,13 +1204,13 @@ size of all inline uniform block bindings in a pipeline layout.
 [vkGetPhysicalDeviceToolProperties](../chapters/debugging.html#vkGetPhysicalDeviceToolProperties)
 
 * 
-[vkGetPrivateData](../chapters/VK_EXT_private_data.html#vkGetPrivateData)
+[vkGetPrivateData](../chapters/private_data.html#vkGetPrivateData)
 
 * 
 [vkQueueSubmit2](../chapters/cmdbuffers.html#vkQueueSubmit2)
 
 * 
-[vkSetPrivateData](../chapters/VK_EXT_private_data.html#vkSetPrivateData)
+[vkSetPrivateData](../chapters/private_data.html#vkSetPrivateData)
 
 * 
 [VkBlitImageInfo2](../chapters/copies.html#VkBlitImageInfo2)
@@ -1267,7 +1267,7 @@ size of all inline uniform block bindings in a pipeline layout.
 [VkPipelineCreationFeedback](../chapters/pipelines.html#VkPipelineCreationFeedback)
 
 * 
-[VkPrivateDataSlotCreateInfo](../chapters/VK_EXT_private_data.html#VkPrivateDataSlotCreateInfo)
+[VkPrivateDataSlotCreateInfo](../chapters/private_data.html#VkPrivateDataSlotCreateInfo)
 
 * 
 [VkRenderingAttachmentInfo](../chapters/renderpass.html#VkRenderingAttachmentInfo)
@@ -1430,7 +1430,7 @@ Extending [VkWriteDescriptorSet](../chapters/descriptorsets.html#VkWriteDescript
 [VkPipelineStageFlags2](../chapters/synchronization.html#VkPipelineStageFlags2)
 
 * 
-[VkPrivateDataSlotCreateFlags](../chapters/VK_EXT_private_data.html#VkPrivateDataSlotCreateFlags)
+[VkPrivateDataSlotCreateFlags](../chapters/private_data.html#VkPrivateDataSlotCreateFlags)
 
 * 
 [VkRenderingFlags](../chapters/renderpass.html#VkRenderingFlags)

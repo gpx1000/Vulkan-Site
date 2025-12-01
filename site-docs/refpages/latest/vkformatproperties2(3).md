@@ -28,9 +28,8 @@ typedef struct VkFormatProperties2 {
     VkFormatProperties    formatProperties;
 } VkFormatProperties2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkFormatProperties2
 typedef VkFormatProperties2 VkFormatProperties2KHR;
 
 * 
@@ -61,7 +60,7 @@ Valid Usage (Implicit)
 
  The `sType` value of each structure in the `pNext` chain **must** be unique
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkFormatProperties](VkFormatProperties.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceFormatProperties2](vkGetPhysicalDeviceFormatProperties2.html), [vkGetPhysicalDeviceFormatProperties2](vkGetPhysicalDeviceFormatProperties2.html)
+[VK_KHR_get_physical_device_properties2](VK_KHR_get_physical_device_properties2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkFormatProperties](VkFormatProperties.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceFormatProperties2](vkGetPhysicalDeviceFormatProperties2.html), [vkGetPhysicalDeviceFormatProperties2](vkGetPhysicalDeviceFormatProperties2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/formats.html#VkFormatProperties2).
 

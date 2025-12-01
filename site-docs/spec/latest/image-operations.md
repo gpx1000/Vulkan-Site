@@ -10,63 +10,42 @@
 
 - [Image Operations Overview](#_image_operations_overview)
 - [Image_Operations_Overview](#_image_operations_overview)
-- [Texel Coordinate Systems](#textures-texel-coordinate-systems)
-- [Texel_Coordinate_Systems](#textures-texel-coordinate-systems)
-- [Conversion Formulas](#_conversion_formulas)
-- [RGB to Shared Exponent Conversion](#textures-RGB-sexp)
-- [RGB_to_Shared_Exponent_Conversion](#textures-RGB-sexp)
-- [Shared Exponent to RGB](#textures-sexp-RGB)
-- [Shared_Exponent_to_RGB](#textures-sexp-RGB)
-- [Texel Input Operations](#textures-input)
-- [Texel_Input_Operations](#textures-input)
+- [Sampling Coordinate Systems](#textures-texel-coordinate-systems)
+- [Sampling_Coordinate_Systems](#textures-texel-coordinate-systems)
+- [Sampling Operations](#textures-input)
 - [Texel Input Validation Operations](#textures-input-validation)
 - [Texel_Input_Validation_Operations](#textures-input-validation)
 - [Instruction/Sampler/Image View Validation](#textures-operation-validation)
 - [Instruction/Sampler/Image_View_Validation](#textures-operation-validation)
-- [Integer Texel Coordinate Validation](#textures-integer-coordinate-validation)
-- [Integer_Texel_Coordinate_Validation](#textures-integer-coordinate-validation)
+- [Layout Validation](#textures-layout-validation)
+- [Coordinate Validation](#textures-integer-coordinate-validation)
 - [Cube Map Edge Handling](#textures-cubemapedge)
 - [Cube_Map_Edge_Handling](#textures-cubemapedge)
-- [Sparse Validation](#textures-sparse-validation)
-- [Layout Validation](#textures-layout-validation)
-- [Format Conversion](#textures-format-conversion)
-- [Texel Replacement](#textures-texel-replacement)
+- [Border Replacement](#textures-border-replacement)
+- [Texel Reads](#textures-texel-reads)
 - [Depth Compare Operation](#textures-depth-compare-operation)
 - [Depth_Compare_Operation](#textures-depth-compare-operation)
-- [Conversion to RGBA](#textures-conversion-to-rgba)
-- [Conversion_to_RGBA](#textures-conversion-to-rgba)
 - [Component Swizzle](#textures-component-swizzle)
 - [Sparse Residency](#textures-sparse-residency)
+- [Y′CBCR Degamma](#textures-YCbCr-degamma)
 - [Chroma Reconstruction](#textures-chroma-reconstruction)
 - [Explicit Reconstruction](#textures-explicit-reconstruction)
-- [Implicit Reconstruction](#textures-implict-reconstruction)
+- [Implicit Reconstruction](#textures-implicit-reconstruction)
 - [Sampler Y′CBCR Conversion](#textures-sampler-YCbCr-conversion)
 - [Sampler_Y′CBCR_Conversion](#textures-sampler-YCbCr-conversion)
+- [Sampler Y′CBCR Component Swizzle](#textures-sampler-YCbCr-component-swizzle)
+- [Sampler_Y′CBCR_Component_Swizzle](#textures-sampler-YCbCr-component-swizzle)
 - [Sampler Y′CBCR Range Expansion](#textures-sampler-YCbCr-conversion-rangeexpand)
 - [Sampler_Y′CBCR_Range_Expansion](#textures-sampler-YCbCr-conversion-rangeexpand)
 - [Sampler Y′CBCR Model Conversion](#textures-sampler-YCbCr-conversion-modelconversion)
 - [Sampler_Y′CBCR_Model_Conversion](#textures-sampler-YCbCr-conversion-modelconversion)
-- [Texel Output Operations](#_texel_output_operations)
-- [Texel_Output_Operations](#_texel_output_operations)
-- [Texel Output Validation Operations](#textures-output-validation)
-- [Texel_Output_Validation_Operations](#textures-output-validation)
-- [Texel Format Validation](#textures-format-validation)
-- [Texel_Format_Validation](#textures-format-validation)
-- [Texel Type Validation](#textures-type-validation)
-- [Texel_Type_Validation](#textures-type-validation)
-- [Integer Texel Coordinate Validation](#textures-output-coordinate-validation)
-- [Integer_Texel_Coordinate_Validation](#textures-output-coordinate-validation)
-- [Sparse Texel Operation](#textures-output-sparse-validation)
-- [Sparse_Texel_Operation](#textures-output-sparse-validation)
-- [Texel Output Format Conversion](#textures-output-format-conversion)
-- [Texel_Output_Format_Conversion](#textures-output-format-conversion)
 - [Normalized Texel Coordinate Operations](#textures-normalized-operations)
 - [Normalized_Texel_Coordinate_Operations](#textures-normalized-operations)
 - [Projection Operation](#textures-projection)
 - [Derivative Image Operations](#textures-derivative-image-operations)
 - [Derivative_Image_Operations](#textures-derivative-image-operations)
-- [Cube Map Face Selection and Transformations](#_cube_map_face_selection_and_transformations)
-- [Cube_Map_Face_Selection_and_Transformations](#_cube_map_face_selection_and_transformations)
+- [Cube Map Face Selection and Transformations](#textures-cubemap-face-selection)
+- [Cube_Map_Face_Selection_and_Transformations](#textures-cubemap-face-selection)
 - [Cube Map Face Selection](#_cube_map_face_selection)
 - [Cube_Map_Face_Selection](#_cube_map_face_selection)
 - [Cube Map Coordinate Transformation](#textures-cube-map-coordinate-transform)
@@ -82,8 +61,8 @@
 - [Image_Level(s)_Selection](#textures-image-level-selection)
 - [(s,t,r,q,a) to (u,v,w,a) Transformation](#textures-normalized-to-unnormalized)
 - [(s,t,r,q,a)_to_(u,v,w,a)_Transformation](#textures-normalized-to-unnormalized)
-- [Unnormalized Texel Coordinate Operations](#_unnormalized_texel_coordinate_operations)
-- [Unnormalized_Texel_Coordinate_Operations](#_unnormalized_texel_coordinate_operations)
+- [Unnormalized Texel Coordinate Operations](#textures-unnormalized-operations)
+- [Unnormalized_Texel_Coordinate_Operations](#textures-unnormalized-operations)
 - [(u,v,w,a) to (i,j,k,l,n) Transformation and Array Layer Selection](#textures-unnormalized-to-integer)
 - [(u,v,w,a)_to_(i,j,k,l,n)_Transformation_and_Array_Layer_Selection](#textures-unnormalized-to-integer)
 - [Integer Texel Coordinate Operations](#textures-integer-coordinate-operations)
@@ -146,8 +125,8 @@
 
 ## Content
 
-Vulkan Image Operations are operations performed by those SPIR-V Image
-Instructions which take an `OpTypeImage` (representing a
+Vulkan Image Operations are operations performed on [images](images.html#images) by
+SPIR-V Image Instructions which take an `OpTypeImage` (representing a
 `VkImageView`) or `OpTypeSampledImage` (representing a
 (`VkImageView`, `VkSampler`) pair).
 Read, write, and atomic operations also take texel coordinates as operands,
@@ -156,13 +135,6 @@ within the image.
 Query operations return properties of the bound image or of the lookup
 itself.
 The “Depth” operand of `OpTypeImage` is ignored.
-
-|  | Texel is a term which is a combination of the words texture and element.
-| --- | --- |
-Early interactive computer graphics supported texture operations on
-textures, a small subset of the image operations on images described here.
-The discrete samples remain essentially equivalent, however, so we retain
-the historical term texel to refer to them. |
 
 Image Operations include the functionality of the following SPIR-V Image
 Instructions:
@@ -239,25 +211,24 @@ reference texture.
 The R component of each comparison is gathered and returned in the
 output.
 
-Images are addressed by *texel coordinates*.
-There are three *texel coordinate systems*:
+There are three *sampling coordinate systems* used in this chapter:
 
 * 
-normalized texel coordinates [0.0, 1.0]
+normalized sampling coordinates [0.0, 1.0]
 
 * 
-unnormalized texel coordinates [0.0, width / height / depth)
+unnormalized sampling coordinates [0.0, width / height / depth)
 
 * 
-integer texel coordinates [0, width / height / depth)
+integer sampling coordinates [0, width / height / depth)
 
 SPIR-V `OpImageFetch`, `OpImageSparseFetch`, `OpImageRead`,
 `OpImageSparseRead`,
 `opImageBlockMatchSADQCOM`, `opImageBlockMatchSSDQCOM`,
 `opImageBlockMatchWindowSADQCOM`, `opImageBlockMatchWindowSSDQCOM`,
-and `OpImageWrite` instructions use integer texel coordinates.
+and `OpImageWrite` instructions use integer sampling coordinates.
 
-Other image instructions **can** use either normalized or unnormalized texel
+Other image instructions **can** use either normalized or unnormalized sampling
 coordinates (selected by the `unnormalizedCoordinates` state of the
 sampler used in the instruction), but there are
 [limitations](samplers.html#samplers-unnormalizedCoordinates) on what operations, image
@@ -321,7 +292,7 @@ present when the dimensionality is 2D.
 When normalized coordinates are converted to unnormalized coordinates, all
 four coordinates are used.
 
-Integer texel coordinates are referred to as (i,j,k,l,n), with the
+Integer sampling coordinates are referred to as (i,j,k,l,n), with the
 coordinates having the following meanings:
 
 * 
@@ -345,6 +316,28 @@ of the image, and l conditionally present based on the `Arrayed`
 property of the image.
 n is conditionally present and is taken from the `Sample` image
 operand.
+
+Final integer coordinates are used as [image coordinates](images.html#images) to
+perform an [image read](images.html#images-reads) after sampling calculations, directly
+translating each coordinate as follows:
+
+* 
+i → x
+
+* 
+j → y
+
+* 
+k → z
+
+* 
+l → layer
+
+* 
+n → sample
+
+level is calculated separately via the `Lod` image operand if
+present, or is set to 0 otherwise.
 
 If an accessed image was created from a view using
 [VkImageViewSlicedCreateInfoEXT](resources.html#VkImageViewSlicedCreateInfoEXT) and accessed through a
@@ -439,81 +432,11 @@ intersections instead of the texel centers.
 
 Figure 3. Texel Coordinate Systems, Corner Sampling
 
-An RGB color (red, green, blue) is transformed to a shared exponent
-color (redshared, greenshared, blueshared, expshared) as
-follows:
-
-First, the components (red, green, blue) are clamped to
-(redclamped, greenclamped, blueclamped) as:
-
-redclamped = max(0, min(sharedexpmax, red))
-
-greenclamped = max(0, min(sharedexpmax, green))
-
-blueclamped = max(0, min(sharedexpmax, blue))
-
-where:
-
-  
-
-  
-
-|  | NaN, if supported, is handled as in
-| --- | --- |
-
-[IEEE 754-2008](introduction.html#ieee-754) `minNum()` and `maxNum()`.
-This results in any NaN being mapped to zero. |
-
-The largest clamped component, maxclamped is determined:
-
-maxclamped = max(redclamped, greenclamped,
-blueclamped)
-
-A preliminary shared exponent exp' is computed:
-
-  
-
-  
-
-The shared exponent expshared is computed:
-
-  
-
-  
-
-  
-
-  
-
-Finally, three integer values in the range 0 to 2N are
-computed:
-
-  
-
-  
-
-A shared exponent color (redshared, greenshared, blueshared,
-expshared) is transformed to an RGB color (red, green, blue) as
-follows:
-
-  
-
-\(green = green_{shared} \times
-{2^{(exp_{shared}-B-N)}}\)
-
-  
-
-where:
-
-N = 9 (number of mantissa bits per component)
-
-B = 15 (exponent bias)
-
-*Texel input instructions* are SPIR-V image instructions that read from an
-image.
-*Texel input operations* are a set of steps that are performed on state,
-coordinates, and texel values while processing a texel input instruction,
-and which are common to some or all texel input instructions.
+*Sampling instructions* are SPIR-V image instructions that read from an
+image with a sampler.
+*Sampling operations* are a set of steps that are performed on state,
+coordinates, and texel values while processing a sampling instruction, and
+which are common to some or all sampling instructions.
 They include the following steps, which are performed in the listed order:
 
 * 
@@ -525,20 +448,20 @@ They include the following steps, which are performed in the listed order:
 [Coordinate validation](#textures-integer-coordinate-validation)
 
 * 
-[Sparse validation](#textures-sparse-validation)
-
-* 
 [Layout validation](#textures-layout-validation)
 
-[Format conversion](#textures-format-conversion)
+* 
+[Cube Map Edge Handling](#textures-cubemapedge)
 
-[Texel replacement](#textures-texel-replacement)
+[Border Replacement](#textures-border-replacement)
+
+[Texel Reads](#textures-texel-reads)
 
 [Depth comparison](#textures-depth-compare-operation)
 
-[Conversion to RGBA](#textures-conversion-to-rgba)
-
 [Component swizzle](#textures-component-swizzle)
+
+[Y′CBCR degamma](#textures-YCbCr-degamma)
 
 [Chroma reconstruction](#textures-chroma-reconstruction)
 
@@ -557,8 +480,7 @@ chroma reconstruction, before [sampler Y′CBCR conversion](#textures-sampler-YC
 
 The operations described in [block matching](#textures-blockmatch) and
 [weight image sampling](#textures-weightimage) are performed before
-[Conversion to RGBA](#textures-conversion-to-rgba) and
-[Component swizzle](#textures-component-swizzle).
+[Component Substitution](images.html#images-component-substitution) and [Component swizzle](#textures-component-swizzle).
 
 *Texel input validation operations* inspect instruction/image/sampler state
 or coordinates, and in certain circumstances cause the texel value to be
@@ -715,16 +637,6 @@ The sampler is sampling an image view of
 `VK_FORMAT_B5G5R5A1_UNORM_PACK16` format without a specified
 [VkSamplerCustomBorderColorCreateInfoEXT](samplers.html#VkSamplerCustomBorderColorCreateInfoEXT)::`format`.
 
-Only `OpImageSample*` and `OpImageSparseSample*` **can** be used with a
-sampler or image view that enables [sampler Y′CBCR conversion](samplers.html#samplers-YCbCr-conversion).
-
-`OpImageFetch`, `OpImageSparseFetch`, `OpImage*Gather`, and
-`OpImageSparse*Gather` **must** not be used with a sampler or image view
-that enables [sampler Y′CBCR conversion](samplers.html#samplers-YCbCr-conversion).
-
-The `ConstOffset` and `Offset` operands **must** not be used with a
-sampler or image view that enables [sampler Y′CBCR conversion](samplers.html#samplers-YCbCr-conversion).
-
 If the underlying `VkImage` format has an X component in its format
 description, **undefined** values are read from those bits.
 
@@ -750,104 +662,56 @@ This behavior was not tested prior to Vulkan conformance test suite version
 1.3.8.0.
 Affected implementations will have a conformance test waiver for this issue. |
 
-Integer texel coordinates are validated against the size of the image level,
-and the number of layers and number of samples in the image.
-For SPIR-V instructions that use integer texel coordinates, this is
-performed directly on the integer coordinates.
-For instructions that use normalized or unnormalized texel coordinates, this
-is performed on the coordinates that result after
-[conversion](#textures-unnormalized-to-integer) to integer texel
-coordinates.
+If all planes of a *disjoint* *multi-planar* image are not in the same
+[image layout](resources.html#resources-image-layouts), the image **must** not be sampled
+with [sampler Y′CBCR conversion](samplers.html#samplers-YCbCr-conversion) enabled.
 
-If the integer texel coordinates do not satisfy all of the conditions
-
-0 ≤ i s
-
-0 ≤ j s
-
-0 ≤ k s
-
-0 ≤ l 
-
-0 ≤ n 
-
-where:
-
-ws = width of the image level
-
-hs = height of the image level
-
-ds = depth of the image level
-
-layers = number of layers in the image
-
-samples = number of samples per texel in the image
-
-then the texel fails integer texel coordinate validation.
-
-There are four cases to consider:
-
-Valid Texel Coordinates
+Once the [normalized](#textures-normalized-operations) or
+[unnormalized coordinates](#textures-unnormalized-operations) have been
+converted to integer image coordinates, the integer coordinates are
+validated as image coordinates, as outlined in
+[Image Coordinate Validation](images.html#images-coordinate-validation), converted as follows:
 
 * 
-If the texel coordinates pass validation (that is, the coordinates lie
-within the image),
-
-then the texel value comes from the value in image memory.
-
-Border Texel
+x = i
 
 * 
-If the texel coordinates fail validation, and
+y = j
 
 * 
-If the read is the result of an image sample instruction or image gather
-instruction, and
+z = k
 
 * 
-If the image is not a cube image,
-or if a sampler created with
-`VK_SAMPLER_CREATE_NON_SEAMLESS_CUBE_MAP_BIT_EXT` is used,
-
-then the texel is a border texel and [texel replacement](#textures-texel-replacement) is performed.
-
-Invalid Texel
+layer = l
 
 * 
-If the texel coordinates fail validation, and
+sample = n
 
 * 
-If the read is the result of an image fetch instruction, image read
-instruction, or atomic instruction,
+level = d
 
-then the texel is an invalid texel and [texel replacement](#textures-texel-replacement) is performed.
+When sampling a cube map, if the image coordinates are out of bounds of the
+[selected cube map face](#textures-cubemap-face-selection), the following
+steps are performed.
 
-Cube Map Edge or Corner
-
-Otherwise the texel coordinates lie beyond the edges or corners of the
-selected cube map face, and [Cube map edge handling](#textures-cubemapedge)
-is performed.
-
-If the texel coordinates lie beyond the edges or corners of the selected
-cube map face (as described in the prior section), the following steps are
-performed.
-Note that this does not occur when using `VK_FILTER_NEAREST` filtering
-within a mip level, since `VK_FILTER_NEAREST` is treated as using
-`VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE`.
+|  | This does not occur when using `VK_FILTER_NEAREST` filtering within a
+| --- | --- |
+mip level, since `VK_FILTER_NEAREST` is treated as using
+`VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE`. |
 
 * 
 Cube Map Edge Texel
 
 If the texel lies beyond the selected cube map face in either only
-i or only j, then the coordinates (i,j) and the array
-layer l are transformed to select the adjacent texel from the
-appropriate neighboring face.
+x or only y, then the coordinates (x,y,layer) are
+transformed to select the adjacent texel from the appropriate
+neighboring face.
 
 Cube Map Corner Texel
 
 * 
-If the texel lies beyond the selected cube map face in both i and
-     j, then there is no unique neighboring face from which to read
+If the texel lies beyond the selected cube map face in both x and
+     y, then there is no unique neighboring face from which to read
      that texel.
      The texel **should** be replaced by the average of the three values of the
      adjacent texels in each incident face.
@@ -859,71 +723,8 @@ three available texels have the same value, the resulting filtered texel
 samples have the same value, the resulting filtered texel **must** have that
 value.
 
-If the texel reads from an unbound region of a sparse image, the texel is a
-*sparse unbound texel*, and processing continues with
-[texel replacement](#textures-texel-replacement).
-
-If all planes of a *disjoint* *multi-planar* image are not in the same
-[image layout](resources.html#resources-image-layouts), the image **must** not be sampled
-with [sampler Y′CBCR conversion](samplers.html#samplers-YCbCr-conversion) enabled.
-
-Texels undergo a format conversion from the [VkFormat](formats.html#VkFormat) of the image view
-to a vector of either floating-point or signed or unsigned integer
-components, with the number of components based on the number of components
-present in the format.
-
-* 
-Color formats have one, two, three, or four components, according to the
-format.
-
-* 
-Depth/stencil formats are one component.
-The depth or stencil component is selected by the `aspectMask` of
-the image view.
-
-Each component is converted based on its type and size (as defined in the
-[Format Definition](formats.html#formats-definition) section for each [VkFormat](formats.html#VkFormat)),
-using the appropriate equations in [16-Bit Floating-Point Numbers](fundamentals.html#fundamentals-fp16), [Unsigned 11-Bit Floating-Point Numbers](fundamentals.html#fundamentals-fp11),
-[Unsigned 10-Bit Floating-Point Numbers](fundamentals.html#fundamentals-fp10),
-[Fixed-Point Data Conversion](fundamentals.html#fundamentals-fixedconv), and
-[Shared Exponent to RGB](#textures-sexp-RGB).
-Signed integer components smaller than 32 bits are sign-extended.
-
-If the image view format is sRGB, the color components are first converted
-as if they are UNORM, and then sRGB to linear conversion is applied to the
-R, G, and B components as described in the “sRGB EOTF” section of the
-[Khronos Data Format Specification](introduction.html#data-format).
-The A component, if present, is unchanged.
-
-If
-[VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM](samplers.html#VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM)::`enableYDegamma`
-is equal to `VK_TRUE`, then sRGB to linear conversion is applied to the
-G component as described in the “sRGB EOTF” section of the
-[Khronos Data Format Specification](introduction.html#data-format).
-If
-[VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM](samplers.html#VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM)::`enableCbCrDegamma`
-is equal to `VK_TRUE`, then sRGB to linear conversion is applied to the
-R and B components as described in the “sRGB EOTF” section of the
-[Khronos Data Format Specification](introduction.html#data-format).
-The A component, if present, is unchanged.
-
-If the image view format is block-compressed, then the texel value is first
-decoded, then converted based on the type and number of components defined
-by the compressed format.
-
-A texel is replaced if it is one (and only one) of:
-
-* 
-a border texel,
-
-* 
-an invalid texel, or
-
-* 
-a sparse unbound texel.
-
-Border texels are replaced with a value based on the image format and the
-`borderColor` of the sampler.
+If the sampler includes a border, out of bounds texels are replaced with a
+value based on the image format and the `borderColor` of the sampler.
 The border color is:
 
 | Sampler `borderColor` | Corresponding Border Color |
@@ -969,10 +770,11 @@ implementation when [VkSamplerCreateInfo](samplers.html#VkSamplerCreateInfo)::`b
 `VK_FORMAT_UNDEFINED`.
 Implementations **should** use S = Br as the replacement method.
 
-Implementations **may** swap the blue and alpha channels when sampling
-non-custom border colors with the `VK_FORMAT_B4G4R4A4_UNORM_PACK16`
-format, or the red and alpha channels with the
-`VK_FORMAT_R4G4B4A4_UNORM_PACK16` format.
+If [`rgba4OpaqueBlackSwizzled`](limits.html#limits-rgba4OpaqueBlackSwizzled) is
+`VK_FALSE`, the implementation
+**may** swap the blue and alpha channels when sampling non-custom border colors
+with the `VK_FORMAT_B4G4R4A4_UNORM_PACK16` format, or the red and alpha
+channels with the `VK_FORMAT_R4G4B4A4_UNORM_PACK16` format.
 
 |  | As `VK_FORMAT_B4G4R4A4_UNORM_PACK16` is required by Vulkan, support must
 | --- | --- |
@@ -984,53 +786,20 @@ Unfortunately the swizzle cannot be readily applied to the fixed border
 colors - resulting in the apparent channel swap.
 For most standard border colors this does not result in a modification to
 the sampled output.
-However, `VK_BORDER_COLOR_INT_OPAQUE_BLACK` will instead be sampled as
+However, `VK_BORDER_COLOR_*_OPAQUE_BLACK` will instead be sampled as
 transparent red or blue.
 If the [`customBorderColorWithoutFormat`](features.html#features-customBorderColorWithoutFormat) feature is supported and enabled,
 this functionality is expected to work without issue, but this feature may
 come with a performance cost. |
 
-The value returned by a read of an invalid texel is **undefined**, unless that
-read operation is from a buffer resource and the
-[`robustBufferAccess`](features.html#features-robustBufferAccess) feature is
-enabled.
-In that case, an invalid texel is replaced as described by the
-[`robustBufferAccess`](features.html#features-robustBufferAccess) feature.
-If the access is to an image resource and the x, y, z, or layer coordinate
-validation fails and
-the [`robustImageAccess`](features.html#features-robustImageAccess) feature is
-enabled, then zero **must** be returned for the R, G, and B components, if
-present.
-Either zero or one **must** be returned for the A component, if present.
-If the [`robustImageAccess2`](features.html#features-robustImageAccess2) feature is
-enabled, zero values **must** be returned.
-If only the sample index was invalid, the values returned are **undefined**.
+When border color replacement occurs, [texel reads](#textures-texel-reads)
+are skipped, and the replaced color is used for ongoing operations instead.
 
-Additionally, if the [`robustImageAccess`](features.html#features-robustImageAccess)
-feature is enabled,
-but the [`robustImageAccess2`](features.html#features-robustImageAccess2) feature is
-not,
-any invalid texels **may** be expanded to four components prior to texel
-replacement.
-This means that components not present in the image format may be replaced
-with 0 or may undergo [conversion to RGBA](#textures-conversion-to-rgba) as
-normal.
+A texel is read from an image, performed as outlined in [Image Reads](images.html#images-reads),
+using the converted image coordinates.
 
-Loads from a null descriptor return a four component color value of all
-zeros.
-However, for storage images and storage texel buffers using an explicit
-SPIR-V Image Format, loads from a null descriptor **may** return an alpha value
-of 1 (float or integer, depending on format) if the format does not include
-alpha.
-
-If the
-[VkPhysicalDeviceSparseProperties](sparsemem.html#VkPhysicalDeviceSparseProperties)::`residencyNonResidentStrict`
-property is `VK_TRUE`, a sparse unbound texel is replaced with 0 or 0.0
-values for integer and floating-point components of the image format,
-respectively.
-
-If `residencyNonResidentStrict` is `VK_FALSE`, the value of the
-sparse unbound texel is **undefined**.
+The returned components of each texel are then processed by further input
+operations.
 
 If the image view has a depth/stencil format, the depth component is
 selected by the `aspectMask`, and the operation is an `OpImage*Dref*`
@@ -1055,22 +824,6 @@ linear filtering.
 The resulting value **must** be in the range [0,1] and should be
 proportional to, or a weighted average of, the number of comparison passes
 or failures.
-
-The texel is expanded from one, two, or three components to four components
-based on the image base color:
-
-| Texel Aspect or Format | RGBA Color |
-| --- | --- |
-| Depth aspect | [Colorr,Colorg,Colorb, Colora] = [D,0,0,one] |
-| Stencil aspect | [Colorr,Colorg,Colorb, Colora] = [S,0,0,one] |
-| One component color format | [Colorr,Colorg,Colorb, Colora] = [Colorr,0,0,one] |
-| Two component color format | [Colorr,Colorg,Colorb, Colora] = [Colorr,Colorg,0,one] |
-| Three component color format | [Colorr,Colorg,Colorb, Colora] = [Colorr,Colorg,Colorb,one] |
-| Four component color format | [Colorr,Colorg,Colorb, Colora] = [Colorr,Colorg,Colorb,Colora] |
-| One alpha component color format | [Colorr,Colorg,Colorb, Colora] = [0,0,0,Colora] |
-
-where one = 1.0f for floating-point formats and depth aspects, and
-one = 1 for integer formats and stencil aspects.
 
 All texel input instructions apply a *swizzle* based on:
 
@@ -1115,6 +868,18 @@ is not `VK_TRUE`, the value of the texel after swizzle is **undefined**.
 are sparse unbound texels.
 This code **can** be interpreted by the `OpImageSparseTexelsResident`
 instruction which converts the residency code to a boolean value.
+
+If
+[VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM](samplers.html#VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM)::`enableYDegamma`
+is equal to `VK_TRUE`, then sRGB to linear conversion is applied to the
+G component of the sampled values as described in the “sRGB EOTF” section
+of the [Khronos Data Format Specification](introduction.html#data-format).
+
+If
+[VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM](samplers.html#VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM)::`enableCbCrDegamma`
+is equal to `VK_TRUE`, then sRGB to linear conversion is applied to the
+R and B components of the sampled values as described in the “sRGB EOTF”
+section of the [Khronos Data Format Specification](introduction.html#data-format).
 
 In some color models, the color representation is defined in terms of
 monochromatic light intensity (often called “luma”) and color differences
@@ -1214,7 +979,7 @@ and if the [VkSamplerYcbcrConversionCreateInfo](samplers.html#VkSamplerYcbcrConv
 `forceExplicitReconstruction` is `VK_FALSE`, reconstruction is
 performed as an implicit part of filtering prior to color model conversion,
 with no separate post-conversion texel filtering step, as described in the
-[Implicit Reconstruction](#textures-implict-reconstruction) section.
+[Implicit Reconstruction](#textures-implicit-reconstruction) section.
 
 * 
 If the `chromaFilter` member of the
@@ -1311,34 +1076,34 @@ component):
 
   
 
-Sampler Y′CBCR conversion performs the following operations, which an
-implementation **may** combine into a single mathematical operation:
+Sampler Y′CBCR conversion performs the following operations on sampled
+data, in order:
 
-* 
-[Sampler Y′CBCR Range    Expansion](#textures-sampler-YCbCr-conversion-rangeexpand)
+[Sampler Y′CBCR Component Swizzle](#textures-sampler-YCbCr-component-swizzle)
 
-* 
-[Sampler Y′CBCR    Model Conversion](#textures-sampler-YCbCr-conversion-modelconversion)
+[Sampler Y′CBCR Range Expansion](#textures-sampler-YCbCr-conversion-rangeexpand)
 
-Sampler Y′CBCR range expansion is applied to color component values after
-all texel input operations which are not specific to sampler Y′CBCR
-conversion.
-For example, the input values to this stage have been converted using the
-normal [format conversion](#textures-format-conversion) rules.
+[Sampler Y′CBCR Model Conversion](#textures-sampler-YCbCr-conversion-modelconversion)
 
-The input values to this stage may have been converted using sRGB to linear
-conversion if the [`ycbcrDegamma`](features.html#features-ycbcrDegamma) feature is
-enabled.
+An implementation **may** combine the range expansion and model conversion into
+a single mathematical operation.
+
+These operations are applied to color component values after
+[sampling operations](#textures-input) which are not specific to sampler
+Y′CBCR conversion have completed.
+
+Rather than the [component swizzle performed as part of sampling](#textures-component-swizzle), which is banned for Y′CBCR image views used with
+sampler Y′CBCR conversion, the component swizzle specified by
+[VkSamplerYcbcrConversionCreateInfo](samplers.html#VkSamplerYcbcrConversionCreateInfo)::`components` is applied to the
+sampled data instead.
+This is applied in the same way as the component swizzle usually performed
+during sampling.
 
 Sampler Y′CBCR range expansion is not applied if `ycbcrModel` is
 `VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY`.
-That is, the shader receives the vector C'rgba as output by the Component
-Swizzle stage without further modification.
 
-For other values of `ycbcrModel`, range expansion is applied to the
-texel component values output by the [Component Swizzle](#textures-component-swizzle) defined by the `components` member of
-[VkSamplerYcbcrConversionCreateInfo](samplers.html#VkSamplerYcbcrConversionCreateInfo).
-Range expansion applies independently to each component of the image.
+For other values of `ycbcrModel`, range expansion applies independently
+to each component of the sampled data.
 For the purposes of range expansion and Y′CBCR model conversion, the R and
 B components contain color difference (chroma) values and the G component
 contains luma.
@@ -1494,88 +1259,6 @@ If `chromaFilter`, and `minFilter` or `magFilter` are both
 [sampler Y′CBCR conversion](samplers.html#samplers-YCbCr-conversion) at the desired
 sample coordinates will produce the “correct” results without further
 processing. |
-
-*Texel output instructions* are SPIR-V image instructions that write to an
-image.
-*Texel output operations* are a set of steps that are performed on state,
-coordinates, and texel values while processing a texel output instruction,
-and which are common to some or all texel output instructions.
-They include the following steps, which are performed in the listed order:
-
-* 
-[Validation operations](#textures-output-validation)
-
-[Format validation](#textures-format-validation)
-
-* 
-[Type validation](#textures-type-validation)
-
-* 
-[Coordinate validation](#textures-output-coordinate-validation)
-
-* 
-[Sparse validation](#textures-output-sparse-validation)
-
-[Texel output format conversion](#textures-output-format-conversion)
-
-*Texel output validation operations* inspect instruction/image state or
-coordinates, and in certain circumstances cause the write to have no effect.
-There are a series of validations that the texel undergoes.
-
-If the image format of the `OpTypeImage` is not
-[compatible](../appendices/spirvenv.html#spirvenv-image-formats) with the `VkImageView`’s
-`format`, the write causes the contents of the image’s memory to become
-**undefined**.
-
-If the `Sampled` `Type` of the `OpTypeImage` does not match the
-[SPIR-V Type](../appendices/spirvenv.html#spirv-type), the write causes the value of the texel to
-become **undefined**.
-For integer types, if the [signedness of the access](../appendices/spirvenv.html#spirvenv-image-signedness) does not match the signedness of the accessed resource, the write
-causes the value of the texel to become **undefined**.
-
-The integer texel coordinates are validated according to the same rules as
-for texel input [coordinate validation](#textures-integer-coordinate-validation).
-
-If the texel fails integer texel coordinate validation, then the write has
-no effect.
-
-If the texel attempts to write to an unbound region of a sparse image, the
-texel is a sparse unbound texel.
-In such a case, if the
-[VkPhysicalDeviceSparseProperties](sparsemem.html#VkPhysicalDeviceSparseProperties)::`residencyNonResidentStrict`
-property is `VK_TRUE`, the sparse unbound texel write has no effect.
-If `residencyNonResidentStrict` is `VK_FALSE`, the write **may** have a
-side effect that becomes visible to other accesses to unbound texels in any
-resource, but will not be visible to any device memory allocated by the
-application.
-
-If the image format is sRGB, a linear to sRGB conversion is applied to the
-R, G, and B components as described in the “sRGB EOTF” section of the
-[Khronos Data Format Specification](introduction.html#data-format).
-The A component, if present, is unchanged.
-
-Texels then undergo a format conversion from the floating-point, signed, or
-unsigned integer type of the texel data to the [VkFormat](formats.html#VkFormat) of the image
-view.
-If the number of components in the texel data is larger than the number of
-components in the format, additional components are discarded.
-
-Each component is converted based on its type and size (as defined in the
-[Format Definition](formats.html#formats-definition) section for each [VkFormat](formats.html#VkFormat)).
-Floating-point outputs are converted as described in
-[Floating-Point Format Conversions](fundamentals.html#fundamentals-fp-conversion) and
-[Fixed-Point Data Conversion](fundamentals.html#fundamentals-fixedconv).
-Integer outputs are converted such that their value is preserved.
-The converted value of any integer that cannot be represented in the target
-format is **undefined**.
-
-If the `VkImageView` format has an X component in its format
-description, **undefined** values are written to those bits.
-
-If the underlying `VkImage` format has an X component in its format
-description, **undefined** values are also written to those bits, even if
-result format conversion produces a valid value for those bits because the
-`VkImageView` format is different.
 
 If the image sampler instruction provides normalized texel coordinates, some
 of the following operations are performed.
@@ -2035,7 +1718,7 @@ from 4 texels in the base level of the image view.
 The rules for the `VK_FILTER_LINEAR` minification filter are applied to
 identify the four selected texels.
 Each texel is then converted to an RGBA value according to
-[conversion to RGBA](#textures-conversion-to-rgba) and then
+[component substitution](images.html#images-component-substitution) and then
 [swizzled](#textures-component-swizzle).
 A four-component vector is then assembled by taking the component indicated
 by the `Component` value in the instruction from the swizzled color value
@@ -2459,7 +2142,7 @@ In addition to the inputs that would be accepted by an equivalent
 The input `weight` **must** be a view of a 2D or 1D image with
 `miplevels` equal to `1`, `samples` equal to
 `VK_SAMPLE_COUNT_1_BIT`, created with an identity swizzle, and created
-with `usage` that includes `VK_IMAGE_USAGE_SAMPLE_WEIGHT_BIT_QCOM`.
+with the `VK_IMAGE_USAGE_SAMPLE_WEIGHT_BIT_QCOM` usage flag set.
 The [VkImageViewSampleWeightCreateInfoQCOM](resources.html#VkImageViewSampleWeightCreateInfoQCOM) specifies additional
 parameters of the view: `filterCenter`, `filterSize`, and
 `numPhases`.
@@ -2626,7 +2309,7 @@ where    and    are specified by
 Each of the generated integer coordinates    is
 transformed by [texture wrapping operation](#textures-wrapping-operation),
 followed by [integer texel coordinate validation](#textures-integer-coordinate-validation), If any coordinate fails coordinate validation, it
-is a Border Texel and [texel replacement](#textures-texel-replacement) is
+is a Border Texel and [border replacement](#textures-border-replacement) is
 performed.
 
 The phase index    is computed from the fraction bits of the
@@ -2683,8 +2366,7 @@ If the reduction mode is `VK_SAMPLER_REDUCTION_MODE_MIN` or
 `VK_SAMPLER_REDUCTION_MODE_MAX`, each    weight
 **must** be equal to 0.0 or 1.0, otherwise the **undefined** values are returned.
 
-Finally, the operations described in
-[Conversion to RGBA](#textures-conversion-to-rgba) and
+Finally, the operations described in [Component Substitution](images.html#images-component-substitution) and
 [Component swizzle](#textures-component-swizzle) are performed and the final
 result is returned to the shader.
 
@@ -2707,6 +2389,8 @@ reference block.
 The `blockSize` specifies the integer width and height of the target and
 reference blocks to be compared, and **must** not be greater than
 [VkPhysicalDeviceImageProcessingPropertiesQCOM](devsandqueues.html#VkPhysicalDeviceImageProcessingPropertiesQCOM).`maxBlockMatchRegion`.
+If `blockSize` is specified with either dimension `0`, `Result` will
+return an **undefined** value.
 
 `opImageBlockMatchWindowSAD` and `opImageBlockMatchWindowSAD` take the
 same input parameters as the corresponding non-window instructions.
@@ -2765,7 +2449,7 @@ where    and    is specified by the
 
 If any target integer texel coordinate    in the set fails
 [integer texel coordinate validation](#textures-integer-coordinate-validation), then the texel is an invalid texel and
-[texel replacement](#textures-texel-replacement) is performed.
+[border replacement](#textures-border-replacement) is performed.
 
 Similarly for the reference block, a set of neighboring integer texel
 coordinates are generated.
@@ -2809,8 +2493,7 @@ For   , the minimum or maximum difference is computed
 and for   , the square of the minimum or maximum is
 computed.
 
-Finally, the operations described in
-[Conversion to RGBA](#textures-conversion-to-rgba) and
+Finally, the operations described in [Component Substitution](images.html#images-component-substitution) and
 [Component swizzle](#textures-component-swizzle) are performed and the final
 result is returned to the shader.
 The component swizzle is specified by the *target image* descriptor; any
@@ -2852,7 +2535,7 @@ pattern.
 
 vec4 opImageBlockMatchGatherSAD( sampler2D target,
                                  uvec2 targetCoord,
-                                 samler2D reference,
+                                 sampler2D reference,
                                  uvec2 refCoord,
                                  uvec2 blocksize) {
     // Two parameters are sourced from the VkSampler associated with
@@ -2897,7 +2580,7 @@ The pseudocode for opImageBlockMatchGatherSSD follows an identical pattern.
 
 vec4 opImageBlockMatchGatherSAD(sampler2D target,
                                 uvec2 targetCoord,
-                                samler2D reference,
+                                sampler2D reference,
                                 uvec2 refCoord,
                                 uvec2 blocksize) {
     vec4 out;
@@ -2971,7 +2654,7 @@ The set is of size   .
 Each of the generated integer coordinates    is
 transformed by [texture wrapping operation](#textures-wrapping-operation),
 followed by [integer texel coordinate validation](#textures-integer-coordinate-validation), If any coordinate fails coordinate validation, it
-is a Border Texel and [texel replacement](#textures-texel-replacement) is
+is a Border Texel and [border replacement](#textures-border-replacement) is
 performed.
 
 Horizontal weights    to

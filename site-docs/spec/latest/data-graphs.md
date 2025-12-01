@@ -228,9 +228,17 @@ If the required data is not found in the pipeline cache, creating the data
 graph pipeline is not possible and the implementation **must** fail as
 specified by `VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT`.
 
-When an identifier is used to create a data graph pipeline, implementations
-**may** fail pipeline creation with `VK_PIPELINE_COMPILE_REQUIRED` for any
-reason.
+Applications **can** create a data graph pipeline without providing a pipeline
+cache or shader module by invoking one of the models provided by the
+implementation.
+This is done by including
+[VkDataGraphPipelineBuiltinModelCreateInfoQCOM](#VkDataGraphPipelineBuiltinModelCreateInfoQCOM) in the `pNext`
+chain.
+
+When an identifier
+or built-in model
+is used to create a data graph pipeline, implementations **may** fail pipeline
+creation with `VK_PIPELINE_COMPILE_REQUIRED` for any reason.
 
 The data graph engines for this pipeline **can** be selected by including a
 [VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM) to the `pNext` chain of
@@ -255,6 +263,9 @@ One and only one of the following structures **must** be included in the
 
 * 
 [VkDataGraphPipelineIdentifierCreateInfoARM](#VkDataGraphPipelineIdentifierCreateInfoARM)
+
+* 
+[VkDataGraphPipelineBuiltinModelCreateInfoQCOM](#VkDataGraphPipelineBuiltinModelCreateInfoQCOM)
 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-flags-09764) VUID-VkDataGraphPipelineCreateInfoARM-flags-09764
 
@@ -294,17 +305,20 @@ descriptor binding used to create `layout` **must** have a
 `descriptorType` that corresponds to the type of the
 [resource variable](../interfaces.html#interfaces-resources)
 
-[](#VUID-VkDataGraphPipelineCreateInfoARM-pNext-09875) VUID-VkDataGraphPipelineCreateInfoARM-pNext-09875
+[](#VUID-VkDataGraphPipelineCreateInfoARM-None-11840) VUID-VkDataGraphPipelineCreateInfoARM-None-11840
 
-If a [VkDataGraphPipelineIdentifierCreateInfoARM](#VkDataGraphPipelineIdentifierCreateInfoARM) structure is
-included in the `pNext` chain, then `flags` **must** contain
-`VK_PIPELINE_CREATE_2_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT`
+    If a [VkDataGraphPipelineIdentifierCreateInfoARM](#VkDataGraphPipelineIdentifierCreateInfoARM)
+or [VkDataGraphPipelineBuiltinModelCreateInfoQCOM](#VkDataGraphPipelineBuiltinModelCreateInfoQCOM)
+    structure is included in the `pNext` chain, then `flags` **must**
+    contain `VK_PIPELINE_CREATE_2_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT`
 
-[](#VUID-VkDataGraphPipelineCreateInfoARM-pNext-09882) VUID-VkDataGraphPipelineCreateInfoARM-pNext-09882
+[](#VUID-VkDataGraphPipelineCreateInfoARM-None-11841) VUID-VkDataGraphPipelineCreateInfoARM-None-11841
 
-If a [VkDataGraphPipelineIdentifierCreateInfoARM](#VkDataGraphPipelineIdentifierCreateInfoARM) structure is
-included in the `pNext` chain, then `resourceInfoCount` **must** be
-0 and `pResourceInfos` **must** be `NULL`
+    If a [VkDataGraphPipelineIdentifierCreateInfoARM](#VkDataGraphPipelineIdentifierCreateInfoARM)
+or [VkDataGraphPipelineBuiltinModelCreateInfoQCOM](#VkDataGraphPipelineBuiltinModelCreateInfoQCOM)
+    structure is included in the `pNext` chain, then
+    `resourceInfoCount` **must** be 0 and `pResourceInfos` **must** be
+    `NULL`
 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-dataGraphShaderModule-09886) VUID-VkDataGraphPipelineCreateInfoARM-dataGraphShaderModule-09886
 
@@ -319,7 +333,8 @@ If a [VkDataGraphPipelineShaderModuleCreateInfoARM](#VkDataGraphPipelineShaderMo
 included in the `pNext` chain and an array
 [resource variable](../interfaces.html#interfaces-resources) is declared in the shader
 module, the corresponding descriptor binding used to create `layout`
-**must** have a `descriptorCount` that matches the length of the array
+**must** have a `descriptorCount` that is greater than or equal to the
+length of the array
 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-pipelineCreationCacheControl-09871) VUID-VkDataGraphPipelineCreateInfoARM-pipelineCreationCacheControl-09871
 
@@ -384,7 +399,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-pNext-pNext) VUID-VkDataGraphPipelineCreateInfoARM-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDataGraphPipelineCompilerControlCreateInfoARM](#VkDataGraphPipelineCompilerControlCreateInfoARM), [VkDataGraphPipelineIdentifierCreateInfoARM](#VkDataGraphPipelineIdentifierCreateInfoARM), [VkDataGraphPipelineShaderModuleCreateInfoARM](#VkDataGraphPipelineShaderModuleCreateInfoARM), [VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM), [VkPipelineCreationFeedbackCreateInfo](../pipelines.html#VkPipelineCreationFeedbackCreateInfo), or [VkShaderModuleCreateInfo](../shaders.html#VkShaderModuleCreateInfo)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDataGraphPipelineBuiltinModelCreateInfoQCOM](#VkDataGraphPipelineBuiltinModelCreateInfoQCOM), [VkDataGraphPipelineCompilerControlCreateInfoARM](#VkDataGraphPipelineCompilerControlCreateInfoARM), [VkDataGraphPipelineIdentifierCreateInfoARM](#VkDataGraphPipelineIdentifierCreateInfoARM), [VkDataGraphPipelineShaderModuleCreateInfoARM](#VkDataGraphPipelineShaderModuleCreateInfoARM), [VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM), [VkPipelineCreationFeedbackCreateInfo](../pipelines.html#VkPipelineCreationFeedbackCreateInfo), or [VkShaderModuleCreateInfo](../shaders.html#VkShaderModuleCreateInfo)
 
 * 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-sType-unique) VUID-VkDataGraphPipelineCreateInfoARM-sType-unique
@@ -543,8 +558,8 @@ structure.
 accessible via `pIdentifier`.
 
 * 
-`pIdentifer` is a pointer to `identifierSize` bytes of data that
-describe the pipeline being created.
+`pIdentifier` is a pointer to `identifierSize` bytes of data
+that describe the pipeline being created.
 
 The `pIdentifier` **can** be retrieved from the device by calling
 [vkGetDataGraphPipelinePropertiesARM](#vkGetDataGraphPipelinePropertiesARM) and searching the results for a
@@ -567,6 +582,71 @@ Valid Usage (Implicit)
 [](#VUID-VkDataGraphPipelineIdentifierCreateInfoARM-identifierSize-arraylength) VUID-VkDataGraphPipelineIdentifierCreateInfoARM-identifierSize-arraylength
 
  `identifierSize` **must** be greater than `0`
+
+The `VkDataGraphPipelineBuiltinModelCreateInfoQCOM` structure is defined
+as:
+
+// Provided by VK_QCOM_data_graph_model
+typedef struct VkDataGraphPipelineBuiltinModelCreateInfoQCOM {
+    VkStructureType                                        sType;
+    const void*                                            pNext;
+    const VkPhysicalDeviceDataGraphOperationSupportARM*    pOperation;
+} VkDataGraphPipelineBuiltinModelCreateInfoQCOM;
+
+* 
+`sType` is a [VkStructureType](../fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`pOperation` is a [VkPhysicalDeviceDataGraphOperationSupportARM](#VkPhysicalDeviceDataGraphOperationSupportARM)
+specifying the built-in operation.
+
+The `pipelineCache` is ignored for the creation of this pipeline.
+
+Applications **can** specify arguments to the built-in operation named in
+`pOperation` with [VkDataGraphPipelineCompilerControlCreateInfoARM](#VkDataGraphPipelineCompilerControlCreateInfoARM).
+
+Applications **should** verify that the `pVendorOptions`, `layout`, and
+other state included with this pipeline creation are compatible with the
+`pOperation`.
+Implementations **may** fail if any state is not compatible and return
+`VK_PIPELINE_COMPILE_REQUIRED`.
+
+|  | Built-in models are defined by the provider of the model, therefore Vulkan
+| --- | --- |
+does not define model compatibility.
+The application should refer to the provider of the built-in model for
+guidance on compatibility. |
+
+Valid Usage
+
+* 
+[](#VUID-VkDataGraphPipelineBuiltinModelCreateInfoQCOM-pOperation-11842) VUID-VkDataGraphPipelineBuiltinModelCreateInfoQCOM-pOperation-11842
+
+All members of `pOperation` **must** be identical to a
+[VkQueueFamilyDataGraphPropertiesARM](#VkQueueFamilyDataGraphPropertiesARM)::`operation` retrieved
+from [vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM](#vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM) with the
+`physicalDevice` that was used to create `device` and paired in
+the retrieved results with a
+[VkQueueFamilyDataGraphPropertiesARM](#VkQueueFamilyDataGraphPropertiesARM)::`engine` identical to an
+element of
+[VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM)::`pProcessingEngines`
+provided in the `pNext` chain
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkDataGraphPipelineBuiltinModelCreateInfoQCOM-sType-sType) VUID-VkDataGraphPipelineBuiltinModelCreateInfoQCOM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM`
+
+* 
+[](#VUID-VkDataGraphPipelineBuiltinModelCreateInfoQCOM-pOperation-parameter) VUID-VkDataGraphPipelineBuiltinModelCreateInfoQCOM-pOperation-parameter
+
+ `pOperation` **must** be a valid pointer to a valid [VkPhysicalDeviceDataGraphOperationSupportARM](#VkPhysicalDeviceDataGraphOperationSupportARM) structure
 
 The `VkDataGraphPipelineCompilerControlCreateInfoARM` structure is
 defined as:
@@ -1810,12 +1890,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDispatchDataGraphARM-commandBuffer-cmdpool) VUID-vkCmdDispatchDataGraphARM-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support data_graph operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_DATA_GRAPH_BIT_ARM` operations
 
 * 
 [](#VUID-vkCmdDispatchDataGraphARM-renderpass) VUID-vkCmdDispatchDataGraphARM-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdDispatchDataGraphARM-suspended) VUID-vkCmdDispatchDataGraphARM-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDispatchDataGraphARM-videocoding) VUID-vkCmdDispatchDataGraphARM-videocoding
@@ -1840,7 +1925,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Data_Graph | Action |
+Secondary | Outside | Outside | VK_QUEUE_DATA_GRAPH_BIT_ARM | Action |
 
 Conditional Rendering
 
@@ -2400,11 +2485,23 @@ The defined data graph processing engines are:
 // Provided by VK_ARM_data_graph
 typedef enum VkPhysicalDeviceDataGraphProcessingEngineTypeARM {
     VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_DEFAULT_ARM = 0,
+  // Provided by VK_QCOM_data_graph_model
+    VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_NEURAL_QCOM = 1000629000,
+  // Provided by VK_QCOM_data_graph_model
+    VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_COMPUTE_QCOM = 1000629001,
 } VkPhysicalDeviceDataGraphProcessingEngineTypeARM;
 
 * 
 `VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_DEFAULT_ARM`
 corresponds to the default data graph processing engine.
+
+* 
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_NEURAL_QCOM`
+specifies an engine that specializes in neural processing.
+
+* 
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_COMPUTE_QCOM`
+specifies an engine that uses compute processing to execute data graphs.
 
 The `VkDataGraphProcessingEngineCreateInfoARM` structure is defined as:
 
@@ -2444,6 +2541,26 @@ The [`dataGraph`](../features.html#features-dataGraph) feature **must** be enabl
 
 `pProcessingEngines` **must** not contain identical
 [VkPhysicalDeviceDataGraphProcessingEngineARM](#VkPhysicalDeviceDataGraphProcessingEngineARM) structures
+
+* 
+[](#VUID-VkDataGraphProcessingEngineCreateInfoARM-pProcessingEngines-11843) VUID-VkDataGraphProcessingEngineCreateInfoARM-pProcessingEngines-11843
+
+If any element of `pProcessingEngines` has a `type` of
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_NEURAL_QCOM`
+or
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_COMPUTE_QCOM`
+and `isForeign` set to `VK_TRUE`, `processingEngineCount`
+**must** equal `1`
+
+* 
+[](#VUID-VkDataGraphProcessingEngineCreateInfoARM-pProcessingEngines-11844) VUID-VkDataGraphProcessingEngineCreateInfoARM-pProcessingEngines-11844
+
+If any element of `pProcessingEngines` has a `type` of
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_NEURAL_QCOM`
+or
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_COMPUTE_QCOM`,
+the [dataGraphModel](../features.html#features-dataGraphModelQCOM) feature **must** be
+enabled
 
 Valid Usage (Implicit)
 
@@ -2503,6 +2620,11 @@ properties available, at most `pQueueFamilyDataGraphPropertyCount`
 structures will be written, and `VK_INCOMPLETE` will be returned instead
 of `VK_SUCCESS`, to indicate that not all the available properties were
 returned.
+
+If the [dataGraphModel](../features.html#features-dataGraphModelQCOM) feature is supported,
+the implementation **must** return at least one property with engine type
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_NEURAL_QCOM` or
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_COMPUTE_QCOM`.
 
 Valid Usage (Implicit)
 
@@ -2633,15 +2755,29 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkPhysicalDeviceDataGraphOperationSupportARM-name-parameter) VUID-VkPhysicalDeviceDataGraphOperationSupportARM-name-parameter
 
- `name` **must** be a null-terminated UTF-8 string whose length is less than or equal to VK_MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM
+ `name` **must** be a null-terminated UTF-8 string whose length is less than or equal to `VK_MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM`
 
 The defined data graph operations are:
 
 // Provided by VK_ARM_data_graph
 typedef enum VkPhysicalDeviceDataGraphOperationTypeARM {
     VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_SPIRV_EXTENDED_INSTRUCTION_SET_ARM = 0,
+  // Provided by VK_QCOM_data_graph_model
+    VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_NEURAL_MODEL_QCOM = 1000629000,
+  // Provided by VK_QCOM_data_graph_model
+    VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_BUILTIN_MODEL_QCOM = 1000629001,
 } VkPhysicalDeviceDataGraphOperationTypeARM;
 
 * 
 `VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_SPIRV_EXTENDED_INSTRUCTION_SET_ARM`
 corresponds to operations provided by a SPIR-V extended instruction set.
+
+* 
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_NEURAL_MODEL_QCOM`
+specifies an operation that executes neural models provided by the
+application.
+
+* 
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_BUILTIN_MODEL_QCOM`
+specifies an operation that executes specialized built-in models
+provided by the implementation.

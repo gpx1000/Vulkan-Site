@@ -28,9 +28,8 @@ void vkCmdSetViewportWithCount(
     uint32_t                                    viewportCount,
     const VkViewport*                           pViewports);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetViewportWithCount
 void vkCmdSetViewportWithCountEXT(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    viewportCount,
@@ -110,7 +109,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetViewportWithCount-commandBuffer-cmdpool) VUID-vkCmdSetViewportWithCount-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetViewportWithCount-videocoding) VUID-vkCmdSetViewportWithCount-videocoding
@@ -135,7 +134,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

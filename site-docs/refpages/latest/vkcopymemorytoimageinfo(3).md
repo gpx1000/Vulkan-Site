@@ -32,9 +32,8 @@ typedef struct VkCopyMemoryToImageInfo {
     const VkMemoryToImageCopy*    pRegions;
 } VkCopyMemoryToImageInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to VkCopyMemoryToImageInfo
 typedef VkCopyMemoryToImageInfo VkCopyMemoryToImageInfoEXT;
 
 * 
@@ -88,9 +87,8 @@ copy command **must** be bound as described in
 If the stencil aspect of `dstImage` is accessed, and
 `dstImage` was not created with
 [separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`dstImage` **must** have been created with
-`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` set in
-[VkImageCreateInfo](VkImageCreateInfo.html)::`usage`
+`dstImage` **must** have been created with the
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` usage flag set
 
 * 
 [](#VUID-VkCopyMemoryToImageInfo-dstImage-09112) VUID-VkCopyMemoryToImageInfo-dstImage-09112
@@ -98,17 +96,15 @@ If the stencil aspect of `dstImage` is accessed, and
 If the stencil aspect of `dstImage` is accessed, and
 `dstImage` was created with
 [separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`dstImage` **must** have been created with
-`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` set in
-[VkImageStencilUsageCreateInfo](VkImageStencilUsageCreateInfo.html)::`stencilUsage`
+`dstImage` **must** have been created with the
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` usage flag set
 
 * 
 [](#VUID-VkCopyMemoryToImageInfo-dstImage-09113) VUID-VkCopyMemoryToImageInfo-dstImage-09113
 
 If non-stencil aspects of `dstImage` are accessed,
-`dstImage` **must** have been created with
-`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` set in
-[VkImageCreateInfo](VkImageCreateInfo.html)::`usage`
+`dstImage` **must** have been created with the
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` usage flag set
 
 * 
 [](#VUID-VkCopyMemoryToImageInfo-imageOffset-09114) VUID-VkCopyMemoryToImageInfo-imageOffset-09114
@@ -128,7 +124,7 @@ the extents of `dstImage` identified by `imageSubresource`
 [](#VUID-VkCopyMemoryToImageInfo-dstImage-07966) VUID-VkCopyMemoryToImageInfo-dstImage-07966
 
 If `dstImage` is non-sparse then the image
-or the specified *disjoint* plane
+or each specified *disjoint* plane
 **must** be bound completely and contiguously to a single
 `VkDeviceMemory` object
 

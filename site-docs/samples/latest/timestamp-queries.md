@@ -38,8 +38,8 @@ This is done by writing GPU timestamps at certain points within a command buffer
 These can then be read on the host and used for approximate profiling and to e.g.
 improve performance where needed.
 
-Vulkan offers several [query types](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#queries) that allow you to query different types of information from the GPU.
-One such query type is the [timestamp query](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#queries-timestamps).
+Vulkan offers several [query types](https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#queries) that allow you to query different types of information from the GPU.
+One such query type is the [timestamp query](https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#queries-timestamps).
 
 This provides your application with a mechanism to time the execution of commands on the GPU.
 As with the other query types, a query pool is then used to either directly fetch or copy over the results to the host.
@@ -220,7 +220,7 @@ In our sample, we want to display the delta between two timestamps in millisecon
 VkPhysicalDeviceLimits device_limits = device->get_gpu().get_properties().limits;
 float delta_in_ms = float(time_stamps[1] - time_stamps[0]) * device_limits.timestampPeriod / 1000000.0f;
 
-The [VK_KHR_synchronization2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_synchronization2.html) extension introduced `vkCmdWriteTimestamp2`.
+The [VK_KHR_synchronization2](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_synchronization2.html) extension introduced `vkCmdWriteTimestamp2`.
 This is pretty much the same as the `vkCmdWriteTimestamp` function used in this sample, but adds support for some additional pipeline stages using `VkPipelineStageFlags2`.
 
 Even though timestamp queries are limited due to how a GPU works, they can still be useful for profiling and finding performance GPU bottlenecks.

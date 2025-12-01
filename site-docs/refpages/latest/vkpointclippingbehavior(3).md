@@ -33,9 +33,8 @@ typedef enum VkPointClippingBehavior {
     VK_POINT_CLIPPING_BEHAVIOR_USER_CLIP_PLANES_ONLY_KHR = VK_POINT_CLIPPING_BEHAVIOR_USER_CLIP_PLANES_ONLY,
 } VkPointClippingBehavior;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance2
+// Equivalent to VkPointClippingBehavior
 typedef VkPointClippingBehavior VkPointClippingBehaviorKHR;
 
 * 
@@ -48,7 +47,7 @@ including the planes bounding the view volume.
 the primitive is discarded only if the vertex lies outside any user clip
 plane.
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDevicePointClippingProperties](VkPhysicalDevicePointClippingProperties.html), [VkPhysicalDeviceVulkan11Properties](VkPhysicalDeviceVulkan11Properties.html)
+[VK_KHR_maintenance2](VK_KHR_maintenance2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDevicePointClippingProperties](VkPhysicalDevicePointClippingProperties.html), [VkPhysicalDeviceVulkan11Properties](VkPhysicalDeviceVulkan11Properties.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/vertexpostproc.html#VkPointClippingBehavior).
 

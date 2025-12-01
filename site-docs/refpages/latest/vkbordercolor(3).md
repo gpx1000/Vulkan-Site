@@ -71,7 +71,7 @@ data in floating-point format.
 the [VkSamplerCreateInfo](VkSamplerCreateInfo.html)::`pNext` chain containing the color
 data in integer format.
 
-These colors are described in detail in [Texel Replacement](../../../../spec/latest/chapters/textures.html#textures-texel-replacement).
+These colors are described in detail in [Border Replacement](../../../../spec/latest/chapters/textures.html#textures-border-replacement).
 
 [VK_VERSION_1_0](VK_VERSION_1_0.html), [VkSamplerCreateInfo](VkSamplerCreateInfo.html)
 

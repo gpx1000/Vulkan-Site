@@ -84,7 +84,7 @@ Valid Usage
 
 The buffer from which `compressedData.deviceAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_2_COMPRESSED_DATA_DGF1_BIT_AMDX` usage flag
+`VK_BUFFER_USAGE_2_COMPRESSED_DATA_DGF1_BIT_AMDX` usage flag set
 
 * 
 [](#VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-denseGeometryFormat-10886) VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-denseGeometryFormat-10886

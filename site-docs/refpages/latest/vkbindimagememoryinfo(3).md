@@ -33,9 +33,8 @@ typedef struct VkBindImageMemoryInfo {
     VkDeviceSize       memoryOffset;
 } VkBindImageMemoryInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_bind_memory2
+// Equivalent to VkBindImageMemoryInfo
 typedef VkBindImageMemoryInfo VkBindImageMemoryInfoKHR;
 
 * 
@@ -115,6 +114,14 @@ parameter of the image being bound **must** be equal to or smaller than the
 original image for which the allocation was created; and the
 `arrayLayers` parameter of the image being bound **must** be equal to
 or smaller than the original image for which the allocation was created
+
+* 
+[](#VUID-VkBindImageMemoryInfo-memory-10926) VUID-VkBindImageMemoryInfo-memory-10926
+
+If the `VkMemoryAllocateInfo` provided when `memory` was
+allocated included a [VkMemoryDedicatedAllocateInfo](VkMemoryDedicatedAllocateInfo.html) structure in
+its `pNext` chain, [VkMemoryDedicatedAllocateInfo](VkMemoryDedicatedAllocateInfo.html)::`buffer`
+**must** have been [VK_NULL_HANDLE](VK_NULL_HANDLE.html)
 
 * 
 [](#VUID-VkBindImageMemoryInfo-None-01901) VUID-VkBindImageMemoryInfo-None-01901
@@ -347,7 +354,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkBindImageMemoryInfo-pNext-pNext) VUID-VkBindImageMemoryInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkBindImageMemoryDeviceGroupInfo](VkBindImageMemoryDeviceGroupInfo.html), [VkBindImageMemorySwapchainInfoKHR](VkBindImageMemorySwapchainInfoKHR.html), [VkBindImagePlaneMemoryInfo](VkBindImagePlaneMemoryInfo.html), or [VkBindMemoryStatus](VkBindMemoryStatus.html)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkBindImageMemoryDeviceGroupInfo](VkBindImageMemoryDeviceGroupInfo.html), [VkBindImageMemorySwapchainInfoKHR](VkBindImageMemorySwapchainInfoKHR.html), [VkBindImagePlaneMemoryInfo](VkBindImagePlaneMemoryInfo.html), [VkBindMemoryStatus](VkBindMemoryStatus.html), or [VkNativeBufferOHOS](VkNativeBufferOHOS.html)
 
 * 
 [](#VUID-VkBindImageMemoryInfo-sType-unique) VUID-VkBindImageMemoryInfo-sType-unique
@@ -369,7 +376,7 @@ Host Synchronization
 * 
 Host access to `image` **must** be externally synchronized
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDeviceMemory](VkDeviceMemory.html), `VkDeviceSize`, [VkImage](VkImage.html), [VkStructureType](VkStructureType.html), [vkBindImageMemory2](vkBindImageMemory2.html), [vkBindImageMemory2](vkBindImageMemory2.html)
+[VK_KHR_bind_memory2](VK_KHR_bind_memory2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDeviceMemory](VkDeviceMemory.html), `VkDeviceSize`, [VkImage](VkImage.html), [VkStructureType](VkStructureType.html), [vkBindImageMemory2](vkBindImageMemory2.html), [vkBindImageMemory2](vkBindImageMemory2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/resources.html#VkBindImageMemoryInfo).
 

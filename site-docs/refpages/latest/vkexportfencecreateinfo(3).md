@@ -31,9 +31,8 @@ typedef struct VkExportFenceCreateInfo {
     VkExternalFenceHandleTypeFlags    handleTypes;
 } VkExportFenceCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence
+// Equivalent to VkExportFenceCreateInfo
 typedef VkExportFenceCreateInfo VkExportFenceCreateInfoKHR;
 
 * 
@@ -69,7 +68,7 @@ Valid Usage (Implicit)
 
  `handleTypes` **must** be a valid combination of [VkExternalFenceHandleTypeFlagBits](VkExternalFenceHandleTypeFlagBits.html) values
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalFenceHandleTypeFlags](VkExternalFenceHandleTypeFlags.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_external_fence](VK_KHR_external_fence.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalFenceHandleTypeFlags](VkExternalFenceHandleTypeFlags.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/synchronization.html#VkExportFenceCreateInfo).
 

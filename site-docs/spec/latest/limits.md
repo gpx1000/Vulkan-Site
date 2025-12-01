@@ -193,8 +193,7 @@ number of layers (`arrayLayers`) for an image.
 maximum number of addressable texels for a buffer view created on a
 buffer which was created with the
 `VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT` or
-`VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT` set in the `usage`
-member of the [VkBufferCreateInfo](resources.html#VkBufferCreateInfo) structure.
+`VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT` usage flag set.
 
 * 
  `maxUniformBufferRange` is the
@@ -211,6 +210,8 @@ maximum value that **can** be specified in the `range` member of a
 [vkUpdateDescriptorSets](descriptorsets.html#vkUpdateDescriptorSets) for descriptors of type
 `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER` or
 `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC`.
+If the [`shader64BitIndexing`](features.html#features-shader64BitIndexing)
+feature is enabled, this limit does not apply.
 
 * 
  `maxPushConstantsSize` is the
@@ -922,37 +923,37 @@ structure **must** be less than or equal to this limit.
 
 `sampledImageColorSampleCounts` is a bitmask1 of
 [VkSampleCountFlagBits](#VkSampleCountFlagBits) indicating the sample counts supported for
-all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, `usage`
-containing `VK_IMAGE_USAGE_SAMPLED_BIT`, and a non-integer color
+all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, the
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flag set, and a non-integer color
 format.
 
 * 
 
 `sampledImageIntegerSampleCounts` is a bitmask1 of
 [VkSampleCountFlagBits](#VkSampleCountFlagBits) indicating the sample counts supported for
-all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, `usage`
-containing `VK_IMAGE_USAGE_SAMPLED_BIT`, and an integer color
+all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, the
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flag set, and an integer color
 format.
 
 * 
 
 `sampledImageDepthSampleCounts` is a bitmask1 of
 [VkSampleCountFlagBits](#VkSampleCountFlagBits) indicating the sample counts supported for
-all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, `usage`
-containing `VK_IMAGE_USAGE_SAMPLED_BIT`, and a depth format.
+all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, the
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flag set, and a depth format.
 
 * 
 
 `sampledImageStencilSampleCounts` is a bitmask1 of
 [VkSampleCountFlagBits](#VkSampleCountFlagBits) indicating the sample counts supported for
-all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, `usage`
-containing `VK_IMAGE_USAGE_SAMPLED_BIT`, and a stencil format.
+all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, the
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flag set, and a stencil format.
 
 * 
  `storageImageSampleCounts` is a
 bitmask1 of [VkSampleCountFlagBits](#VkSampleCountFlagBits) indicating the sample counts
 supported for all 2D images created with `VK_IMAGE_TILING_OPTIMAL`,
-and `usage` containing `VK_IMAGE_USAGE_STORAGE_BIT`.
+and the `VK_IMAGE_USAGE_STORAGE_BIT` usage flag set.
 
 * 
  `maxSampleMaskWords` is the maximum
@@ -1145,9 +1146,8 @@ typedef struct VkPhysicalDevicePushDescriptorProperties {
     uint32_t           maxPushDescriptors;
 } VkPhysicalDevicePushDescriptorProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_push_descriptor
+// Equivalent to VkPhysicalDevicePushDescriptorProperties
 typedef VkPhysicalDevicePushDescriptorProperties VkPhysicalDevicePushDescriptorPropertiesKHR;
 
 * 
@@ -1185,9 +1185,8 @@ typedef struct VkPhysicalDeviceMultiviewProperties {
     uint32_t           maxMultiviewInstanceIndex;
 } VkPhysicalDeviceMultiviewProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_multiview
+// Equivalent to VkPhysicalDeviceMultiviewProperties
 typedef VkPhysicalDeviceMultiviewProperties VkPhysicalDeviceMultiviewPropertiesKHR;
 
 * 
@@ -1245,9 +1244,8 @@ typedef struct VkPhysicalDeviceFloatControlsProperties {
     VkBool32                             shaderRoundingModeRTZFloat64;
 } VkPhysicalDeviceFloatControlsProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_shader_float_controls
+// Equivalent to VkPhysicalDeviceFloatControlsProperties
 typedef VkPhysicalDeviceFloatControlsProperties VkPhysicalDeviceFloatControlsPropertiesKHR;
 
 * 
@@ -1418,9 +1416,8 @@ typedef enum VkShaderFloatControlsIndependence {
     VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_NONE_KHR = VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_NONE,
 } VkShaderFloatControlsIndependence;
 
-or the equivalent
-
 // Provided by VK_KHR_shader_float_controls
+// Equivalent to VkShaderFloatControlsIndependence
 typedef VkShaderFloatControlsIndependence VkShaderFloatControlsIndependenceKHR;
 
 * 
@@ -1651,9 +1648,8 @@ typedef struct VkPhysicalDevicePointClippingProperties {
     VkPointClippingBehavior    pointClippingBehavior;
 } VkPhysicalDevicePointClippingProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance2
+// Equivalent to VkPhysicalDevicePointClippingProperties
 typedef VkPhysicalDevicePointClippingProperties VkPhysicalDevicePointClippingPropertiesKHR;
 
 * 
@@ -1888,9 +1884,8 @@ typedef struct VkPhysicalDeviceSubgroupSizeControlProperties {
     VkShaderStageFlags    requiredSubgroupSizeStages;
 } VkPhysicalDeviceSubgroupSizeControlProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_subgroup_size_control
+// Equivalent to VkPhysicalDeviceSubgroupSizeControlProperties
 typedef VkPhysicalDeviceSubgroupSizeControlProperties VkPhysicalDeviceSubgroupSizeControlPropertiesEXT;
 
 * 
@@ -2065,9 +2060,8 @@ typedef struct VkPhysicalDeviceVertexAttributeDivisorProperties {
     VkBool32           supportsNonZeroFirstInstance;
 } VkPhysicalDeviceVertexAttributeDivisorProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_vertex_attribute_divisor
+// Equivalent to VkPhysicalDeviceVertexAttributeDivisorProperties
 typedef VkPhysicalDeviceVertexAttributeDivisorProperties VkPhysicalDeviceVertexAttributeDivisorPropertiesKHR;
 
 * 
@@ -2113,9 +2107,8 @@ typedef struct VkPhysicalDeviceSamplerFilterMinmaxProperties {
     VkBool32           filterMinmaxImageComponentMapping;
 } VkPhysicalDeviceSamplerFilterMinmaxProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_sampler_filter_minmax
+// Equivalent to VkPhysicalDeviceSamplerFilterMinmaxProperties
 typedef VkPhysicalDeviceSamplerFilterMinmaxProperties VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT;
 
 * 
@@ -2255,9 +2248,8 @@ typedef struct VkPhysicalDeviceMaintenance3Properties {
     VkDeviceSize       maxMemoryAllocationSize;
 } VkPhysicalDeviceMaintenance3Properties;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance3
+// Equivalent to VkPhysicalDeviceMaintenance3Properties
 typedef VkPhysicalDeviceMaintenance3Properties VkPhysicalDeviceMaintenance3PropertiesKHR;
 
 * 
@@ -2304,9 +2296,8 @@ typedef struct VkPhysicalDeviceMaintenance4Properties {
     VkDeviceSize       maxBufferSize;
 } VkPhysicalDeviceMaintenance4Properties;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance4
+// Equivalent to VkPhysicalDeviceMaintenance4Properties
 typedef VkPhysicalDeviceMaintenance4Properties VkPhysicalDeviceMaintenance4PropertiesKHR;
 
 * 
@@ -2346,9 +2337,8 @@ typedef struct VkPhysicalDeviceMaintenance5Properties {
     VkBool32           nonStrictWideLinesUseParallelogram;
 } VkPhysicalDeviceMaintenance5Properties;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkPhysicalDeviceMaintenance5Properties
 typedef VkPhysicalDeviceMaintenance5Properties VkPhysicalDeviceMaintenance5PropertiesKHR;
 
 * 
@@ -2414,9 +2404,8 @@ typedef struct VkPhysicalDeviceMaintenance6Properties {
     VkBool32           fragmentShadingRateClampCombinerInputs;
 } VkPhysicalDeviceMaintenance6Properties;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance6
+// Equivalent to VkPhysicalDeviceMaintenance6Properties
 typedef VkPhysicalDeviceMaintenance6Properties VkPhysicalDeviceMaintenance6PropertiesKHR;
 
 * 
@@ -2488,8 +2477,8 @@ the size of the attachment multiplied by the texel size **must** be greater
 than or equal to the size of the render area.
 If it is `VK_TRUE` and the fragment shading rate attachment was
 created with [VkImageSubresourceRange](resources.html#VkImageSubresourceRange)::`baseMipLevel` equal to
-0, the scaled size **can** be smaller than the render area, and shading
-rates for missing texels are defined by [    texel replacement for invalid texels](textures.html#textures-texel-replacement).
+0, the scaled size **can** be smaller than the render area, with missing
+shading rates defined by [out    of bounds behavior](shaders.html#shaders-execution-memory-access-bounds).
 
 * 
 
@@ -2847,6 +2836,69 @@ value read for an unbound vertex attribute is (0,0,0,0).
 * 
 `VK_DEFAULT_VERTEX_ATTRIBUTE_VALUE_ZERO_ZERO_ZERO_ONE_KHR` - the
 value read for an unbound vertex attribute is (0,0,0,1).
+
+The `VkPhysicalDeviceMaintenance10PropertiesKHR` structure is defined
+as:
+
+// Provided by VK_KHR_maintenance10
+typedef struct VkPhysicalDeviceMaintenance10PropertiesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           rgba4OpaqueBlackSwizzled;
+    VkBool32           resolveSrgbFormatAppliesTransferFunction;
+    VkBool32           resolveSrgbFormatSupportsTransferFunctionControl;
+} VkPhysicalDeviceMaintenance10PropertiesKHR;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ `rgba4OpaqueBlackSwizzled`
+indicates whether correct swizzling is applied to the opaque black
+border color when using either the `VK_FORMAT_B4G4R4A4_UNORM_PACK16`
+or `VK_FORMAT_R4G4B4A4_UNORM_PACK16` format.
+If it is `VK_TRUE`, the implementation will correctly produce an
+opaque black border color with these formats.
+If it is `VK_FALSE`, the implementation **may** swap the first channel
+with the alpha channel for the border color when sampling.
+
+* 
+
+`resolveSrgbFormatAppliesTransferFunction` indicates whether
+resolving a multi-sampled sRGB format to single-sampled sRGB by a
+weighted average converts the samples to linear before averaging.
+This applies to both attachment resolves in a render pass and standalone
+resolve commands.
+If `VK_TRUE`, implementation always converts to linear before
+averaging unless overridden.
+If `VK_FALSE`, implementation never converts to linear before
+averaging unless overridden.
+
+* 
+
+`resolveSrgbFormatSupportsTransferFunctionControl` indicates whether
+the implementation supports overriding the default behavior in
+`resolveSrgbFormatAppliesTransferFunction` in
+render passes and [vkCmdResolveImage2](copies.html#vkCmdResolveImage2).
+
+Implementations supporting [`maintenance10`](features.html#features-maintenance10)
+**should** set `resolveSrgbFormatAppliesTransferFunction` to `VK_TRUE`.
+
+If the `VkPhysicalDeviceMaintenance10PropertiesKHR` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceProperties2](devsandqueues.html#VkPhysicalDeviceProperties2) structure passed to
+[vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2), it is filled in with each
+corresponding implementation-dependent property.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceMaintenance10PropertiesKHR-sType-sType) VUID-VkPhysicalDeviceMaintenance10PropertiesKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR`
 
 The `VkPhysicalDeviceMeshShaderPropertiesNV` structure is defined as:
 
@@ -3270,9 +3322,8 @@ typedef struct VkPhysicalDeviceDescriptorIndexingProperties {
     uint32_t           maxDescriptorSetUpdateAfterBindInputAttachments;
 } VkPhysicalDeviceDescriptorIndexingProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkPhysicalDeviceDescriptorIndexingProperties
 typedef VkPhysicalDeviceDescriptorIndexingProperties VkPhysicalDeviceDescriptorIndexingPropertiesEXT;
 
 * 
@@ -3517,9 +3568,8 @@ typedef struct VkPhysicalDeviceInlineUniformBlockProperties {
     uint32_t           maxDescriptorSetUpdateAfterBindInlineUniformBlocks;
 } VkPhysicalDeviceInlineUniformBlockProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_inline_uniform_block
+// Equivalent to VkPhysicalDeviceInlineUniformBlockProperties
 typedef VkPhysicalDeviceInlineUniformBlockProperties VkPhysicalDeviceInlineUniformBlockPropertiesEXT;
 
 * 
@@ -3815,9 +3865,8 @@ typedef struct VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT {
     VkExtent2D         fragmentDensityOffsetGranularity;
 } VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT;
 
-or the equivalent
-
 // Provided by VK_QCOM_fragment_density_map_offset
+// Equivalent to VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT
 typedef VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM;
 
 * 
@@ -4097,9 +4146,8 @@ typedef struct VkPhysicalDeviceDepthStencilResolveProperties {
     VkBool32              independentResolve;
 } VkPhysicalDeviceDepthStencilResolveProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_depth_stencil_resolve
+// Equivalent to VkPhysicalDeviceDepthStencilResolveProperties
 typedef VkPhysicalDeviceDepthStencilResolveProperties VkPhysicalDeviceDepthStencilResolvePropertiesKHR;
 
 * 
@@ -4239,16 +4287,20 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV`
 
-The `VkPhysicalDeviceMemoryDecompressionPropertiesNV` structure is
+The `VkPhysicalDeviceMemoryDecompressionPropertiesEXT` structure is
 defined as:
 
+// Provided by VK_EXT_memory_decompression
+typedef struct VkPhysicalDeviceMemoryDecompressionPropertiesEXT {
+    VkStructureType                        sType;
+    void*                                  pNext;
+    VkMemoryDecompressionMethodFlagsEXT    decompressionMethods;
+    uint64_t                               maxDecompressionIndirectCount;
+} VkPhysicalDeviceMemoryDecompressionPropertiesEXT;
+
 // Provided by VK_NV_memory_decompression
-typedef struct VkPhysicalDeviceMemoryDecompressionPropertiesNV {
-    VkStructureType                       sType;
-    void*                                 pNext;
-    VkMemoryDecompressionMethodFlagsNV    decompressionMethods;
-    uint64_t                              maxDecompressionIndirectCount;
-} VkPhysicalDeviceMemoryDecompressionPropertiesNV;
+// Equivalent to VkPhysicalDeviceMemoryDecompressionPropertiesEXT
+typedef VkPhysicalDeviceMemoryDecompressionPropertiesEXT VkPhysicalDeviceMemoryDecompressionPropertiesNV;
 
 * 
 `sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
@@ -4259,15 +4311,20 @@ structure.
 
 * 
 `decompressionMethods` is a bitmask of
-[VkMemoryDecompressionMethodFlagBitsNV](VK_NV_memory_decompression.html#VkMemoryDecompressionMethodFlagBitsNV) specifying memory
+[VkMemoryDecompressionMethodFlagBitsEXT](memory_decompression.html#VkMemoryDecompressionMethodFlagBitsEXT) specifying memory
 decompression methods supported by the implementation.
 
 * 
 `maxDecompressionIndirectCount` specifies the maximum supported
-count value in the `countBuffer` of
-[vkCmdDecompressMemoryIndirectCountNV](VK_NV_memory_decompression.html#vkCmdDecompressMemoryIndirectCountNV)
+count value identified by either
+[vkCmdDecompressMemoryIndirectCountEXT](memory_decompression.html#vkCmdDecompressMemoryIndirectCountEXT)::`maxDecompressionCount`
+or the value specified in
+[vkCmdDecompressMemoryIndirectCountEXT](memory_decompression.html#vkCmdDecompressMemoryIndirectCountEXT)::`indirectCommandsCountAddress`
 
-If the `VkPhysicalDeviceMemoryDecompressionPropertiesNV` structure is included in the `pNext` chain of the
+If [`memoryDecompression`](features.html#features-memoryDecompression) feature is
+supported, `decompressionMethods` **must** have at least one bit set.
+
+If the `VkPhysicalDeviceMemoryDecompressionPropertiesEXT` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceProperties2](devsandqueues.html#VkPhysicalDeviceProperties2) structure passed to
 [vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2), it is filled in with each
 corresponding implementation-dependent property.
@@ -4275,9 +4332,9 @@ corresponding implementation-dependent property.
 Valid Usage (Implicit)
 
 * 
-[](#VUID-VkPhysicalDeviceMemoryDecompressionPropertiesNV-sType-sType) VUID-VkPhysicalDeviceMemoryDecompressionPropertiesNV-sType-sType
+[](#VUID-VkPhysicalDeviceMemoryDecompressionPropertiesEXT-sType-sType) VUID-VkPhysicalDeviceMemoryDecompressionPropertiesEXT-sType-sType
 
- `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_NV`
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT`
 
 The `VkPhysicalDeviceTransformFeedbackPropertiesEXT` structure is
 defined as:
@@ -4390,12 +4447,16 @@ Valid Usage (Implicit)
 The `VkPhysicalDeviceCopyMemoryIndirectPropertiesNV` structure is
 defined as:
 
-// Provided by VK_NV_copy_memory_indirect
-typedef struct VkPhysicalDeviceCopyMemoryIndirectPropertiesNV {
+// Provided by VK_KHR_copy_memory_indirect
+typedef struct VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR {
     VkStructureType    sType;
     void*              pNext;
     VkQueueFlags       supportedQueues;
-} VkPhysicalDeviceCopyMemoryIndirectPropertiesNV;
+} VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR;
+
+// Provided by VK_NV_copy_memory_indirect
+// Equivalent to VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR
+typedef VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR VkPhysicalDeviceCopyMemoryIndirectPropertiesNV;
 
 * 
 `sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
@@ -4406,13 +4467,17 @@ structure.
 
 * 
 `supportedQueues` is a bitmask of [VkQueueFlagBits](devsandqueues.html#VkQueueFlagBits) indicating
-the queues on which [indirect copy commands](copies.html#indirect-copies) are
-supported.
+the types of queues on which [indirect copy commands](copies.html#indirect-copies)
+are supported.
+If a queue family supports any of the bits set in `supportedQueues`,
+then it **must** support at least one [indirect copy    command](copies.html#indirect-copies).
 
-If the [`indirectCopy`](features.html#features-indirectCopy) feature is supported,
-`supportedQueues` **must** return at least one supported queue.
+If the [`indirectMemoryCopy`](features.html#features-indirectMemoryCopy) or
+[`indirectMemoryToImageCopy`](features.html#features-indirectMemoryToImageCopy)
+feature is supported, `supportedQueues` **must** return at least one
+supported queue type.
 
-If the `VkPhysicalDeviceCopyMemoryIndirectPropertiesNV` structure is included in the `pNext` chain of the
+If the `VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceProperties2](devsandqueues.html#VkPhysicalDeviceProperties2) structure passed to
 [vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2), it is filled in with each
 corresponding implementation-dependent property.
@@ -4420,9 +4485,9 @@ corresponding implementation-dependent property.
 Valid Usage (Implicit)
 
 * 
-[](#VUID-VkPhysicalDeviceCopyMemoryIndirectPropertiesNV-sType-sType) VUID-VkPhysicalDeviceCopyMemoryIndirectPropertiesNV-sType-sType
+[](#VUID-VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR-sType-sType) VUID-VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR-sType-sType
 
- `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV`
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR`
 
 The `VkPhysicalDeviceRayTracingPropertiesNV` structure is defined as:
 
@@ -4917,9 +4982,8 @@ typedef struct VkPhysicalDeviceTexelBufferAlignmentProperties {
     VkBool32           uniformTexelBufferOffsetSingleTexelAlignment;
 } VkPhysicalDeviceTexelBufferAlignmentProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_texel_buffer_alignment
+// Equivalent to VkPhysicalDeviceTexelBufferAlignmentProperties
 typedef VkPhysicalDeviceTexelBufferAlignmentProperties VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT;
 
 * 
@@ -4989,9 +5053,8 @@ typedef struct VkPhysicalDeviceTimelineSemaphoreProperties {
     uint64_t           maxTimelineSemaphoreValueDifference;
 } VkPhysicalDeviceTimelineSemaphoreProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkPhysicalDeviceTimelineSemaphoreProperties
 typedef VkPhysicalDeviceTimelineSemaphoreProperties VkPhysicalDeviceTimelineSemaphorePropertiesKHR;
 
 * 
@@ -5029,14 +5092,12 @@ typedef struct VkPhysicalDeviceLineRasterizationProperties {
     uint32_t           lineSubPixelPrecisionBits;
 } VkPhysicalDeviceLineRasterizationProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_line_rasterization
+// Equivalent to VkPhysicalDeviceLineRasterizationProperties
 typedef VkPhysicalDeviceLineRasterizationProperties VkPhysicalDeviceLineRasterizationPropertiesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_line_rasterization
+// Equivalent to VkPhysicalDeviceLineRasterizationProperties
 typedef VkPhysicalDeviceLineRasterizationProperties VkPhysicalDeviceLineRasterizationPropertiesEXT;
 
 * 
@@ -5074,9 +5135,8 @@ typedef struct VkPhysicalDeviceRobustness2PropertiesKHR {
     VkDeviceSize       robustUniformBufferAccessSizeAlignment;
 } VkPhysicalDeviceRobustness2PropertiesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_robustness2
+// Equivalent to VkPhysicalDeviceRobustness2PropertiesKHR
 typedef VkPhysicalDeviceRobustness2PropertiesKHR VkPhysicalDeviceRobustness2PropertiesEXT;
 
 * 
@@ -5842,15 +5902,15 @@ structure.
 
 `combinedImageSamplerDescriptorSingleArray` indicates that the
 implementation does not require an array of
-`VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER` descriptors to be written
-into a descriptor buffer as an array of image descriptors, immediately
-followed by an array of sampler descriptors.
+`VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER` descriptors to be
+written into a descriptor buffer as an array of image descriptors,
+immediately followed by an array of sampler descriptors.
 
 * 
  `bufferlessPushDescriptors`
 indicates that the implementation does not require a buffer created with
-`VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT` to be bound
-when using push descriptors.
+the `VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT`
+usage flag set to be bound when using push descriptors.
 
 * 
 
@@ -6026,20 +6086,23 @@ accessible to a shader.
 
 `samplerDescriptorBufferAddressSpaceSize` indicates the total size
 in bytes of the address space available for descriptor buffers created
-with `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT`.
+with the `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` usage
+flag set.
 
 * 
 
 `resourceDescriptorBufferAddressSpaceSize` indicates the total size
 in bytes of the address space available for descriptor buffers created
-with `VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`.
+with the `VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT` usage
+flag set.
 
 * 
 
 `descriptorBufferAddressSpaceSize` indicates the total size in bytes
 of the address space available for descriptor buffers created with both
-`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` and
-`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`.
+the `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` and
+`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT` usage flags
+set.
 
 A descriptor binding with type `VK_DESCRIPTOR_TYPE_MUTABLE_EXT` has a
 descriptor size which is implied by the descriptor types included in the
@@ -6158,9 +6221,8 @@ typedef struct VkPhysicalDeviceHostImageCopyProperties {
     VkBool32           identicalMemoryTypeRequirements;
 } VkPhysicalDeviceHostImageCopyProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to VkPhysicalDeviceHostImageCopyProperties
 typedef VkPhysicalDeviceHostImageCopyProperties VkPhysicalDeviceHostImageCopyPropertiesEXT;
 
 * 
@@ -6221,8 +6283,9 @@ written to `pCopyDstLayouts`.
 The implementation **must** include the `VK_IMAGE_LAYOUT_GENERAL` image
 layout in `pCopyDstLayouts`.
 If the [`unifiedImageLayouts`](features.html#features-unifiedImageLayouts) feature
-is enabled, the implementation **must** include all the image layouts that are
-interchangeable with `VK_IMAGE_LAYOUT_GENERAL` in `pCopyDstLayouts`.
+is supported, the implementation **must** include all the image layouts that
+are interchangeable with `VK_IMAGE_LAYOUT_GENERAL` in
+`pCopyDstLayouts`.
 
 If `pCopySrcLayouts` is `NULL`, then the number of image layouts that
 are supported in [VkCopyImageToMemoryInfo](copies.html#VkCopyImageToMemoryInfo)::`srcImageLayout` and
@@ -6238,8 +6301,9 @@ written to `pCopySrcLayouts`.
 The implementation **must** include the `VK_IMAGE_LAYOUT_GENERAL` image
 layout in `pCopySrcLayouts`.
 If the [`unifiedImageLayouts`](features.html#features-unifiedImageLayouts) feature
-is enabled, the implementation **must** include all the image layouts that are
-interchangeable with `VK_IMAGE_LAYOUT_GENERAL` in `pCopySrcLayouts`.
+is supported, the implementation **must** include all the image layouts that
+are interchangeable with `VK_IMAGE_LAYOUT_GENERAL` in
+`pCopySrcLayouts`.
 
 The `optimalTilingLayoutUUID` value can be used to ensure compatible
 data layouts when using the `VK_HOST_IMAGE_COPY_MEMCPY_BIT` flag in
@@ -6502,9 +6566,8 @@ typedef struct VkPhysicalDevicePipelineRobustnessProperties {
     VkPipelineRobustnessImageBehavior     defaultRobustnessImages;
 } VkPhysicalDevicePipelineRobustnessProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_robustness
+// Equivalent to VkPhysicalDevicePipelineRobustnessProperties
 typedef VkPhysicalDevicePipelineRobustnessProperties VkPhysicalDevicePipelineRobustnessPropertiesEXT;
 
 * 
@@ -6793,30 +6856,111 @@ Valid Usage (Implicit)
 
 Values which **may** be returned in the
 `rayTracingInvocationReorderReorderingHint` field of
-`VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV` are:
+`VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT`
+or
+`VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV`
+are:
+
+// Provided by VK_EXT_ray_tracing_invocation_reorder
+typedef enum VkRayTracingInvocationReorderModeEXT {
+    VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_EXT = 0,
+    VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_EXT = 1,
+  // Provided by VK_NV_ray_tracing_invocation_reorder
+    VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_NV = VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_EXT,
+  // Provided by VK_NV_ray_tracing_invocation_reorder
+    VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_NV = VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_EXT,
+} VkRayTracingInvocationReorderModeEXT;
 
 // Provided by VK_NV_ray_tracing_invocation_reorder
-typedef enum VkRayTracingInvocationReorderModeNV {
-    VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_NV = 0,
-    VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_NV = 1,
-} VkRayTracingInvocationReorderModeNV;
+// Equivalent to VkRayTracingInvocationReorderModeEXT
+typedef VkRayTracingInvocationReorderModeEXT VkRayTracingInvocationReorderModeNV;
 
 * 
-`VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_NV` specifies that the
-implementation is likely to not reorder at reorder calls.
+`VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_EXT` specifies that the
+implementation does not reorder at reorder calls.
 
 * 
-`VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_NV` specifies that
-the implementation is likely to reorder at reorder calls.
+`VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_EXT` specifies that
+the implementation **may** reorder at reorder calls.
+
+The `VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT` structure
+is defined as:
+
+// Provided by VK_EXT_ray_tracing_invocation_reorder
+typedef struct VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT {
+    VkStructureType                         sType;
+    void*                                   pNext;
+    VkRayTracingInvocationReorderModeEXT    rayTracingInvocationReorderReorderingHint;
+    uint32_t                                maxShaderBindingTableRecordIndex;
+} VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`rayTracingInvocationReorderReorderingHint` is a hint indicating if
+the implementation **may** reorder at the reorder calls.
+
+* 
+`maxShaderBindingTableRecordIndex` is the maximum shader binding
+table record index allowed to be passed in to
+`OpHitObjectSetShaderBindingTableRecordIndexEXT`
+
+If `rayTracingInvocationReorderReorderingHint` is
+`VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_EXT` there **must** exist
+conditions under which the ordered set of invocations before a reorder
+instruction is different than the ordered set of invocations after the
+reorder instruction.
+The ordering of a set of invocations is determined by the `SubgroupId` of
+an invocation’s subgroup and the `SubGroupInvocationId` of an invocation
+within that subgroup.
+
+The reorder instructions are:
+
+* 
+`OpReorderThreadWithHintEXT`
+
+* 
+`OpReorderThreadWithHitObjectEXT`
+
+* 
+`OpHitObjectReorderExecuteShaderEXT`
+
+* 
+`OpHitObjectTraceReorderExecuteEXT`
+
+* 
+`OpHitObjectTraceMotionReorderExecuteEXT`
+
+|  | Because the extension changes how hits are managed there is a compatibility
+| --- | --- |
+reason to expose the extension even when an implementation does not have
+sorting active. |
+
+If the `VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceProperties2](devsandqueues.html#VkPhysicalDeviceProperties2) structure passed to
+[vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2), it is filled in with each
+corresponding implementation-dependent property.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT-sType-sType) VUID-VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT`
 
 The `VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV` structure
 is defined as:
 
 // Provided by VK_NV_ray_tracing_invocation_reorder
 typedef struct VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV {
-    VkStructureType                        sType;
-    void*                                  pNext;
-    VkRayTracingInvocationReorderModeNV    rayTracingInvocationReorderReorderingHint;
+    VkStructureType                         sType;
+    void*                                   pNext;
+    VkRayTracingInvocationReorderModeEXT    rayTracingInvocationReorderReorderingHint;
 } VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV;
 
 * 
@@ -7643,6 +7787,56 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM`
 
+The `VkPhysicalDevicePerformanceCountersByRegionPropertiesARM` structure
+is defined as:
+
+// Provided by VK_ARM_performance_counters_by_region
+typedef struct VkPhysicalDevicePerformanceCountersByRegionPropertiesARM {
+    VkStructureType    sType;
+    void*              pNext;
+    uint32_t           maxPerRegionPerformanceCounters;
+    VkExtent2D         performanceCounterRegionSize;
+    uint32_t           rowStrideAlignment;
+    uint32_t           regionAlignment;
+    VkBool32           identityTransformOrder;
+} VkPhysicalDevicePerformanceCountersByRegionPropertiesARM;
+
+The members of the
+`VkPhysicalDevicePerformanceCountersByRegionPropertiesARM` structure
+describe the following:
+
+* 
+`maxPerRegionPerformanceCounters` is the maximum number of
+performance counters that **can** be captured per region.
+
+* 
+`performanceCounterRegionSize` is the width and height of each
+region for which performance counters **can** be captured.
+
+* 
+`rowStrideAlignment` indicates the minimum row alignment for by
+region counters.
+
+* 
+`regionAlignment` indicates the alignment between each region’s
+counter values.
+
+* 
+`identityTransformOrder` is a boolean value indicating whether per
+region counters are output in framebuffer-space order.
+
+If the `VkPhysicalDevicePerformanceCountersByRegionPropertiesARM` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceProperties2](devsandqueues.html#VkPhysicalDeviceProperties2) structure passed to
+[vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2), it is filled in with each
+corresponding implementation-dependent property.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDevicePerformanceCountersByRegionPropertiesARM-sType-sType) VUID-VkPhysicalDevicePerformanceCountersByRegionPropertiesARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM`
+
 The following table specifies the **required** minimum/maximum for all Vulkan
 graphics implementations.
 Where a limit corresponds to a fine-grained device feature which is
@@ -7955,7 +8149,7 @@ whether or not the feature is enabled.
 | `VkBool32` | `dynamicPrimitiveTopologyUnrestricted` | `[VK_EXT_extended_dynamic_state3](../appendices/extensions.html#VK_EXT_extended_dynamic_state3)` |
 | `uint32_t` | `maxOpacity2StateSubdivisionLevel` | `[VK_EXT_opacity_micromap](../appendices/extensions.html#VK_EXT_opacity_micromap)` |
 | `uint32_t` | `maxOpacity4StateSubdivisionLevel` | `[VK_EXT_opacity_micromap](../appendices/extensions.html#VK_EXT_opacity_micromap)` |
-| `uint64_t` | `maxDecompressionIndirectCount` | `[VK_NV_memory_decompression](../appendices/extensions.html#VK_NV_memory_decompression)` |
+| `uint64_t` | `maxDecompressionIndirectCount` | `[VK_NV_memory_decompression](../appendices/extensions.html#VK_NV_memory_decompression)`, `[VK_EXT_memory_decompression](../appendices/extensions.html#VK_EXT_memory_decompression)` |
 | 3 × `uint32_t` | `maxWorkGroupCount` | `[VK_HUAWEI_cluster_culling_shader](../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader)` |
 | 3 × `uint32_t` | `maxWorkGroupSize` | `[VK_HUAWEI_cluster_culling_shader](../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader)` |
 | `uint32_t` | `maxOutputClusterCount` | `[VK_HUAWEI_cluster_culling_shader](../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader)` |
@@ -7988,6 +8182,9 @@ whether or not the feature is enabled.
 | `VkBool32` | `preferNonCoherent` | `[tileShading`](features.html#features-tileShading) |
 | 2 × `uint32_t` | `tileGranularity` | `[tileShading`](features.html#features-tileShading) |
 | 2 × `uint32_t` | `maxTileShadingRate` | `[tileShadingDispatchTile`](features.html#features-tileShadingDispatchTile) |
+| `uint32_t` | `maxShaderBindingTableRecordIndex` | `[VK_EXT_ray_tracing_invocation_reorder](../appendices/extensions.html#VK_EXT_ray_tracing_invocation_reorder)` |
+| `VkBool32` | `resolveSrgbFormatAppliesTransferFunction` | `[maintenance10`](features.html#features-maintenance10) |
+| `VkBool32` | `resolveSrgbFormatSupportsTransferFunctionControl` | `[maintenance10`](features.html#features-maintenance10) |
 
 | Limit | Unsupported Limit | Supported Limit | Limit Type1 |
 | --- | --- | --- | --- |
@@ -8488,6 +8685,9 @@ whether or not the feature is enabled.
 | `maxDescriptorSetUpdateAfterBindStorageTensors` | 0 | 500000 | min |
 | `maxPerStageDescriptorUpdateAfterBindStorageTensors` | 0 | 500000 | min |
 | `shaderTensorSupportedStages` | - | `VK_SHADER_STAGE_COMPUTE_BIT` | bitfield |
+| `maxShaderBindingTableRecordIndex` | - | 228-1 | min |
+| `resolveSrgbFormatAppliesTransferFunction` | - | - | implementation-depdendent |
+| `resolveSrgbFormatSupportsTransferFunctionControl` | `VK_FALSE` | `VK_FALSE` | min |
 
 1
 

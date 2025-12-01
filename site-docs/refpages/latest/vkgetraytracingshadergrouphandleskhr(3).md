@@ -30,9 +30,8 @@ VkResult vkGetRayTracingShaderGroupHandlesKHR(
     size_t                                      dataSize,
     void*                                       pData);
 
-or the equivalent command
-
 // Provided by VK_NV_ray_tracing
+// Equivalent to vkGetRayTracingShaderGroupHandlesKHR
 VkResult vkGetRayTracingShaderGroupHandlesNV(
     VkDevice                                    device,
     VkPipeline                                  pipeline,

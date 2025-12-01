@@ -302,7 +302,7 @@ The depth test compares the framebuffer depth coordinate `Zf` with the depth val
 
 The following gives a high level overview of the depth test.
 
-![depth_test](_images/depth_test.png)
+![depth_test](_images/depth_test.svg)
 
 The `VkPipelineDepthStencilStateCreateInfo::depthCompareOp` provides the comparison function used for the depth test.
 

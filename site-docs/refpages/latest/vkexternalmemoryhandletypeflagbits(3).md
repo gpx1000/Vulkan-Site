@@ -43,6 +43,8 @@ typedef enum VkExternalMemoryHandleTypeFlagBits {
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_ZIRCON_VMO_BIT_FUCHSIA = 0x00000800,
   // Provided by VK_NV_external_memory_rdma
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_RDMA_ADDRESS_BIT_NV = 0x00001000,
+  // Provided by VK_OHOS_external_memory
+    VK_EXTERNAL_MEMORY_HANDLE_TYPE_OH_NATIVE_BUFFER_BIT_OHOS = 0x00008000,
   // Provided by VK_QNX_external_memory_screen_buffer
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_SCREEN_BUFFER_BIT_QNX = 0x00004000,
   // Provided by VK_EXT_external_memory_metal
@@ -67,9 +69,8 @@ typedef enum VkExternalMemoryHandleTypeFlagBits {
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT_KHR = VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT,
 } VkExternalMemoryHandleTypeFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryHandleTypeFlagBits
 typedef VkExternalMemoryHandleTypeFlagBits VkExternalMemoryHandleTypeFlagBitsKHR;
 
 * 
@@ -222,7 +223,7 @@ prevent incompatible usage of dma-bufs (such as
 [VkPhysicalDeviceExternalBufferInfo](VkPhysicalDeviceExternalBufferInfo.html) and
 [VkPhysicalDeviceExternalImageFormatInfo](VkPhysicalDeviceExternalImageFormatInfo.html)). |
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalMemoryHandleTypeFlags](VkExternalMemoryHandleTypeFlags.html), [VkImportMemoryFdInfoKHR](VkImportMemoryFdInfoKHR.html), [VkImportMemoryHostPointerInfoEXT](VkImportMemoryHostPointerInfoEXT.html), [VkImportMemoryMetalHandleInfoEXT](VkImportMemoryMetalHandleInfoEXT.html), [VkImportMemoryWin32HandleInfoKHR](VkImportMemoryWin32HandleInfoKHR.html), [VkImportMemoryZirconHandleInfoFUCHSIA](VkImportMemoryZirconHandleInfoFUCHSIA.html), [VkMemoryGetFdInfoKHR](VkMemoryGetFdInfoKHR.html), [VkMemoryGetMetalHandleInfoEXT](VkMemoryGetMetalHandleInfoEXT.html), [VkMemoryGetRemoteAddressInfoNV](VkMemoryGetRemoteAddressInfoNV.html), [VkMemoryGetWin32HandleInfoKHR](VkMemoryGetWin32HandleInfoKHR.html), [VkMemoryGetZirconHandleInfoFUCHSIA](VkMemoryGetZirconHandleInfoFUCHSIA.html), [VkPhysicalDeviceExternalBufferInfo](VkPhysicalDeviceExternalBufferInfo.html), [VkPhysicalDeviceExternalImageFormatInfo](VkPhysicalDeviceExternalImageFormatInfo.html), [VkPhysicalDeviceExternalTensorInfoARM](VkPhysicalDeviceExternalTensorInfoARM.html), [vkGetMemoryFdPropertiesKHR](vkGetMemoryFdPropertiesKHR.html), [vkGetMemoryHostPointerPropertiesEXT](vkGetMemoryHostPointerPropertiesEXT.html), [vkGetMemoryMetalHandlePropertiesEXT](vkGetMemoryMetalHandlePropertiesEXT.html), [vkGetMemoryWin32HandlePropertiesKHR](vkGetMemoryWin32HandlePropertiesKHR.html), [vkGetMemoryZirconHandlePropertiesFUCHSIA](vkGetMemoryZirconHandlePropertiesFUCHSIA.html)
+[VK_KHR_external_memory_capabilities](VK_KHR_external_memory_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalMemoryHandleTypeFlags](VkExternalMemoryHandleTypeFlags.html), [VkImportMemoryFdInfoKHR](VkImportMemoryFdInfoKHR.html), [VkImportMemoryHostPointerInfoEXT](VkImportMemoryHostPointerInfoEXT.html), [VkImportMemoryMetalHandleInfoEXT](VkImportMemoryMetalHandleInfoEXT.html), [VkImportMemoryWin32HandleInfoKHR](VkImportMemoryWin32HandleInfoKHR.html), [VkImportMemoryZirconHandleInfoFUCHSIA](VkImportMemoryZirconHandleInfoFUCHSIA.html), [VkMemoryGetFdInfoKHR](VkMemoryGetFdInfoKHR.html), [VkMemoryGetMetalHandleInfoEXT](VkMemoryGetMetalHandleInfoEXT.html), [VkMemoryGetRemoteAddressInfoNV](VkMemoryGetRemoteAddressInfoNV.html), [VkMemoryGetWin32HandleInfoKHR](VkMemoryGetWin32HandleInfoKHR.html), [VkMemoryGetZirconHandleInfoFUCHSIA](VkMemoryGetZirconHandleInfoFUCHSIA.html), [VkPhysicalDeviceExternalBufferInfo](VkPhysicalDeviceExternalBufferInfo.html), [VkPhysicalDeviceExternalImageFormatInfo](VkPhysicalDeviceExternalImageFormatInfo.html), [VkPhysicalDeviceExternalTensorInfoARM](VkPhysicalDeviceExternalTensorInfoARM.html), [vkGetMemoryFdPropertiesKHR](vkGetMemoryFdPropertiesKHR.html), [vkGetMemoryHostPointerPropertiesEXT](vkGetMemoryHostPointerPropertiesEXT.html), [vkGetMemoryMetalHandlePropertiesEXT](vkGetMemoryMetalHandlePropertiesEXT.html), [vkGetMemoryWin32HandlePropertiesKHR](vkGetMemoryWin32HandlePropertiesKHR.html), [vkGetMemoryZirconHandlePropertiesFUCHSIA](vkGetMemoryZirconHandlePropertiesFUCHSIA.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkExternalMemoryHandleTypeFlagBits).
 

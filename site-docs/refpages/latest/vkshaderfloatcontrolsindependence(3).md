@@ -35,9 +35,8 @@ typedef enum VkShaderFloatControlsIndependence {
     VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_NONE_KHR = VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_NONE,
 } VkShaderFloatControlsIndependence;
 
-or the equivalent
-
 // Provided by VK_KHR_shader_float_controls
+// Equivalent to VkShaderFloatControlsIndependence
 typedef VkShaderFloatControlsIndependence VkShaderFloatControlsIndependenceKHR;
 
 * 

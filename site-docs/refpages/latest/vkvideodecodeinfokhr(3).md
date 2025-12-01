@@ -82,8 +82,8 @@ Valid Usage
 * 
 [](#VUID-VkVideoDecodeInfoKHR-srcBuffer-07165) VUID-VkVideoDecodeInfoKHR-srcBuffer-07165
 
-`srcBuffer` **must** have been created with
-`VK_BUFFER_USAGE_VIDEO_DECODE_SRC_BIT_KHR` set
+`srcBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_VIDEO_DECODE_SRC_BIT_KHR` usage flag set
 
 * 
 [](#VUID-VkVideoDecodeInfoKHR-srcBufferOffset-07166) VUID-VkVideoDecodeInfoKHR-srcBufferOffset-07166

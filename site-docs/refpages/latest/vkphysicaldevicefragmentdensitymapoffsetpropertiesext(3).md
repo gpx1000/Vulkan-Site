@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT {
     VkExtent2D         fragmentDensityOffsetGranularity;
 } VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT;
 
-or the equivalent
-
 // Provided by VK_QCOM_fragment_density_map_offset
+// Equivalent to VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT
 typedef VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM;
 
 * 
@@ -58,7 +57,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT`
 
-[VK_EXT_fragment_density_map_offset](VK_EXT_fragment_density_map_offset.html), [VkExtent2D](VkExtent2D.html), [VkStructureType](VkStructureType.html)
+[VK_EXT_fragment_density_map_offset](VK_EXT_fragment_density_map_offset.html), [VK_QCOM_fragment_density_map_offset](VK_QCOM_fragment_density_map_offset.html), [VkExtent2D](VkExtent2D.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/limits.html#VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT).
 

@@ -32,6 +32,7 @@ typedef struct VkPhysicalDeviceBufferDeviceAddressFeaturesEXT {
 } VkPhysicalDeviceBufferDeviceAddressFeaturesEXT;
 
 // Provided by VK_EXT_buffer_device_address
+// Equivalent to VkPhysicalDeviceBufferDeviceAddressFeaturesEXT
 typedef VkPhysicalDeviceBufferDeviceAddressFeaturesEXT VkPhysicalDeviceBufferAddressFeaturesEXT;
 
 This structure describes the following features:

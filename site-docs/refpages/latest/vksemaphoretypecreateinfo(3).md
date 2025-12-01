@@ -29,9 +29,8 @@ typedef struct VkSemaphoreTypeCreateInfo {
     uint64_t           initialValue;
 } VkSemaphoreTypeCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkSemaphoreTypeCreateInfo
 typedef VkSemaphoreTypeCreateInfo VkSemaphoreTypeCreateInfoKHR;
 
 * 

@@ -336,7 +336,7 @@ pipeline stages in `dstStageMask`, as specified in the
 * 
 [](#VUID-vkCmdPipelineBarrier-pBufferMemoryBarriers-02817) VUID-vkCmdPipelineBarrier-pBufferMemoryBarriers-02817
 
-For any element of `pBufferMemoryBarriers`, if its
+For each element of `pBufferMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `srcQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -348,7 +348,7 @@ access flags that are supported by one or more of the pipeline stages in
 * 
 [](#VUID-vkCmdPipelineBarrier-pBufferMemoryBarriers-02818) VUID-vkCmdPipelineBarrier-pBufferMemoryBarriers-02818
 
-For any element of `pBufferMemoryBarriers`, if its
+For each element of `pBufferMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `dstQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -360,7 +360,7 @@ access flags that are supported by one or more of the pipeline stages in
 * 
 [](#VUID-vkCmdPipelineBarrier-pImageMemoryBarriers-02819) VUID-vkCmdPipelineBarrier-pImageMemoryBarriers-02819
 
-For any element of `pImageMemoryBarriers`, if its
+For each element of `pImageMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `srcQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -372,7 +372,7 @@ access flags that are supported by one or more of the pipeline stages in
 * 
 [](#VUID-vkCmdPipelineBarrier-pImageMemoryBarriers-02820) VUID-vkCmdPipelineBarrier-pImageMemoryBarriers-02820
 
-For any element of `pImageMemoryBarriers`, if its
+For each element of `pImageMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `dstQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -571,7 +571,7 @@ structure that was used to create the `VkCommandPool` that
 [](#VUID-vkCmdPipelineBarrier-srcStageMask-09633) VUID-vkCmdPipelineBarrier-srcStageMask-09633
 
 If either `srcStageMask` or `dstStageMask` includes
-`VK_PIPELINE_STAGE_HOST_BIT`, for any element of
+`VK_PIPELINE_STAGE_HOST_BIT`, for each element of
 `pImageMemoryBarriers`, `srcQueueFamilyIndex` and
 `dstQueueFamilyIndex` **must** be equal
 
@@ -579,7 +579,7 @@ If either `srcStageMask` or `dstStageMask` includes
 [](#VUID-vkCmdPipelineBarrier-srcStageMask-09634) VUID-vkCmdPipelineBarrier-srcStageMask-09634
 
 If either `srcStageMask` or `dstStageMask` includes
-`VK_PIPELINE_STAGE_HOST_BIT`, for any element of
+`VK_PIPELINE_STAGE_HOST_BIT`, for each element of
 `pBufferMemoryBarriers`, `srcQueueFamilyIndex` and
 `dstQueueFamilyIndex` **must** be equal
 
@@ -644,7 +644,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPipelineBarrier-commandBuffer-cmdpool) VUID-vkCmdPipelineBarrier-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_TRANSFER_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdPipelineBarrier-suspended) VUID-vkCmdPipelineBarrier-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 Host Synchronization
 
@@ -659,15 +664,15 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Transfer
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute
+VK_QUEUE_TRANSFER_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Synchronization |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Synchronization |
 
 Conditional Rendering
 

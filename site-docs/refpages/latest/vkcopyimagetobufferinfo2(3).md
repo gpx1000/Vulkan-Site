@@ -32,9 +32,8 @@ typedef struct VkCopyImageToBufferInfo2 {
     const VkBufferImageCopy2*    pRegions;
 } VkCopyImageToBufferInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_copy_commands2
+// Equivalent to VkCopyImageToBufferInfo2
 typedef VkCopyImageToBufferInfo2 VkCopyImageToBufferInfo2KHR;
 
 * 
@@ -117,8 +116,8 @@ in memory
 * 
 [](#VUID-VkCopyImageToBufferInfo2-srcImage-00186) VUID-VkCopyImageToBufferInfo2-srcImage-00186
 
-`srcImage` **must** have been created with
-`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag
+`srcImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag set
 
 * 
 [](#VUID-VkCopyImageToBufferInfo2-srcImage-01998) VUID-VkCopyImageToBufferInfo2-srcImage-01998
@@ -129,8 +128,8 @@ The [format features](../../../../spec/latest/chapters/resources.html#resources-
 * 
 [](#VUID-VkCopyImageToBufferInfo2-dstBuffer-00191) VUID-VkCopyImageToBufferInfo2-dstBuffer-00191
 
-`dstBuffer` **must** have been created with
-`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag
+`dstBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-VkCopyImageToBufferInfo2-dstBuffer-00192) VUID-VkCopyImageToBufferInfo2-dstBuffer-00192
@@ -157,7 +156,7 @@ is executed on a `VkDevice`
 [](#VUID-VkCopyImageToBufferInfo2-srcImage-07966) VUID-VkCopyImageToBufferInfo2-srcImage-07966
 
 If `srcImage` is non-sparse then the image
-or the specified *disjoint* plane
+or each specified *disjoint* plane
 **must** be bound completely and contiguously to a single
 `VkDeviceMemory` object
 

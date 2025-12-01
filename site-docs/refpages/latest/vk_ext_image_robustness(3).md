@@ -100,7 +100,7 @@ images are handled.
 Rather than returning undefined values, most out of bounds reads return R,
 G, and B values of zero and alpha values of either zero or one.
 Components not present in the image format may be set to zero or to values
-based on the format as described in [Conversion to RGBA](../../../../spec/latest/chapters/textures.html#textures-conversion-to-rgba).
+based on the format as described in [Component Substitution](../../../../spec/latest/chapters/images.html#images-component-substitution).
 
 * 
 Extending [VkPhysicalDeviceFeatures2](VkPhysicalDeviceFeatures2.html), [VkDeviceCreateInfo](VkDeviceCreateInfo.html):

@@ -17,10 +17,10 @@
 
 ## Content
 
-vkCmdCopyMemoryToImageIndirectNV - Copy data from a memory region into an image
+vkCmdCopyMemoryToImageIndirectNV - Copy data from a memory region to an image object
 
 To copy data from a memory region to an image object by specifying copy
-parameters in a buffer, call:
+parameters in memory, call:
 
 // Provided by VK_NV_copy_memory_indirect
 void vkCmdCopyMemoryToImageIndirectNV(
@@ -37,13 +37,12 @@ void vkCmdCopyMemoryToImageIndirectNV(
 recorded.
 
 * 
-`copyBufferAddress` is the buffer address specifying the copy
-parameters.
-This buffer is laid out in memory as an array of
-[VkCopyMemoryToImageIndirectCommandNV](VkCopyMemoryToImageIndirectCommandNV.html) structures.
+`copyBufferAddress` is the address specifying the copy parameters
+which are laid out in memory as an array of
+[VkCopyMemoryToImageIndirectCommandNV](VkCopyMemoryToImageIndirectCommandKHR.html) structures.
 
 * 
-`copyCount` is the number of copies to execute, and can be zero.
+`copyCount` is the number of copies to execute, and **can** be zero.
 
 * 
 `stride` is the byte stride between successive sets of copy
@@ -57,9 +56,9 @@ parameters.
 for the copy.
 
 * 
-`pImageSubresources` is a pointer to an array of size
-`copyCount` of [VkImageSubresourceLayers](VkImageSubresourceLayers.html) used to specify the
-specific image subresource of the destination image data for that copy.
+`pImageSubresources` is a pointer to an array of `copyCount`
+[VkImageSubresourceLayers](VkImageSubresourceLayers.html) structures, specifying the image
+subresources of the destination image data for the copy operation.
 
 Each region in `copyBufferAddress` is copied from the source memory
 region to an image region in the destination image.
@@ -67,8 +66,6 @@ If the destination image is of type `VK_IMAGE_TYPE_3D`, the starting
 slice and number of slices to copy are specified in
 `pImageSubresources->baseArrayLayer` and
 `pImageSubresources->layerCount` respectively.
-The copy **must** be performed on a queue that supports indirect copy
-operations, see [VkPhysicalDeviceCopyMemoryIndirectPropertiesNV](VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.html).
 
 Valid Usage
 
@@ -77,6 +74,24 @@ Valid Usage
 
 The [`indirectCopy`](../../../../spec/latest/chapters/features.html#features-indirectCopy) feature **must** be
 enabled
+
+* 
+[](#VUID-vkCmdCopyMemoryToImageIndirectNV-offset-07676) VUID-vkCmdCopyMemoryToImageIndirectNV-offset-07676
+
+`copyBufferAddress` **must** be 4 byte aligned
+
+* 
+[](#VUID-vkCmdCopyMemoryToImageIndirectNV-stride-07677) VUID-vkCmdCopyMemoryToImageIndirectNV-stride-07677
+
+`stride` **must** be a multiple of `4` and **must** be greater than or
+equal to sizeof([VkCopyMemoryToImageIndirectCommandNV](VkCopyMemoryToImageIndirectCommandKHR.html))
+
+* 
+[](#VUID-vkCmdCopyMemoryToImageIndirectNV-commandBuffer-10956) VUID-vkCmdCopyMemoryToImageIndirectNV-commandBuffer-10956
+
+The [VkCommandPool](VkCommandPool.html) that `commandBuffer` was allocated from
+**must** support at least one of the queue types specified in
+[VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR](VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR.html)::`supportedQueues`
 
 * 
 [](#VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-07661) VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-07661
@@ -92,14 +107,14 @@ The `aspectMask` member for every subresource in
 * 
 [](#VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-07663) VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-07663
 
-The image region specified by each element in `copyBufferAddress`
-**must** be a region that is contained within `dstImage`
+The image region specified by each element in `copyBufferAddress` **must** be
+a region that is contained within `dstImage`
 
 * 
 [](#VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-07664) VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-07664
 
-`dstImage` **must** have been created with
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag
+`dstImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-07665) VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-07665
@@ -131,25 +146,19 @@ or `VK_IMAGE_LAYOUT_GENERAL`
 * 
 [](#VUID-vkCmdCopyMemoryToImageIndirectNV-mipLevel-07670) VUID-vkCmdCopyMemoryToImageIndirectNV-mipLevel-07670
 
-The specified `mipLevel` of each region **must** be less than the
-`mipLevels` specified in [VkImageCreateInfo](VkImageCreateInfo.html) when `dstImage`
-was created
+The specified `mipLevel` of each region in `pImageSubresources`
+**must** be less than the `mipLevels` specified in
+[VkImageCreateInfo](VkImageCreateInfo.html) when `dstImage` was created
 
 * 
 [](#VUID-vkCmdCopyMemoryToImageIndirectNV-layerCount-08764) VUID-vkCmdCopyMemoryToImageIndirectNV-layerCount-08764
 
-If `layerCount` is not `VK_REMAINING_ARRAY_LAYERS`, the
-specified `baseArrayLayer` +  `layerCount` of each region
-**must** be less than or equal to the `arrayLayers` specified in
-[VkImageCreateInfo](VkImageCreateInfo.html) when `dstImage` was created
-
-* 
-[](#VUID-vkCmdCopyMemoryToImageIndirectNV-imageOffset-07672) VUID-vkCmdCopyMemoryToImageIndirectNV-imageOffset-07672
-
-The `imageOffset` and `imageExtent` members of each region **must**
-respect the image transfer granularity requirements of
-`commandBuffer`’s command pool’s queue family, as described in
-[VkQueueFamilyProperties](VkQueueFamilyProperties.html)
+If the specified `layerCount` of each region in
+`pImageSubresources` is not `VK_REMAINING_ARRAY_LAYERS`, the
+specified `baseArrayLayer` +  `layerCount` of each region in
+`pImageSubresources` **must** be less than or equal to the
+`arrayLayers` specified in [VkImageCreateInfo](VkImageCreateInfo.html) when
+`dstImage` was created
 
 * 
 [](#VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-07673) VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-07673
@@ -167,23 +176,17 @@ member of `pImageSubresources` **must** not be
 `VK_IMAGE_ASPECT_DEPTH_BIT` or `VK_IMAGE_ASPECT_STENCIL_BIT`
 
 * 
-[](#VUID-vkCmdCopyMemoryToImageIndirectNV-imageOffset-07675) VUID-vkCmdCopyMemoryToImageIndirectNV-imageOffset-07675
+[](#VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-10974) VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-10974
 
-For each region in `copyBufferAddress`, `imageOffset.y` and
-(`imageExtent.height` +  `imageOffset.y`) **must** both
-be greater than or equal to `0` and less than or equal to the height of
-the specified subresource
+The format features of `dstImage` **must** contain
+`VK_FORMAT_FEATURE_TRANSFER_DST_BIT`
 
 * 
-[](#VUID-vkCmdCopyMemoryToImageIndirectNV-offset-07676) VUID-vkCmdCopyMemoryToImageIndirectNV-offset-07676
+[](#VUID-vkCmdCopyMemoryToImageIndirectNV-copyBufferAddress-10975) VUID-vkCmdCopyMemoryToImageIndirectNV-copyBufferAddress-10975
 
-`offset` **must** be 4 byte aligned
-
-* 
-[](#VUID-vkCmdCopyMemoryToImageIndirectNV-stride-07677) VUID-vkCmdCopyMemoryToImageIndirectNV-stride-07677
-
-`stride` **must** be a multiple of `4` and **must** be greater than or
-equal to sizeof(`VkCopyMemoryToImageIndirectCommandNV`)
+Any of the source or destination memory regions specified in
+`copyBufferAddress` **must** not overlap with any of the specified
+destination memory regions
 
 Valid Usage (Implicit)
 
@@ -220,12 +223,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyMemoryToImageIndirectNV-commandBuffer-cmdpool) VUID-vkCmdCopyMemoryToImageIndirectNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyMemoryToImageIndirectNV-renderpass) VUID-vkCmdCopyMemoryToImageIndirectNV-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyMemoryToImageIndirectNV-suspended) VUID-vkCmdCopyMemoryToImageIndirectNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyMemoryToImageIndirectNV-videocoding) VUID-vkCmdCopyMemoryToImageIndirectNV-videocoding
@@ -255,11 +263,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 

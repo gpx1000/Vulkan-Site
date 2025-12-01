@@ -142,7 +142,7 @@ copyBuffer(stagingBuffer, shaderStorageBufferTemp, bufferSize);
 shaderStorageBuffers.emplace_back(std::move(shaderStorageBufferTemp));
 shaderStorageBuffersMemory.emplace_back(std::move(shaderStorageBufferTempMemory));
 
-The SLang shader declaration for accessing such a buffer looks like this:
+The Slang shader declaration for accessing such a buffer looks like this:
 
 struct Particle {
 	float2 position;
@@ -184,7 +184,7 @@ textureImage = std::make_unique( *device, swapChainCreateInfo );
 
 The two flags `vk::ImageUsageFlagBits::eSampled` and `vk::ImageUsageFlagBits::eStorage` set with `imageInfo.usage` tell the implementation that we want to use this image for two different scenarios: as an image sampled in the fragment shader and as a storage image in the computer shader;
 
-The SLang shader declaration for storage image looks similar to sampled images
+The Slang shader declaration for storage image looks similar to sampled images
 used, e.g.,
 in the fragment shader:
 
@@ -521,7 +521,7 @@ We then use these to synchronize the compute buffer submission with the graphics
 
 {
     // Compute submission
-    while ( vk::Result::eTimeout == device->waitForFences( **computeInFlightFences[currentFrame], vk::True, FenceTimeout ) )
+    while ( vk::Result::eTimeout == device->waitForFences(**computeInFlightFences[currentFrame], vk::True, UINT64_MAX) )
         ;
 
     updateUniformBuffer(currentFrame);
@@ -534,7 +534,7 @@ We then use these to synchronize the compute buffer submission with the graphics
 }
 {
     // Graphics submission
-    while ( vk::Result::eTimeout == device->waitForFences( **inFlightFences[currentFrame], vk::True, FenceTimeout ) )
+    while ( vk::Result::eTimeout == device->waitForFences(**inFlightFences[currentFrame], vk::True, UINT64_MAX))
 ...
 
     device->resetFences(  **inFlightFences[currentFrame] );

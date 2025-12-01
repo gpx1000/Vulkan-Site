@@ -28,9 +28,8 @@ typedef struct VkPhysicalDeviceImageRobustnessFeatures {
     VkBool32           robustImageAccess;
 } VkPhysicalDeviceImageRobustnessFeatures;
 
-or the equivalent
-
 // Provided by VK_EXT_image_robustness
+// Equivalent to VkPhysicalDeviceImageRobustnessFeatures
 typedef VkPhysicalDeviceImageRobustnessFeatures VkPhysicalDeviceImageRobustnessFeaturesEXT;
 
 This structure describes the following feature:

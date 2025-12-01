@@ -27,9 +27,8 @@ void vkGetImageMemoryRequirements2(
     const VkImageMemoryRequirementsInfo2*       pInfo,
     VkMemoryRequirements2*                      pMemoryRequirements);
 
-or the equivalent command
-
 // Provided by VK_KHR_get_memory_requirements2
+// Equivalent to vkGetImageMemoryRequirements2
 void vkGetImageMemoryRequirements2KHR(
     VkDevice                                    device,
     const VkImageMemoryRequirementsInfo2*       pInfo,
@@ -65,7 +64,7 @@ Valid Usage (Implicit)
 
  `pMemoryRequirements` **must** be a valid pointer to a [VkMemoryRequirements2](VkMemoryRequirements2.html) structure
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDevice](VkDevice.html), [VkImageMemoryRequirementsInfo2](VkImageMemoryRequirementsInfo2.html), [VkMemoryRequirements2](VkMemoryRequirements2.html)
+[VK_KHR_get_memory_requirements2](VK_KHR_get_memory_requirements2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDevice](VkDevice.html), [VkImageMemoryRequirementsInfo2](VkImageMemoryRequirementsInfo2.html), [VkMemoryRequirements2](VkMemoryRequirements2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/resources.html#vkGetImageMemoryRequirements2).
 

@@ -100,12 +100,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdUpdatePipelineIndirectBufferNV-commandBuffer-cmdpool) VUID-vkCmdUpdatePipelineIndirectBufferNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdUpdatePipelineIndirectBufferNV-renderpass) VUID-vkCmdUpdatePipelineIndirectBufferNV-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdUpdatePipelineIndirectBufferNV-suspended) VUID-vkCmdUpdatePipelineIndirectBufferNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdUpdatePipelineIndirectBufferNV-videocoding) VUID-vkCmdUpdatePipelineIndirectBufferNV-videocoding
@@ -130,11 +135,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 

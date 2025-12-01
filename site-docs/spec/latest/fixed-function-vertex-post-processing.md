@@ -85,6 +85,9 @@ When an individual point, line, or triangle primitive reaches the transform
 feedback stage while transform feedback is active, the values of the
 specified output variables are assembled into primitives and appended to the
 bound transform feedback buffers.
+Any primitive for which any pair of vertices have the same position **should**
+be assembled for transform feedback normally but it **may** be discarded prior
+to primitive assembly instead.
 After activating transform feedback, the values of the first assembled
 primitive are written at the starting offsets of the bound transform
 feedback buffers, and subsequent primitives are appended to the buffer.
@@ -232,10 +235,8 @@ state is updated by the command.
 `pSizes` is `NULL` or a pointer to an array of `VkDeviceSize`
 buffer sizes, specifying the maximum number of bytes to capture to the
 corresponding transform feedback buffer.
-If `pSizes` is `NULL`, or the value of the `pSizes` array
-element is `VK_WHOLE_SIZE`, then the maximum number of bytes
-captured will be the size of the corresponding buffer minus the buffer
-offset.
+If `pSizes` is `NULL`, it is equivalent to setting a `pSizes`
+array where every element is `VK_WHOLE_SIZE`.
 
 The values taken from elements i of `pBuffers`, `pOffsets` and
 `pSizes` replace the current state for the transform feedback binding
@@ -243,6 +244,11 @@ The values taken from elements i of `pBuffers`, `pOffsets` and
 `bindingCount`).
 The transform feedback binding is updated to start at the offset indicated
 by `pOffsets`[i] from the start of the buffer `pBuffers`[i].
+
+When an element of `pSizes`[i] is `VK_WHOLE_SIZE`, or `pSizes`
+is `NULL`, the effective range is calculated by taking the size of
+`pBuffers`[i] minus `pOffsets`[i].
+Otherwise, the effective range is equal to the element in `pSizes`[i].
 
 Valid Usage
 
@@ -280,29 +286,15 @@ All elements of `pOffsets` **must** be a multiple of 4
 [](#VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02360) VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02360
 
 All elements of `pBuffers` **must** have been created with the
-`VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_BUFFER_BIT_EXT` flag
-
-* 
-[](#VUID-vkCmdBindTransformFeedbackBuffersEXT-pSize-02361) VUID-vkCmdBindTransformFeedbackBuffersEXT-pSize-02361
-
-If the optional `pSize` array is specified, each element of
-`pSizes` **must** either be `VK_WHOLE_SIZE`, or be less than or
-equal to
-`VkPhysicalDeviceTransformFeedbackPropertiesEXT`::`maxTransformFeedbackBufferSize`
-
-* 
-[](#VUID-vkCmdBindTransformFeedbackBuffersEXT-pSizes-02362) VUID-vkCmdBindTransformFeedbackBuffersEXT-pSizes-02362
-
-All elements of `pSizes` **must** be either `VK_WHOLE_SIZE`, or
-less than or equal to the size of the corresponding buffer in
-`pBuffers`
+`VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_BUFFER_BIT_EXT` usage flag set
 
 * 
 [](#VUID-vkCmdBindTransformFeedbackBuffersEXT-pOffsets-02363) VUID-vkCmdBindTransformFeedbackBuffersEXT-pOffsets-02363
 
-All elements of `pOffsets` plus `pSizes`, where the
-`pSizes`, element is not `VK_WHOLE_SIZE`, **must** be less than or
-equal to the size of the corresponding buffer in `pBuffers`
+All elements of `pOffsets` plus the
+[effective size](#transform-feedback-effective-size) of the element,
+**must** be less than or equal to the size of the corresponding buffer in
+`pBuffers`
 
 * 
 [](#VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02364) VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02364
@@ -341,7 +333,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindTransformFeedbackBuffersEXT-commandBuffer-cmdpool) VUID-vkCmdBindTransformFeedbackBuffersEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindTransformFeedbackBuffersEXT-videocoding) VUID-vkCmdBindTransformFeedbackBuffersEXT-videocoding
@@ -371,7 +363,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -492,9 +484,9 @@ If `pCounterBuffer` is `NULL`, then `pCounterBufferOffsets`
 [](#VUID-vkCmdBeginTransformFeedbackEXT-pCounterBuffers-02372) VUID-vkCmdBeginTransformFeedbackEXT-pCounterBuffers-02372
 
 For each buffer handle in the `pCounterBuffers` array that is not
-[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) it **must** have been created with a `usage` value
-containing
-`VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT`
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) it **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT` usage
+flag set
 
 * 
 [](#VUID-vkCmdBeginTransformFeedbackEXT-firstCounterBuffer-09630) VUID-vkCmdBeginTransformFeedbackEXT-firstCounterBuffer-09630
@@ -551,7 +543,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBeginTransformFeedbackEXT-commandBuffer-cmdpool) VUID-vkCmdBeginTransformFeedbackEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBeginTransformFeedbackEXT-renderpass) VUID-vkCmdBeginTransformFeedbackEXT-renderpass
@@ -581,7 +573,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | State |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -685,9 +677,9 @@ If `pCounterBuffer` is `NULL`, then `pCounterBufferOffsets`
 [](#VUID-vkCmdEndTransformFeedbackEXT-pCounterBuffers-02380) VUID-vkCmdEndTransformFeedbackEXT-pCounterBuffers-02380
 
 For each buffer handle in the `pCounterBuffers` array that is not
-[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) it **must** have been created with a `usage` value
-containing
-`VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT`
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) it **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT` usage
+flag set
 
 * 
 [](#VUID-vkCmdEndTransformFeedbackEXT-None-10657) VUID-vkCmdEndTransformFeedbackEXT-None-10657
@@ -716,7 +708,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdEndTransformFeedbackEXT-commandBuffer-cmdpool) VUID-vkCmdEndTransformFeedbackEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdEndTransformFeedbackEXT-renderpass) VUID-vkCmdEndTransformFeedbackEXT-renderpass
@@ -746,7 +738,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | State |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -894,7 +886,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetViewportSwizzleNV-commandBuffer-cmdpool) VUID-vkCmdSetViewportSwizzleNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetViewportSwizzleNV-videocoding) VUID-vkCmdSetViewportSwizzleNV-videocoding
@@ -919,7 +911,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1198,7 +1190,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetProvokingVertexModeEXT-commandBuffer-cmdpool) VUID-vkCmdSetProvokingVertexModeEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetProvokingVertexModeEXT-videocoding) VUID-vkCmdSetProvokingVertexModeEXT-videocoding
@@ -1218,7 +1210,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1349,7 +1341,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDepthClampEnableEXT-commandBuffer-cmdpool) VUID-vkCmdSetDepthClampEnableEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDepthClampEnableEXT-videocoding) VUID-vkCmdSetDepthClampEnableEXT-videocoding
@@ -1369,7 +1361,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1435,7 +1427,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDepthClipEnableEXT-commandBuffer-cmdpool) VUID-vkCmdSetDepthClipEnableEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDepthClipEnableEXT-videocoding) VUID-vkCmdSetDepthClipEnableEXT-videocoding
@@ -1455,7 +1447,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1487,9 +1479,8 @@ typedef enum VkPointClippingBehavior {
     VK_POINT_CLIPPING_BEHAVIOR_USER_CLIP_PLANES_ONLY_KHR = VK_POINT_CLIPPING_BEHAVIOR_USER_CLIP_PLANES_ONLY,
 } VkPointClippingBehavior;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance2
+// Equivalent to VkPointClippingBehavior
 typedef VkPointClippingBehavior VkPointClippingBehaviorKHR;
 
 * 
@@ -1636,7 +1627,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDepthClipNegativeOneToOneEXT-commandBuffer-cmdpool) VUID-vkCmdSetDepthClipNegativeOneToOneEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDepthClipNegativeOneToOneEXT-videocoding) VUID-vkCmdSetDepthClipNegativeOneToOneEXT-videocoding
@@ -1656,7 +1647,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1816,7 +1807,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetViewportWScalingEnableNV-commandBuffer-cmdpool) VUID-vkCmdSetViewportWScalingEnableNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetViewportWScalingEnableNV-videocoding) VUID-vkCmdSetViewportWScalingEnableNV-videocoding
@@ -1836,7 +1827,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1910,7 +1901,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetViewportWScalingNV-commandBuffer-cmdpool) VUID-vkCmdSetViewportWScalingNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetViewportWScalingNV-videocoding) VUID-vkCmdSetViewportWScalingNV-videocoding
@@ -1935,7 +1926,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -2238,9 +2229,8 @@ void vkCmdSetViewportWithCount(
     uint32_t                                    viewportCount,
     const VkViewport*                           pViewports);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetViewportWithCount
 void vkCmdSetViewportWithCountEXT(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    viewportCount,
@@ -2320,7 +2310,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetViewportWithCount-commandBuffer-cmdpool) VUID-vkCmdSetViewportWithCount-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetViewportWithCount-videocoding) VUID-vkCmdSetViewportWithCount-videocoding
@@ -2345,7 +2335,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -2360,9 +2350,8 @@ void vkCmdSetScissorWithCount(
     uint32_t                                    scissorCount,
     const VkRect2D*                             pScissors);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetScissorWithCount
 void vkCmdSetScissorWithCountEXT(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    scissorCount,
@@ -2459,7 +2448,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetScissorWithCount-commandBuffer-cmdpool) VUID-vkCmdSetScissorWithCount-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetScissorWithCount-videocoding) VUID-vkCmdSetScissorWithCount-videocoding
@@ -2484,7 +2473,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -2606,7 +2595,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetViewport-commandBuffer-cmdpool) VUID-vkCmdSetViewport-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetViewport-videocoding) VUID-vkCmdSetViewport-videocoding
@@ -2631,7 +2620,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

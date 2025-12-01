@@ -64,6 +64,9 @@ or
 Interacts with VK_VERSION_1_2
 
 * 
+Interacts with VK_AMD_draw_indirect_count
+
+* 
 Interacts with VK_EXT_device_generated_commands
 
 * 
@@ -132,7 +135,7 @@ Vulkan:
 * 
 [vkCmdDrawMeshTasksNV](vkCmdDrawMeshTasksNV.html)
 
-If [VK_KHR_draw_indirect_count](VK_KHR_draw_indirect_count.html) or [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2) is supported:
+If [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2) or [VK_KHR_draw_indirect_count](VK_KHR_draw_indirect_count.html) or [VK_AMD_draw_indirect_count](VK_AMD_draw_indirect_count.html) is supported:
 
 * 
 [vkCmdDrawMeshTasksIndirectCountNV](vkCmdDrawMeshTasksIndirectCountNV.html)

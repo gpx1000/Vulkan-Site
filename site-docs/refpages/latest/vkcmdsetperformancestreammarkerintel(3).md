@@ -59,7 +59,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetPerformanceStreamMarkerINTEL-commandBuffer-cmdpool) VUID-vkCmdSetPerformanceStreamMarkerINTEL-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or transfer operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
+
+* 
+[](#VUID-vkCmdSetPerformanceStreamMarkerINTEL-suspended) VUID-vkCmdSetPerformanceStreamMarkerINTEL-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdSetPerformanceStreamMarkerINTEL-videocoding) VUID-vkCmdSetPerformanceStreamMarkerINTEL-videocoding
@@ -79,11 +84,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Transfer | Action
+VK_QUEUE_TRANSFER_BIT | Action
 
 State |
 

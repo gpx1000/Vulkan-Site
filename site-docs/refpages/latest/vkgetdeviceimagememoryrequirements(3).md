@@ -28,9 +28,8 @@ void vkGetDeviceImageMemoryRequirements(
     const VkDeviceImageMemoryRequirements*      pInfo,
     VkMemoryRequirements2*                      pMemoryRequirements);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance4
+// Equivalent to vkGetDeviceImageMemoryRequirements
 void vkGetDeviceImageMemoryRequirementsKHR(
     VkDevice                                    device,
     const VkDeviceImageMemoryRequirements*      pInfo,

@@ -32,9 +32,8 @@ typedef struct VkPhysicalDeviceDepthStencilResolveProperties {
     VkBool32              independentResolve;
 } VkPhysicalDeviceDepthStencilResolveProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_depth_stencil_resolve
+// Equivalent to VkPhysicalDeviceDepthStencilResolveProperties
 typedef VkPhysicalDeviceDepthStencilResolveProperties VkPhysicalDeviceDepthStencilResolvePropertiesKHR;
 
 * 

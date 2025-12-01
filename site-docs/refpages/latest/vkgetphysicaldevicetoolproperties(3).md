@@ -28,9 +28,8 @@ VkResult vkGetPhysicalDeviceToolProperties(
     uint32_t*                                   pToolCount,
     VkPhysicalDeviceToolProperties*             pToolProperties);
 
-or the equivalent command
-
 // Provided by VK_EXT_tooling_info
+// Equivalent to vkGetPhysicalDeviceToolProperties
 VkResult vkGetPhysicalDeviceToolPropertiesEXT(
     VkPhysicalDevice                            physicalDevice,
     uint32_t*                                   pToolCount,

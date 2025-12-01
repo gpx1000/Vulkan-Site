@@ -17,6 +17,7 @@
 - [VKB_VALIDATION_LAYERS_SYNCHRONIZATION](#_vkb_validation_layers_synchronization)
 - [VKB_VULKAN_DEBUG](#_vkb_vulkan_debug)
 - [VKB_WARNINGS_AS_ERRORS](#_vkb_warnings_as_errors)
+- [VKB_SKIP_SLANG_SHADER_COMPILATION](#_vkb_skip_slang_shader_compilation)
 - [Quality Assurance](#_quality_assurance)
 - [3D models](#_3d_models)
 - [Performance data](#_performance_data)
@@ -131,6 +132,12 @@ Tracy is not currently enabled for Android builds. In the future, we may add sup
 
 **Default:** `OFF`
 
+By default, Slang shaders are compiled if a Slang compiler is found on the system. In cases where this is undesirable, set this to `OFF` to disable Slang shader compilation.
+
+You can still select Slang as a shading language target for the samples since Slang shaders are included as precompiled SPIR-V files.
+
+**Default:** `OFF`
+
 We use a small set of tools to provide a level of quality to the project.
 These tools are part of our CI/CD process.
 If your local environment does not have the same versions of the tools we use in the CI you may see some errors or warnings pop-up when pushing.
@@ -227,9 +234,9 @@ Alternatively, for command line builds use the steps below:
 
 cmake --build build/windows --config Release --target vulkan_samples
 
-`Step 3.` Run the **Vulkan Samples** application
+`Step 3.` Run the **Vulkan Samples** application by specifying the name of the sample
 
-build\windows\app\bin\Release\AMD64\vulkan_samples.exe
+build\windows\app\bin\Release\AMD64\vulkan_samples.exe sample 
 
 * 
 CMake v3.12+

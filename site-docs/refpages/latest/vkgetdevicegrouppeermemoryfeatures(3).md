@@ -35,9 +35,8 @@ void vkGetDeviceGroupPeerMemoryFeatures(
     uint32_t                                    remoteDeviceIndex,
     VkPeerMemoryFeatureFlags*                   pPeerMemoryFeatures);
 
-or the equivalent command
-
 // Provided by VK_KHR_device_group
+// Equivalent to vkGetDeviceGroupPeerMemoryFeatures
 void vkGetDeviceGroupPeerMemoryFeaturesKHR(
     VkDevice                                    device,
     uint32_t                                    heapIndex,
@@ -100,7 +99,7 @@ Valid Usage (Implicit)
 
  `pPeerMemoryFeatures` **must** be a valid pointer to a [VkPeerMemoryFeatureFlags](VkPeerMemoryFeatureFlags.html) value
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDevice](VkDevice.html), [VkPeerMemoryFeatureFlags](VkPeerMemoryFeatureFlags.html)
+[VK_KHR_device_group](VK_KHR_device_group.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDevice](VkDevice.html), [VkPeerMemoryFeatureFlags](VkPeerMemoryFeatureFlags.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/memory.html#vkGetDeviceGroupPeerMemoryFeatures).
 

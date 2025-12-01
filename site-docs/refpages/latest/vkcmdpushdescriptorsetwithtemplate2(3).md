@@ -27,9 +27,8 @@ void vkCmdPushDescriptorSetWithTemplate2(
     VkCommandBuffer                             commandBuffer,
     const VkPushDescriptorSetWithTemplateInfo*  pPushDescriptorSetWithTemplateInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance6 with VK_KHR_push_descriptor
+// Equivalent to vkCmdPushDescriptorSetWithTemplate2
 void vkCmdPushDescriptorSetWithTemplate2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkPushDescriptorSetWithTemplateInfo*  pPushDescriptorSetWithTemplateInfo);
@@ -62,7 +61,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPushDescriptorSetWithTemplate2-commandBuffer-cmdpool) VUID-vkCmdPushDescriptorSetWithTemplate2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdPushDescriptorSetWithTemplate2-videocoding) VUID-vkCmdPushDescriptorSetWithTemplate2-videocoding
@@ -82,9 +81,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

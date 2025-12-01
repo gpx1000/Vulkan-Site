@@ -28,9 +28,8 @@ void vkCmdSetScissorWithCount(
     uint32_t                                    scissorCount,
     const VkRect2D*                             pScissors);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetScissorWithCount
 void vkCmdSetScissorWithCountEXT(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    scissorCount,
@@ -127,7 +126,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetScissorWithCount-commandBuffer-cmdpool) VUID-vkCmdSetScissorWithCount-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetScissorWithCount-videocoding) VUID-vkCmdSetScissorWithCount-videocoding
@@ -152,7 +151,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

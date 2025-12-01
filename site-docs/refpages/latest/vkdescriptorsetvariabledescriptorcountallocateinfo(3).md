@@ -36,9 +36,8 @@ typedef struct VkDescriptorSetVariableDescriptorCountAllocateInfo {
     const uint32_t*    pDescriptorCounts;
 } VkDescriptorSetVariableDescriptorCountAllocateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorSetVariableDescriptorCountAllocateInfo
 typedef VkDescriptorSetVariableDescriptorCountAllocateInfo VkDescriptorSetVariableDescriptorCountAllocateInfoEXT;
 
 * 

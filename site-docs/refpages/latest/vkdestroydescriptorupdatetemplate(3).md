@@ -27,9 +27,8 @@ void vkDestroyDescriptorUpdateTemplate(
     VkDescriptorUpdateTemplate                  descriptorUpdateTemplate,
     const VkAllocationCallbacks*                pAllocator);
 
-or the equivalent command
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to vkDestroyDescriptorUpdateTemplate
 void vkDestroyDescriptorUpdateTemplateKHR(
     VkDevice                                    device,
     VkDescriptorUpdateTemplate                  descriptorUpdateTemplate,
@@ -90,7 +89,7 @@ Host Synchronization
 * 
 Host access to `descriptorUpdateTemplate` **must** be externally synchronized
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkAllocationCallbacks](VkAllocationCallbacks.html), [VkDescriptorUpdateTemplate](VkDescriptorUpdateTemplate.html), [VkDevice](VkDevice.html)
+[VK_KHR_descriptor_update_template](VK_KHR_descriptor_update_template.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkAllocationCallbacks](VkAllocationCallbacks.html), [VkDescriptorUpdateTemplate](VkDescriptorUpdateTemplate.html), [VkDevice](VkDevice.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/descriptorsets.html#vkDestroyDescriptorUpdateTemplate).
 

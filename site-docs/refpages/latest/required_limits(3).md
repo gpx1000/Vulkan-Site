@@ -329,7 +329,7 @@ whether or not the feature is enabled.
 | `VkBool32` | `dynamicPrimitiveTopologyUnrestricted` | `[VK_EXT_extended_dynamic_state3](VK_EXT_extended_dynamic_state3.html)` |
 | `uint32_t` | `maxOpacity2StateSubdivisionLevel` | `[VK_EXT_opacity_micromap](VK_EXT_opacity_micromap.html)` |
 | `uint32_t` | `maxOpacity4StateSubdivisionLevel` | `[VK_EXT_opacity_micromap](VK_EXT_opacity_micromap.html)` |
-| `uint64_t` | `maxDecompressionIndirectCount` | `[VK_NV_memory_decompression](VK_NV_memory_decompression.html)` |
+| `uint64_t` | `maxDecompressionIndirectCount` | `[VK_NV_memory_decompression](VK_NV_memory_decompression.html)`, `[VK_EXT_memory_decompression](VK_EXT_memory_decompression.html)` |
 | 3 × `uint32_t` | `maxWorkGroupCount` | `[VK_HUAWEI_cluster_culling_shader](VK_HUAWEI_cluster_culling_shader.html)` |
 | 3 × `uint32_t` | `maxWorkGroupSize` | `[VK_HUAWEI_cluster_culling_shader](VK_HUAWEI_cluster_culling_shader.html)` |
 | `uint32_t` | `maxOutputClusterCount` | `[VK_HUAWEI_cluster_culling_shader](VK_HUAWEI_cluster_culling_shader.html)` |
@@ -362,6 +362,9 @@ whether or not the feature is enabled.
 | `VkBool32` | `preferNonCoherent` | `[tileShading`](../../../../spec/latest/chapters/features.html#features-tileShading) |
 | 2 × `uint32_t` | `tileGranularity` | `[tileShading`](../../../../spec/latest/chapters/features.html#features-tileShading) |
 | 2 × `uint32_t` | `maxTileShadingRate` | `[tileShadingDispatchTile`](../../../../spec/latest/chapters/features.html#features-tileShadingDispatchTile) |
+| `uint32_t` | `maxShaderBindingTableRecordIndex` | `[VK_EXT_ray_tracing_invocation_reorder](VK_EXT_ray_tracing_invocation_reorder.html)` |
+| `VkBool32` | `resolveSrgbFormatAppliesTransferFunction` | `[maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) |
+| `VkBool32` | `resolveSrgbFormatSupportsTransferFunctionControl` | `[maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) |
 
 | Limit | Unsupported Limit | Supported Limit | Limit Type1 |
 | --- | --- | --- | --- |
@@ -862,6 +865,9 @@ whether or not the feature is enabled.
 | `maxDescriptorSetUpdateAfterBindStorageTensors` | 0 | 500000 | min |
 | `maxPerStageDescriptorUpdateAfterBindStorageTensors` | 0 | 500000 | min |
 | `shaderTensorSupportedStages` | - | `VK_SHADER_STAGE_COMPUTE_BIT` | bitfield |
+| `maxShaderBindingTableRecordIndex` | - | 228-1 | min |
+| `resolveSrgbFormatAppliesTransferFunction` | - | - | implementation-depdendent |
+| `resolveSrgbFormatSupportsTransferFunctionControl` | `VK_FALSE` | `VK_FALSE` | min |
 
 1
 

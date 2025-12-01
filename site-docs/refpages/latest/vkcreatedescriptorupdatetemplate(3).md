@@ -57,9 +57,8 @@ VkResult vkCreateDescriptorUpdateTemplate(
     const VkAllocationCallbacks*                pAllocator,
     VkDescriptorUpdateTemplate*                 pDescriptorUpdateTemplate);
 
-or the equivalent command
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to vkCreateDescriptorUpdateTemplate
 VkResult vkCreateDescriptorUpdateTemplateKHR(
     VkDevice                                    device,
     const VkDescriptorUpdateTemplateCreateInfo* pCreateInfo,
@@ -134,7 +133,7 @@ Return Codes
 * 
 `VK_ERROR_VALIDATION_FAILED`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkAllocationCallbacks](VkAllocationCallbacks.html), [VkDescriptorUpdateTemplate](VkDescriptorUpdateTemplate.html), [VkDescriptorUpdateTemplateCreateInfo](VkDescriptorUpdateTemplateCreateInfo.html), [VkDevice](VkDevice.html)
+[VK_KHR_descriptor_update_template](VK_KHR_descriptor_update_template.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkAllocationCallbacks](VkAllocationCallbacks.html), [VkDescriptorUpdateTemplate](VkDescriptorUpdateTemplate.html), [VkDescriptorUpdateTemplateCreateInfo](VkDescriptorUpdateTemplateCreateInfo.html), [VkDevice](VkDevice.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/descriptorsets.html#vkCreateDescriptorUpdateTemplate).
 

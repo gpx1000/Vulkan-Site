@@ -255,6 +255,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="buffer_device_address.html">Buffer Device Address</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="buffer_device_address_alignment.html">Buffer Device Address Alignment</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -284,6 +287,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="descriptor_dynamic_offset.html">Descriptor Dynamic Offset</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="descriptor_buffer.html">Descriptor Buffer</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="location_component_interface.html">Location and Component Interface</a>
@@ -904,13 +910,25 @@ copy.srcSubresource.mipLevel = 1;</code></pre>
 region[0].imageSubresource.aspectMask = VK_IMAGE_ASPECT_PLANE_0_BIT;
 region[0].imageExtent = {width, height, 1};
 
-region[0].imageSubresource.aspectMask = VK_IMAGE_ASPECT_PLANE_1_BIT;
-region[0].imageExtent = {width / 2, height / 2, 1};</code></pre>
+region[1].imageSubresource.aspectMask = VK_IMAGE_ASPECT_PLANE_1_BIT;
+region[1].imageExtent = {width / 2, height / 2, 1};</code></pre>
 </div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/image_copies_multi_planar.svg" alt="image_copies_multi_planar.svg">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_singlar_planar_ycbcr"><a class="anchor" href="#_singlar_planar_ycbcr"></a>Singlar-Planar YCbCr</h3>
+<div class="paragraph">
+<p>There is anthoer edge case to watch out for! Formats such as <code>VK_FORMAT_G8B8G8R8_422_UNORM</code> can be tricky as they not are technically compressed, but also not multi-planar (so you copy with <code>VK_IMAGE_ASPECT_COLOR_BIT</code>).</p>
+</div>
+<div class="paragraph">
+<p>The spec does give you a hint how to and handle them for copies:</p>
+</div>
+<div class="paragraph">
+<p>"[VK_FORMAT_G8B8G8R8_422_UNORM] For the purposes of the constraints on copy extents, this format is treated as a compressed format with a 2×1 compressed texel block."</p>
 </div>
 </div>
 </div>

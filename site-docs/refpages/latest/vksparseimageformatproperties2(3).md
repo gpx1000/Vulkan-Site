@@ -28,9 +28,8 @@ typedef struct VkSparseImageFormatProperties2 {
     VkSparseImageFormatProperties    properties;
 } VkSparseImageFormatProperties2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkSparseImageFormatProperties2
 typedef VkSparseImageFormatProperties2 VkSparseImageFormatProperties2KHR;
 
 * 
@@ -57,7 +56,7 @@ Valid Usage (Implicit)
 
  `pNext` **must** be `NULL`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkSparseImageFormatProperties](VkSparseImageFormatProperties.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceSparseImageFormatProperties2](vkGetPhysicalDeviceSparseImageFormatProperties2.html), [vkGetPhysicalDeviceSparseImageFormatProperties2](vkGetPhysicalDeviceSparseImageFormatProperties2.html)
+[VK_KHR_get_physical_device_properties2](VK_KHR_get_physical_device_properties2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkSparseImageFormatProperties](VkSparseImageFormatProperties.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceSparseImageFormatProperties2](vkGetPhysicalDeviceSparseImageFormatProperties2.html), [vkGetPhysicalDeviceSparseImageFormatProperties2](vkGetPhysicalDeviceSparseImageFormatProperties2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/sparsemem.html#VkSparseImageFormatProperties2).
 

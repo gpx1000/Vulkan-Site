@@ -28,14 +28,12 @@ typedef struct VkPhysicalDeviceIndexTypeUint8Features {
     VkBool32           indexTypeUint8;
 } VkPhysicalDeviceIndexTypeUint8Features;
 
-or the equivalent
-
 // Provided by VK_KHR_index_type_uint8
+// Equivalent to VkPhysicalDeviceIndexTypeUint8Features
 typedef VkPhysicalDeviceIndexTypeUint8Features VkPhysicalDeviceIndexTypeUint8FeaturesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_index_type_uint8
+// Equivalent to VkPhysicalDeviceIndexTypeUint8Features
 typedef VkPhysicalDeviceIndexTypeUint8Features VkPhysicalDeviceIndexTypeUint8FeaturesEXT;
 
 This structure describes the following feature:

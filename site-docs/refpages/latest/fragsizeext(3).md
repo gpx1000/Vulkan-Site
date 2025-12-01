@@ -24,6 +24,10 @@ make that variable contain the dimensions in pixels of the
 [area](../../../../spec/latest/appendices/glossary.html#glossary-fragment-area) that the fragment covers for that
 invocation.
 
+|  | When used in a custom resolve operation and the [`customResolve`](../../../../spec/latest/chapters/features.html#features-customResolve) feature is enabled, the dimensions in pixels returned
+| --- | --- |
+**may** be (1,1) if the fragment area was reduced. |
+
 If fragment density map is not enabled, `FragSizeEXT` will be filled with
 a value of (1,1).
 

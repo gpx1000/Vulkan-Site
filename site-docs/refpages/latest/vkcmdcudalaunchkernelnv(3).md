@@ -59,7 +59,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCudaLaunchKernelNV-commandBuffer-cmdpool) VUID-vkCmdCudaLaunchKernelNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
+
+* 
+[](#VUID-vkCmdCudaLaunchKernelNV-suspended) VUID-vkCmdCudaLaunchKernelNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCudaLaunchKernelNV-videocoding) VUID-vkCmdCudaLaunchKernelNV-videocoding
@@ -76,9 +81,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

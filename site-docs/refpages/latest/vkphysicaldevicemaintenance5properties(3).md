@@ -33,9 +33,8 @@ typedef struct VkPhysicalDeviceMaintenance5Properties {
     VkBool32           nonStrictWideLinesUseParallelogram;
 } VkPhysicalDeviceMaintenance5Properties;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkPhysicalDeviceMaintenance5Properties
 typedef VkPhysicalDeviceMaintenance5Properties VkPhysicalDeviceMaintenance5PropertiesKHR;
 
 * 

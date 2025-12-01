@@ -28,9 +28,8 @@ typedef struct VkPhysicalDevicePointClippingProperties {
     VkPointClippingBehavior    pointClippingBehavior;
 } VkPhysicalDevicePointClippingProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance2
+// Equivalent to VkPhysicalDevicePointClippingProperties
 typedef VkPhysicalDevicePointClippingProperties VkPhysicalDevicePointClippingPropertiesKHR;
 
 * 
@@ -57,7 +56,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPointClippingBehavior](VkPointClippingBehavior.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_maintenance2](VK_KHR_maintenance2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPointClippingBehavior](VkPointClippingBehavior.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/limits.html#VkPhysicalDevicePointClippingProperties).
 

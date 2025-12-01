@@ -444,6 +444,15 @@ If the [    `imageCompressionControlSwapchain`](../../../../spec/latest/chapters
 `pNext` chain **must** not include an
 [VkImageCompressionControlEXT](VkImageCompressionControlEXT.html) structure
 
+* 
+[](#VUID-VkSwapchainCreateInfoKHR-presentTiming-12232) VUID-VkSwapchainCreateInfoKHR-presentTiming-12232
+
+If none of the [`presentTiming`](../../../../spec/latest/chapters/features.html#features-presentTiming),
+[`presentAtAbsoluteTime`](../../../../spec/latest/chapters/features.html#features-presentAtAbsoluteTime), or
+[`presentAtRelativeTime`](../../../../spec/latest/chapters/features.html#features-presentAtRelativeTime) features
+are enabled, `flags` **must** not contain
+`VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT`
+
 Valid Usage (Implicit)
 
 * 

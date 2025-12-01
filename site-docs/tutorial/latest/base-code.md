@@ -18,7 +18,11 @@ In the previous chapter, you’ve created a Vulkan project with all the proper
  configurations and tested it with the sample code. In this chapter, we’re starting
 from scratch with the following code:
 
+#if defined(__INTELLISENSE__) || !defined(USE_CPP20_MODULES)
+#include 
+#else
 import vulkan_hpp;
+#endif
 #include 
 
 #include 
@@ -55,10 +59,12 @@ int main() {
     } catch (const std::exception& e) {
         std::cerr 
 
-We first include the Vulkan module from the LunarG SDK, which provides the
-functions, structures and enumerations. The `stdexcept` and `iostream` headers
-are included for reporting and propagating errors. The `cstdlib`
-header provides the `EXIT_SUCCESS` and `EXIT_FAILURE` macros.
+We first include the Vulkan-Hpp RAII header by default, which provides the
+functions, structures and enumerations. If you enable C++20 modules
+(`-DENABLE_CPP20_MODULE=ON`), the code will `import vulkan_hpp;` instead via the
+`USE_CPP20_MODULES` define set by CMake. The `stdexcept` and `iostream` headers
+are included for reporting and propagating errors. The `cstdlib` header
+provides the `EXIT_SUCCESS` and `EXIT_FAILURE` macros.
 
 The program itself is wrapped into a class where we’ll store the Vulkan objects
 as private class members and add functions to initiate each of them, which will
@@ -132,27 +138,26 @@ vkDestroyInstance(instance, nullptr);
 
 can be directly replaced by this:
 
-vk::raii::Context context;
-constexpr auto appInfo = vk::ApplicationInfo("Hello Triangle", 1, "No Engine", 1, vk::ApiVersion11);
-vk::InstanceCreateInfo createInfo({}, &appInfo, {}, {});
-vk::raii::instance = std::make_unique(context, createInfo);
-
-As this can be a little hard to read when we look at the structures.  We have
- opted to turn on VULKAN_HPP_NO_STRUCT_CONSTRUCTORS.  This option means that
- the above code will look like this throughout the tutorial:
-
 constexpr vk::ApplicationInfo appInfo{ .pApplicationName   = "Hello Triangle",
     .applicationVersion = VK_MAKE_VERSION( 1, 0, 0 ),
     .pEngineName        = "No Engine",
     .engineVersion      = VK_MAKE_VERSION( 1, 0, 0 ),
     .apiVersion         = vk::ApiVersion14 };
+
 vk::InstanceCreateInfo createInfo{
     .pApplicationInfo = &appInfo
 };
+
 instance = vk::raii::Instance(context, createInfo);
 
-This provides a better meaning towards what each option relates to in the
-structures that we’re depending upon.
+|  | We use Vulkan-hpp with designated initializers introduced with C++ 20. By default,
+| --- | --- |
+Vulkan-hpp uses a different way of initializing and we need to explicitly enable this
+by using the `VULKAN_HPP_NO_STRUCT_CONSTRUCTORS` define. This provides a better meaning
+towards what each option relates to in the structures that we’re depending upon.
+For this tutorial, said define is declared in the [CMake build setup](../../02_Development_environment.html#cmake).
+If you use a different build setup, you need to manually define this before including
+Vulkan-hpp. |
 
 Vulkan works perfectly fine without creating a window if you want to use it for
 off-screen rendering, but it’s a lot more exciting to actually show something!

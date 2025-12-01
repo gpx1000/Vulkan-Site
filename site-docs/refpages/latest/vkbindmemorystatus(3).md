@@ -28,9 +28,8 @@ typedef struct VkBindMemoryStatus {
     VkResult*          pResult;
 } VkBindMemoryStatus;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance6
+// Equivalent to VkBindMemoryStatus
 typedef VkBindMemoryStatus VkBindMemoryStatusKHR;
 
 * 

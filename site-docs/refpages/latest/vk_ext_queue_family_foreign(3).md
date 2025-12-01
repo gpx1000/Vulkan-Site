@@ -54,7 +54,7 @@ or
 **Contact**
 
 * 
-Lina Versace [linyaa-kiwi](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_queue_family_foreign] @linyaa-kiwi%0A*Here describe the issue or question you have about the VK_EXT_queue_family_foreign extension*)
+James Jones [cubanismo](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_queue_family_foreign] @cubanismo%0A*Here describe the issue or question you have about the VK_EXT_queue_family_foreign extension*)
 
 **Last Modified Date**
 

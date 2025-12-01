@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceMultiviewProperties {
     uint32_t           maxMultiviewInstanceIndex;
 } VkPhysicalDeviceMultiviewProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_multiview
+// Equivalent to VkPhysicalDeviceMultiviewProperties
 typedef VkPhysicalDeviceMultiviewProperties VkPhysicalDeviceMultiviewPropertiesKHR;
 
 * 
@@ -64,7 +63,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_multiview](VK_KHR_multiview.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/limits.html#VkPhysicalDeviceMultiviewProperties).
 

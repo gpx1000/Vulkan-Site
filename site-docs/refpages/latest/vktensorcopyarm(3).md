@@ -60,6 +60,14 @@ providing the number of elements to copy in each dimension.
 When `pExtent` is `NULL`, the number of elements to copy is taken as
 the total number of elements in each dimension of the source tensor.
 
+Valid Usage
+
+* 
+[](#VUID-VkTensorCopyARM-dimensionCount-09955) VUID-VkTensorCopyARM-dimensionCount-09955
+
+`dimensionCount` **must** be greater than 0 if `pSrcOffset`,
+`pDstOffset`, or `pExtent` is not `NULL`
+
 Valid Usage (Implicit)
 
 * 
@@ -75,22 +83,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkTensorCopyARM-pSrcOffset-parameter) VUID-VkTensorCopyARM-pSrcOffset-parameter
 
- If `pSrcOffset` is not `NULL`, `pSrcOffset` **must** be a valid pointer to an array of `dimensionCount` `uint64_t` values
+ If `dimensionCount` is not `0`, and `pSrcOffset` is not `NULL`, `pSrcOffset` **must** be a valid pointer to an array of `dimensionCount` `uint64_t` values
 
 * 
 [](#VUID-VkTensorCopyARM-pDstOffset-parameter) VUID-VkTensorCopyARM-pDstOffset-parameter
 
- If `pDstOffset` is not `NULL`, `pDstOffset` **must** be a valid pointer to an array of `dimensionCount` `uint64_t` values
+ If `dimensionCount` is not `0`, and `pDstOffset` is not `NULL`, `pDstOffset` **must** be a valid pointer to an array of `dimensionCount` `uint64_t` values
 
 * 
 [](#VUID-VkTensorCopyARM-pExtent-parameter) VUID-VkTensorCopyARM-pExtent-parameter
 
- If `pExtent` is not `NULL`, `pExtent` **must** be a valid pointer to an array of `dimensionCount` `uint64_t` values
-
-* 
-[](#VUID-VkTensorCopyARM-dimensionCount-arraylength) VUID-VkTensorCopyARM-dimensionCount-arraylength
-
- `dimensionCount` **must** be greater than `0`
+ If `dimensionCount` is not `0`, and `pExtent` is not `NULL`, `pExtent` **must** be a valid pointer to an array of `dimensionCount` `uint64_t` values
 
 [VK_ARM_tensors](VK_ARM_tensors.html), [VkCopyTensorInfoARM](VkCopyTensorInfoARM.html), [VkStructureType](VkStructureType.html)
 

@@ -36,11 +36,11 @@ typedef struct VkCopyAccelerationStructureToMemoryInfoKHR {
 structure.
 
 * 
-`src` is the source acceleration structure for the copy
+`src` is the source acceleration structure for the copy.
 
 * 
-`dst` is the device or host address to memory which is the target
-for the copy
+`dst` is the device or host address of memory which is the target
+for the copy.
 
 * 
 `mode` is a [VkCopyAccelerationStructureModeKHR](VkCopyAccelerationStructureModeKHR.html) value

@@ -28,18 +28,16 @@ void vkGetImageSubresourceLayout2(
     const VkImageSubresource2*                  pSubresource,
     VkSubresourceLayout2*                       pLayout);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to vkGetImageSubresourceLayout2
 void vkGetImageSubresourceLayout2KHR(
     VkDevice                                    device,
     VkImage                                     image,
     const VkImageSubresource2*                  pSubresource,
     VkSubresourceLayout2*                       pLayout);
 
-or the equivalent command
-
 // Provided by VK_EXT_host_image_copy, VK_EXT_image_compression_control
+// Equivalent to vkGetImageSubresourceLayout2
 void vkGetImageSubresourceLayout2EXT(
     VkDevice                                    device,
     VkImage                                     image,

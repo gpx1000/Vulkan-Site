@@ -32,9 +32,8 @@ typedef struct VkSurfacePresentScalingCapabilitiesKHR {
     VkExtent2D                  maxScaledImageExtent;
 } VkSurfacePresentScalingCapabilitiesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkSurfacePresentScalingCapabilitiesKHR
 typedef VkSurfacePresentScalingCapabilitiesKHR VkSurfacePresentScalingCapabilitiesEXT;
 
 * 

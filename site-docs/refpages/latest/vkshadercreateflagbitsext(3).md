@@ -38,6 +38,8 @@ typedef enum VkShaderCreateFlagBitsEXT {
     VK_SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT = 0x00000040,
   // Provided by VK_EXT_device_generated_commands
     VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT = 0x00000080,
+  // Provided by VK_EXT_shader_64bit_indexing
+    VK_SHADER_CREATE_64_BIT_INDEXING_BIT_EXT = 0x00008000,
 } VkShaderCreateFlagBitsEXT;
 
 * 
@@ -82,6 +84,10 @@ attachment.
 * 
 `VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT` specifies that the
 shader **can** be used in combination with [Device-Generated Commands](../../../../spec/latest/chapters/device_generated_commands/generatedcommands.html#device-generated-commands).
+
+* 
+`VK_SHADER_CREATE_64_BIT_INDEXING_BIT_EXT` specifies that the shader
+enables [64-bit indexing](../../../../spec/latest/appendices/spirvenv.html#spirvenv-64bindexing).
 
 [VK_EXT_shader_object](VK_EXT_shader_object.html), [VkShaderCreateFlagsEXT](VkShaderCreateFlagsEXT.html)
 

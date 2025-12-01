@@ -31,9 +31,8 @@ typedef enum VkSemaphoreType {
     VK_SEMAPHORE_TYPE_TIMELINE_KHR = VK_SEMAPHORE_TYPE_TIMELINE,
 } VkSemaphoreType;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkSemaphoreType
 typedef VkSemaphoreType VkSemaphoreTypeKHR;
 
 * 

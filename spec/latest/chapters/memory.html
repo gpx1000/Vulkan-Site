@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -1191,7 +1200,7 @@ types available.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/versions.html#versions-1.1" class="xref page">Vulkan Version 1.1</a>. See <a href="../appendices/deprecation.html#deprecation-gpdp2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is superseded by <a href="../appendices/versions.html#versions-1.1" class="xref page">Vulkan Version 1.1</a>. See <a href="../appendices/legacy.html#legacy-gpdp2" class="xref page">Legacy Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -1621,12 +1630,10 @@ void vkGetPhysicalDeviceMemoryProperties2(
     VkPhysicalDeviceMemoryProperties2*          pMemoryProperties);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkGetPhysicalDeviceMemoryProperties2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to vkGetPhysicalDeviceMemoryProperties2
 void vkGetPhysicalDeviceMemoryProperties2KHR(
     VkPhysicalDevice                            physicalDevice,
     VkPhysicalDeviceMemoryProperties2*          pMemoryProperties);</code></pre>
@@ -1683,12 +1690,10 @@ typedef struct VkPhysicalDeviceMemoryProperties2 {
 } VkPhysicalDeviceMemoryProperties2;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceMemoryProperties2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkPhysicalDeviceMemoryProperties2
 typedef VkPhysicalDeviceMemoryProperties2 VkPhysicalDeviceMemoryProperties2KHR;</code></pre>
 </div>
 </div>
@@ -2287,7 +2292,7 @@ There <strong>must</strong> be less than
 memory allocations currently allocated on the device</p>
 </li>
 <li>
-<p><a id="VUID-VkTileMemoryBindInfoQCOM-memoryTypeIndex" href="#VUID-VkTileMemoryBindInfoQCOM-memoryTypeIndex"></a> <span class="vuid">VUID-VkTileMemoryBindInfoQCOM-memoryTypeIndex</span><br>
+<p><a id="VUID-vkAllocateMemory-tileMemoryHeap-10976" href="#VUID-vkAllocateMemory-tileMemoryHeap-10976"></a> <span class="vuid">VUID-vkAllocateMemory-tileMemoryHeap-10976</span><br>
 
 If the <a href="features.html#features-tileMemoryHeap" class="xref page"><code>tileMemoryHeap</code></a> feature is not
 enabled, <code>pAllocateInfo-&gt;memoryTypeIndex</code> <strong>must</strong> not identify a
@@ -3074,7 +3079,7 @@ If the <code>pNext</code> chain includes a
 </li>
 <li>
 <p><a id="VUID-VkMemoryAllocateInfo-pNext-pNext" href="#VUID-VkMemoryAllocateInfo-pNext-pNext"></a> <span class="vuid">VUID-VkMemoryAllocateInfo-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDedicatedAllocationMemoryAllocateInfoNV">VkDedicatedAllocationMemoryAllocateInfoNV</a>, <a href="#VkExportMemoryAllocateInfo">VkExportMemoryAllocateInfo</a>, <a href="#VkExportMemoryAllocateInfoNV">VkExportMemoryAllocateInfoNV</a>, <a href="#VkExportMemoryWin32HandleInfoKHR">VkExportMemoryWin32HandleInfoKHR</a>, <a href="#VkExportMemoryWin32HandleInfoNV">VkExportMemoryWin32HandleInfoNV</a>, <a href="#VkExportMetalObjectCreateInfoEXT">VkExportMetalObjectCreateInfoEXT</a>, <a href="#VkImportAndroidHardwareBufferInfoANDROID">VkImportAndroidHardwareBufferInfoANDROID</a>, <a href="resources.html#VkImportMemoryBufferCollectionFUCHSIA" class="xref page">VkImportMemoryBufferCollectionFUCHSIA</a>, <a href="#VkImportMemoryFdInfoKHR">VkImportMemoryFdInfoKHR</a>, <a href="#VkImportMemoryHostPointerInfoEXT">VkImportMemoryHostPointerInfoEXT</a>, <a href="#VkImportMemoryMetalHandleInfoEXT">VkImportMemoryMetalHandleInfoEXT</a>, <a href="#VkImportMemoryWin32HandleInfoKHR">VkImportMemoryWin32HandleInfoKHR</a>, <a href="#VkImportMemoryWin32HandleInfoNV">VkImportMemoryWin32HandleInfoNV</a>, <a href="#VkImportMemoryZirconHandleInfoFUCHSIA">VkImportMemoryZirconHandleInfoFUCHSIA</a>, <a href="#VkImportMetalBufferInfoEXT">VkImportMetalBufferInfoEXT</a>, <a href="#VkImportScreenBufferInfoQNX">VkImportScreenBufferInfoQNX</a>, <a href="#VkMemoryAllocateFlagsInfo">VkMemoryAllocateFlagsInfo</a>, <a href="#VkMemoryDedicatedAllocateInfo">VkMemoryDedicatedAllocateInfo</a>, <a href="#VkMemoryDedicatedAllocateInfoTensorARM">VkMemoryDedicatedAllocateInfoTensorARM</a>, <a href="#VkMemoryOpaqueCaptureAddressAllocateInfo">VkMemoryOpaqueCaptureAddressAllocateInfo</a>, or <a href="#VkMemoryPriorityAllocateInfoEXT">VkMemoryPriorityAllocateInfoEXT</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDedicatedAllocationMemoryAllocateInfoNV">VkDedicatedAllocationMemoryAllocateInfoNV</a>, <a href="#VkExportMemoryAllocateInfo">VkExportMemoryAllocateInfo</a>, <a href="#VkExportMemoryAllocateInfoNV">VkExportMemoryAllocateInfoNV</a>, <a href="#VkExportMemoryWin32HandleInfoKHR">VkExportMemoryWin32HandleInfoKHR</a>, <a href="#VkExportMemoryWin32HandleInfoNV">VkExportMemoryWin32HandleInfoNV</a>, <a href="#VkExportMetalObjectCreateInfoEXT">VkExportMetalObjectCreateInfoEXT</a>, <a href="#VkImportAndroidHardwareBufferInfoANDROID">VkImportAndroidHardwareBufferInfoANDROID</a>, <a href="resources.html#VkImportMemoryBufferCollectionFUCHSIA" class="xref page">VkImportMemoryBufferCollectionFUCHSIA</a>, <a href="#VkImportMemoryFdInfoKHR">VkImportMemoryFdInfoKHR</a>, <a href="#VkImportMemoryHostPointerInfoEXT">VkImportMemoryHostPointerInfoEXT</a>, <a href="#VkImportMemoryMetalHandleInfoEXT">VkImportMemoryMetalHandleInfoEXT</a>, <a href="#VkImportMemoryWin32HandleInfoKHR">VkImportMemoryWin32HandleInfoKHR</a>, <a href="#VkImportMemoryWin32HandleInfoNV">VkImportMemoryWin32HandleInfoNV</a>, <a href="#VkImportMemoryZirconHandleInfoFUCHSIA">VkImportMemoryZirconHandleInfoFUCHSIA</a>, <a href="#VkImportMetalBufferInfoEXT">VkImportMetalBufferInfoEXT</a>, <a href="resources.html#VkImportNativeBufferInfoOHOS" class="xref page">VkImportNativeBufferInfoOHOS</a>, <a href="#VkImportScreenBufferInfoQNX">VkImportScreenBufferInfoQNX</a>, <a href="#VkMemoryAllocateFlagsInfo">VkMemoryAllocateFlagsInfo</a>, <a href="#VkMemoryDedicatedAllocateInfo">VkMemoryDedicatedAllocateInfo</a>, <a href="#VkMemoryDedicatedAllocateInfoTensorARM">VkMemoryDedicatedAllocateInfoTensorARM</a>, <a href="#VkMemoryOpaqueCaptureAddressAllocateInfo">VkMemoryOpaqueCaptureAddressAllocateInfo</a>, or <a href="#VkMemoryPriorityAllocateInfoEXT">VkMemoryPriorityAllocateInfoEXT</a></p>
 </li>
 <li>
 <p><a id="VUID-VkMemoryAllocateInfo-sType-unique" href="#VUID-VkMemoryAllocateInfo-sType-unique"></a> <span class="vuid">VUID-VkMemoryAllocateInfo-sType-unique</span><br>
@@ -3107,12 +3112,10 @@ typedef struct VkMemoryDedicatedAllocateInfo {
 } VkMemoryDedicatedAllocateInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkMemoryDedicatedAllocateInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_dedicated_allocation
+// Equivalent to VkMemoryDedicatedAllocateInfo
 typedef VkMemoryDedicatedAllocateInfo VkMemoryDedicatedAllocateInfoKHR;</code></pre>
 </div>
 </div>
@@ -3154,8 +3157,8 @@ At least one of <code>image</code> and <code>buffer</code> <strong>must</strong>
 Android Hardware Buffer
 or an imported
 QNX Screen buffer
-    , <code>VkMemoryAllocateInfo</code>::<code>allocationSize</code> <strong>must</strong> equal the
-    <code>VkMemoryRequirements</code>::<code>size</code> of the image</p>
+    , <code>VkMemoryAllocateInfo</code>::<code>allocationSize</code> <strong>must</strong> be greater than
+    or equal to the <code>VkMemoryRequirements</code>::<code>size</code> of the image</p>
 </li>
 <li>
 <p><a id="VUID-VkMemoryDedicatedAllocateInfo-image-01434" href="#VUID-VkMemoryDedicatedAllocateInfo-image-01434"></a> <span class="vuid">VUID-VkMemoryDedicatedAllocateInfo-image-01434</span><br>
@@ -3172,8 +3175,8 @@ created without <code>VK_IMAGE_CREATE_SPARSE_BINDING_BIT</code> set in
 Android Hardware Buffer
 or an imported
 QNX Screen buffer
-    , <code>VkMemoryAllocateInfo</code>::<code>allocationSize</code> <strong>must</strong> equal the
-    <code>VkMemoryRequirements</code>::<code>size</code> of the buffer</p>
+    , <code>VkMemoryAllocateInfo</code>::<code>allocationSize</code> <strong>must</strong> be greater than
+    or equal to the <code>VkMemoryRequirements</code>::<code>size</code> of the buffer</p>
 </li>
 <li>
 <p><a id="VUID-VkMemoryDedicatedAllocateInfo-buffer-01436" href="#VUID-VkMemoryDedicatedAllocateInfo-buffer-01436"></a> <span class="vuid">VUID-VkMemoryDedicatedAllocateInfo-buffer-01436</span><br>
@@ -3340,7 +3343,7 @@ buffer.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindTileMemoryQCOM-commandBuffer-cmdpool" href="#VUID-vkCmdBindTileMemoryQCOM-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBindTileMemoryQCOM-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindTileMemoryQCOM-renderpass" href="#VUID-vkCmdBindTileMemoryQCOM-renderpass"></a> <span class="vuid">VUID-vkCmdBindTileMemoryQCOM-renderpass</span><br>
@@ -3395,8 +3398,8 @@ buffer.</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -3861,12 +3864,10 @@ typedef struct VkExportMemoryAllocateInfo {
 } VkExportMemoryAllocateInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExportMemoryAllocateInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_memory
+// Equivalent to VkExportMemoryAllocateInfo
 typedef VkExportMemoryAllocateInfo VkExportMemoryAllocateInfoKHR;</code></pre>
 </div>
 </div>
@@ -8160,6 +8161,22 @@ The application <strong>must</strong> ensure that the configuration of the Metal
 <a href="resources.html#VkImage" class="xref page">VkImage</a>.
 Failure to do so results in <strong>undefined</strong> behavior.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Due to <code>id&lt;MTLTexture&gt;</code> already being backed by memory, images created with
+<code>VkImportMetalTextureInfoEXT</code> in the <code>pNext</code> of the
+<a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> will be treated as bound to a VkDeviceMemory.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="sidebarblock">
 <div class="content">
 <div class="title">Valid Usage (Implicit)</div>
@@ -9345,12 +9362,10 @@ typedef struct VkMemoryAllocateFlagsInfo {
 } VkMemoryAllocateFlagsInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkMemoryAllocateFlagsInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_device_group
+// Equivalent to VkMemoryAllocateFlagsInfo
 typedef VkMemoryAllocateFlagsInfo VkMemoryAllocateFlagsInfoKHR;</code></pre>
 </div>
 </div>
@@ -9488,12 +9503,10 @@ typedef enum VkMemoryAllocateFlagBits {
 } VkMemoryAllocateFlagBits;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkMemoryAllocateFlagBitsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_device_group
+// Equivalent to VkMemoryAllocateFlagBits
 typedef VkMemoryAllocateFlagBits VkMemoryAllocateFlagBitsKHR;</code></pre>
 </div>
 </div>
@@ -9507,9 +9520,9 @@ allocated for the devices in
 <li>
 <p><code>VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT</code> specifies that the memory
 <strong>can</strong> be attached to a buffer object created with the
-<code>VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT</code> bit set in <code>usage</code>,
-and that the memory handle <strong>can</strong> be used to retrieve an opaque address
-via <a href="#vkGetDeviceMemoryOpaqueCaptureAddress">vkGetDeviceMemoryOpaqueCaptureAddress</a>.</p>
+<code>VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT</code> usage flag set, and that
+the memory handle <strong>can</strong> be used to retrieve an opaque address via
+<a href="#vkGetDeviceMemoryOpaqueCaptureAddress">vkGetDeviceMemoryOpaqueCaptureAddress</a>.</p>
 </li>
 <li>
 <p><code>VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT</code> specifies
@@ -9534,12 +9547,10 @@ application is able to access it.</p>
 typedef VkFlags VkMemoryAllocateFlags;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkMemoryAllocateFlagsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_device_group
+// Equivalent to VkMemoryAllocateFlags
 typedef VkMemoryAllocateFlags VkMemoryAllocateFlagsKHR;</code></pre>
 </div>
 </div>
@@ -9570,12 +9581,10 @@ typedef struct VkMemoryOpaqueCaptureAddressAllocateInfo {
 } VkMemoryOpaqueCaptureAddressAllocateInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkMemoryOpaqueCaptureAddressAllocateInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_buffer_device_address
+// Equivalent to VkMemoryOpaqueCaptureAddressAllocateInfo
 typedef VkMemoryOpaqueCaptureAddressAllocateInfo VkMemoryOpaqueCaptureAddressAllocateInfoKHR;</code></pre>
 </div>
 </div>
@@ -10101,12 +10110,10 @@ VkResult vkMapMemory2(
     void**                                      ppData);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkMapMemory2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_map_memory2
+// Equivalent to vkMapMemory2
 VkResult vkMapMemory2KHR(
     VkDevice                                    device,
     const VkMemoryMapInfo*                      pMemoryMapInfo,
@@ -10217,12 +10224,10 @@ typedef struct VkMemoryMapInfo {
 } VkMemoryMapInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkMemoryMapInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_map_memory2
+// Equivalent to VkMemoryMapInfo
 typedef VkMemoryMapInfo VkMemoryMapInfoKHR;</code></pre>
 </div>
 </div>
@@ -11122,12 +11127,10 @@ VkResult vkUnmapMemory2(
     const VkMemoryUnmapInfo*                    pMemoryUnmapInfo);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkUnmapMemory2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_map_memory2
+// Equivalent to vkUnmapMemory2
 VkResult vkUnmapMemory2KHR(
     VkDevice                                    device,
     const VkMemoryUnmapInfo*                    pMemoryUnmapInfo);</code></pre>
@@ -11219,12 +11222,10 @@ typedef struct VkMemoryUnmapInfo {
 } VkMemoryUnmapInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkMemoryUnmapInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_map_memory2
+// Equivalent to VkMemoryUnmapInfo
 typedef VkMemoryUnmapInfo VkMemoryUnmapInfoKHR;</code></pre>
 </div>
 </div>
@@ -11329,12 +11330,10 @@ typedef enum VkMemoryUnmapFlagBits {
 } VkMemoryUnmapFlagBits;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkMemoryUnmapFlagBitsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_map_memory2
+// Equivalent to VkMemoryUnmapFlagBits
 typedef VkMemoryUnmapFlagBits VkMemoryUnmapFlagBitsKHR;</code></pre>
 </div>
 </div>
@@ -11367,12 +11366,10 @@ mapped and <a href="#vkUnmapMemory2">vkUnmapMemory2</a> will return
 typedef VkFlags VkMemoryUnmapFlags;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkMemoryUnmapFlagsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_map_memory2
+// Equivalent to VkMemoryUnmapFlags
 typedef VkMemoryUnmapFlags VkMemoryUnmapFlagsKHR;</code></pre>
 </div>
 </div>
@@ -12306,12 +12303,10 @@ void vkGetDeviceGroupPeerMemoryFeatures(
     VkPeerMemoryFeatureFlags*                   pPeerMemoryFeatures);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkGetDeviceGroupPeerMemoryFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_device_group
+// Equivalent to vkGetDeviceGroupPeerMemoryFeatures
 void vkGetDeviceGroupPeerMemoryFeaturesKHR(
     VkDevice                                    device,
     uint32_t                                    heapIndex,
@@ -12419,12 +12414,10 @@ typedef enum VkPeerMemoryFeatureFlagBits {
 } VkPeerMemoryFeatureFlagBits;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPeerMemoryFeatureFlagBitsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_device_group
+// Equivalent to VkPeerMemoryFeatureFlagBits
 typedef VkPeerMemoryFeatureFlagBits VkPeerMemoryFeatureFlagBitsKHR;</code></pre>
 </div>
 </div>
@@ -12487,12 +12480,10 @@ but would scissor the rendering to only update local memory.</p>
 typedef VkFlags VkPeerMemoryFeatureFlags;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPeerMemoryFeatureFlagsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_device_group
+// Equivalent to VkPeerMemoryFeatureFlags
 typedef VkPeerMemoryFeatureFlags VkPeerMemoryFeatureFlagsKHR;</code></pre>
 </div>
 </div>
@@ -12518,12 +12509,10 @@ uint64_t vkGetDeviceMemoryOpaqueCaptureAddress(
     const VkDeviceMemoryOpaqueCaptureAddressInfo* pInfo);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkGetDeviceMemoryOpaqueCaptureAddressKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_buffer_device_address
+// Equivalent to vkGetDeviceMemoryOpaqueCaptureAddress
 uint64_t vkGetDeviceMemoryOpaqueCaptureAddressKHR(
     VkDevice                                    device,
     const VkDeviceMemoryOpaqueCaptureAddressInfo* pInfo);</code></pre>
@@ -12628,12 +12617,10 @@ typedef struct VkDeviceMemoryOpaqueCaptureAddressInfo {
 } VkDeviceMemoryOpaqueCaptureAddressInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkDeviceMemoryOpaqueCaptureAddressInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_buffer_device_address
+// Equivalent to VkDeviceMemoryOpaqueCaptureAddressInfo
 typedef VkDeviceMemoryOpaqueCaptureAddressInfo VkDeviceMemoryOpaqueCaptureAddressInfoKHR;</code></pre>
 </div>
 </div>

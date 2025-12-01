@@ -35,9 +35,8 @@ typedef enum VkCopyAccelerationStructureModeKHR {
     VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_NV = VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_KHR,
 } VkCopyAccelerationStructureModeKHR;
 
-or the equivalent
-
 // Provided by VK_NV_ray_tracing
+// Equivalent to VkCopyAccelerationStructureModeKHR
 typedef VkCopyAccelerationStructureModeKHR VkCopyAccelerationStructureModeNV;
 
 * 

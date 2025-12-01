@@ -27,9 +27,8 @@ VkResult vkUnmapMemory2(
     VkDevice                                    device,
     const VkMemoryUnmapInfo*                    pMemoryUnmapInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_map_memory2
+// Equivalent to vkUnmapMemory2
 VkResult vkUnmapMemory2KHR(
     VkDevice                                    device,
     const VkMemoryUnmapInfo*                    pMemoryUnmapInfo);

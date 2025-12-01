@@ -87,21 +87,25 @@ each vertical blanking period in which the queue is non-empty.
 
 * 
 `VK_PRESENT_MODE_FIFO_LATEST_READY_KHR` specifies that the
-presentation engine waits for the next vertical blanking period to
-update the current image.
-Tearing **cannot** be observed.
-An internal queue is used to hold pending presentation requests.
-New requests are appended to the end of the queue.
-At each vertical blanking period, the presentation engine dequeues all
-successive requests that are ready to be presented from the beginning of
-the queue.
-If using `[VK_GOOGLE_display_timing](VK_GOOGLE_display_timing.html)` to provide a target present
-time, the presentation engine will check the specified time for each
-image.
-If the target present time is less-than or equal-to the current time,
-the presentation engine will dequeue the image and check the next one.
-The image of the last dequeued request will be presented.
-The other dequeued requests will be dropped.
+    presentation engine waits for the next vertical blanking period to
+    update the current image.
+    Tearing **cannot** be observed.
+    An internal queue is used to hold pending presentation requests.
+    New requests are appended to the end of the queue.
+    At each vertical blanking period, the presentation engine dequeues all
+    successive requests that are ready to be presented from the beginning of
+    the queue.
+    If using
+    the `[VK_GOOGLE_display_timing](VK_GOOGLE_display_timing.html)` extension
+or
+    the [`presentAtAbsoluteTime`](../../../../spec/latest/chapters/features.html#features-presentAtAbsoluteTime)
+    feature
+    to provide a target present time, the presentation engine checks the
+    specified time for each image.
+    If the target present time is less-than or equal-to the current time,
+    the presentation engine dequeues the image and checks the next one.
+    The image of the last dequeued request is presented.
+    The other dequeued requests are dropped.
 
 * 
 `VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR` specifies that the

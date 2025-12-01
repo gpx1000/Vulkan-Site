@@ -312,6 +312,9 @@
     <a class="nav-link" href="../extended_dynamic_state2/README.html">Extended dynamic state2</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../fragment_density_map/README.html">Fragment density map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../fragment_shader_barycentric/README.html">Fragment shader barycentric</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -397,6 +400,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../synchronization_2/README.html">Synchronization 2</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../tensor_and_data_graph/README.html">Tensor and Data Graph</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../tensor_and_data_graph/simple_tensor_and_data_graph/README.html">Simple Tensor and Data Graph</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../timeline_semaphore/README.html">Timeline semaphore</a>
@@ -535,6 +547,9 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Samples" target="_blank" rel="noopener">GitHub Repository</a></span>
+  </li>
 </ul>
   </li>
 </ul>
@@ -645,12 +660,12 @@ The source for this sample can be found in the <a href="https://github.com/Khron
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial, along with the accompanying example code, demonstrates the use of the <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VK_KHR_portability_subset">VK_KHR_portability_subset</a> extension.
+<p>This tutorial, along with the accompanying example code, demonstrates the use of the <a href="https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_portability_subset">VK_KHR_portability_subset</a> extension.
 When the VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR is set in the <code>Instance</code> class, Vulkan will consider  devices that aren&#8217;t fully conformant such as <a href="https://github.com/KhronosGroup/MoltenVK">MoltenVk</a> to be identified  as a conformant implementation.
-When this happens, use the VkPhysicalDevicePortabilitySubsetPropertiesKHR extension  with the <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a> as detailed below to get the list of supported/unsupported features.</p>
+When this happens, use the VkPhysicalDevicePortabilitySubsetPropertiesKHR extension  with the <a href="https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a> as detailed below to get the list of supported/unsupported features.</p>
 </div>
 <div class="paragraph">
-<p>This tutorial along with the accompanying code also demonstrates the use of the <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkPhysicalDevicePortabilitySubsetPropertiesKHR">VkPhysicalDevicePortabilitySubsetPropertiesKHR</a> which is currently a beta khronos extension.
+<p>This tutorial along with the accompanying code also demonstrates the use of the <a href="https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VkPhysicalDevicePortabilitySubsetPropertiesKHR">VkPhysicalDevicePortabilitySubsetPropertiesKHR</a> which is currently a beta khronos extension.
 This extension  provides a list of supported and unsupported parts of Vulkan on a non-conformant Vulkan instance.
 Build with  VK_ENABLE_BETA_EXTENSIONS set to enable this.</p>
 </div>

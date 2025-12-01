@@ -75,7 +75,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetStencilReference-commandBuffer-cmdpool) VUID-vkCmdSetStencilReference-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetStencilReference-videocoding) VUID-vkCmdSetStencilReference-videocoding
@@ -95,7 +95,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

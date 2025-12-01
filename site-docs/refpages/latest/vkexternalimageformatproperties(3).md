@@ -28,9 +28,8 @@ typedef struct VkExternalImageFormatProperties {
     VkExternalMemoryProperties    externalMemoryProperties;
 } VkExternalImageFormatProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalImageFormatProperties
 typedef VkExternalImageFormatProperties VkExternalImageFormatPropertiesKHR;
 
 * 
@@ -52,7 +51,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_EXTERNAL_IMAGE_FORMAT_PROPERTIES`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalMemoryProperties](VkExternalMemoryProperties.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_external_memory_capabilities](VK_KHR_external_memory_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalMemoryProperties](VkExternalMemoryProperties.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkExternalImageFormatProperties).
 

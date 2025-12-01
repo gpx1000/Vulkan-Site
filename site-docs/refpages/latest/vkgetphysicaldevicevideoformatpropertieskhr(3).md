@@ -83,38 +83,27 @@ includes any image usage flags not supported by the specified video
 profiles, then this command returns
 `VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`.
 
-This command also returns `VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR` if
-[VkPhysicalDeviceVideoFormatInfoKHR](VkPhysicalDeviceVideoFormatInfoKHR.html)::`imageUsage` does not include
-the appropriate flags as dictated by the decode capability flags returned in
-[VkVideoDecodeCapabilitiesKHR](VkVideoDecodeCapabilitiesKHR.html)::`flags` for any of the profiles
-specified in the [VkVideoProfileListInfoKHR](VkVideoProfileListInfoKHR.html) structure provided in the
-`pNext` chain of `pVideoFormatInfo`.
-
 If the decode capability flags include
-`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR` but not
-`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR`, then in
-order to query video format properties for decode DPB and output usage,
-[VkPhysicalDeviceVideoFormatInfoKHR](VkPhysicalDeviceVideoFormatInfoKHR.html)::`imageUsage` **must** include
-both `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` and
-`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`.
-Otherwise, the call will fail with
-`VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`.
+`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR`, then
+querying video format properties that support both decode DPB and output
+usage **can** be done by including both
+`VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` and
+`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` in
+[VkPhysicalDeviceVideoFormatInfoKHR](VkPhysicalDeviceVideoFormatInfoKHR.html)::`imageUsage`.
+However, even in this case, querying video format properties with
+[VkPhysicalDeviceVideoFormatInfoKHR](VkPhysicalDeviceVideoFormatInfoKHR.html)::`imageUsage` including only
+`VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` or
+`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` will also return formats
+supporting both.
 
-If the decode capability flags include
-`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR` but not
-`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR`, then in
-order to query video format properties for decode DPB usage,
-[VkPhysicalDeviceVideoFormatInfoKHR](VkPhysicalDeviceVideoFormatInfoKHR.html)::`imageUsage` **must** include
-`VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`, but not
-`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`.
-Otherwise, the call will fail with
-`VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`.
-Similarly, to query video format properties for decode output usage,
-[VkPhysicalDeviceVideoFormatInfoKHR](VkPhysicalDeviceVideoFormatInfoKHR.html)::`imageUsage` **must** include
-`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`, but not
-`VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`.
-Otherwise, the call will fail with
-`VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`.
+|  | This enables application to be able to query all formats supporting
+| --- | --- |
+`VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` and/or
+`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` by just including one of the
+flags, respectively, regardless of whether the implementation supports
+`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR`,
+`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR`, or both.
+This makes enumerating decode DPB and output formats simpler and unified. |
 
 The `imageUsage` member of the [VkPhysicalDeviceVideoFormatInfoKHR](VkPhysicalDeviceVideoFormatInfoKHR.html)
 structure specifies the expected video usage flags that the returned video
@@ -245,6 +234,14 @@ Valid Usage
 The `pNext` chain of `pVideoFormatInfo` **must** include a
 [VkVideoProfileListInfoKHR](VkVideoProfileListInfoKHR.html) structure with `profileCount`
 greater than `0`
+
+* 
+[](#VUID-vkGetPhysicalDeviceVideoFormatPropertiesKHR-pNext-10922) VUID-vkGetPhysicalDeviceVideoFormatPropertiesKHR-pNext-10922
+
+If the `pNext` chain of `pVideoFormatInfo` includes a
+[VkVideoEncodeProfileRgbConversionInfoVALVE](VkVideoEncodeProfileRgbConversionInfoVALVE.html) structure, then the
+[`videoEncodeRgbConversion`](../../../../spec/latest/chapters/features.html#features-videoEncodeRgbConversion)
+feature **must** be supported
 
 Valid Usage (Implicit)
 

@@ -102,7 +102,7 @@ Introduce a new dedicated SPIR-V instruction that performs subgroup rotation
 operations and requires the rotation distance to be dynamically uniform.
 
 Expose a new dedicated SPIR-V instruction, as defined by
-[SPV_KHR_subgroup_rotate](http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_subgroup_rotate.html)
+[SPV_KHR_subgroup_rotate](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_subgroup_rotate.html)
 to express rotating values across the invocations of a subgroup that requires
 the rotation amount to be dynamically uniform within the subgroup.
 

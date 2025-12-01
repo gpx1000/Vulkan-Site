@@ -20,7 +20,7 @@
 VkRenderPassFragmentDensityMapOffsetEndInfoEXT - Structure specifying fragment density map offset subpass end information
 
 If the [VkSubpassEndInfo](VkSubpassEndInfo.html)::`pNext` chain
-or [VkRenderingEndInfoEXT](VkRenderingEndInfoEXT.html)::`pNext` chain
+or [VkRenderingEndInfoEXT](VkRenderingEndInfoKHR.html)::`pNext` chain
 includes a `VkRenderPassFragmentDensityMapOffsetEndInfoEXT` structure,
 then that structure includes an array of fragment density map offsets per
 layer for the render pass.
@@ -36,9 +36,8 @@ typedef struct VkRenderPassFragmentDensityMapOffsetEndInfoEXT {
     const VkOffset2D*    pFragmentDensityOffsets;
 } VkRenderPassFragmentDensityMapOffsetEndInfoEXT;
 
-or the equivalent:
-
 // Provided by VK_QCOM_fragment_density_map_offset
+// Equivalent to VkRenderPassFragmentDensityMapOffsetEndInfoEXT
 typedef VkRenderPassFragmentDensityMapOffsetEndInfoEXT VkSubpassFragmentDensityMapOffsetEndInfoQCOM;
 
 * 
@@ -64,7 +63,7 @@ fragment density map by that amount.
 Offsets can be positive or negative.
 
 If neither the [VkSubpassEndInfo](VkSubpassEndInfo.html)::`pNext` chain for the last
-subpass of a render pass nor the [VkRenderingEndInfoEXT](VkRenderingEndInfoEXT.html)::`pNext`
+subpass of a render pass nor the [VkRenderingEndInfoEXT](VkRenderingEndInfoKHR.html)::`pNext`
 chain of a dynamic render pass include
 `VkRenderPassFragmentDensityMapOffsetEndInfoEXT`, or if
 `fragmentDensityOffsetCount` is zero, then the offset (0,0) is
@@ -157,7 +156,7 @@ The `y` component of each element of `pFragmentDensityOffsets`
 [](#VUID-VkRenderPassFragmentDensityMapOffsetEndInfoEXT-pFragmentDensityOffsets-10730) VUID-VkRenderPassFragmentDensityMapOffsetEndInfoEXT-pFragmentDensityOffsets-10730
 
 Each element of `pFragmentDensityOffsets` must be identical for
-every [vkCmdEndRendering2EXT](vkCmdEndRendering2EXT.html) call made in a render pass
+every [vkCmdEndRendering2KHR](vkCmdEndRendering2KHR.html) call made in a render pass
 
 Valid Usage (Implicit)
 
@@ -171,7 +170,7 @@ Valid Usage (Implicit)
 
  If `fragmentDensityOffsetCount` is not `0`, `pFragmentDensityOffsets` **must** be a valid pointer to an array of `fragmentDensityOffsetCount` [VkOffset2D](VkOffset2D.html) structures
 
-[VK_EXT_fragment_density_map_offset](VK_EXT_fragment_density_map_offset.html), [VkOffset2D](VkOffset2D.html), [VkStructureType](VkStructureType.html)
+[VK_EXT_fragment_density_map_offset](VK_EXT_fragment_density_map_offset.html), [VK_QCOM_fragment_density_map_offset](VK_QCOM_fragment_density_map_offset.html), [VkOffset2D](VkOffset2D.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/renderpass.html#VkRenderPassFragmentDensityMapOffsetEndInfoEXT).
 

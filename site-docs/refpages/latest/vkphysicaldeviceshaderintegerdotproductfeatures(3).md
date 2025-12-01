@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceShaderIntegerDotProductFeatures {
     VkBool32           shaderIntegerDotProduct;
 } VkPhysicalDeviceShaderIntegerDotProductFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_shader_integer_dot_product
+// Equivalent to VkPhysicalDeviceShaderIntegerDotProductFeatures
 typedef VkPhysicalDeviceShaderIntegerDotProductFeatures VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR;
 
 This structure describes the following feature:

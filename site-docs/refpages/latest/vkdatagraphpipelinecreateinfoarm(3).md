@@ -61,9 +61,17 @@ If the required data is not found in the pipeline cache, creating the data
 graph pipeline is not possible and the implementation **must** fail as
 specified by `VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT`.
 
-When an identifier is used to create a data graph pipeline, implementations
-**may** fail pipeline creation with `VK_PIPELINE_COMPILE_REQUIRED` for any
-reason.
+Applications **can** create a data graph pipeline without providing a pipeline
+cache or shader module by invoking one of the models provided by the
+implementation.
+This is done by including
+[VkDataGraphPipelineBuiltinModelCreateInfoQCOM](VkDataGraphPipelineBuiltinModelCreateInfoQCOM.html) in the `pNext`
+chain.
+
+When an identifier
+or built-in model
+is used to create a data graph pipeline, implementations **may** fail pipeline
+creation with `VK_PIPELINE_COMPILE_REQUIRED` for any reason.
 
 The data graph engines for this pipeline **can** be selected by including a
 [VkDataGraphProcessingEngineCreateInfoARM](VkDataGraphProcessingEngineCreateInfoARM.html) to the `pNext` chain of
@@ -88,6 +96,9 @@ One and only one of the following structures **must** be included in the
 
 * 
 [VkDataGraphPipelineIdentifierCreateInfoARM](VkDataGraphPipelineIdentifierCreateInfoARM.html)
+
+* 
+[VkDataGraphPipelineBuiltinModelCreateInfoQCOM](VkDataGraphPipelineBuiltinModelCreateInfoQCOM.html)
 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-flags-09764) VUID-VkDataGraphPipelineCreateInfoARM-flags-09764
 
@@ -127,17 +138,20 @@ descriptor binding used to create `layout` **must** have a
 `descriptorType` that corresponds to the type of the
 [resource variable](../../../../spec/latest/chapters/interfaces.html#interfaces-resources)
 
-[](#VUID-VkDataGraphPipelineCreateInfoARM-pNext-09875) VUID-VkDataGraphPipelineCreateInfoARM-pNext-09875
+[](#VUID-VkDataGraphPipelineCreateInfoARM-None-11840) VUID-VkDataGraphPipelineCreateInfoARM-None-11840
 
-If a [VkDataGraphPipelineIdentifierCreateInfoARM](VkDataGraphPipelineIdentifierCreateInfoARM.html) structure is
-included in the `pNext` chain, then `flags` **must** contain
-`VK_PIPELINE_CREATE_2_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT`
+    If a [VkDataGraphPipelineIdentifierCreateInfoARM](VkDataGraphPipelineIdentifierCreateInfoARM.html)
+or [VkDataGraphPipelineBuiltinModelCreateInfoQCOM](VkDataGraphPipelineBuiltinModelCreateInfoQCOM.html)
+    structure is included in the `pNext` chain, then `flags` **must**
+    contain `VK_PIPELINE_CREATE_2_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT`
 
-[](#VUID-VkDataGraphPipelineCreateInfoARM-pNext-09882) VUID-VkDataGraphPipelineCreateInfoARM-pNext-09882
+[](#VUID-VkDataGraphPipelineCreateInfoARM-None-11841) VUID-VkDataGraphPipelineCreateInfoARM-None-11841
 
-If a [VkDataGraphPipelineIdentifierCreateInfoARM](VkDataGraphPipelineIdentifierCreateInfoARM.html) structure is
-included in the `pNext` chain, then `resourceInfoCount` **must** be
-0 and `pResourceInfos` **must** be `NULL`
+    If a [VkDataGraphPipelineIdentifierCreateInfoARM](VkDataGraphPipelineIdentifierCreateInfoARM.html)
+or [VkDataGraphPipelineBuiltinModelCreateInfoQCOM](VkDataGraphPipelineBuiltinModelCreateInfoQCOM.html)
+    structure is included in the `pNext` chain, then
+    `resourceInfoCount` **must** be 0 and `pResourceInfos` **must** be
+    `NULL`
 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-dataGraphShaderModule-09886) VUID-VkDataGraphPipelineCreateInfoARM-dataGraphShaderModule-09886
 
@@ -152,7 +166,8 @@ If a [VkDataGraphPipelineShaderModuleCreateInfoARM](VkDataGraphPipelineShaderMod
 included in the `pNext` chain and an array
 [resource variable](../../../../spec/latest/chapters/interfaces.html#interfaces-resources) is declared in the shader
 module, the corresponding descriptor binding used to create `layout`
-**must** have a `descriptorCount` that matches the length of the array
+**must** have a `descriptorCount` that is greater than or equal to the
+length of the array
 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-pipelineCreationCacheControl-09871) VUID-VkDataGraphPipelineCreateInfoARM-pipelineCreationCacheControl-09871
 
@@ -217,7 +232,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-pNext-pNext) VUID-VkDataGraphPipelineCreateInfoARM-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDataGraphPipelineCompilerControlCreateInfoARM](VkDataGraphPipelineCompilerControlCreateInfoARM.html), [VkDataGraphPipelineIdentifierCreateInfoARM](VkDataGraphPipelineIdentifierCreateInfoARM.html), [VkDataGraphPipelineShaderModuleCreateInfoARM](VkDataGraphPipelineShaderModuleCreateInfoARM.html), [VkDataGraphProcessingEngineCreateInfoARM](VkDataGraphProcessingEngineCreateInfoARM.html), [VkPipelineCreationFeedbackCreateInfo](VkPipelineCreationFeedbackCreateInfo.html), or [VkShaderModuleCreateInfo](VkShaderModuleCreateInfo.html)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDataGraphPipelineBuiltinModelCreateInfoQCOM](VkDataGraphPipelineBuiltinModelCreateInfoQCOM.html), [VkDataGraphPipelineCompilerControlCreateInfoARM](VkDataGraphPipelineCompilerControlCreateInfoARM.html), [VkDataGraphPipelineIdentifierCreateInfoARM](VkDataGraphPipelineIdentifierCreateInfoARM.html), [VkDataGraphPipelineShaderModuleCreateInfoARM](VkDataGraphPipelineShaderModuleCreateInfoARM.html), [VkDataGraphProcessingEngineCreateInfoARM](VkDataGraphProcessingEngineCreateInfoARM.html), [VkPipelineCreationFeedbackCreateInfo](VkPipelineCreationFeedbackCreateInfo.html), or [VkShaderModuleCreateInfo](VkShaderModuleCreateInfo.html)
 
 * 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-sType-unique) VUID-VkDataGraphPipelineCreateInfoARM-sType-unique

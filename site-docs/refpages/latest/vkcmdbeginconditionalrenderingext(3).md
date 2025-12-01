@@ -63,7 +63,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBeginConditionalRenderingEXT-commandBuffer-cmdpool) VUID-vkCmdBeginConditionalRenderingEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
+
+* 
+[](#VUID-vkCmdBeginConditionalRenderingEXT-suspended) VUID-vkCmdBeginConditionalRenderingEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBeginConditionalRenderingEXT-videocoding) VUID-vkCmdBeginConditionalRenderingEXT-videocoding
@@ -83,9 +88,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action
+VK_QUEUE_GRAPHICS_BIT | Action
 
 State |
 

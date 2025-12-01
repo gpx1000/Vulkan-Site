@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -545,6 +554,54 @@ one <strong>can</strong> directly call.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpHitObjectExecuteShaderEXT</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpHitObjectTraceRayEXT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpHitObjectReorderExecuteShaderEXT</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpHitObjectTraceReorderExecuteEXT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpHitObjectTraceRayMotionEXT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpHitObjectTraceMotionReorderExecuteEXT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -590,6 +647,11 @@ same <code>SubgroupLocalInvocationId</code>.</p>
 <p>The <code>OpTraceRayKHR</code>,
 <code>OpTraceRayMotionNV</code>,
 <code>OpReorderThreadWithHintNV</code>, <code>OpReorderThreadWithHitObjectNV</code>,
+<code>OpReorderThreadWithHintEXT</code>, <code>OpReorderThreadWithHitObjectEXT</code>,
+<code>OpHitObjectTraceRayEXT</code>, <code>OpHitObjectReorderExecuteShaderEXT</code>,
+<code>OpHitObjectTraceReorderExecuteEXT</code>,
+<code>OpHitObjectTraceRayMotionEXT</code>,
+<code>OpHitObjectTraceMotionReorderExecuteEXT</code>,
 <code>OpReportIntersectionKHR</code>, and <code>OpExecuteCallableKHR</code> instructions are
 invocation repack instructions.</p>
 </div>
@@ -1018,6 +1080,13 @@ command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPi
 <code>VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdTraceRaysKHR-imageLayout-00344" href="#VUID-vkCmdTraceRaysKHR-imageLayout-00344"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-imageLayout-00344</span><br>
+
+If an image descriptor is accessed by a shader, the <a href="resources.html#VkImageLayout" class="xref page">VkImageLayout</a>
+<strong>must</strong> match the subresource accessible from the <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as
+defined by the <a href="resources.html#resources-image-layouts-matching-rule" class="xref page">image layout    matching rules</a></p>
+</li>
+<li>
 <p><a id="VUID-vkCmdTraceRaysKHR-None-08115" href="#VUID-vkCmdTraceRaysKHR-None-08115"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08115</span><br>
 
 If the descriptors used by the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline
@@ -1444,7 +1513,7 @@ to its <code>stride</code> member</p>
 
 The buffer from which the <code>pRayGenShaderBindingTable-&gt;deviceAddress</code> is queried
 <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-pRayGenShaderBindingTable-03682" href="#VUID-vkCmdTraceRaysKHR-pRayGenShaderBindingTable-03682"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-pRayGenShaderBindingTable-03682</span><br>
@@ -1457,7 +1526,7 @@ The buffer from which the <code>pRayGenShaderBindingTable-&gt;deviceAddress</cod
 
 The buffer from which the <code>pMissShaderBindingTable-&gt;deviceAddress</code> is queried
 <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-pMissShaderBindingTable-03685" href="#VUID-vkCmdTraceRaysKHR-pMissShaderBindingTable-03685"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-pMissShaderBindingTable-03685</span><br>
@@ -1482,7 +1551,7 @@ The buffer from which the <code>pMissShaderBindingTable-&gt;deviceAddress</code>
 
 The buffer from which the <code>pHitShaderBindingTable-&gt;deviceAddress</code> is queried
 <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-pHitShaderBindingTable-03689" href="#VUID-vkCmdTraceRaysKHR-pHitShaderBindingTable-03689"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-pHitShaderBindingTable-03689</span><br>
@@ -1507,7 +1576,7 @@ The buffer from which the <code>pHitShaderBindingTable-&gt;deviceAddress</code> 
 
 The buffer from which the <code>pCallableShaderBindingTable-&gt;deviceAddress</code> is queried
 <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-pCallableShaderBindingTable-03693" href="#VUID-vkCmdTraceRaysKHR-pCallableShaderBindingTable-03693"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-pCallableShaderBindingTable-03693</span><br>
@@ -1528,29 +1597,14 @@ The buffer from which the <code>pCallableShaderBindingTable-&gt;deviceAddress</c
 <code>VkPhysicalDeviceRayTracingPipelinePropertiesKHR</code>::<code>maxShaderGroupStride</code></p>
 </li>
 <li>
-<p><a id="VUID-vkCmdTraceRaysKHR-flags-03696" href="#VUID-vkCmdTraceRaysKHR-flags-03696"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-flags-03696</span><br>
-
-If the bound ray tracing pipeline was created with <code>flags</code> that
-included
-<code>VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_BIT_KHR</code>,
-<code>pHitShaderBindingTable-&gt;deviceAddress</code> <strong>must</strong> not be zero</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysKHR-flags-03697" href="#VUID-vkCmdTraceRaysKHR-flags-03697"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-flags-03697</span><br>
-
-If the bound ray tracing pipeline was created with <code>flags</code> that
-included
-<code>VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_BIT_KHR</code>,
-<code>pHitShaderBindingTable-&gt;deviceAddress</code> <strong>must</strong> not be zero</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdTraceRaysKHR-flags-03511" href="#VUID-vkCmdTraceRaysKHR-flags-03511"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-flags-03511</span><br>
 
 If the bound ray tracing pipeline was created with <code>flags</code> that
 included
 <code>VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_MISS_SHADERS_BIT_KHR</code>, the
-shader group handle identified by <code>pMissShaderBindingTable-&gt;deviceAddress</code> <strong>must</strong>
-not be zero</p>
+entries in the table identified by <code>pMissShaderBindingTable-&gt;deviceAddress</code>
+accessed as a result of this command in order to execute a miss shader
+<strong>must</strong> not be zero</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-flags-03512" href="#VUID-vkCmdTraceRaysKHR-flags-03512"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-flags-03512</span><br>
@@ -1678,11 +1732,15 @@ If the traced geometry contains a cluster acceleration structure, then
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-commandBuffer-cmdpool" href="#VUID-vkCmdTraceRaysKHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-renderpass" href="#VUID-vkCmdTraceRaysKHR-renderpass"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysKHR-suspended" href="#VUID-vkCmdTraceRaysKHR-suspended"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-videocoding" href="#VUID-vkCmdTraceRaysKHR-videocoding"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-videocoding</span><br>
@@ -1733,7 +1791,7 @@ If the traced geometry contains a cluster acceleration structure, then
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -1811,7 +1869,8 @@ of <code>VK_FORMAT_R8_UINT</code></p>
 <p><a id="VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04979" href="#VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04979"></a> <span class="vuid">VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04979</span><br>
 
 If <code>imageView</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> have been
-created with <code>VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI</code> set</p>
+created with the <code>VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI</code> usage
+flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04980" href="#VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04980"></a> <span class="vuid">VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04980</span><br>
@@ -1864,7 +1923,7 @@ The value 1 means the invocation is active</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindInvocationMaskHUAWEI-commandBuffer-cmdpool" href="#VUID-vkCmdBindInvocationMaskHUAWEI-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBindInvocationMaskHUAWEI-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindInvocationMaskHUAWEI-renderpass" href="#VUID-vkCmdBindInvocationMaskHUAWEI-renderpass"></a> <span class="vuid">VUID-vkCmdBindInvocationMaskHUAWEI-renderpass</span><br>
@@ -1923,7 +1982,7 @@ The value 1 means the invocation is active</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -2259,6 +2318,13 @@ by
 the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by this
 command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
 <code>VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirectKHR-imageLayout-00344" href="#VUID-vkCmdTraceRaysIndirectKHR-imageLayout-00344"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-imageLayout-00344</span><br>
+
+If an image descriptor is accessed by a shader, the <a href="resources.html#VkImageLayout" class="xref page">VkImageLayout</a>
+<strong>must</strong> match the subresource accessible from the <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as
+defined by the <a href="resources.html#resources-image-layouts-matching-rule" class="xref page">image layout    matching rules</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08115" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08115"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08115</span><br>
@@ -2687,7 +2753,7 @@ to its <code>stride</code> member</p>
 
 The buffer from which the <code>pRayGenShaderBindingTable-&gt;deviceAddress</code> is queried
 <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-pRayGenShaderBindingTable-03682" href="#VUID-vkCmdTraceRaysIndirectKHR-pRayGenShaderBindingTable-03682"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-pRayGenShaderBindingTable-03682</span><br>
@@ -2700,7 +2766,7 @@ The buffer from which the <code>pRayGenShaderBindingTable-&gt;deviceAddress</cod
 
 The buffer from which the <code>pMissShaderBindingTable-&gt;deviceAddress</code> is queried
 <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-pMissShaderBindingTable-03685" href="#VUID-vkCmdTraceRaysIndirectKHR-pMissShaderBindingTable-03685"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-pMissShaderBindingTable-03685</span><br>
@@ -2725,7 +2791,7 @@ The buffer from which the <code>pMissShaderBindingTable-&gt;deviceAddress</code>
 
 The buffer from which the <code>pHitShaderBindingTable-&gt;deviceAddress</code> is queried
 <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-pHitShaderBindingTable-03689" href="#VUID-vkCmdTraceRaysIndirectKHR-pHitShaderBindingTable-03689"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-pHitShaderBindingTable-03689</span><br>
@@ -2750,7 +2816,7 @@ The buffer from which the <code>pHitShaderBindingTable-&gt;deviceAddress</code> 
 
 The buffer from which the <code>pCallableShaderBindingTable-&gt;deviceAddress</code> is queried
 <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-pCallableShaderBindingTable-03693" href="#VUID-vkCmdTraceRaysIndirectKHR-pCallableShaderBindingTable-03693"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-pCallableShaderBindingTable-03693</span><br>
@@ -2771,29 +2837,14 @@ The buffer from which the <code>pCallableShaderBindingTable-&gt;deviceAddress</c
 <code>VkPhysicalDeviceRayTracingPipelinePropertiesKHR</code>::<code>maxShaderGroupStride</code></p>
 </li>
 <li>
-<p><a id="VUID-vkCmdTraceRaysIndirectKHR-flags-03696" href="#VUID-vkCmdTraceRaysIndirectKHR-flags-03696"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-flags-03696</span><br>
-
-If the bound ray tracing pipeline was created with <code>flags</code> that
-included
-<code>VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_BIT_KHR</code>,
-<code>pHitShaderBindingTable-&gt;deviceAddress</code> <strong>must</strong> not be zero</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysIndirectKHR-flags-03697" href="#VUID-vkCmdTraceRaysIndirectKHR-flags-03697"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-flags-03697</span><br>
-
-If the bound ray tracing pipeline was created with <code>flags</code> that
-included
-<code>VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_BIT_KHR</code>,
-<code>pHitShaderBindingTable-&gt;deviceAddress</code> <strong>must</strong> not be zero</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-flags-03511" href="#VUID-vkCmdTraceRaysIndirectKHR-flags-03511"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-flags-03511</span><br>
 
 If the bound ray tracing pipeline was created with <code>flags</code> that
 included
 <code>VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_MISS_SHADERS_BIT_KHR</code>, the
-shader group handle identified by <code>pMissShaderBindingTable-&gt;deviceAddress</code> <strong>must</strong>
-not be zero</p>
+entries in the table identified by <code>pMissShaderBindingTable-&gt;deviceAddress</code>
+accessed as a result of this command in order to execute a miss shader
+<strong>must</strong> not be zero</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-flags-03512" href="#VUID-vkCmdTraceRaysIndirectKHR-flags-03512"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-flags-03512</span><br>
@@ -2851,7 +2902,8 @@ been created with
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-indirectDeviceAddress-03633" href="#VUID-vkCmdTraceRaysIndirectKHR-indirectDeviceAddress-03633"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-indirectDeviceAddress-03633</span><br>
 
 The buffer from which <code>indirectDeviceAddress</code> was queried <strong>must</strong> have
-been created with the <code>VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT</code> bit set</p>
+been created with the <code>VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT</code> usage
+flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-indirectDeviceAddress-03634" href="#VUID-vkCmdTraceRaysIndirectKHR-indirectDeviceAddress-03634"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-indirectDeviceAddress-03634</span><br>
@@ -2917,11 +2969,15 @@ feature <strong>must</strong> be enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-commandBuffer-cmdpool" href="#VUID-vkCmdTraceRaysIndirectKHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-renderpass" href="#VUID-vkCmdTraceRaysIndirectKHR-renderpass"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirectKHR-suspended" href="#VUID-vkCmdTraceRaysIndirectKHR-suspended"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-videocoding" href="#VUID-vkCmdTraceRaysIndirectKHR-videocoding"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-videocoding</span><br>
@@ -2972,7 +3028,7 @@ feature <strong>must</strong> be enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -3358,6 +3414,13 @@ by
 the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by this
 command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
 <code>VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-imageLayout-00344" href="#VUID-vkCmdTraceRaysIndirect2KHR-imageLayout-00344"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-imageLayout-00344</span><br>
+
+If an image descriptor is accessed by a shader, the <a href="resources.html#VkImageLayout" class="xref page">VkImageLayout</a>
+<strong>must</strong> match the subresource accessible from the <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as
+defined by the <a href="resources.html#resources-image-layouts-matching-rule" class="xref page">image layout    matching rules</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08115" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08115"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08115</span><br>
@@ -3775,7 +3838,8 @@ used to create the bound ray tracing pipeline</p>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03633" href="#VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03633"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03633</span><br>
 
 The buffer from which <code>indirectDeviceAddress</code> was queried <strong>must</strong> have
-been created with the <code>VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT</code> bit set</p>
+been created with the <code>VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT</code> usage
+flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03634" href="#VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03634"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03634</span><br>
@@ -3825,11 +3889,15 @@ feature <strong>must</strong> be enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-commandBuffer-cmdpool" href="#VUID-vkCmdTraceRaysIndirect2KHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-renderpass" href="#VUID-vkCmdTraceRaysIndirect2KHR-renderpass"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-suspended" href="#VUID-vkCmdTraceRaysIndirect2KHR-suspended"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-videocoding" href="#VUID-vkCmdTraceRaysIndirect2KHR-videocoding"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-videocoding</span><br>
@@ -3880,7 +3948,7 @@ feature <strong>must</strong> be enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -4006,7 +4074,7 @@ memory alignment and binding requirements as their counterparts in
 
 The buffer from which the <code>raygenShaderRecordAddress</code> is queried
 <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkTraceRaysIndirectCommand2KHR-pRayGenShaderBindingTable-03682" href="#VUID-VkTraceRaysIndirectCommand2KHR-pRayGenShaderBindingTable-03682"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommand2KHR-pRayGenShaderBindingTable-03682</span><br>
@@ -4019,7 +4087,7 @@ The buffer from which the <code>raygenShaderRecordAddress</code> is queried
 
 The buffer from which the <code>missShaderBindingTableAddress</code> is queried
 <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkTraceRaysIndirectCommand2KHR-pMissShaderBindingTable-03685" href="#VUID-VkTraceRaysIndirectCommand2KHR-pMissShaderBindingTable-03685"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommand2KHR-pMissShaderBindingTable-03685</span><br>
@@ -4044,7 +4112,7 @@ The buffer from which the <code>missShaderBindingTableAddress</code> is queried
 
 The buffer from which the <code>hitShaderBindingTableAddress</code> is queried
 <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkTraceRaysIndirectCommand2KHR-pHitShaderBindingTable-03689" href="#VUID-VkTraceRaysIndirectCommand2KHR-pHitShaderBindingTable-03689"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommand2KHR-pHitShaderBindingTable-03689</span><br>
@@ -4069,7 +4137,7 @@ The buffer from which the <code>hitShaderBindingTableAddress</code> is queried
 
 The buffer from which the <code>callableShaderBindingTableAddress</code> is queried
 <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkTraceRaysIndirectCommand2KHR-pCallableShaderBindingTable-03693" href="#VUID-VkTraceRaysIndirectCommand2KHR-pCallableShaderBindingTable-03693"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommand2KHR-pCallableShaderBindingTable-03693</span><br>
@@ -4090,29 +4158,14 @@ The buffer from which the <code>callableShaderBindingTableAddress</code> is quer
 <code>VkPhysicalDeviceRayTracingPipelinePropertiesKHR</code>::<code>maxShaderGroupStride</code></p>
 </li>
 <li>
-<p><a id="VUID-VkTraceRaysIndirectCommand2KHR-flags-03696" href="#VUID-VkTraceRaysIndirectCommand2KHR-flags-03696"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommand2KHR-flags-03696</span><br>
-
-If the bound ray tracing pipeline was created with <code>flags</code> that
-included
-<code>VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_BIT_KHR</code>,
-<code>hitShaderBindingTableAddress</code> <strong>must</strong> not be zero</p>
-</li>
-<li>
-<p><a id="VUID-VkTraceRaysIndirectCommand2KHR-flags-03697" href="#VUID-VkTraceRaysIndirectCommand2KHR-flags-03697"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommand2KHR-flags-03697</span><br>
-
-If the bound ray tracing pipeline was created with <code>flags</code> that
-included
-<code>VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_BIT_KHR</code>,
-<code>hitShaderBindingTableAddress</code> <strong>must</strong> not be zero</p>
-</li>
-<li>
 <p><a id="VUID-VkTraceRaysIndirectCommand2KHR-flags-03511" href="#VUID-VkTraceRaysIndirectCommand2KHR-flags-03511"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommand2KHR-flags-03511</span><br>
 
 If the bound ray tracing pipeline was created with <code>flags</code> that
 included
 <code>VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_MISS_SHADERS_BIT_KHR</code>, the
-shader group handle identified by <code>missShaderBindingTableAddress</code> <strong>must</strong>
-not be zero</p>
+entries in the table identified by <code>missShaderBindingTableAddress</code>
+accessed as a result of this command in order to execute a miss shader
+<strong>must</strong> not be zero</p>
 </li>
 <li>
 <p><a id="VUID-VkTraceRaysIndirectCommand2KHR-flags-03512" href="#VUID-VkTraceRaysIndirectCommand2KHR-flags-03512"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommand2KHR-flags-03512</span><br>
@@ -4586,6 +4639,13 @@ by
 the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by this
 command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
 <code>VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysNV-imageLayout-00344" href="#VUID-vkCmdTraceRaysNV-imageLayout-00344"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-imageLayout-00344</span><br>
+
+If an image descriptor is accessed by a shader, the <a href="resources.html#VkImageLayout" class="xref page">VkImageLayout</a>
+<strong>must</strong> match the subresource accessible from the <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as
+defined by the <a href="resources.html#resources-image-layouts-matching-rule" class="xref page">image layout    matching rules</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-None-08115" href="#VUID-vkCmdTraceRaysNV-None-08115"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08115</span><br>
@@ -5163,11 +5223,15 @@ If the traced geometry contains a cluster acceleration structure, then
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-commandBuffer-cmdpool" href="#VUID-vkCmdTraceRaysNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-renderpass" href="#VUID-vkCmdTraceRaysNV-renderpass"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysNV-suspended" href="#VUID-vkCmdTraceRaysNV-suspended"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-videocoding" href="#VUID-vkCmdTraceRaysNV-videocoding"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-videocoding</span><br>
@@ -5222,7 +5286,7 @@ If the traced geometry contains a cluster acceleration structure, then
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>

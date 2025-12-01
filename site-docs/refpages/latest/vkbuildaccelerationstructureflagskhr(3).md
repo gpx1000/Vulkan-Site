@@ -21,9 +21,8 @@ VkBuildAccelerationStructureFlagsKHR - Bitmask of VkBuildAccelerationStructureFl
 // Provided by VK_KHR_acceleration_structure
 typedef VkFlags VkBuildAccelerationStructureFlagsKHR;
 
-or the equivalent
-
 // Provided by VK_NV_ray_tracing
+// Equivalent to VkBuildAccelerationStructureFlagsKHR
 typedef VkBuildAccelerationStructureFlagsKHR VkBuildAccelerationStructureFlagsNV;
 
 `VkBuildAccelerationStructureFlagsKHR` is a bitmask type for setting a

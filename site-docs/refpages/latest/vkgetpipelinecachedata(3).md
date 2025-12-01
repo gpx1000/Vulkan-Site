@@ -78,6 +78,16 @@ the query returns up to the size of the passed buffer, and signals overflow
 with a `VK_INCOMPLETE` success status instead of returning a
 `VK_ERROR_NOT_ENOUGH_SPACE_KHR` error status. |
 
+Valid Usage
+
+* 
+[](#VUID-vkGetPipelineCacheData-pipelineCache-11834) VUID-vkGetPipelineCacheData-pipelineCache-11834
+
+`pipelineCache` **must** not have been created with the
+`headerVersion` member of
+[VkPipelineCacheCreateInfo](VkPipelineCacheCreateInfo.html)::`pInitialData` equal to
+`VK_PIPELINE_CACHE_HEADER_VERSION_DATA_GRAPH_QCOM`
+
 Valid Usage (Implicit)
 
 * 

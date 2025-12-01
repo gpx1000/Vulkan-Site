@@ -21,9 +21,8 @@ VkPipelineCreationFeedbackFlags - Bitmask of VkPipelineCreationFeedbackFlagBits
 // Provided by VK_VERSION_1_3
 typedef VkFlags VkPipelineCreationFeedbackFlags;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_creation_feedback
+// Equivalent to VkPipelineCreationFeedbackFlags
 typedef VkPipelineCreationFeedbackFlags VkPipelineCreationFeedbackFlagsEXT;
 
 `VkPipelineCreationFeedbackFlags` is a bitmask type for providing zero

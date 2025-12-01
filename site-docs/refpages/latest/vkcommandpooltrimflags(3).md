@@ -21,15 +21,14 @@ VkCommandPoolTrimFlags - Reserved for future use
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkCommandPoolTrimFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance1
+// Equivalent to VkCommandPoolTrimFlags
 typedef VkCommandPoolTrimFlags VkCommandPoolTrimFlagsKHR;
 
 `VkCommandPoolTrimFlags` is a bitmask type for setting a mask, but is
 currently reserved for future use.
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), `VkFlags`, [vkTrimCommandPool](vkTrimCommandPool.html), [vkTrimCommandPool](vkTrimCommandPool.html)
+[VK_KHR_maintenance1](VK_KHR_maintenance1.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), `VkFlags`, [vkTrimCommandPool](vkTrimCommandPool.html), [vkTrimCommandPool](vkTrimCommandPool.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/cmdbuffers.html#VkCommandPoolTrimFlags).
 

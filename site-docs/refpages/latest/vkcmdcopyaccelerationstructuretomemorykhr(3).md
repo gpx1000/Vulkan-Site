@@ -47,8 +47,8 @@ synchronized with the
 `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR`
 [pipeline stage](../../../../spec/latest/chapters/synchronization.html#synchronization-pipeline-stages) or the
 `VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`
-[pipeline stage](../../../../spec/latest/chapters/synchronization.html#synchronization-pipeline-stages), and an access
-type of `VK_ACCESS_TRANSFER_WRITE_BIT`.
+[pipeline stage](../../../../spec/latest/chapters/synchronization.html#synchronization-pipeline-stages), and an access type of
+`VK_ACCESS_TRANSFER_WRITE_BIT`.
 
 This command produces the same results as
 [vkCopyAccelerationStructureToMemoryKHR](vkCopyAccelerationStructureToMemoryKHR.html), but writes its result to a
@@ -141,12 +141,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyAccelerationStructureToMemoryKHR-commandBuffer-cmdpool) VUID-vkCmdCopyAccelerationStructureToMemoryKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyAccelerationStructureToMemoryKHR-renderpass) VUID-vkCmdCopyAccelerationStructureToMemoryKHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyAccelerationStructureToMemoryKHR-suspended) VUID-vkCmdCopyAccelerationStructureToMemoryKHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyAccelerationStructureToMemoryKHR-videocoding) VUID-vkCmdCopyAccelerationStructureToMemoryKHR-videocoding
@@ -166,7 +171,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 

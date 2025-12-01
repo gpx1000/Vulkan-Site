@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceShaderTerminateInvocationFeatures {
     VkBool32           shaderTerminateInvocation;
 } VkPhysicalDeviceShaderTerminateInvocationFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_shader_terminate_invocation
+// Equivalent to VkPhysicalDeviceShaderTerminateInvocationFeatures
 typedef VkPhysicalDeviceShaderTerminateInvocationFeatures VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR;
 
 This structure describes the following feature:

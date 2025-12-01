@@ -94,7 +94,7 @@ It is good practice to use a monotonically increasing counter as the frame
 identifier and not reuse identifiers between frames. |
 
 The `pImages` and `pBuffers` arrays contain a list of images and
-buffers which store the "end result" of the frame.
+buffers which store the “end result” of the frame.
 As the concept of frame is application-dependent, not all frames **may**
 produce their results in images or buffers, yet this is a sufficiently
 common case to be handled by `VkFrameBoundaryEXT`.

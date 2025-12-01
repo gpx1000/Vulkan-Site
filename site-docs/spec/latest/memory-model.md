@@ -68,8 +68,16 @@ Thus if an instruction is skipped due to control flow, it does not
 constitute an operation. |
 
 Each operation is executed by a particular *agent*.
-Possible agents include each shader invocation, each host thread, and each
-fixed-function stage of the pipeline.
+Possible agents include each:
+
+* 
+fixed-function stage of the pipeline,
+
+* 
+shader invocation, or
+
+* 
+host thread.
 
 A *memory location* identifies unique storage for 8 bits of data.
 Memory operations access a *set of memory locations* consisting of one or
@@ -84,15 +92,18 @@ A memory operation **must** not affect memory at a memory location not within
 its set of memory locations.
 
 Memory locations for buffers and images are explicitly allocated in
-[VkDeviceMemory](../chapters/memory.html#VkDeviceMemory) objects, and are implicitly allocated for SPIR-V
-variables in each shader invocation.
+[VkDeviceMemory](../chapters/memory.html#VkDeviceMemory) objects
+, and are implicitly allocated for SPIR-V variables in each shader
+invocation
+.
 
 Variables with `Workgroup` storage class that are decorated with
 `Aliased` and that point to a block-decorated type share a set of memory
 locations.
 
-The values stored in newly allocated memory locations are determined by a
-SPIR-V variable’s initializer, if present, or else are **undefined**.
+The values stored in newly allocated memory locations are
+determined by a SPIR-V variable’s initializer, if present, or else are
+**undefined**.
 At the time an allocation is created there have been no
 [memory operations](#memory-model-memory-operation) to any of its memory
 locations.
@@ -134,10 +145,11 @@ If the variable is an array (or array of arrays, etc.) then each element
 of the array **may** be a unique reference.
 
 * 
-The address range for a buffer in `PhysicalStorageBuffer` storage
-class, where the base of the address range is queried with
-[vkGetBufferDeviceAddress](../chapters/resources.html#vkGetBufferDeviceAddress)
-and the length of the range is the size of the buffer.
+The address range for a buffer
+in `PhysicalStorageBuffer` storage class,
+  where the base of the address range is queried with
+    [vkGetBufferDeviceAddress](../chapters/resources.html#vkGetBufferDeviceAddress)
+    and the length of the range is the size of the buffer.
 
 * 
 A single common reference for all variables with `Workgroup` storage
@@ -253,6 +265,7 @@ Each atomic operation has a memory [scope](#memory-model-scope) and a
 Informally, the scope determines which other agents it is atomic with
 respect to, and the [semantics](#memory-model-memory-semantics) constrains
 its ordering against other memory accesses.
+
 Device atomic operations have explicit scopes and semantics.
 Each host atomic operation implicitly uses the `CrossDevice` scope, and
 uses a memory semantics equivalent to a C++ std::memory_order value of
@@ -318,10 +331,10 @@ which are flags that constrain the order in which other memory accesses
 [availability and visibility operations](#memory-model-availability-visibility)) performed by the same agent **can** be observed by other agents,
 or **can** observe accesses by other agents.
 
-Device instructions that include semantics are `OpAtomic*`,
-`OpControlBarrier`, `OpMemoryBarrier`, and `OpMemoryNamedBarrier`.
 Host instructions that include semantics are some std::atomic methods and
 memory fences.
+Device instructions that include semantics are `OpAtomic*`,
+`OpControlBarrier`, `OpMemoryBarrier`, and `OpMemoryNamedBarrier`.
 
 Vulkan supports the following memory semantics:
 
@@ -623,18 +636,20 @@ If A system-synchronizes-with B, we also say A is
 By default, non-atomic memory operations are treated as *private*, meaning
 such a memory operation is not intended to be used for communication with
 other agents.
+
+*Non-private* memory operations are intended to be used for communication
+with other agents.
+Atomic operations are always considered *non-private*.
+
 Memory operations with the `NonPrivatePointer`, `NonPrivateTexel`
 , or `NonPrivateElementARM`
-bit set are treated as *non-private*, and are intended to be used for
-communication with other agents.
+bit set are treated as *non-private*
 
 More precisely, for private memory operations to be
 [Location-Ordered](#memory-model-location-ordered) between distinct agents
 requires using system-synchronizes-with rather than shader-based
 synchronization.
 Private memory operations still obey program-order.
-
-Atomic operations are always considered non-private.
 
 Let SC be a non-empty set of storage class semantics.
 Then (using template syntax) operation A *inter-thread-happens-before*
@@ -748,11 +763,12 @@ instance domain.
 |  | Memory domains do not correspond to storage classes or device-local and
 | --- | --- |
 host-local [VkDeviceMemory](../chapters/memory.html#VkDeviceMemory) allocations, rather they indicate whether a
-write can be made visible only to agents in the same subgroup, same
-workgroup,
-overlapping fragment shader invocation,
-shader-call-related ray tracing invocation,
-in any shader invocation, or anywhere on the device, or host.
+write can be made visible only to agents
+in the same subgroup, same workgroup,
+in overlapping fragment shader invocation,
+in shader-call-related ray tracing invocation,
+in any shader invocation, or
+anywhere on the device, or host.
 The shader, queue family instance,
 fragment interlock instance,
 shader call instance,

@@ -32,9 +32,8 @@ typedef struct VkDeviceGroupCommandBufferBeginInfo {
     uint32_t           deviceMask;
 } VkDeviceGroupCommandBufferBeginInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_device_group
+// Equivalent to VkDeviceGroupCommandBufferBeginInfo
 typedef VkDeviceGroupCommandBufferBeginInfo VkDeviceGroupCommandBufferBeginInfoKHR;
 
 * 
@@ -74,7 +73,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_device_group](VK_KHR_device_group.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/cmdbuffers.html#VkDeviceGroupCommandBufferBeginInfo).
 

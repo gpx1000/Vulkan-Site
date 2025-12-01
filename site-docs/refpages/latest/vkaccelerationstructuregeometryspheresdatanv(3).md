@@ -53,7 +53,7 @@ structure.
 element.
 
 * 
-`vertexData` is a device or host address to memory containing vertex
+`vertexData` is a device or host address of memory containing vertex
 data in form of pairs of centers of spheres that define all sphere
 geometry.
 
@@ -64,7 +64,7 @@ geometry.
 `radiusFormat` is the [VkFormat](VkFormat.html) of each sphere’s radius.
 
 * 
-`radiusData` is a device or host address to memory containing
+`radiusData` is a device or host address of memory containing
 sphere’s radius data value.
 
 * 
@@ -74,8 +74,9 @@ sphere’s radius data value.
 `indexType` is the [VkIndexType](VkIndexType.html) of each index element.
 
 * 
-`indexData` is `NULL` or a device or host address to memory
-containing index data for vertex and radius buffers for this geometry.
+`indexData` is a device or host address of memory containing index
+data for vertex and radius buffers for this geometry.
+When `indexType` is `VK_INDEX_TYPE_NONE_KHR` it **must** be `NULL`.
 
 * 
 `indexStride` is the stride in bytes between each index element.
@@ -86,11 +87,6 @@ Valid Usage
 [](#VUID-VkAccelerationStructureGeometrySpheresDataNV-None-10429) VUID-VkAccelerationStructureGeometrySpheresDataNV-None-10429
 
 The [spheres](../../../../spec/latest/chapters/features.html#features-spheres) feature **must** be enabled
-
-* 
-[](#VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexData-10430) VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexData-10430
-
-The memory address in `vertexData` **must** not be `0` or `NULL'
 
 * 
 [](#VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexStride-10431) VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexStride-10431
@@ -108,10 +104,6 @@ the smallest [component size](../../../../spec/latest/chapters/formats.html#form
 
 `vertexStride` and `radiusStride` **must** be less than or equal to
 232-1
-
-[](#VUID-VkAccelerationStructureGeometrySpheresDataNV-radiusData-10433) VUID-VkAccelerationStructureGeometrySpheresDataNV-radiusData-10433
-
-The memory address in `radiusData` **must** not be `0` or `NULL'
 
 [](#VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexFormat-10434) VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexFormat-10434
 
@@ -132,8 +124,8 @@ to `0`
 
 [](#VUID-VkAccelerationStructureGeometrySpheresDataNV-indexData-10437) VUID-VkAccelerationStructureGeometrySpheresDataNV-indexData-10437
 
-If `indexData` is not `NULL`, `indexType` **must** be one of
-`VK_INDEX_TYPE_UINT16` or `VK_INDEX_TYPE_UINT32`
+`indexType` **must** be `VK_INDEX_TYPE_UINT16`,
+`VK_INDEX_TYPE_UINT32`, `VK_INDEX_TYPE_NONE_KHR`
 
 Valid Usage (Implicit)
 

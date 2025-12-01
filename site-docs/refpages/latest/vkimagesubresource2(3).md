@@ -28,14 +28,12 @@ typedef struct VkImageSubresource2 {
     VkImageSubresource    imageSubresource;
 } VkImageSubresource2;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkImageSubresource2
 typedef VkImageSubresource2 VkImageSubresource2KHR;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy, VK_EXT_image_compression_control
+// Equivalent to VkImageSubresource2
 typedef VkImageSubresource2 VkImageSubresource2EXT;
 
 * 

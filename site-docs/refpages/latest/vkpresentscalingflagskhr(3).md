@@ -21,9 +21,8 @@ VkPresentScalingFlagsKHR - Bitmask of VkPresentScalingFlagBitsKHR
 // Provided by VK_KHR_surface_maintenance1
 typedef VkFlags VkPresentScalingFlagsKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkPresentScalingFlagsKHR
 typedef VkPresentScalingFlagsKHR VkPresentScalingFlagsEXT;
 
 `VkPresentScalingFlagsKHR` is a bitmask type for setting a mask of zero

@@ -30,9 +30,8 @@ typedef struct VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR {
     VkBool32           computeDerivativeGroupLinear;
 } VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR;
 
-or the equivalent
-
 // Provided by VK_NV_compute_shader_derivatives
+// Equivalent to VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR
 typedef VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR VkPhysicalDeviceComputeShaderDerivativesFeaturesNV;
 
 This structure describes the following features:
@@ -72,7 +71,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR`
 
-[VK_KHR_compute_shader_derivatives](VK_KHR_compute_shader_derivatives.html), `VkBool32`, [VkStructureType](VkStructureType.html)
+[VK_KHR_compute_shader_derivatives](VK_KHR_compute_shader_derivatives.html), [VK_NV_compute_shader_derivatives](VK_NV_compute_shader_derivatives.html), `VkBool32`, [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/features.html#VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR).
 

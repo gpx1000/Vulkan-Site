@@ -305,6 +305,13 @@ command and the bound [VkPipeline](VkPipeline.html) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
 
 * 
+[](#VUID-vkCmdTraceRaysIndirect2KHR-imageLayout-00344) VUID-vkCmdTraceRaysIndirect2KHR-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](VkImageLayout.html)
+**must** match the subresource accessible from the [VkImageView](VkImageView.html) as
+defined by the [image layout    matching rules](../../../../spec/latest/chapters/resources.html#resources-image-layouts-matching-rule)
+
+* 
 [](#VUID-vkCmdTraceRaysIndirect2KHR-None-08115) VUID-vkCmdTraceRaysIndirect2KHR-None-08115
 
 If the descriptors used by the [VkPipeline](VkPipeline.html) bound to the pipeline
@@ -712,7 +719,8 @@ used to create the bound ray tracing pipeline
 [](#VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03633) VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03633
 
 The buffer from which `indirectDeviceAddress` was queried **must** have
-been created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+been created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage
+flag set
 
 * 
 [](#VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03634) VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03634
@@ -759,12 +767,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdTraceRaysIndirect2KHR-commandBuffer-cmdpool) VUID-vkCmdTraceRaysIndirect2KHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdTraceRaysIndirect2KHR-renderpass) VUID-vkCmdTraceRaysIndirect2KHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdTraceRaysIndirect2KHR-suspended) VUID-vkCmdTraceRaysIndirect2KHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdTraceRaysIndirect2KHR-videocoding) VUID-vkCmdTraceRaysIndirect2KHR-videocoding
@@ -784,7 +797,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 

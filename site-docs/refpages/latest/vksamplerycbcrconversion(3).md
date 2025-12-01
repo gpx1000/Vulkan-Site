@@ -24,12 +24,11 @@ device-specific sampler Y′CBCR conversion description, represented as a
 // Provided by VK_VERSION_1_1
 VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkSamplerYcbcrConversion)
 
-or the equivalent
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrConversion
 typedef VkSamplerYcbcrConversion VkSamplerYcbcrConversionKHR;
 
-[VK_DEFINE_NON_DISPATCHABLE_HANDLE](VK_DEFINE_NON_DISPATCHABLE_HANDLE.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkSamplerYcbcrConversionInfo](VkSamplerYcbcrConversionInfo.html), [vkCreateSamplerYcbcrConversion](vkCreateSamplerYcbcrConversion.html), [vkCreateSamplerYcbcrConversion](vkCreateSamplerYcbcrConversion.html), [vkDestroySamplerYcbcrConversion](vkDestroySamplerYcbcrConversion.html), [vkDestroySamplerYcbcrConversion](vkDestroySamplerYcbcrConversion.html)
+[VK_DEFINE_NON_DISPATCHABLE_HANDLE](VK_DEFINE_NON_DISPATCHABLE_HANDLE.html), [VK_KHR_sampler_ycbcr_conversion](VK_KHR_sampler_ycbcr_conversion.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkSamplerYcbcrConversionInfo](VkSamplerYcbcrConversionInfo.html), [vkCreateSamplerYcbcrConversion](vkCreateSamplerYcbcrConversion.html), [vkCreateSamplerYcbcrConversion](vkCreateSamplerYcbcrConversion.html), [vkDestroySamplerYcbcrConversion](vkDestroySamplerYcbcrConversion.html), [vkDestroySamplerYcbcrConversion](vkDestroySamplerYcbcrConversion.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/samplers.html#VkSamplerYcbcrConversion).
 

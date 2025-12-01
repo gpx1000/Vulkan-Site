@@ -33,9 +33,8 @@ typedef struct VkExportMemoryAllocateInfo {
     VkExternalMemoryHandleTypeFlags    handleTypes;
 } VkExportMemoryAllocateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory
+// Equivalent to VkExportMemoryAllocateInfo
 typedef VkExportMemoryAllocateInfo VkExportMemoryAllocateInfoKHR;
 
 * 
@@ -75,7 +74,7 @@ Valid Usage (Implicit)
 
  `handleTypes` **must** be a valid combination of [VkExternalMemoryHandleTypeFlagBits](VkExternalMemoryHandleTypeFlagBits.html) values
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalMemoryHandleTypeFlags](VkExternalMemoryHandleTypeFlags.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_external_memory](VK_KHR_external_memory.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalMemoryHandleTypeFlags](VkExternalMemoryHandleTypeFlags.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/memory.html#VkExportMemoryAllocateInfo).
 

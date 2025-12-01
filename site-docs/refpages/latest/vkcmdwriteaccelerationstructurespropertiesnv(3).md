@@ -134,12 +134,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdWriteAccelerationStructuresPropertiesNV-commandBuffer-cmdpool) VUID-vkCmdWriteAccelerationStructuresPropertiesNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdWriteAccelerationStructuresPropertiesNV-renderpass) VUID-vkCmdWriteAccelerationStructuresPropertiesNV-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdWriteAccelerationStructuresPropertiesNV-suspended) VUID-vkCmdWriteAccelerationStructuresPropertiesNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdWriteAccelerationStructuresPropertiesNV-videocoding) VUID-vkCmdWriteAccelerationStructuresPropertiesNV-videocoding
@@ -169,7 +174,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 

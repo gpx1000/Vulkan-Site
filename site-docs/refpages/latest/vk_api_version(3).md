@@ -20,7 +20,7 @@ VK_API_VERSION - Deprecated version number macro
 `VK_API_VERSION` is now commented out of `vulkan_core.h` and **cannot** be
 used.
 
-|  | This functionality is deprecated by [Vulkan Version 1.0](../../../../spec/latest/appendices/versions.html#versions-1.0). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-version-macros) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.0](../../../../spec/latest/appendices/versions.html#versions-1.0). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-version-macros) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0

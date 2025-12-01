@@ -24,7 +24,7 @@
 
 Fragment shader barycentric feature provides support for accessing the barycentric coordinates (linear and perspective) in the fragment shader and vertex attribute with the `pervertexEXT` decoration.
 
-The [VK_KHR_fragment_shader_barycentric](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_fragment_shader_barycentric.html) extension is based on [VK_NV_fragment_shader_barycentric](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_NV_fragment_shader_barycentric.html).
+The [VK_KHR_fragment_shader_barycentric](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_fragment_shader_barycentric.html) extension is based on [VK_NV_fragment_shader_barycentric](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_NV_fragment_shader_barycentric.html).
 
 The extension provides access to additional built-in variables and decorations:
 
@@ -35,7 +35,7 @@ The extension provides access to additional built-in variables and decorations:
 | decoration | pervertexEXT | perVertexKHR |
 
 The built-in fragment shader input variables `gl_BaryCoordEXT` and `gl_BaryCoordNoPerspEXT` are three-component floating-point vectors that provide the barycentric coordinates for the fragment.
-The values for these built-ins are derived as described in [the Vulkan API Specifications](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-builtin-variables).
+The values for these built-ins are derived as described in [the Vulkan API Specifications](https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#interfaces-builtin-variables).
 The built-in variables hold barycentric weights for the fragment produced using:
 
 * 
@@ -50,8 +50,8 @@ Such inputs must be declared as an array, because they have values for each vert
 layout(location = 0) pervertexEXT in vec4 perVertexAttr[];
 
 Each array element corresponds to one of the  vertices of the primitive that produced the fragment.
-The order of the vertices is defined in [the Vulkan API Specifications](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-barycentric).
-Interpolated values are not available for inputs declared with the [`pervertexEXT`](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-interpolation-decorations-pervertexkhr).
+The order of the vertices is defined in [the Vulkan API Specifications](https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-barycentric).
+Interpolated values are not available for inputs declared with the [`pervertexEXT`](https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-interpolation-decorations-pervertexkhr).
 
 The fragment shader barycentric sample demonstrates feature usage by applying different effects on a cube.
 The effects are implemented using the `pervertexEXT` decoration and built-in variables `gl_BaryCoordEXT` and `gl_BaryCoordNoPerspEXT`.
@@ -73,8 +73,8 @@ Interpolate to mass center - Demonstrates color interpolation to the triangle’
 * 
 Barycoord texture - Demonstrates the modification of a texture using barycentric coordinates.
 
-Enabling the fragment shader barycentric feature is done using the [`VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR.html) structure, where `fragmentShaderBarycentric` indicates barycentric support in fragment shaders.
-The structure should be passed to `vkGetPhysicalDeviceFeatures2` in the pNext member of the [`VkPhysicalDeviceFeatures2`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFeatures2.html) structure.
+Enabling the fragment shader barycentric feature is done using the [`VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR`](https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR.html) structure, where `fragmentShaderBarycentric` indicates barycentric support in fragment shaders.
+The structure should be passed to `vkGetPhysicalDeviceFeatures2` in the pNext member of the [`VkPhysicalDeviceFeatures2`](https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFeatures2.html) structure.
 
 VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR requested_fragment_shader_barycentric_features
 requested_fragment_shader_barycentric_features.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR;

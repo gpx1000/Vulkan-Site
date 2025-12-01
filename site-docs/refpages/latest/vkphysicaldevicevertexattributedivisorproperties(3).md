@@ -30,9 +30,8 @@ typedef struct VkPhysicalDeviceVertexAttributeDivisorProperties {
     VkBool32           supportsNonZeroFirstInstance;
 } VkPhysicalDeviceVertexAttributeDivisorProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_vertex_attribute_divisor
+// Equivalent to VkPhysicalDeviceVertexAttributeDivisorProperties
 typedef VkPhysicalDeviceVertexAttributeDivisorProperties VkPhysicalDeviceVertexAttributeDivisorPropertiesKHR;
 
 * 

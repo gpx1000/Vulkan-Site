@@ -67,8 +67,8 @@ of `VK_FORMAT_R8_UINT`
 [](#VUID-vkCmdBindShadingRateImageNV-imageView-02061) VUID-vkCmdBindShadingRateImageNV-imageView-02061
 
 If `imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), it **must** have been
-created with a `usage` value including
-`VK_IMAGE_USAGE_SHADING_RATE_IMAGE_BIT_NV`
+created with the `VK_IMAGE_USAGE_SHADING_RATE_IMAGE_BIT_NV` usage
+flag set
 
 * 
 [](#VUID-vkCmdBindShadingRateImageNV-imageView-02062) VUID-vkCmdBindShadingRateImageNV-imageView-02062
@@ -109,7 +109,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindShadingRateImageNV-commandBuffer-cmdpool) VUID-vkCmdBindShadingRateImageNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindShadingRateImageNV-videocoding) VUID-vkCmdBindShadingRateImageNV-videocoding
@@ -134,7 +134,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

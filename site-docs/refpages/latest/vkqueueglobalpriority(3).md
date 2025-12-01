@@ -46,14 +46,12 @@ typedef enum VkQueueGlobalPriority {
     VK_QUEUE_GLOBAL_PRIORITY_REALTIME_KHR = VK_QUEUE_GLOBAL_PRIORITY_REALTIME,
 } VkQueueGlobalPriority;
 
-or the equivalent
-
 // Provided by VK_KHR_global_priority
+// Equivalent to VkQueueGlobalPriority
 typedef VkQueueGlobalPriority VkQueueGlobalPriorityKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_global_priority
+// Equivalent to VkQueueGlobalPriority
 typedef VkQueueGlobalPriority VkQueueGlobalPriorityEXT;
 
 Priority values are sorted in ascending order.

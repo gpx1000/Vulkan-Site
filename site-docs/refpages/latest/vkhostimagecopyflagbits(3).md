@@ -26,18 +26,17 @@ parameters are:
 // Provided by VK_VERSION_1_4
 typedef enum VkHostImageCopyFlagBits {
     VK_HOST_IMAGE_COPY_MEMCPY_BIT = 0x00000001,
-  // VK_HOST_IMAGE_COPY_MEMCPY is a deprecated alias
+  // VK_HOST_IMAGE_COPY_MEMCPY is a legacy alias
     VK_HOST_IMAGE_COPY_MEMCPY = VK_HOST_IMAGE_COPY_MEMCPY_BIT,
   // Provided by VK_EXT_host_image_copy
     VK_HOST_IMAGE_COPY_MEMCPY_BIT_EXT = VK_HOST_IMAGE_COPY_MEMCPY_BIT,
   // Provided by VK_EXT_host_image_copy
-  // VK_HOST_IMAGE_COPY_MEMCPY_EXT is a deprecated alias
+  // VK_HOST_IMAGE_COPY_MEMCPY_EXT is a legacy alias
     VK_HOST_IMAGE_COPY_MEMCPY_EXT = VK_HOST_IMAGE_COPY_MEMCPY_BIT,
 } VkHostImageCopyFlagBits;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to VkHostImageCopyFlagBits
 typedef VkHostImageCopyFlagBits VkHostImageCopyFlagBitsEXT;
 
 * 

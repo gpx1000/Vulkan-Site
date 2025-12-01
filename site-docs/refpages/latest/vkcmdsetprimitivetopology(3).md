@@ -26,9 +26,8 @@ void vkCmdSetPrimitiveTopology(
     VkCommandBuffer                             commandBuffer,
     VkPrimitiveTopology                         primitiveTopology);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetPrimitiveTopology
 void vkCmdSetPrimitiveTopologyEXT(
     VkCommandBuffer                             commandBuffer,
     VkPrimitiveTopology                         primitiveTopology);
@@ -88,7 +87,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetPrimitiveTopology-commandBuffer-cmdpool) VUID-vkCmdSetPrimitiveTopology-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetPrimitiveTopology-videocoding) VUID-vkCmdSetPrimitiveTopology-videocoding
@@ -108,7 +107,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

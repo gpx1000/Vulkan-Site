@@ -302,7 +302,40 @@
     <a class="nav-link" href="17_Multithreading.html">Multithreading</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="courses/18_Ray_tracing/00_Overview.html">Ray Tracing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/00_Overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/01_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/02_Acceleration_structures.html">Acceleration structures</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/03_Ray_query_shadows.html">Ray query shadows</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/04_TLAS_animation.html">TLAS animation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/05_Shadow_transparency.html">Shadow transparency</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/06_Reflections.html">Reflections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/07_Conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="90_FAQ.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -414,7 +447,7 @@ We <em>will</em> load mesh data from an OBJ model in this chapter, but we&#8217;
 <p>We will use the <a href="https://github.com/syoyo/tinyobjloader">tinyobjloader</a> library to load vertices and faces from an OBJ file.
 It&#8217;s fast and it&#8217;s easy to integrate because it&#8217;s a single file library like stb_image.
 This was mentioned in the <a href="02_Development_environment.adoc">Development
-Enviornment</a> chapter and should be part of the dependencies for this portion
+Environment</a> chapter and should be part of the dependencies for this portion
 of the tutorial.</p>
 </div>
 </div>
@@ -453,7 +486,6 @@ Put the model file in a new <code>models</code> directory next to <code>shaders<
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">constexpr uint32_t WIDTH = 800;
 constexpr uint32_t HEIGHT = 600;
-constexpr uint64_t FenceTimeout = 100000000;
 const std::string MODEL_PATH = "models/viking_room.obj";
 const std::string TEXTURE_PATH = "textures/viking_room.png";</code></pre>
 </div>

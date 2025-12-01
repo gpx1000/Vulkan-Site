@@ -21,7 +21,7 @@ vkCmdBeginRenderPass - Begin a new render pass
 
 To begin a render pass instance, call:
 
-|  | This functionality is deprecated by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -58,8 +58,8 @@ render pass specified in the `renderPass` member of
 `pRenderPassBegin` is `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL`
 then the corresponding attachment image view of the framebuffer
 specified in the `framebuffer` member of `pRenderPassBegin`
-**must** have been created with a `usage` value including
-`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT`
+**must** have been created with the
+`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdBeginRenderPass-initialLayout-01758) VUID-vkCmdBeginRenderPass-initialLayout-01758
@@ -75,8 +75,8 @@ render pass specified in the `renderPass` member of
 `VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL` then the
 corresponding attachment image view of the framebuffer specified in the
 `framebuffer` member of `pRenderPassBegin` **must** have been
-created with a `usage` value including
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+created with the `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage
+flag set
 
 * 
 [](#VUID-vkCmdBeginRenderPass-initialLayout-02842) VUID-vkCmdBeginRenderPass-initialLayout-02842
@@ -92,8 +92,8 @@ render pass specified in the `renderPass` member of
 `VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL` then the corresponding
 attachment image view of the framebuffer specified in the
 `framebuffer` member of `pRenderPassBegin` **must** have been
-created with a `usage` value including
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+created with the `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage
+flag set
 
 * 
 [](#VUID-vkCmdBeginRenderPass-stencilInitialLayout-02843) VUID-vkCmdBeginRenderPass-stencilInitialLayout-02843
@@ -108,8 +108,8 @@ creating the render pass specified in the `renderPass` member of
 `VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL` then the corresponding
 attachment image view of the framebuffer specified in the
 `framebuffer` member of `pRenderPassBegin` **must** have been
-created with a `usage` value including
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+created with the `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage
+flag set
 
 * 
 [](#VUID-vkCmdBeginRenderPass-initialLayout-00897) VUID-vkCmdBeginRenderPass-initialLayout-00897
@@ -121,9 +121,8 @@ render pass specified in the `renderPass` member of
 `pRenderPassBegin` is `VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL`
 then the corresponding attachment image view of the framebuffer
 specified in the `framebuffer` member of `pRenderPassBegin`
-**must** have been created with a `usage` value including
-`VK_IMAGE_USAGE_SAMPLED_BIT` or
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+**must** have been created with the `VK_IMAGE_USAGE_SAMPLED_BIT` or
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-vkCmdBeginRenderPass-initialLayout-00898) VUID-vkCmdBeginRenderPass-initialLayout-00898
@@ -135,8 +134,8 @@ render pass specified in the `renderPass` member of
 `pRenderPassBegin` is `VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL`
 then the corresponding attachment image view of the framebuffer
 specified in the `framebuffer` member of `pRenderPassBegin`
-**must** have been created with a `usage` value including
-`VK_IMAGE_USAGE_TRANSFER_SRC_BIT`
+**must** have been created with the `VK_IMAGE_USAGE_TRANSFER_SRC_BIT`
+usage flag set
 
 * 
 [](#VUID-vkCmdBeginRenderPass-initialLayout-00899) VUID-vkCmdBeginRenderPass-initialLayout-00899
@@ -148,8 +147,8 @@ render pass specified in the `renderPass` member of
 `pRenderPassBegin` is `VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL`
 then the corresponding attachment image view of the framebuffer
 specified in the `framebuffer` member of `pRenderPassBegin`
-**must** have been created with a `usage` value including
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT`
+**must** have been created with the `VK_IMAGE_USAGE_TRANSFER_DST_BIT`
+usage flag set
 
 * 
 [](#VUID-vkCmdBeginRenderPass-initialLayout-00900) VUID-vkCmdBeginRenderPass-initialLayout-00900
@@ -210,11 +209,10 @@ render pass specified in the `renderPass` member of
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` then the
 corresponding attachment image view of the framebuffer specified in the
 `framebuffer` member of `pRenderPassBegin` **must** have been
-created with a `usage` value including either the
-`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` and either the
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_SAMPLED_BIT` usage bits
+created with either the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flags set, and
+either the `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flags set
 
 * 
 [](#VUID-vkCmdBeginRenderPass-initialLayout-07001) VUID-vkCmdBeginRenderPass-initialLayout-07001
@@ -227,8 +225,8 @@ render pass specified in the `renderPass` member of
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` then the
 corresponding attachment image view of the framebuffer specified in the
 `framebuffer` member of `pRenderPassBegin` **must** have been
-created with a `usage` value the
-`VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT` usage bit
+created with the `VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT`
+usage flag set
 
 * 
 [](#VUID-vkCmdBeginRenderPass-initialLayout-09537) VUID-vkCmdBeginRenderPass-initialLayout-09537
@@ -240,11 +238,10 @@ render pass specified in the `renderPass` member of
 `pRenderPassBegin` is `VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ`
 then the corresponding attachment image view of the framebuffer
 specified in the `framebuffer` member of `pRenderPassBegin`
-**must** have been created with a `usage` value including either
-`VK_IMAGE_USAGE_STORAGE_BIT`, or both
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` and either of
-`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+**must** have been created with either the `VK_IMAGE_USAGE_STORAGE_BIT`
+usage flag set, or both the `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+and either of `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-vkCmdBeginRenderPass-contents-09640) VUID-vkCmdBeginRenderPass-contents-09640
@@ -283,12 +280,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBeginRenderPass-commandBuffer-cmdpool) VUID-vkCmdBeginRenderPass-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBeginRenderPass-renderpass) VUID-vkCmdBeginRenderPass-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdBeginRenderPass-suspended) VUID-vkCmdBeginRenderPass-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBeginRenderPass-videocoding) VUID-vkCmdBeginRenderPass-videocoding
@@ -311,7 +313,7 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](../../../../spec/latest/chapters/cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../../../../spec/latest/chapters/renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../../../../spec/latest/chapters/videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../../../../spec/latest/chapters/devsandqueues.html#VkQueueFlagBits) | [Command Type](../../../../spec/latest/chapters/fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Outside | Outside | Graphics | Action
+| Primary | Outside | Outside | VK_QUEUE_GRAPHICS_BIT | Action
 
 State
 

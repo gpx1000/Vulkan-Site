@@ -27,9 +27,8 @@ VkResult vkGetPhysicalDeviceImageFormatProperties2(
     const VkPhysicalDeviceImageFormatInfo2*     pImageFormatInfo,
     VkImageFormatProperties2*                   pImageFormatProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to vkGetPhysicalDeviceImageFormatProperties2
 VkResult vkGetPhysicalDeviceImageFormatProperties2KHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceImageFormatInfo2*     pImageFormatInfo,
@@ -167,7 +166,7 @@ Return Codes
 * 
 `VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImageFormatProperties2](VkImageFormatProperties2.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceImageFormatInfo2](VkPhysicalDeviceImageFormatInfo2.html)
+[VK_KHR_get_physical_device_properties2](VK_KHR_get_physical_device_properties2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImageFormatProperties2](VkImageFormatProperties2.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceImageFormatInfo2](VkPhysicalDeviceImageFormatInfo2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#vkGetPhysicalDeviceImageFormatProperties2).
 

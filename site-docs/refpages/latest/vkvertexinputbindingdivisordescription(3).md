@@ -28,14 +28,12 @@ typedef struct VkVertexInputBindingDivisorDescription {
     uint32_t    divisor;
 } VkVertexInputBindingDivisorDescription;
 
-or the equivalent
-
 // Provided by VK_KHR_vertex_attribute_divisor
+// Equivalent to VkVertexInputBindingDivisorDescription
 typedef VkVertexInputBindingDivisorDescription VkVertexInputBindingDivisorDescriptionKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_vertex_attribute_divisor
+// Equivalent to VkVertexInputBindingDivisorDescription
 typedef VkVertexInputBindingDivisorDescription VkVertexInputBindingDivisorDescriptionEXT;
 
 * 

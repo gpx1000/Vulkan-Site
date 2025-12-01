@@ -28,9 +28,8 @@ typedef struct VkPhysicalDeviceExternalFenceInfo {
     VkExternalFenceHandleTypeFlagBits    handleType;
 } VkPhysicalDeviceExternalFenceInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkPhysicalDeviceExternalFenceInfo
 typedef VkPhysicalDeviceExternalFenceInfo VkPhysicalDeviceExternalFenceInfoKHR;
 
 * 
@@ -71,7 +70,7 @@ Valid Usage (Implicit)
 
  `handleType` **must** be a valid [VkExternalFenceHandleTypeFlagBits](VkExternalFenceHandleTypeFlagBits.html) value
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalFenceHandleTypeFlagBits](VkExternalFenceHandleTypeFlagBits.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceExternalFenceProperties](vkGetPhysicalDeviceExternalFenceProperties.html), [vkGetPhysicalDeviceExternalFenceProperties](vkGetPhysicalDeviceExternalFenceProperties.html)
+[VK_KHR_external_fence_capabilities](VK_KHR_external_fence_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalFenceHandleTypeFlagBits](VkExternalFenceHandleTypeFlagBits.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceExternalFenceProperties](vkGetPhysicalDeviceExternalFenceProperties.html), [vkGetPhysicalDeviceExternalFenceProperties](vkGetPhysicalDeviceExternalFenceProperties.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkPhysicalDeviceExternalFenceInfo).
 

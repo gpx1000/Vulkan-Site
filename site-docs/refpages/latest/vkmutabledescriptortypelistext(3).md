@@ -30,9 +30,8 @@ typedef struct VkMutableDescriptorTypeListEXT {
     const VkDescriptorType*    pDescriptorTypes;
 } VkMutableDescriptorTypeListEXT;
 
-or the equivalent
-
 // Provided by VK_VALVE_mutable_descriptor_type
+// Equivalent to VkMutableDescriptorTypeListEXT
 typedef VkMutableDescriptorTypeListEXT VkMutableDescriptorTypeListVALVE;
 
 * 

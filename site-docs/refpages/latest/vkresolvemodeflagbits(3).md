@@ -30,6 +30,8 @@ typedef enum VkResolveModeFlagBits {
     VK_RESOLVE_MODE_MAX_BIT = 0x00000008,
   // Provided by VK_ANDROID_external_format_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
     VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID = 0x00000010,
+  // Provided by VK_EXT_custom_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
+    VK_RESOLVE_MODE_CUSTOM_BIT_EXT = 0x00000020,
   // Provided by VK_KHR_depth_stencil_resolve
     VK_RESOLVE_MODE_NONE_KHR = VK_RESOLVE_MODE_NONE,
   // Provided by VK_KHR_depth_stencil_resolve
@@ -41,13 +43,12 @@ typedef enum VkResolveModeFlagBits {
   // Provided by VK_KHR_depth_stencil_resolve
     VK_RESOLVE_MODE_MAX_BIT_KHR = VK_RESOLVE_MODE_MAX_BIT,
   // Provided by VK_ANDROID_external_format_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
-  // VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID is a deprecated alias
+  // VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID is a legacy alias
     VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID = VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID,
 } VkResolveModeFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_depth_stencil_resolve
+// Equivalent to VkResolveModeFlagBits
 typedef VkResolveModeFlagBits VkResolveModeFlagBitsKHR;
 
 * 
@@ -88,6 +89,11 @@ according to
 [VkPhysicalDeviceExternalFormatResolvePropertiesANDROID](VkPhysicalDeviceExternalFormatResolvePropertiesANDROID.html)::`externalFormatResolveChromaOffsetY`,
 and the chroma sample rate of the resolved image.
 
+* 
+`VK_RESOLVE_MODE_CUSTOM_BIT_EXT` specifies that the attachment will
+be resolved by shaders in the render pass instead of fixed-function
+operations.
+
 If no resolve mode is otherwise specified, `VK_RESOLVE_MODE_AVERAGE_BIT`
 is used.
 
@@ -101,6 +107,12 @@ nonlinear to linear before averaging samples as described in the “sRGB
 EOTF” section of the [Khronos Data Format Specification](../../../../spec/latest/chapters/introduction.html#data-format).
 In this case, the implementation **must** convert the linear averaged value to
 nonlinear before writing the resolved result to resolve attachment.
+If the [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is enabled,
+whether a nonlinear to linear conversion happens for sRGB resolve is defined
+by
+[`resolveSrgbFormatAppliesTransferFunction`](../../../../spec/latest/chapters/limits.html#limits-resolveSrgbFormatAppliesTransferFunction).
+This behavior **can** be overridden with appropriate
+`VK_*`*RESOLVE*{SKIP,ENABLE}_TRANSFER_FUNCTION_BIT_KHR flag usage.
 
 |  | No range compression or Y′CBCR model conversion is performed by
 | --- | --- |
@@ -111,7 +123,7 @@ Value outputs are expected to match those that would be read through a
 The color space that the values should be in is defined by the platform and
 is not exposed via Vulkan. |
 
-[VK_KHR_depth_stencil_resolve](VK_KHR_depth_stencil_resolve.html), [VK_VERSION_1_2](VK_VERSION_1_2.html), [VkRenderingAttachmentInfo](VkRenderingAttachmentInfo.html), [VkResolveModeFlags](VkResolveModeFlags.html), [VkSubpassDescriptionDepthStencilResolve](VkSubpassDescriptionDepthStencilResolve.html)
+[VK_KHR_depth_stencil_resolve](VK_KHR_depth_stencil_resolve.html), [VK_VERSION_1_2](VK_VERSION_1_2.html), [VkRenderingAttachmentInfo](VkRenderingAttachmentInfo.html), [VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html), [VkResolveModeFlags](VkResolveModeFlags.html), [VkSubpassDescriptionDepthStencilResolve](VkSubpassDescriptionDepthStencilResolve.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/renderpass.html#VkResolveModeFlagBits).
 

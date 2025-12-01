@@ -85,6 +85,19 @@ be enabled
 `layout` **must** have been created with the
 `VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT` flag set
 
+* 
+[](#VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11811) VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11811
+
+`layout` **must** have not been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT` flag set
+
+* 
+[](#VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11812) VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11812
+
+`layout` **must** have not been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT`
+flag set
+
 Valid Usage (Implicit)
 
 * 

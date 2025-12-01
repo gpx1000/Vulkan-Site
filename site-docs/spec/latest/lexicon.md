@@ -422,11 +422,6 @@ A single logical item of host-side work which can be deferred.
 Represented by the [VkDeferredOperationKHR](../chapters/VK_KHR_deferred_host_operations/deferred_host_operations.html#VkDeferredOperationKHR) object.
 See [Deferred Host Operations](../chapters/VK_KHR_deferred_host_operations/deferred_host_operations.html#deferred-host-operations).
 
-Deprecated (feature)
-
-A feature is deprecated if it is no longer recommended as the correct or
-best way to achieve its intended purpose.
-
 Depth/Stencil Attachment
 
 A subpass attachment point, or image view, that is the target of depth
@@ -823,6 +818,10 @@ Framebuffer Region
 A framebuffer region is a set of sample (x, y, layer, sample)
 coordinates that is a subset of the entire framebuffer.
 
+Frame Rate
+
+A non-Vulkan term for Image Present Rate (IPR).
+
 Front-Facing
 
 See Facingness.
@@ -932,6 +931,20 @@ Image
 A resource that represents a multi-dimensional formatted interpretation
 of device memory.
 Represented by a [VkImage](../chapters/resources.html#VkImage) object.
+
+Image Present Duration
+
+The amount of time the application intends for each newly-presented
+image to be visible to the user.
+This value **should** be a multiple of the refresh cycle duration.
+
+Image Present Rate
+
+The number of newly-presented images the application intends to present
+each second (a.k.a.
+frame rate).
+On fixed refresh rate displays, this value **should** be a multiple of the
+refresh rate.
 
 Image Subresource
 
@@ -1124,11 +1137,22 @@ Invocation Repack Instruction
 A ray tracing [instruction](../chapters/raytracing.html#ray-tracing-repack) where the
 implementation **may** change the set of invocations that are executing.
 
+IPD
+
+Image Present Duration.
+
 Join (Deferred Host Operations)
 
 The act of instructing a thread to participate in the execution of a
 deferred operation.
 See [Deferred Host Operations](../chapters/VK_KHR_deferred_host_operations/deferred_host_operations.html#deferred-host-operations).
+
+Legacy (feature)
+
+A feature which is no longer recommended as the correct or best way to
+achieve its intended purpose.
+Legacy features are typically superseded by new features which are the
+currently recommended way to achieve that purpose.
 
 Linear Color Attachment
 
@@ -1475,6 +1499,18 @@ One of:
 * 
 `OpHitObjectTraceRayMotionNV`
 
+* 
+`OpHitObjectTraceRayEXT`
+
+* 
+`OpHitObjectTraceReorderExecuteEXT`
+
+* 
+`OpHitObjectTraceRayMotionEXT`
+
+* 
+`OpHitObjectTraceMotionReorderExecuteEXT`
+
 `pNext` Chain
 
 A set of structures [chained together](../chapters/fundamentals.html#fundamentals-validusage-pNext)
@@ -1665,6 +1701,10 @@ Ray Tracing Command
 [vkCmdTraceRaysKHR](../chapters/raytracing.html#vkCmdTraceRaysKHR), and [vkCmdTraceRaysIndirectKHR](../chapters/raytracing.html#vkCmdTraceRaysIndirectKHR)
     .
 
+RC
+
+Refresh Cycle.
+
 Reconstructed Picture
 
 A video picture resource reconstructed from a compressed bitstream using
@@ -1686,6 +1726,19 @@ or encoded pictures.
 Reference Picture Metadata
 
 Opaque state associated with a DPB slot, maintained by a video session.
+
+Refresh Cycle
+
+The periodic process for updating the contents of the Presentation
+Engine’s display.
+
+Refresh Cycle Duration
+
+The amount of time from the start of one refresh cycle to the next.
+
+Refresh Rate
+
+The number of refresh cycles per second.
 
 Release Operation (Resource)
 
@@ -1941,6 +1994,12 @@ A subset of a self-dependency is a pipeline barrier performed during the
 subpass of the self-dependency, and whose stage masks and access masks
 each contain a subset of the bits set in the identically named mask in
 the self-dependency.
+
+Superseded (feature)
+
+A legacy feature can be superseded by newer functionality that achieves
+the same goals through a newer style of API, being more efficient, or
+otherwise following current recommendations for use of Vulkan.
 
 Tensor
 

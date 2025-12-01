@@ -110,7 +110,6 @@ Both `VK_SUCCESS` and `VK_SUBOPTIMAL_KHR` are considered "success" return codes.
 
 result = presentQueue.presentKHR( presentInfoKHR );
 if (result == vk::Result::eErrorOutOfDateKHR || result == vk::Result::eSuboptimalKHR) {
-    framebufferResized = false;
     recreateSwapChain();
 } else if (result != vk::Result::eSuccess) {
     throw std::runtime_error("failed to present swap chain image!");
@@ -158,7 +157,7 @@ bool framebufferResized = false;
 
 The `drawFrame` function should then be modified to also check for this flag:
 
-if (result == vk::Result::eErrorOutOfDateKHR || result == vk::Result::eSuboptimalKHR) {
+if (result == vk::Result::eErrorOutOfDateKHR || result == vk::Result::eSuboptimalKHR || framebufferResized) {
     framebufferResized = false;
     recreateSwapChain();
 } else if (result != vk::Result::eSuccess) {

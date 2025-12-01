@@ -29,9 +29,8 @@ VkResult vkWaitSemaphores(
     const VkSemaphoreWaitInfo*                  pWaitInfo,
     uint64_t                                    timeout);
 
-or the equivalent command
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to vkWaitSemaphores
 VkResult vkWaitSemaphoresKHR(
     VkDevice                                    device,
     const VkSemaphoreWaitInfo*                  pWaitInfo,

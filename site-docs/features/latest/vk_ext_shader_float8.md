@@ -43,7 +43,7 @@ large networks.
 This extension enables two 8-bit floating point types: E4M3 and E5M2 as
 defined by the "FP8 Formats For Deep Learning" whitepaper ([https://arxiv.org/abs/2209.05433](https://arxiv.org/abs/2209.05433)).
 
-Machine learning algorithms frequently use [SPV_KHR_cooperative_matrix](https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_cooperative_matrix.asciidoc).
+Machine learning algorithms frequently use [SPV_KHR_cooperative_matrix](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_cooperative_matrix.html).
 
 Any proposal here has to support that functionality, as well as basic manipulation of data for these types.
 

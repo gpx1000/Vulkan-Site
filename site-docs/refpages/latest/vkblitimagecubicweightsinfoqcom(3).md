@@ -51,7 +51,7 @@ Valid Usage (Implicit)
 
  `cubicWeights` **must** be a valid [VkCubicFilterWeightsQCOM](VkCubicFilterWeightsQCOM.html) value
 
-[VK_KHR_copy_commands2](VK_KHR_copy_commands2.html), [VK_QCOM_filter_cubic_weights](VK_QCOM_filter_cubic_weights.html), [VkCubicFilterWeightsQCOM](VkCubicFilterWeightsQCOM.html), [VkStructureType](VkStructureType.html)
+[VK_QCOM_filter_cubic_weights](VK_QCOM_filter_cubic_weights.html), [VkCubicFilterWeightsQCOM](VkCubicFilterWeightsQCOM.html), [VkImageBlit2](VkImageBlit2.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/copies.html#VkBlitImageCubicWeightsInfoQCOM).
 

@@ -69,14 +69,14 @@ is `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`
 If descriptorType is `VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE` or
 `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`, the image that
 `imageView` was created from **must** have been created with the
-`VK_IMAGE_USAGE_SAMPLED_BIT` usage bit set
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flag set
 
 * 
 [](#VUID-VkImageViewHandleInfoNVX-imageView-02657) VUID-VkImageViewHandleInfoNVX-imageView-02657
 
 If descriptorType is `VK_DESCRIPTOR_TYPE_STORAGE_IMAGE`, the image
 that `imageView` was created from **must** have been created with the
-`VK_IMAGE_USAGE_STORAGE_BIT` usage bit set
+`VK_IMAGE_USAGE_STORAGE_BIT` usage flag set
 
 Valid Usage (Implicit)
 

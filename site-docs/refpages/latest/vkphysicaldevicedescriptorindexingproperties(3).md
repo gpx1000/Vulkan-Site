@@ -51,9 +51,8 @@ typedef struct VkPhysicalDeviceDescriptorIndexingProperties {
     uint32_t           maxDescriptorSetUpdateAfterBindInputAttachments;
 } VkPhysicalDeviceDescriptorIndexingProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkPhysicalDeviceDescriptorIndexingProperties
 typedef VkPhysicalDeviceDescriptorIndexingProperties VkPhysicalDeviceDescriptorIndexingPropertiesEXT;
 
 * 

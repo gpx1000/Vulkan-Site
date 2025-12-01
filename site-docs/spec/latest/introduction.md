@@ -126,8 +126,8 @@ When the normative terms **may**, **should**, or **optional** are used to descri
 implementation behavior, they define alternative or optional behaviors which
 a conformant implementation may or may not exhibit.
 Such statements are also normative.
-For example, if the specification says "Under **specified condition**, the
-implementation **should** return A but **may** instead return B", then an
+For example, if the specification says “Under **specified condition**, the
+implementation **should** return A but **may** instead return B”, then an
 implementation that returns either A or B under that condition is conformant
 (assuming it does not violate other normative requirements), while an
 implementation that returns anything else is not.

@@ -114,10 +114,11 @@ static const VkPipelineCreateFlagBits2 VK_PIPELINE_CREATE_2_CAPTURE_DATA_BIT_KHR
 static const VkPipelineCreateFlagBits2 VK_PIPELINE_CREATE_2_INDIRECT_BINDABLE_BIT_EXT = 0x4000000000ULL;
 // Provided by VK_VALVE_fragment_density_map_layered
 static const VkPipelineCreateFlagBits2 VK_PIPELINE_CREATE_2_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE = 0x10000000000ULL;
-
-or the equivalent
+// Provided by VK_EXT_shader_64bit_indexing
+static const VkPipelineCreateFlagBits2 VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT = 0x80000000000ULL;
 
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkPipelineCreateFlagBits2
 typedef VkPipelineCreateFlagBits2 VkPipelineCreateFlagBits2KHR;
 
 * 
@@ -356,6 +357,10 @@ pipeline will be used in an [execution graph](../../../../spec/latest/chapters/e
 `VK_PIPELINE_CREATE_2_DISALLOW_OPACITY_MICROMAP_BIT_ARM` specifies
 that the pipeline **must** not be used with acceleration structures which
 reference an opacity micromap array.
+
+* 
+`VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT` specifies that the
+pipeline enables [64-bit indexing](../../../../spec/latest/appendices/spirvenv.html#spirvenv-64bindexing).
 
 It is valid to set both `VK_PIPELINE_CREATE_2_ALLOW_DERIVATIVES_BIT` and
 `VK_PIPELINE_CREATE_2_DERIVATIVE_BIT`.

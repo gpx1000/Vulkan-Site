@@ -38,6 +38,9 @@ recorded.
 * 
 `pSampleMask` is a pointer to an array of `VkSampleMask`
 values, where the array size is based on the `samples` parameter.
+If the [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is
+enabled, and this parameter is set to `NULL`, it is treated as if the
+mask has all bits set to `1`.
 
 This command sets the sample mask for subsequent drawing commands
 when drawing using [shader objects](../../../../spec/latest/chapters/shaders.html#shaders-objects), or
@@ -61,6 +64,12 @@ enabled
 * 
 The [`shaderObject`](../../../../spec/latest/chapters/features.html#features-shaderObject) feature is enabled
 
+[](#VUID-vkCmdSetSampleMaskEXT-pSampleMask-10999) VUID-vkCmdSetSampleMaskEXT-pSampleMask-10999
+
+`pSampleMask` **must** not be `NULL`
+if the [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is not
+enabled
+
 Valid Usage (Implicit)
 
 * 
@@ -76,7 +85,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetSampleMaskEXT-pSampleMask-parameter) VUID-vkCmdSetSampleMaskEXT-pSampleMask-parameter
 
- `pSampleMask` **must** be a valid pointer to an array of    `VkSampleMask` values
+ If `pSampleMask` is not `NULL`, `pSampleMask` **must** be a valid pointer to an array of    `VkSampleMask` values
 
 * 
 [](#VUID-vkCmdSetSampleMaskEXT-commandBuffer-recording) VUID-vkCmdSetSampleMaskEXT-commandBuffer-recording
@@ -86,7 +95,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetSampleMaskEXT-commandBuffer-cmdpool) VUID-vkCmdSetSampleMaskEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetSampleMaskEXT-videocoding) VUID-vkCmdSetSampleMaskEXT-videocoding
@@ -106,7 +115,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

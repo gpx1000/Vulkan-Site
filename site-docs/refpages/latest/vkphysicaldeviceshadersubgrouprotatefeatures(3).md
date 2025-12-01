@@ -30,9 +30,8 @@ typedef struct VkPhysicalDeviceShaderSubgroupRotateFeatures {
     VkBool32           shaderSubgroupRotateClustered;
 } VkPhysicalDeviceShaderSubgroupRotateFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_shader_subgroup_rotate
+// Equivalent to VkPhysicalDeviceShaderSubgroupRotateFeatures
 typedef VkPhysicalDeviceShaderSubgroupRotateFeatures VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR;
 
 * 

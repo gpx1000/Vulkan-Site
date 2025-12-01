@@ -339,7 +339,7 @@ pipeline stages in `dstStageMask`, as specified in the
 * 
 [](#VUID-vkCmdWaitEvents-pBufferMemoryBarriers-02817) VUID-vkCmdWaitEvents-pBufferMemoryBarriers-02817
 
-For any element of `pBufferMemoryBarriers`, if its
+For each element of `pBufferMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `srcQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -351,7 +351,7 @@ access flags that are supported by one or more of the pipeline stages in
 * 
 [](#VUID-vkCmdWaitEvents-pBufferMemoryBarriers-02818) VUID-vkCmdWaitEvents-pBufferMemoryBarriers-02818
 
-For any element of `pBufferMemoryBarriers`, if its
+For each element of `pBufferMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `dstQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -363,7 +363,7 @@ access flags that are supported by one or more of the pipeline stages in
 * 
 [](#VUID-vkCmdWaitEvents-pImageMemoryBarriers-02819) VUID-vkCmdWaitEvents-pImageMemoryBarriers-02819
 
-For any element of `pImageMemoryBarriers`, if its
+For each element of `pImageMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `srcQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -375,7 +375,7 @@ access flags that are supported by one or more of the pipeline stages in
 * 
 [](#VUID-vkCmdWaitEvents-pImageMemoryBarriers-02820) VUID-vkCmdWaitEvents-pImageMemoryBarriers-02820
 
-For any element of `pImageMemoryBarriers`, if its
+For each element of `pImageMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `dstQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -415,7 +415,7 @@ the elements of `pEvents` was set using `vkSetEvent`
 * 
 [](#VUID-vkCmdWaitEvents-srcStageMask-07308) VUID-vkCmdWaitEvents-srcStageMask-07308
 
-If `vkCmdWaitEvents` is being called inside a render pass instance,
+If this command is called inside a render pass instance,
 `srcStageMask` **must** not include `VK_PIPELINE_STAGE_HOST_BIT`
 
 * 
@@ -489,7 +489,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdWaitEvents-commandBuffer-cmdpool) VUID-vkCmdWaitEvents-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdWaitEvents-suspended) VUID-vkCmdWaitEvents-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdWaitEvents-eventCount-arraylength) VUID-vkCmdWaitEvents-eventCount-arraylength
@@ -514,13 +519,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Graphics
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Synchronization |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Synchronization |
 
 Conditional Rendering
 

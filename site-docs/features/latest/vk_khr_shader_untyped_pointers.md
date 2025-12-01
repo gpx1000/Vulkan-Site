@@ -24,25 +24,36 @@
 
 Shader SPIR-V mostly uses strongly-typed pointers.
 This is problematic for multiple reasons:
-1. LLVM (a common compiler infrastructure used by many drivers and tools) has moved away from typed pointers.
-    LLVM calls them opaque pointers.
-    Translation from LLVM IR to SPIR-V requires reconstructing type information
-    in a careful manner to satisfy Shader SPIR-V rules.
-    Translation to LLVM IR is simpler as it mainly involves dropping type information.
-2. Many extensions attempt to workaround the strongly-typed requirement or would benefit from a relaxation of that requirement:
-    * [SPV_KHR_cooperative_matrix](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_cooperative_matrix.html)
-        uses separate operands to allow type reinterpretation vs the declared
-        type of the pointer.
-    * [SPV_KHR_workgroup_memory_explicit_layout](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_workgroup_memory_explicit_layout.html)
-        uses aliased `Workgroup` variables with different data layout to
-        provide C-like union functionality.
-    * 8-bit integer and 16-bit floating point/integer arithmetic features require
-        extraneous type conversion instructions if the corresponding storage
-        features are not supported.
-    * [SPV_KHR_physical_storage_buffer](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_physical_storage_buffer.html)
-        adds limited support for physical pointers that are not strongly typed.
-3. HLLs have constructs that are not strongly typed (e.g. byte address buffers in HLSL).
-   Generating code for these resources leads to extraneous conversions.
+
+LLVM (a common compiler infrastructure used by many drivers and tools) has moved away from typed pointers.
+LLVM calls them opaque pointers.
+Translation from LLVM IR to SPIR-V requires reconstructing type information
+in a careful manner to satisfy Shader SPIR-V rules.
+Translation to LLVM IR is simpler as it mainly involves dropping type information.
+
+Many extensions attempt to workaround the strongly-typed requirement or would benefit from a relaxation of that requirement:
+
+* 
+[SPV_KHR_cooperative_matrix](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_cooperative_matrix.html)
+uses separate operands to allow type reinterpretation vs the declared
+type of the pointer.
+
+* 
+[SPV_KHR_workgroup_memory_explicit_layout](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_workgroup_memory_explicit_layout.html)
+uses aliased `Workgroup` variables with different data layout to
+provide C-like union functionality.
+
+* 
+8-bit integer and 16-bit floating point/integer arithmetic features require
+extraneous type conversion instructions if the corresponding storage
+features are not supported.
+
+* 
+[SPV_KHR_physical_storage_buffer](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_physical_storage_buffer.html)
+adds limited support for physical pointers that are not strongly typed.
+
+HLLs have constructs that are not strongly typed (e.g. byte address buffers in HLSL).
+Generating code for these resources leads to extraneous conversions.
 
 Physical memory is not inherently typed.
 Strongly-typed pointers represent a direct translation of traditional shading
@@ -79,11 +90,21 @@ The extension adds a number of new instructions based around a new pointer
 type, `OpTypeUntypedPointerKHR`.
 The other new instructions are necessary to replace the type information that
 was previously carried in the pointer type:
-* `OpUntypedVariableKHR`
-* `OpUntypedAccessChainKHR`
-* `OpUntypedInBoundsAccessChainKHR`
-* `OpUntypedPtrAccessChainKHR`
-* `OpUntypedArrayLengthKHR`
+
+* 
+`OpUntypedVariableKHR`
+
+* 
+`OpUntypedAccessChainKHR`
+
+* 
+`OpUntypedInBoundsAccessChainKHR`
+
+* 
+`OpUntypedPtrAccessChainKHR`
+
+* 
+`OpUntypedArrayLengthKHR`
 
 Note: The extension includes other new instructions to facilitate additional client APIs.
 

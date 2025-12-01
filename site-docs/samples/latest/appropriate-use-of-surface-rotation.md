@@ -65,10 +65,10 @@ In a nutshell, below are the steps required to handle pre-rotation:
 | Destroy the Vulkan framebuffers and the swapchain | Destroy the Vulkan framebuffers and the swapchain |
 | Re-create the swapchain using the new surface dimensions i.e.
 the swapchain dimensions match the surface’s.
-Ignore the `preTransform` field in [`VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSwapchainCreateInfoKHR.html).
-This will not match the value returned by [`vkGetPhysicalDeviceSurfaceCapabilitiesKHR`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html) and therefore the Android Compositor will rotate the scene before presenting it to the display | Re-create the swapchain using the old swapchain dimensions, i.e.
+Ignore the `preTransform` field in [`VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainCreateInfoKHR.html).
+This will not match the value returned by [`vkGetPhysicalDeviceSurfaceCapabilitiesKHR`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html) and therefore the Android Compositor will rotate the scene before presenting it to the display | Re-create the swapchain using the old swapchain dimensions, i.e.
 the swapchain dimensions do not change.
-Update the `preTransform` field in [`VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSwapchainCreateInfoKHR.html) so that it matches the `currentTransform` field of the [`VkSurfaceCapabilitiesKHR`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSurfaceCapabilitiesKHR.html) returned by the new surface.
+Update the `preTransform` field in [`VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainCreateInfoKHR.html) so that it matches the `currentTransform` field of the [`VkSurfaceCapabilitiesKHR`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesKHR.html) returned by the new surface.
 This communicates to Android that it does not need to rotate the scene. |
 | Re-create the framebuffers | Re-create the framebuffers |
 | n/a | Adjust the MVP matrix so that the world is rotated |
@@ -137,8 +137,8 @@ VK_CHECK(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(get_device().get_physical_dev
 
 pre_transform = surface_properties.currentTransform;
 
-`currentTransform` is a [`VkSurfaceTransformFlagBitsKHR`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/chap32.html#VkSurfaceTransformFlagBitsKHR) value.
-When we re-create the swapchain, we must set the swapchain’s [`preTransform`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSwapchainCreateInfoKHR.html) to match this value.
+`currentTransform` is a [`VkSurfaceTransformFlagBitsKHR`](https://www.khronos.org/registry/vulkan/specs/latest/html/chap32.html#VkSurfaceTransformFlagBitsKHR) value.
+When we re-create the swapchain, we must set the swapchain’s [`preTransform`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainCreateInfoKHR.html) to match this value.
 This informs the compositor that the application has handled the required transform so it does not have to.
 
 To re-create the swapchain, the sample uses the helper function `update_swapchain` provided by the framework:
@@ -247,10 +247,10 @@ In order to save battery life in those devices without a rotation-capable DPU, a
 **Do**
 
 * 
-To avoid presentation engine transformation passes ensure that swapchain [`preTransform`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSwapchainCreateInfoKHR.html) matches the `currentTransform` value returned by [`vkGetPhysicalDeviceSurfaceCapabilitiesKHR`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html).
+To avoid presentation engine transformation passes ensure that swapchain [`preTransform`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainCreateInfoKHR.html) matches the `currentTransform` value returned by [`vkGetPhysicalDeviceSurfaceCapabilitiesKHR`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html).
 
 * 
-If a swapchain image acquisition returns [`VK_SUBOPTIMAL_KHR`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkResult.html) or [`VK_ERROR_OUT_OF_DATE_KHR`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkResult.html) then recreate the swapchain taking into account any updated surface properties including potential orientation updates reported via `currentTransform`.
+If a swapchain image acquisition returns [`VK_SUBOPTIMAL_KHR`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkResult.html) or [`VK_ERROR_OUT_OF_DATE_KHR`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkResult.html) then recreate the swapchain taking into account any updated surface properties including potential orientation updates reported via `currentTransform`.
 
 **Don’t**
 

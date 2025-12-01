@@ -28,9 +28,8 @@ VkResult vkCreateSamplerYcbcrConversion(
     const VkAllocationCallbacks*                pAllocator,
     VkSamplerYcbcrConversion*                   pYcbcrConversion);
 
-or the equivalent command
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to vkCreateSamplerYcbcrConversion
 VkResult vkCreateSamplerYcbcrConversionKHR(
     VkDevice                                    device,
     const VkSamplerYcbcrConversionCreateInfo*   pCreateInfo,
@@ -108,7 +107,7 @@ Return Codes
 * 
 `VK_ERROR_VALIDATION_FAILED`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkAllocationCallbacks](VkAllocationCallbacks.html), [VkDevice](VkDevice.html), [VkSamplerYcbcrConversion](VkSamplerYcbcrConversion.html), [VkSamplerYcbcrConversionCreateInfo](VkSamplerYcbcrConversionCreateInfo.html)
+[VK_KHR_sampler_ycbcr_conversion](VK_KHR_sampler_ycbcr_conversion.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkAllocationCallbacks](VkAllocationCallbacks.html), [VkDevice](VkDevice.html), [VkSamplerYcbcrConversion](VkSamplerYcbcrConversion.html), [VkSamplerYcbcrConversionCreateInfo](VkSamplerYcbcrConversionCreateInfo.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/samplers.html#vkCreateSamplerYcbcrConversion).
 

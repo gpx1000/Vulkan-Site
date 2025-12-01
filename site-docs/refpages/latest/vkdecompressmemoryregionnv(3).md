@@ -17,7 +17,7 @@
 
 ## Content
 
-VkDecompressMemoryRegionNV - Structure specifying decompression parameters
+VkDecompressMemoryRegionNV - Structure specifying decompression region parameters
 
 The `VkDecompressMemoryRegionNV` structure is defined as:
 
@@ -45,47 +45,10 @@ be written.
 
 * 
 `decompressionMethod` is a bitmask of
-`VkMemoryDecompressionMethodFlagBitsNV` with a single bit set
+[VkMemoryDecompressionMethodFlagBitsNV](VkMemoryDecompressionMethodFlagBitsEXT.html) with a single bit set
 specifying the method used to decompress data.
 
 Valid Usage
-
-* 
-[](#VUID-VkDecompressMemoryRegionNV-srcAddress-07685) VUID-VkDecompressMemoryRegionNV-srcAddress-07685
-
-The `srcAddress` **must** be 4 byte aligned
-
-* 
-[](#VUID-VkDecompressMemoryRegionNV-srcAddress-07686) VUID-VkDecompressMemoryRegionNV-srcAddress-07686
-
-The memory in range `srcAddress` and `srcAddress` + 
-`compressedSize` **must** be valid and bound to a `VkDeviceMemory`
-object
-
-* 
-[](#VUID-VkDecompressMemoryRegionNV-dstAddress-07687) VUID-VkDecompressMemoryRegionNV-dstAddress-07687
-
-The `dstAddress` **must** be 4 byte aligned
-
-* 
-[](#VUID-VkDecompressMemoryRegionNV-decompressionMethod-09395) VUID-VkDecompressMemoryRegionNV-decompressionMethod-09395
-
-If `decompressionMethod` is
-`VK_MEMORY_DECOMPRESSION_METHOD_GDEFLATE_1_0_BIT_NV`, then
-`decompressedSize` **must** be less than or equal to 65536 bytes
-
-* 
-[](#VUID-VkDecompressMemoryRegionNV-dstAddress-07688) VUID-VkDecompressMemoryRegionNV-dstAddress-07688
-
-The memory in range `dstAddress` and `dstAddress` + 
-`decompressedSize` **must** be valid and bound to a
-`VkDeviceMemory` object
-
-* 
-[](#VUID-VkDecompressMemoryRegionNV-decompressedSize-07689) VUID-VkDecompressMemoryRegionNV-decompressedSize-07689
-
-The `decompressedSize` **must** be large enough to hold the
-decompressed data based on the `decompressionMethod`
 
 * 
 [](#VUID-VkDecompressMemoryRegionNV-decompressionMethod-07690) VUID-VkDecompressMemoryRegionNV-decompressionMethod-07690
@@ -93,37 +56,70 @@ decompressed data based on the `decompressionMethod`
 The `decompressionMethod` **must** have a single bit set
 
 * 
+[](#VUID-VkDecompressMemoryRegionNV-srcAddress-07685) VUID-VkDecompressMemoryRegionNV-srcAddress-07685
+
+`srcAddress` **must** be 4 byte aligned
+
+* 
+[](#VUID-VkDecompressMemoryRegionNV-srcAddress-07686) VUID-VkDecompressMemoryRegionNV-srcAddress-07686
+
+The memory range defined by `srcAddress` and `compressedSize`
+**must** be contained within the size of the buffer bound to
+`srcAddress`, minus the offset of `srcAddress` from the base
+address of that buffer
+
+* 
+[](#VUID-VkDecompressMemoryRegionNV-dstAddress-07687) VUID-VkDecompressMemoryRegionNV-dstAddress-07687
+
+`dstAddress` **must** be 4 byte aligned
+
+* 
+[](#VUID-VkDecompressMemoryRegionNV-dstAddress-07688) VUID-VkDecompressMemoryRegionNV-dstAddress-07688
+
+The memory range defined by `dstAddress` and `decompressedSize`
+**must** be contained within the size of the buffer bound to
+`dstAddress`, minus the offset of `dstAddress` from the base
+address of that buffer
+
+* 
+[](#VUID-VkDecompressMemoryRegionNV-decompressedSize-07689) VUID-VkDecompressMemoryRegionNV-decompressedSize-07689
+
+`decompressedSize` **must** be large enough to hold the decompressed
+data based on the `decompressionMethod`
+
+* 
+[](#VUID-VkDecompressMemoryRegionNV-compressedSize-11795) VUID-VkDecompressMemoryRegionNV-compressedSize-11795
+
+`compressedSize` **must** not be zero
+
+* 
+[](#VUID-VkDecompressMemoryRegionNV-decompressedSize-11796) VUID-VkDecompressMemoryRegionNV-decompressedSize-11796
+
+`decompressedSize` **must** not be zero
+
+* 
 [](#VUID-VkDecompressMemoryRegionNV-srcAddress-07691) VUID-VkDecompressMemoryRegionNV-srcAddress-07691
 
-The `srcAddress` to `srcAddress` +  `compressedSize`
-region **must** not overlap with the `dstAddress` and `dstAddress`
-+  `decompressedSize` region
-
-Valid Usage (Implicit)
+The memory range defined by `srcAddress` and `compressedSize`
+**must** not overlap the memory range defined by `dstAddress` and
+`decompressedSize`
 
 * 
-[](#VUID-VkDecompressMemoryRegionNV-srcAddress-parameter) VUID-VkDecompressMemoryRegionNV-srcAddress-parameter
+[](#VUID-VkDecompressMemoryRegionNV-decompressionMethod-09395) VUID-VkDecompressMemoryRegionNV-decompressionMethod-09395
 
- `srcAddress` **must** be a valid `VkDeviceAddress` value
-
-* 
-[](#VUID-VkDecompressMemoryRegionNV-dstAddress-parameter) VUID-VkDecompressMemoryRegionNV-dstAddress-parameter
-
- `dstAddress` **must** be a valid `VkDeviceAddress` value
+If `decompressionMethod` is
+`VK_MEMORY_DECOMPRESSION_METHOD_GDEFLATE_1_0_BIT_EXT`, then
+`decompressedSize` **must** be less than or equal to 65536 bytes
 
 * 
-[](#VUID-VkDecompressMemoryRegionNV-decompressionMethod-parameter) VUID-VkDecompressMemoryRegionNV-decompressionMethod-parameter
+[](#VUID-vkCmdDecompressMemoryNV-memoryDecompression-11766) VUID-vkCmdDecompressMemoryNV-memoryDecompression-11766
 
- `decompressionMethod` **must** be a valid combination of [VkMemoryDecompressionMethodFlagBitsNV](VkMemoryDecompressionMethodFlagBitsNV.html) values
+The [`memoryDecompression`](../../../../spec/latest/chapters/features.html#features-memoryDecompression) feature
+**must** be enabled
 
-* 
-[](#VUID-VkDecompressMemoryRegionNV-decompressionMethod-requiredbitmask) VUID-VkDecompressMemoryRegionNV-decompressionMethod-requiredbitmask
+[VK_NV_memory_decompression](VK_NV_memory_decompression.html), `VkDeviceAddress`, `VkDeviceSize`, [VkMemoryDecompressionMethodFlagsEXT](VkMemoryDecompressionMethodFlagsEXT.html), [vkCmdDecompressMemoryNV](vkCmdDecompressMemoryNV.html)
 
- `decompressionMethod` **must** not be `0`
-
-[VK_NV_memory_decompression](VK_NV_memory_decompression.html), `VkDeviceAddress`, `VkDeviceSize`, [VkMemoryDecompressionMethodFlagsNV](VkMemoryDecompressionMethodFlagsNV.html), [vkCmdDecompressMemoryNV](vkCmdDecompressMemoryNV.html)
-
-For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/VK_NV_memory_decompression.html#VkDecompressMemoryRegionNV).
+For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/memory_decompression.html#VkDecompressMemoryRegionNV).
 
 This page is extracted from the Vulkan Specification.
 Fixes and changes should be made to the Specification, not directly.

@@ -216,7 +216,7 @@ an image **can** be used in a render pass with non-zero
 In a render pass with non-zero offsets, fragment density map
 attachments, input attachments, color attachments, depth/stencil
 attachment, resolve attachments, and preserve attachments **must** be
-created with `VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM`.
+created with `VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_EXT`.
 
 `VK_IMAGE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT` specifies
 that the image **can** be used with descriptor buffers when capturing and
@@ -240,11 +240,11 @@ question.
 conversions when used as:
 
 * 
-[Decode output pictures](../../../../spec/latest/chapters/videocoding.html#decode-output-picture), indifferent of the
+[Decode output pictures](../../../../spec/latest/chapters/videocoding.html#decode-output-picture), regardless of the
 video profile used to produce them.
 
 * 
-[Encode input pictures](../../../../spec/latest/chapters/videocoding.html#encode-input-picture), indifferent of the video
+[Encode input pictures](../../../../spec/latest/chapters/videocoding.html#encode-input-picture), regardless of the video
 profile used to consume them.
 
 This includes images created with both

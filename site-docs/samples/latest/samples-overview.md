@@ -162,6 +162,8 @@
 - [Host_image_copies](#_host_image_copies)
 - [Dynamic multisample rasterization](#_dynamic_multisample_rasterization)
 - [Dynamic_multisample_rasterization](#_dynamic_multisample_rasterization)
+- [Tensor and Data Graph](#_tensor_and_data_graph)
+- [Tensor_and_Data_Graph](#_tensor_and_data_graph)
 - [Tooling Samples](#tooling-samples)
 - [Profiles Library](#_profiles_library)
 
@@ -237,7 +239,7 @@ This sample will look in detail at the implementation and performance implicatio
 Vulkan render-passes use attachments to describe input and output render targets.
 This sample shows how loading and storing attachments might affect performance on mobile.
 During the creation of a render-pass, you can specify various color attachments and a depth-stencil attachment.
-Each of those is described by a [`VkAttachmentDescription`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkAttachmentDescription.html) struct, which contains attributes to specify the [load operation](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkAttachmentLoadOp.html) (`loadOp`) and the [store operation](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkAttachmentStoreOp.html) (`storeOp`).
+Each of those is described by a [`VkAttachmentDescription`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentDescription.html) struct, which contains attributes to specify the [load operation](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentLoadOp.html) (`loadOp`) and the [store operation](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentStoreOp.html) (`storeOp`).
 This sample lets you choose between different combinations of these operations at runtime.
 
 Vulkan exposes a number of methods for setting values within shader code during run-time, this includes UBOs and Specialization Constants.
@@ -331,54 +333,54 @@ A sample that implements order-independent transparency with depth peeling.
 
 The goal of these samples is to demonstrate how to use a particular Vulkan extension at the API level with as little abstraction as possible.
 
-**Extension**: [`VK_EXT_conservative_rasterization`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_EXT_conservative_rasterization)
+**Extension**: [`VK_EXT_conservative_rasterization`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_EXT_conservative_rasterization)
 
 Uses conservative rasterization to change the way fragments are generated.
 Enables overestimation to generate fragments for every pixel touched instead of only pixels that are fully covered.
 
-**Extension**: [`VK_KHR_dynamic_rendering`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_dynamic_rendering)
+**Extension**: [`VK_KHR_dynamic_rendering`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_dynamic_rendering)
 
 Demonstrates how to use Dynamic Rendering.
 Read the blog post here for discussion: ([https://www.khronos.org/blog/streamlining-render-passes](https://www.khronos.org/blog/streamlining-render-passes))
 
-**Extension**: [`VK_KHR_dynamic_rendering_local_read`](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VK_KHR_dynamic_rendering_local_read)
+**Extension**: [`VK_KHR_dynamic_rendering_local_read`](https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VK_KHR_dynamic_rendering_local_read)
 
 Demonstrates how to use Dynamic Rendering with local reads to fully replace render passses with multiple subpasses.
 See this [this blogpost](https://www.khronos.org/blog/streamlining-subpasses).
 
-**Extension**: [`VK_KHR_push_descriptor`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_push_descriptor)
+**Extension**: [`VK_KHR_push_descriptor`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_push_descriptor)
 
 Push descriptors apply the push constants concept to descriptor sets.
 Instead of creating per-object descriptor sets, this example passes descriptors at command buffer creation time.
 
 A transcoded version of the Extensions sample [Push Descriptors](extensions/push_descriptors/README.html) that illustrates the usage of the C++ bindings of vulkan provided by Vulkan-Hpp.
 
-**Extension**: [`VK_EXT_debug_utils`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_EXT_debug_utils)
+**Extension**: [`VK_EXT_debug_utils`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_EXT_debug_utils)
 
 Uses the debug utilities extension to name and group Vulkan objects (command buffers, images, etc.).
 This information makes debugging in tools like RenderDoc significantly easier.
 
-**Extension**: [`VK_EXT_memory_budget`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_EXT_memory_budget)
+**Extension**: [`VK_EXT_memory_budget`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_EXT_memory_budget)
 
 Uses the memory budget extension to monitor the allocated memory in the GPU and demonstrates how to use it.
 
-**Extension**: [`VK_EXT_mesh_shader`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_EXT_mesh_shader)
+**Extension**: [`VK_EXT_mesh_shader`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_EXT_mesh_shader)
 
 Uses the mesh shader extension to demonstrate how to do basic culling utilizing both a mesh and a task shader.
 
-**Extensions**: [`VK_KHR_ray_query`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_ray_query), [`VK_KHR_acceleration_structure`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_acceleration_structure)
+**Extensions**: [`VK_KHR_ray_query`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_ray_query), [`VK_KHR_acceleration_structure`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_acceleration_structure)
 
 Render a sponza scene using the ray query extension.
 Shows how to set up all data structures required for ray queries, including the bottom and top level acceleration structures for the geometry and a standard vertex/fragment shader pipeline.
 Shadows are cast dynamically by ray queries being cast by the fragment shader.
 
-**Extensions**: [`VK_KHR_ray_tracing_pipeline`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_ray_tracing_pipeline), [`VK_KHR_acceleration_structure`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_acceleration_structure)
+**Extensions**: [`VK_KHR_ray_tracing_pipeline`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_ray_tracing_pipeline), [`VK_KHR_acceleration_structure`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_acceleration_structure)
 
 Render a basic scene using the official cross-vendor ray tracing extension.
 Shows how to setup all data structures required for ray tracing, including the bottom and top level acceleration structures for the geometry, the shader binding table and the ray tracing pipelines with shader groups for ray generation, ray hits, and ray misses.
 After dispatching the rays, the final result is copied to the swapchain image.
 
-**Extensions**: [`VK_KHR_ray_tracing_pipeline`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_ray_tracing_pipeline), [`VK_KHR_acceleration_structure`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_acceleration_structure)
+**Extensions**: [`VK_KHR_ray_tracing_pipeline`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_ray_tracing_pipeline), [`VK_KHR_acceleration_structure`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_acceleration_structure)
 
 Render Sponza with Ambient Occlusion.
 Place a vase in center.
@@ -386,7 +388,7 @@ Generate a particle fire that  demonstrates the TLAS (Top Level Acceleration Str
 Procedurally generate a transparent quad and deform the geometry of the quad in the BLAS (Bottom Level Acceleration  Structure) to demonstrate how to animate with deforming geometry.
 Shows how to rebuild the acceleration structure and when to set it to fast rebuild vs fast traversal.
 
-**Extensions**: [`VK_EXT_mesh_shader`](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_KHR_mesh_shader.html)
+**Extensions**: [`VK_EXT_mesh_shader`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_KHR_mesh_shader.html)
 
 Renders a triangle with the most simple of all possible mesh shader pipeline examples.
 There is no vertex shader,  there is only a mesh and fragment shader.
@@ -396,137 +398,146 @@ This replaces the vertex /  geometry shader standard pipeline.
 
 A transcoded version of the Extensions sample [Mesh shading](extensions/mesh_shading/README.html) that illustrates the usage of the C++ bindings of vulkan provided by Vulkan-Hpp.
 
-**Extensions**: [`VK_KHR_external_memory`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_memory.html), [`VK_KHR_external_semaphore`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_semaphore.html)
+**Extensions**: [`VK_KHR_external_memory`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_KHR_external_memory.html), [`VK_KHR_external_semaphore`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_KHR_external_semaphore.html)
 
 Render a procedural image using OpenGL and incorporate that rendered content into a Vulkan scene.
 Demonstrates using the same backing memory for a texture in both OpenGL and Vulkan and how to synchronize the APIs using shared semaphores and barriers.
 
-**Extensions**: [`VK_KHR_external_memory`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_external_memory.html), [`VK_KHR_external_semaphore`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_external_semaphore.html)
+**Extensions**: [`VK_KHR_external_memory`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_external_memory.html), [`VK_KHR_external_semaphore`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_external_semaphore.html)
 
 This sample shows how to do Vulkan and OpenCL interoperability using cross vendor extensions in both apis. The sample uses OpenCL to update an image that is then displayed in Vulkan. This is done by sharing the memory for that image across the two apis. The sample also shares semaphores for doing cross api synchronization.
 
-**Extensions**: [`VK_ANDROID_external_memory_android_hardware_buffer`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html)
+**Extensions**: [`VK_ANDROID_external_memory_android_hardware_buffer`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html)
 
 This sample demonstrates usage of OpenCL extensions available on Arm devices.
 Fill a procedural texture using OpenCL and display it using Vulkan.
 In this sample data sharing between APIs is achieved using Android Hardware Buffers.
 
-**Extensions**: [`VK_KHR_timeline_semaphore`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_timeline_semaphore.html)
+**Extensions**: [`VK_KHR_timeline_semaphore`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_KHR_timeline_semaphore.html)
 
 Demonstrates various use cases which are enabled with timeline semaphores.
 The sample implements "Game of Life" in an esoteric way, using out-of-order signal and wait, multiple waits on same semaphore in different queues, waiting and signalling semaphore on host.
 
-**Extensions**: [`VK_KHR_buffer_device_address`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_buffer_device_address.html)
+**Extensions**: [`VK_KHR_buffer_device_address`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_KHR_buffer_device_address.html)
 
 Demonstrates how to use the buffer device address feature, which enables extreme flexibility in how buffer memory is accessed.
 
-**Extension** [`VK_KHR_synchronization2`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_synchronization2)
+**Extension** [`VK_KHR_synchronization2`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_synchronization2)
 
 Demonstrates the use of the reworked synchronization api introduced with `VK_KHR_synchronization2`.
 Based on the compute shading N-Body particle system, this sample uses the new extension to streamline the memory barriers used for the compute and graphics work submissions.
 
-**Extensions**: [`VK_EXT_descriptor_indexing`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_descriptor_indexing.html)
+**Extensions**: [`VK_EXT_descriptor_indexing`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_EXT_descriptor_indexing.html)
 
 Demonstrates how to use descriptor indexing to enable update-after-bind and non-dynamically uniform indexing of descriptors.
 
-**Extension**: [`VK_KHR_fragment_shading_rate`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_fragment_shading_rate.html)
+**Extension**: [`VK_KHR_fragment_shading_rate`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_KHR_fragment_shading_rate.html)
 
 Uses a special framebuffer attachment to control fragment shading rates for different framebuffer regions.
 This allows explicit control over the number of fragment shader invocations for each pixel covered by a fragment, which is e.g.
 useful for foveated rendering.
 
-**Extension**: [`VK_KHR_fragment_shading_rate`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_fragment_shading_rate.html)
+**Extension**: [`VK_KHR_fragment_shading_rate`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_KHR_fragment_shading_rate.html)
 
 Render a simple scene showing the basics of shading rate dynamic.
 This sample shows low and high frequency textures  over several cubes.
 It creates a sample rate map based upon this frequency every frame.
 Then it uses that dynamic  sample rate map as a base for the next frame.
 
-**Extensions**: [`VK_KHR_ray_tracing_pipeline`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_ray_tracing_pipeline), [`VK_KHR_acceleration_structure`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_acceleration_structure), [`VK_EXT_descriptor_indexing`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_descriptor_indexing.html), [`VK_EXT_scalar_block_layout`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_scalar_block_layout.html)
+**Extensions**: [`VK_KHR_ray_tracing_pipeline`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_ray_tracing_pipeline), [`VK_KHR_acceleration_structure`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_acceleration_structure), [`VK_EXT_descriptor_indexing`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_EXT_descriptor_indexing.html), [`VK_EXT_scalar_block_layout`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_EXT_scalar_block_layout.html)
 
 Render a simple scene showing the basics of ray tracing, including reflection and shadow rays.
 The sample creates some geometries and create a bottom acceleration structure for each, then make instances of those, using different materials and placing them at different locations.
 
-**Extensions**: [`VK_KHR_ray_tracing_position_fetch`](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VK_KHR_ray_tracing_position_fetch)
+**Extensions**: [`VK_KHR_ray_tracing_position_fetch`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_ray_tracing_position_fetch)
 
 Shows how to use the ray tracing position fetch extension to directly access vertex positions for a hit triangle from the acceleration structure, instead of having to explicitly pass and unpack that information
 
-**Extensions**: [`VK_KHR_portability_subset`](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VK_KHR_portability_subset)
+**Extensions**: [`VK_KHR_portability_subset`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_KHR_portability_subset)
 
 Demonstrate how to include non-conformant portable Vulkan implementations by using the portability extension to  include those implementations in the device query.
 An example of a non-conformant portable Vulkan implementation is  MoltenVk: [MoltenVk](https://github.com/KhronosGroup/MoltenVK).
 Also demonstrate use of beta extension which allows  for querying which features of the full Vulkan spec are not currently supported by the non-conformant Vulkan  implementation.
 
-**Extension**: [`VK_EXT_graphics_pipeline_library`](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_EXT_graphics_pipeline_library.html)
+**Extension**: [`VK_EXT_graphics_pipeline_library`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_EXT_graphics_pipeline_library.html)
 
 Uses the graphics pipeline library extensions to improve run-time pipeline creation.
 Instead of creating the whole pipeline at once, this sample makes use of that extension to pre-build shared pipeline parts such as vertex input state and fragment output state.
 These building blocks are then used to create pipelines at runtime, improving build times compared to traditional pipeline creation.
 
-**Extension**: [`VK_EXT_conditional_rendering`](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_EXT_conditional_rendering.html)
+**Extension**: [`VK_EXT_conditional_rendering`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_EXT_conditional_rendering.html)
 
 Demonstrate how to do conditional rendering, dynamically discarding rendering commands without having to update command buffers.
 This is done by sourcing conditional rendering blocks from a dedicated buffer that can be updated without having to touch command buffers.
 
-**Extension**: [`VK_EXT_vertex_input_dynamic_state`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_vertex_input_dynamic_state.html)
+**Extension**: [`VK_EXT_vertex_input_dynamic_state`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_vertex_input_dynamic_state.html)
 
 Demonstrate how to use vertex input bindings and attribute descriptions dynamically, which can reduce the number of pipeline objects that are needed to be created.
 
-**Extension**: [`VK_EXT_extended_dynamic_state2`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state2.html)
+**Extension**: [`VK_EXT_extended_dynamic_state2`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_extended_dynamic_state2.html)
 
 Demonstrate how to use depth bias, primitive restart, rasterizer discard and patch control points dynamically, which can reduce the number of pipeline objects that are needed to be created.
 
-**Extension**: [`VK_EXT_extended_dynamic_state2`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state2.html)
+**Extension**: [`VK_EXT_extended_dynamic_state2`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_extended_dynamic_state2.html)
 
 Demonstrate how to use logical operations dynamically, which can reduce the number of pipeline objects that are needed to be created or allow to change the pipeline state dynamically (change type of the logical operation).
 
-**Extension**: [`VK_EXT_extended_dynamic_state2`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state2.html)
+**Extension**: [`VK_EXT_extended_dynamic_state2`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_extended_dynamic_state2.html)
 
 Demonstrate how to use patch control points dynamically, which can reduce the number of pipeline objects that are needed to be created.
 
-**Extension**: [`VK_KHR_fragment_shader_barycentric`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_fragment_shader_barycentric.html)
+**Extension**: [`VK_KHR_fragment_shader_barycentric`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_fragment_shader_barycentric.html)
 
 Demonstrate how to use fragment shader barycentric feature, which allows accessing barycentric coordinates for each processed fragment.
 
-**Extension**: [`VK_EXT_descriptor_buffer`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_ext_descriptor_buffer)
+**Extension**: [`VK_EXT_descriptor_buffer`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_ext_descriptor_buffer)
 
 Demonstrate how to use the new extension to replace descriptor sets with resource descriptor buffers
 
-**Extension**: [`VK_EXT_color_write_enable`](https://https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_color_write_enable.html)
+**Extension**: [`VK_EXT_color_write_enable`](https://https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_color_write_enable.html)
 
 Demonstrate how to create multiple color blend attachments and then toggle them dynamically.
 
-**Extension:** [`VK_EXT_mesh_shader`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_mesh_shader.html)
+**Extension:** [`VK_EXT_mesh_shader`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_mesh_shader.html)
 
 Demonstrates how a mesh shader can be used to achieve the same results as with geometry shader, it loads model from a file and visualizes its normals.
 
-**Extension:** [`VK_EXT_shader_object`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_shader_object.html)
+**Extension:** [`VK_EXT_shader_object`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_shader_object.html)
 
 Demonstrate how to use shader objects.
 
-**Extension:** [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state.html)
+**Extension:** [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_extended_dynamic_state.html)
 
 Demonstrate how to use the blending related functions available in the VK_EXT_extended_dynamic_state3 extension.
 
-**Extensions:** [`VK_EXT_line_rasterization`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_line_rasterization.html), [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state3.html)
+**Extensions:** [`VK_EXT_line_rasterization`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_line_rasterization.html), [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_extended_dynamic_state3.html)
 
 Demonstrate methods for dynamically customizing the appearance of the rendered lines.
 
-**Extension**: [`VK_KHR_shader_non_semantic_info`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_shader_non_semantic_info.html)
+**Extension**: [`VK_KHR_shader_non_semantic_info`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_shader_non_semantic_info.html)
 
 Demonstrates how to use [Printf](https://en.wikipedia.org/wiki/Printf) statements in a shader to output per-invocation values. This can help find issues with shaders in combination with graphics debugging tools.
 
-**Extension:** [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state3.html)
+**Extension:** [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_extended_dynamic_state3.html)
 
 Rendering using primitive clipping and depth clipping configured by dynamic pipeline state.
 
-**Extension:** [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_host_image_copy.html)
+**Extension:** [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_host_image_copy.html)
 
 Demonstrate the use of the host image extension to directly copy from a host buffer to an image on the device without going through a staging buffer.
 
-**Extensions:** [`VK_EXT_line_rasterization`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state3.html), [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state3.html)
+**Extensions:** [`VK_EXT_line_rasterization`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_extended_dynamic_state3.html), [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_extended_dynamic_state3.html)
 
 Demonstrate how to use dynamic multisample rasterization (MSAA)
+
+**Extensions**: [`VK_ARM_tensors`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_ARM_tensors.html), [`VK_ARM_data_graph`](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_ARM_data_graph.html)
+
+Demonstrate how to build data graph pipelines and execute neural networks:
+
+* 
+[simple_tensor_and_data_graph](extensions/tensor_and_data_graph/simple_tensor_and_data_graph/README.html)
+
+Explains how to set up and execute a simple neural network using a data graph pipeline.
 
 The goal of these samples is to demonstrate usage of tooling functions and libraries that are not directly part of the api.
 

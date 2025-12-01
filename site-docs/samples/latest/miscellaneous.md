@@ -28,7 +28,7 @@ The Debug Window shows information about the current application.
 
 ![Debug Window](../_images/docs/images/debug-window.png)
 
-The debug window shows the driver version of the GPU, which follows the [Vulkan semantics](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/chap44.html#extendingvulkan-coreversions-versionnumbers), with a major, minor, and patch number.
+The debug window shows the driver version of the GPU, which follows the [Vulkan semantics](https://registry.khronos.org/vulkan/specs/latest/html/chap44.html#extendingvulkan-coreversions-versionnumbers), with a major, minor, and patch number.
 New versions of the driver will increment these numbers.
 
 The framework is able to get these values by calling `vkGetPhysicalDeviceProperties(physical_device, &properties)`.

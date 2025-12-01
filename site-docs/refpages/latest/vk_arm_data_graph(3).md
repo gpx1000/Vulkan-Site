@@ -417,7 +417,7 @@ Extending [VkStructureType](VkStructureType.html):
 [GraphARM](../../../../spec/latest/appendices/spirvenv.html#spirvenv-capabilities-table-GraphARM)
 
 1) Should graph pipeline resource info structures be integrated into
-   pipeline layouts? Would a new graph pipeline layout be a better fit?
+pipeline layouts? Would a new graph pipeline layout be a better fit?
 
 **RESOLVED**: Graph pipeline resource info are passed separately at pipeline
 creation time.
@@ -428,8 +428,8 @@ descriptor set layouts?
 **RESOLVED**: Currently using `VK_SHADER_STAGE_ALL`.
 
 3) Should this extension provide applications with a way of knowing which
-   combinations of sparsity information implementations can take advantage
-   of when processing graph constants?
+combinations of sparsity information implementations can take advantage of
+when processing graph constants?
 
 **RESOLVED**: No.
 Describing the exact combinations is in some cases complex and it is always

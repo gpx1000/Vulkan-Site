@@ -19,8 +19,7 @@
 
 vkCmdEndQuery - Ends a query
 
-To end a query after the set of desired drawing or dispatching commands is
-executed, call:
+To end a query after the set of desired commands is recorded, call:
 
 // Provided by VK_VERSION_1_0
 void vkCmdEndQuery(
@@ -136,7 +135,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdEndQuery-commandBuffer-cmdpool) VUID-vkCmdEndQuery-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdEndQuery-suspended) VUID-vkCmdEndQuery-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdEndQuery-commonparent) VUID-vkCmdEndQuery-commonparent
@@ -156,13 +160,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Graphics
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Action
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action
 
 State |
 

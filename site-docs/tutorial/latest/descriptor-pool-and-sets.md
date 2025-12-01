@@ -215,7 +215,7 @@ A nested structure must be aligned by the base alignment of its members rounded 
 * 
 A `float4x4` matrix must have the same alignment as a `float4`.
 
-You can find the full list of alignment requirements in [the specification](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/chap15.html#interfaces-resources-layout).
+You can find the full list of alignment requirements in [the specification](https://docs.vulkan.org/spec/latest/chapters/interfaces.html#interfaces-resources-layout).
 
 Our original shader with just three `mat4` fields already met the alignment requirements.
 As each `mat4` is 4 x 4 x 4 = 64 bytes in size, `model` has an offset of `0`, `view` has an offset of 64 and `proj` has an offset of 128.

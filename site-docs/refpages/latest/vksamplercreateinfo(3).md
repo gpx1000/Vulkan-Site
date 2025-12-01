@@ -68,15 +68,20 @@ mipmap filter to apply to lookups.
 
 * 
 `addressModeU` is a [VkSamplerAddressMode](VkSamplerAddressMode.html) value specifying the
-addressing mode for U coordinates outside [0,1).
+[wrapping operation](../../../../spec/latest/chapters/textures.html#textures-wrapping-operation) used when the i
+coordinate used to sample the image would be out of bounds.
 
 * 
 `addressModeV` is a [VkSamplerAddressMode](VkSamplerAddressMode.html) value specifying the
-addressing mode for V coordinates outside [0,1).
+[wrapping operation](../../../../spec/latest/chapters/textures.html#textures-wrapping-operation) used when the j
+coordinate used to sample the image would be out of bounds.
 
 * 
 `addressModeW` is a [VkSamplerAddressMode](VkSamplerAddressMode.html) value specifying the
-addressing mode for W coordinates outside [0,1).
+[wrapping operation](../../../../spec/latest/chapters/textures.html#textures-wrapping-operation) used when the k
+coordinate used to sample the image would be out of bounds.
+If `unnormalizedCoordinates` is `VK_TRUE`, `addressModeW` is
+ignored.
 
 * 
  `mipLodBias` is the bias to be added to

@@ -24,7 +24,7 @@ typedef VkFlags VkQueueFlags;
 `VkQueueFlags` is a bitmask type for setting a mask of zero or more
 [VkQueueFlagBits](VkQueueFlagBits.html).
 
-[VK_VERSION_1_0](VK_VERSION_1_0.html), `VkFlags`, [VkPhysicalDeviceCopyMemoryIndirectPropertiesNV](VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.html), [VkQueueFamilyProperties](VkQueueFamilyProperties.html), [VkQueueFlagBits](VkQueueFlagBits.html)
+[VK_VERSION_1_0](VK_VERSION_1_0.html), `VkFlags`, [VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR](VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR.html), [VkQueueFamilyProperties](VkQueueFamilyProperties.html), [VkQueueFlagBits](VkQueueFlagBits.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/devsandqueues.html#VkQueueFlags).
 

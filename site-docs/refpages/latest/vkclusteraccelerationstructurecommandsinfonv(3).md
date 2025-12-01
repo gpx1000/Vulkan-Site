@@ -169,9 +169,15 @@ If [VkClusterAccelerationStructureInputInfoNV](VkClusterAccelerationStructureInp
 
 If [VkClusterAccelerationStructureInputInfoNV](VkClusterAccelerationStructureInputInfoNV.html)::`opMode` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_MODE_EXPLICIT_DESTINATIONS_NV`,
-the address in `dstAddressesArray` **must** be a valid address with
-sizes of individual buffers large enough to accommodate built or moved
-clusters
+the address in `dstAddressesArray` **must** be a valid address
+
+* 
+[](#VUID-VkClusterAccelerationStructureCommandsInfoNV-opMode-12209) VUID-VkClusterAccelerationStructureCommandsInfoNV-opMode-12209
+
+If [VkClusterAccelerationStructureInputInfoNV](VkClusterAccelerationStructureInputInfoNV.html)::`opMode` is
+`VK_CLUSTER_ACCELERATION_STRUCTURE_OP_MODE_EXPLICIT_DESTINATIONS_NV`,
+the addresses in `dstAddressesArray` **must** be large enough to
+accommodate built or moved clusters
 
 * 
 [](#VUID-VkClusterAccelerationStructureCommandsInfoNV-opMode-10472) VUID-VkClusterAccelerationStructureCommandsInfoNV-opMode-10472

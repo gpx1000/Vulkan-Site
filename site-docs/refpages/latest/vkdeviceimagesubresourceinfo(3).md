@@ -29,9 +29,8 @@ typedef struct VkDeviceImageSubresourceInfo {
     const VkImageSubresource2*    pSubresource;
 } VkDeviceImageSubresourceInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkDeviceImageSubresourceInfo
 typedef VkDeviceImageSubresourceInfo VkDeviceImageSubresourceInfoKHR;
 
 * 
@@ -46,9 +45,8 @@ structure.
 containing parameters affecting creation of the image to query.
 
 * 
-`pSubresource` pSubresource is a pointer to a
-[VkImageSubresource2](VkImageSubresource2.html) structure selecting a specific image
-subresource for the query.
+`pSubresource` is a pointer to a [VkImageSubresource2](VkImageSubresource2.html) structure
+selecting a specific image subresource for the query.
 
 Valid Usage
 

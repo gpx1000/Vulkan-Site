@@ -106,7 +106,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-cmdpool) VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
+
+* 
+[](#VUID-vkCmdInitializeGraphScratchMemoryAMDX-suspended) VUID-vkCmdInitializeGraphScratchMemoryAMDX-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdInitializeGraphScratchMemoryAMDX-videocoding) VUID-vkCmdInitializeGraphScratchMemoryAMDX-videocoding
@@ -131,9 +136,9 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](../../../../spec/latest/chapters/cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../../../../spec/latest/chapters/renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../../../../spec/latest/chapters/videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../../../../spec/latest/chapters/devsandqueues.html#VkQueueFlagBits) | [Command Type](../../../../spec/latest/chapters/fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Both | Outside | Graphics
+| Primary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

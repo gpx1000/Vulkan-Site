@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -725,6 +734,13 @@ by
 the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by this
 command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
 <code>VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatch-imageLayout-00344" href="#VUID-vkCmdDispatch-imageLayout-00344"></a> <span class="vuid">VUID-vkCmdDispatch-imageLayout-00344</span><br>
+
+If an image descriptor is accessed by a shader, the <a href="resources.html#VkImageLayout" class="xref page">VkImageLayout</a>
+<strong>must</strong> match the subresource accessible from the <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as
+defined by the <a href="resources.html#resources-image-layouts-matching-rule" class="xref page">image layout    matching rules</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatch-None-08115" href="#VUID-vkCmdDispatch-None-08115"></a> <span class="vuid">VUID-vkCmdDispatch-None-08115</span><br>
@@ -1221,7 +1237,11 @@ buffer</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatch-commandBuffer-cmdpool" href="#VUID-vkCmdDispatch-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdDispatch-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatch-suspended" href="#VUID-vkCmdDispatch-suspended"></a> <span class="vuid">VUID-vkCmdDispatch-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatch-videocoding" href="#VUID-vkCmdDispatch-videocoding"></a> <span class="vuid">VUID-vkCmdDispatch-videocoding</span><br>
@@ -1272,7 +1292,7 @@ buffer</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -1591,6 +1611,13 @@ by
 the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by this
 command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
 <code>VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchIndirect-imageLayout-00344" href="#VUID-vkCmdDispatchIndirect-imageLayout-00344"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-imageLayout-00344</span><br>
+
+If an image descriptor is accessed by a shader, the <a href="resources.html#VkImageLayout" class="xref page">VkImageLayout</a>
+<strong>must</strong> match the subresource accessible from the <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as
+defined by the <a href="resources.html#resources-image-layouts-matching-rule" class="xref page">image layout    matching rules</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchIndirect-None-08115" href="#VUID-vkCmdDispatchIndirect-None-08115"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-None-08115</span><br>
@@ -2033,7 +2060,7 @@ contiguously to a single <code>VkDeviceMemory</code> object</p>
 <p><a id="VUID-vkCmdDispatchIndirect-buffer-02709" href="#VUID-vkCmdDispatchIndirect-buffer-02709"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-buffer-02709</span><br>
 
 <code>buffer</code> <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT</code> bit set</p>
+<code>VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchIndirect-offset-02710" href="#VUID-vkCmdDispatchIndirect-offset-02710"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-offset-02710</span><br>
@@ -2074,7 +2101,11 @@ The sum of <code>offset</code> and the size of <code>VkDispatchIndirectCommand</
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchIndirect-commandBuffer-cmdpool" href="#VUID-vkCmdDispatchIndirect-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchIndirect-suspended" href="#VUID-vkCmdDispatchIndirect-suspended"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchIndirect-videocoding" href="#VUID-vkCmdDispatchIndirect-videocoding"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-videocoding</span><br>
@@ -2129,7 +2160,7 @@ The sum of <code>offset</code> and the size of <code>VkDispatchIndirectCommand</
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -2229,12 +2260,10 @@ void vkCmdDispatchBase(
     uint32_t                                    groupCountZ);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdDispatchBaseKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_device_group
+// Equivalent to vkCmdDispatchBase
 void vkCmdDispatchBaseKHR(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    baseGroupX,
@@ -2552,6 +2581,13 @@ by
 the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by this
 command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
 <code>VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchBase-imageLayout-00344" href="#VUID-vkCmdDispatchBase-imageLayout-00344"></a> <span class="vuid">VUID-vkCmdDispatchBase-imageLayout-00344</span><br>
+
+If an image descriptor is accessed by a shader, the <a href="resources.html#VkImageLayout" class="xref page">VkImageLayout</a>
+<strong>must</strong> match the subresource accessible from the <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as
+defined by the <a href="resources.html#resources-image-layouts-matching-rule" class="xref page">image layout    matching rules</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchBase-None-08115" href="#VUID-vkCmdDispatchBase-None-08115"></a> <span class="vuid">VUID-vkCmdDispatchBase-None-08115</span><br>
@@ -3078,7 +3114,11 @@ or the bound compute shader object <strong>must</strong> have been created with 
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchBase-commandBuffer-cmdpool" href="#VUID-vkCmdDispatchBase-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdDispatchBase-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchBase-suspended" href="#VUID-vkCmdDispatchBase-suspended"></a> <span class="vuid">VUID-vkCmdDispatchBase-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchBase-videocoding" href="#VUID-vkCmdDispatchBase-videocoding"></a> <span class="vuid">VUID-vkCmdDispatchBase-videocoding</span><br>
@@ -3129,7 +3169,7 @@ or the bound compute shader object <strong>must</strong> have been created with 
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -3467,6 +3507,13 @@ by
 the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by this
 command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
 <code>VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchTileQCOM-imageLayout-00344" href="#VUID-vkCmdDispatchTileQCOM-imageLayout-00344"></a> <span class="vuid">VUID-vkCmdDispatchTileQCOM-imageLayout-00344</span><br>
+
+If an image descriptor is accessed by a shader, the <a href="resources.html#VkImageLayout" class="xref page">VkImageLayout</a>
+<strong>must</strong> match the subresource accessible from the <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as
+defined by the <a href="resources.html#resources-image-layouts-matching-rule" class="xref page">image layout    matching rules</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchTileQCOM-None-08115" href="#VUID-vkCmdDispatchTileQCOM-None-08115"></a> <span class="vuid">VUID-vkCmdDispatchTileQCOM-None-08115</span><br>
@@ -3962,11 +4009,15 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchTileQCOM-commandBuffer-cmdpool" href="#VUID-vkCmdDispatchTileQCOM-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdDispatchTileQCOM-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchTileQCOM-renderpass" href="#VUID-vkCmdDispatchTileQCOM-renderpass"></a> <span class="vuid">VUID-vkCmdDispatchTileQCOM-renderpass</span><br>
  This command <strong>must</strong> only be called inside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchTileQCOM-suspended" href="#VUID-vkCmdDispatchTileQCOM-suspended"></a> <span class="vuid">VUID-vkCmdDispatchTileQCOM-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchTileQCOM-videocoding" href="#VUID-vkCmdDispatchTileQCOM-videocoding"></a> <span class="vuid">VUID-vkCmdDispatchTileQCOM-videocoding</span><br>
@@ -4014,7 +4065,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Inside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -4371,6 +4422,13 @@ by
 the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by this
 command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
 <code>VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdSubpassShadingHUAWEI-imageLayout-00344" href="#VUID-vkCmdSubpassShadingHUAWEI-imageLayout-00344"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-imageLayout-00344</span><br>
+
+If an image descriptor is accessed by a shader, the <a href="resources.html#VkImageLayout" class="xref page">VkImageLayout</a>
+<strong>must</strong> match the subresource accessible from the <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as
+defined by the <a href="resources.html#resources-image-layouts-matching-rule" class="xref page">image layout    matching rules</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSubpassShadingHUAWEI-None-08115" href="#VUID-vkCmdSubpassShadingHUAWEI-None-08115"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-None-08115</span><br>
@@ -4778,11 +4836,15 @@ subpass</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSubpassShadingHUAWEI-commandBuffer-cmdpool" href="#VUID-vkCmdSubpassShadingHUAWEI-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSubpassShadingHUAWEI-renderpass" href="#VUID-vkCmdSubpassShadingHUAWEI-renderpass"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-renderpass</span><br>
  This command <strong>must</strong> only be called inside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdSubpassShadingHUAWEI-suspended" href="#VUID-vkCmdSubpassShadingHUAWEI-suspended"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSubpassShadingHUAWEI-videocoding" href="#VUID-vkCmdSubpassShadingHUAWEI-videocoding"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-videocoding</span><br>
@@ -4833,7 +4895,7 @@ subpass</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Inside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -4927,7 +4989,11 @@ workgroups is assembled.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCudaLaunchKernelNV-commandBuffer-cmdpool" href="#VUID-vkCmdCudaLaunchKernelNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdCudaLaunchKernelNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdCudaLaunchKernelNV-suspended" href="#VUID-vkCmdCudaLaunchKernelNV-suspended"></a> <span class="vuid">VUID-vkCmdCudaLaunchKernelNV-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCudaLaunchKernelNV-videocoding" href="#VUID-vkCmdCudaLaunchKernelNV-videocoding"></a> <span class="vuid">VUID-vkCmdCudaLaunchKernelNV-videocoding</span><br>
@@ -4975,8 +5041,8 @@ workgroups is assembled.</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>

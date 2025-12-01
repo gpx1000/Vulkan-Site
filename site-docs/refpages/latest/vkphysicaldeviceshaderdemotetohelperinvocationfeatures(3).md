@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures {
     VkBool32           shaderDemoteToHelperInvocation;
 } VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures;
 
-or the equivalent
-
 // Provided by VK_EXT_shader_demote_to_helper_invocation
+// Equivalent to VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures
 typedef VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT;
 
 This structure describes the following feature:

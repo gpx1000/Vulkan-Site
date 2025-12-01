@@ -21,9 +21,8 @@ VkPresentGravityFlagsKHR - Bitmask of VkPresentGravityFlagBitsKHR
 // Provided by VK_KHR_surface_maintenance1
 typedef VkFlags VkPresentGravityFlagsKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkPresentGravityFlagsKHR
 typedef VkPresentGravityFlagsKHR VkPresentGravityFlagsEXT;
 
 `VkPresentGravityFlagsKHR` is a bitmask type for setting a mask of zero

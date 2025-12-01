@@ -58,7 +58,7 @@ Start afresh
 
 This proposal focuses on the first option.
 
-A new SPIR-V extension [SPV_KHR_fragment_shader_barycentric](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_fragment_shader_barycentric.html)
+A new SPIR-V extension [SPV_KHR_fragment_shader_barycentric](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_fragment_shader_barycentric.html)
 adds three fragment shader variable decorations:
 
 * 

@@ -76,9 +76,9 @@ typedef enum VkObjectType {
     VK_OBJECT_TYPE_FRAMEBUFFER = 24,
     VK_OBJECT_TYPE_COMMAND_POOL = 25,
   // Provided by VK_VERSION_1_1
-    VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION = 1000156000,
-  // Provided by VK_VERSION_1_1
     VK_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE = 1000085000,
+  // Provided by VK_VERSION_1_1
+    VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION = 1000156000,
   // Provided by VK_VERSION_1_3
     VK_OBJECT_TYPE_PRIVATE_DATA_SLOT = 1000295000,
   // Provided by VK_KHR_surface
@@ -181,7 +181,7 @@ typedef enum VkObjectType {
 | `VK_OBJECT_TYPE_COMMAND_POOL` | [VkCommandPool](cmdbuffers.html#VkCommandPool) |
 | `VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION` | [VkSamplerYcbcrConversion](samplers.html#VkSamplerYcbcrConversion) |
 | `VK_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE` | [VkDescriptorUpdateTemplate](descriptorsets.html#VkDescriptorUpdateTemplate) |
-| `VK_OBJECT_TYPE_PRIVATE_DATA_SLOT` | [VkPrivateDataSlot](VK_EXT_private_data.html#VkPrivateDataSlot) |
+| `VK_OBJECT_TYPE_PRIVATE_DATA_SLOT` | [VkPrivateDataSlot](private_data.html#VkPrivateDataSlot) |
 | `VK_OBJECT_TYPE_SURFACE_KHR` | [VkSurfaceKHR](VK_KHR_surface/wsi.html#VkSurfaceKHR) |
 | `VK_OBJECT_TYPE_SWAPCHAIN_KHR` | [VkSwapchainKHR](VK_KHR_surface/wsi.html#VkSwapchainKHR) |
 | `VK_OBJECT_TYPE_DISPLAY_KHR` | [VkDisplayKHR](VK_KHR_surface/wsi.html#VkDisplayKHR) |
@@ -234,14 +234,18 @@ application-defined information with Vulkan objects.
 These commands are device-level commands but they **may** reference
 instance-level objects (such as [VkInstance](initialization.html#VkInstance)) and physical device-level
 objects (such as [VkPhysicalDevice](devsandqueues.html#VkPhysicalDevice)) with a few restrictions:
-  * The data for the corresponding object **may** still be available after the
-    [VkDevice](devsandqueues.html#VkDevice) used in the corresponding API call to set it is
-    destroyed, but access to this data is not guaranteed and should be
-    avoided.
-  * Subsequent calls to change the data of the same object across multiple
-    `VkDevice` objects, **may** result in the data being changed to the
-    most recent version for all `VkDevice` objects and not just the
-    `VkDevice` used in the most recent API call.
+
+* 
+The data for the corresponding object **may** still be available after the
+[VkDevice](devsandqueues.html#VkDevice) used in the corresponding API call to set it is
+destroyed, but access to this data is not guaranteed and should be
+avoided.
+
+* 
+Subsequent calls to change the data of the same object across multiple
+`VkDevice` objects, **may** result in the data being changed to the
+most recent version for all `VkDevice` objects and not just the
+`VkDevice` used in the most recent API call.
 
 An object can be given an application-defined name by calling:
 
@@ -792,7 +796,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBeginDebugUtilsLabelEXT-commandBuffer-cmdpool) VUID-vkCmdBeginDebugUtilsLabelEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_OPTICAL_FLOW_BIT_NV`, `VK_QUEUE_TRANSFER_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 Host Synchronization
 
@@ -807,19 +811,17 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Transfer
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute
+VK_QUEUE_OPTICAL_FLOW_BIT_NV
 
-Decode
+VK_QUEUE_TRANSFER_BIT
 
-Encode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Opticalflow | Action
-
-State |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | State |
 
 Conditional Rendering
 
@@ -885,7 +887,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdEndDebugUtilsLabelEXT-commandBuffer-cmdpool) VUID-vkCmdEndDebugUtilsLabelEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_OPTICAL_FLOW_BIT_NV`, `VK_QUEUE_TRANSFER_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 Host Synchronization
 
@@ -900,19 +902,17 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Transfer
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute
+VK_QUEUE_OPTICAL_FLOW_BIT_NV
 
-Decode
+VK_QUEUE_TRANSFER_BIT
 
-Encode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Opticalflow | Action
-
-State |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | State |
 
 Conditional Rendering
 
@@ -953,7 +953,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdInsertDebugUtilsLabelEXT-commandBuffer-cmdpool) VUID-vkCmdInsertDebugUtilsLabelEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_OPTICAL_FLOW_BIT_NV`, `VK_QUEUE_TRANSFER_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 Host Synchronization
 
@@ -968,17 +968,17 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Transfer
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute
+VK_QUEUE_OPTICAL_FLOW_BIT_NV
 
-Decode
+VK_QUEUE_TRANSFER_BIT
 
-Encode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Opticalflow | Action |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | State |
 
 Conditional Rendering
 
@@ -2109,7 +2109,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDebugMarkerBeginEXT-commandBuffer-cmdpool) VUID-vkCmdDebugMarkerBeginEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_OPTICAL_FLOW_BIT_NV`, `VK_QUEUE_TRANSFER_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 Host Synchronization
 
@@ -2124,17 +2124,17 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Transfer
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute
+VK_QUEUE_OPTICAL_FLOW_BIT_NV
 
-Decode
+VK_QUEUE_TRANSFER_BIT
 
-Encode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Opticalflow | Action |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | State |
 
 Conditional Rendering
 
@@ -2241,7 +2241,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDebugMarkerEndEXT-commandBuffer-cmdpool) VUID-vkCmdDebugMarkerEndEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_OPTICAL_FLOW_BIT_NV`, `VK_QUEUE_TRANSFER_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 Host Synchronization
 
@@ -2256,17 +2256,17 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Transfer
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute
+VK_QUEUE_OPTICAL_FLOW_BIT_NV
 
-Decode
+VK_QUEUE_TRANSFER_BIT
 
-Encode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Opticalflow | Action |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | State |
 
 Conditional Rendering
 
@@ -2307,7 +2307,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDebugMarkerInsertEXT-commandBuffer-cmdpool) VUID-vkCmdDebugMarkerInsertEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_OPTICAL_FLOW_BIT_NV`, `VK_QUEUE_TRANSFER_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 Host Synchronization
 
@@ -2322,17 +2322,17 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Transfer
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute
+VK_QUEUE_OPTICAL_FLOW_BIT_NV
 
-Decode
+VK_QUEUE_TRANSFER_BIT
 
-Encode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Opticalflow | Action |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | State |
 
 Conditional Rendering
 
@@ -2648,9 +2648,9 @@ typedef enum VkDebugReportObjectTypeEXT {
     VK_DEBUG_REPORT_OBJECT_TYPE_CUDA_FUNCTION_NV_EXT = 1000307001,
   // Provided by VK_EXT_debug_report with VK_FUCHSIA_buffer_collection
     VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA_EXT = 1000366000,
-  // VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_EXT is a deprecated alias
+  // VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_EXT is a legacy alias
     VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_EXT = VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT_EXT,
-  // VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT is a deprecated alias
+  // VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT is a legacy alias
     VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT = VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT_EXT,
   // Provided by VK_KHR_descriptor_update_template with VK_EXT_debug_report
     VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_KHR_EXT = VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_EXT,
@@ -2897,7 +2897,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetCheckpointNV-commandBuffer-cmdpool) VUID-vkCmdSetCheckpointNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or transfer operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
+
+* 
+[](#VUID-vkCmdSetCheckpointNV-suspended) VUID-vkCmdSetCheckpointNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdSetCheckpointNV-videocoding) VUID-vkCmdSetCheckpointNV-videocoding
@@ -2917,11 +2922,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Transfer | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 
@@ -3674,9 +3679,8 @@ VkResult vkGetPhysicalDeviceToolProperties(
     uint32_t*                                   pToolCount,
     VkPhysicalDeviceToolProperties*             pToolProperties);
 
-or the equivalent command
-
 // Provided by VK_EXT_tooling_info
+// Equivalent to vkGetPhysicalDeviceToolProperties
 VkResult vkGetPhysicalDeviceToolPropertiesEXT(
     VkPhysicalDevice                            physicalDevice,
     uint32_t*                                   pToolCount,
@@ -3759,9 +3763,8 @@ typedef struct VkPhysicalDeviceToolProperties {
     char                  layer[VK_MAX_EXTENSION_NAME_SIZE];
 } VkPhysicalDeviceToolProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_tooling_info
+// Equivalent to VkPhysicalDeviceToolProperties
 typedef VkPhysicalDeviceToolProperties VkPhysicalDeviceToolPropertiesEXT;
 
 * 
@@ -3831,9 +3834,8 @@ typedef enum VkToolPurposeFlagBits {
     VK_TOOL_PURPOSE_MODIFYING_FEATURES_BIT_EXT = VK_TOOL_PURPOSE_MODIFYING_FEATURES_BIT,
 } VkToolPurposeFlagBits;
 
-or the equivalent
-
 // Provided by VK_EXT_tooling_info
+// Equivalent to VkToolPurposeFlagBits
 typedef VkToolPurposeFlagBits VkToolPurposeFlagBitsEXT;
 
 * 
@@ -3879,9 +3881,8 @@ or
 // Provided by VK_VERSION_1_3
 typedef VkFlags VkToolPurposeFlags;
 
-or the equivalent
-
 // Provided by VK_EXT_tooling_info
+// Equivalent to VkToolPurposeFlags
 typedef VkToolPurposeFlags VkToolPurposeFlagsEXT;
 
 [VkToolPurposeFlags](#VkToolPurposeFlags) is a bitmask type for setting a mask of zero or
@@ -3962,7 +3963,7 @@ It is good practice to use a monotonically increasing counter as the frame
 identifier and not reuse identifiers between frames. |
 
 The `pImages` and `pBuffers` arrays contain a list of images and
-buffers which store the "end result" of the frame.
+buffers which store the “end result” of the frame.
 As the concept of frame is application-dependent, not all frames **may**
 produce their results in images or buffers, yet this is a sufficiently
 common case to be handled by `VkFrameBoundaryEXT`.

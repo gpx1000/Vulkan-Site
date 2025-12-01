@@ -28,9 +28,8 @@ typedef struct VkPipelineInfoKHR {
     VkPipeline         pipeline;
 } VkPipelineInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_properties
+// Equivalent to VkPipelineInfoKHR
 typedef VkPipelineInfoKHR VkPipelineInfoEXT;
 
 * 

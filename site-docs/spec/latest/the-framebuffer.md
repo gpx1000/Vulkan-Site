@@ -28,7 +28,7 @@ Blending combines the incoming *source* fragment’s R, G, B, and A values
 with the *destination* R, G, B, and A values of each sample stored in the
 framebuffer at the fragment’s (xf,yf) location.
 If any components are missing in the framebuffer attachment, they are
-replaced as described in [Conversion to RGBA](textures.html#textures-conversion-to-rgba).
+replaced as described in [Component Substitution](images.html#images-component-substitution).
 Blending is performed for each color sample covered by the fragment, rather
 than just once for each fragment.
 
@@ -509,7 +509,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetColorBlendEnableEXT-commandBuffer-cmdpool) VUID-vkCmdSetColorBlendEnableEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetColorBlendEnableEXT-videocoding) VUID-vkCmdSetColorBlendEnableEXT-videocoding
@@ -534,7 +534,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -615,7 +615,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetColorBlendEquationEXT-commandBuffer-cmdpool) VUID-vkCmdSetColorBlendEquationEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetColorBlendEquationEXT-videocoding) VUID-vkCmdSetColorBlendEquationEXT-videocoding
@@ -640,7 +640,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -878,7 +878,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetColorWriteMaskEXT-commandBuffer-cmdpool) VUID-vkCmdSetColorWriteMaskEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetColorWriteMaskEXT-videocoding) VUID-vkCmdSetColorWriteMaskEXT-videocoding
@@ -903,7 +903,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1023,7 +1023,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetBlendConstants-commandBuffer-cmdpool) VUID-vkCmdSetBlendConstants-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetBlendConstants-videocoding) VUID-vkCmdSetBlendConstants-videocoding
@@ -1043,7 +1043,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1422,7 +1422,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetColorBlendAdvancedEXT-commandBuffer-cmdpool) VUID-vkCmdSetColorBlendAdvancedEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetColorBlendAdvancedEXT-videocoding) VUID-vkCmdSetColorBlendAdvancedEXT-videocoding
@@ -1447,7 +1447,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1913,7 +1913,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetLogicOpEnableEXT-commandBuffer-cmdpool) VUID-vkCmdSetLogicOpEnableEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetLogicOpEnableEXT-videocoding) VUID-vkCmdSetLogicOpEnableEXT-videocoding
@@ -1933,7 +1933,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1997,7 +1997,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetLogicOpEXT-commandBuffer-cmdpool) VUID-vkCmdSetLogicOpEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetLogicOpEXT-videocoding) VUID-vkCmdSetLogicOpEXT-videocoding
@@ -2017,7 +2017,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -2225,7 +2225,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetColorWriteEnableEXT-commandBuffer-cmdpool) VUID-vkCmdSetColorWriteEnableEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetColorWriteEnableEXT-videocoding) VUID-vkCmdSetColorWriteEnableEXT-videocoding
@@ -2250,7 +2250,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

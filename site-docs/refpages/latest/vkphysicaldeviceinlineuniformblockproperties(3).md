@@ -33,9 +33,8 @@ typedef struct VkPhysicalDeviceInlineUniformBlockProperties {
     uint32_t           maxDescriptorSetUpdateAfterBindInlineUniformBlocks;
 } VkPhysicalDeviceInlineUniformBlockProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_inline_uniform_block
+// Equivalent to VkPhysicalDeviceInlineUniformBlockProperties
 typedef VkPhysicalDeviceInlineUniformBlockProperties VkPhysicalDeviceInlineUniformBlockPropertiesEXT;
 
 * 

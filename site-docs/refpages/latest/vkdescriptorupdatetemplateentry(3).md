@@ -31,9 +31,8 @@ typedef struct VkDescriptorUpdateTemplateEntry {
     size_t              stride;
 } VkDescriptorUpdateTemplateEntry;
 
-or the equivalent
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplateEntry
 typedef VkDescriptorUpdateTemplateEntry VkDescriptorUpdateTemplateEntryKHR;
 
 * 
@@ -119,7 +118,7 @@ Valid Usage (Implicit)
 
  `descriptorType` **must** be a valid [VkDescriptorType](VkDescriptorType.html) value
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDescriptorType](VkDescriptorType.html), [VkDescriptorUpdateTemplateCreateInfo](VkDescriptorUpdateTemplateCreateInfo.html)
+[VK_KHR_descriptor_update_template](VK_KHR_descriptor_update_template.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDescriptorType](VkDescriptorType.html), [VkDescriptorUpdateTemplateCreateInfo](VkDescriptorUpdateTemplateCreateInfo.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/descriptorsets.html#VkDescriptorUpdateTemplateEntry).
 

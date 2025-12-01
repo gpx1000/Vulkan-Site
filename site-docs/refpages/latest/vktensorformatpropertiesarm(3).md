@@ -29,7 +29,7 @@ The [VkTensorFormatPropertiesARM](#) structure is defined as:
 // Provided by VK_ARM_tensors
 typedef struct VkTensorFormatPropertiesARM {
     VkStructureType          sType;
-    const void*              pNext;
+    void*                    pNext;
     VkFormatFeatureFlags2    optimalTilingTensorFeatures;
     VkFormatFeatureFlags2    linearTilingTensorFeatures;
 } VkTensorFormatPropertiesARM;

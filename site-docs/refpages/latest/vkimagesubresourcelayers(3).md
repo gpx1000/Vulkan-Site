@@ -85,7 +85,7 @@ Valid Usage (Implicit)
 
  `aspectMask` **must** not be `0`
 
-[VK_VERSION_1_0](VK_VERSION_1_0.html), [VkBufferImageCopy](VkBufferImageCopy.html), [VkBufferImageCopy2](VkBufferImageCopy2.html), [VkCopyMemoryToImageIndirectCommandNV](VkCopyMemoryToImageIndirectCommandNV.html), [VkImageAspectFlags](VkImageAspectFlags.html), [VkImageBlit](VkImageBlit.html), [VkImageBlit2](VkImageBlit2.html), [VkImageCopy](VkImageCopy.html), [VkImageCopy2](VkImageCopy2.html), [VkImageResolve](VkImageResolve.html), [VkImageResolve2](VkImageResolve2.html), [VkImageToMemoryCopy](VkImageToMemoryCopy.html), [VkMemoryToImageCopy](VkMemoryToImageCopy.html), [vkCmdCopyMemoryToImageIndirectNV](vkCmdCopyMemoryToImageIndirectNV.html)
+[VK_VERSION_1_0](VK_VERSION_1_0.html), [VkBufferImageCopy](VkBufferImageCopy.html), [VkBufferImageCopy2](VkBufferImageCopy2.html), [VkCopyMemoryToImageIndirectCommandKHR](VkCopyMemoryToImageIndirectCommandKHR.html), [VkCopyMemoryToImageIndirectInfoKHR](VkCopyMemoryToImageIndirectInfoKHR.html), [VkImageAspectFlags](VkImageAspectFlags.html), [VkImageBlit](VkImageBlit.html), [VkImageBlit2](VkImageBlit2.html), [VkImageCopy](VkImageCopy.html), [VkImageCopy2](VkImageCopy2.html), [VkImageResolve](VkImageResolve.html), [VkImageResolve2](VkImageResolve2.html), [VkImageToMemoryCopy](VkImageToMemoryCopy.html), [VkMemoryToImageCopy](VkMemoryToImageCopy.html), [vkCmdCopyMemoryToImageIndirectNV](vkCmdCopyMemoryToImageIndirectNV.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/copies.html#VkImageSubresourceLayers).
 

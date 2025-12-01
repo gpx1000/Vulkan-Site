@@ -26,9 +26,8 @@ void vkCmdSetRenderingInputAttachmentIndices(
     VkCommandBuffer                             commandBuffer,
     const VkRenderingInputAttachmentIndexInfo*  pInputAttachmentIndexInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_dynamic_rendering_local_read
+// Equivalent to vkCmdSetRenderingInputAttachmentIndices
 void vkCmdSetRenderingInputAttachmentIndicesKHR(
     VkCommandBuffer                             commandBuffer,
     const VkRenderingInputAttachmentIndexInfo*  pInputAttachmentIndexInfo);
@@ -96,7 +95,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetRenderingInputAttachmentIndices-commandBuffer-cmdpool) VUID-vkCmdSetRenderingInputAttachmentIndices-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetRenderingInputAttachmentIndices-renderpass) VUID-vkCmdSetRenderingInputAttachmentIndices-renderpass
@@ -121,7 +120,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | State |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

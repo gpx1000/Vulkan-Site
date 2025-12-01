@@ -30,9 +30,8 @@ typedef struct VkPhysicalDeviceVulkanMemoryModelFeatures {
     VkBool32           vulkanMemoryModelAvailabilityVisibilityChains;
 } VkPhysicalDeviceVulkanMemoryModelFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_vulkan_memory_model
+// Equivalent to VkPhysicalDeviceVulkanMemoryModelFeatures
 typedef VkPhysicalDeviceVulkanMemoryModelFeatures VkPhysicalDeviceVulkanMemoryModelFeaturesKHR;
 
 This structure describes the following features:
@@ -77,7 +76,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES`
 
-[VK_VERSION_1_2](VK_VERSION_1_2.html), `VkBool32`, [VkStructureType](VkStructureType.html)
+[VK_KHR_vulkan_memory_model](VK_KHR_vulkan_memory_model.html), [VK_VERSION_1_2](VK_VERSION_1_2.html), `VkBool32`, [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/features.html#VkPhysicalDeviceVulkanMemoryModelFeatures).
 

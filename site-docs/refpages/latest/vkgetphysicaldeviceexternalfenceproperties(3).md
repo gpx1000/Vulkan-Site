@@ -29,9 +29,8 @@ void vkGetPhysicalDeviceExternalFenceProperties(
     const VkPhysicalDeviceExternalFenceInfo*    pExternalFenceInfo,
     VkExternalFenceProperties*                  pExternalFenceProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_external_fence_capabilities
+// Equivalent to vkGetPhysicalDeviceExternalFenceProperties
 void vkGetPhysicalDeviceExternalFencePropertiesKHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceExternalFenceInfo*    pExternalFenceInfo,
@@ -68,7 +67,7 @@ Valid Usage (Implicit)
 
  `pExternalFenceProperties` **must** be a valid pointer to a [VkExternalFenceProperties](VkExternalFenceProperties.html) structure
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalFenceProperties](VkExternalFenceProperties.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceExternalFenceInfo](VkPhysicalDeviceExternalFenceInfo.html)
+[VK_KHR_external_fence_capabilities](VK_KHR_external_fence_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalFenceProperties](VkExternalFenceProperties.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceExternalFenceInfo](VkPhysicalDeviceExternalFenceInfo.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#vkGetPhysicalDeviceExternalFenceProperties).
 

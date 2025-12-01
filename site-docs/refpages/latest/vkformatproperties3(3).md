@@ -34,9 +34,8 @@ typedef struct VkFormatProperties3 {
     VkFormatFeatureFlags2    bufferFeatures;
 } VkFormatProperties3;
 
-or the equivalent
-
 // Provided by VK_KHR_format_feature_flags2
+// Equivalent to VkFormatProperties3
 typedef VkFormatProperties3 VkFormatProperties3KHR;
 
 * 

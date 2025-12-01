@@ -36,9 +36,8 @@ typedef enum VkScopeKHR {
     VK_SCOPE_QUEUE_FAMILY_NV = VK_SCOPE_QUEUE_FAMILY_KHR,
 } VkScopeKHR;
 
-or the equivalent
-
 // Provided by VK_NV_cooperative_matrix
+// Equivalent to VkScopeKHR
 typedef VkScopeKHR VkScopeNV;
 
 * 
@@ -56,7 +55,7 @@ scope.
 
 All enum values match the corresponding SPIR-V value.
 
-[VK_KHR_cooperative_matrix](VK_KHR_cooperative_matrix.html), [VkCooperativeMatrixFlexibleDimensionsPropertiesNV](VkCooperativeMatrixFlexibleDimensionsPropertiesNV.html), [VkCooperativeMatrixPropertiesKHR](VkCooperativeMatrixPropertiesKHR.html)
+[VK_KHR_cooperative_matrix](VK_KHR_cooperative_matrix.html), [VK_NV_cooperative_matrix](VK_NV_cooperative_matrix.html), [VkCooperativeMatrixFlexibleDimensionsPropertiesNV](VkCooperativeMatrixFlexibleDimensionsPropertiesNV.html), [VkCooperativeMatrixPropertiesKHR](VkCooperativeMatrixPropertiesKHR.html), [VkCooperativeMatrixPropertiesNV](VkCooperativeMatrixPropertiesNV.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/shaders.html#VkScopeKHR).
 

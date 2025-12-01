@@ -28,9 +28,8 @@ typedef struct VkPrivateDataSlotCreateInfo {
     VkPrivateDataSlotCreateFlags    flags;
 } VkPrivateDataSlotCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_private_data
+// Equivalent to VkPrivateDataSlotCreateInfo
 typedef VkPrivateDataSlotCreateInfo VkPrivateDataSlotCreateInfoEXT;
 
 * 
@@ -62,7 +61,7 @@ Valid Usage (Implicit)
 
 [VK_EXT_private_data](VK_EXT_private_data.html), [VK_VERSION_1_3](VK_VERSION_1_3.html), [VkPrivateDataSlotCreateFlags](VkPrivateDataSlotCreateFlags.html), [VkStructureType](VkStructureType.html), [vkCreatePrivateDataSlot](vkCreatePrivateDataSlot.html), [vkCreatePrivateDataSlot](vkCreatePrivateDataSlot.html)
 
-For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/VK_EXT_private_data.html#VkPrivateDataSlotCreateInfo).
+For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/private_data.html#VkPrivateDataSlotCreateInfo).
 
 This page is extracted from the Vulkan Specification.
 Fixes and changes should be made to the Specification, not directly.

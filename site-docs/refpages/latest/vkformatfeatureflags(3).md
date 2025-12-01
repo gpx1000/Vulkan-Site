@@ -24,7 +24,7 @@ typedef VkFlags VkFormatFeatureFlags;
 `VkFormatFeatureFlags` is a bitmask type for setting a mask of zero or
 more [VkFormatFeatureFlagBits](VkFormatFeatureFlagBits.html).
 
-[VK_VERSION_1_0](VK_VERSION_1_0.html), [VkAndroidHardwareBufferFormatPropertiesANDROID](VkAndroidHardwareBufferFormatPropertiesANDROID.html), [VkBufferCollectionPropertiesFUCHSIA](VkBufferCollectionPropertiesFUCHSIA.html), [VkBufferConstraintsInfoFUCHSIA](VkBufferConstraintsInfoFUCHSIA.html), [VkDrmFormatModifierPropertiesEXT](VkDrmFormatModifierPropertiesEXT.html), `VkFlags`, [VkFormatFeatureFlagBits](VkFormatFeatureFlagBits.html), [VkFormatProperties](VkFormatProperties.html), [VkImageFormatConstraintsInfoFUCHSIA](VkImageFormatConstraintsInfoFUCHSIA.html), [VkScreenBufferFormatPropertiesQNX](VkScreenBufferFormatPropertiesQNX.html)
+[VK_VERSION_1_0](VK_VERSION_1_0.html), [VkAndroidHardwareBufferFormatPropertiesANDROID](VkAndroidHardwareBufferFormatPropertiesANDROID.html), [VkBufferCollectionPropertiesFUCHSIA](VkBufferCollectionPropertiesFUCHSIA.html), [VkBufferConstraintsInfoFUCHSIA](VkBufferConstraintsInfoFUCHSIA.html), [VkDrmFormatModifierPropertiesEXT](VkDrmFormatModifierPropertiesEXT.html), `VkFlags`, [VkFormatFeatureFlagBits](VkFormatFeatureFlagBits.html), [VkFormatProperties](VkFormatProperties.html), [VkImageFormatConstraintsInfoFUCHSIA](VkImageFormatConstraintsInfoFUCHSIA.html), [VkNativeBufferFormatPropertiesOHOS](VkNativeBufferFormatPropertiesOHOS.html), [VkScreenBufferFormatPropertiesQNX](VkScreenBufferFormatPropertiesQNX.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/formats.html#VkFormatFeatureFlags).
 

@@ -27,9 +27,8 @@ VkResult vkBindImageMemory2(
     uint32_t                                    bindInfoCount,
     const VkBindImageMemoryInfo*                pBindInfos);
 
-or the equivalent command
-
 // Provided by VK_KHR_bind_memory2
+// Equivalent to vkBindImageMemory2
 VkResult vkBindImageMemory2KHR(
     VkDevice                                    device,
     uint32_t                                    bindInfoCount,
@@ -120,7 +119,7 @@ Return Codes
 * 
 `VK_ERROR_VALIDATION_FAILED`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkBindImageMemoryInfo](VkBindImageMemoryInfo.html), [VkDevice](VkDevice.html)
+[VK_KHR_bind_memory2](VK_KHR_bind_memory2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkBindImageMemoryInfo](VkBindImageMemoryInfo.html), [VkDevice](VkDevice.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/resources.html#vkBindImageMemory2).
 

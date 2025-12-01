@@ -25,7 +25,7 @@
 |  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/debug_utils). |
 | --- | --- |
 
-This tutorial, along with the accompanying example code, demonstrates the use of the [VK_EXT_debug_utils](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_EXT_debug_utils) extension to setup a validation layer messenger callback and pass additional debugging information to debuggers like [RenderDoc](https://renderdoc.org/).
+This tutorial, along with the accompanying example code, demonstrates the use of the [VK_EXT_debug_utils](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_EXT_debug_utils) extension to setup a validation layer messenger callback and pass additional debugging information to debuggers like [RenderDoc](https://renderdoc.org/).
 
 `VK_EXT_debug_utils` has been introduced based on feedback for the initial Vulkan debugging extensions `VK_EXT_debug_report` and `VK_EXT_debug_marker`, combining these into a single instance extensions with some added functionality.
 

@@ -188,6 +188,10 @@ This stage is not invoked by any commands recorded in a command buffer.
 ,
 [vkCmdTraceRaysKHR](vkCmdTraceRaysKHR.html), or [vkCmdTraceRaysIndirectKHR](vkCmdTraceRaysIndirectKHR.html)
 
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT` specifies the
+execution of decompression commands with [vkCmdDecompressMemoryEXT](vkCmdDecompressMemoryEXT.html)
+and [vkCmdDecompressMemoryIndirectCountEXT](vkCmdDecompressMemoryIndirectCountEXT.html).
+
 `VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT` specifies the execution of all
 graphics pipeline stages, and is equivalent to the logical OR of:
 

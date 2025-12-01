@@ -24,15 +24,11 @@ priorities, as returned in
 
 #define VK_MAX_GLOBAL_PRIORITY_SIZE       16U
 
-or the equivalent
-
 #define VK_MAX_GLOBAL_PRIORITY_SIZE_KHR   VK_MAX_GLOBAL_PRIORITY_SIZE
-
-or the equivalent
 
 #define VK_MAX_GLOBAL_PRIORITY_SIZE_EXT   VK_MAX_GLOBAL_PRIORITY_SIZE
 
-[VK_VERSION_1_4](VK_VERSION_1_4.html)
+[VK_EXT_global_priority_query](VK_EXT_global_priority_query.html), [VK_KHR_global_priority](VK_KHR_global_priority.html), [VK_VERSION_1_4](VK_VERSION_1_4.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/devsandqueues.html#VK_MAX_GLOBAL_PRIORITY_SIZE).
 

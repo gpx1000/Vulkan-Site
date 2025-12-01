@@ -38,9 +38,8 @@ typedef enum VkSemaphoreImportFlagBits {
     VK_SEMAPHORE_IMPORT_TEMPORARY_BIT_KHR = VK_SEMAPHORE_IMPORT_TEMPORARY_BIT,
 } VkSemaphoreImportFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore
+// Equivalent to VkSemaphoreImportFlagBits
 typedef VkSemaphoreImportFlagBits VkSemaphoreImportFlagBitsKHR;
 
 These bits have the following meanings:
@@ -51,7 +50,7 @@ payload will be imported only temporarily, as described in
 [Importing Semaphore Payloads](../../../../spec/latest/chapters/synchronization.html#synchronization-semaphores-importing),
 regardless of the permanence of `handleType`.
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkSemaphoreImportFlags](VkSemaphoreImportFlags.html)
+[VK_KHR_external_semaphore](VK_KHR_external_semaphore.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkSemaphoreImportFlags](VkSemaphoreImportFlags.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/synchronization.html#VkSemaphoreImportFlagBits).
 

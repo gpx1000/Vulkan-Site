@@ -121,9 +121,9 @@ defined in the [Compatible Formats](../../../../spec/latest/chapters/formats.htm
 * 
 [](#VUID-VkBufferViewCreateInfo-buffer-00932) VUID-VkBufferViewCreateInfo-buffer-00932
 
-`buffer` **must** have been created with a `usage` value containing
-at least one of `VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT` or
-`VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT`
+`buffer` **must** have been created with at least one of the
+`VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT` or
+`VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT` usage flags set
 
 * 
 [](#VUID-VkBufferViewCreateInfo-format-08778) VUID-VkBufferViewCreateInfo-format-08778
@@ -161,9 +161,9 @@ feature is not enabled,
 [](#VUID-VkBufferViewCreateInfo-buffer-02750) VUID-VkBufferViewCreateInfo-buffer-02750
 
 If the [`texelBufferAlignment`](../../../../spec/latest/chapters/features.html#features-texelBufferAlignment)
-feature is enabled and if `buffer` was created with `usage`
-containing `VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT`, `offset`
-**must** be a multiple of the lesser of
+feature is enabled and if `buffer` was created with the
+`VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT` usage flag set,
+`offset` **must** be a multiple of the lesser of
 [VkPhysicalDeviceTexelBufferAlignmentProperties](VkPhysicalDeviceTexelBufferAlignmentProperties.html)::`storageTexelBufferOffsetAlignmentBytes`
 or, if
 [VkPhysicalDeviceTexelBufferAlignmentProperties](VkPhysicalDeviceTexelBufferAlignmentProperties.html)::`storageTexelBufferOffsetSingleTexelAlignment`
@@ -175,9 +175,9 @@ single component of `format` is used instead
 [](#VUID-VkBufferViewCreateInfo-buffer-02751) VUID-VkBufferViewCreateInfo-buffer-02751
 
 If the [`texelBufferAlignment`](../../../../spec/latest/chapters/features.html#features-texelBufferAlignment)
-feature is enabled and if `buffer` was created with `usage`
-containing `VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT`, `offset`
-**must** be a multiple of the lesser of
+feature is enabled and if `buffer` was created with the
+`VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT` usage flag set,
+`offset` **must** be a multiple of the lesser of
 [VkPhysicalDeviceTexelBufferAlignmentProperties](VkPhysicalDeviceTexelBufferAlignmentProperties.html)::`uniformTexelBufferOffsetAlignmentBytes`
 or, if
 [VkPhysicalDeviceTexelBufferAlignmentProperties](VkPhysicalDeviceTexelBufferAlignmentProperties.html)::`uniformTexelBufferOffsetSingleTexelAlignment`

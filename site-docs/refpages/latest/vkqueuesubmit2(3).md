@@ -28,9 +28,8 @@ VkResult vkQueueSubmit2(
     const VkSubmitInfo2*                        pSubmits,
     VkFence                                     fence);
 
-or the equivalent command
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to vkQueueSubmit2
 VkResult vkQueueSubmit2KHR(
     VkQueue                                     queue,
     uint32_t                                    submitCount,

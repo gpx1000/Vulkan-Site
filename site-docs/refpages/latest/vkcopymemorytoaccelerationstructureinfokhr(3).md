@@ -39,7 +39,7 @@ typedef struct VkCopyMemoryToAccelerationStructureInfoKHR {
 structure.
 
 * 
-`src` is the device or host address to memory containing the source
+`src` is the device or host address of memory containing the source
 data for the copy.
 
 * 

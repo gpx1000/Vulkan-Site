@@ -24,7 +24,7 @@ The [VkOpticalFlowImageFormatPropertiesNV](#) structure is defined as:
 // Provided by VK_NV_optical_flow
 typedef struct VkOpticalFlowImageFormatPropertiesNV {
     VkStructureType    sType;
-    const void*        pNext;
+    void*              pNext;
     VkFormat           format;
 } VkOpticalFlowImageFormatPropertiesNV;
 

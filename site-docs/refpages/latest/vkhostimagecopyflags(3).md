@@ -21,9 +21,8 @@ VkHostImageCopyFlags - Bitmask of VkHostImageCopyFlagBits
 // Provided by VK_VERSION_1_4
 typedef VkFlags VkHostImageCopyFlags;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to VkHostImageCopyFlags
 typedef VkHostImageCopyFlags VkHostImageCopyFlagsEXT;
 
 `VkHostImageCopyFlags` is a bitmask type for setting a mask of zero or

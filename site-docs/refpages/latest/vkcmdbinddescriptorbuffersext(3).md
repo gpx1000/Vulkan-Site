@@ -89,33 +89,33 @@ There **must** be no more than `1` element in `pBindingInfos` with
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08053) VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08053
 
-For any element of `pBindingInfos`, the buffer from which
+For each element of `pBindingInfos`, the buffer from which
 `address` was queried **must** have been created with the
-`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` bit set if it
-contains sampler descriptor data
+`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` usage flag set
+if it contains sampler descriptor data
 
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08054) VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08054
 
-For any element of `pBindingInfos`, the buffer from which
+For each element of `pBindingInfos`, the buffer from which
 `address` was queried **must** have been created with the
-`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT` bit set if it
-contains resource descriptor data
+`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT` usage flag set
+if it contains resource descriptor data
 
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08055) VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08055
 
-For any element of `pBindingInfos`, `usage` **must** match the
-buffer from which `address` was queried
+For each element of `pBindingInfos`, at least one buffer from which
+`address` was queried must contain `usage`
 
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-09947) VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-09947
 
 For all elements of `pBindingInfos`, the buffer from which
 `address` was queried **must** have been created with the
-`VK_BUFFER_USAGE_2_DATA_GRAPH_FOREIGN_DESCRIPTOR_BIT_ARM` bit set if
-the command pool from which `commandBuffer` was allocated from was
-created with any element of
+`VK_BUFFER_USAGE_2_DATA_GRAPH_FOREIGN_DESCRIPTOR_BIT_ARM` usage flag
+set if the command pool from which `commandBuffer` was allocated
+from was created with any element of
 [VkDataGraphProcessingEngineCreateInfoARM](VkDataGraphProcessingEngineCreateInfoARM.html)::pProcessingEngines with
 `isForeign` set to `VK_TRUE`
 
@@ -139,7 +139,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-commandBuffer-cmdpool) VUID-vkCmdBindDescriptorBuffersEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or data_graph operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_DATA_GRAPH_BIT_ARM`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-videocoding) VUID-vkCmdBindDescriptorBuffersEXT-videocoding
@@ -164,11 +164,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_DATA_GRAPH_BIT_ARM
 
-Data_Graph | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

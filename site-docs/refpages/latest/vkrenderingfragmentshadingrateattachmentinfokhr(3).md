@@ -70,8 +70,9 @@ If `imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), `layout` **must** b
 [](#VUID-VkRenderingFragmentShadingRateAttachmentInfoKHR-imageView-06148) VUID-VkRenderingFragmentShadingRateAttachmentInfoKHR-imageView-06148
 
 If `imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), it **must** have been
-created with
-`VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
+created with the
+`VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` usage flag
+set_KHR
 
 * 
 [](#VUID-VkRenderingFragmentShadingRateAttachmentInfoKHR-imageView-06149) VUID-VkRenderingFragmentShadingRateAttachmentInfoKHR-imageView-06149

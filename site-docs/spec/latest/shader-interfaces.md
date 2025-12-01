@@ -366,9 +366,8 @@ void vkCmdSetRenderingAttachmentLocations(
     VkCommandBuffer                             commandBuffer,
     const VkRenderingAttachmentLocationInfo*    pLocationInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_dynamic_rendering_local_read
+// Equivalent to vkCmdSetRenderingAttachmentLocations
 void vkCmdSetRenderingAttachmentLocationsKHR(
     VkCommandBuffer                             commandBuffer,
     const VkRenderingAttachmentLocationInfo*    pLocationInfo);
@@ -434,7 +433,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetRenderingAttachmentLocations-commandBuffer-cmdpool) VUID-vkCmdSetRenderingAttachmentLocations-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetRenderingAttachmentLocations-renderpass) VUID-vkCmdSetRenderingAttachmentLocations-renderpass
@@ -459,7 +458,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | State |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -475,9 +474,8 @@ typedef struct VkRenderingAttachmentLocationInfo {
     const uint32_t*    pColorAttachmentLocations;
 } VkRenderingAttachmentLocationInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_dynamic_rendering_local_read
+// Equivalent to VkRenderingAttachmentLocationInfo
 typedef VkRenderingAttachmentLocationInfo VkRenderingAttachmentLocationInfoKHR;
 
 * 
@@ -813,9 +811,8 @@ void vkCmdSetRenderingInputAttachmentIndices(
     VkCommandBuffer                             commandBuffer,
     const VkRenderingInputAttachmentIndexInfo*  pInputAttachmentIndexInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_dynamic_rendering_local_read
+// Equivalent to vkCmdSetRenderingInputAttachmentIndices
 void vkCmdSetRenderingInputAttachmentIndicesKHR(
     VkCommandBuffer                             commandBuffer,
     const VkRenderingInputAttachmentIndexInfo*  pInputAttachmentIndexInfo);
@@ -883,7 +880,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetRenderingInputAttachmentIndices-commandBuffer-cmdpool) VUID-vkCmdSetRenderingInputAttachmentIndices-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetRenderingInputAttachmentIndices-renderpass) VUID-vkCmdSetRenderingInputAttachmentIndices-renderpass
@@ -908,7 +905,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | State |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -926,9 +923,8 @@ typedef struct VkRenderingInputAttachmentIndexInfo {
     const uint32_t*    pStencilInputAttachmentIndex;
 } VkRenderingInputAttachmentIndexInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_dynamic_rendering_local_read
+// Equivalent to VkRenderingInputAttachmentIndexInfo
 typedef VkRenderingInputAttachmentIndexInfo VkRenderingInputAttachmentIndexInfoKHR;
 
 * 
@@ -1113,7 +1109,8 @@ The three types of inter-stage interface variables for ray tracing pipelines
 are:
 
 * 
-Ray payloads containing data tracked for the entire lifetime of the ray.
+Ray payloads containing data preserved for the entire lifetime of the
+ray.
 
 * 
 Hit attributes containing data about a specific hit for the duration of
@@ -1127,14 +1124,21 @@ instructions, so they have an incoming variant to distinguish the parameter
 passed to the invocation from any other payloads or data being used by
 subsequent shader call instructions.
 
-An interface structure used between stages **must** match between the stages
-using it.
+An interface structure between stages **must** match between the stages using
+it.
 Specifically:
 
 * 
-The hit attribute structure read in an any-hit or closest hit shader
-**must** be the same structure as the hit attribute structure written in
-the corresponding intersection shader in the same hit group.
+If an intersection shader is present, the hit attribute structure read
+in an any-hit or closest hit shader **must** be the same structure as the
+hit attribute structure written in the corresponding intersection shader
+in the same hit group.
+
+* 
+If an intersection shader is not present, the hit attribute structure
+read in an any-hit or closest hit shader **must** be a vector of 2 32-bit
+floating-point values that accepts the barycentric coordinates for
+triangle hits.
 
 * 
 The incoming callable data for a callable shader **must** be the same
@@ -1143,7 +1147,8 @@ instruction in the calling shader.
 
 * 
 The ray payload for a shader invoked by a ray tracing command **must** be
-the same structure for all shader stages using the payload for that ray.
+the same structure for all shader stages using the payload for that ray,
+and **must** be declared in the shader even if it is not referenced.
 
 Any shader with an incoming ray payload, incoming callable data, or hit
 attribute **must** only declare one variable of that type.
@@ -1472,11 +1477,11 @@ or
 | --- | --- | --- | --- |
 | sampler | `UniformConstant` | `OpTypeSampler` |  |
 | sampled image | `UniformConstant`
-or + `TileAttachmentQCOM` | `OpTypeImage` (`Sampled`=1) |  |
+or `TileAttachmentQCOM` | `OpTypeImage` (`Sampled`=1) |  |
 | storage image | `UniformConstant`
-or + `TileAttachmentQCOM` | `OpTypeImage` (`Sampled`=2) |  |
+or `TileAttachmentQCOM` | `OpTypeImage` (`Sampled`=2) |  |
 | combined image sampler | `UniformConstant`
-or + `TileAttachmentQCOM` | `OpTypeSampledImage`
+or `TileAttachmentQCOM` | `OpTypeSampledImage`
 
           `OpTypeImage` (`Sampled`=1)
 
@@ -1487,15 +1492,15 @@ or + `TileAttachmentQCOM` | `OpTypeSampledImage`
 | storage buffer | `Uniform` | `OpTypeStruct` | `BufferBlock`, `Offset`, (`ArrayStride`), (`MatrixStride`) |
 | `StorageBuffer` | `Block`, `Offset`, (`ArrayStride`), (`MatrixStride`) |
 | input attachment | `UniformConstant`
-or + `TileAttachmentQCOM` | `OpTypeImage` (`Dim`=`SubpassData`, `Sampled`=2) | `InputAttachmentIndex` |
+or `TileAttachmentQCOM` | `OpTypeImage` (`Dim`=`SubpassData`, `Sampled`=2) | `InputAttachmentIndex` |
 | inline uniform block | `Uniform` | `OpTypeStruct` | `Block`, `Offset`, (`ArrayStride`), (`MatrixStride`) |
 | acceleration structure | `UniformConstant` | `OpTypeAccelerationStructureKHR` |  |
 | sample weight image | `UniformConstant`
-or + `TileAttachmentQCOM` | `OpTypeImage` (`Depth`=0, `Dim`=`2D`,
+or `TileAttachmentQCOM` | `OpTypeImage` (`Depth`=0, `Dim`=`2D`,
 
                             `Arrayed`=1, `MS`=0, `Sampled`=1) | `WeightTextureQCOM` |
 | block matching image | `UniformConstant`
-or + `TileAttachmentQCOM` | `OpTypeImage` (`Depth`=0, `Dim`=`2D`,
+or `TileAttachmentQCOM` | `OpTypeImage` (`Depth`=0, `Dim`=`2D`,
 
                             `Arrayed`=0, `MS`=0, `Sampled`=1) | `BlockMatchTextureQCOM` |
 | storage tensor | `UniformConstant` | `OpTypeTensorARM` |  |
@@ -1526,8 +1531,9 @@ Each descriptor set has its own binding name space.
 
 If the `Binding` decoration is used with an array, the entire array is
 assigned that binding value.
-The array **must** be a single-dimensional array and size of the array **must** be
-no larger than the number of descriptors in the binding.
+The decorated array **must** have an `Element` `Type` corresponding to a
+descriptor type, and the size of the array **must** be no larger than the
+number of descriptors in the binding.
 If the array is runtime-sized, then array elements greater than or equal to
 the size of that binding in the bound descriptor set **must** not be used.
 If the array is runtime-sized, the [`runtimeDescriptorArray`](features.html#features-runtimeDescriptorArray) feature **must** be enabled and the
@@ -2740,6 +2746,10 @@ Decorating a variable with the `FragSizeEXT` built-in decoration will
 make that variable contain the dimensions in pixels of the
 [area](../appendices/glossary.html#glossary-fragment-area) that the fragment covers for that
 invocation.
+
+|  | When used in a custom resolve operation and the [`customResolve`](features.html#features-customResolve) feature is enabled, the dimensions in pixels returned
+| --- | --- |
+**may** be (1,1) if the fragment area was reduced. |
 
 If fragment density map is not enabled, `FragSizeEXT` will be filled with
 a value of (1,1).
@@ -4956,6 +4966,10 @@ The value **may** vary across a single draw call, and for fragment shaders **may
 vary across a single primitive.
 In compute dispatches, `SubgroupSize` **must** be uniform with
 [command scope](shaders.html#shaders-scope-command).
+In mesh and task shaders, `SubgroupSize` **must** be uniform with
+[command scope](shaders.html#shaders-scope-command).
+In a single [command scope](shaders.html#shaders-scope-command), the mesh and task
+shader **may** have different `SubgroupSize`.
 
 If the pipeline was created with a chained
 [VkPipelineShaderStageRequiredSubgroupSizeCreateInfo](pipelines.html#VkPipelineShaderStageRequiredSubgroupSizeCreateInfo) structure,
@@ -4979,7 +4993,7 @@ variable decorated with `SubgroupSize` will match [`subgroupSize`](devsandqueues
 The maximum number of invocations that an implementation can support per
 subgroup is 128.
 
-|  | The old behavior for `SubgroupSize` is considered deprecated as certain
+|  | The old behavior for `SubgroupSize` is considered legacy as certain
 | --- | --- |
 compute algorithms cannot be easily implemented without the guarantees of
 `VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT` and

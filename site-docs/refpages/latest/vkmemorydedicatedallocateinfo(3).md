@@ -33,9 +33,8 @@ typedef struct VkMemoryDedicatedAllocateInfo {
     VkBuffer           buffer;
 } VkMemoryDedicatedAllocateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_dedicated_allocation
+// Equivalent to VkMemoryDedicatedAllocateInfo
 typedef VkMemoryDedicatedAllocateInfo VkMemoryDedicatedAllocateInfoKHR;
 
 * 
@@ -69,8 +68,8 @@ At least one of `image` and `buffer` **must** be
 Android Hardware Buffer
 or an imported
 QNX Screen buffer
-    , `VkMemoryAllocateInfo`::`allocationSize` **must** equal the
-    `VkMemoryRequirements`::`size` of the image
+    , `VkMemoryAllocateInfo`::`allocationSize` **must** be greater than
+    or equal to the `VkMemoryRequirements`::`size` of the image
 
 * 
 [](#VUID-VkMemoryDedicatedAllocateInfo-image-01434) VUID-VkMemoryDedicatedAllocateInfo-image-01434
@@ -87,8 +86,8 @@ created without `VK_IMAGE_CREATE_SPARSE_BINDING_BIT` set in
 Android Hardware Buffer
 or an imported
 QNX Screen buffer
-    , `VkMemoryAllocateInfo`::`allocationSize` **must** equal the
-    `VkMemoryRequirements`::`size` of the buffer
+    , `VkMemoryAllocateInfo`::`allocationSize` **must** be greater than
+    or equal to the `VkMemoryRequirements`::`size` of the buffer
 
 * 
 [](#VUID-VkMemoryDedicatedAllocateInfo-buffer-01436) VUID-VkMemoryDedicatedAllocateInfo-buffer-01436
@@ -196,7 +195,7 @@ Valid Usage (Implicit)
 
  Both of `buffer`, and `image` that are valid handles of non-ignored parameters **must** have been created, allocated, or retrieved from the same [VkDevice](VkDevice.html)
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkBuffer](VkBuffer.html), [VkImage](VkImage.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_dedicated_allocation](VK_KHR_dedicated_allocation.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkBuffer](VkBuffer.html), [VkImage](VkImage.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/memory.html#VkMemoryDedicatedAllocateInfo).
 

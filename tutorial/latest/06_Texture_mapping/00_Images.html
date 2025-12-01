@@ -302,7 +302,40 @@
     <a class="nav-link" href="../17_Multithreading.html">Multithreading</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../courses/18_Ray_tracing/00_Overview.html">Ray Tracing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/00_Overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/01_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/02_Acceleration_structures.html">Acceleration structures</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/03_Ray_query_shadows.html">Ray query shadows</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/04_TLAS_animation.html">TLAS animation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/05_Shadow_transparency.html">Shadow transparency</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/06_Reflections.html">Reflections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/07_Conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../90_FAQ.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -598,7 +631,9 @@ vk::raii::DeviceMemory textureImageMemory = nullptr;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::ImageCreateInfo imageInfo( {}, vk::ImageType::e2D, format, {width, height, 1}, 1, 1, vk::SampleCountFlagBits::e1, tiling, usage, vk::SharingMode::eExclusive, 0);</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::ImageCreateInfo imageInfo{ .imageType = vk::ImageType::e2D, .format = format,
+    .extent = {width, height, 1}, .mipLevels = 1, .arrayLayers = 1, .samples = vk::SampleCountFlagBits::e1,
+    .tiling = tiling, .usage = usage, .sharingMode = vk::SharingMode::eExclusive};</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -698,12 +733,16 @@ Create the function and move the image object creation and memory allocation to 
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">void createImage(uint32_t width, uint32_t height, vk::Format format, vk::ImageTiling tiling, vk::ImageUsageFlags usage, vk::MemoryPropertyFlags properties, vk::raii::Image&amp; image, vk::raii::DeviceMemory&amp; imageMemory) {
-    vk::ImageCreateInfo imageInfo( {}, vk::ImageType::e2D, format, {width, height, 1}, 1, 1, vk::SampleCountFlagBits::e1, tiling, usage, vk::SharingMode::eExclusive, 0);
+    vk::ImageCreateInfo imageInfo{ .imageType = vk::ImageType::e2D, .format = format,
+        .extent = {width, height, 1}, .mipLevels = 1, .arrayLayers = 1,
+        .samples = vk::SampleCountFlagBits::e1, .tiling = tiling,
+        .usage = usage, .sharingMode = vk::SharingMode::eExclusive };
 
     image = vk::raii::Image( device, imageInfo );
 
     vk::MemoryRequirements memRequirements = image.getMemoryRequirements();
-    vk::MemoryAllocateInfo allocInfo( memRequirements.size, findMemoryType(memRequirements.memoryTypeBits, properties) );
+    vk::MemoryAllocateInfo allocInfo{ .allocationSize = memRequirements.size,
+                                        .memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties) };
     imageMemory = vk::raii::DeviceMemory( device, allocInfo );
     image.bindMemory(imageMemory, 0);
 }</code></pre>
@@ -767,10 +806,10 @@ Create the function and move the image object creation and memory allocation to 
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::raii::CommandBuffer beginSingleTimeCommands() {
-    vk::CommandBufferAllocateInfo allocInfo(commandPool, vk::CommandBufferLevel::ePrimary, 1);
+    vk::CommandBufferAllocateInfo allocInfo{ .commandPool = commandPool, .level = vk::CommandBufferLevel::ePrimary, .commandBufferCount = 1 };
     vk::raii::CommandBuffer commandBuffer = std::move(device.allocateCommandBuffers(allocInfo).front());
 
-    vk::CommandBufferBeginInfo beginInfo( vk::CommandBufferUsageFlagBits::eOneTimeSubmit );
+    vk::CommandBufferBeginInfo beginInfo{ .flags = vk::CommandBufferUsageFlagBits::eOneTimeSubmit };
     commandBuffer.begin(beginInfo);
 
     return commandBuffer;
@@ -779,7 +818,7 @@ Create the function and move the image object creation and memory allocation to 
 void endSingleTimeCommands(vk::raii::CommandBuffer&amp; commandBuffer) {
     commandBuffer.end();
 
-    vk::SubmitInfo submitInfo( {}, {}, {*commandBuffer});
+    vk::SubmitInfo submitInfo{ .commandBufferCount = 1, .pCommandBuffers = &amp;*commandBuffer };
     graphicsQueue.submit(submitInfo, nullptr);
     graphicsQueue.waitIdle();
 }</code></pre>
@@ -818,15 +857,15 @@ There is an equivalent <em>buffer memory barrier</em> to do this for buffers.</p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::ImageMemoryBarrier barrier( {}, {}, oldLayout, newLayout, {}, {}, image, { vk::ImageAspectFlagBits::eColor, 0, 1, 0, 1 } );</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::ImageMemoryBarrier barrier{ .oldLayout = oldLayout, .newLayout = newLayout, .image = image, .subresourceRange = { vk::ImageAspectFlagBits::eColor, 0, 1, 0, 1 } };</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The first two fields specify layout transition.
+<p><code>oldLayout</code> and <code>newLayout</code> specify the the layout transition.
 It is possible to use <code>VK_IMAGE_LAYOUT_UNDEFINED</code> as <code>oldLayout</code> if you don&#8217;t care about the existing contents of the image.</p>
 </div>
 <div class="paragraph">
-<p>If you are using the barrier to transfer queue family ownership, then these two fields should be the indices of the queue families.
+<p>If you are using the barrier to transfer queue family ownership, then <code>oldLayout</code> and <code>newLayout</code> fields should be the indices of the queue families.
 They must be set to <code>VK_QUEUE_FAMILY_IGNORED</code> if you don&#8217;t want to do this (not the default value!).</p>
 </div>
 <div class="paragraph">
@@ -848,7 +887,7 @@ The right values depend on the old and new layout, so we&#8217;ll get back to th
 The first parameter after the command buffer specifies in which pipeline stage the operations occur that should happen before the barrier.
 The second parameter specifies the pipeline stage in which operations will wait on the barrier.
 The pipeline stages that you are allowed to specify before and after the barrier depend on how you use the resource before and after the barrier.
-The allowed values are listed in <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/chap7.html#synchronization-access-types-supported">this table</a> of the specification.
+The allowed values are listed in <a href="https://docs.vulkan.org/spec/latest/chapters/synchronization.html#synchronization-access-types-supported">this table</a> of the specification.
 For example, if you&#8217;re going to read from a uniform after the barrier, you would specify a usage of <code>VK_ACCESS_UNIFORM_READ_BIT</code> and the earliest shader that will read from the uniform as pipeline stage, for example <code>VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT</code>.
 It would not make sense to specify a non-shader pipeline stage for this type of usage and the validation layers will warn you when you specify a pipeline stage that does not match the type of usage.</p>
 </div>
@@ -884,7 +923,8 @@ This happens through <code>VkBufferImageCopy</code> structs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::BufferImageCopy region( 0, 0, 0, { vk::ImageAspectFlagBits::eColor, 0, 0, 1 }, {0, 0, 0}, {width, height, 1});</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::BufferImageCopy region{ .bufferOffset = 0, .bufferRowLength = 0, .bufferImageHeight = 0,
+    .imageSubresource = { vk::ImageAspectFlagBits::eColor, 0, 0, 1 }, .imageOffset = {0, 0, 0}, .imageExtent = {width, height, 1} };</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1004,7 +1044,7 @@ commandBuffer.pipelineBarrier( sourceStage, destinationStage, {}, {}, nullptr, b
 Since the writings don&#8217;t have to wait on anything, you may specify an empty access mask and the earliest possible pipeline stage <code>VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT</code> for the pre-barrier operations.
 It should be noted that <code>VK_PIPELINE_STAGE_TRANSFER_BIT</code> is not a <em>real</em> stage within the graphics and compute pipelines.
 It is more of a pseudo-stage where transfers happen.
-See <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/chap7.html#VkPipelineStageFlagBits">the documentation</a> for more information and other examples of pseudo-stages.</p>
+See <a href="https://docs.vulkan.org/spec/latest/chapters/synchronization.html#VkPipelineStageFlagBits">the documentation</a> for more information and other examples of pseudo-stages.</p>
 </div>
 <div class="paragraph">
 <p>The image will be written in the same pipeline stage and subsequently read by the fragment shader, which is why we specify shader reading access in the fragment shader pipeline stage.</p>

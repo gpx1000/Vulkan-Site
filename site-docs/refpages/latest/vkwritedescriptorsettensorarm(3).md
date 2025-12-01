@@ -62,7 +62,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkWriteDescriptorSetTensorARM-pTensorViews-parameter) VUID-VkWriteDescriptorSetTensorARM-pTensorViews-parameter
 
- `pTensorViews` **must** be a valid pointer to an array of `tensorViewCount` valid [VkTensorViewARM](VkTensorViewARM.html) handles
+ `pTensorViews` **must** be a valid pointer to an array of `tensorViewCount` valid or [VK_NULL_HANDLE](VK_NULL_HANDLE.html) [VkTensorViewARM](VkTensorViewARM.html) handles
 
 * 
 [](#VUID-VkWriteDescriptorSetTensorARM-tensorViewCount-arraylength) VUID-VkWriteDescriptorSetTensorARM-tensorViewCount-arraylength

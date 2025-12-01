@@ -32,9 +32,8 @@ typedef struct VkPushConstantsInfo {
     const void*           pValues;
 } VkPushConstantsInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance6
+// Equivalent to VkPushConstantsInfo
 typedef VkPushConstantsInfo VkPushConstantsInfoKHR;
 
 * 

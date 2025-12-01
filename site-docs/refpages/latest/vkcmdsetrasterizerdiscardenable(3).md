@@ -27,9 +27,8 @@ void vkCmdSetRasterizerDiscardEnable(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    rasterizerDiscardEnable);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state2, VK_EXT_shader_object
+// Equivalent to vkCmdSetRasterizerDiscardEnable
 void vkCmdSetRasterizerDiscardEnableEXT(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    rasterizerDiscardEnable);
@@ -84,7 +83,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetRasterizerDiscardEnable-commandBuffer-cmdpool) VUID-vkCmdSetRasterizerDiscardEnable-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetRasterizerDiscardEnable-videocoding) VUID-vkCmdSetRasterizerDiscardEnable-videocoding
@@ -104,7 +103,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

@@ -35,9 +35,8 @@ typedef enum VkExternalMemoryFeatureFlagBits {
     VK_EXTERNAL_MEMORY_FEATURE_IMPORTABLE_BIT_KHR = VK_EXTERNAL_MEMORY_FEATURE_IMPORTABLE_BIT,
 } VkExternalMemoryFeatureFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryFeatureFlagBits
 typedef VkExternalMemoryFeatureFlagBits VkExternalMemoryFeatureFlagBitsKHR;
 
 * 
@@ -99,7 +98,7 @@ images or buffers with external handle type
 `VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_ALLOCATION_BIT_EXT`, or
 `VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_MAPPED_FOREIGN_MEMORY_BIT_EXT`.
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalMemoryFeatureFlags](VkExternalMemoryFeatureFlags.html)
+[VK_KHR_external_memory_capabilities](VK_KHR_external_memory_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalMemoryFeatureFlags](VkExternalMemoryFeatureFlags.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkExternalMemoryFeatureFlagBits).
 

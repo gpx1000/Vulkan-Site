@@ -340,7 +340,7 @@ include_directories(${ANDROID_NDK}/sources/android/game-activity/include)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Add the Vulkan C++ module
+# (Optional) Add the Vulkan C++ module when ENABLE_CPP20_MODULE=ON
 add_library(VulkanCppModule SHARED)
 target_compile_definitions(VulkanCppModule
     PUBLIC VULKAN_HPP_DISPATCH_LOADER_DYNAMIC=1 VULKAN_HPP_NO_STRUCT_CONSTRUCTORS=1
@@ -420,7 +420,7 @@ We find the Vulkan package and include the game-activity library instead of nati
 We set up shader compilation tools and define a function to compile shaders.
 
 * 
-We set the C++ standard to C++20 and create a Vulkan C++  module.
+We set the C++ standard to C++20 and optionally create a Vulkan C++ module (recommended) when modules are enabled.
 
 * 
 We set up shader compilation for the 34_android chapter, copying shader source files from the main project.
@@ -801,3 +801,5 @@ This approach not only makes it easier to maintain and update our application bu
 The complete Android example can be found in the attachments/android directory. Feel free to use it as a template for your own Vulkan projects on Android.
 
 Remember that Vulkan HPP is not included by default in the Android NDK, so you’ll need to download it separately from the [Vulkan-Hpp GitHub repository](https://github.com/KhronosGroup/Vulkan-Hpp) or use the version included in the Vulkan SDK.
+
+[C++ code](_attachments/34_android.cpp)

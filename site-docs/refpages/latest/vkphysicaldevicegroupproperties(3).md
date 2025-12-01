@@ -30,9 +30,8 @@ typedef struct VkPhysicalDeviceGroupProperties {
     VkBool32            subsetAllocation;
 } VkPhysicalDeviceGroupProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_device_group_creation
+// Equivalent to VkPhysicalDeviceGroupProperties
 typedef VkPhysicalDeviceGroupProperties VkPhysicalDeviceGroupPropertiesKHR;
 
 * 
@@ -73,7 +72,7 @@ Valid Usage (Implicit)
 
  `pNext` **must** be `NULL`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), `VkBool32`, [VkPhysicalDevice](VkPhysicalDevice.html), [VkStructureType](VkStructureType.html), [vkEnumeratePhysicalDeviceGroups](vkEnumeratePhysicalDeviceGroups.html), [vkEnumeratePhysicalDeviceGroups](vkEnumeratePhysicalDeviceGroups.html)
+[VK_KHR_device_group_creation](VK_KHR_device_group_creation.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), `VkBool32`, [VkPhysicalDevice](VkPhysicalDevice.html), [VkStructureType](VkStructureType.html), [vkEnumeratePhysicalDeviceGroups](vkEnumeratePhysicalDeviceGroups.html), [vkEnumeratePhysicalDeviceGroups](vkEnumeratePhysicalDeviceGroups.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/devsandqueues.html#VkPhysicalDeviceGroupProperties).
 

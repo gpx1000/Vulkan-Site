@@ -137,10 +137,12 @@ size and rounded up.
 The [VkComponentMapping](VkComponentMapping.html) `components` member describes a remapping
 from components of the image to components of the vector returned by shader
 image instructions.
-This remapping **must** be the identity swizzle for storage image descriptors,
-input attachment descriptors,
-framebuffer attachments, and any `VkImageView` used with a combined
-image sampler that enables [sampler Y′CBCR conversion](../../../../spec/latest/chapters/samplers.html#samplers-YCbCr-conversion).
+This remapping **must** be the identity swizzle for
+any `VkImageView` used with a combined image sampler that enables
+[sampler Y′CBCR conversion](../../../../spec/latest/chapters/samplers.html#samplers-YCbCr-conversion),
+input attachment descriptors, framebuffer attachments,
+and
+storage image descriptors.
 
 If the image view is to be used with a sampler which supports
 [sampler Y′CBCR conversion](../../../../spec/latest/chapters/samplers.html#samplers-YCbCr-conversion), an *identically
@@ -286,52 +288,40 @@ If `usage` contains
 * 
 [](#VUID-VkImageViewCreateInfo-image-08333) VUID-VkImageViewCreateInfo-image-08333
 
-If `image` was created with
-`VK_IMAGE_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR` and `usage`
-contains `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`, then the image
-view’s [format features](../../../../spec/latest/chapters/resources.html#resources-image-view-format-features) **must**
-contain `VK_FORMAT_FEATURE_VIDEO_DECODE_OUTPUT_BIT_KHR`
+If `usage` contains `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`,
+then the image view’s [format    features](../../../../spec/latest/chapters/resources.html#resources-image-view-format-features) **must** contain
+`VK_FORMAT_FEATURE_VIDEO_DECODE_OUTPUT_BIT_KHR`
 
 * 
 [](#VUID-VkImageViewCreateInfo-image-08334) VUID-VkImageViewCreateInfo-image-08334
 
-If `image` was created with
-`VK_IMAGE_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR` and `usage`
-contains `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`, then the image
-view’s [format features](../../../../spec/latest/chapters/resources.html#resources-image-view-format-features) **must**
-contain `VK_FORMAT_FEATURE_VIDEO_DECODE_DPB_BIT_KHR`
+If `usage` contains `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`,
+then the image view’s [format    features](../../../../spec/latest/chapters/resources.html#resources-image-view-format-features) **must** contain
+`VK_FORMAT_FEATURE_VIDEO_DECODE_DPB_BIT_KHR`
 
 * 
 [](#VUID-VkImageViewCreateInfo-image-08335) VUID-VkImageViewCreateInfo-image-08335
 
-If `image` was created with
-`VK_IMAGE_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR`, then
 `usage` **must** not include
 `VK_IMAGE_USAGE_VIDEO_DECODE_SRC_BIT_KHR`
 
 * 
 [](#VUID-VkImageViewCreateInfo-image-08336) VUID-VkImageViewCreateInfo-image-08336
 
-If `image` was created with
-`VK_IMAGE_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR` and `usage`
-contains `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR`, then the image
-view’s [format features](../../../../spec/latest/chapters/resources.html#resources-image-view-format-features) **must**
-contain `VK_FORMAT_FEATURE_VIDEO_ENCODE_INPUT_BIT_KHR`
+If `usage` contains `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR`,
+then the image view’s [format    features](../../../../spec/latest/chapters/resources.html#resources-image-view-format-features) **must** contain
+`VK_FORMAT_FEATURE_VIDEO_ENCODE_INPUT_BIT_KHR`
 
 * 
 [](#VUID-VkImageViewCreateInfo-image-08337) VUID-VkImageViewCreateInfo-image-08337
 
-If `image` was created with
-`VK_IMAGE_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR` and `usage`
-contains `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`, then the image
-view’s [format features](../../../../spec/latest/chapters/resources.html#resources-image-view-format-features) **must**
-contain `VK_FORMAT_FEATURE_VIDEO_ENCODE_DPB_BIT_KHR`
+If `usage` contains `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`,
+then the image view’s [format    features](../../../../spec/latest/chapters/resources.html#resources-image-view-format-features) **must** contain
+`VK_FORMAT_FEATURE_VIDEO_ENCODE_DPB_BIT_KHR`
 
 * 
 [](#VUID-VkImageViewCreateInfo-image-08338) VUID-VkImageViewCreateInfo-image-08338
 
-If `image` was created with
-`VK_IMAGE_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR`, then
 `usage` **must** not include
 `VK_IMAGE_USAGE_VIDEO_ENCODE_DST_BIT_KHR`
 
@@ -389,8 +379,8 @@ the `mipLevels` specified in [VkImageCreateInfo](VkImageCreateInfo.html) when
 
 [](#VUID-VkImageViewCreateInfo-image-02571) VUID-VkImageViewCreateInfo-image-02571
 
-If `image` was created with `usage` containing
-`VK_IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT`,
+If `image` was created with the
+`VK_IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT` usage flag set,
 `subresourceRange.levelCount` **must** be `1`
 
 [](#VUID-VkImageViewCreateInfo-image-06724) VUID-VkImageViewCreateInfo-image-06724
@@ -589,17 +579,17 @@ If `image` has an
 
 [](#VUID-VkImageViewCreateInfo-image-02086) VUID-VkImageViewCreateInfo-image-02086
 
-If `image` was created with `usage` containing
-`VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`,
-`viewType` **must** be `VK_IMAGE_VIEW_TYPE_2D` or
+If `image` was created with the
+`VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` usage flag
+set, `viewType` **must** be `VK_IMAGE_VIEW_TYPE_2D` or
 `VK_IMAGE_VIEW_TYPE_2D_ARRAY`
 
 [](#VUID-VkImageViewCreateInfo-image-02087) VUID-VkImageViewCreateInfo-image-02087
 
 If the [`shadingRateImage`](../../../../spec/latest/chapters/features.html#features-shadingRateImage) feature is
-enabled, and If `image` was created with `usage` containing
-`VK_IMAGE_USAGE_SHADING_RATE_IMAGE_BIT_NV`, `format` **must** be
-`VK_FORMAT_R8_UINT`
+enabled, and `image` was created with the
+`VK_IMAGE_USAGE_SHADING_RATE_IMAGE_BIT_NV` usage flag set,
+`format` **must** be `VK_FORMAT_R8_UINT`
 
 [](#VUID-VkImageViewCreateInfo-usage-04550) VUID-VkImageViewCreateInfo-usage-04550
 
@@ -640,24 +630,26 @@ If `flags` contains
 [](#VUID-VkImageViewCreateInfo-image-03569) VUID-VkImageViewCreateInfo-image-03569
 
 If `image` was created with `flags` containing
-`VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT` and `usage` containing
-`VK_IMAGE_USAGE_SAMPLED_BIT`, `subresourceRange.layerCount`
-**must** be less than or equal to [    `VkPhysicalDeviceFragmentDensityMap2PropertiesEXT`::`maxSubsampledArrayLayers`](../../../../spec/latest/chapters/limits.html#limits-maxSubsampledArrayLayers)
+`VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT` and the
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flag set,
+`subresourceRange.layerCount` **must** be less than or equal to
+[    `VkPhysicalDeviceFragmentDensityMap2PropertiesEXT`::`maxSubsampledArrayLayers`](../../../../spec/latest/chapters/limits.html#limits-maxSubsampledArrayLayers)
 
 [](#VUID-VkImageViewCreateInfo-invocationMask-04993) VUID-VkImageViewCreateInfo-invocationMask-04993
 
 If the [`invocationMask`](../../../../spec/latest/chapters/features.html#features-invocationMask) feature is
-enabled, and if `image` was created with `usage` containing
-`VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI`, `format` **must** be
-`VK_FORMAT_R8_UINT`
+enabled, and `image` was created with the
+`VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI` usage flag set,
+`format` **must** be `VK_FORMAT_R8_UINT`
 
 [](#VUID-VkImageViewCreateInfo-flags-04116) VUID-VkImageViewCreateInfo-flags-04116
 
 If `flags` does not contain
-`VK_IMAGE_VIEW_CREATE_FRAGMENT_DENSITY_MAP_DYNAMIC_BIT_EXT` and
-`image` was created with `usage` containing
-`VK_IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT`, its `flags` **must**
-not contain any of `VK_IMAGE_CREATE_PROTECTED_BIT`,
+`VK_IMAGE_VIEW_CREATE_FRAGMENT_DENSITY_MAP_DYNAMIC_BIT_EXT`, and
+`image` was created with the
+`VK_IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT` usage flag set, its
+`flags` **must** not contain any of
+`VK_IMAGE_CREATE_PROTECTED_BIT`,
 `VK_IMAGE_CREATE_SPARSE_BINDING_BIT`,
 `VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT`, or
 `VK_IMAGE_CREATE_SPARSE_ALIASED_BIT`
@@ -753,8 +745,8 @@ component, than the format of the `VkImage` in `image`
 
 [](#VUID-VkImageViewCreateInfo-image-04817) VUID-VkImageViewCreateInfo-image-04817
 
-If `image` was created with `usage` containing
-`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`,
+If `image` was created with the
+`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` usage flag set,
 `VK_IMAGE_USAGE_VIDEO_DECODE_SRC_BIT_KHR`, or
 `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`, then the `viewType`
 **must** be `VK_IMAGE_VIEW_TYPE_2D` or
@@ -762,8 +754,8 @@ If `image` was created with `usage` containing
 
 [](#VUID-VkImageViewCreateInfo-image-04818) VUID-VkImageViewCreateInfo-image-04818
 
-If `image` was created with `usage` containing
-`VK_IMAGE_USAGE_VIDEO_ENCODE_DST_BIT_KHR`,
+If `image` was created with the
+`VK_IMAGE_USAGE_VIDEO_ENCODE_DST_BIT_KHR` usage flag set,
 `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR`, or
 `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`, then the `viewType`
 **must** be `VK_IMAGE_VIEW_TYPE_2D` or
@@ -771,10 +763,10 @@ If `image` was created with `usage` containing
 
 [](#VUID-VkImageViewCreateInfo-image-10261) VUID-VkImageViewCreateInfo-image-10261
 
-If `image` was created with `usage` containing
+If `image` was created with the
 `VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR` or
-`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR`, then
-`viewType` **must** be `VK_IMAGE_VIEW_TYPE_2D` or
+`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` usage flags set,
+then `viewType` **must** be `VK_IMAGE_VIEW_TYPE_2D` or
 `VK_IMAGE_VIEW_TYPE_2D_ARRAY`
 
 [](#VUID-VkImageViewCreateInfo-flags-08106) VUID-VkImageViewCreateInfo-flags-08106
@@ -808,8 +800,8 @@ If the `pNext` chain includes
 
 If the `pNext` chain includes
 [VkImageViewSampleWeightCreateInfoQCOM](VkImageViewSampleWeightCreateInfoQCOM.html) structure, then `image`
-**must** have been created with `usage` containing
-`VK_IMAGE_USAGE_SAMPLE_WEIGHT_BIT_QCOM`
+**must** have been created with the
+`VK_IMAGE_USAGE_SAMPLE_WEIGHT_BIT_QCOM` usage flag set
 
 [](#VUID-VkImageViewCreateInfo-pNext-06946) VUID-VkImageViewCreateInfo-pNext-06946
 

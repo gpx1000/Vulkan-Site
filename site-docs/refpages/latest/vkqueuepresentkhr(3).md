@@ -74,6 +74,11 @@ If any of the presents would have a result of
 
 * 
 If any of the presents would have a result of
+`VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT` if issued separately then
+`VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT` is returned.
+
+* 
+If any of the presents would have a result of
 `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT` if issued separately
 then `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT` is returned.
 
@@ -256,6 +261,9 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT`
 
 * 
 `VK_ERROR_SURFACE_LOST_KHR`

@@ -32,9 +32,8 @@ typedef struct VkImageResolve2 {
     VkExtent3D                  extent;
 } VkImageResolve2;
 
-or the equivalent
-
 // Provided by VK_KHR_copy_commands2
+// Equivalent to VkImageResolve2
 typedef VkImageResolve2 VkImageResolve2KHR;
 
 * 
@@ -49,7 +48,6 @@ structure.
 [VkImageSubresourceLayers](VkImageSubresourceLayers.html) structures specifying the image
 subresources of the images used for the source and destination image
 data, respectively.
-Resolve of depth/stencil images is not supported.
 
 * 
 `srcOffset` and `dstOffset` select the initial `x`, `y`,
@@ -63,10 +61,19 @@ destination image data.
 Valid Usage
 
 * 
-[](#VUID-VkImageResolve2-aspectMask-00266) VUID-VkImageResolve2-aspectMask-00266
+[](#VUID-VkImageResolve2-aspectMask-10993) VUID-VkImageResolve2-aspectMask-10993
 
 The `aspectMask` member of `srcSubresource` and
-`dstSubresource` **must** only contain `VK_IMAGE_ASPECT_COLOR_BIT`
+`dstSubresource` **must** only contain
+`VK_IMAGE_ASPECT_DEPTH_BIT`, `VK_IMAGE_ASPECT_STENCIL_BIT`, or
+`VK_IMAGE_ASPECT_COLOR_BIT`
+
+* 
+[](#VUID-VkImageResolve2-maintenance10-10994) VUID-VkImageResolve2-maintenance10-10994
+
+If [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is not
+enabled, `srcSubresource` and `dstSubresource` **must** not contain
+`VK_IMAGE_ASPECT_DEPTH_BIT` or `VK_IMAGE_ASPECT_STENCIL_BIT`
 
 * 
 [](#VUID-VkImageResolve2-layerCount-08803) VUID-VkImageResolve2-layerCount-08803

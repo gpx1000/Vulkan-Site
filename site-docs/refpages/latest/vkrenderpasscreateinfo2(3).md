@@ -21,7 +21,7 @@ VkRenderPassCreateInfo2 - Structure specifying parameters of a newly created ren
 
 The `VkRenderPassCreateInfo2` structure is defined as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -39,9 +39,8 @@ typedef struct VkRenderPassCreateInfo2 {
     const uint32_t*                    pCorrelatedViewMasks;
 } VkRenderPassCreateInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_create_renderpass2
+// Equivalent to VkRenderPassCreateInfo2
 typedef VkRenderPassCreateInfo2 VkRenderPassCreateInfo2KHR;
 
 * 
@@ -184,7 +183,7 @@ For any member of `pAttachments` with a `stencilLoadOp` equal to
 * 
 [](#VUID-VkRenderPassCreateInfo2-pDependencies-03054) VUID-VkRenderPassCreateInfo2-pDependencies-03054
 
-For any element of `pDependencies`, if the `srcSubpass` is not
+For each element of `pDependencies`, if the `srcSubpass` is not
 `VK_SUBPASS_EXTERNAL`, all stage flags included in the
 `srcStageMask` member of that dependency **must** be
 `VK_PIPELINE_STAGE_ALL_COMMANDS_BIT` or a pipeline stage supported
@@ -194,7 +193,7 @@ the `pipelineBindPoint` member of the source subpass
 * 
 [](#VUID-VkRenderPassCreateInfo2-pDependencies-03055) VUID-VkRenderPassCreateInfo2-pDependencies-03055
 
-For any element of `pDependencies`, if the `dstSubpass` is not
+For each element of `pDependencies`, if the `dstSubpass` is not
 `VK_SUBPASS_EXTERNAL`, all stage flags included in the
 `dstStageMask` member of that dependency **must** be
 `VK_PIPELINE_STAGE_ALL_COMMANDS_BIT` or a pipeline stage supported
@@ -232,10 +231,10 @@ any element of `pDependencies` **must** not include
 * 
 [](#VUID-VkRenderPassCreateInfo2-pDependencies-03060) VUID-VkRenderPassCreateInfo2-pDependencies-03060
 
-For any element of `pDependencies` where its `srcSubpass` member
-equals its `dstSubpass` member, if the `viewMask` member of the
-corresponding element of `pSubpasses` includes more than one bit,
-its `dependencyFlags` member **must** include
+For each element of `pDependencies` where its `srcSubpass`
+member equals its `dstSubpass` member, if the `viewMask` member
+of the corresponding element of `pSubpasses` includes more than one
+bit, its `dependencyFlags` member **must** include
 `VK_DEPENDENCY_VIEW_LOCAL_BIT`
 
 * 

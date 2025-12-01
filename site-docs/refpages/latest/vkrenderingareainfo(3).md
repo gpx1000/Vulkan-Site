@@ -32,9 +32,8 @@ typedef struct VkRenderingAreaInfo {
     VkFormat           stencilAttachmentFormat;
 } VkRenderingAreaInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkRenderingAreaInfo
 typedef VkRenderingAreaInfo VkRenderingAreaInfoKHR;
 
 * 

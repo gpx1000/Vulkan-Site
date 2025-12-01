@@ -27,9 +27,8 @@ void vkDestroyPrivateDataSlot(
     VkPrivateDataSlot                           privateDataSlot,
     const VkAllocationCallbacks*                pAllocator);
 
-or the equivalent command
-
 // Provided by VK_EXT_private_data
+// Equivalent to vkDestroyPrivateDataSlot
 void vkDestroyPrivateDataSlotEXT(
     VkDevice                                    device,
     VkPrivateDataSlot                           privateDataSlot,
@@ -89,7 +88,7 @@ Host access to `privateDataSlot` **must** be externally synchronized
 
 [VK_EXT_private_data](VK_EXT_private_data.html), [VK_VERSION_1_3](VK_VERSION_1_3.html), [VkAllocationCallbacks](VkAllocationCallbacks.html), [VkDevice](VkDevice.html), [VkPrivateDataSlot](VkPrivateDataSlot.html)
 
-For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/VK_EXT_private_data.html#vkDestroyPrivateDataSlot).
+For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/private_data.html#vkDestroyPrivateDataSlot).
 
 This page is extracted from the Vulkan Specification.
 Fixes and changes should be made to the Specification, not directly.

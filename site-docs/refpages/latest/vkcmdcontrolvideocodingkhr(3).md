@@ -110,12 +110,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdControlVideoCodingKHR-commandBuffer-cmdpool) VUID-vkCmdControlVideoCodingKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdControlVideoCodingKHR-renderpass) VUID-vkCmdControlVideoCodingKHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdControlVideoCodingKHR-suspended) VUID-vkCmdControlVideoCodingKHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdControlVideoCodingKHR-videocoding) VUID-vkCmdControlVideoCodingKHR-videocoding
@@ -138,9 +143,9 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](../../../../spec/latest/chapters/cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../../../../spec/latest/chapters/renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../../../../spec/latest/chapters/videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../../../../spec/latest/chapters/devsandqueues.html#VkQueueFlagBits) | [Command Type](../../../../spec/latest/chapters/fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Outside | Inside | Decode
+| Primary | Outside | Inside | VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Action |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action |
 
 Conditional Rendering
 

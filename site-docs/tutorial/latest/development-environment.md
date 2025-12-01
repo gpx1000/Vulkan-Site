@@ -8,6 +8,8 @@
 
 ## Table of Contents
 
+- [Getting the code](#_getting_the_code)
+- [Getting_the_code](#_getting_the_code)
 - [Dependency Install Scripts](#_dependency_install_scripts)
 - [Dependency_Install_Scripts](#_dependency_install_scripts)
 - [Windows](#_windows)
@@ -55,6 +57,15 @@ except for the compiler, are compatible with Windows, Linux and macOS, but the
 steps for installing them differ a bit, which is why they’re described
 separately here.
 
+First we need to clone the code for the tutorial from the [github repository](https://github.com/KhronosGroup/Vulkan-Tutorial).
+This requires an install of the [git](https://git-scm.com/) version control system.
+
+With git installed we can locally clone the repository like this:
+
+git clone https://github.com/KhronosGroup/Vulkan-Tutorial
+
+This will clone the repository to a new folder (inside the current one) called `Vulkan-Tutorial`. The Source files for the chapters are located in the `attachments` folder.
+
 To make the setup process easier, we’ve provided dependency install scripts for Windows and Linux:
 
 For Windows, we provide a script that uses vcpkg to install all the required dependencies:
@@ -82,10 +93,7 @@ The most important part you’ll need for developing Vulkan applications is the 
 It includes headers, standard validation layers, debugging tools and a loader for the Vulkan functions.
 The loader looks up the functions in the driver at runtime, similarly to GLEW for OpenGL—if you’re familiar with that.
 
-The SDK can be downloaded from [the LunarG website](https://vulkan.lunarg.com/) using the buttons at the bottom of the page.
-You don’t have to create an account, but it will give you access to some additional documentation that may be useful to you.
-
-![vulkan sdk download buttons](_images/images/vulkan_sdk_download_buttons.png)
+The SDK can be downloaded from [the LunarG website](https://vulkan.lunarg.com/sdk/home).
 
 Proceed through the installation and pay attention to the installation location of the SDK.
 The first thing we’ll do is verify that your graphics card and driver properly support Vulkan.
@@ -93,9 +101,9 @@ Go to the directory where you installed the SDK, open the `bin` directory and
  run the `vkcube` demo.
 
 There is another program in this directory that will be useful for
-development. The `glslangValidator` and `glslc` programs will be
+development. The `slangc` command line program will be
 used to compile shaders from the human-readable
-[GLSL](https://en.wikipedia.org/wiki/OpenGL_Shading_Language) to bytecode.
+[Slang Shading Language](https://shader-slang.org/slang/user-guide/) to bytecode.
 We’ll cover this in depth in the
 [shader modules](03_Drawing_a_triangle/02_Graphics_pipeline_basics/01_Shader_modules.html)
  chapter. The `bin` directory also contains the binaries of
@@ -105,11 +113,10 @@ contains the libraries.
 Lastly, there’s the `include` directory that contains the Vulkan headers.
 Feel free to explore the other files, but we won’t need them for this tutorial.
 
-To automatically set the environment variables up that VulkanSDK will use to
-make life easier with the CMake project configuration and various other
-tooling, We recommend using the `setup-env` script. This can be added to
-your auto-start for your terminal and IDE setup such that those environment
-variables work everywhere.
+To automatically set the environment variables that VulkanSDK will use to
+simplify CMake project configuration and other tooling, we recommend using
+the `setup-env` script on Linux. You can add this script to your terminal’s auto-start
+or IDE setup to ensure these environment variables are available in all your sessions.
 
 If you receive an error message, then ensure that your drivers are up to date,
 include the Vulkan runtime and that your graphics card is supported. See the
@@ -151,14 +158,22 @@ for an example of a working project.
 
 Vulkan has support for C++ modules which became available with c++20. A
 large advantage of C++ modules is they give all the benefits of C++ without
-the overhead long compile times. To do this, the .cppm file must be compiled
-for your target device. This tutorial serves as an example of taking
-advantage of C++ modules. The CMakeLists.txt in our tutorial has all the
-instructions needed for building the module automatically:
+the overhead of long compile times. To do this, the .cppm file must be compiled
+for your target device. This tutorial demonstrates how to take advantage of C++
+modules. However, to maximize compatibility across compilers and IDEs, the
+attachments template has C++20 module support disabled by default, but it is
+recommended to enable it if your toolchain supports it.
+
+To enable the Vulkan C++20 module in the attachments template, configure CMake with:
+
+cmake -DENABLE_CPP20_MODULE=ON ..
+
+When enabled, the CMakeLists.txt contains all the instructions needed for building the
+module automatically. The relevant snippet looks like this:
 
 find_package (Vulkan REQUIRED)
 
-# set up Vulkan C++ module
+# set up Vulkan C++ module (enabled when ENABLE_CPP20_MODULE=ON)
 add_library(VulkanCppModule)
 add_library(Vulkan::cppm ALIAS VulkanCppModule)
 
@@ -166,33 +181,30 @@ target_compile_definitions(VulkanCppModule PUBLIC
         VULKAN_HPP_DISPATCH_LOADER_DYNAMIC=1
         VULKAN_HPP_NO_STRUCT_CONSTRUCTORS=1
 )
-target_include_directories(VulkanCppModule
-        PRIVATE
-        "${Vulkan_INCLUDE_DIR}"
-)
-target_link_libraries(VulkanCppModule
-        PUBLIC
-        Vulkan::Vulkan
-)
+
+target_include_directories(VulkanCppModule PRIVATE "${Vulkan_INCLUDE_DIR}")
+
+target_link_libraries(VulkanCppModule PUBLIC Vulkan::Vulkan)
 
 set_target_properties(VulkanCppModule PROPERTIES CXX_STANDARD 20)
 
 target_sources(VulkanCppModule
         PUBLIC
         FILE_SET cxx_modules TYPE CXX_MODULES
-        BASE_DIRS
-        "${Vulkan_INCLUDE_DIR}"
-        FILES
-        "${Vulkan_INCLUDE_DIR}/vulkan/vulkan.cppm"
+        BASE_DIRS "${Vulkan_INCLUDE_DIR}"
+        FILES "${Vulkan_INCLUDE_DIR}/vulkan/vulkan.cppm"
 )
 
 The VulkanCppModule target only needs to be defined once, then add it to the
-dependency of your consuming project, and it will be built automatically, and
-you won’t need to also add Vulkan::Vulkan to your project.
+dependencies of your consuming project, and it will be built automatically. You
+won’t need to also add Vulkan::Vulkan to your project.
 
 target_link_libraries (${PROJECT_NAME} Vulkan::cppm)
 
-That is all that is required to add Vulkan to any project.
+If you choose to keep modules disabled (the default), you can continue to use the
+traditional header-based includes (e.g., `#include `). The
+sample code in the attachments is written to compile either way and will import the
+module only when `ENABLE_CPP20_MODULE=ON` (which defines `USE_CPP20_MODULES`).
 
 As mentioned before, Vulkan by itself is a platform-agnostic API and does not
 include tools for creating a window to display the rendered results. To benefit
@@ -257,7 +269,7 @@ GLFW on the [official website](https://www.glfw.org/download.html).
 In this tutorial, we’ll be using the 64-bit binaries, but you can of course also
 choose to build in 32-bit mode. In that case make sure to link with the Vulkan
 SDK binaries in the `Lib32` directory instead of `Lib`. After downloading it, extract the archive
-to a convenient location. I’ve chosen to create a `Libraries` directory in the
+to a convenient location. We’ve chosen to create a `Libraries` directory in the
 Visual Studio directory under documents.
 
 ![glfw directory](_images/images/glfw_directory.png)
@@ -276,12 +288,10 @@ Now that you have installed all the dependencies, we can set up a basic
 CMake project for Vulkan and write a little bit of code to make sure that
 everything works.
 
-I will assume that you already have some basic experience with CMake, like
+We will assume that you already have some basic experience with CMake, like
 how variables and rules work. If not, you can get up to speed very quickly with [this tutorial](https://cmake.org/cmake/help/book/mastering-cmake/cmake/Help/guide/tutorial/).
 
-You can now use the [attachments](https://github.com/KhronosGroup/Vulkan-Tutorial/tree/main/attachments) directory in this tutorial
-as a template for your Vulkan projects. Make a copy, rename it to something like `HelloTriangle`
-and remove all the code in `main.cpp`.
+You can now use the code from any of the following chapters found in the `attachment` folder as a template for your Vulkan projects. Make a copy, rename it to something like `HelloTriangle` and remove all the code in `main.cpp`.
 
 Congratulations, you’re all set for [playing with Vulkan](03_Drawing_a_triangle/00_Setup/00_Base_code.html)!
 
@@ -381,7 +391,7 @@ Now that you have installed all the dependencies, we can set up a basic
 CMake project for Vulkan and write a little bit of code to make sure that
 everything works.
 
-I will assume that you already have some basic experience with CMake, like
+We will assume that you already have some basic experience with CMake, like
 how variables and rules work. If not, you can get up to speed very quickly with [this tutorial](https://cmake.org/cmake/help/book/mastering-cmake/cmake/Help/guide/tutorial/).
 
 You can now use the [attachments](_attachments/) directory in this tutorial as a template for your

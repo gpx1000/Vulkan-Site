@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -967,7 +976,7 @@ enabled, then this function <strong>must</strong> not be called</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDiscardRectangleEXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetDiscardRectangleEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDiscardRectangleEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDiscardRectangleEXT-videocoding" href="#VUID-vkCmdSetDiscardRectangleEXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetDiscardRectangleEXT-videocoding</span><br>
@@ -1022,7 +1031,7 @@ enabled, then this function <strong>must</strong> not be called</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -1109,7 +1118,7 @@ extension</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDiscardRectangleEnableEXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetDiscardRectangleEnableEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDiscardRectangleEnableEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDiscardRectangleEnableEXT-videocoding" href="#VUID-vkCmdSetDiscardRectangleEnableEXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetDiscardRectangleEnableEXT-videocoding</span><br>
@@ -1160,7 +1169,7 @@ extension</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -1248,7 +1257,7 @@ extension</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDiscardRectangleModeEXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetDiscardRectangleModeEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDiscardRectangleModeEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDiscardRectangleModeEXT-videocoding" href="#VUID-vkCmdSetDiscardRectangleModeEXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetDiscardRectangleModeEXT-videocoding</span><br>
@@ -1299,7 +1308,7 @@ extension</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -1469,7 +1478,7 @@ enabled, then this function <strong>must</strong> not be called</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetScissor-commandBuffer-cmdpool" href="#VUID-vkCmdSetScissor-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetScissor-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetScissor-videocoding" href="#VUID-vkCmdSetScissor-videocoding"></a> <span class="vuid">VUID-vkCmdSetScissor-videocoding</span><br>
@@ -1524,7 +1533,7 @@ enabled, then this function <strong>must</strong> not be called</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -1787,7 +1796,7 @@ addition overflow</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetExclusiveScissorNV-commandBuffer-cmdpool" href="#VUID-vkCmdSetExclusiveScissorNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetExclusiveScissorNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetExclusiveScissorNV-videocoding" href="#VUID-vkCmdSetExclusiveScissorNV-videocoding"></a> <span class="vuid">VUID-vkCmdSetExclusiveScissorNV-videocoding</span><br>
@@ -1842,7 +1851,7 @@ addition overflow</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -1951,7 +1960,7 @@ be enabled, and the implementation <strong>must</strong> support at least
 </li>
 <li>
 <p><a id="VUID-vkCmdSetExclusiveScissorEnableNV-commandBuffer-cmdpool" href="#VUID-vkCmdSetExclusiveScissorEnableNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetExclusiveScissorEnableNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetExclusiveScissorEnableNV-videocoding" href="#VUID-vkCmdSetExclusiveScissorEnableNV-videocoding"></a> <span class="vuid">VUID-vkCmdSetExclusiveScissorEnableNV-videocoding</span><br>
@@ -2006,7 +2015,7 @@ be enabled, and the implementation <strong>must</strong> support at least
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -2058,7 +2067,10 @@ recorded.</p>
 </li>
 <li>
 <p><code>pSampleMask</code> is a pointer to an array of <code>VkSampleMask</code>
-values, where the array size is based on the <code>samples</code> parameter.</p>
+values, where the array size is based on the <code>samples</code> parameter.
+If the <a href="features.html#features-maintenance10" class="xref page"><code>maintenance10</code></a> feature is
+enabled, and this parameter is set to <code>NULL</code>, it is treated as if the
+mask has all bits set to <code>1</code>.</p>
 </li>
 </ul>
 </div>
@@ -2093,6 +2105,13 @@ enabled</p>
 </ul>
 </div>
 </li>
+<li>
+<p><a id="VUID-vkCmdSetSampleMaskEXT-pSampleMask-10999" href="#VUID-vkCmdSetSampleMaskEXT-pSampleMask-10999"></a> <span class="vuid">VUID-vkCmdSetSampleMaskEXT-pSampleMask-10999</span><br>
+
+<code>pSampleMask</code> <strong>must</strong> not be <code>NULL</code>
+if the <a href="features.html#features-maintenance10" class="xref page"><code>maintenance10</code></a> feature is not
+enabled</p>
+</li>
 </ul>
 </div>
 </div>
@@ -2112,7 +2131,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetSampleMaskEXT-pSampleMask-parameter" href="#VUID-vkCmdSetSampleMaskEXT-pSampleMask-parameter"></a> <span class="vuid">VUID-vkCmdSetSampleMaskEXT-pSampleMask-parameter</span><br>
- <code>pSampleMask</code> <strong>must</strong> be a valid pointer to an array of <span class="steminline"> <svg style="vertical-align: -0.816ex; overflow: visible;" xmlns="http://www.w3.org/2000/svg" width="8.402ex" height="3.006ex" role="img" focusable="false" viewBox="0 -967.9 3713.8 1328.5"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="2308" d="M174 734Q178 746 190 750H298H369Q400 750 411 747T422 730T411 713T372 709Q365 709 345 709T310 710H214V-235Q206 -248 196 -250Q192 -250 189 -249T184 -247T180 -244T178 -241T176 -237T174 -234V734Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(444,0)"><g data-mml-node="mfrac"><g data-mml-node="TeXAtom" transform="translate(220,477.2) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="73" d="M153 285Q153 349 197 395T311 442Q355 442 386 420T418 356Q418 321 401 308T365 294Q336 294 331 326Q331 336 334 345T343 359T353 368T362 374L366 376Q365 379 362 383T344 396T308 404Q265 404 246 377T226 325T244 289T287 275T339 258T383 212Q395 188 395 163Q395 132 379 95T333 32Q279 -11 207 -11Q154 -11 115 13T76 86Q76 108 83 123T102 145T121 153T135 156Q154 156 164 145T175 117Q175 82 142 66L132 62Q131 62 131 61Q131 57 139 49T166 34T210 26Q250 26 277 44T312 83T321 123Q321 153 301 166T248 185T204 198Q176 211 162 241Q153 258 153 285Z"></path><path data-c="61" d="M418 53Q418 26 438 26Q466 26 494 131Q500 151 504 152Q507 153 516 153H521Q531 153 534 153T540 150T543 144Q543 141 540 126T529 88T509 43T477 5T434 -11Q404 -11 383 3T354 30T347 48H346Q345 47 342 45T337 40Q282 -11 228 -11Q172 -11 137 34T101 146Q101 260 177 351T333 442Q343 442 352 441T369 437T382 431T393 425T402 417T409 410T414 402T419 396Q423 406 436 414T461 422Q475 422 484 413T494 395Q494 384 459 244T420 88Q418 80 418 58V53ZM397 323Q397 344 382 374T333 405Q302 405 271 372Q249 349 235 316T203 215Q184 135 184 108V100V94Q184 54 207 35Q218 26 235 26Q279 26 330 91Q343 109 346 118T372 217Q397 317 397 323Z" transform="translate(409,0)"></path><path data-c="6D" d="M81 278Q75 284 75 289Q77 299 89 338Q101 373 114 396T142 428T166 439T186 442H189Q225 440 251 417Q266 401 271 384L275 374L286 386Q342 442 414 442Q428 442 440 440T461 435T479 427T493 418T503 407T511 397T516 387T520 378T523 370L524 366Q546 395 583 418T667 442Q729 442 755 411T782 338Q782 290 743 178T704 45Q704 26 720 26Q773 26 802 136Q805 148 807 150T822 153H828Q838 153 841 153T848 150T851 143Q851 137 843 115T821 63T778 12T715 -10Q671 -10 652 16T632 71Q632 88 668 191T704 349Q704 367 703 372Q693 405 664 405Q637 405 613 393T571 360T547 329T534 309Q523 290 518 274T487 151Q455 24 452 16Q438 -11 408 -11T376 18Q376 26 411 167T447 314Q449 325 449 346Q449 372 444 384Q431 405 408 405Q334 405 276 305Q266 289 262 273T231 151Q199 24 196 16Q182 -11 152 -11T120 18Q120 26 159 182T200 347Q202 361 202 372Q202 405 181 405Q168 405 159 391Q145 374 132 328T117 280T98 278H81Z" transform="translate(920,0)"></path><path data-c="70" d="M81 278Q75 284 75 287Q93 379 131 417Q154 442 189 442Q222 440 243 423T272 382L280 390Q335 442 389 442Q446 442 482 398T518 284Q518 212 480 137T375 19Q321 -10 291 -10H282H278Q237 -10 204 28L202 32L181 -51Q160 -135 160 -139Q160 -147 205 -148H230Q236 -155 236 -157T233 -175Q230 -187 227 -190T214 -194Q211 -194 202 -194T169 -193T108 -192Q40 -192 21 -194H13Q6 -187 6 -183T9 -167Q13 -153 16 -151T39 -148Q73 -147 78 -136Q82 -128 139 104Q199 337 199 347Q202 362 202 372Q202 406 182 406Q169 406 159 391Q145 374 132 328T117 280T98 278H81ZM221 111Q234 26 286 26Q307 26 336 47T385 116Q398 147 416 217T435 332Q435 354 433 361Q420 405 383 405Q333 405 279 326L273 317L221 111Z" transform="translate(1738,0)"></path><path data-c="6C" d="M162 61Q162 26 183 26Q211 26 239 131Q245 151 249 152Q252 153 261 153H266H271Q288 153 288 144Q288 143 286 129Q276 91 266 65T232 14T179 -11Q144 -11 116 12T87 81Q87 96 88 102L216 616Q216 629 209 632T170 637H149Q143 643 143 645T145 664Q150 683 158 683Q163 683 223 688T300 694Q312 694 312 686Q312 676 240 389L164 86Q162 74 162 61Z" transform="translate(2249,0)"></path><path data-c="65" d="M107 166Q107 230 131 283T193 369T270 420T345 441Q346 441 352 441T361 442H364Q409 442 439 418T470 355Q470 270 366 239Q308 223 218 223H205Q189 164 189 125Q189 83 206 55T261 27Q309 27 353 50T426 109Q436 121 440 121T453 111T466 97Q469 92 455 77Q424 41 372 16T258 -10Q184 -10 146 41T107 166ZM416 333T416 354T401 390T360 405Q322 405 292 384T246 336T223 288T215 261Q215 260 240 260Q262 261 276 262T314 266T353 275T384 291T408 317Z" transform="translate(2505,0)"></path><path data-c="73" d="M153 285Q153 349 197 395T311 442Q355 442 386 420T418 356Q418 321 401 308T365 294Q336 294 331 326Q331 336 334 345T343 359T353 368T362 374L366 376Q365 379 362 383T344 396T308 404Q265 404 246 377T226 325T244 289T287 275T339 258T383 212Q395 188 395 163Q395 132 379 95T333 32Q279 -11 207 -11Q154 -11 115 13T76 86Q76 108 83 123T102 145T121 153T135 156Q154 156 164 145T175 117Q175 82 142 66L132 62Q131 62 131 61Q131 57 139 49T166 34T210 26Q250 26 277 44T312 83T321 123Q321 153 301 166T248 185T204 198Q176 211 162 241Q153 258 153 285Z" transform="translate(2965,0)"></path></g></g><g data-mml-node="mn" transform="translate(1059.3,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(500,0)"></path></g><rect width="2585.8" height="60" x="120" y="220"></rect></g></g><g data-mml-node="mo" transform="translate(3269.8,0)"><path data-c="2309" d="M21 717T21 730T32 746T75 750H147H256Q266 742 269 735V-235Q262 -248 251 -250Q247 -250 244 -249T239 -247T235 -244T233 -241T231 -237T229 -234V710H133Q119 710 99 710T71 709Q43 709 32 713Z"></path></g></g></g></svg> </span> <code>VkSampleMask</code> values</p>
+ If <code>pSampleMask</code> is not <code>NULL</code>, <code>pSampleMask</code> <strong>must</strong> be a valid pointer to an array of <span class="steminline"> <svg style="vertical-align: -0.816ex; overflow: visible;" xmlns="http://www.w3.org/2000/svg" width="8.402ex" height="3.006ex" role="img" focusable="false" viewBox="0 -967.9 3713.8 1328.5"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="2308" d="M174 734Q178 746 190 750H298H369Q400 750 411 747T422 730T411 713T372 709Q365 709 345 709T310 710H214V-235Q206 -248 196 -250Q192 -250 189 -249T184 -247T180 -244T178 -241T176 -237T174 -234V734Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(444,0)"><g data-mml-node="mfrac"><g data-mml-node="TeXAtom" transform="translate(220,477.2) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="73" d="M153 285Q153 349 197 395T311 442Q355 442 386 420T418 356Q418 321 401 308T365 294Q336 294 331 326Q331 336 334 345T343 359T353 368T362 374L366 376Q365 379 362 383T344 396T308 404Q265 404 246 377T226 325T244 289T287 275T339 258T383 212Q395 188 395 163Q395 132 379 95T333 32Q279 -11 207 -11Q154 -11 115 13T76 86Q76 108 83 123T102 145T121 153T135 156Q154 156 164 145T175 117Q175 82 142 66L132 62Q131 62 131 61Q131 57 139 49T166 34T210 26Q250 26 277 44T312 83T321 123Q321 153 301 166T248 185T204 198Q176 211 162 241Q153 258 153 285Z"></path><path data-c="61" d="M418 53Q418 26 438 26Q466 26 494 131Q500 151 504 152Q507 153 516 153H521Q531 153 534 153T540 150T543 144Q543 141 540 126T529 88T509 43T477 5T434 -11Q404 -11 383 3T354 30T347 48H346Q345 47 342 45T337 40Q282 -11 228 -11Q172 -11 137 34T101 146Q101 260 177 351T333 442Q343 442 352 441T369 437T382 431T393 425T402 417T409 410T414 402T419 396Q423 406 436 414T461 422Q475 422 484 413T494 395Q494 384 459 244T420 88Q418 80 418 58V53ZM397 323Q397 344 382 374T333 405Q302 405 271 372Q249 349 235 316T203 215Q184 135 184 108V100V94Q184 54 207 35Q218 26 235 26Q279 26 330 91Q343 109 346 118T372 217Q397 317 397 323Z" transform="translate(409,0)"></path><path data-c="6D" d="M81 278Q75 284 75 289Q77 299 89 338Q101 373 114 396T142 428T166 439T186 442H189Q225 440 251 417Q266 401 271 384L275 374L286 386Q342 442 414 442Q428 442 440 440T461 435T479 427T493 418T503 407T511 397T516 387T520 378T523 370L524 366Q546 395 583 418T667 442Q729 442 755 411T782 338Q782 290 743 178T704 45Q704 26 720 26Q773 26 802 136Q805 148 807 150T822 153H828Q838 153 841 153T848 150T851 143Q851 137 843 115T821 63T778 12T715 -10Q671 -10 652 16T632 71Q632 88 668 191T704 349Q704 367 703 372Q693 405 664 405Q637 405 613 393T571 360T547 329T534 309Q523 290 518 274T487 151Q455 24 452 16Q438 -11 408 -11T376 18Q376 26 411 167T447 314Q449 325 449 346Q449 372 444 384Q431 405 408 405Q334 405 276 305Q266 289 262 273T231 151Q199 24 196 16Q182 -11 152 -11T120 18Q120 26 159 182T200 347Q202 361 202 372Q202 405 181 405Q168 405 159 391Q145 374 132 328T117 280T98 278H81Z" transform="translate(920,0)"></path><path data-c="70" d="M81 278Q75 284 75 287Q93 379 131 417Q154 442 189 442Q222 440 243 423T272 382L280 390Q335 442 389 442Q446 442 482 398T518 284Q518 212 480 137T375 19Q321 -10 291 -10H282H278Q237 -10 204 28L202 32L181 -51Q160 -135 160 -139Q160 -147 205 -148H230Q236 -155 236 -157T233 -175Q230 -187 227 -190T214 -194Q211 -194 202 -194T169 -193T108 -192Q40 -192 21 -194H13Q6 -187 6 -183T9 -167Q13 -153 16 -151T39 -148Q73 -147 78 -136Q82 -128 139 104Q199 337 199 347Q202 362 202 372Q202 406 182 406Q169 406 159 391Q145 374 132 328T117 280T98 278H81ZM221 111Q234 26 286 26Q307 26 336 47T385 116Q398 147 416 217T435 332Q435 354 433 361Q420 405 383 405Q333 405 279 326L273 317L221 111Z" transform="translate(1738,0)"></path><path data-c="6C" d="M162 61Q162 26 183 26Q211 26 239 131Q245 151 249 152Q252 153 261 153H266H271Q288 153 288 144Q288 143 286 129Q276 91 266 65T232 14T179 -11Q144 -11 116 12T87 81Q87 96 88 102L216 616Q216 629 209 632T170 637H149Q143 643 143 645T145 664Q150 683 158 683Q163 683 223 688T300 694Q312 694 312 686Q312 676 240 389L164 86Q162 74 162 61Z" transform="translate(2249,0)"></path><path data-c="65" d="M107 166Q107 230 131 283T193 369T270 420T345 441Q346 441 352 441T361 442H364Q409 442 439 418T470 355Q470 270 366 239Q308 223 218 223H205Q189 164 189 125Q189 83 206 55T261 27Q309 27 353 50T426 109Q436 121 440 121T453 111T466 97Q469 92 455 77Q424 41 372 16T258 -10Q184 -10 146 41T107 166ZM416 333T416 354T401 390T360 405Q322 405 292 384T246 336T223 288T215 261Q215 260 240 260Q262 261 276 262T314 266T353 275T384 291T408 317Z" transform="translate(2505,0)"></path><path data-c="73" d="M153 285Q153 349 197 395T311 442Q355 442 386 420T418 356Q418 321 401 308T365 294Q336 294 331 326Q331 336 334 345T343 359T353 368T362 374L366 376Q365 379 362 383T344 396T308 404Q265 404 246 377T226 325T244 289T287 275T339 258T383 212Q395 188 395 163Q395 132 379 95T333 32Q279 -11 207 -11Q154 -11 115 13T76 86Q76 108 83 123T102 145T121 153T135 156Q154 156 164 145T175 117Q175 82 142 66L132 62Q131 62 131 61Q131 57 139 49T166 34T210 26Q250 26 277 44T312 83T321 123Q321 153 301 166T248 185T204 198Q176 211 162 241Q153 258 153 285Z" transform="translate(2965,0)"></path></g></g><g data-mml-node="mn" transform="translate(1059.3,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(500,0)"></path></g><rect width="2585.8" height="60" x="120" y="220"></rect></g></g><g data-mml-node="mo" transform="translate(3269.8,0)"><path data-c="2309" d="M21 717T21 730T32 746T75 750H147H256Q266 742 269 735V-235Q262 -248 251 -250Q247 -250 244 -249T239 -247T235 -244T233 -241T231 -237T229 -234V710H133Q119 710 99 710T71 709Q43 709 32 713Z"></path></g></g></g></svg> </span> <code>VkSampleMask</code> values</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetSampleMaskEXT-commandBuffer-recording" href="#VUID-vkCmdSetSampleMaskEXT-commandBuffer-recording"></a> <span class="vuid">VUID-vkCmdSetSampleMaskEXT-commandBuffer-recording</span><br>
@@ -2120,7 +2139,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetSampleMaskEXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetSampleMaskEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetSampleMaskEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetSampleMaskEXT-videocoding" href="#VUID-vkCmdSetSampleMaskEXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetSampleMaskEXT-videocoding</span><br>
@@ -2171,7 +2190,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -2518,9 +2537,9 @@ phase a fragment reads from a single sample at its location.</p>
 <li>
 <p>Programmable resolve - a fragment reads from all samples at its location
 (per-sample shading is disabled).
-This requires the use of a "full-screen triangle" instead of a rectangle
-composed of two triangles in order to avoid data races along the shared
-edge of the triangles.</p>
+This requires the use of a &#8220;full-screen triangle&#8221; instead of a
+rectangle composed of two triangles in order to avoid data races along
+the shared edge of the triangles.</p>
 </li>
 <li>
 <p>1:1 texturing with LOD - in use cases such a deferred screen space
@@ -2727,7 +2746,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetAlphaToCoverageEnableEXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetAlphaToCoverageEnableEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetAlphaToCoverageEnableEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetAlphaToCoverageEnableEXT-videocoding" href="#VUID-vkCmdSetAlphaToCoverageEnableEXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetAlphaToCoverageEnableEXT-videocoding</span><br>
@@ -2778,7 +2797,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -2877,7 +2896,7 @@ If the <a href="features.html#features-alphaToOne" class="xref page"><code>alpha
 </li>
 <li>
 <p><a id="VUID-vkCmdSetAlphaToOneEnableEXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetAlphaToOneEnableEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetAlphaToOneEnableEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetAlphaToOneEnableEXT-videocoding" href="#VUID-vkCmdSetAlphaToOneEnableEXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetAlphaToOneEnableEXT-videocoding</span><br>
@@ -2928,7 +2947,7 @@ If the <a href="features.html#features-alphaToOne" class="xref page"><code>alpha
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -3312,12 +3331,10 @@ void vkCmdSetDepthBoundsTestEnable(
     VkBool32                                    depthBoundsTestEnable);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdSetDepthBoundsTestEnableEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetDepthBoundsTestEnable
 void vkCmdSetDepthBoundsTestEnableEXT(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    depthBoundsTestEnable);</code></pre>
@@ -3396,7 +3413,7 @@ enabled, <code>depthBoundsTestEnable</code> <strong>must</strong> be <code>VK_FA
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthBoundsTestEnable-commandBuffer-cmdpool" href="#VUID-vkCmdSetDepthBoundsTestEnable-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDepthBoundsTestEnable-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthBoundsTestEnable-videocoding" href="#VUID-vkCmdSetDepthBoundsTestEnable-videocoding"></a> <span class="vuid">VUID-vkCmdSetDepthBoundsTestEnable-videocoding</span><br>
@@ -3447,7 +3464,7 @@ enabled, <code>depthBoundsTestEnable</code> <strong>must</strong> be <code>VK_FA
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -3545,7 +3562,7 @@ If the <code><a href="../appendices/extensions.html#VK_EXT_depth_range_unrestric
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthBounds-commandBuffer-cmdpool" href="#VUID-vkCmdSetDepthBounds-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDepthBounds-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthBounds-videocoding" href="#VUID-vkCmdSetDepthBounds-videocoding"></a> <span class="vuid">VUID-vkCmdSetDepthBounds-videocoding</span><br>
@@ -3596,7 +3613,7 @@ If the <code><a href="../appendices/extensions.html#VK_EXT_depth_range_unrestric
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -3713,12 +3730,10 @@ void vkCmdSetStencilTestEnable(
     VkBool32                                    stencilTestEnable);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdSetStencilTestEnableEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetStencilTestEnable
 void vkCmdSetStencilTestEnableEXT(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    stencilTestEnable);</code></pre>
@@ -3790,7 +3805,7 @@ equal to Version 1.3</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetStencilTestEnable-commandBuffer-cmdpool" href="#VUID-vkCmdSetStencilTestEnable-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetStencilTestEnable-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetStencilTestEnable-videocoding" href="#VUID-vkCmdSetStencilTestEnable-videocoding"></a> <span class="vuid">VUID-vkCmdSetStencilTestEnable-videocoding</span><br>
@@ -3841,7 +3856,7 @@ equal to Version 1.3</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -3875,12 +3890,10 @@ void vkCmdSetStencilOp(
     VkCompareOp                                 compareOp);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdSetStencilOpEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetStencilOp
 void vkCmdSetStencilOpEXT(
     VkCommandBuffer                             commandBuffer,
     VkStencilFaceFlags                          faceMask,
@@ -3997,7 +4010,7 @@ equal to Version 1.3</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetStencilOp-commandBuffer-cmdpool" href="#VUID-vkCmdSetStencilOp-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetStencilOp-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetStencilOp-videocoding" href="#VUID-vkCmdSetStencilOp-videocoding"></a> <span class="vuid">VUID-vkCmdSetStencilOp-videocoding</span><br>
@@ -4048,7 +4061,7 @@ equal to Version 1.3</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -4206,7 +4219,7 @@ active pipeline, for both front and back faces.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetStencilCompareMask-commandBuffer-cmdpool" href="#VUID-vkCmdSetStencilCompareMask-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetStencilCompareMask-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetStencilCompareMask-videocoding" href="#VUID-vkCmdSetStencilCompareMask-videocoding"></a> <span class="vuid">VUID-vkCmdSetStencilCompareMask-videocoding</span><br>
@@ -4257,7 +4270,7 @@ active pipeline, for both front and back faces.</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -4286,7 +4299,7 @@ typedef enum VkStencilFaceFlagBits {
     VK_STENCIL_FACE_FRONT_BIT = 0x00000001,
     VK_STENCIL_FACE_BACK_BIT = 0x00000002,
     VK_STENCIL_FACE_FRONT_AND_BACK = 0x00000003,
-  // VK_STENCIL_FRONT_AND_BACK is a deprecated alias
+  // VK_STENCIL_FRONT_AND_BACK is a legacy alias
     VK_STENCIL_FRONT_AND_BACK = VK_STENCIL_FACE_FRONT_AND_BACK,
 } VkStencilFaceFlagBits;</code></pre>
 </div>
@@ -4389,7 +4402,7 @@ create the currently active pipeline, for both
 </li>
 <li>
 <p><a id="VUID-vkCmdSetStencilWriteMask-commandBuffer-cmdpool" href="#VUID-vkCmdSetStencilWriteMask-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetStencilWriteMask-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetStencilWriteMask-videocoding" href="#VUID-vkCmdSetStencilWriteMask-videocoding"></a> <span class="vuid">VUID-vkCmdSetStencilWriteMask-videocoding</span><br>
@@ -4440,7 +4453,7 @@ create the currently active pipeline, for both
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -4522,7 +4535,7 @@ create the currently active pipeline, for both front and back faces.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetStencilReference-commandBuffer-cmdpool" href="#VUID-vkCmdSetStencilReference-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetStencilReference-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetStencilReference-videocoding" href="#VUID-vkCmdSetStencilReference-videocoding"></a> <span class="vuid">VUID-vkCmdSetStencilReference-videocoding</span><br>
@@ -4573,7 +4586,7 @@ create the currently active pipeline, for both front and back faces.</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -4927,7 +4940,7 @@ If <code>depthClampMode</code> is
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthClampRangeEXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetDepthClampRangeEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDepthClampRangeEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthClampRangeEXT-videocoding" href="#VUID-vkCmdSetDepthClampRangeEXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetDepthClampRangeEXT-videocoding</span><br>
@@ -4978,7 +4991,7 @@ If <code>depthClampMode</code> is
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -5103,12 +5116,10 @@ void vkCmdSetDepthTestEnable(
     VkBool32                                    depthTestEnable);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdSetDepthTestEnableEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetDepthTestEnable
 void vkCmdSetDepthTestEnableEXT(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    depthTestEnable);</code></pre>
@@ -5180,7 +5191,7 @@ equal to Version 1.3</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthTestEnable-commandBuffer-cmdpool" href="#VUID-vkCmdSetDepthTestEnable-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDepthTestEnable-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthTestEnable-videocoding" href="#VUID-vkCmdSetDepthTestEnable-videocoding"></a> <span class="vuid">VUID-vkCmdSetDepthTestEnable-videocoding</span><br>
@@ -5231,7 +5242,7 @@ equal to Version 1.3</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -5262,12 +5273,10 @@ void vkCmdSetDepthCompareOp(
     VkCompareOp                                 depthCompareOp);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdSetDepthCompareOpEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetDepthCompareOp
 void vkCmdSetDepthCompareOpEXT(
     VkCommandBuffer                             commandBuffer,
     VkCompareOp                                 depthCompareOp);</code></pre>
@@ -5345,7 +5354,7 @@ equal to Version 1.3</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthCompareOp-commandBuffer-cmdpool" href="#VUID-vkCmdSetDepthCompareOp-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDepthCompareOp-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthCompareOp-videocoding" href="#VUID-vkCmdSetDepthCompareOp-videocoding"></a> <span class="vuid">VUID-vkCmdSetDepthCompareOp-videocoding</span><br>
@@ -5396,7 +5405,7 @@ equal to Version 1.3</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -5427,12 +5436,10 @@ void vkCmdSetDepthWriteEnable(
     VkBool32                                    depthWriteEnable);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdSetDepthWriteEnableEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetDepthWriteEnable
 void vkCmdSetDepthWriteEnableEXT(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    depthWriteEnable);</code></pre>
@@ -5504,7 +5511,7 @@ equal to Version 1.3</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthWriteEnable-commandBuffer-cmdpool" href="#VUID-vkCmdSetDepthWriteEnable-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDepthWriteEnable-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthWriteEnable-videocoding" href="#VUID-vkCmdSetDepthWriteEnable-videocoding"></a> <span class="vuid">VUID-vkCmdSetDepthWriteEnable-videocoding</span><br>
@@ -5555,7 +5562,7 @@ equal to Version 1.3</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -5732,7 +5739,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetRepresentativeFragmentTestEnableNV-commandBuffer-cmdpool" href="#VUID-vkCmdSetRepresentativeFragmentTestEnableNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetRepresentativeFragmentTestEnableNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetRepresentativeFragmentTestEnableNV-videocoding" href="#VUID-vkCmdSetRepresentativeFragmentTestEnableNV-videocoding"></a> <span class="vuid">VUID-vkCmdSetRepresentativeFragmentTestEnableNV-videocoding</span><br>
@@ -5783,7 +5790,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -6018,7 +6025,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCoverageToColorEnableNV-commandBuffer-cmdpool" href="#VUID-vkCmdSetCoverageToColorEnableNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetCoverageToColorEnableNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCoverageToColorEnableNV-videocoding" href="#VUID-vkCmdSetCoverageToColorEnableNV-videocoding"></a> <span class="vuid">VUID-vkCmdSetCoverageToColorEnableNV-videocoding</span><br>
@@ -6069,7 +6076,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -6163,7 +6170,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCoverageToColorLocationNV-commandBuffer-cmdpool" href="#VUID-vkCmdSetCoverageToColorLocationNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetCoverageToColorLocationNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCoverageToColorLocationNV-videocoding" href="#VUID-vkCmdSetCoverageToColorLocationNV-videocoding"></a> <span class="vuid">VUID-vkCmdSetCoverageToColorLocationNV-videocoding</span><br>
@@ -6214,7 +6221,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -6525,7 +6532,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCoverageReductionModeNV-commandBuffer-cmdpool" href="#VUID-vkCmdSetCoverageReductionModeNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetCoverageReductionModeNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCoverageReductionModeNV-videocoding" href="#VUID-vkCmdSetCoverageReductionModeNV-videocoding"></a> <span class="vuid">VUID-vkCmdSetCoverageReductionModeNV-videocoding</span><br>
@@ -6576,7 +6583,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -7073,7 +7080,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCoverageModulationModeNV-commandBuffer-cmdpool" href="#VUID-vkCmdSetCoverageModulationModeNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetCoverageModulationModeNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCoverageModulationModeNV-videocoding" href="#VUID-vkCmdSetCoverageModulationModeNV-videocoding"></a> <span class="vuid">VUID-vkCmdSetCoverageModulationModeNV-videocoding</span><br>
@@ -7124,7 +7131,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -7218,7 +7225,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCoverageModulationTableEnableNV-commandBuffer-cmdpool" href="#VUID-vkCmdSetCoverageModulationTableEnableNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetCoverageModulationTableEnableNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCoverageModulationTableEnableNV-videocoding" href="#VUID-vkCmdSetCoverageModulationTableEnableNV-videocoding"></a> <span class="vuid">VUID-vkCmdSetCoverageModulationTableEnableNV-videocoding</span><br>
@@ -7269,7 +7276,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -7374,7 +7381,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCoverageModulationTableNV-commandBuffer-cmdpool" href="#VUID-vkCmdSetCoverageModulationTableNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetCoverageModulationTableNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetCoverageModulationTableNV-videocoding" href="#VUID-vkCmdSetCoverageModulationTableNV-videocoding"></a> <span class="vuid">VUID-vkCmdSetCoverageModulationTableNV-videocoding</span><br>
@@ -7429,7 +7436,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>

@@ -28,9 +28,8 @@ VkResult vkMapMemory2(
     const VkMemoryMapInfo*                      pMemoryMapInfo,
     void**                                      ppData);
 
-or the equivalent command
-
 // Provided by VK_KHR_map_memory2
+// Equivalent to vkMapMemory2
 VkResult vkMapMemory2KHR(
     VkDevice                                    device,
     const VkMemoryMapInfo*                      pMemoryMapInfo,

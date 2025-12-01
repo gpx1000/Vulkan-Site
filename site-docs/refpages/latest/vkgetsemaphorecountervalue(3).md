@@ -29,9 +29,8 @@ VkResult vkGetSemaphoreCounterValue(
     VkSemaphore                                 semaphore,
     uint64_t*                                   pValue);
 
-or the equivalent command
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to vkGetSemaphoreCounterValue
 VkResult vkGetSemaphoreCounterValueKHR(
     VkDevice                                    device,
     VkSemaphore                                 semaphore,

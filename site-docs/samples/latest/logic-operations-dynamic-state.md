@@ -25,13 +25,13 @@
 
 ![Sample](../../../_images/samples/extensions/logic_op_dynamic_state/images/logic_op_dynamic_state_screenshot.png)
 
-The [VK_EXT_extended_dynamic_state2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state2.html) extension allows to use dynamic states e.g.
+The [VK_EXT_extended_dynamic_state2](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_extended_dynamic_state2.html) extension allows to use dynamic states e.g.
 the VK_DYNAMIC_STATE_LOGIC_OP_EXT.
 This may help an application to change a logical operation used without creating a new pipeline.
 
 The sample demonstrates usage of this extension with dynamically changed logical operations applied to blending.
 
-Logical operations are applied only for [signed and unsigned integer and normalized integer framebuffers](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-logicop).
+Logical operations are applied only for [signed and unsigned integer and normalized integer framebuffers](https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#framebuffer-logicop).
 
 In the sample the surface format is changed to `VK_FORMAT_B8G8R8A8_UNORM` by overriding the virtual method `create_render_context` (derived from `ApiVulkanSample` class).
 
@@ -50,7 +50,7 @@ a pipeline for a cube model (the baseline pipeline).
 
 The cube model is used to present blending effect achieved using the dynamic logical operations.
 
-The `logicOpEnable` member of the `VkPipelineColorBlendStateCreateInfo` structure [controls if logical operations should be applied](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineColorBlendStateCreateInfo.html).
+The `logicOpEnable` member of the `VkPipelineColorBlendStateCreateInfo` structure [controls if logical operations should be applied](https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendStateCreateInfo.html).
 
 The `logicOpEnable` member is set to `VK_TRUE` during creation of the baseline pipeline in the `create_pipeline` method.
 
@@ -60,7 +60,7 @@ VkPipelineColorBlendStateCreateInfo color_blend_state =
 /* Enable logic operations */
 color_blend_state.logicOpEnable = VK_TRUE;
 
-In the same method `VK_DYNAMIC_STATE_LOGIC_OP_EXT` is added to the vector of `VkDynamicState` (used to define pipeline dynamic state in [`VkPipelineDynamicStateCreateInfo`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineDynamicStateCreateInfo.html)).
+In the same method `VK_DYNAMIC_STATE_LOGIC_OP_EXT` is added to the vector of `VkDynamicState` (used to define pipeline dynamic state in [`VkPipelineDynamicStateCreateInfo`](https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDynamicStateCreateInfo.html)).
 
 std::vector dynamic_state_enables = {
 	VK_DYNAMIC_STATE_VIEWPORT,
@@ -73,7 +73,7 @@ VkPipelineDynamicStateCreateInfo dynamic_state =
 	    static_cast(dynamic_state_enables.size()),
 	    0);
 
-Both structures: `color_blend_state` and `dynamic_state` are used to define [`VkGraphicsPipelineCreateInfo`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkGraphicsPipelineCreateInfo.html) needed to create the graphics pipeline.
+Both structures: `color_blend_state` and `dynamic_state` are used to define [`VkGraphicsPipelineCreateInfo`](https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineCreateInfo.html) needed to create the graphics pipeline.
 
 VkGraphicsPipelineCreateInfo graphics_create{VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO};
 graphics_create.pColorBlendState    = &color_blend_state;
@@ -92,9 +92,9 @@ std::vector dynamic_state_enables_background = {
 /* Disable logic operations in background pipeline */
 color_blend_state.logicOpEnable = VK_FALSE;
 
-Calling [`vkCmdSetLogicOpEXT`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLogicOpEXT.html) allows to set the logic operation dynamically.
+Calling [`vkCmdSetLogicOpEXT`](https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLogicOpEXT.html) allows to set the logic operation dynamically.
 In the sample it is called before drawing the model in the `build_command_buffers` method using a value provided by the GUI.
-Available logical operations are defined by the `VkLogicOp` enumeration (check the Vulkan specification for details of [the logical operations](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkLogicOp)).
+Available logical operations are defined by the `VkLogicOp` enumeration (check the Vulkan specification for details of [the logical operations](https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkLogicOp)).
 The background model is drawn before the cube model (with logical operations enabled) to observe blending results on the cube model.
 
 VK_CHECK(vkBeginCommandBuffer(draw_cmd_buffer, &command_begin));
@@ -114,7 +114,7 @@ draw_created_model(draw_cmd_buffer);
 VK_CHECK(vkEndCommandBuffer(draw_cmd_buffer));
 
 The extended dynamic state 2 API requires Vulkan 1.0 and the appropriate headers / SDK is required.
-This extension has been [partially](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state2.html#_promotion_to_vulkan_1_3) promoted to Vulkan 1.3.
+This extension has been [partially](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_extended_dynamic_state2.html#_promotion_to_vulkan_1_3) promoted to Vulkan 1.3.
 
 The device extension `VK_EXT_EXTENDED_DYNAMIC_STATE_2_EXTENSION_NAME` requires  `VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME` instance extension to be enabled.
 

@@ -312,6 +312,9 @@
     <a class="nav-link" href="../samples/extensions/extended_dynamic_state2/README.html">Extended dynamic state2</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../samples/extensions/fragment_density_map/README.html">Fragment density map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../samples/extensions/fragment_shader_barycentric/README.html">Fragment shader barycentric</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -397,6 +400,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../samples/extensions/synchronization_2/README.html">Synchronization 2</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../samples/extensions/tensor_and_data_graph/README.html">Tensor and Data Graph</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../samples/extensions/tensor_and_data_graph/simple_tensor_and_data_graph/README.html">Simple Tensor and Data Graph</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../samples/extensions/timeline_semaphore/README.html">Timeline semaphore</a>
@@ -534,6 +546,9 @@
     <a class="nav-link" href="misc.html">Miscellaneous</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Samples" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -763,6 +778,18 @@ Other platforms require the user to build the profiler from source see the <a hr
 <p><strong>Default:</strong> <code>OFF</code></p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_vkb_skip_slang_shader_compilation"><a class="anchor" href="#_vkb_skip_slang_shader_compilation"></a>VKB_SKIP_SLANG_SHADER_COMPILATION</h3>
+<div class="paragraph">
+<p>By default, Slang shaders are compiled if a Slang compiler is found on the system. In cases where this is undesirable, set this to <code>OFF</code> to disable Slang shader compilation.</p>
+</div>
+<div class="paragraph">
+<p>You can still select Slang as a shading language target for the samples since Slang shaders are included as precompiled SPIR-V files.</p>
+</div>
+<div class="paragraph">
+<p><strong>Default:</strong> <code>OFF</code></p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -943,11 +970,11 @@ Visual Studio 2022 must be installed)</p>
 </div>
 </div>
 <div class="paragraph">
-<p><code>Step 3.</code> Run the <strong>Vulkan Samples</strong> application</p>
+<p><code>Step 3.</code> Run the <strong>Vulkan Samples</strong> application by specifying the name of the sample</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">build\windows\app\bin\Release\AMD64\vulkan_samples.exe</code></pre>
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">build\windows\app\bin\Release\AMD64\vulkan_samples.exe sample &lt;sample_name&gt;</code></pre>
 </div>
 </div>
 </div>

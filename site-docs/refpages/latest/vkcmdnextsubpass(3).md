@@ -22,7 +22,7 @@ vkCmdNextSubpass - Transition to the next subpass of a render pass
 To transition to the next subpass in the render pass instance after
 recording the commands for a subpass, call:
 
-|  | This functionality is deprecated by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -79,12 +79,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdNextSubpass-commandBuffer-cmdpool) VUID-vkCmdNextSubpass-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdNextSubpass-renderpass) VUID-vkCmdNextSubpass-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdNextSubpass-suspended) VUID-vkCmdNextSubpass-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdNextSubpass-videocoding) VUID-vkCmdNextSubpass-videocoding
@@ -107,7 +112,7 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](../../../../spec/latest/chapters/cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../../../../spec/latest/chapters/renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../../../../spec/latest/chapters/videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../../../../spec/latest/chapters/devsandqueues.html#VkQueueFlagBits) | [Command Type](../../../../spec/latest/chapters/fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Inside | Outside | Graphics | Action
+| Primary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action
 
 State
 

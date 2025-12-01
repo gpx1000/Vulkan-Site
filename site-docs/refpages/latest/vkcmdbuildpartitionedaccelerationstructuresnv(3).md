@@ -176,7 +176,7 @@ each other
 
 The buffer from which the buffer device address for
 `pBuildInfo->scratchData` is queried **must** have been created with
-the `VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` usage flag
+the `VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10551) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10551
@@ -185,7 +185,7 @@ The buffers from which the buffer device addresses for
 `pBuildInfo->srcInfos` and `pBuildInfo->srcInfosCount` are
 queried **must** have been created with the
 `VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR`
-usage flag
+usage flag set
 
 * 
 [](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10552) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10552
@@ -195,6 +195,7 @@ The buffers from which the buffer device addresses for
 `pBuildInfo->dstAccelerationStructureData` are queried **must** have
 been created with the
 `VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR` usage flag
+set
 
 Valid Usage (Implicit)
 
@@ -216,12 +217,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-commandBuffer-cmdpool) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-renderpass) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-suspended) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-videocoding) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-videocoding
@@ -241,7 +247,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 

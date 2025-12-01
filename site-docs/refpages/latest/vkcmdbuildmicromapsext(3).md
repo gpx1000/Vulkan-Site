@@ -153,14 +153,15 @@ The buffers from which the buffer device addresses for all of the
 `data` and `triangleArray` members of all `pInfos`[i] are
 queried **must** have been created with the
 `VK_BUFFER_USAGE_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT` usage flag
+set
 
 * 
 [](#VUID-vkCmdBuildMicromapsEXT-pInfos-07511) VUID-vkCmdBuildMicromapsEXT-pInfos-07511
 
 For each element of `pInfos`[i] the buffer from which the buffer
 device address `pInfos`[i].`scratchData.deviceAddress` is
-queried **must** have been created with
-`VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` usage flag
+queried **must** have been created with the
+`VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdBuildMicromapsEXT-pInfos-07512) VUID-vkCmdBuildMicromapsEXT-pInfos-07512
@@ -213,12 +214,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBuildMicromapsEXT-commandBuffer-cmdpool) VUID-vkCmdBuildMicromapsEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdBuildMicromapsEXT-renderpass) VUID-vkCmdBuildMicromapsEXT-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdBuildMicromapsEXT-suspended) VUID-vkCmdBuildMicromapsEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBuildMicromapsEXT-videocoding) VUID-vkCmdBuildMicromapsEXT-videocoding
@@ -243,7 +249,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 

@@ -140,6 +140,23 @@ The [VkDescriptorSetLayout](VkDescriptorSetLayout.html) for each set from `first
 `VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT` bit set
 
 * 
+[](#VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11803) VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11803
+
+The [VkDescriptorSetLayout](VkDescriptorSetLayout.html) for each set from `firstSet` to
+`firstSet` +  `setCount` when `layout` was created
+**must** not have been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR` bit set
+
+* 
+[](#VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11804) VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11804
+
+The [VkDescriptorSetLayout](VkDescriptorSetLayout.html) for each set from `firstSet` to
+`firstSet` +  `setCount` when `layout` was created
+**must** not have been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT`
+bit set
+
+* 
 [](#VUID-VkSetDescriptorBufferOffsetsInfoEXT-None-09495) VUID-VkSetDescriptorBufferOffsetsInfoEXT-None-09495
 
 If the [`dynamicPipelineLayout`](../../../../spec/latest/chapters/features.html#features-dynamicPipelineLayout)

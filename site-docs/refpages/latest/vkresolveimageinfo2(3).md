@@ -33,9 +33,8 @@ typedef struct VkResolveImageInfo2 {
     const VkImageResolve2*    pRegions;
 } VkResolveImageInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_copy_commands2
+// Equivalent to VkResolveImageInfo2
 typedef VkResolveImageInfo2 VkResolveImageInfo2KHR;
 
 * 
@@ -65,6 +64,40 @@ for the resolve.
 * 
 `pRegions` is a pointer to an array of [VkImageResolve2](VkImageResolve2.html)
 structures specifying the regions to resolve.
+
+If the source format is a floating-point or normalized type, the resolve
+mode is chosen as implementation-dependent behavior, unless
+[VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html) is included in the `pNext` chain, in
+which case it is defined by
+[VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html)::`resolveMode`.
+If the resolve mode requires to calculate the result from multiple samples,
+such as by computing an average or weighted average of the samples, the
+values for each pixel are resolved with implementation-defined numerical
+precision.
+
+If the [numeric format](../../../../spec/latest/chapters/formats.html#formats-numericformat) of `srcImage` uses sRGB
+encoding and the resolve mode requires the implementation to convert the
+samples to floating-point to perform the calculations, the implementation
+**should** convert samples from nonlinear to linear before resolving the
+samples as described in the “sRGB EOTF” section of the
+[Khronos Data Format Specification](../../../../spec/latest/chapters/introduction.html#data-format).
+In this case, the implementation **must** convert the linear averaged value to
+nonlinear before writing the resolved result to `dstImage`.
+If the [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is enabled,
+whether a nonlinear to linear conversion happens for sRGB encoded resolve is
+controlled by
+[`resolveSrgbFormatAppliesTransferFunction`](../../../../spec/latest/chapters/limits.html#limits-resolveSrgbFormatAppliesTransferFunction).
+If [VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html) is included in the `pNext` chain,
+this default behavior **can** be overridden with
+`VK_RESOLVE_IMAGE_SKIP_TRANSFER_FUNCTION_BIT_KHR` or
+`VK_RESOLVE_IMAGE_ENABLE_TRANSFER_FUNCTION_BIT_KHR` flags.
+
+If the source format is an integer type, a single sample’s value is selected
+for each pixel, unless [VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html) is included in the
+`pNext` chain, in which case it is defined by
+[VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html)::`resolveMode` or
+[VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html)::`stencilResolveMode` depending on which
+aspect is being resolved.
 
 Valid Usage
 
@@ -130,11 +163,22 @@ is executed on a `VkDevice`
 `VK_IMAGE_LAYOUT_GENERAL`
 
 * 
+[](#VUID-VkResolveImageInfo2-maintenance10-11799) VUID-VkResolveImageInfo2-maintenance10-11799
+
+If the [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is
+enabled, the [format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of
+`dstImage` **must** contain
+`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` or
+`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
+
+* 
 [](#VUID-VkResolveImageInfo2-dstImage-02003) VUID-VkResolveImageInfo2-dstImage-02003
 
 The [format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of
 `dstImage` **must** contain
 `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
+if the [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is not
+enabled
 
 * 
 [](#VUID-VkResolveImageInfo2-linearColorAttachment-06519) VUID-VkResolveImageInfo2-linearColorAttachment-06519
@@ -283,8 +327,8 @@ If `dstImage` is of type `VK_IMAGE_TYPE_1D` or
 * 
 [](#VUID-VkResolveImageInfo2-srcImage-06762) VUID-VkResolveImageInfo2-srcImage-06762
 
-`srcImage` **must** have been created with
-`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag
+`srcImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag set
 
 * 
 [](#VUID-VkResolveImageInfo2-srcImage-06763) VUID-VkResolveImageInfo2-srcImage-06763
@@ -295,14 +339,124 @@ The [format features](../../../../spec/latest/chapters/resources.html#resources-
 * 
 [](#VUID-VkResolveImageInfo2-dstImage-06764) VUID-VkResolveImageInfo2-dstImage-06764
 
-`dstImage` **must** have been created with
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag
+`dstImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-VkResolveImageInfo2-dstImage-06765) VUID-VkResolveImageInfo2-dstImage-06765
 
 The [format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of
 `dstImage` **must** contain `VK_FORMAT_FEATURE_TRANSFER_DST_BIT`
+
+* 
+[](#VUID-VkResolveImageInfo2-srcSubresource-11800) VUID-VkResolveImageInfo2-srcSubresource-11800
+
+`srcSubresource.aspectMask` for each element in `pRegions` **must**
+not specify an aspect which is not part of the image format of
+`srcImage`
+
+* 
+[](#VUID-VkResolveImageInfo2-dstSubresource-11801) VUID-VkResolveImageInfo2-dstSubresource-11801
+
+`dstSubresource.aspectMask` for each element in `pRegions` **must**
+not specify an aspect which is not part of the image format of
+`dstImage`
+
+* 
+[](#VUID-VkResolveImageInfo2-srcSubresource-11802) VUID-VkResolveImageInfo2-srcSubresource-11802
+
+`srcSubresource.aspectMask` **must** equal
+`dstSubresource.aspectMask` for each element in `pRegions`
+
+* 
+[](#VUID-VkResolveImageInfo2-pNext-10982) VUID-VkResolveImageInfo2-pNext-10982
+
+If [VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html) is included in the `pNext` chain,
+`flags` includes
+`VK_RESOLVE_IMAGE_SKIP_TRANSFER_FUNCTION_BIT_KHR` or
+`VK_RESOLVE_IMAGE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`, then the format
+of `srcImage` and `dstImage` **must** use sRGB encoding
+
+* 
+[](#VUID-VkResolveImageInfo2-srcImage-10983) VUID-VkResolveImageInfo2-srcImage-10983
+
+If `srcImage` has a color format and [VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html)
+is included in the `pNext` chain, its `resolveMode` **must** not be
+`VK_RESOLVE_MODE_NONE`
+
+* 
+[](#VUID-VkResolveImageInfo2-srcImage-10984) VUID-VkResolveImageInfo2-srcImage-10984
+
+If `srcImage` has a non-integer color format, and
+[VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html) is included in the `pNext` chain,
+its `resolveMode` **must** be `VK_RESOLVE_MODE_AVERAGE_BIT`
+
+* 
+[](#VUID-VkResolveImageInfo2-srcImage-10985) VUID-VkResolveImageInfo2-srcImage-10985
+
+If `srcImage` has an integer color format, and
+[VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html) is included in the `pNext` chain,
+its `resolveMode` **must** be `VK_RESOLVE_MODE_SAMPLE_ZERO_BIT`
+
+* 
+[](#VUID-VkResolveImageInfo2-srcImage-10986) VUID-VkResolveImageInfo2-srcImage-10986
+
+If `srcImage` has a depth-stencil format,
+[VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html) **must** be included in the `pNext`
+chain
+
+* 
+[](#VUID-VkResolveImageInfo2-srcImage-10987) VUID-VkResolveImageInfo2-srcImage-10987
+
+If `srcImage` has a depth-stencil format, and a depth aspect is
+referenced by `pRegions`,
+[VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html)::`resolveMode` **must** not be
+`VK_RESOLVE_MODE_NONE`
+
+* 
+[](#VUID-VkResolveImageInfo2-srcImage-10988) VUID-VkResolveImageInfo2-srcImage-10988
+
+If `srcImage` has a depth-stencil format, and a stencil aspect is
+referenced by `pRegions`,
+[VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html)::`stencilResolveMode` **must** not be
+`VK_RESOLVE_MODE_NONE`
+
+* 
+[](#VUID-VkResolveImageInfo2-srcImage-10989) VUID-VkResolveImageInfo2-srcImage-10989
+
+If `srcImage` has a depth-stencil format, and a depth aspect is
+referenced by `pRegions`,
+[VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html)::`resolveMode` **must** be one of the
+bits set in
+[VkPhysicalDeviceDepthStencilResolveProperties](VkPhysicalDeviceDepthStencilResolveProperties.html)::`supportedDepthResolveModes`
+
+* 
+[](#VUID-VkResolveImageInfo2-srcImage-10990) VUID-VkResolveImageInfo2-srcImage-10990
+
+If `srcImage` has a depth-stencil format, and a stencil aspect is
+referenced by `pRegions`,
+[VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html)::`stencilResolveMode` **must** be one
+of the bits set in
+[VkPhysicalDeviceDepthStencilResolveProperties](VkPhysicalDeviceDepthStencilResolveProperties.html)::`supportedStencilResolveModes`
+
+* 
+[](#VUID-VkResolveImageInfo2-srcImage-10991) VUID-VkResolveImageInfo2-srcImage-10991
+
+If `srcImage` has a depth-stencil format, and both a depth aspect
+and stencil aspect is referenced by `pRegions`, and
+[VkPhysicalDeviceDepthStencilResolveProperties](VkPhysicalDeviceDepthStencilResolveProperties.html)::`indepdendentResolve`
+is `VK_FALSE`, [VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html)::`resolveMode`
+**must** be equal to
+[VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html)::`stencilResolveMode`
+
+* 
+[](#VUID-VkResolveImageInfo2-srcImage-10992) VUID-VkResolveImageInfo2-srcImage-10992
+
+If `srcImage` has a depth-stencil format containing both a depth
+aspect and stencil aspect, and
+[VkPhysicalDeviceDepthStencilResolveProperties](VkPhysicalDeviceDepthStencilResolveProperties.html)::`indepdendentResolveNone`
+is `VK_FALSE`, every element of `pRegions` **must** contain both
+depth and stencil aspects
 
 Valid Usage (Implicit)
 
@@ -314,7 +468,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkResolveImageInfo2-pNext-pNext) VUID-VkResolveImageInfo2-pNext-pNext
 
- `pNext` **must** be `NULL`
+ `pNext` **must** be `NULL` or a pointer to a valid instance of [VkResolveImageModeInfoKHR](VkResolveImageModeInfoKHR.html)
+
+* 
+[](#VUID-VkResolveImageInfo2-sType-unique) VUID-VkResolveImageInfo2-sType-unique
+
+ The `sType` value of each structure in the `pNext` chain **must** be unique
 
 * 
 [](#VUID-VkResolveImageInfo2-srcImage-parameter) VUID-VkResolveImageInfo2-srcImage-parameter

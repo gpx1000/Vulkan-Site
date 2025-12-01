@@ -33,9 +33,8 @@ typedef struct VkImageFormatListCreateInfo {
     const VkFormat*    pViewFormats;
 } VkImageFormatListCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_image_format_list
+// Equivalent to VkImageFormatListCreateInfo
 typedef VkImageFormatListCreateInfo VkImageFormatListCreateInfoKHR;
 
 * 

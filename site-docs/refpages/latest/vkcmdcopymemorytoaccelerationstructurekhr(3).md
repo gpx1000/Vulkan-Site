@@ -104,12 +104,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyMemoryToAccelerationStructureKHR-commandBuffer-cmdpool) VUID-vkCmdCopyMemoryToAccelerationStructureKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyMemoryToAccelerationStructureKHR-renderpass) VUID-vkCmdCopyMemoryToAccelerationStructureKHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyMemoryToAccelerationStructureKHR-suspended) VUID-vkCmdCopyMemoryToAccelerationStructureKHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyMemoryToAccelerationStructureKHR-videocoding) VUID-vkCmdCopyMemoryToAccelerationStructureKHR-videocoding
@@ -129,7 +134,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 

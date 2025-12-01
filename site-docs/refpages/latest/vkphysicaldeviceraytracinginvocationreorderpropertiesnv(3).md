@@ -24,9 +24,9 @@ is defined as:
 
 // Provided by VK_NV_ray_tracing_invocation_reorder
 typedef struct VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV {
-    VkStructureType                        sType;
-    void*                                  pNext;
-    VkRayTracingInvocationReorderModeNV    rayTracingInvocationReorderReorderingHint;
+    VkStructureType                         sType;
+    void*                                   pNext;
+    VkRayTracingInvocationReorderModeEXT    rayTracingInvocationReorderReorderingHint;
 } VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV;
 
 * 
@@ -57,7 +57,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV`
 
-[VK_NV_ray_tracing_invocation_reorder](VK_NV_ray_tracing_invocation_reorder.html), [VkRayTracingInvocationReorderModeNV](VkRayTracingInvocationReorderModeNV.html), [VkStructureType](VkStructureType.html)
+[VK_NV_ray_tracing_invocation_reorder](VK_NV_ray_tracing_invocation_reorder.html), [VkRayTracingInvocationReorderModeEXT](VkRayTracingInvocationReorderModeEXT.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/limits.html#VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV).
 

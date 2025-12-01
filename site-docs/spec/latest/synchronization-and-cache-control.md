@@ -499,7 +499,7 @@ static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT = 
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT = 0x00100000ULL;
 // Provided by VK_HUAWEI_subpass_shading
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI = 0x8000000000ULL;
-// VK_PIPELINE_STAGE_2_SUBPASS_SHADING_BIT_HUAWEI is a deprecated alias
+// VK_PIPELINE_STAGE_2_SUBPASS_SHADING_BIT_HUAWEI is a legacy alias
 // Provided by VK_HUAWEI_subpass_shading
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_SUBPASS_SHADING_BIT_HUAWEI = 0x8000000000ULL;
 // Provided by VK_HUAWEI_invocation_mask
@@ -516,10 +516,13 @@ static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_OPTICAL_FLOW_BIT_NV = 
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV = 0x100000000000ULL;
 // Provided by VK_ARM_data_graph
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM = 0x40000000000ULL;
-
-or the equivalent
+// Provided by VK_KHR_copy_memory_indirect
+static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR = 0x400000000000ULL;
+// Provided by VK_EXT_memory_decompression
+static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT = 0x200000000000ULL;
 
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkPipelineStageFlagBits2
 typedef VkPipelineStageFlagBits2 VkPipelineStageFlagBits2KHR;
 
 * 
@@ -671,6 +674,9 @@ all graphics pipeline stages, and is equivalent to the logical OR of:
 `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`
 
 * 
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR`
+
+* 
 `VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT`
 
 * 
@@ -781,6 +787,10 @@ the cluster culling shader stage.
 `VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV`
 specifies the execution of [vkCmdConvertCooperativeVectorMatrixNV](shaders.html#vkCmdConvertCooperativeVectorMatrixNV).
 
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR` specifies the stage of
+the pipeline where indirect copy commands (vkCmdCopyMemoryIndirect* and
+vkCmdCopyMemoryToImageIndirect*) parameters are consumed.
+
 `VK_PIPELINE_STAGE_2_TOP_OF_PIPE_BIT` is equivalent to
 `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT` with [VkAccessFlags2](#VkAccessFlags2) set
 to `0` when specified in the second synchronization scope, but
@@ -791,9 +801,9 @@ equivalent to `VK_PIPELINE_STAGE_2_NONE` in the first scope.
 to `0` when specified in the first synchronization scope, but equivalent
 to `VK_PIPELINE_STAGE_2_NONE` in the second scope.
 
-|  | The `TOP` and `BOTTOM` pipeline stages are deprecated, and
+|  | The `TOP` and `BOTTOM` pipeline stages are legacy, and applications
 | --- | --- |
-applications should prefer `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT` and
+should prefer `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT` and
 `VK_PIPELINE_STAGE_2_NONE`. |
 
 |  | The `VkPipelineStageFlags2` bitmask goes beyond the 31 individual bit
@@ -808,9 +818,8 @@ more [VkPipelineStageFlagBits2](#VkPipelineStageFlagBits2) flags:
 // Provided by VK_VERSION_1_3
 typedef VkFlags64 VkPipelineStageFlags2;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkPipelineStageFlags2
 typedef VkPipelineStageFlags2 VkPipelineStageFlags2KHR;
 
 Bits which **can** be set in a [VkPipelineStageFlags](#VkPipelineStageFlags) mask, specifying
@@ -983,6 +992,10 @@ This stage is not invoked by any commands recorded in a command buffer.
 ,
 [vkCmdTraceRaysKHR](raytracing.html#vkCmdTraceRaysKHR), or [vkCmdTraceRaysIndirectKHR](raytracing.html#vkCmdTraceRaysIndirectKHR)
 
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT` specifies the
+execution of decompression commands with [vkCmdDecompressMemoryEXT](memory_decompression.html#vkCmdDecompressMemoryEXT)
+and [vkCmdDecompressMemoryIndirectCountEXT](memory_decompression.html#vkCmdDecompressMemoryIndirectCountEXT).
+
 `VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT` specifies the execution of all
 graphics pipeline stages, and is equivalent to the logical OR of:
 
@@ -1119,6 +1132,7 @@ and [Queues](devsandqueues.html#devsandqueues-queues).
 | `VK_PIPELINE_STAGE_2_NONE` | None required |
 | `VK_PIPELINE_STAGE_2_TOP_OF_PIPE_BIT` | None required |
 | `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` |
+| `VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT` |
 | `VK_PIPELINE_STAGE_2_VERTEX_INPUT_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
 | `VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
 | `VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
@@ -1146,6 +1160,7 @@ and [Queues](devsandqueues.html#devsandqueues-queues).
 | `VK_PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT` | `VK_QUEUE_GRAPHICS_BIT` |
 | `VK_PIPELINE_STAGE_2_CONDITIONAL_RENDERING_BIT_EXT` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` |
 | `VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` |
+| `VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` |
 | `VK_PIPELINE_STAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` | `VK_QUEUE_GRAPHICS_BIT` |
 | `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR` | `VK_QUEUE_COMPUTE_BIT` |
 | `VK_PIPELINE_STAGE_2_RAY_TRACING_SHADER_BIT_KHR` | `VK_QUEUE_COMPUTE_BIT` |
@@ -1205,6 +1220,9 @@ stages matching the order specified here:
 
 * 
 `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`
+
+* 
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR`
 
 * 
 `VK_PIPELINE_STAGE_2_INDEX_INPUT_BIT`
@@ -1275,6 +1293,9 @@ For the compute pipeline, the following stages occur in this order:
 `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`
 
 * 
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR`
+
+* 
 `VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 For the subpass shading pipeline, the following stages occur in this order:
@@ -1305,6 +1326,9 @@ relative to other stages of these pipelines:
 For the transfer pipeline, the following stages occur in this order:
 
 * 
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR`
+
+* 
 `VK_PIPELINE_STAGE_2_TRANSFER_BIT`
 
 For host operations, only one pipeline stage occurs, so no order is
@@ -1318,6 +1342,11 @@ order:
 
 * 
 `VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT`
+
+For the decompression pipeline, the following stages occur in this order:
+
+* 
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
 
 For acceleration structure build operations, only one pipeline stage occurs,
 so no order is guaranteed:
@@ -1506,10 +1535,13 @@ static const VkAccessFlagBits2 VK_ACCESS_2_OPTICAL_FLOW_WRITE_BIT_NV = 0x8000000
 static const VkAccessFlagBits2 VK_ACCESS_2_DATA_GRAPH_READ_BIT_ARM = 0x800000000000ULL;
 // Provided by VK_ARM_data_graph
 static const VkAccessFlagBits2 VK_ACCESS_2_DATA_GRAPH_WRITE_BIT_ARM = 0x1000000000000ULL;
-
-or the equivalent
+// Provided by VK_EXT_memory_decompression
+static const VkAccessFlagBits2 VK_ACCESS_2_MEMORY_DECOMPRESSION_READ_BIT_EXT = 0x80000000000000ULL;
+// Provided by VK_EXT_memory_decompression
+static const VkAccessFlagBits2 VK_ACCESS_2_MEMORY_DECOMPRESSION_WRITE_BIT_EXT = 0x100000000000000ULL;
 
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkAccessFlagBits2
 typedef VkAccessFlagBits2 VkAccessFlagBits2KHR;
 
 * 
@@ -1533,6 +1565,9 @@ trace,
     drawing or dispatch command.
     Such access occurs in the `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`
     pipeline stage.
+    It also specifies read access to command data read from indirect buffers
+    as part of a copy command with access occurring in the
+    `VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR` pipeline stage.
 
 * 
 `VK_ACCESS_2_INDEX_READ_BIT` specifies read access to an index
@@ -1590,6 +1625,9 @@ is equivalent to the logical OR of:
 
 * 
 `VK_ACCESS_2_SHADER_STORAGE_READ_BIT`
+
+* 
+`VK_ACCESS_2_SHADER_BINDING_TABLE_READ_BIT_KHR`
 
 * 
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM`
@@ -1707,6 +1745,20 @@ Such access occurs in the
 the target command buffer preprocess outputs.
 Such access occurs in the
 `VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT` pipeline stage.
+
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_READ_BIT_EXT` specifies read
+access to memory in decompression commands
+[vkCmdDecompressMemoryEXT](memory_decompression.html#vkCmdDecompressMemoryEXT) and
+[vkCmdDecompressMemoryIndirectCountEXT](memory_decompression.html#vkCmdDecompressMemoryIndirectCountEXT).
+Such access occurs in
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT` pipeline stage.
+
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_WRITE_BIT_EXT` specifies write
+access to memory in decompression commands
+[vkCmdDecompressMemoryEXT](memory_decompression.html#vkCmdDecompressMemoryEXT) and
+[vkCmdDecompressMemoryIndirectCountEXT](memory_decompression.html#vkCmdDecompressMemoryIndirectCountEXT).
+Such access occurs in
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT` pipeline stage.
 
 `VK_ACCESS_2_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT` specifies
 read access to [color attachments](renderpass.html#renderpass), including
@@ -1835,9 +1887,8 @@ The first 31 values are common to both, and are interchangeable. |
 // Provided by VK_VERSION_1_3
 typedef VkFlags64 VkAccessFlags2;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkAccessFlags2
 typedef VkAccessFlags2 VkAccessFlags2KHR;
 
 An application **can** link a [VkMemoryBarrierAccessFlags3KHR](#VkMemoryBarrierAccessFlags3KHR) structure in
@@ -2240,7 +2291,8 @@ perform that type of access.
 | --- | --- |
 | `VK_ACCESS_2_NONE` | Any |
 | `VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT` | `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`,
-	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR` |
+	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
+	`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR` |
 | `VK_ACCESS_2_INDEX_READ_BIT` | `VK_PIPELINE_STAGE_2_VERTEX_INPUT_BIT`,
 	`VK_PIPELINE_STAGE_2_INDEX_INPUT_BIT` |
 | `VK_ACCESS_2_VERTEX_ATTRIBUTE_READ_BIT` | `VK_PIPELINE_STAGE_2_VERTEX_INPUT_BIT`,
@@ -2355,6 +2407,8 @@ perform that type of access.
 | `VK_ACCESS_2_CONDITIONAL_RENDERING_READ_BIT_EXT` | `VK_PIPELINE_STAGE_2_CONDITIONAL_RENDERING_BIT_EXT` |
 | `VK_ACCESS_2_COMMAND_PREPROCESS_READ_BIT_EXT` | `VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT` |
 | `VK_ACCESS_2_COMMAND_PREPROCESS_WRITE_BIT_EXT` | `VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT` |
+| `VK_ACCESS_2_MEMORY_DECOMPRESSION_READ_BIT_EXT` | `VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT` |
+| `VK_ACCESS_2_MEMORY_DECOMPRESSION_WRITE_BIT_EXT` | `VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT` |
 | `VK_ACCESS_2_FRAGMENT_SHADING_RATE_ATTACHMENT_READ_BIT_KHR` | `VK_PIPELINE_STAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` |
 | `VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR` | `VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT`,
@@ -2385,6 +2439,17 @@ perform that type of access.
 	`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI`,
 	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI` |
 | `VK_ACCESS_2_INVOCATION_MASK_READ_BIT_HUAWEI` | `VK_PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI` |
+| `VK_ACCESS_2_SHADER_BINDING_TABLE_READ_BIT_KHR` | `VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_RAY_TRACING_SHADER_BIT_KHR`,
+	`VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT`,
+	`VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT`,
+	`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI`,
+	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI` |
 | `VK_ACCESS_2_MICROMAP_READ_BIT_EXT` | `VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR` |
 | `VK_ACCESS_2_MICROMAP_WRITE_BIT_EXT` | `VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT` |
@@ -2488,8 +2553,11 @@ scope.
 In other words, the framebuffer region is a fragment region and it is a
 pixel granularity dependency.
 If N equals M,
-and if the `VkSubpassDescription`::`flags` does not specify the
-`VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_QCOM` flag,
+and if the
+`VkRenderingInfo`::`flags` does not specify the
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT` flag or the
+`VkSubpassDescription`::`flags` does not specify the
+`VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_EXT` flag,
 then a framebuffer region containing a single (x, y, layer, sample)
 coordinate in the first synchronization scope corresponds to a region
 containing the same sample at the same coordinate in the second
@@ -2532,8 +2600,8 @@ If the input attachment has the same number of samples, then the fragment
 fragment operations happen-after a framebuffer-local dependency for each
 sample the fragment covers).
 To access samples that are not covered,
-either the `VkSubpassDescription`::`flags`
-`VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_QCOM` flag is required, or
+the `VK_RENDERING_FRAGMENT_REGION_BIT_EXT` flag, or
+the `VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_EXT` flag, or
 a framebuffer-global dependency is required.
 
 For a tile granularity dependency, a fragment shader **can** use
@@ -2902,9 +2970,8 @@ typedef struct VkExportFenceCreateInfo {
     VkExternalFenceHandleTypeFlags    handleTypes;
 } VkExportFenceCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence
+// Equivalent to VkExportFenceCreateInfo
 typedef VkExportFenceCreateInfo VkExportFenceCreateInfoKHR;
 
 * 
@@ -4491,9 +4558,8 @@ typedef enum VkFenceImportFlagBits {
     VK_FENCE_IMPORT_TEMPORARY_BIT_KHR = VK_FENCE_IMPORT_TEMPORARY_BIT,
 } VkFenceImportFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence
+// Equivalent to VkFenceImportFlagBits
 typedef VkFenceImportFlagBits VkFenceImportFlagBitsKHR;
 
 * 
@@ -4505,9 +4571,8 @@ regardless of the permanence of `handleType`.
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkFenceImportFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence
+// Equivalent to VkFenceImportFlags
 typedef VkFenceImportFlags VkFenceImportFlagsKHR;
 
 `VkFenceImportFlags` is a bitmask type for setting a mask of zero or
@@ -4682,9 +4747,8 @@ typedef struct VkSemaphoreTypeCreateInfo {
     uint64_t           initialValue;
 } VkSemaphoreTypeCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkSemaphoreTypeCreateInfo
 typedef VkSemaphoreTypeCreateInfo VkSemaphoreTypeCreateInfoKHR;
 
 * 
@@ -4750,9 +4814,8 @@ typedef enum VkSemaphoreType {
     VK_SEMAPHORE_TYPE_TIMELINE_KHR = VK_SEMAPHORE_TYPE_TIMELINE,
 } VkSemaphoreType;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkSemaphoreType
 typedef VkSemaphoreType VkSemaphoreTypeKHR;
 
 * 
@@ -4781,9 +4844,8 @@ typedef struct VkExportSemaphoreCreateInfo {
     VkExternalSemaphoreHandleTypeFlags    handleTypes;
 } VkExportSemaphoreCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore
+// Equivalent to VkExportSemaphoreCreateInfo
 typedef VkExportSemaphoreCreateInfo VkExportSemaphoreCreateInfoKHR;
 
 * 
@@ -5742,9 +5804,8 @@ VkResult vkGetSemaphoreCounterValue(
     VkSemaphore                                 semaphore,
     uint64_t*                                   pValue);
 
-or the equivalent command
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to vkGetSemaphoreCounterValue
 VkResult vkGetSemaphoreCounterValueKHR(
     VkDevice                                    device,
     VkSemaphore                                 semaphore,
@@ -5829,9 +5890,8 @@ VkResult vkWaitSemaphores(
     const VkSemaphoreWaitInfo*                  pWaitInfo,
     uint64_t                                    timeout);
 
-or the equivalent command
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to vkWaitSemaphores
 VkResult vkWaitSemaphoresKHR(
     VkDevice                                    device,
     const VkSemaphoreWaitInfo*                  pWaitInfo,
@@ -5922,9 +5982,8 @@ typedef struct VkSemaphoreWaitInfo {
     const uint64_t*         pValues;
 } VkSemaphoreWaitInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkSemaphoreWaitInfo
 typedef VkSemaphoreWaitInfo VkSemaphoreWaitInfoKHR;
 
 * 
@@ -6000,9 +6059,8 @@ typedef enum VkSemaphoreWaitFlagBits {
     VK_SEMAPHORE_WAIT_ANY_BIT_KHR = VK_SEMAPHORE_WAIT_ANY_BIT,
 } VkSemaphoreWaitFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkSemaphoreWaitFlagBits
 typedef VkSemaphoreWaitFlagBits VkSemaphoreWaitFlagBitsKHR;
 
 * 
@@ -6020,9 +6078,8 @@ specified by the corresponding element of
 // Provided by VK_VERSION_1_2
 typedef VkFlags VkSemaphoreWaitFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkSemaphoreWaitFlags
 typedef VkSemaphoreWaitFlags VkSemaphoreWaitFlagsKHR;
 
 `VkSemaphoreWaitFlags` is a bitmask type for setting a mask of zero or
@@ -6037,9 +6094,8 @@ VkResult vkSignalSemaphore(
     VkDevice                                    device,
     const VkSemaphoreSignalInfo*                pSignalInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to vkSignalSemaphore
 VkResult vkSignalSemaphoreKHR(
     VkDevice                                    device,
     const VkSemaphoreSignalInfo*                pSignalInfo);
@@ -6103,9 +6159,8 @@ typedef struct VkSemaphoreSignalInfo {
     uint64_t           value;
 } VkSemaphoreSignalInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkSemaphoreSignalInfo
 typedef VkSemaphoreSignalInfo VkSemaphoreSignalInfoKHR;
 
 * 
@@ -6909,9 +6964,8 @@ typedef enum VkSemaphoreImportFlagBits {
     VK_SEMAPHORE_IMPORT_TEMPORARY_BIT_KHR = VK_SEMAPHORE_IMPORT_TEMPORARY_BIT,
 } VkSemaphoreImportFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore
+// Equivalent to VkSemaphoreImportFlagBits
 typedef VkSemaphoreImportFlagBits VkSemaphoreImportFlagBitsKHR;
 
 These bits have the following meanings:
@@ -6925,9 +6979,8 @@ regardless of the permanence of `handleType`.
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkSemaphoreImportFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore
+// Equivalent to VkSemaphoreImportFlags
 typedef VkSemaphoreImportFlags VkSemaphoreImportFlagsKHR;
 
 `VkSemaphoreImportFlags` is a bitmask type for setting a mask of zero or
@@ -7437,9 +7490,8 @@ void vkCmdSetEvent2(
     VkEvent                                     event,
     const VkDependencyInfo*                     pDependencyInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to vkCmdSetEvent2
 void vkCmdSetEvent2KHR(
     VkCommandBuffer                             commandBuffer,
     VkEvent                                     event,
@@ -7605,12 +7657,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetEvent2-commandBuffer-cmdpool) VUID-vkCmdSetEvent2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdSetEvent2-renderpass) VUID-vkCmdSetEvent2-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdSetEvent2-suspended) VUID-vkCmdSetEvent2-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdSetEvent2-commonparent) VUID-vkCmdSetEvent2-commonparent
@@ -7630,13 +7687,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Both | Graphics
+Secondary | Outside | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Synchronization |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Synchronization |
 
 Conditional Rendering
 
@@ -7657,9 +7714,8 @@ typedef struct VkDependencyInfo {
     const VkImageMemoryBarrier2*     pImageMemoryBarriers;
 } VkDependencyInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkDependencyInfo
 typedef VkDependencyInfo VkDependencyInfoKHR;
 
 * 
@@ -7915,12 +7971,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetEvent-commandBuffer-cmdpool) VUID-vkCmdSetEvent-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdSetEvent-renderpass) VUID-vkCmdSetEvent-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdSetEvent-suspended) VUID-vkCmdSetEvent-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdSetEvent-commonparent) VUID-vkCmdSetEvent-commonparent
@@ -7940,13 +8001,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Both | Graphics
+Secondary | Outside | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Synchronization |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Synchronization |
 
 Conditional Rendering
 
@@ -7960,9 +8021,8 @@ void vkCmdResetEvent2(
     VkEvent                                     event,
     VkPipelineStageFlags2                       stageMask);
 
-or the equivalent command
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to vkCmdResetEvent2
 void vkCmdResetEvent2KHR(
     VkCommandBuffer                             commandBuffer,
     VkEvent                                     event,
@@ -8157,12 +8217,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdResetEvent2-commandBuffer-cmdpool) VUID-vkCmdResetEvent2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdResetEvent2-renderpass) VUID-vkCmdResetEvent2-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdResetEvent2-suspended) VUID-vkCmdResetEvent2-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdResetEvent2-commonparent) VUID-vkCmdResetEvent2-commonparent
@@ -8182,13 +8247,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Both | Graphics
+Secondary | Outside | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Synchronization |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Synchronization |
 
 Conditional Rendering
 
@@ -8356,12 +8421,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdResetEvent-commandBuffer-cmdpool) VUID-vkCmdResetEvent-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdResetEvent-renderpass) VUID-vkCmdResetEvent-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdResetEvent-suspended) VUID-vkCmdResetEvent-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdResetEvent-commonparent) VUID-vkCmdResetEvent-commonparent
@@ -8381,13 +8451,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Both | Graphics
+Secondary | Outside | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Synchronization |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Synchronization |
 
 Conditional Rendering
 
@@ -8403,9 +8473,8 @@ void vkCmdWaitEvents2(
     const VkEvent*                              pEvents,
     const VkDependencyInfo*                     pDependencyInfos);
 
-or the equivalent command
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to vkCmdWaitEvents2
 void vkCmdWaitEvents2KHR(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    eventCount,
@@ -8494,7 +8563,7 @@ Members of `pEvents` **must** not have been signaled by
 * 
 [](#VUID-vkCmdWaitEvents2-pEvents-10788) VUID-vkCmdWaitEvents2-pEvents-10788
 
-For any element i of `pEvents`,
+For each element i of `pEvents`,
 if the `dependencyFlags` member of the ith element of
 `pDependencyInfos` does not include
 `VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`, and
@@ -8505,7 +8574,7 @@ element of `pDependencyInfos`
 * 
 [](#VUID-vkCmdWaitEvents2-pEvents-10789) VUID-vkCmdWaitEvents2-pEvents-10789
 
-For any element i of `pEvents`, if the `dependencyFlags`
+For each element i of `pEvents`, if the `dependencyFlags`
 member of the ith element of `pDependencyInfos` includes
 `VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`, that event **must** be
 signaled by [vkCmdSetEvent2](#vkCmdSetEvent2) with
@@ -8514,7 +8583,7 @@ signaled by [vkCmdSetEvent2](#vkCmdSetEvent2) with
 * 
 [](#VUID-vkCmdWaitEvents2-pEvents-10790) VUID-vkCmdWaitEvents2-pEvents-10790
 
-For any element i of `pEvents`, if the `dependencyFlags`
+For each element i of `pEvents`, if the `dependencyFlags`
 member of the ith element of `pDependencyInfos` includes
 `VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`, the union of
 `srcStageMask` members of all elements of `pMemoryBarriers`,
@@ -8526,7 +8595,7 @@ ith element of `pDependencyInfos` **must** equal
 * 
 [](#VUID-vkCmdWaitEvents2-pEvents-03839) VUID-vkCmdWaitEvents2-pEvents-03839
 
-For any element i of `pEvents`, if that event is signaled by
+For each element i of `pEvents`, if that event is signaled by
 [vkSetEvent](#vkSetEvent), barriers in the ith element of
 `pDependencyInfos` **must** include only host operations in their first
 [synchronization scope](#synchronization-dependencies-scopes)
@@ -8534,18 +8603,18 @@ For any element i of `pEvents`, if that event is signaled by
 * 
 [](#VUID-vkCmdWaitEvents2-pEvents-03840) VUID-vkCmdWaitEvents2-pEvents-03840
 
-For any element i of `pEvents`, if barriers in the ith
-element of `pDependencyInfos` include only host operations, the
-ith element of `pEvents` **must** be signaled before
-[vkCmdWaitEvents2](#vkCmdWaitEvents2) is executed
+For each element i of `pEvents`, if barriers in the
+ith element of `pDependencyInfos` include only host
+operations, the ith element of `pEvents` **must** be signaled
+before [vkCmdWaitEvents2](#vkCmdWaitEvents2) is executed
 
 * 
 [](#VUID-vkCmdWaitEvents2-pEvents-03841) VUID-vkCmdWaitEvents2-pEvents-03841
 
-For any element i of `pEvents`, if barriers in the ith
-element of `pDependencyInfos` do not include host operations, the
-ith element of `pEvents` **must** be signaled by a
-corresponding [vkCmdSetEvent2](#vkCmdSetEvent2) that occurred earlier in
+For each element i of `pEvents`, if barriers in the
+ith element of `pDependencyInfos` do not include host
+operations, the ith element of `pEvents` **must** be signaled
+by a corresponding [vkCmdSetEvent2](#vkCmdSetEvent2) that occurred earlier in
 [submission order](#synchronization-submission-order)
 
 * 
@@ -8592,11 +8661,11 @@ enabled, the `dependencyFlags` members of any element of
 
 [](#VUID-vkCmdWaitEvents2-dependencyFlags-03844) VUID-vkCmdWaitEvents2-dependencyFlags-03844
 
-If `vkCmdWaitEvents2` is being called inside a render pass instance,
-the `srcStageMask` member of any element of the
-`pMemoryBarriers`, `pBufferMemoryBarriers`, or
-`pImageMemoryBarriers` members of `pDependencyInfos` **must** not
-include `VK_PIPELINE_STAGE_2_HOST_BIT`
+If this command is called inside a render pass instance, the
+`srcStageMask` member of any element of the `pMemoryBarriers`,
+`pBufferMemoryBarriers`, or `pImageMemoryBarriers` members of
+`pDependencyInfos` **must** not include
+`VK_PIPELINE_STAGE_2_HOST_BIT`
 
 [](#VUID-vkCmdWaitEvents2-commandBuffer-03846) VUID-vkCmdWaitEvents2-commandBuffer-03846
 
@@ -8634,7 +8703,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdWaitEvents2-commandBuffer-cmdpool) VUID-vkCmdWaitEvents2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdWaitEvents2-suspended) VUID-vkCmdWaitEvents2-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdWaitEvents2-eventCount-arraylength) VUID-vkCmdWaitEvents2-eventCount-arraylength
@@ -8659,13 +8733,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Graphics
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Synchronization |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Synchronization |
 
 Conditional Rendering
 
@@ -8991,7 +9065,7 @@ pipeline stages in `dstStageMask`, as specified in the
 * 
 [](#VUID-vkCmdWaitEvents-pBufferMemoryBarriers-02817) VUID-vkCmdWaitEvents-pBufferMemoryBarriers-02817
 
-For any element of `pBufferMemoryBarriers`, if its
+For each element of `pBufferMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `srcQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -9003,7 +9077,7 @@ access flags that are supported by one or more of the pipeline stages in
 * 
 [](#VUID-vkCmdWaitEvents-pBufferMemoryBarriers-02818) VUID-vkCmdWaitEvents-pBufferMemoryBarriers-02818
 
-For any element of `pBufferMemoryBarriers`, if its
+For each element of `pBufferMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `dstQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -9015,7 +9089,7 @@ access flags that are supported by one or more of the pipeline stages in
 * 
 [](#VUID-vkCmdWaitEvents-pImageMemoryBarriers-02819) VUID-vkCmdWaitEvents-pImageMemoryBarriers-02819
 
-For any element of `pImageMemoryBarriers`, if its
+For each element of `pImageMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `srcQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -9027,7 +9101,7 @@ access flags that are supported by one or more of the pipeline stages in
 * 
 [](#VUID-vkCmdWaitEvents-pImageMemoryBarriers-02820) VUID-vkCmdWaitEvents-pImageMemoryBarriers-02820
 
-For any element of `pImageMemoryBarriers`, if its
+For each element of `pImageMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `dstQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -9067,7 +9141,7 @@ the elements of `pEvents` was set using `vkSetEvent`
 * 
 [](#VUID-vkCmdWaitEvents-srcStageMask-07308) VUID-vkCmdWaitEvents-srcStageMask-07308
 
-If `vkCmdWaitEvents` is being called inside a render pass instance,
+If this command is called inside a render pass instance,
 `srcStageMask` **must** not include `VK_PIPELINE_STAGE_HOST_BIT`
 
 * 
@@ -9141,7 +9215,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdWaitEvents-commandBuffer-cmdpool) VUID-vkCmdWaitEvents-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdWaitEvents-suspended) VUID-vkCmdWaitEvents-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdWaitEvents-eventCount-arraylength) VUID-vkCmdWaitEvents-eventCount-arraylength
@@ -9166,13 +9245,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Graphics
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Synchronization |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Synchronization |
 
 Conditional Rendering
 
@@ -9185,9 +9264,8 @@ void vkCmdPipelineBarrier2(
     VkCommandBuffer                             commandBuffer,
     const VkDependencyInfo*                     pDependencyInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to vkCmdPipelineBarrier2
 void vkCmdPipelineBarrier2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkDependencyInfo*                     pDependencyInfo);
@@ -9449,7 +9527,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPipelineBarrier2-commandBuffer-cmdpool) VUID-vkCmdPipelineBarrier2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_TRANSFER_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdPipelineBarrier2-suspended) VUID-vkCmdPipelineBarrier2-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 Host Synchronization
 
@@ -9464,15 +9547,15 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Transfer
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute
+VK_QUEUE_TRANSFER_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Synchronization |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Synchronization |
 
 Conditional Rendering
 
@@ -9795,7 +9878,7 @@ pipeline stages in `dstStageMask`, as specified in the
 * 
 [](#VUID-vkCmdPipelineBarrier-pBufferMemoryBarriers-02817) VUID-vkCmdPipelineBarrier-pBufferMemoryBarriers-02817
 
-For any element of `pBufferMemoryBarriers`, if its
+For each element of `pBufferMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `srcQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -9807,7 +9890,7 @@ access flags that are supported by one or more of the pipeline stages in
 * 
 [](#VUID-vkCmdPipelineBarrier-pBufferMemoryBarriers-02818) VUID-vkCmdPipelineBarrier-pBufferMemoryBarriers-02818
 
-For any element of `pBufferMemoryBarriers`, if its
+For each element of `pBufferMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `dstQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -9819,7 +9902,7 @@ access flags that are supported by one or more of the pipeline stages in
 * 
 [](#VUID-vkCmdPipelineBarrier-pImageMemoryBarriers-02819) VUID-vkCmdPipelineBarrier-pImageMemoryBarriers-02819
 
-For any element of `pImageMemoryBarriers`, if its
+For each element of `pImageMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `srcQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -9831,7 +9914,7 @@ access flags that are supported by one or more of the pipeline stages in
 * 
 [](#VUID-vkCmdPipelineBarrier-pImageMemoryBarriers-02820) VUID-vkCmdPipelineBarrier-pImageMemoryBarriers-02820
 
-For any element of `pImageMemoryBarriers`, if its
+For each element of `pImageMemoryBarriers`, if its
 `srcQueueFamilyIndex` and `dstQueueFamilyIndex` members are
 equal, or if its `dstQueueFamilyIndex` is the queue family index
 that was used to create the command pool that `commandBuffer` was
@@ -10030,7 +10113,7 @@ structure that was used to create the `VkCommandPool` that
 [](#VUID-vkCmdPipelineBarrier-srcStageMask-09633) VUID-vkCmdPipelineBarrier-srcStageMask-09633
 
 If either `srcStageMask` or `dstStageMask` includes
-`VK_PIPELINE_STAGE_HOST_BIT`, for any element of
+`VK_PIPELINE_STAGE_HOST_BIT`, for each element of
 `pImageMemoryBarriers`, `srcQueueFamilyIndex` and
 `dstQueueFamilyIndex` **must** be equal
 
@@ -10038,7 +10121,7 @@ If either `srcStageMask` or `dstStageMask` includes
 [](#VUID-vkCmdPipelineBarrier-srcStageMask-09634) VUID-vkCmdPipelineBarrier-srcStageMask-09634
 
 If either `srcStageMask` or `dstStageMask` includes
-`VK_PIPELINE_STAGE_HOST_BIT`, for any element of
+`VK_PIPELINE_STAGE_HOST_BIT`, for each element of
 `pBufferMemoryBarriers`, `srcQueueFamilyIndex` and
 `dstQueueFamilyIndex` **must** be equal
 
@@ -10103,7 +10186,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPipelineBarrier-commandBuffer-cmdpool) VUID-vkCmdPipelineBarrier-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_TRANSFER_BIT`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
+
+* 
+[](#VUID-vkCmdPipelineBarrier-suspended) VUID-vkCmdPipelineBarrier-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 Host Synchronization
 
@@ -10118,15 +10206,15 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Both | Transfer
+Secondary | Both | Both | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute
+VK_QUEUE_TRANSFER_BIT
 
-Decode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Synchronization |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Synchronization |
 
 Conditional Rendering
 
@@ -10176,6 +10264,13 @@ will write to and read from the same image with
 specifies that source and destination stages are not ignored when
 performing a [queue family ownership    transfer](#synchronization-queue-transfers).
 
+* 
+`VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR` specifies that
+[vkCmdSetEvent2](#vkCmdSetEvent2) **must** only include the
+[source stage mask](#synchronization-pipeline-stages-masks) of the
+first synchronization scope, and that [vkCmdWaitEvents2](#vkCmdWaitEvents2) **must**
+specify the complete barrier.
+
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkDependencyFlags;
 
@@ -10207,9 +10302,8 @@ typedef struct VkMemoryBarrier2 {
     VkAccessFlags2           dstAccessMask;
 } VkMemoryBarrier2;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkMemoryBarrier2
 typedef VkMemoryBarrier2 VkMemoryBarrier2KHR;
 
 * 
@@ -10357,6 +10451,7 @@ If `srcAccessMask` includes
 `VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT`, `srcStageMask` **must**
 include `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`,
 `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR`,
 `VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT`, or
 `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT`
 
@@ -10744,6 +10839,22 @@ If `srcAccessMask` includes
 `VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
+[](#VUID-VkMemoryBarrier2-srcAccessMask-11771) VUID-VkMemoryBarrier2-srcAccessMask-11771
+
+If `srcAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_READ_BIT_EXT`,
+`srcStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
+[](#VUID-VkMemoryBarrier2-srcAccessMask-11772) VUID-VkMemoryBarrier2-srcAccessMask-11772
+
+If `srcAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_WRITE_BIT_EXT`,
+`srcStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
 [](#VUID-VkMemoryBarrier2-dstStageMask-03929) VUID-VkMemoryBarrier2-dstStageMask-03929
 
 If the [`geometryShader`](features.html#features-geometryShader) feature is not
@@ -10851,6 +10962,7 @@ If `dstAccessMask` includes
 `VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT`, `dstStageMask` **must**
 include `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`,
 `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR`,
 `VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT`, or
 `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT`
 
@@ -11237,6 +11349,22 @@ If `dstAccessMask` includes
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
 `VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
+* 
+[](#VUID-VkMemoryBarrier2-dstAccessMask-11771) VUID-VkMemoryBarrier2-dstAccessMask-11771
+
+If `dstAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_READ_BIT_EXT`,
+`dstStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
+[](#VUID-VkMemoryBarrier2-dstAccessMask-11772) VUID-VkMemoryBarrier2-dstAccessMask-11772
+
+If `dstAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_WRITE_BIT_EXT`,
+`dstStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
 Valid Usage (Implicit)
 
 * 
@@ -11347,9 +11475,8 @@ typedef struct VkBufferMemoryBarrier2 {
     VkDeviceSize             size;
 } VkBufferMemoryBarrier2;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkBufferMemoryBarrier2
 typedef VkBufferMemoryBarrier2 VkBufferMemoryBarrier2KHR;
 
 * 
@@ -11549,6 +11676,7 @@ If `srcAccessMask` includes
 `VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT`, `srcStageMask` **must**
 include `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`,
 `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR`,
 `VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT`, or
 `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT`
 
@@ -11936,6 +12064,22 @@ If `srcAccessMask` includes
 `VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
+[](#VUID-VkBufferMemoryBarrier2-srcAccessMask-11771) VUID-VkBufferMemoryBarrier2-srcAccessMask-11771
+
+If `srcAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_READ_BIT_EXT`,
+`srcStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
+[](#VUID-VkBufferMemoryBarrier2-srcAccessMask-11772) VUID-VkBufferMemoryBarrier2-srcAccessMask-11772
+
+If `srcAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_WRITE_BIT_EXT`,
+`srcStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
 [](#VUID-VkBufferMemoryBarrier2-dstStageMask-03929) VUID-VkBufferMemoryBarrier2-dstStageMask-03929
 
 If the [`geometryShader`](features.html#features-geometryShader) feature is not
@@ -12043,6 +12187,7 @@ If `dstAccessMask` includes
 `VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT`, `dstStageMask` **must**
 include `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`,
 `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR`,
 `VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT`, or
 `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT`
 
@@ -12430,6 +12575,22 @@ If `dstAccessMask` includes
 `VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
+[](#VUID-VkBufferMemoryBarrier2-dstAccessMask-11771) VUID-VkBufferMemoryBarrier2-dstAccessMask-11771
+
+If `dstAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_READ_BIT_EXT`,
+`dstStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
+[](#VUID-VkBufferMemoryBarrier2-dstAccessMask-11772) VUID-VkBufferMemoryBarrier2-dstAccessMask-11772
+
+If `dstAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_WRITE_BIT_EXT`,
+`dstStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
 [](#VUID-VkBufferMemoryBarrier2-offset-01187) VUID-VkBufferMemoryBarrier2-offset-01187
 
 `offset` **must** be less than the size of `buffer`
@@ -12632,10 +12793,17 @@ If the destination access mask includes `VK_ACCESS_HOST_WRITE_BIT` or
 [memory domain operation](#synchronization-dependencies-available-and-visible) is performed where available memory in the device domain is also
 made available to the host domain.
 
-|  | When `VK_MEMORY_PROPERTY_HOST_COHERENT_BIT` is used, available memory in
+|  | Host writes to device memory that was allocated without
 | --- | --- |
-host domain is automatically made visible to host domain, and any host write
-is automatically made available to host domain. |
+`VK_MEMORY_PROPERTY_HOST_COHERENT_BIT` have to be flushed with
+[vkFlushMappedMemoryRanges](memory.html#vkFlushMappedMemoryRanges) before they can be accessed safely on the
+device.
+Similarly, device writes to such memory have to be invalidated with
+[vkInvalidateMappedMemoryRanges](memory.html#vkInvalidateMappedMemoryRanges) before they can be accessed safely on
+the host.
+
+Memory allocated with `VK_MEMORY_PROPERTY_HOST_COHERENT_BIT` does not
+need to have these additional operations performed. |
 
 If `srcQueueFamilyIndex` is not equal to `dstQueueFamilyIndex`, and
 `srcQueueFamilyIndex` is equal to the current queue family, then the
@@ -12827,9 +12995,8 @@ typedef struct VkImageMemoryBarrier2 {
     VkImageSubresourceRange    subresourceRange;
 } VkImageMemoryBarrier2;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkImageMemoryBarrier2
 typedef VkImageMemoryBarrier2 VkImageMemoryBarrier2KHR;
 
 * 
@@ -13073,6 +13240,7 @@ If `srcAccessMask` includes
 `VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT`, `srcStageMask` **must**
 include `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`,
 `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR`,
 `VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT`, or
 `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT`
 
@@ -13460,6 +13628,22 @@ If `srcAccessMask` includes
 `VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
+[](#VUID-VkImageMemoryBarrier2-srcAccessMask-11771) VUID-VkImageMemoryBarrier2-srcAccessMask-11771
+
+If `srcAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_READ_BIT_EXT`,
+`srcStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
+[](#VUID-VkImageMemoryBarrier2-srcAccessMask-11772) VUID-VkImageMemoryBarrier2-srcAccessMask-11772
+
+If `srcAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_WRITE_BIT_EXT`,
+`srcStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
 [](#VUID-VkImageMemoryBarrier2-dstStageMask-03929) VUID-VkImageMemoryBarrier2-dstStageMask-03929
 
 If the [`geometryShader`](features.html#features-geometryShader) feature is not
@@ -13567,6 +13751,7 @@ If `dstAccessMask` includes
 `VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT`, `dstStageMask` **must**
 include `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`,
 `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR`,
 `VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT`, or
 `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT`
 
@@ -13954,6 +14139,22 @@ If `dstAccessMask` includes
 `VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
+[](#VUID-VkImageMemoryBarrier2-dstAccessMask-11771) VUID-VkImageMemoryBarrier2-dstAccessMask-11771
+
+If `dstAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_READ_BIT_EXT`,
+`dstStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
+[](#VUID-VkImageMemoryBarrier2-dstAccessMask-11772) VUID-VkImageMemoryBarrier2-dstAccessMask-11772
+
+If `dstAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_WRITE_BIT_EXT`,
+`dstStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
 [](#VUID-VkImageMemoryBarrier2-oldLayout-01208) VUID-VkImageMemoryBarrier2-oldLayout-01208
 
 If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
@@ -13962,7 +14163,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL` then `image` **must**
-have been created with `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT`
+have been created with the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-oldLayout-01209) VUID-VkImageMemoryBarrier2-oldLayout-01209
@@ -13973,8 +14175,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL` then `image`
-**must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+**must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-oldLayout-01210) VUID-VkImageMemoryBarrier2-oldLayout-01210
@@ -13985,8 +14187,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL` then `image`
-**must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+**must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-oldLayout-01211) VUID-VkImageMemoryBarrier2-oldLayout-01211
@@ -13997,8 +14199,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL` then `image` **must**
-have been created with `VK_IMAGE_USAGE_SAMPLED_BIT` or
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+have been created with the `VK_IMAGE_USAGE_SAMPLED_BIT` or
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-oldLayout-01212) VUID-VkImageMemoryBarrier2-oldLayout-01212
@@ -14009,7 +14211,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL` then `image` **must** have
-been created with `VK_IMAGE_USAGE_TRANSFER_SRC_BIT`
+been created with the `VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag
+set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-oldLayout-01213) VUID-VkImageMemoryBarrier2-oldLayout-01213
@@ -14020,7 +14223,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL` then `image` **must** have
-been created with `VK_IMAGE_USAGE_TRANSFER_DST_BIT`
+been created with the `VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag
+set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-oldLayout-01197) VUID-VkImageMemoryBarrier2-oldLayout-01197
@@ -14064,8 +14268,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL` then
-`image` **must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+`image` **must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-oldLayout-01659) VUID-VkImageMemoryBarrier2-oldLayout-01659
@@ -14076,8 +14280,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL` then
-`image` **must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+`image` **must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-04065) VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-04065
@@ -14088,10 +14292,10 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL` then `image` **must**
-have been created with at least one of
+have been created with at least one of the
 `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`,
 `VK_IMAGE_USAGE_SAMPLED_BIT`, or
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-04066) VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-04066
@@ -14102,8 +14306,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL` then `image` **must**
-have been created with `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
-set
+have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-04067) VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-04067
@@ -14114,10 +14318,10 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL` then `image` **must**
-have been created with at least one of
+have been created with at least one of the
 `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`,
 `VK_IMAGE_USAGE_SAMPLED_BIT`, or
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-04068) VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-04068
@@ -14128,8 +14332,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL` then `image` **must**
-have been created with `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
-set
+have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-synchronization2-07793) VUID-VkImageMemoryBarrier2-synchronization2-07793
@@ -14156,8 +14360,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL`, `image` **must** have been
-created with `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+created with the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-03939) VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-03939
@@ -14168,10 +14372,10 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_READ_ONLY_OPTIMAL`, `image` **must** have been
-created with at least one of
+created with at least one of the
 `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`,
 `VK_IMAGE_USAGE_SAMPLED_BIT`, or
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-oldLayout-02088) VUID-VkImageMemoryBarrier2-oldLayout-02088
@@ -14182,8 +14386,9 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR` then
-`image` **must** have been created with
-`VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` set
+`image` **must** have been created with the
+`VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` usage flag
+set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-image-09117) VUID-VkImageMemoryBarrier2-image-09117
@@ -14252,7 +14457,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_SRC_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_DECODE_SRC_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_DECODE_SRC_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-07121) VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-07121
@@ -14263,7 +14469,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-07122) VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-07122
@@ -14274,7 +14481,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-07123) VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-07123
@@ -14285,7 +14493,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-07124) VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-07124
@@ -14296,7 +14505,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_DST_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_ENCODE_DST_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_ENCODE_DST_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-07125) VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-07125
@@ -14307,7 +14517,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-10287) VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-10287
@@ -14318,9 +14529,9 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR` then `image`
-**must** have been created with
+**must** have been created with the
 `VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR` or
-`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR`
+`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-07006) VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-07006
@@ -14333,10 +14544,10 @@ and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` then
 `image` **must** have been created with either the
 `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage bits, and the
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_SAMPLED_BIT` usage bits, and the
-`VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT` usage bit
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flags set, and
+the `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flags set, and the
+`VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-attachmentFeedbackLoopLayout-07313) VUID-VkImageMemoryBarrier2-attachmentFeedbackLoopLayout-07313
@@ -14354,10 +14565,10 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ` then `image` **must** have
-been created with either `VK_IMAGE_USAGE_STORAGE_BIT`, or with both
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` and either of
-`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+been created with either the `VK_IMAGE_USAGE_STORAGE_BIT` usage flag
+set, or with both the `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage
+flag and either of the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier2-dynamicRenderingLocalRead-09551) VUID-VkImageMemoryBarrier2-dynamicRenderingLocalRead-09551
@@ -14450,8 +14661,10 @@ the formula defined in [Image Mip    Level Sizing](resources.html#resources-imag
 * 
 [](#VUID-VkImageMemoryBarrier2-image-01932) VUID-VkImageMemoryBarrier2-image-01932
 
-If `image` is non-sparse then it **must** be bound completely and
-contiguously to a single `VkDeviceMemory` object
+If `image` is non-sparse then the image
+or each specified *disjoint* plane
+**must** be bound completely and contiguously to a single
+`VkDeviceMemory` object
 
 * 
 [](#VUID-VkImageMemoryBarrier2-image-09241) VUID-VkImageMemoryBarrier2-image-09241
@@ -14729,7 +14942,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL` then `image` **must**
-have been created with `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT`
+have been created with the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01209) VUID-VkImageMemoryBarrier-oldLayout-01209
@@ -14740,8 +14954,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL` then `image`
-**must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+**must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01210) VUID-VkImageMemoryBarrier-oldLayout-01210
@@ -14752,8 +14966,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL` then `image`
-**must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+**must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01211) VUID-VkImageMemoryBarrier-oldLayout-01211
@@ -14764,8 +14978,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL` then `image` **must**
-have been created with `VK_IMAGE_USAGE_SAMPLED_BIT` or
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+have been created with the `VK_IMAGE_USAGE_SAMPLED_BIT` or
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01212) VUID-VkImageMemoryBarrier-oldLayout-01212
@@ -14776,7 +14990,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL` then `image` **must** have
-been created with `VK_IMAGE_USAGE_TRANSFER_SRC_BIT`
+been created with the `VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag
+set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01213) VUID-VkImageMemoryBarrier-oldLayout-01213
@@ -14787,7 +15002,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL` then `image` **must** have
-been created with `VK_IMAGE_USAGE_TRANSFER_DST_BIT`
+been created with the `VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag
+set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01197) VUID-VkImageMemoryBarrier-oldLayout-01197
@@ -14831,8 +15047,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL` then
-`image` **must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+`image` **must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01659) VUID-VkImageMemoryBarrier-oldLayout-01659
@@ -14843,8 +15059,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL` then
-`image` **must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+`image` **must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04065) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04065
@@ -14855,10 +15071,10 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL` then `image` **must**
-have been created with at least one of
+have been created with at least one of the
 `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`,
 `VK_IMAGE_USAGE_SAMPLED_BIT`, or
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04066) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04066
@@ -14869,8 +15085,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL` then `image` **must**
-have been created with `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
-set
+have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04067) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04067
@@ -14881,10 +15097,10 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL` then `image` **must**
-have been created with at least one of
+have been created with at least one of the
 `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`,
 `VK_IMAGE_USAGE_SAMPLED_BIT`, or
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04068) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04068
@@ -14895,8 +15111,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL` then `image` **must**
-have been created with `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
-set
+have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-synchronization2-07793) VUID-VkImageMemoryBarrier-synchronization2-07793
@@ -14923,8 +15139,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL`, `image` **must** have been
-created with `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+created with the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-03939) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-03939
@@ -14935,10 +15151,10 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_READ_ONLY_OPTIMAL`, `image` **must** have been
-created with at least one of
+created with at least one of the
 `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`,
 `VK_IMAGE_USAGE_SAMPLED_BIT`, or
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-02088) VUID-VkImageMemoryBarrier-oldLayout-02088
@@ -14949,8 +15165,9 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR` then
-`image` **must** have been created with
-`VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` set
+`image` **must** have been created with the
+`VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` usage flag
+set
 
 * 
 [](#VUID-VkImageMemoryBarrier-image-09117) VUID-VkImageMemoryBarrier-image-09117
@@ -15019,7 +15236,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_SRC_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_DECODE_SRC_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_DECODE_SRC_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07121) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07121
@@ -15030,7 +15248,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07122) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07122
@@ -15041,7 +15260,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07123) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07123
@@ -15052,7 +15272,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07124) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07124
@@ -15063,7 +15284,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_DST_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_ENCODE_DST_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_ENCODE_DST_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07125) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07125
@@ -15074,7 +15296,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-10287) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-10287
@@ -15085,9 +15308,9 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR` then `image`
-**must** have been created with
+**must** have been created with the
 `VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR` or
-`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR`
+`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07006) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07006
@@ -15100,10 +15323,10 @@ and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` then
 `image` **must** have been created with either the
 `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage bits, and the
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_SAMPLED_BIT` usage bits, and the
-`VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT` usage bit
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flags set, and
+the `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flags set, and the
+`VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-attachmentFeedbackLoopLayout-07313) VUID-VkImageMemoryBarrier-attachmentFeedbackLoopLayout-07313
@@ -15121,10 +15344,10 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ` then `image` **must** have
-been created with either `VK_IMAGE_USAGE_STORAGE_BIT`, or with both
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` and either of
-`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+been created with either the `VK_IMAGE_USAGE_STORAGE_BIT` usage flag
+set, or with both the `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage
+flag and either of the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier-dynamicRenderingLocalRead-09551) VUID-VkImageMemoryBarrier-dynamicRenderingLocalRead-09551
@@ -15217,8 +15440,10 @@ the formula defined in [Image Mip    Level Sizing](resources.html#resources-imag
 * 
 [](#VUID-VkImageMemoryBarrier-image-01932) VUID-VkImageMemoryBarrier-image-01932
 
-If `image` is non-sparse then it **must** be bound completely and
-contiguously to a single `VkDeviceMemory` object
+If `image` is non-sparse then the image
+or each specified *disjoint* plane
+**must** be bound completely and contiguously to a single
+`VkDeviceMemory` object
 
 * 
 [](#VUID-VkImageMemoryBarrier-image-09241) VUID-VkImageMemoryBarrier-image-09241
@@ -15379,9 +15604,8 @@ VkResult vkTransitionImageLayout(
     uint32_t                                    transitionCount,
     const VkHostImageLayoutTransitionInfo*      pTransitions);
 
-or the equivalent command
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to vkTransitionImageLayout
 VkResult vkTransitionImageLayoutEXT(
     VkDevice                                    device,
     uint32_t                                    transitionCount,
@@ -15456,9 +15680,8 @@ typedef struct VkHostImageLayoutTransitionInfo {
     VkImageSubresourceRange    subresourceRange;
 } VkHostImageLayoutTransitionInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to VkHostImageLayoutTransitionInfo
 typedef VkHostImageLayoutTransitionInfo VkHostImageLayoutTransitionInfoEXT;
 
 * 
@@ -15522,8 +15745,8 @@ Valid Usage
 * 
 [](#VUID-VkHostImageLayoutTransitionInfo-image-09055) VUID-VkHostImageLayoutTransitionInfo-image-09055
 
-`image` **must** have been created with
-`VK_IMAGE_USAGE_HOST_TRANSFER_BIT`
+`image` **must** have been created with the
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` usage flag set
 
 * 
 [](#VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01486) VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01486
@@ -15604,8 +15827,10 @@ the formula defined in [Image Mip    Level Sizing](resources.html#resources-imag
 * 
 [](#VUID-VkHostImageLayoutTransitionInfo-image-01932) VUID-VkHostImageLayoutTransitionInfo-image-01932
 
-If `image` is non-sparse then it **must** be bound completely and
-contiguously to a single `VkDeviceMemory` object
+If `image` is non-sparse then the image
+or each specified *disjoint* plane
+**must** be bound completely and contiguously to a single
+`VkDeviceMemory` object
 
 * 
 [](#VUID-VkHostImageLayoutTransitionInfo-image-09241) VUID-VkHostImageLayoutTransitionInfo-image-09241
@@ -15959,8 +16184,6 @@ physical device, and the same driver version as the resource’s
 [VkPhysicalDeviceIDProperties](devsandqueues.html#VkPhysicalDeviceIDProperties)::`driverUUID`.
 
 #define VK_QUEUE_FAMILY_EXTERNAL          (~1U)
-
-or the equivalent
 
 #define VK_QUEUE_FAMILY_EXTERNAL_KHR      VK_QUEUE_FAMILY_EXTERNAL
 
@@ -16377,9 +16600,8 @@ VkResult vkGetCalibratedTimestampsKHR(
     uint64_t*                                   pTimestamps,
     uint64_t*                                   pMaxDeviation);
 
-or the equivalent command
-
 // Provided by VK_EXT_calibrated_timestamps
+// Equivalent to vkGetCalibratedTimestampsKHR
 VkResult vkGetCalibratedTimestampsEXT(
     VkDevice                                    device,
     uint32_t                                    timestampCount,
@@ -16489,9 +16711,8 @@ typedef struct VkCalibratedTimestampInfoKHR {
     VkTimeDomainKHR    timeDomain;
 } VkCalibratedTimestampInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_calibrated_timestamps
+// Equivalent to VkCalibratedTimestampInfoKHR
 typedef VkCalibratedTimestampInfoKHR VkCalibratedTimestampInfoEXT;
 
 * 
@@ -16513,6 +16734,13 @@ Valid Usage
 `timeDomain` **must** be one of the [VkTimeDomainKHR](#VkTimeDomainKHR) values
 returned by [vkGetPhysicalDeviceCalibrateableTimeDomainsKHR](capabilities.html#vkGetPhysicalDeviceCalibrateableTimeDomainsKHR)
 
+* 
+[](#VUID-VkCalibratedTimestampInfoKHR-timeDomain-12227) VUID-VkCalibratedTimestampInfoKHR-timeDomain-12227
+
+If `timeDomain` is `VK_TIME_DOMAIN_SWAPCHAIN_LOCAL_EXT` or
+`VK_TIME_DOMAIN_PRESENT_STAGE_LOCAL_EXT`, the `pNext` chain
+**must** include a [VkSwapchainCalibratedTimestampInfoEXT](#VkSwapchainCalibratedTimestampInfoEXT) structure.
+
 Valid Usage (Implicit)
 
 * 
@@ -16523,7 +16751,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkCalibratedTimestampInfoKHR-pNext-pNext) VUID-VkCalibratedTimestampInfoKHR-pNext-pNext
 
- `pNext` **must** be `NULL`
+ `pNext` **must** be `NULL` or a pointer to a valid instance of [VkSwapchainCalibratedTimestampInfoEXT](#VkSwapchainCalibratedTimestampInfoEXT)
+
+* 
+[](#VUID-VkCalibratedTimestampInfoKHR-sType-unique) VUID-VkCalibratedTimestampInfoKHR-sType-unique
+
+ The `sType` value of each structure in the `pNext` chain **must** be unique
 
 * 
 [](#VUID-VkCalibratedTimestampInfoKHR-timeDomain-parameter) VUID-VkCalibratedTimestampInfoKHR-timeDomain-parameter
@@ -16538,6 +16771,10 @@ typedef enum VkTimeDomainKHR {
     VK_TIME_DOMAIN_CLOCK_MONOTONIC_KHR = 1,
     VK_TIME_DOMAIN_CLOCK_MONOTONIC_RAW_KHR = 2,
     VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_KHR = 3,
+  // Provided by VK_EXT_present_timing
+    VK_TIME_DOMAIN_PRESENT_STAGE_LOCAL_EXT = 1000208000,
+  // Provided by VK_EXT_present_timing
+    VK_TIME_DOMAIN_SWAPCHAIN_LOCAL_EXT = 1000208001,
   // Provided by VK_EXT_calibrated_timestamps
     VK_TIME_DOMAIN_DEVICE_EXT = VK_TIME_DOMAIN_DEVICE_KHR,
   // Provided by VK_EXT_calibrated_timestamps
@@ -16548,9 +16785,8 @@ typedef enum VkTimeDomainKHR {
     VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_EXT = VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_KHR,
 } VkTimeDomainKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_calibrated_timestamps
+// Equivalent to VkTimeDomainKHR
 typedef VkTimeDomainKHR VkTimeDomainEXT;
 
 * 
@@ -16561,6 +16797,19 @@ comparable with device timestamp values captured using
 or [vkCmdWriteTimestamp2](queries.html#vkCmdWriteTimestamp2)
 and are defined to be incrementing according to the
 [`timestampPeriod`](limits.html#limits-timestampPeriod) of the device.
+
+* 
+`VK_TIME_DOMAIN_PRESENT_STAGE_LOCAL_EXT` specifies a time domain
+unique to a particular swapchain and a specific present stage.
+Timestamp values in this time domain are in units of nanosecond and are
+comparable only with other values from the same swapchain and present
+stage.
+
+* 
+`VK_TIME_DOMAIN_SWAPCHAIN_LOCAL_EXT` specifies a time domain unique
+to a particular swapchain.
+Timestamp values in this time domain are in units of nanosecond and are
+comparable only with other values from the same swapchain.
 
 * 
 `VK_TIME_DOMAIN_CLOCK_MONOTONIC_KHR` specifies the CLOCK_MONOTONIC
@@ -16606,3 +16855,76 @@ this example:
 LARGE_INTEGER counter;
 QueryPerformanceCounter(&counter);
 return counter.QuadPart;
+
+The `VkSwapchainCalibratedTimestampInfoEXT` structure is defined as:
+
+// Provided by VK_EXT_present_timing
+typedef struct VkSwapchainCalibratedTimestampInfoEXT {
+    VkStructureType           sType;
+    const void*               pNext;
+    VkSwapchainKHR            swapchain;
+    VkPresentStageFlagsEXT    presentStage;
+    uint64_t                  timeDomainId;
+} VkSwapchainCalibratedTimestampInfoEXT;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`swapchain` is the swapchain to retrieve the swapchain-local
+timestamp from.
+
+* 
+`presentStage` is zero or a [VkPresentStageFlagsEXT](VK_KHR_surface/wsi.html#VkPresentStageFlagsEXT) value used
+to identify a single present stage when calibrating a timestamp in the
+`VK_TIME_DOMAIN_PRESENT_STAGE_LOCAL_EXT` time domain.
+
+* 
+`timeDomainId` is the id for the opaque time domain being
+calibrated.
+
+`timeDomainId` **must** be an id previously reported by
+[vkGetSwapchainTimeDomainPropertiesEXT](VK_KHR_surface/wsi.html#vkGetSwapchainTimeDomainPropertiesEXT) for `swapchain`.
+If the `timeDomainId` is no longer supported by the `swapchain`,
+implementations **may** report zero as the calibrated timestamp value.
+
+Valid Usage
+
+* 
+[](#VUID-VkSwapchainCalibratedTimestampInfoEXT-timeDomain-12228) VUID-VkSwapchainCalibratedTimestampInfoEXT-timeDomain-12228
+
+If the `timeDomain` member of the [VkCalibratedTimestampInfoKHR](#VkCalibratedTimestampInfoKHR)
+structure in this structure’s `pNext` chain is
+`VK_TIME_DOMAIN_PRESENT_STAGE_LOCAL_EXT`, `presentStage` **must**
+specify one and only one present stage
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkSwapchainCalibratedTimestampInfoEXT-sType-sType) VUID-VkSwapchainCalibratedTimestampInfoEXT-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT`
+
+* 
+[](#VUID-VkSwapchainCalibratedTimestampInfoEXT-swapchain-parameter) VUID-VkSwapchainCalibratedTimestampInfoEXT-swapchain-parameter
+
+ `swapchain` **must** be a valid [VkSwapchainKHR](VK_KHR_surface/wsi.html#VkSwapchainKHR) handle
+
+* 
+[](#VUID-VkSwapchainCalibratedTimestampInfoEXT-presentStage-parameter) VUID-VkSwapchainCalibratedTimestampInfoEXT-presentStage-parameter
+
+ `presentStage` **must** be a valid combination of [VkPresentStageFlagBitsEXT](VK_KHR_surface/wsi.html#VkPresentStageFlagBitsEXT) values
+
+* 
+[](#VUID-VkSwapchainCalibratedTimestampInfoEXT-presentStage-requiredbitmask) VUID-VkSwapchainCalibratedTimestampInfoEXT-presentStage-requiredbitmask
+
+ `presentStage` **must** not be `0`
+
+Host Synchronization
+
+* 
+Host access to `swapchain` **must** be externally synchronized

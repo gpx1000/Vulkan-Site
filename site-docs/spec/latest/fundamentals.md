@@ -77,6 +77,8 @@
 - [Offsets](#_offsets)
 - [Extents](#_extents)
 - [Rectangles](#_rectangles)
+- [Device Address Ranges](#_device_address_ranges)
+- [Device_Address_Ranges](#_device_address_ranges)
 - [Structure Types](#_structure_types)
 - [API Name Aliases](#fundamentals-api-name-aliases)
 - [API_Name_Aliases](#fundamentals-api-name-aliases)
@@ -162,22 +164,18 @@ visible to the device and host.
 On other architectures, there **may** only be a single heap that **can** be used
 for any purpose.
 
-Vulkan queues provide an interface to the execution engines of a device.
-Commands for these execution engines are recorded into command buffers ahead
-of execution time, and then submitted to a queue for execution.
-Once submitted to a queue, command buffers will begin and complete execution
-without further application intervention, though the order of this execution
-is dependent on a number of [implicit and explicit ordering constraints](synchronization.html#synchronization).
+Each device supports a number of [queues](devsandqueues.html#devsandqueues-queues), which
+provide an interface for [submitting work](devsandqueues.html#devsandqueues-submission) for
+execution on the device.
 
-Work is submitted to queues using *queue submission commands* that typically
-take the form `vkQueue*` (e.g. [vkQueueSubmit](cmdbuffers.html#vkQueueSubmit)
-, [vkQueueBindSparse](sparsemem.html#vkQueueBindSparse)
-), and **can** take a list of semaphores upon which to wait before work begins
-and a list of semaphores to signal once work has completed.
-The work itself, as well as signaling and waiting on the semaphores are all
-*queue operations*.
-Queue submission commands return control to the application once queue
-operations have been submitted - they do not wait for completion.
+[*Queue submission commands*](devsandqueues.html#devsandqueues-submission) are used to submit
+work, along with a set of [synchronization primitives](synchronization.html#synchronization)
+used to constrain the order of submitted operations.
+Queues are intended for asynchronous execution of submitted workloads, and
+queue submission commands **should** return as soon as the work has been
+submitted, without waiting for the work to complete.
+Once submitted to a queue, work will begin and complete execution without
+further application intervention.
 
 There are no implicit ordering constraints between queue operations on
 different queues, or between queues and the host, so these **may** operate in
@@ -186,6 +184,8 @@ Explicit ordering constraints between different queues or with the host **can**
 be expressed with [semaphores](synchronization.html#synchronization-semaphores) and
 [fences](synchronization.html#synchronization-fences).
 
+Many commands for queues are recorded into [*command buffers*](cmdbuffers.html#commandbuffers) first, before the command buffers are then submitted to a queue
+for execution.
 Command buffer submissions to a single queue respect
 [submission order](synchronization.html#synchronization-submission-order) and other
 [implicit ordering guarantees](synchronization.html#synchronization-implicit), but otherwise
@@ -757,6 +757,75 @@ The `fence` parameter in [vkDestroyFence](synchronization.html#vkDestroyFence)
 The `semaphore` parameter in [vkDestroySemaphore](synchronization.html#vkDestroySemaphore)
 
 * 
+The `queryPool` parameter in [vkDestroyQueryPool](queries.html#vkDestroyQueryPool)
+
+* 
+The `buffer` parameter in [vkDestroyBuffer](resources.html#vkDestroyBuffer)
+
+* 
+The `image` parameter in [vkDestroyImage](resources.html#vkDestroyImage)
+
+* 
+The `imageView` parameter in [vkDestroyImageView](resources.html#vkDestroyImageView)
+
+* 
+The `commandPool` parameter in [vkDestroyCommandPool](cmdbuffers.html#vkDestroyCommandPool)
+
+* 
+The `commandPool` parameter in [vkResetCommandPool](cmdbuffers.html#vkResetCommandPool)
+
+* 
+The `commandPool` parameter in [vkFreeCommandBuffers](cmdbuffers.html#vkFreeCommandBuffers)
+
+* 
+The `commandBuffer` parameter in [vkBeginCommandBuffer](cmdbuffers.html#vkBeginCommandBuffer)
+
+* 
+The `commandBuffer` parameter in [vkEndCommandBuffer](cmdbuffers.html#vkEndCommandBuffer)
+
+* 
+The `commandBuffer` parameter in [vkResetCommandBuffer](cmdbuffers.html#vkResetCommandBuffer)
+
+* 
+The `commandBuffer` parameter in [vkCmdCopyBuffer](copies.html#vkCmdCopyBuffer)
+
+* 
+The `commandBuffer` parameter in [vkCmdCopyImage](copies.html#vkCmdCopyImage)
+
+* 
+The `commandBuffer` parameter in [vkCmdCopyBufferToImage](copies.html#vkCmdCopyBufferToImage)
+
+* 
+The `commandBuffer` parameter in [vkCmdCopyImageToBuffer](copies.html#vkCmdCopyImageToBuffer)
+
+* 
+The `commandBuffer` parameter in [vkCmdUpdateBuffer](clears.html#vkCmdUpdateBuffer)
+
+* 
+The `commandBuffer` parameter in [vkCmdFillBuffer](clears.html#vkCmdFillBuffer)
+
+* 
+The `commandBuffer` parameter in [vkCmdPipelineBarrier](synchronization.html#vkCmdPipelineBarrier)
+
+* 
+The `commandBuffer` parameter in [vkCmdBeginQuery](queries.html#vkCmdBeginQuery)
+
+* 
+The `commandBuffer` parameter in [vkCmdEndQuery](queries.html#vkCmdEndQuery)
+
+* 
+The `commandBuffer` parameter in [vkCmdResetQueryPool](queries.html#vkCmdResetQueryPool)
+
+* 
+The `commandBuffer` parameter in [vkCmdWriteTimestamp](queries.html#vkCmdWriteTimestamp)
+
+* 
+The `commandBuffer` parameter in [vkCmdCopyQueryPoolResults](queries.html#vkCmdCopyQueryPoolResults)
+
+* 
+The `commandBuffer` parameter in [vkCmdExecuteCommands](cmdbuffers.html#vkCmdExecuteCommands)
+
+* 
 The `event` parameter in [vkDestroyEvent](synchronization.html#vkDestroyEvent)
 
 * 
@@ -766,19 +835,7 @@ The `event` parameter in [vkSetEvent](synchronization.html#vkSetEvent)
 The `event` parameter in [vkResetEvent](synchronization.html#vkResetEvent)
 
 * 
-The `queryPool` parameter in [vkDestroyQueryPool](queries.html#vkDestroyQueryPool)
-
-* 
-The `buffer` parameter in [vkDestroyBuffer](resources.html#vkDestroyBuffer)
-
-* 
 The `bufferView` parameter in [vkDestroyBufferView](resources.html#vkDestroyBufferView)
-
-* 
-The `image` parameter in [vkDestroyImage](resources.html#vkDestroyImage)
-
-* 
-The `imageView` parameter in [vkDestroyImageView](resources.html#vkDestroyImageView)
 
 * 
 The `shaderModule` parameter in [vkDestroyShaderModule](shaders.html#vkDestroyShaderModule)
@@ -788,9 +845,6 @@ The `pipelineCache` parameter in [vkDestroyPipelineCache](pipelines.html#vkDestr
 
 * 
 The `dstCache` parameter in [vkMergePipelineCaches](pipelines.html#vkMergePipelineCaches), conditionally1
-
-* 
-The `pipelineCache` parameter in [vkCreateGraphicsPipelines](pipelines.html#vkCreateGraphicsPipelines), conditionally1
 
 * 
 The `pipelineCache` parameter in [vkCreateComputePipelines](pipelines.html#vkCreateComputePipelines), conditionally1
@@ -817,31 +871,40 @@ The `descriptorPool` parameter in [vkResetDescriptorPool](descriptorsets.html#vk
 The `descriptorPool` parameter in [vkFreeDescriptorSets](descriptorsets.html#vkFreeDescriptorSets)
 
 * 
+The `commandBuffer` parameter in [vkCmdBindPipeline](pipelines.html#vkCmdBindPipeline)
+
+* 
+The `commandBuffer` parameter in [vkCmdBindDescriptorSets](descriptorsets.html#vkCmdBindDescriptorSets)
+
+* 
+The `commandBuffer` parameter in [vkCmdClearColorImage](clears.html#vkCmdClearColorImage)
+
+* 
+The `commandBuffer` parameter in [vkCmdDispatch](dispatch.html#vkCmdDispatch)
+
+* 
+The `commandBuffer` parameter in [vkCmdDispatchIndirect](dispatch.html#vkCmdDispatchIndirect)
+
+* 
+The `commandBuffer` parameter in [vkCmdSetEvent](synchronization.html#vkCmdSetEvent)
+
+* 
+The `commandBuffer` parameter in [vkCmdResetEvent](synchronization.html#vkCmdResetEvent)
+
+* 
+The `commandBuffer` parameter in [vkCmdWaitEvents](synchronization.html#vkCmdWaitEvents)
+
+* 
+The `commandBuffer` parameter in [vkCmdPushConstants](descriptorsets.html#vkCmdPushConstants)
+
+* 
+The `pipelineCache` parameter in [vkCreateGraphicsPipelines](pipelines.html#vkCreateGraphicsPipelines), conditionally1
+
+* 
 The `framebuffer` parameter in [vkDestroyFramebuffer](renderpass.html#vkDestroyFramebuffer)
 
 * 
 The `renderPass` parameter in [vkDestroyRenderPass](renderpass.html#vkDestroyRenderPass)
-
-* 
-The `commandPool` parameter in [vkDestroyCommandPool](cmdbuffers.html#vkDestroyCommandPool)
-
-* 
-The `commandPool` parameter in [vkResetCommandPool](cmdbuffers.html#vkResetCommandPool)
-
-* 
-The `commandPool` parameter in [vkFreeCommandBuffers](cmdbuffers.html#vkFreeCommandBuffers)
-
-* 
-The `commandBuffer` parameter in [vkBeginCommandBuffer](cmdbuffers.html#vkBeginCommandBuffer)
-
-* 
-The `commandBuffer` parameter in [vkEndCommandBuffer](cmdbuffers.html#vkEndCommandBuffer)
-
-* 
-The `commandBuffer` parameter in [vkResetCommandBuffer](cmdbuffers.html#vkResetCommandBuffer)
-
-* 
-The `commandBuffer` parameter in [vkCmdBindPipeline](pipelines.html#vkCmdBindPipeline)
 
 * 
 The `commandBuffer` parameter in [vkCmdSetViewport](vertexpostproc.html#vkCmdSetViewport)
@@ -871,9 +934,6 @@ The `commandBuffer` parameter in [vkCmdSetStencilWriteMask](fragops.html#vkCmdSe
 The `commandBuffer` parameter in [vkCmdSetStencilReference](fragops.html#vkCmdSetStencilReference)
 
 * 
-The `commandBuffer` parameter in [vkCmdBindDescriptorSets](descriptorsets.html#vkCmdBindDescriptorSets)
-
-* 
 The `commandBuffer` parameter in [vkCmdBindIndexBuffer](drawing.html#vkCmdBindIndexBuffer)
 
 * 
@@ -892,34 +952,7 @@ The `commandBuffer` parameter in [vkCmdDrawIndirect](drawing.html#vkCmdDrawIndir
 The `commandBuffer` parameter in [vkCmdDrawIndexedIndirect](drawing.html#vkCmdDrawIndexedIndirect)
 
 * 
-The `commandBuffer` parameter in [vkCmdDispatch](dispatch.html#vkCmdDispatch)
-
-* 
-The `commandBuffer` parameter in [vkCmdDispatchIndirect](dispatch.html#vkCmdDispatchIndirect)
-
-* 
-The `commandBuffer` parameter in [vkCmdCopyBuffer](copies.html#vkCmdCopyBuffer)
-
-* 
-The `commandBuffer` parameter in [vkCmdCopyImage](copies.html#vkCmdCopyImage)
-
-* 
 The `commandBuffer` parameter in [vkCmdBlitImage](copies.html#vkCmdBlitImage)
-
-* 
-The `commandBuffer` parameter in [vkCmdCopyBufferToImage](copies.html#vkCmdCopyBufferToImage)
-
-* 
-The `commandBuffer` parameter in [vkCmdCopyImageToBuffer](copies.html#vkCmdCopyImageToBuffer)
-
-* 
-The `commandBuffer` parameter in [vkCmdUpdateBuffer](clears.html#vkCmdUpdateBuffer)
-
-* 
-The `commandBuffer` parameter in [vkCmdFillBuffer](clears.html#vkCmdFillBuffer)
-
-* 
-The `commandBuffer` parameter in [vkCmdClearColorImage](clears.html#vkCmdClearColorImage)
 
 * 
 The `commandBuffer` parameter in [vkCmdClearDepthStencilImage](clears.html#vkCmdClearDepthStencilImage)
@@ -931,36 +964,6 @@ The `commandBuffer` parameter in [vkCmdClearAttachments](clears.html#vkCmdClearA
 The `commandBuffer` parameter in [vkCmdResolveImage](copies.html#vkCmdResolveImage)
 
 * 
-The `commandBuffer` parameter in [vkCmdSetEvent](synchronization.html#vkCmdSetEvent)
-
-* 
-The `commandBuffer` parameter in [vkCmdResetEvent](synchronization.html#vkCmdResetEvent)
-
-* 
-The `commandBuffer` parameter in [vkCmdWaitEvents](synchronization.html#vkCmdWaitEvents)
-
-* 
-The `commandBuffer` parameter in [vkCmdPipelineBarrier](synchronization.html#vkCmdPipelineBarrier)
-
-* 
-The `commandBuffer` parameter in [vkCmdBeginQuery](queries.html#vkCmdBeginQuery)
-
-* 
-The `commandBuffer` parameter in [vkCmdEndQuery](queries.html#vkCmdEndQuery)
-
-* 
-The `commandBuffer` parameter in [vkCmdResetQueryPool](queries.html#vkCmdResetQueryPool)
-
-* 
-The `commandBuffer` parameter in [vkCmdWriteTimestamp](queries.html#vkCmdWriteTimestamp)
-
-* 
-The `commandBuffer` parameter in [vkCmdCopyQueryPoolResults](queries.html#vkCmdCopyQueryPoolResults)
-
-* 
-The `commandBuffer` parameter in [vkCmdPushConstants](descriptorsets.html#vkCmdPushConstants)
-
-* 
 The `commandBuffer` parameter in [vkCmdBeginRenderPass](renderpass.html#vkCmdBeginRenderPass)
 
 * 
@@ -970,25 +973,22 @@ The `commandBuffer` parameter in [vkCmdNextSubpass](renderpass.html#vkCmdNextSub
 The `commandBuffer` parameter in [vkCmdEndRenderPass](renderpass.html#vkCmdEndRenderPass)
 
 * 
-The `commandBuffer` parameter in [vkCmdExecuteCommands](cmdbuffers.html#vkCmdExecuteCommands)
-
-* 
 The `commandBuffer` parameter in [vkCmdSetDeviceMask](cmdbuffers.html#vkCmdSetDeviceMask)
-
-* 
-The `commandBuffer` parameter in [vkCmdDispatchBase](dispatch.html#vkCmdDispatchBase)
 
 * 
 The `commandPool` parameter in [vkTrimCommandPool](cmdbuffers.html#vkTrimCommandPool)
 
 * 
-The `ycbcrConversion` parameter in [vkDestroySamplerYcbcrConversion](samplers.html#vkDestroySamplerYcbcrConversion)
+The `commandBuffer` parameter in [vkCmdDispatchBase](dispatch.html#vkCmdDispatchBase)
 
 * 
 The `descriptorUpdateTemplate` parameter in [vkDestroyDescriptorUpdateTemplate](descriptorsets.html#vkDestroyDescriptorUpdateTemplate)
 
 * 
 The `descriptorSet` parameter in [vkUpdateDescriptorSetWithTemplate](descriptorsets.html#vkUpdateDescriptorSetWithTemplate), conditionally1
+
+* 
+The `ycbcrConversion` parameter in [vkDestroySamplerYcbcrConversion](samplers.html#vkDestroySamplerYcbcrConversion)
 
 * 
 The `commandBuffer` parameter in [vkCmdDrawIndirectCount](drawing.html#vkCmdDrawIndirectCount)
@@ -1006,16 +1006,7 @@ The `commandBuffer` parameter in [vkCmdNextSubpass2](renderpass.html#vkCmdNextSu
 The `commandBuffer` parameter in [vkCmdEndRenderPass2](renderpass.html#vkCmdEndRenderPass2)
 
 * 
-The `privateDataSlot` parameter in [vkDestroyPrivateDataSlot](VK_EXT_private_data.html#vkDestroyPrivateDataSlot)
-
-* 
-The `commandBuffer` parameter in [vkCmdSetEvent2](synchronization.html#vkCmdSetEvent2)
-
-* 
-The `commandBuffer` parameter in [vkCmdResetEvent2](synchronization.html#vkCmdResetEvent2)
-
-* 
-The `commandBuffer` parameter in [vkCmdWaitEvents2](synchronization.html#vkCmdWaitEvents2)
+The `privateDataSlot` parameter in [vkDestroyPrivateDataSlot](private_data.html#vkDestroyPrivateDataSlot)
 
 * 
 The `commandBuffer` parameter in [vkCmdPipelineBarrier2](synchronization.html#vkCmdPipelineBarrier2)
@@ -1040,6 +1031,15 @@ The `commandBuffer` parameter in [vkCmdCopyBufferToImage2](copies.html#vkCmdCopy
 
 * 
 The `commandBuffer` parameter in [vkCmdCopyImageToBuffer2](copies.html#vkCmdCopyImageToBuffer2)
+
+* 
+The `commandBuffer` parameter in [vkCmdSetEvent2](synchronization.html#vkCmdSetEvent2)
+
+* 
+The `commandBuffer` parameter in [vkCmdResetEvent2](synchronization.html#vkCmdResetEvent2)
+
+* 
+The `commandBuffer` parameter in [vkCmdWaitEvents2](synchronization.html#vkCmdWaitEvents2)
 
 * 
 The `commandBuffer` parameter in [vkCmdBlitImage2](copies.html#vkCmdBlitImage2)
@@ -1099,22 +1099,10 @@ The `commandBuffer` parameter in [vkCmdSetDepthBiasEnable](primsrast.html#vkCmdS
 The `commandBuffer` parameter in [vkCmdSetPrimitiveRestartEnable](drawing.html#vkCmdSetPrimitiveRestartEnable)
 
 * 
-The `commandBuffer` parameter in [vkCmdSetLineStipple](primsrast.html#vkCmdSetLineStipple)
-
-* 
-The `commandBuffer` parameter in [vkCmdBindIndexBuffer2](drawing.html#vkCmdBindIndexBuffer2)
-
-* 
 The `commandBuffer` parameter in [vkCmdPushDescriptorSet](descriptorsets.html#vkCmdPushDescriptorSet)
 
 * 
 The `commandBuffer` parameter in [vkCmdPushDescriptorSetWithTemplate](descriptorsets.html#vkCmdPushDescriptorSetWithTemplate)
-
-* 
-The `commandBuffer` parameter in [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations)
-
-* 
-The `commandBuffer` parameter in [vkCmdSetRenderingInputAttachmentIndices](interfaces.html#vkCmdSetRenderingInputAttachmentIndices)
 
 * 
 The `commandBuffer` parameter in [vkCmdBindDescriptorSets2](descriptorsets.html#vkCmdBindDescriptorSets2)
@@ -1127,6 +1115,18 @@ The `commandBuffer` parameter in [vkCmdPushDescriptorSet2](descriptorsets.html#v
 
 * 
 The `commandBuffer` parameter in [vkCmdPushDescriptorSetWithTemplate2](descriptorsets.html#vkCmdPushDescriptorSetWithTemplate2)
+
+* 
+The `commandBuffer` parameter in [vkCmdSetLineStipple](primsrast.html#vkCmdSetLineStipple)
+
+* 
+The `commandBuffer` parameter in [vkCmdBindIndexBuffer2](drawing.html#vkCmdBindIndexBuffer2)
+
+* 
+The `commandBuffer` parameter in [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations)
+
+* 
+The `commandBuffer` parameter in [vkCmdSetRenderingInputAttachmentIndices](interfaces.html#vkCmdSetRenderingInputAttachmentIndices)
 
 * 
 The `surface` parameter in [vkDestroySurfaceKHR](VK_KHR_surface/wsi.html#vkDestroySurfaceKHR)
@@ -1318,6 +1318,15 @@ The `commandBuffer` parameter in [vkCmdSetDescriptorBufferOffsets2EXT](descripto
 The `commandBuffer` parameter in [vkCmdBindDescriptorBufferEmbeddedSamplers2EXT](descriptorsets.html#vkCmdBindDescriptorBufferEmbeddedSamplers2EXT)
 
 * 
+The `commandBuffer` parameter in [vkCmdCopyMemoryIndirectKHR](copies.html#vkCmdCopyMemoryIndirectKHR)
+
+* 
+The `commandBuffer` parameter in [vkCmdCopyMemoryToImageIndirectKHR](copies.html#vkCmdCopyMemoryToImageIndirectKHR)
+
+* 
+The `commandBuffer` parameter in [vkCmdEndRendering2KHR](renderpass.html#vkCmdEndRendering2KHR)
+
+* 
 The `callback` parameter in [vkDestroyDebugReportCallbackEXT](debugging.html#vkDestroyDebugReportCallbackEXT)
 
 * 
@@ -1465,6 +1474,15 @@ The `commandBuffer` parameter in [vkCmdSetExclusiveScissorNV](fragops.html#vkCmd
 The `commandBuffer` parameter in [vkCmdSetCheckpointNV](debugging.html#vkCmdSetCheckpointNV)
 
 * 
+The `swapchain` parameter in [vkSetSwapchainPresentTimingQueueSizeEXT](VK_KHR_surface/wsi.html#vkSetSwapchainPresentTimingQueueSizeEXT)
+
+* 
+The `swapchain` parameter in [vkGetSwapchainTimingPropertiesEXT](VK_KHR_surface/wsi.html#vkGetSwapchainTimingPropertiesEXT)
+
+* 
+The `swapchain` parameter in [vkGetSwapchainTimeDomainPropertiesEXT](VK_KHR_surface/wsi.html#vkGetSwapchainTimeDomainPropertiesEXT)
+
+* 
 The `commandBuffer` parameter in [vkCmdSetPerformanceMarkerINTEL](queries.html#vkCmdSetPerformanceMarkerINTEL)
 
 * 
@@ -1534,7 +1552,7 @@ The `indirectCommandsLayout` parameter in [vkDestroyIndirectCommandsLayoutNV](de
 The `commandBuffer` parameter in [vkCmdSetDepthBias2EXT](primsrast.html#vkCmdSetDepthBias2EXT)
 
 * 
-The `privateDataSlot` parameter in [vkDestroyPrivateDataSlotEXT](VK_EXT_private_data.html#vkDestroyPrivateDataSlotEXT)
+The `privateDataSlot` parameter in [vkDestroyPrivateDataSlotEXT](private_data.html#vkDestroyPrivateDataSlotEXT)
 
 * 
 The `commandBuffer` parameter in [vkCmdBindDescriptorBuffersEXT](descriptorsets.html#vkCmdBindDescriptorBuffersEXT)
@@ -1612,10 +1630,10 @@ The `commandBuffer` parameter in [vkCmdCopyMemoryIndirectNV](copies.html#vkCmdCo
 The `commandBuffer` parameter in [vkCmdCopyMemoryToImageIndirectNV](copies.html#vkCmdCopyMemoryToImageIndirectNV)
 
 * 
-The `commandBuffer` parameter in [vkCmdDecompressMemoryNV](VK_NV_memory_decompression.html#vkCmdDecompressMemoryNV)
+The `commandBuffer` parameter in [vkCmdDecompressMemoryNV](memory_decompression.html#vkCmdDecompressMemoryNV)
 
 * 
-The `commandBuffer` parameter in [vkCmdDecompressMemoryIndirectCountNV](VK_NV_memory_decompression.html#vkCmdDecompressMemoryIndirectCountNV)
+The `commandBuffer` parameter in [vkCmdDecompressMemoryIndirectCountNV](memory_decompression.html#vkCmdDecompressMemoryIndirectCountNV)
 
 * 
 The `commandBuffer` parameter in [vkCmdUpdatePipelineIndirectBufferNV](pipelines.html#vkCmdUpdatePipelineIndirectBufferNV)
@@ -1747,6 +1765,12 @@ The `commandBuffer` parameter in [vkCmdSetAttachmentFeedbackLoopEnableEXT](rende
 The `commandBuffer` parameter in [vkCmdBindTileMemoryQCOM](memory.html#vkCmdBindTileMemoryQCOM)
 
 * 
+The `commandBuffer` parameter in [vkCmdDecompressMemoryEXT](memory_decompression.html#vkCmdDecompressMemoryEXT)
+
+* 
+The `commandBuffer` parameter in [vkCmdDecompressMemoryIndirectCountEXT](memory_decompression.html#vkCmdDecompressMemoryIndirectCountEXT)
+
+* 
 The `commandBuffer` parameter in [vkCmdBuildClusterAccelerationStructureIndirectNV](accelstructures.html#vkCmdBuildClusterAccelerationStructureIndirectNV)
 
 * 
@@ -1775,6 +1799,9 @@ The `indirectExecutionSet` parameter in [vkUpdateIndirectExecutionSetShaderEXT](
 
 * 
 The `commandBuffer` parameter in [vkCmdEndRendering2EXT](renderpass.html#vkCmdEndRendering2EXT)
+
+* 
+The `commandBuffer` parameter in [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
 
 * 
 The `accelerationStructure` parameter in [vkDestroyAccelerationStructureKHR](resources.html#vkDestroyAccelerationStructureKHR)
@@ -1819,13 +1846,13 @@ The `commandBuffer` parameter in [vkCmdDrawMeshTasksIndirectEXT](drawing.html#vk
 The `commandBuffer` parameter in [vkCmdDrawMeshTasksIndirectCountEXT](drawing.html#vkCmdDrawMeshTasksIndirectCountEXT)
 
 * 
+The `commandPool` member of [VkCommandBufferAllocateInfo](cmdbuffers.html#VkCommandBufferAllocateInfo)
+
+* 
 The `dstSet` member of [VkCopyDescriptorSet](descriptorsets.html#VkCopyDescriptorSet), conditionally1
 
 * 
 The `descriptorPool` member of [VkDescriptorSetAllocateInfo](descriptorsets.html#VkDescriptorSetAllocateInfo)
-
-* 
-The `commandPool` member of [VkCommandBufferAllocateInfo](cmdbuffers.html#VkCommandBufferAllocateInfo)
 
 * 
 The `buffer` member of [VkBindBufferMemoryInfo](resources.html#VkBindBufferMemoryInfo)
@@ -1888,6 +1915,12 @@ The `object` member of [VkDebugMarkerObjectTagInfoEXT](debugging.html#VkDebugMar
 The `objectHandle` member of [VkDebugUtilsObjectTagInfoEXT](debugging.html#VkDebugUtilsObjectTagInfoEXT)
 
 * 
+The `swapchain` member of [VkSwapchainCalibratedTimestampInfoEXT](synchronization.html#VkSwapchainCalibratedTimestampInfoEXT)
+
+* 
+The `swapchain` member of [VkPastPresentationTimingInfoEXT](VK_KHR_surface/wsi.html#VkPastPresentationTimingInfoEXT)
+
+* 
 The `semaphore` member of [VkImportSemaphoreZirconHandleInfoFUCHSIA](synchronization.html#VkImportSemaphoreZirconHandleInfoFUCHSIA)
 
 * 
@@ -1908,13 +1941,13 @@ Externally Synchronized Parameter and Member Lists
 Each element of the `pFences` parameter in [vkResetFences](synchronization.html#vkResetFences)
 
 * 
+Each element of the `pCommandBuffers` parameter in [vkFreeCommandBuffers](cmdbuffers.html#vkFreeCommandBuffers)
+
+* 
 Each element of the `pDescriptorSets` parameter in [vkFreeDescriptorSets](descriptorsets.html#vkFreeDescriptorSets)
 
 * 
 The `dstSet` member of each element of the `pDescriptorWrites` parameter in [vkUpdateDescriptorSets](descriptorsets.html#vkUpdateDescriptorSets), conditionally1
-
-* 
-Each element of the `pCommandBuffers` parameter in [vkFreeCommandBuffers](cmdbuffers.html#vkFreeCommandBuffers)
 
 * 
 Each element of the `pWaitSemaphores` member of [VkPresentInfoKHR](VK_KHR_surface/wsi.html#VkPresentInfoKHR)
@@ -1943,9 +1976,6 @@ All `VkQueue` objects created from `device` in [vkDestroyDevice](devsandqueues.h
 All `VkQueue` objects created from `device` in [vkDeviceWaitIdle](synchronization.html#vkDeviceWaitIdle)
 
 * 
-Any `VkDescriptorSet` objects allocated from `descriptorPool` in [vkResetDescriptorPool](descriptorsets.html#vkResetDescriptorPool)
-
-* 
 The `VkCommandPool` that `commandBuffer` was allocated from in [vkBeginCommandBuffer](cmdbuffers.html#vkBeginCommandBuffer)
 
 * 
@@ -1955,7 +1985,73 @@ The `VkCommandPool` that `commandBuffer` was allocated from in [vkEndCommandBuff
 The `VkCommandPool` that `commandBuffer` was allocated from in [vkResetCommandBuffer](cmdbuffers.html#vkResetCommandBuffer)
 
 * 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyBuffer](copies.html#vkCmdCopyBuffer)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyImage](copies.html#vkCmdCopyImage)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyBufferToImage](copies.html#vkCmdCopyBufferToImage)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyImageToBuffer](copies.html#vkCmdCopyImageToBuffer)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdUpdateBuffer](clears.html#vkCmdUpdateBuffer)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdFillBuffer](clears.html#vkCmdFillBuffer)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdPipelineBarrier](synchronization.html#vkCmdPipelineBarrier)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBeginQuery](queries.html#vkCmdBeginQuery)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdEndQuery](queries.html#vkCmdEndQuery)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdResetQueryPool](queries.html#vkCmdResetQueryPool)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdWriteTimestamp](queries.html#vkCmdWriteTimestamp)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyQueryPoolResults](queries.html#vkCmdCopyQueryPoolResults)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdExecuteCommands](cmdbuffers.html#vkCmdExecuteCommands)
+
+* 
+Any `VkDescriptorSet` objects allocated from `descriptorPool` in [vkResetDescriptorPool](descriptorsets.html#vkResetDescriptorPool)
+
+* 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBindPipeline](pipelines.html#vkCmdBindPipeline)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBindDescriptorSets](descriptorsets.html#vkCmdBindDescriptorSets)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdClearColorImage](clears.html#vkCmdClearColorImage)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDispatch](dispatch.html#vkCmdDispatch)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDispatchIndirect](dispatch.html#vkCmdDispatchIndirect)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetEvent](synchronization.html#vkCmdSetEvent)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdResetEvent](synchronization.html#vkCmdResetEvent)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdWaitEvents](synchronization.html#vkCmdWaitEvents)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdPushConstants](descriptorsets.html#vkCmdPushConstants)
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetViewport](vertexpostproc.html#vkCmdSetViewport)
@@ -1985,9 +2081,6 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetStencil
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetStencilReference](fragops.html#vkCmdSetStencilReference)
 
 * 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBindDescriptorSets](descriptorsets.html#vkCmdBindDescriptorSets)
-
-* 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBindIndexBuffer](drawing.html#vkCmdBindIndexBuffer)
 
 * 
@@ -2006,34 +2099,7 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDrawIndire
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDrawIndexedIndirect](drawing.html#vkCmdDrawIndexedIndirect)
 
 * 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDispatch](dispatch.html#vkCmdDispatch)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDispatchIndirect](dispatch.html#vkCmdDispatchIndirect)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyBuffer](copies.html#vkCmdCopyBuffer)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyImage](copies.html#vkCmdCopyImage)
-
-* 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBlitImage](copies.html#vkCmdBlitImage)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyBufferToImage](copies.html#vkCmdCopyBufferToImage)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyImageToBuffer](copies.html#vkCmdCopyImageToBuffer)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdUpdateBuffer](clears.html#vkCmdUpdateBuffer)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdFillBuffer](clears.html#vkCmdFillBuffer)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdClearColorImage](clears.html#vkCmdClearColorImage)
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdClearDepthStencilImage](clears.html#vkCmdClearDepthStencilImage)
@@ -2045,36 +2111,6 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdClearAttac
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdResolveImage](copies.html#vkCmdResolveImage)
 
 * 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetEvent](synchronization.html#vkCmdSetEvent)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdResetEvent](synchronization.html#vkCmdResetEvent)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdWaitEvents](synchronization.html#vkCmdWaitEvents)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdPipelineBarrier](synchronization.html#vkCmdPipelineBarrier)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBeginQuery](queries.html#vkCmdBeginQuery)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdEndQuery](queries.html#vkCmdEndQuery)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdResetQueryPool](queries.html#vkCmdResetQueryPool)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdWriteTimestamp](queries.html#vkCmdWriteTimestamp)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyQueryPoolResults](queries.html#vkCmdCopyQueryPoolResults)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdPushConstants](descriptorsets.html#vkCmdPushConstants)
-
-* 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBeginRenderPass](renderpass.html#vkCmdBeginRenderPass)
 
 * 
@@ -2082,9 +2118,6 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdNextSubpas
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdEndRenderPass](renderpass.html#vkCmdEndRenderPass)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdExecuteCommands](cmdbuffers.html#vkCmdExecuteCommands)
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetDeviceMask](cmdbuffers.html#vkCmdSetDeviceMask)
@@ -2108,15 +2141,6 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdNextSubpas
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdEndRenderPass2](renderpass.html#vkCmdEndRenderPass2)
 
 * 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetEvent2](synchronization.html#vkCmdSetEvent2)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdResetEvent2](synchronization.html#vkCmdResetEvent2)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdWaitEvents2](synchronization.html#vkCmdWaitEvents2)
-
-* 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdPipelineBarrier2](synchronization.html#vkCmdPipelineBarrier2)
 
 * 
@@ -2133,6 +2157,15 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyBuffer
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyImageToBuffer2](copies.html#vkCmdCopyImageToBuffer2)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetEvent2](synchronization.html#vkCmdSetEvent2)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdResetEvent2](synchronization.html#vkCmdResetEvent2)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdWaitEvents2](synchronization.html#vkCmdWaitEvents2)
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBlitImage2](copies.html#vkCmdBlitImage2)
@@ -2192,22 +2225,10 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetDepthBi
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetPrimitiveRestartEnable](drawing.html#vkCmdSetPrimitiveRestartEnable)
 
 * 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetLineStipple](primsrast.html#vkCmdSetLineStipple)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBindIndexBuffer2](drawing.html#vkCmdBindIndexBuffer2)
-
-* 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdPushDescriptorSet](descriptorsets.html#vkCmdPushDescriptorSet)
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdPushDescriptorSetWithTemplate](descriptorsets.html#vkCmdPushDescriptorSetWithTemplate)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations)
-
-* 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetRenderingInputAttachmentIndices](interfaces.html#vkCmdSetRenderingInputAttachmentIndices)
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBindDescriptorSets2](descriptorsets.html#vkCmdBindDescriptorSets2)
@@ -2220,6 +2241,18 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdPushDescri
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdPushDescriptorSetWithTemplate2](descriptorsets.html#vkCmdPushDescriptorSetWithTemplate2)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetLineStipple](primsrast.html#vkCmdSetLineStipple)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBindIndexBuffer2](drawing.html#vkCmdBindIndexBuffer2)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetRenderingInputAttachmentIndices](interfaces.html#vkCmdSetRenderingInputAttachmentIndices)
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBeginVideoCodingKHR](videocoding.html#vkCmdBeginVideoCodingKHR)
@@ -2337,6 +2370,15 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetDescrip
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBindDescriptorBufferEmbeddedSamplers2EXT](descriptorsets.html#vkCmdBindDescriptorBufferEmbeddedSamplers2EXT)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyMemoryIndirectKHR](copies.html#vkCmdCopyMemoryIndirectKHR)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyMemoryToImageIndirectKHR](copies.html#vkCmdCopyMemoryToImageIndirectKHR)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdEndRendering2KHR](renderpass.html#vkCmdEndRendering2KHR)
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDebugMarkerBeginEXT](debugging.html#vkCmdDebugMarkerBeginEXT)
@@ -2606,10 +2648,10 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyMemory
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyMemoryToImageIndirectNV](copies.html#vkCmdCopyMemoryToImageIndirectNV)
 
 * 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDecompressMemoryNV](VK_NV_memory_decompression.html#vkCmdDecompressMemoryNV)
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDecompressMemoryNV](memory_decompression.html#vkCmdDecompressMemoryNV)
 
 * 
-The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDecompressMemoryIndirectCountNV](VK_NV_memory_decompression.html#vkCmdDecompressMemoryIndirectCountNV)
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDecompressMemoryIndirectCountNV](memory_decompression.html#vkCmdDecompressMemoryIndirectCountNV)
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdUpdatePipelineIndirectBufferNV](pipelines.html#vkCmdUpdatePipelineIndirectBufferNV)
@@ -2732,6 +2774,12 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetAttachm
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBindTileMemoryQCOM](memory.html#vkCmdBindTileMemoryQCOM)
 
 * 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDecompressMemoryEXT](memory_decompression.html#vkCmdDecompressMemoryEXT)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDecompressMemoryIndirectCountEXT](memory_decompression.html#vkCmdDecompressMemoryIndirectCountEXT)
+
+* 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBuildClusterAccelerationStructureIndirectNV](accelstructures.html#vkCmdBuildClusterAccelerationStructureIndirectNV)
 
 * 
@@ -2745,6 +2793,9 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdExecuteGen
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdEndRendering2EXT](renderpass.html#vkCmdEndRendering2EXT)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdBuildAccelerationStructuresKHR](accelstructures.html#vkCmdBuildAccelerationStructuresKHR)
@@ -3242,9 +3293,9 @@ typedef enum VkResult {
   // Provided by VK_VERSION_1_1
     VK_ERROR_INVALID_EXTERNAL_HANDLE = -1000072003,
   // Provided by VK_VERSION_1_2
-    VK_ERROR_FRAGMENTATION = -1000161000,
-  // Provided by VK_VERSION_1_2
     VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS = -1000257000,
+  // Provided by VK_VERSION_1_2
+    VK_ERROR_FRAGMENTATION = -1000161000,
   // Provided by VK_VERSION_1_3
     VK_PIPELINE_COMPILE_REQUIRED = 1000297000,
   // Provided by VK_VERSION_1_4
@@ -3275,6 +3326,8 @@ typedef enum VkResult {
     VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR = -1000023005,
   // Provided by VK_EXT_image_drm_format_modifier
     VK_ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT = -1000158000,
+  // Provided by VK_EXT_present_timing
+    VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT = -1000208000,
   // Provided by VK_EXT_full_screen_exclusive
     VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT = -1000255000,
   // Provided by VK_KHR_deferred_host_operations
@@ -3316,7 +3369,7 @@ typedef enum VkResult {
   // Provided by VK_EXT_pipeline_creation_cache_control
     VK_ERROR_PIPELINE_COMPILE_REQUIRED_EXT = VK_PIPELINE_COMPILE_REQUIRED,
   // Provided by VK_EXT_shader_object
-  // VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT is a deprecated alias
+  // VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT is a legacy alias
     VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT = VK_INCOMPATIBLE_SHADER_BINARY_EXT,
 } VkResult;
 
@@ -3899,6 +3952,52 @@ typedef struct VkRect2D {
 * 
 `extent` is a [VkExtent2D](#VkExtent2D) specifying the rectangle extent.
 
+A strided device address range is defined by the structure:
+
+// Provided by VK_KHR_copy_memory_indirect
+typedef struct VkStridedDeviceAddressRangeKHR {
+    VkDeviceAddress    address;
+    VkDeviceSize       size;
+    VkDeviceSize       stride;
+} VkStridedDeviceAddressRangeKHR;
+
+* 
+`address` is a `VkDeviceAddress` specifying the start of the
+range.
+
+* 
+`size` is a `VkDeviceSize` specifying the size of the range.
+
+* 
+`stride` is a `VkDeviceSize` specifying the stride of
+elements over the range.
+
+Valid Usage
+
+* 
+[](#VUID-VkStridedDeviceAddressRangeKHR-size-11411) VUID-VkStridedDeviceAddressRangeKHR-size-11411
+
+If `size` is not 0, `address` **must** not be 0
+
+* 
+[](#VUID-VkStridedDeviceAddressRangeKHR-address-11365) VUID-VkStridedDeviceAddressRangeKHR-address-11365
+
+The sum of `address` and `size` **must** be less than or equal to
+the sum of an address retrieved from a [VkBuffer](resources.html#VkBuffer) and the value of
+[VkBufferCreateInfo](resources.html#VkBufferCreateInfo)::`size` used to create that [VkBuffer](resources.html#VkBuffer)
+
+* 
+[](#VUID-VkStridedDeviceAddressRangeKHR-stride-10957) VUID-VkStridedDeviceAddressRangeKHR-stride-10957
+
+`stride` **must** be less than or equal to `size`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkStridedDeviceAddressRangeKHR-address-parameter) VUID-VkStridedDeviceAddressRangeKHR-address-parameter
+
+ If `address` is not `0`, `address` **must** be a valid `VkDeviceAddress` value
+
 Each value corresponds to a particular structure with a `sType` member
 with a matching name.
 As a general rule, the name of each [VkStructureType](#VkStructureType) value is obtained
@@ -3969,21 +4068,15 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_LOADER_INSTANCE_CREATE_INFO = 47,
     VK_STRUCTURE_TYPE_LOADER_DEVICE_CREATE_INFO = 48,
   // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES = 1000094000,
-  // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_INFO = 1000157000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_INFO = 1000157001,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES = 1000083000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS = 1000127000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO = 1000127001,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_FLAGS_INFO = 1000060000,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_DEVICE_GROUP_RENDER_PASS_BEGIN_INFO = 1000060003,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO = 1000060004,
   // Provided by VK_VERSION_1_1
@@ -4027,21 +4120,7 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2 = 1000059008,
   // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES = 1000117000,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO = 1000117001,
-  // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO = 1000117002,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO = 1000117003,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_RENDER_PASS_MULTIVIEW_CREATE_INFO = 1000053000,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_FEATURES = 1000053001,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES = 1000053002,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES = 1000120000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PROTECTED_SUBMIT_INFO = 1000145000,
   // Provided by VK_VERSION_1_1
@@ -4050,20 +4129,6 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES = 1000145002,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_DEVICE_QUEUE_INFO_2 = 1000145003,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_CREATE_INFO = 1000156000,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_INFO = 1000156001,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_BIND_IMAGE_PLANE_MEMORY_INFO = 1000156002,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO = 1000156003,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES = 1000156004,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES = 1000156005,
-  // Provided by VK_VERSION_1_1
-    VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO = 1000085000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO = 1000071000,
   // Provided by VK_VERSION_1_1
@@ -4093,9 +4158,43 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_EXTERNAL_SEMAPHORE_PROPERTIES = 1000076001,
   // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES = 1000094000,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES = 1000083000,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES = 1000120000,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO = 1000085000,
+  // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES = 1000168000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_SUPPORT = 1000168001,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_CREATE_INFO = 1000156000,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_INFO = 1000156001,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_BIND_IMAGE_PLANE_MEMORY_INFO = 1000156002,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO = 1000156003,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES = 1000156004,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES = 1000156005,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_DEVICE_GROUP_RENDER_PASS_BEGIN_INFO = 1000060003,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES = 1000117000,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO = 1000117001,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO = 1000117003,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_RENDER_PASS_MULTIVIEW_CREATE_INFO = 1000053000,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_FEATURES = 1000053001,
+  // Provided by VK_VERSION_1_1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES = 1000053002,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES = 1000063000,
   // Provided by VK_VERSION_1_2
@@ -4109,71 +4208,9 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_2
     VK_STRUCTURE_TYPE_IMAGE_FORMAT_LIST_CREATE_INFO = 1000147000,
   // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2 = 1000109000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_2 = 1000109001,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2 = 1000109002,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_SUBPASS_DEPENDENCY_2 = 1000109003,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO_2 = 1000109004,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO = 1000109005,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_SUBPASS_END_INFO = 1000109006,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES = 1000177000,
-  // Provided by VK_VERSION_1_2
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRIVER_PROPERTIES = 1000196000,
   // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES = 1000180000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES = 1000082000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES = 1000197000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO = 1000161000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES = 1000161001,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES = 1000161002,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO = 1000161003,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT = 1000161004,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES = 1000199000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE = 1000199001,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES = 1000221000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO = 1000246000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES = 1000130000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO = 1000130001,
-  // Provided by VK_VERSION_1_2
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES = 1000211000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES = 1000108000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENTS_CREATE_INFO = 1000108001,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENT_IMAGE_INFO = 1000108002,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_RENDER_PASS_ATTACHMENT_BEGIN_INFO = 1000108003,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES = 1000253000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES = 1000175000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES = 1000241000,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_STENCIL_LAYOUT = 1000241001,
-  // Provided by VK_VERSION_1_2
-    VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT = 1000241002,
   // Provided by VK_VERSION_1_2
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES = 1000261000,
   // Provided by VK_VERSION_1_2
@@ -4198,26 +4235,80 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO = 1000257003,
   // Provided by VK_VERSION_1_2
     VK_STRUCTURE_TYPE_DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO = 1000257004,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES = 1000177000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES = 1000180000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES = 1000082000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES = 1000197000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO = 1000161000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES = 1000161001,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES = 1000161002,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO = 1000161003,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT = 1000161004,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES = 1000221000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES = 1000130000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO = 1000130001,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES = 1000253000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES = 1000175000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2 = 1000109000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_2 = 1000109001,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2 = 1000109002,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_SUBPASS_DEPENDENCY_2 = 1000109003,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO_2 = 1000109004,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO = 1000109005,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_SUBPASS_END_INFO = 1000109006,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES = 1000199000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE = 1000199001,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO = 1000246000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES = 1000108000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENTS_CREATE_INFO = 1000108001,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENT_IMAGE_INFO = 1000108002,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_RENDER_PASS_ATTACHMENT_BEGIN_INFO = 1000108003,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES = 1000241000,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_STENCIL_LAYOUT = 1000241001,
+  // Provided by VK_VERSION_1_2
+    VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT = 1000241002,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES = 53,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES = 54,
   // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PIPELINE_CREATION_FEEDBACK_CREATE_INFO = 1000192000,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES = 1000215000,
-  // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TOOL_PROPERTIES = 1000245000,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES = 1000276000,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES = 1000295000,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_DEVICE_PRIVATE_DATA_CREATE_INFO = 1000295001,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PRIVATE_DATA_SLOT_CREATE_INFO = 1000295002,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES = 1000297000,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_MEMORY_BARRIER_2 = 1000314000,
   // Provided by VK_VERSION_1_3
@@ -4235,10 +4326,6 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES = 1000314007,
   // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES = 1000325000,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES = 1000335000,
-  // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_COPY_BUFFER_INFO_2 = 1000337000,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_COPY_IMAGE_INFO_2 = 1000337001,
@@ -4247,19 +4334,35 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_COPY_IMAGE_TO_BUFFER_INFO_2 = 1000337003,
   // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_BLIT_IMAGE_INFO_2 = 1000337004,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2 = 1000337005,
-  // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_BUFFER_COPY_2 = 1000337006,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_IMAGE_COPY_2 = 1000337007,
   // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_IMAGE_BLIT_2 = 1000337008,
-  // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_BUFFER_IMAGE_COPY_2 = 1000337009,
   // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_IMAGE_RESOLVE_2 = 1000337010,
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES = 1000066000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_3 = 1000360000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES = 1000413000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES = 1000413001,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_DEVICE_BUFFER_MEMORY_REQUIREMENTS = 1000413002,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS = 1000413003,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PIPELINE_CREATION_FEEDBACK_CREATE_INFO = 1000192000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES = 1000215000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES = 1000276000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES = 1000297000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES = 1000325000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES = 1000335000,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES = 1000225000,
   // Provided by VK_VERSION_1_3
@@ -4275,7 +4378,19 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO = 1000138003,
   // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES = 1000066000,
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES = 1000280000,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES = 1000280001,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES = 1000281001,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_BLIT_IMAGE_INFO_2 = 1000337004,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2 = 1000337005,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_IMAGE_BLIT_2 = 1000337008,
+  // Provided by VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_IMAGE_RESOLVE_2 = 1000337010,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_RENDERING_INFO = 1000044000,
   // Provided by VK_VERSION_1_3
@@ -4286,22 +4401,6 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES = 1000044003,
   // Provided by VK_VERSION_1_3
     VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_RENDERING_INFO = 1000044004,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES = 1000280000,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES = 1000280001,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES = 1000281001,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_3 = 1000360000,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES = 1000413000,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES = 1000413001,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_DEVICE_BUFFER_MEMORY_REQUIREMENTS = 1000413002,
-  // Provided by VK_VERSION_1_3
-    VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS = 1000413003,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_4_FEATURES = 55,
   // Provided by VK_VERSION_1_4
@@ -4313,24 +4412,6 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES = 1000388001,
   // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES = 1000416000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES = 1000528000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES = 1000544000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES = 1000259000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO = 1000259001,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES = 1000259002,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES = 1000525000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO = 1000190001,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES = 1000190002,
-  // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES = 1000265000,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_MEMORY_MAP_INFO = 1000271000,
@@ -4341,47 +4422,19 @@ typedef enum VkStructureType {
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES = 1000470001,
   // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_RENDERING_AREA_INFO = 1000470003,
-  // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_DEVICE_IMAGE_SUBRESOURCE_INFO = 1000470004,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_SUBRESOURCE_LAYOUT_2 = 1000338002,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2 = 1000338003,
   // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO = 1000470005,
-  // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_BUFFER_USAGE_FLAGS_2_CREATE_INFO = 1000470006,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES = 1000080000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES = 1000232000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_LOCATION_INFO = 1000232001,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_RENDERING_INPUT_ATTACHMENT_INDEX_INFO = 1000232002,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES = 1000545000,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES = 1000545001,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_BIND_MEMORY_STATUS = 1000545002,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_SETS_INFO = 1000545003,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PUSH_CONSTANTS_INFO = 1000545004,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO = 1000545005,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO = 1000545006,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES = 1000466000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PIPELINE_ROBUSTNESS_CREATE_INFO = 1000068000,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES = 1000068001,
-  // Provided by VK_VERSION_1_4
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES = 1000068002,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES = 1000270000,
   // Provided by VK_VERSION_1_4
@@ -4402,6 +4455,52 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_SUBRESOURCE_HOST_MEMCPY_SIZE = 1000270008,
   // Provided by VK_VERSION_1_4
     VK_STRUCTURE_TYPE_HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY = 1000270009,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES = 1000416000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES = 1000528000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES = 1000544000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO = 1000470005,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES = 1000080000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_SETS_INFO = 1000545003,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PUSH_CONSTANTS_INFO = 1000545004,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO = 1000545005,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO = 1000545006,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES = 1000466000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PIPELINE_ROBUSTNESS_CREATE_INFO = 1000068000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES = 1000068001,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES = 1000068002,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES = 1000259000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO = 1000259001,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES = 1000259002,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES = 1000525000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO = 1000190001,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES = 1000190002,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_RENDERING_AREA_INFO = 1000470003,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES = 1000232000,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_LOCATION_INFO = 1000232001,
+  // Provided by VK_VERSION_1_4
+    VK_STRUCTURE_TYPE_RENDERING_INPUT_ATTACHMENT_INDEX_INFO = 1000232002,
   // Provided by VK_KHR_swapchain
     VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR = 1000001000,
   // Provided by VK_KHR_swapchain
@@ -4942,6 +5041,26 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV = 1000314008,
   // Provided by VK_NV_device_diagnostic_checkpoints with VK_VERSION_1_3 or VK_KHR_synchronization2
     VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV = 1000314009,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT = 1000208000,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_SWAPCHAIN_TIMING_PROPERTIES_EXT = 1000208001,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT = 1000208002,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PRESENT_TIMINGS_INFO_EXT = 1000208003,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PRESENT_TIMING_INFO_EXT = 1000208004,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_INFO_EXT = 1000208005,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_PROPERTIES_EXT = 1000208006,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_EXT = 1000208007,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_PRESENT_TIMING_SURFACE_CAPABILITIES_EXT = 1000208008,
+  // Provided by VK_EXT_present_timing
+    VK_STRUCTURE_TYPE_SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT = 1000208009,
   // Provided by VK_INTEL_shader_integer_functions2
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL = 1000209000,
   // Provided by VK_INTEL_performance_query
@@ -5380,6 +5499,14 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR = 1000386000,
   // Provided by VK_KHR_shader_untyped_pointers
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR = 1000387000,
+  // Provided by VK_VALVE_video_encode_rgb_conversion
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE = 1000390000,
+  // Provided by VK_VALVE_video_encode_rgb_conversion
+    VK_STRUCTURE_TYPE_VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE = 1000390001,
+  // Provided by VK_VALVE_video_encode_rgb_conversion
+    VK_STRUCTURE_TYPE_VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE = 1000390002,
+  // Provided by VK_VALVE_video_encode_rgb_conversion
+    VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE = 1000390003,
   // Provided by VK_EXT_image_view_min_lod
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT = 1000391000,
   // Provided by VK_EXT_image_view_min_lod
@@ -5470,12 +5597,6 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_RENDER_PASS_STRIPE_SUBMIT_INFO_ARM = 1000424004,
   // Provided by VK_NV_copy_memory_indirect
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV = 1000426000,
-  // Provided by VK_NV_copy_memory_indirect
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV = 1000426001,
-  // Provided by VK_NV_memory_decompression
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_NV = 1000427000,
-  // Provided by VK_NV_memory_decompression
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_NV = 1000427001,
   // Provided by VK_NV_device_generated_commands_compute
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV = 1000428000,
   // Provided by VK_NV_device_generated_commands_compute
@@ -5504,6 +5625,18 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT = 1000451000,
   // Provided by VK_EXT_nested_command_buffer
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT = 1000451001,
+  // Provided by VK_OHOS_external_memory
+    VK_STRUCTURE_TYPE_NATIVE_BUFFER_USAGE_OHOS = 1000452000,
+  // Provided by VK_OHOS_external_memory
+    VK_STRUCTURE_TYPE_NATIVE_BUFFER_PROPERTIES_OHOS = 1000452001,
+  // Provided by VK_OHOS_external_memory
+    VK_STRUCTURE_TYPE_NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS = 1000452002,
+  // Provided by VK_OHOS_external_memory
+    VK_STRUCTURE_TYPE_IMPORT_NATIVE_BUFFER_INFO_OHOS = 1000452003,
+  // Provided by VK_OHOS_external_memory
+    VK_STRUCTURE_TYPE_MEMORY_GET_NATIVE_BUFFER_INFO_OHOS = 1000452004,
+  // Provided by VK_OHOS_external_memory
+    VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_OHOS = 1000452005,
   // Provided by VK_EXT_external_memory_acquire_unmodified
     VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT = 1000453000,
   // Provided by VK_EXT_extended_dynamic_state3
@@ -5890,6 +6023,20 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_TILE_MEMORY_BIND_INFO_QCOM = 1000547003,
   // Provided by VK_QCOM_tile_memory_heap with VK_QCOM_tile_properties
     VK_STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM = 1000547004,
+  // Provided by VK_KHR_copy_memory_indirect
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR = 1000549000,
+  // Provided by VK_KHR_copy_memory_indirect
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR = 1000426001,
+  // Provided by VK_KHR_copy_memory_indirect
+    VK_STRUCTURE_TYPE_COPY_MEMORY_INDIRECT_INFO_KHR = 1000549002,
+  // Provided by VK_KHR_copy_memory_indirect
+    VK_STRUCTURE_TYPE_COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR = 1000549003,
+  // Provided by VK_EXT_memory_decompression
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT = 1000427000,
+  // Provided by VK_EXT_memory_decompression
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT = 1000427001,
+  // Provided by VK_EXT_memory_decompression
+    VK_STRUCTURE_TYPE_DECOMPRESS_MEMORY_INFO_EXT = 1000550002,
   // Provided by VK_NV_display_stereo
     VK_STRUCTURE_TYPE_DISPLAY_SURFACE_STEREO_CREATE_INFO_NV = 1000551000,
   // Provided by VK_NV_display_stereo
@@ -6022,6 +6169,12 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA = 1000575001,
   // Provided by VK_MESA_image_alignment_control
     VK_STRUCTURE_TYPE_IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA = 1000575002,
+  // Provided by VK_KHR_shader_fma
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR = 1000579000,
+  // Provided by VK_EXT_ray_tracing_invocation_reorder
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT = 1000581000,
+  // Provided by VK_EXT_ray_tracing_invocation_reorder
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT = 1000581001,
   // Provided by VK_EXT_depth_clamp_control
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT = 1000582000,
   // Provided by VK_EXT_depth_clamp_control
@@ -6042,6 +6195,12 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR = 1000586003,
   // Provided by VK_OHOS_surface
     VK_STRUCTURE_TYPE_SURFACE_CREATE_INFO_OHOS = 1000685000,
+  // Provided by VK_OHOS_native_buffer
+    VK_STRUCTURE_TYPE_NATIVE_BUFFER_OHOS = 1000453001,
+  // Provided by VK_OHOS_native_buffer
+    VK_STRUCTURE_TYPE_SWAPCHAIN_IMAGE_CREATE_INFO_OHOS = 1000453002,
+  // Provided by VK_OHOS_native_buffer
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENTATION_PROPERTIES_OHOS = 1000453003,
   // Provided by VK_HUAWEI_hdr_vivid
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI = 1000590000,
   // Provided by VK_HUAWEI_hdr_vivid
@@ -6062,6 +6221,16 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_MEMORY_GET_METAL_HANDLE_INFO_EXT = 1000602002,
   // Provided by VK_KHR_depth_clamp_zero_one
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR = 1000421000,
+  // Provided by VK_ARM_performance_counters_by_region
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM = 1000605000,
+  // Provided by VK_ARM_performance_counters_by_region
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM = 1000605001,
+  // Provided by VK_ARM_performance_counters_by_region
+    VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_ARM = 1000605002,
+  // Provided by VK_ARM_performance_counters_by_region
+    VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_DESCRIPTION_ARM = 1000605003,
+  // Provided by VK_ARM_performance_counters_by_region
+    VK_STRUCTURE_TYPE_RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM = 1000605004,
   // Provided by VK_EXT_vertex_attribute_robustness
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT = 1000608000,
   // Provided by VK_ARM_format_pack
@@ -6090,20 +6259,42 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT = 1000425001,
   // Provided by VK_EXT_fragment_density_map_offset
     VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT = 1000425002,
-  // Provided by VK_EXT_fragment_density_map_offset
-    VK_STRUCTURE_TYPE_RENDERING_END_INFO_EXT = 1000619003,
   // Provided by VK_EXT_zero_initialize_device_memory
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT = 1000620000,
   // Provided by VK_KHR_present_mode_fifo_latest_ready
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR = 1000361000,
+  // Provided by VK_EXT_shader_64bit_indexing
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT = 1000627000,
+  // Provided by VK_EXT_custom_resolve
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT = 1000628000,
+  // Provided by VK_EXT_custom_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_BEGIN_CUSTOM_RESOLVE_INFO_EXT = 1000628001,
+  // Provided by VK_EXT_custom_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
+    VK_STRUCTURE_TYPE_CUSTOM_RESOLVE_CREATE_INFO_EXT = 1000628002,
+  // Provided by VK_QCOM_data_graph_model
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM = 1000629000,
+  // Provided by VK_QCOM_data_graph_model
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM = 1000629001,
+  // Provided by VK_KHR_maintenance10
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR = 1000630000,
+  // Provided by VK_KHR_maintenance10
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR = 1000630001,
+  // Provided by VK_KHR_maintenance10
+    VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_FLAGS_INFO_KHR = 1000630002,
+  // Provided by VK_KHR_maintenance10
+    VK_STRUCTURE_TYPE_RENDERING_END_INFO_KHR = 1000619003,
+  // Provided by VK_KHR_maintenance10
+    VK_STRUCTURE_TYPE_RESOLVE_IMAGE_MODE_INFO_KHR = 1000630004,
   // Provided by VK_SEC_pipeline_cache_incremental_mode
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC = 1000637000,
+  // Provided by VK_EXT_shader_uniform_buffer_unsized_array
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT = 1000642000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTER_FEATURES = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DRAW_PARAMETER_FEATURES = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES,
   // Provided by VK_EXT_debug_report
-  // VK_STRUCTURE_TYPE_DEBUG_REPORT_CREATE_INFO_EXT is a deprecated alias
+  // VK_STRUCTURE_TYPE_DEBUG_REPORT_CREATE_INFO_EXT is a legacy alias
     VK_STRUCTURE_TYPE_DEBUG_REPORT_CREATE_INFO_EXT = VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT,
   // Provided by VK_KHR_dynamic_rendering
     VK_STRUCTURE_TYPE_RENDERING_INFO_KHR = VK_STRUCTURE_TYPE_RENDERING_INFO,
@@ -6198,7 +6389,7 @@ typedef enum VkStructureType {
   // Provided by VK_KHR_descriptor_update_template
     VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO_KHR = VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO,
   // Provided by VK_EXT_display_surface_counter
-  // VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES2_EXT is a deprecated alias
+  // VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES2_EXT is a legacy alias
     VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES2_EXT = VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_EXT,
   // Provided by VK_KHR_imageless_framebuffer
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES_KHR = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES,
@@ -6347,7 +6538,7 @@ typedef enum VkStructureType {
   // Provided by VK_KHR_timeline_semaphore
     VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO_KHR = VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO,
   // Provided by VK_INTEL_performance_query
-  // VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO_INTEL is a deprecated alias
+  // VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO_INTEL is a legacy alias
     VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO_INTEL = VK_STRUCTURE_TYPE_QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL,
   // Provided by VK_KHR_vulkan_memory_model
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES_KHR = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES,
@@ -6545,6 +6736,12 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_QCOM = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT,
   // Provided by VK_QCOM_fragment_density_map_offset
     VK_STRUCTURE_TYPE_SUBPASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_QCOM = VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT,
+  // Provided by VK_NV_copy_memory_indirect
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR,
+  // Provided by VK_NV_memory_decompression
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_NV = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT,
+  // Provided by VK_NV_memory_decompression
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_NV = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT,
   // Provided by VK_EXT_pipeline_protected_access
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES_EXT = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES,
   // Provided by VK_KHR_maintenance5
@@ -6597,6 +6794,8 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO_KHR = VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO,
   // Provided by VK_KHR_maintenance6 with VK_KHR_push_descriptor
     VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO_KHR = VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO,
+  // Provided by VK_EXT_fragment_density_map_offset
+    VK_STRUCTURE_TYPE_RENDERING_END_INFO_EXT = VK_STRUCTURE_TYPE_RENDERING_END_INFO_KHR,
 } VkStructureType;
 
 A small number of APIs did not follow the [naming conventions](introduction.html#vulkan-styleguide) when initially defined.
@@ -6604,7 +6803,7 @@ For consistency, when we discover an API name that violates the naming
 conventions, we rename it in the Specification, XML, and header files.
 For backwards compatibility, the original (incorrect) name is retained as a
 “typo alias”.
-The alias is deprecated and should not be used, but will be retained
+The alias is legacy and should not be used, but will be retained
 indefinitely.
 
 |  | `VK_STENCIL_FRONT_AND_BACK` is an example of a *typo alias*.

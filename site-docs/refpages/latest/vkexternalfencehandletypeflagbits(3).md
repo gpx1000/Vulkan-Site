@@ -47,9 +47,8 @@ typedef enum VkExternalFenceHandleTypeFlagBits {
     VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT_KHR = VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT,
 } VkExternalFenceHandleTypeFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkExternalFenceHandleTypeFlagBits
 typedef VkExternalFenceHandleTypeFlagBits VkExternalFenceHandleTypeFlagBitsKHR;
 
 * 
@@ -104,7 +103,7 @@ following table:
 | `VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT` | Must match | Must match |
 | `VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT` | No restriction | No restriction |
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalFenceHandleTypeFlags](VkExternalFenceHandleTypeFlags.html), [VkFenceGetFdInfoKHR](VkFenceGetFdInfoKHR.html), [VkFenceGetWin32HandleInfoKHR](VkFenceGetWin32HandleInfoKHR.html), [VkImportFenceFdInfoKHR](VkImportFenceFdInfoKHR.html), [VkImportFenceWin32HandleInfoKHR](VkImportFenceWin32HandleInfoKHR.html), [VkPhysicalDeviceExternalFenceInfo](VkPhysicalDeviceExternalFenceInfo.html)
+[VK_KHR_external_fence_capabilities](VK_KHR_external_fence_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalFenceHandleTypeFlags](VkExternalFenceHandleTypeFlags.html), [VkFenceGetFdInfoKHR](VkFenceGetFdInfoKHR.html), [VkFenceGetWin32HandleInfoKHR](VkFenceGetWin32HandleInfoKHR.html), [VkImportFenceFdInfoKHR](VkImportFenceFdInfoKHR.html), [VkImportFenceWin32HandleInfoKHR](VkImportFenceWin32HandleInfoKHR.html), [VkPhysicalDeviceExternalFenceInfo](VkPhysicalDeviceExternalFenceInfo.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkExternalFenceHandleTypeFlagBits).
 

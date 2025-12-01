@@ -39,9 +39,8 @@ typedef enum VkGeometryTypeKHR {
     VK_GEOMETRY_TYPE_AABBS_NV = VK_GEOMETRY_TYPE_AABBS_KHR,
 } VkGeometryTypeKHR;
 
-or the equivalent
-
 // Provided by VK_NV_ray_tracing
+// Equivalent to VkGeometryTypeKHR
 typedef VkGeometryTypeKHR VkGeometryTypeNV;
 
 * 

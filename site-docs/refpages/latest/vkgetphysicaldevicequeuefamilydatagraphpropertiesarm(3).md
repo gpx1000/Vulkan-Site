@@ -57,6 +57,11 @@ structures will be written, and `VK_INCOMPLETE` will be returned instead
 of `VK_SUCCESS`, to indicate that not all the available properties were
 returned.
 
+If the [dataGraphModel](../../../../spec/latest/chapters/features.html#features-dataGraphModelQCOM) feature is supported,
+the implementation **must** return at least one property with engine type
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_NEURAL_QCOM` or
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_COMPUTE_QCOM`.
+
 Valid Usage (Implicit)
 
 * 

@@ -29,9 +29,8 @@ void vkGetPhysicalDeviceExternalSemaphoreProperties(
     const VkPhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfo,
     VkExternalSemaphoreProperties*              pExternalSemaphoreProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to vkGetPhysicalDeviceExternalSemaphoreProperties
 void vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfo,
@@ -68,7 +67,7 @@ Valid Usage (Implicit)
 
  `pExternalSemaphoreProperties` **must** be a valid pointer to a [VkExternalSemaphoreProperties](VkExternalSemaphoreProperties.html) structure
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalSemaphoreProperties](VkExternalSemaphoreProperties.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceExternalSemaphoreInfo](VkPhysicalDeviceExternalSemaphoreInfo.html)
+[VK_KHR_external_semaphore_capabilities](VK_KHR_external_semaphore_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalSemaphoreProperties](VkExternalSemaphoreProperties.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceExternalSemaphoreInfo](VkPhysicalDeviceExternalSemaphoreInfo.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#vkGetPhysicalDeviceExternalSemaphoreProperties).
 

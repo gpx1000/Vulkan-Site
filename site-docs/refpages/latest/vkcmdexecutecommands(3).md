@@ -98,15 +98,15 @@ Each element of `pCommandBuffers` **must** have been allocated from a
 * 
 [](#VUID-vkCmdExecuteCommands-pCommandBuffers-00096) VUID-vkCmdExecuteCommands-pCommandBuffers-00096
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance, each element of `pCommandBuffers` **must** have been recorded
-with the `VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT`
+If this command is called within a render pass instance, each element of
+`pCommandBuffers` **must** have been recorded with the
+`VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT`
 
 * 
 [](#VUID-vkCmdExecuteCommands-pCommandBuffers-00099) VUID-vkCmdExecuteCommands-pCommandBuffers-00099
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance, and any element of `pCommandBuffers` was recorded with
+If this command is called within a render pass instance, and any element
+of `pCommandBuffers` was recorded with
 [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html)::`framebuffer` not equal to
 [VK_NULL_HANDLE](VK_NULL_HANDLE.html), that `VkFramebuffer` **must** match the
 `VkFramebuffer` used in the current render pass instance
@@ -114,70 +114,69 @@ instance, and any element of `pCommandBuffers` was recorded with
 * 
 [](#VUID-vkCmdExecuteCommands-contents-09680) VUID-vkCmdExecuteCommands-contents-09680
 
-    If `vkCmdExecuteCommands` is being called within a render pass
-    instance begun with [vkCmdBeginRenderPass](vkCmdBeginRenderPass.html), and
-    [vkCmdNextSubpass](vkCmdNextSubpass.html) has not been called in the current render pass
-    instance, the `contents` parameter of [vkCmdBeginRenderPass](vkCmdBeginRenderPass.html)
-    **must** have been `VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS`
+    If this command is called within a render pass instance begun with
+    [vkCmdBeginRenderPass](vkCmdBeginRenderPass.html), and [vkCmdNextSubpass](vkCmdNextSubpass.html) has not been
+    called in the current render pass instance, the `contents` parameter
+    of [vkCmdBeginRenderPass](vkCmdBeginRenderPass.html) **must** have been
+    `VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS`
 , or `VK_SUBPASS_CONTENTS_INLINE_AND_SECONDARY_COMMAND_BUFFERS_EXT`
 
 * 
 [](#VUID-vkCmdExecuteCommands-None-09681) VUID-vkCmdExecuteCommands-None-09681
 
-    If `vkCmdExecuteCommands` is being called within a render pass
-    instance begun with [vkCmdBeginRenderPass](vkCmdBeginRenderPass.html), and
-    [vkCmdNextSubpass](vkCmdNextSubpass.html) has been called in the current render pass
-    instance, the `contents` parameter of the last call to
-    [vkCmdNextSubpass](vkCmdNextSubpass.html) **must** have been
+    If this command is called within a render pass instance begun with
+    [vkCmdBeginRenderPass](vkCmdBeginRenderPass.html), and [vkCmdNextSubpass](vkCmdNextSubpass.html) has been called
+    in the current render pass instance, the `contents` parameter of the
+    last call to [vkCmdNextSubpass](vkCmdNextSubpass.html) **must** have been
     `VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS`
 , or `VK_SUBPASS_CONTENTS_INLINE_AND_SECONDARY_COMMAND_BUFFERS_KHR`
 
 * 
 [](#VUID-vkCmdExecuteCommands-pCommandBuffers-06019) VUID-vkCmdExecuteCommands-pCommandBuffers-06019
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRenderPass](vkCmdBeginRenderPass.html), each element of
-`pCommandBuffers` **must** have been recorded with
+If this command is called within a render pass instance begun with
+[vkCmdBeginRenderPass](vkCmdBeginRenderPass.html), each element of `pCommandBuffers` **must**
+have been recorded with
 [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html)::`subpass` set to the index of
 the subpass which the given command buffer will be executed in
 
 * 
 [](#VUID-vkCmdExecuteCommands-pBeginInfo-06020) VUID-vkCmdExecuteCommands-pBeginInfo-06020
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRenderPass](vkCmdBeginRenderPass.html), the render passes
-specified in the `pBeginInfo->pInheritanceInfo→renderPass` members
-of the [vkBeginCommandBuffer](vkBeginCommandBuffer.html) commands used to begin recording each
-element of `pCommandBuffers` **must** be
+If this command is called within a render pass instance begun with
+[vkCmdBeginRenderPass](vkCmdBeginRenderPass.html), the render passes specified in the
+`pBeginInfo->pInheritanceInfo→renderPass` members of the
+[vkBeginCommandBuffer](vkBeginCommandBuffer.html) commands used to begin recording each element
+of `pCommandBuffers` **must** be
 [compatible](../../../../spec/latest/chapters/renderpass.html#renderpass-compatibility) with the current render pass
 
 * 
 [](#VUID-vkCmdExecuteCommands-pNext-02865) VUID-vkCmdExecuteCommands-pNext-02865
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance that included [VkRenderPassTransformBeginInfoQCOM](VkRenderPassTransformBeginInfoQCOM.html) in the
-`pNext` chain of [VkRenderPassBeginInfo](VkRenderPassBeginInfo.html), then each element of
-`pCommandBuffers` **must** have been recorded with
+If this command is called within a render pass instance that included
+[VkRenderPassTransformBeginInfoQCOM](VkRenderPassTransformBeginInfoQCOM.html) in the `pNext` chain of
+[VkRenderPassBeginInfo](VkRenderPassBeginInfo.html), then each element of `pCommandBuffers`
+**must** have been recorded with
 [VkCommandBufferInheritanceRenderPassTransformInfoQCOM](VkCommandBufferInheritanceRenderPassTransformInfoQCOM.html) in the
 `pNext` chain of [VkCommandBufferBeginInfo](VkCommandBufferBeginInfo.html)
 
 * 
 [](#VUID-vkCmdExecuteCommands-pNext-02866) VUID-vkCmdExecuteCommands-pNext-02866
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance that included [VkRenderPassTransformBeginInfoQCOM](VkRenderPassTransformBeginInfoQCOM.html) in the
-`pNext` chain of [VkRenderPassBeginInfo](VkRenderPassBeginInfo.html), then each element of
-`pCommandBuffers` **must** have been recorded with
+If this command is called within a render pass instance that included
+[VkRenderPassTransformBeginInfoQCOM](VkRenderPassTransformBeginInfoQCOM.html) in the `pNext` chain of
+[VkRenderPassBeginInfo](VkRenderPassBeginInfo.html), then each element of `pCommandBuffers`
+**must** have been recorded with
 [VkCommandBufferInheritanceRenderPassTransformInfoQCOM](VkCommandBufferInheritanceRenderPassTransformInfoQCOM.html)::`transform`
 identical to [VkRenderPassTransformBeginInfoQCOM](VkRenderPassTransformBeginInfoQCOM.html)::`transform`
 
 * 
 [](#VUID-vkCmdExecuteCommands-pNext-02867) VUID-vkCmdExecuteCommands-pNext-02867
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance that included [VkRenderPassTransformBeginInfoQCOM](VkRenderPassTransformBeginInfoQCOM.html) in the
-`pNext` chain of [VkRenderPassBeginInfo](VkRenderPassBeginInfo.html), then each element of
-`pCommandBuffers` **must** have been recorded with
+If this command is called within a render pass instance that included
+[VkRenderPassTransformBeginInfoQCOM](VkRenderPassTransformBeginInfoQCOM.html) in the `pNext` chain of
+[VkRenderPassBeginInfo](VkRenderPassBeginInfo.html), then each element of `pCommandBuffers`
+**must** have been recorded with
 [VkCommandBufferInheritanceRenderPassTransformInfoQCOM](VkCommandBufferInheritanceRenderPassTransformInfoQCOM.html)::`renderArea`
 identical to [VkRenderPassBeginInfo](VkRenderPassBeginInfo.html)::`renderArea`
 
@@ -260,41 +259,38 @@ This command **must** not be recorded when transform feedback is active
 * 
 [](#VUID-vkCmdExecuteCommands-commandBuffer-06533) VUID-vkCmdExecuteCommands-commandBuffer-06533
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance and any recorded command in `commandBuffer` in the current
-subpass will write to an image subresource as an attachment, commands
-recorded in elements of `pCommandBuffers` **must** not read from the
-memory backing that image subresource in any other way
+If this command is called within a render pass instance and any recorded
+command in `commandBuffer` in the current subpass will write to an
+image subresource as an attachment, commands recorded in elements of
+`pCommandBuffers` **must** not read from the memory backing that image
+subresource in any other way
 
 * 
 [](#VUID-vkCmdExecuteCommands-commandBuffer-06534) VUID-vkCmdExecuteCommands-commandBuffer-06534
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance and any recorded command in `commandBuffer` in the current
-subpass will read from an image subresource used as an attachment in any
-way other than as an attachment, commands recorded in elements of
-`pCommandBuffers` **must** not write to that image subresource as an
-attachment
+If this command is called within a render pass instance and any recorded
+command in `commandBuffer` in the current subpass will read from an
+image subresource used as an attachment in any way other than as an
+attachment, commands recorded in elements of `pCommandBuffers` **must**
+not write to that image subresource as an attachment
 
 * 
 [](#VUID-vkCmdExecuteCommands-pCommandBuffers-06535) VUID-vkCmdExecuteCommands-pCommandBuffers-06535
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance and any recorded command in a given element of
-`pCommandBuffers` will write to an image subresource as an
-attachment, commands recorded in elements of `pCommandBuffers` at a
-higher index **must** not read from the memory backing that image
-subresource in any other way
+If this command is called within a render pass instance and any recorded
+command in a given element of `pCommandBuffers` will write to an
+image subresource as an attachment, commands recorded in elements of
+`pCommandBuffers` at a higher index **must** not read from the memory
+backing that image subresource in any other way
 
 * 
 [](#VUID-vkCmdExecuteCommands-pCommandBuffers-06536) VUID-vkCmdExecuteCommands-pCommandBuffers-06536
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance and any recorded command in a given element of
-`pCommandBuffers` will read from an image subresource used as an
-attachment in any way other than as an attachment, commands recorded in
-elements of `pCommandBuffers` at a higher index **must** not write to
-that image subresource as an attachment
+If this command is called within a render pass instance and any recorded
+command in a given element of `pCommandBuffers` will read from an
+image subresource used as an attachment in any way other than as an
+attachment, commands recorded in elements of `pCommandBuffers` at a
+higher index **must** not write to that image subresource as an attachment
 
 * 
 [](#VUID-vkCmdExecuteCommands-pCommandBuffers-06021) VUID-vkCmdExecuteCommands-pCommandBuffers-06021
@@ -323,27 +319,27 @@ locations
 * 
 [](#VUID-vkCmdExecuteCommands-flags-06024) VUID-vkCmdExecuteCommands-flags-06024
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html), its
-[VkRenderingInfo](VkRenderingInfo.html)::`flags` parameter **must** have included
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), its [VkRenderingInfo](VkRenderingInfo.html)::`flags`
+parameter **must** have included
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT`
 
 * 
 [](#VUID-vkCmdExecuteCommands-pBeginInfo-06025) VUID-vkCmdExecuteCommands-pBeginInfo-06025
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html), the render passes
-specified in the `pBeginInfo->pInheritanceInfo→renderPass` members
-of the [vkBeginCommandBuffer](vkBeginCommandBuffer.html) commands used to begin recording each
-element of `pCommandBuffers` **must** be [VK_NULL_HANDLE](VK_NULL_HANDLE.html)
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), the render passes specified in the
+`pBeginInfo->pInheritanceInfo→renderPass` members of the
+[vkBeginCommandBuffer](vkBeginCommandBuffer.html) commands used to begin recording each element
+of `pCommandBuffers` **must** be [VK_NULL_HANDLE](VK_NULL_HANDLE.html)
 
 * 
 [](#VUID-vkCmdExecuteCommands-flags-06026) VUID-vkCmdExecuteCommands-flags-06026
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html), the `flags` member of
-the [VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html) structure included in
-the `pNext` chain of
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), the `flags` member of the
+[VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html) structure included in the
+`pNext` chain of
 [VkCommandBufferBeginInfo](VkCommandBufferBeginInfo.html)::`pInheritanceInfo` used to begin
 recording each element of `pCommandBuffers` **must** be equal to the
 [VkRenderingInfo](VkRenderingInfo.html)::`flags` parameter to
@@ -353,9 +349,8 @@ recording each element of `pCommandBuffers` **must** be equal to the
 * 
 [](#VUID-vkCmdExecuteCommands-colorAttachmentCount-06027) VUID-vkCmdExecuteCommands-colorAttachmentCount-06027
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html), the
-`colorAttachmentCount` member of the
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), the `colorAttachmentCount` member of the
 [VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html) structure included in the
 `pNext` chain of
 [VkCommandBufferBeginInfo](VkCommandBufferBeginInfo.html)::`pInheritanceInfo` used to begin
@@ -366,10 +361,9 @@ recording each element of `pCommandBuffers` **must** be equal to the
 * 
 [](#VUID-vkCmdExecuteCommands-imageView-06028) VUID-vkCmdExecuteCommands-imageView-06028
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html), if the `imageView`
-member of an element of the
-[VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments` parameter to
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), if the `imageView` member of an element
+of the [VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments` parameter to
 [vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the corresponding
 element of the `pColorAttachmentFormats` member of the
 [VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html) structure included in the
@@ -381,10 +375,9 @@ format used to create that image view
 * 
 [](#VUID-vkCmdExecuteCommands-imageView-07606) VUID-vkCmdExecuteCommands-imageView-07606
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html), if the `imageView`
-member of an element of the
-[VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments` parameter to
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), if the `imageView` member of an element
+of the [VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments` parameter to
 [vkCmdBeginRendering](vkCmdBeginRendering.html) is [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the corresponding
 element of the `pColorAttachmentFormats` member of the
 [VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html) structure included in the
@@ -396,8 +389,8 @@ recording each element of `pCommandBuffers` **must** be
 * 
 [](#VUID-vkCmdExecuteCommands-pDepthAttachment-06029) VUID-vkCmdExecuteCommands-pDepthAttachment-06029
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html), if the
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), if the
 [VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->imageView` parameter to
 [vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of the
 `depthAttachmentFormat` member of the
@@ -410,8 +403,8 @@ format used to create that image view
 * 
 [](#VUID-vkCmdExecuteCommands-pStencilAttachment-06030) VUID-vkCmdExecuteCommands-pStencilAttachment-06030
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html), if the
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), if the
 [VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->imageView` parameter to
 [vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of the
 `stencilAttachmentFormat` member of the
@@ -424,8 +417,8 @@ format used to create that image view
 * 
 [](#VUID-vkCmdExecuteCommands-pDepthAttachment-06774) VUID-vkCmdExecuteCommands-pDepthAttachment-06774
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html) and the
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) and the
 [VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->imageView` parameter to
 [vkCmdBeginRendering](vkCmdBeginRendering.html) was [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of the
 `depthAttachmentFormat` member of the
@@ -438,8 +431,8 @@ recording each element of `pCommandBuffers` **must** be
 * 
 [](#VUID-vkCmdExecuteCommands-pStencilAttachment-06775) VUID-vkCmdExecuteCommands-pStencilAttachment-06775
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html) and the
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) and the
 [VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->imageView` parameter to
 [vkCmdBeginRendering](vkCmdBeginRendering.html) was [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of the
 `stencilAttachmentFormat` member of the
@@ -450,12 +443,180 @@ recording each element of `pCommandBuffers` **must** be
 `VK_FORMAT_UNDEFINED`
 
 * 
+[](#VUID-vkCmdExecuteCommands-pCommandBuffers-11500) VUID-vkCmdExecuteCommands-pCommandBuffers-11500
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) and contains a custom resolve, then each
+element of `pCommandBuffers` **must** have been recorded with a
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) struct chained to its
+[VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html)
+
+* 
+[](#VUID-vkCmdExecuteCommands-pCommandBuffers-11501) VUID-vkCmdExecuteCommands-pCommandBuffers-11501
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) and does not contain a custom resolve, then
+each element of `pCommandBuffers` **must** not have been recorded with
+a [VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) struct chained to its
+[VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html)
+
+* 
+[](#VUID-vkCmdExecuteCommands-pCommandBuffers-11502) VUID-vkCmdExecuteCommands-pCommandBuffers-11502
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) and [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has been
+recorded in the render pass instance, then each element of
+`pCommandBuffers` **must** have been recorded with
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` as `VK_TRUE`
+
+* 
+[](#VUID-vkCmdExecuteCommands-pCommandBuffers-11503) VUID-vkCmdExecuteCommands-pCommandBuffers-11503
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has not been recorded in the render
+pass instance, then each element of `pCommandBuffers` **must** have
+been recorded with
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` as
+`VK_FALSE`
+
+* 
+[](#VUID-vkCmdExecuteCommands-colorAttachmentCount-11532) VUID-vkCmdExecuteCommands-colorAttachmentCount-11532
+
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) that contains a custom resolve, the
+`colorAttachmentCount` member of the
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) structure included in the `pNext`
+chain of [VkCommandBufferBeginInfo](VkCommandBufferBeginInfo.html)::`pInheritanceInfo` used to
+begin recording each element of `pCommandBuffers` **must** be equal to
+the [VkRenderingInfo](VkRenderingInfo.html)::`colorAttachmentCount` parameter to
+[vkCmdBeginRendering](vkCmdBeginRendering.html)
+
+* 
+[](#VUID-vkCmdExecuteCommands-resolveImageView-11533) VUID-vkCmdExecuteCommands-resolveImageView-11533
+
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) that contains a custom resolve, if the
+`resolveImageView` member of an element of the
+[VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments` parameter to
+[vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the corresponding
+element of the `pColorAttachmentFormats` member of the
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) structure included in the `pNext`
+chain of [VkCommandBufferBeginInfo](VkCommandBufferBeginInfo.html)::`pInheritanceInfo` used to
+begin recording each element of `pCommandBuffers` **must** be equal to
+the format used to create that image view
+
+* 
+[](#VUID-vkCmdExecuteCommands-resolveImageView-11534) VUID-vkCmdExecuteCommands-resolveImageView-11534
+
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) that contains a custom resolve, if the
+`resolveImageView` member of an element of the
+[VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments` parameter to
+[vkCmdBeginRendering](vkCmdBeginRendering.html) is [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the corresponding
+element of the `pColorAttachmentFormats` member of the
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) structure included in the `pNext`
+chain of [VkCommandBufferBeginInfo](VkCommandBufferBeginInfo.html)::`pInheritanceInfo` used to
+begin recording each element of `pCommandBuffers` **must** be
+`VK_FORMAT_UNDEFINED`
+
+* 
+[](#VUID-vkCmdExecuteCommands-pDepthAttachment-11535) VUID-vkCmdExecuteCommands-pDepthAttachment-11535
+
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), if the
+[VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->imageView` parameter to
+[vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of the
+`depthAttachmentFormat` member of the
+[VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html) structure included in the
+`pNext` chain of
+[VkCommandBufferBeginInfo](VkCommandBufferBeginInfo.html)::`pInheritanceInfo` used to begin
+recording each element of `pCommandBuffers` **must** be equal to the
+format used to create that image view
+
+* 
+[](#VUID-vkCmdExecuteCommands-pStencilAttachment-11536) VUID-vkCmdExecuteCommands-pStencilAttachment-11536
+
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) that contains a custom resolve, if the
+[VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->resolveImageView`
+parameter to [vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the
+value of the `stencilAttachmentFormat` member of the
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) structure included in the `pNext`
+chain of [VkCommandBufferBeginInfo](VkCommandBufferBeginInfo.html)::`pInheritanceInfo` used to
+begin recording each element of `pCommandBuffers` **must** be equal to
+the format used to create that image view
+
+* 
+[](#VUID-vkCmdExecuteCommands-pDepthAttachment-11537) VUID-vkCmdExecuteCommands-pDepthAttachment-11537
+
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) that contains a custom resolve and the
+[VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->resolveImageView`
+parameter to [vkCmdBeginRendering](vkCmdBeginRendering.html) was [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the
+value of the `depthAttachmentFormat` member of the
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) structure included in the `pNext`
+chain of [VkCommandBufferBeginInfo](VkCommandBufferBeginInfo.html)::`pInheritanceInfo` used to
+begin recording each element of `pCommandBuffers` **must** be
+`VK_FORMAT_UNDEFINED`
+
+* 
+[](#VUID-vkCmdExecuteCommands-pStencilAttachment-11538) VUID-vkCmdExecuteCommands-pStencilAttachment-11538
+
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) that contains a custom resolve and the
+[VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->resolveImageView`
+parameter to [vkCmdBeginRendering](vkCmdBeginRendering.html) was [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the
+value of the `stencilAttachmentFormat` member of the
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) structure included in the `pNext`
+chain of [VkCommandBufferBeginInfo](VkCommandBufferBeginInfo.html)::`pInheritanceInfo` used to
+begin recording each element of `pCommandBuffers` **must** be
+`VK_FORMAT_UNDEFINED`
+
+* 
+[](#VUID-vkCmdExecuteCommands-resolveImageView-11526) VUID-vkCmdExecuteCommands-resolveImageView-11526
+
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has been
+recorded in the render pass instance, and the `resolveImageView`
+member of an element of the
+[VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments` parameter to
+[vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of
+[VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html)::`rasterizationSamples`
+**must** be equal to the sample count used to create that
+`resolveImageView`
+
+* 
+[](#VUID-vkCmdExecuteCommands-pDepthAttachment-11527) VUID-vkCmdExecuteCommands-pDepthAttachment-11527
+
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has been
+recorded in the render pass instance, and the
+[VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->resolveImageView`
+parameter to [vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the
+value of
+[VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html)::`rasterizationSamples`
+**must** be equal to the sample count used to create that image view
+
+* 
+[](#VUID-vkCmdExecuteCommands-pStencilAttachment-11528) VUID-vkCmdExecuteCommands-pStencilAttachment-11528
+
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has been
+recorded in the render pass instance, and the
+[VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->resolveImageView`
+parameter to [vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the
+value of
+[VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html)::`rasterizationSamples`
+**must** be equal to the sample count used to create that image view
+
+* 
 [](#VUID-vkCmdExecuteCommands-viewMask-06031) VUID-vkCmdExecuteCommands-viewMask-06031
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html), the `viewMask` member
-of the [VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html) structure included
-in the `pNext` chain of
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), the `viewMask` member of the
+[VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html) structure included in the
+`pNext` chain of
 [VkCommandBufferBeginInfo](VkCommandBufferBeginInfo.html)::`pInheritanceInfo` used to begin
 recording each element of `pCommandBuffers` **must** be equal to the
 [VkRenderingInfo](VkRenderingInfo.html)::`viewMask` parameter to
@@ -464,9 +625,9 @@ recording each element of `pCommandBuffers` **must** be equal to the
 * 
 [](#VUID-vkCmdExecuteCommands-pNext-06032) VUID-vkCmdExecuteCommands-pNext-06032
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html) and the `pNext` chain
-of [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) includes a
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) and the `pNext` chain of
+[VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) includes a
 [VkAttachmentSampleCountInfoAMD](VkAttachmentSampleCountInfoAMD.html) or
 [VkAttachmentSampleCountInfoNV](VkAttachmentSampleCountInfoAMD.html) structure, if the `imageView`
 member of an element of the
@@ -483,9 +644,9 @@ sample count used to create that image view
 * 
 [](#VUID-vkCmdExecuteCommands-pNext-06033) VUID-vkCmdExecuteCommands-pNext-06033
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html) and the `pNext` chain
-of [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) includes a
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) and the `pNext` chain of
+[VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) includes a
 [VkAttachmentSampleCountInfoAMD](VkAttachmentSampleCountInfoAMD.html) or
 [VkAttachmentSampleCountInfoNV](VkAttachmentSampleCountInfoAMD.html) structure, if the
 [VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->imageView` parameter to
@@ -501,9 +662,9 @@ sample count used to create that image view
 * 
 [](#VUID-vkCmdExecuteCommands-pNext-06034) VUID-vkCmdExecuteCommands-pNext-06034
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html) and the `pNext` chain
-of [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) includes a
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) and the `pNext` chain of
+[VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) includes a
 [VkAttachmentSampleCountInfoAMD](VkAttachmentSampleCountInfoAMD.html) or
 [VkAttachmentSampleCountInfoNV](VkAttachmentSampleCountInfoAMD.html) structure, if the
 [VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->imageView` parameter to
@@ -519,62 +680,65 @@ sample count used to create that image view
 * 
 [](#VUID-vkCmdExecuteCommands-pNext-06035) VUID-vkCmdExecuteCommands-pNext-06035
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html) and the `pNext` chain
-of [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) does not include a
-[VkAttachmentSampleCountInfoAMD](VkAttachmentSampleCountInfoAMD.html) or
-[VkAttachmentSampleCountInfoNV](VkAttachmentSampleCountInfoAMD.html) structure, if the `imageView`
-member of an element of the
-[VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments` parameter to
-[vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of
-[VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html)::`rasterizationSamples`
-**must** be equal to the sample count used to create that image view
+    If this command is called within a render pass instance begun with
+    [vkCmdBeginRendering](vkCmdBeginRendering.html), and the `pNext` chain of
+    [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) does not include a
+    [VkAttachmentSampleCountInfoAMD](VkAttachmentSampleCountInfoAMD.html) or
+    [VkAttachmentSampleCountInfoNV](VkAttachmentSampleCountInfoAMD.html) structure,
+[vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has not yet been recorded in the render pass instance, and
+    if the `imageView` member of an element of the
+    [VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments` parameter to
+    [vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of
+    [VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html)::`rasterizationSamples`
+    **must** be equal to the sample count used to create that image view
 
 * 
 [](#VUID-vkCmdExecuteCommands-pNext-06036) VUID-vkCmdExecuteCommands-pNext-06036
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html) and the `pNext` chain
-of [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) does not include a
-[VkAttachmentSampleCountInfoAMD](VkAttachmentSampleCountInfoAMD.html) or
-[VkAttachmentSampleCountInfoNV](VkAttachmentSampleCountInfoAMD.html) structure, if the
-[VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->imageView` parameter to
-[vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of
-[VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html)::`rasterizationSamples`
-**must** be equal to the sample count used to create that image view
+    If this command is called within a render pass instance begun with
+    [vkCmdBeginRendering](vkCmdBeginRendering.html) and the `pNext` chain of
+    [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) does not include a
+    [VkAttachmentSampleCountInfoAMD](VkAttachmentSampleCountInfoAMD.html) or
+    [VkAttachmentSampleCountInfoNV](VkAttachmentSampleCountInfoAMD.html) structure,
+[vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has not yet been recorded in the render pass instance, and
+    if the [VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->imageView`
+    parameter to [vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the
+    value of
+    [VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html)::`rasterizationSamples`
+    **must** be equal to the sample count used to create that image view
 
 * 
 [](#VUID-vkCmdExecuteCommands-pNext-06037) VUID-vkCmdExecuteCommands-pNext-06037
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html) and the `pNext` chain
-of [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) does not include a
-[VkAttachmentSampleCountInfoAMD](VkAttachmentSampleCountInfoAMD.html) or
-[VkAttachmentSampleCountInfoNV](VkAttachmentSampleCountInfoAMD.html) structure, if the
-[VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->imageView` parameter to
-[vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of
-[VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html)::`rasterizationSamples`
-**must** be equal to the sample count used to create that image view
+    If this command is called within a render pass instance begun with
+    [vkCmdBeginRendering](vkCmdBeginRendering.html) and the `pNext` chain of
+    [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) does not include a
+    [VkAttachmentSampleCountInfoAMD](VkAttachmentSampleCountInfoAMD.html) or
+    [VkAttachmentSampleCountInfoNV](VkAttachmentSampleCountInfoAMD.html) structure,
+[vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has not yet been recorded in the render pass instance, and
+    if the [VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->imageView`
+    parameter to [vkCmdBeginRendering](vkCmdBeginRendering.html) is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the
+    value of
+    [VkCommandBufferInheritanceRenderingInfo](VkCommandBufferInheritanceRenderingInfo.html)::`rasterizationSamples`
+    **must** be equal to the sample count used to create that image view
 
 * 
 [](#VUID-vkCmdExecuteCommands-pNext-09299) VUID-vkCmdExecuteCommands-pNext-09299
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html), with any color attachment
-using a resolve mode of
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`, the
-`pNext` chain of [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) used to create
-each element of `pCommandBuffers` **must** include a
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), with any color attachment using a resolve
+mode of `VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`,
+the `pNext` chain of [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) used to
+create each element of `pCommandBuffers` **must** include a
 [VkExternalFormatANDROID](VkExternalFormatANDROID.html) structure with an `externalFormat`
 matching that used to create the resolve attachment in the render pass
 
 * 
 [](#VUID-vkCmdExecuteCommands-pNext-09300) VUID-vkCmdExecuteCommands-pNext-09300
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html) with any color attachment
-using a resolve mode of
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`, and the
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) with any color attachment using a resolve mode
+of `VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`, and the
 `pNext` chain of [VkCommandBufferInheritanceInfo](VkCommandBufferInheritanceInfo.html) does not
 include a [VkAttachmentSampleCountInfoAMD](VkAttachmentSampleCountInfoAMD.html) or
 [VkAttachmentSampleCountInfoNV](VkAttachmentSampleCountInfoAMD.html) structure, the value of
@@ -615,31 +779,31 @@ element of `pCommandBuffers` **must** not have been recorded with
 * 
 [](#VUID-vkCmdExecuteCommands-pCommandBuffers-09504) VUID-vkCmdExecuteCommands-pCommandBuffers-09504
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html), the color attachment
-mapping state specified by [VkRenderingAttachmentLocationInfo](VkRenderingAttachmentLocationInfo.html) in
-the inheritance info of each element of `pCommandBuffers` and in the
-current state of `commandBuffer` **must** match
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), the color attachment mapping state specified
+by [VkRenderingAttachmentLocationInfo](VkRenderingAttachmentLocationInfo.html) in the inheritance info of
+each element of `pCommandBuffers` and in the current state of
+`commandBuffer` **must** match
 
 * 
 [](#VUID-vkCmdExecuteCommands-pCommandBuffers-09505) VUID-vkCmdExecuteCommands-pCommandBuffers-09505
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance begun with [vkCmdBeginRendering](vkCmdBeginRendering.html), the input attachment
-mapping state specified by [VkRenderingInputAttachmentIndexInfo](VkRenderingInputAttachmentIndexInfo.html) in
-the inheritance info of each element of `pCommandBuffers` and in the
-current state of `commandBuffer` **must** match
+If this command is called within a render pass instance begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), the input attachment mapping state specified
+by [VkRenderingInputAttachmentIndexInfo](VkRenderingInputAttachmentIndexInfo.html) in the inheritance info of
+each element of `pCommandBuffers` and in the current state of
+`commandBuffer` **must** match
 
 * 
 [](#VUID-vkCmdExecuteCommands-memory-10724) VUID-vkCmdExecuteCommands-memory-10724
 
-If `vkCmdExecuteCommands` is being called within a render pass
-instance, the size of `memory` member of the
-[VkTileMemoryBindInfoQCOM](VkTileMemoryBindInfoQCOM.html) structure included in the `pNext`
-chain of [VkCommandBufferBeginInfo](VkCommandBufferBeginInfo.html)::`pInheritanceInfo` used to
-begin recording each element of `pCommandBuffers` **must** be equal to
-the active bound [bound tile memory object](../../../../spec/latest/chapters/memory.html#memory-bind-tile-memory)
-in `commandBuffer`
+If this command is called within a render pass instance, the size of
+`memory` member of the [VkTileMemoryBindInfoQCOM](VkTileMemoryBindInfoQCOM.html) structure
+included in the `pNext` chain of
+[VkCommandBufferBeginInfo](VkCommandBufferBeginInfo.html)::`pInheritanceInfo` used to begin
+recording each element of `pCommandBuffers` **must** be equal to the
+active bound [bound tile memory object](../../../../spec/latest/chapters/memory.html#memory-bind-tile-memory) in
+`commandBuffer`
 
 * 
 [](#VUID-vkCmdExecuteCommands-pCommandBuffers-10620) VUID-vkCmdExecuteCommands-pCommandBuffers-10620
@@ -712,7 +876,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdExecuteCommands-commandBuffer-cmdpool) VUID-vkCmdExecuteCommands-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdExecuteCommands-videocoding) VUID-vkCmdExecuteCommands-videocoding
@@ -742,11 +906,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Transfer
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Indirection |
+VK_QUEUE_TRANSFER_BIT | Indirection |
 
 Conditional Rendering
 

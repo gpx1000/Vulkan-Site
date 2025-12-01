@@ -127,13 +127,6 @@ If `imageLayout` is
 `VK_IMAGE_ASPECT_COLOR_BIT`
 
 * 
-[](#VUID-VkDescriptorImageInfo-imageLayout-00344) VUID-VkDescriptorImageInfo-imageLayout-00344
-
-`imageLayout` **must** match the actual [VkImageLayout](VkImageLayout.html) of each
-subresource accessible from `imageView` at the time this descriptor
-is accessed as defined by the [    image layout matching rules](../../../../spec/latest/chapters/resources.html#resources-image-layouts-matching-rule)
-
-* 
 [](#VUID-VkDescriptorImageInfo-sampler-01564) VUID-VkDescriptorImageInfo-sampler-01564
 
 If `sampler` is used and the [VkFormat](VkFormat.html) of the image is a

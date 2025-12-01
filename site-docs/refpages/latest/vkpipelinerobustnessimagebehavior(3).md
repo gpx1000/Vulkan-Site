@@ -37,9 +37,8 @@ typedef enum VkPipelineRobustnessImageBehavior {
     VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS_2_EXT = VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS_2,
 } VkPipelineRobustnessImageBehavior;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_robustness
+// Equivalent to VkPipelineRobustnessImageBehavior
 typedef VkPipelineRobustnessImageBehavior VkPipelineRobustnessImageBehaviorEXT;
 
 * 

@@ -4,7 +4,7 @@
 
 - **Component**: spec
 - **Version**: latest
-- **URL**: /spec/latest/chapters/VK_EXT_private_data.html
+- **URL**: /spec/latest/chapters/private_data.html
 
 ## Content
 
@@ -30,9 +30,8 @@ Private data slots are represented by `VkPrivateDataSlot` handles:
 // Provided by VK_VERSION_1_3
 VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkPrivateDataSlot)
 
-or the equivalent
-
 // Provided by VK_EXT_private_data
+// Equivalent to VkPrivateDataSlot
 typedef VkPrivateDataSlot VkPrivateDataSlotEXT;
 
 To create a private data slot, call:
@@ -44,9 +43,8 @@ VkResult vkCreatePrivateDataSlot(
     const VkAllocationCallbacks*                pAllocator,
     VkPrivateDataSlot*                          pPrivateDataSlot);
 
-or the equivalent command
-
 // Provided by VK_EXT_private_data
+// Equivalent to vkCreatePrivateDataSlot
 VkResult vkCreatePrivateDataSlotEXT(
     VkDevice                                    device,
     const VkPrivateDataSlotCreateInfo*          pCreateInfo,
@@ -129,9 +127,8 @@ typedef struct VkPrivateDataSlotCreateInfo {
     VkPrivateDataSlotCreateFlags    flags;
 } VkPrivateDataSlotCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_private_data
+// Equivalent to VkPrivateDataSlotCreateInfo
 typedef VkPrivateDataSlotCreateInfo VkPrivateDataSlotCreateInfoEXT;
 
 * 
@@ -164,9 +161,8 @@ Valid Usage (Implicit)
 // Provided by VK_VERSION_1_3
 typedef VkFlags VkPrivateDataSlotCreateFlags;
 
-or the equivalent
-
 // Provided by VK_EXT_private_data
+// Equivalent to VkPrivateDataSlotCreateFlags
 typedef VkPrivateDataSlotCreateFlags VkPrivateDataSlotCreateFlagsEXT;
 
 `VkPrivateDataSlotCreateFlags` is a bitmask type for setting a mask, but
@@ -180,9 +176,8 @@ void vkDestroyPrivateDataSlot(
     VkPrivateDataSlot                           privateDataSlot,
     const VkAllocationCallbacks*                pAllocator);
 
-or the equivalent command
-
 // Provided by VK_EXT_private_data
+// Equivalent to vkDestroyPrivateDataSlot
 void vkDestroyPrivateDataSlotEXT(
     VkDevice                                    device,
     VkPrivateDataSlot                           privateDataSlot,
@@ -251,9 +246,8 @@ VkResult vkSetPrivateData(
     VkPrivateDataSlot                           privateDataSlot,
     uint64_t                                    data);
 
-or the equivalent command
-
 // Provided by VK_EXT_private_data
+// Equivalent to vkSetPrivateData
 VkResult vkSetPrivateDataEXT(
     VkDevice                                    device,
     VkObjectType                                objectType,
@@ -343,9 +337,8 @@ void vkGetPrivateData(
     VkPrivateDataSlot                           privateDataSlot,
     uint64_t*                                   pData);
 
-or the equivalent command
-
 // Provided by VK_EXT_private_data
+// Equivalent to vkGetPrivateData
 void vkGetPrivateDataEXT(
     VkDevice                                    device,
     VkObjectType                                objectType,

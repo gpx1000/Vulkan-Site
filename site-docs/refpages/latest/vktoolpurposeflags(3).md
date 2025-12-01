@@ -21,9 +21,8 @@ VkToolPurposeFlags - Bitmask of VkToolPurposeFlagBits
 // Provided by VK_VERSION_1_3
 typedef VkFlags VkToolPurposeFlags;
 
-or the equivalent
-
 // Provided by VK_EXT_tooling_info
+// Equivalent to VkToolPurposeFlags
 typedef VkToolPurposeFlags VkToolPurposeFlagsEXT;
 
 [VkToolPurposeFlags](#) is a bitmask type for setting a mask of zero or

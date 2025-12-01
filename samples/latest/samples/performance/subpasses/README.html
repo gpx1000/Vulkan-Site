@@ -312,6 +312,9 @@
     <a class="nav-link" href="../../extensions/extended_dynamic_state2/README.html">Extended dynamic state2</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../extensions/fragment_density_map/README.html">Fragment density map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/fragment_shader_barycentric/README.html">Fragment shader barycentric</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -397,6 +400,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/synchronization_2/README.html">Synchronization 2</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../extensions/tensor_and_data_graph/README.html">Tensor and Data Graph</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../extensions/tensor_and_data_graph/simple_tensor_and_data_graph/README.html">Simple Tensor and Data Graph</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/timeline_semaphore/README.html">Timeline semaphore</a>
@@ -534,6 +546,9 @@
     <a class="nav-link" href="../../../docs/misc.html">Miscellaneous</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Samples" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -757,7 +772,7 @@ On tile-based GPUs the G-buffer might be kept in tile memory across subpasses, w
 </div>
 <div class="paragraph">
 <p>Since subpass information is known ahead of time, the driver is able to detect if two or more subpasses can be merged together.
-The consequence of this is that <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkCmdNextSubpass.html">vkCmdNextSubpass</a> becomes a <code>NOP</code>.</p>
+The consequence of this is that <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdNextSubpass.html">vkCmdNextSubpass</a> becomes a <code>NOP</code>.</p>
 </div>
 <div class="paragraph">
 <p>In other words, a GPU driver can optimize even more by merging two or more subpasses together as long as certain requirements are met.
@@ -825,7 +840,7 @@ Actually, there is not even a need to allocate them at all.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>In practice, their <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkImageUsageFlagBits.html">image usage</a> needs to be specified as <code>TRANSIENT</code> and their <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkMemoryPropertyFlagBits.html">memory</a> needs to be <code>LAZILY_ALLOCATED</code>.
+<p>In practice, their <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageUsageFlagBits.html">image usage</a> needs to be specified as <code>TRANSIENT</code> and their <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryPropertyFlagBits.html">memory</a> needs to be <code>LAZILY_ALLOCATED</code>.
 Failing to set these flags properly will lead to an increase of <a href="https://community.arm.com/developer/tools-software/graphics/b/blog/posts/mali-bifrost-family-performance-counters">fragment jobs</a> as the GPU will need to write them back to external memory.
 As you can see in the above screenshot, we see roughly a double in fragment jobs per second (from <code>56/s</code> to <code>113/s</code>).</p>
 </div>

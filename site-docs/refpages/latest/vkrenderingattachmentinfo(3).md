@@ -35,9 +35,8 @@ typedef struct VkRenderingAttachmentInfo {
     VkClearValue             clearValue;
 } VkRenderingAttachmentInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_dynamic_rendering
+// Equivalent to VkRenderingAttachmentInfo
 typedef VkRenderingAttachmentInfo VkRenderingAttachmentInfoKHR;
 
 * 
@@ -102,6 +101,20 @@ If `resolveMode` is
 [`nullColorAttachmentWithExternalFormatResolve`](../../../../spec/latest/chapters/limits.html#limits-nullColorAttachmentWithExternalFormatResolve) limit is `VK_TRUE`,
 values are only **undefined** once [load operations](../../../../spec/latest/chapters/renderpass.html#renderpass-load-operations) have completed.
 
+The contents of a resolve attachment within the render area become
+**undefined** at the time [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) is called if all of
+the following conditions are true:
+
+* 
+`VK_RENDERING_CUSTOM_RESOLVE_BIT_EXT` is set.
+
+* 
+The attachment sets `resolveMode` to
+`VK_RESOLVE_MODE_CUSTOM_BIT_EXT`.
+
+This affects color, depth, and stencil attachments.
+In addition, there is an implicit [store operation](../../../../spec/latest/chapters/renderpass.html#renderpass-store-operations) of `VK_ATTACHMENT_STORE_OP_STORE` for these attachments.
+
 |  | The resolve mode and store operation are independent; it is valid to write
 | --- | --- |
 both resolved and unresolved values, and equally valid to discard the
@@ -110,6 +123,10 @@ unresolved values while writing the resolved ones. |
 Store and resolve operations are only performed at the end of a render pass
 instance that does not specify the `VK_RENDERING_SUSPENDING_BIT_KHR`
 flag.
+If the `VK_RENDERING_CUSTOM_RESOLVE_BIT_EXT` is specified and an
+attachment uses the `VK_RESOLVE_MODE_CUSTOM_BIT_EXT` resolve mode, the
+resolve attachment will only be written by draws recorded following a call
+to [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html).
 
 Load operations are only performed at the beginning of a render pass
 instance that does not specify the `VK_RENDERING_RESUMING_BIT_KHR` flag.
@@ -133,16 +150,18 @@ Valid Usage
 * 
 [](#VUID-VkRenderingAttachmentInfo-imageView-06129) VUID-VkRenderingAttachmentInfo-imageView-06129
 
-If `imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html) and has a non-integer
-color format, `resolveMode` **must** be `VK_RESOLVE_MODE_NONE` or
-`VK_RESOLVE_MODE_AVERAGE_BIT`
+    If `imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html) and has a non-integer
+    color format, `resolveMode` **must** be `VK_RESOLVE_MODE_NONE` or
+`VK_RESOLVE_MODE_CUSTOM_BIT_EXT` or
+    `VK_RESOLVE_MODE_AVERAGE_BIT`
 
 * 
 [](#VUID-VkRenderingAttachmentInfo-imageView-06130) VUID-VkRenderingAttachmentInfo-imageView-06130
 
-If `imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html) and has an integer color
-format, `resolveMode` **must** be `VK_RESOLVE_MODE_NONE` or
-`VK_RESOLVE_MODE_SAMPLE_ZERO_BIT`
+    If `imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html) and has an integer color
+    format, `resolveMode` **must** be `VK_RESOLVE_MODE_NONE` or
+`VK_RESOLVE_MODE_CUSTOM_BIT_EXT` or
+    `VK_RESOLVE_MODE_SAMPLE_ZERO_BIT`
 
 * 
 [](#VUID-VkRenderingAttachmentInfo-imageView-06861) VUID-VkRenderingAttachmentInfo-imageView-06861
@@ -199,7 +218,8 @@ count of `VK_SAMPLE_COUNT_1_BIT`
 [](#VUID-VkRenderingAttachmentInfo-imageView-06865) VUID-VkRenderingAttachmentInfo-imageView-06865
 
 If `imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), `resolveImageView`
-is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), and `resolveMode` is not
+is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), and `resolveMode` is
+neither `VK_RESOLVE_MODE_CUSTOM_BIT_EXT` nor
 `VK_RESOLVE_MODE_NONE`, `imageView` and `resolveImageView`
 **must** have the same [VkFormat](VkFormat.html)
 
@@ -360,6 +380,33 @@ resource must not be bound to a `VkDeviceMemory` object allocated
 from a `VkMemoryHeap` with the
 `VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM` property.
 
+[](#VUID-VkRenderingAttachmentInfo-pNext-11752) VUID-VkRenderingAttachmentInfo-pNext-11752
+
+If the `pNext` chain includes a
+[VkRenderingAttachmentFlagsInfoKHR](VkRenderingAttachmentFlagsInfoKHR.html) structure, and `flags`
+includes
+`VK_RENDERING_ATTACHMENT_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR` or
+`VK_RENDERING_ATTACHMENT_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`,
+`imageView` **must** have a format using sRGB encoding
+
+[](#VUID-VkRenderingAttachmentInfo-pNext-11753) VUID-VkRenderingAttachmentInfo-pNext-11753
+
+If the `pNext` chain includes a
+[VkRenderingAttachmentFlagsInfoKHR](VkRenderingAttachmentFlagsInfoKHR.html) structure, and `flags`
+includes
+`VK_RENDERING_ATTACHMENT_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR` or
+`VK_RENDERING_ATTACHMENT_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`,
+`resolveMode` **must** be equal to `VK_RESOLVE_MODE_AVERAGE_BIT`
+
+[](#VUID-VkRenderingAttachmentInfo-pNext-11754) VUID-VkRenderingAttachmentInfo-pNext-11754
+
+If the `pNext` chain includes a
+[VkRenderingAttachmentFlagsInfoKHR](VkRenderingAttachmentFlagsInfoKHR.html) structure, and `flags`
+includes
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`,
+`imageView` **must** have an image that was created with the
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flag set
+
 Valid Usage (Implicit)
 
 * 
@@ -370,7 +417,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkRenderingAttachmentInfo-pNext-pNext) VUID-VkRenderingAttachmentInfo-pNext-pNext
 
- `pNext` **must** be `NULL` or a pointer to a valid instance of [VkAttachmentFeedbackLoopInfoEXT](VkAttachmentFeedbackLoopInfoEXT.html)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAttachmentFeedbackLoopInfoEXT](VkAttachmentFeedbackLoopInfoEXT.html) or [VkRenderingAttachmentFlagsInfoKHR](VkRenderingAttachmentFlagsInfoKHR.html)
 
 * 
 [](#VUID-VkRenderingAttachmentInfo-sType-unique) VUID-VkRenderingAttachmentInfo-sType-unique

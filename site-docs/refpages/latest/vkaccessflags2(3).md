@@ -23,9 +23,8 @@ VkAccessFlags2 - 64-bit mask of access flags
 // Provided by VK_VERSION_1_3
 typedef VkFlags64 VkAccessFlags2;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkAccessFlags2
 typedef VkAccessFlags2 VkAccessFlags2KHR;
 
 [VK_KHR_synchronization2](VK_KHR_synchronization2.html), [VK_VERSION_1_3](VK_VERSION_1_3.html), [VkAccessFlagBits2](VkAccessFlagBits2.html), [VkBufferMemoryBarrier2](VkBufferMemoryBarrier2.html), `VkFlags64`, [VkImageMemoryBarrier2](VkImageMemoryBarrier2.html), [VkMemoryBarrier2](VkMemoryBarrier2.html), [VkTensorMemoryBarrierARM](VkTensorMemoryBarrierARM.html)

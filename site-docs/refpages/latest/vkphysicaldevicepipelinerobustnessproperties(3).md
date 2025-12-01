@@ -32,9 +32,8 @@ typedef struct VkPhysicalDevicePipelineRobustnessProperties {
     VkPipelineRobustnessImageBehavior     defaultRobustnessImages;
 } VkPhysicalDevicePipelineRobustnessProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_robustness
+// Equivalent to VkPhysicalDevicePipelineRobustnessProperties
 typedef VkPhysicalDevicePipelineRobustnessProperties VkPhysicalDevicePipelineRobustnessPropertiesEXT;
 
 * 

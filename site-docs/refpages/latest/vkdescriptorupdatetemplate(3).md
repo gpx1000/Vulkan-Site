@@ -28,12 +28,11 @@ Descriptor update template objects are represented by
 // Provided by VK_VERSION_1_1
 VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkDescriptorUpdateTemplate)
 
-or the equivalent
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplate
 typedef VkDescriptorUpdateTemplate VkDescriptorUpdateTemplateKHR;
 
-[VK_DEFINE_NON_DISPATCHABLE_HANDLE](VK_DEFINE_NON_DISPATCHABLE_HANDLE.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPushDescriptorSetWithTemplateInfo](VkPushDescriptorSetWithTemplateInfo.html), [vkCmdPushDescriptorSetWithTemplate](vkCmdPushDescriptorSetWithTemplate.html), [vkCmdPushDescriptorSetWithTemplate](vkCmdPushDescriptorSetWithTemplate.html), [vkCreateDescriptorUpdateTemplate](vkCreateDescriptorUpdateTemplate.html), [vkCreateDescriptorUpdateTemplate](vkCreateDescriptorUpdateTemplate.html), [vkDestroyDescriptorUpdateTemplate](vkDestroyDescriptorUpdateTemplate.html), [vkDestroyDescriptorUpdateTemplate](vkDestroyDescriptorUpdateTemplate.html), [vkUpdateDescriptorSetWithTemplate](vkUpdateDescriptorSetWithTemplate.html), [vkUpdateDescriptorSetWithTemplate](vkUpdateDescriptorSetWithTemplate.html)
+[VK_DEFINE_NON_DISPATCHABLE_HANDLE](VK_DEFINE_NON_DISPATCHABLE_HANDLE.html), [VK_KHR_descriptor_update_template](VK_KHR_descriptor_update_template.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPushDescriptorSetWithTemplateInfo](VkPushDescriptorSetWithTemplateInfo.html), [vkCmdPushDescriptorSetWithTemplate](vkCmdPushDescriptorSetWithTemplate.html), [vkCmdPushDescriptorSetWithTemplate](vkCmdPushDescriptorSetWithTemplate.html), [vkCreateDescriptorUpdateTemplate](vkCreateDescriptorUpdateTemplate.html), [vkCreateDescriptorUpdateTemplate](vkCreateDescriptorUpdateTemplate.html), [vkDestroyDescriptorUpdateTemplate](vkDestroyDescriptorUpdateTemplate.html), [vkDestroyDescriptorUpdateTemplate](vkDestroyDescriptorUpdateTemplate.html), [vkUpdateDescriptorSetWithTemplate](vkUpdateDescriptorSetWithTemplate.html), [vkUpdateDescriptorSetWithTemplate](vkUpdateDescriptorSetWithTemplate.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/descriptorsets.html#VkDescriptorUpdateTemplate).
 

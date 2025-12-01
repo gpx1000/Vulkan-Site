@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -513,7 +522,7 @@ When a promoted extension is available, any corresponding feature aliases
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/versions.html#versions-1.1" class="xref page">Vulkan Version 1.1</a>. See <a href="../appendices/deprecation.html#deprecation-gpdp2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is superseded by <a href="../appendices/versions.html#versions-1.1" class="xref page">Vulkan Version 1.1</a>. See <a href="../appendices/legacy.html#legacy-gpdp2" class="xref page">Legacy Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -619,12 +628,10 @@ void vkGetPhysicalDeviceFeatures2(
     VkPhysicalDeviceFeatures2*                  pFeatures);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkGetPhysicalDeviceFeatures2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to vkGetPhysicalDeviceFeatures2
 void vkGetPhysicalDeviceFeatures2KHR(
     VkPhysicalDevice                            physicalDevice,
     VkPhysicalDeviceFeatures2*                  pFeatures);</code></pre>
@@ -685,12 +692,10 @@ typedef struct VkPhysicalDeviceFeatures2 {
 } VkPhysicalDeviceFeatures2;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceFeatures2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkPhysicalDeviceFeatures2
 typedef VkPhysicalDeviceFeatures2 VkPhysicalDeviceFeatures2KHR;</code></pre>
 </div>
 </div>
@@ -1417,9 +1422,9 @@ capability, are already covered by core Vulkan
 <p><a id="features-shaderStorageImageMultisample"></a>
 <code>shaderStorageImageMultisample</code> specifies whether multisampled
 storage images are supported.
-If this feature is not enabled, images that are created with a
-<code>usage</code> that includes <code>VK_IMAGE_USAGE_STORAGE_BIT</code> <strong>must</strong> be
-created with <code>samples</code> equal to <code>VK_SAMPLE_COUNT_1_BIT</code>.
+If this feature is not enabled, images that are created with the
+<code>VK_IMAGE_USAGE_STORAGE_BIT</code> usage flag set <strong>must</strong> be created with
+<code>samples</code> equal to <code>VK_SAMPLE_COUNT_1_BIT</code>.
 This also specifies whether shader modules <strong>can</strong> declare the
 <code>StorageImageMultisample</code> and <code>ImageMSArray</code> capabilities.</p>
 </li>
@@ -2520,7 +2525,7 @@ supports:</p>
 <li>
 <p><a id="features-privateData"></a> <code>privateData</code> indicates
 whether the implementation supports private data.
-See <a href="VK_EXT_private_data.html#private-data" class="xref page">Private Data</a>.</p>
+See <a href="private_data.html#private-data" class="xref page">Private Data</a>.</p>
 </li>
 <li>
 <p><a id="features-shaderDemoteToHelperInvocation"></a>
@@ -3014,21 +3019,21 @@ typedef struct VkPhysicalDeviceVariablePointersFeatures {
 <div id="VkPhysicalDeviceVariablePointerFeatures" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_1
+// Equivalent to VkPhysicalDeviceVariablePointersFeatures
 typedef VkPhysicalDeviceVariablePointersFeatures VkPhysicalDeviceVariablePointerFeatures;</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>or the equivalent</p>
 </div>
 <div id="VkPhysicalDeviceVariablePointersFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_variable_pointers
+// Equivalent to VkPhysicalDeviceVariablePointersFeatures
 typedef VkPhysicalDeviceVariablePointersFeatures VkPhysicalDeviceVariablePointersFeaturesKHR;</code></pre>
 </div>
 </div>
 <div id="VkPhysicalDeviceVariablePointerFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_variable_pointers
+// Equivalent to VkPhysicalDeviceVariablePointersFeatures
 typedef VkPhysicalDeviceVariablePointersFeatures VkPhysicalDeviceVariablePointerFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -3122,12 +3127,10 @@ typedef struct VkPhysicalDeviceMultiviewFeatures {
 } VkPhysicalDeviceMultiviewFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceMultiviewFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_multiview
+// Equivalent to VkPhysicalDeviceMultiviewFeatures
 typedef VkPhysicalDeviceMultiviewFeatures VkPhysicalDeviceMultiviewFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -3515,12 +3518,10 @@ typedef struct VkPhysicalDeviceShaderAtomicInt64Features {
 } VkPhysicalDeviceShaderAtomicInt64Features;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceShaderAtomicInt64FeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_shader_atomic_int64
+// Equivalent to VkPhysicalDeviceShaderAtomicInt64Features
 typedef VkPhysicalDeviceShaderAtomicInt64Features VkPhysicalDeviceShaderAtomicInt64FeaturesKHR;</code></pre>
 </div>
 </div>
@@ -3661,12 +3662,10 @@ typedef struct VkPhysicalDevice8BitStorageFeatures {
 } VkPhysicalDevice8BitStorageFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDevice8BitStorageFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_8bit_storage
+// Equivalent to VkPhysicalDevice8BitStorageFeatures
 typedef VkPhysicalDevice8BitStorageFeatures VkPhysicalDevice8BitStorageFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -3772,12 +3771,10 @@ typedef struct VkPhysicalDevice16BitStorageFeatures {
 } VkPhysicalDevice16BitStorageFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDevice16BitStorageFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_16bit_storage
+// Equivalent to VkPhysicalDevice16BitStorageFeatures
 typedef VkPhysicalDevice16BitStorageFeatures VkPhysicalDevice16BitStorageFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -3891,18 +3888,17 @@ typedef struct VkPhysicalDeviceShaderFloat16Int8Features {
 } VkPhysicalDeviceShaderFloat16Int8Features;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceShaderFloat16Int8FeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_shader_float16_int8
+// Equivalent to VkPhysicalDeviceShaderFloat16Int8Features
 typedef VkPhysicalDeviceShaderFloat16Int8Features VkPhysicalDeviceShaderFloat16Int8FeaturesKHR;</code></pre>
 </div>
 </div>
 <div id="VkPhysicalDeviceFloat16Int8FeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_shader_float16_int8
+// Equivalent to VkPhysicalDeviceShaderFloat16Int8Features
 typedef VkPhysicalDeviceShaderFloat16Int8Features VkPhysicalDeviceFloat16Int8FeaturesKHR;</code></pre>
 </div>
 </div>
@@ -4057,12 +4053,10 @@ typedef struct VkPhysicalDeviceSamplerYcbcrConversionFeatures {
 } VkPhysicalDeviceSamplerYcbcrConversionFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkPhysicalDeviceSamplerYcbcrConversionFeatures
 typedef VkPhysicalDeviceSamplerYcbcrConversionFeatures VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -4333,6 +4327,7 @@ typedef struct VkPhysicalDeviceShaderDrawParametersFeatures {
 <div id="VkPhysicalDeviceShaderDrawParameterFeatures" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_1
+// Equivalent to VkPhysicalDeviceShaderDrawParametersFeatures
 typedef VkPhysicalDeviceShaderDrawParametersFeatures VkPhysicalDeviceShaderDrawParameterFeatures;</code></pre>
 </div>
 </div>
@@ -4574,17 +4569,24 @@ If <code>primitiveFragmentShadingRateMeshShader</code> is enabled then
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The <code>VkPhysicalDeviceMemoryDecompressionFeaturesNV</code> structure is defined
-as:</p>
+<p>The <code>VkPhysicalDeviceMemoryDecompressionFeaturesEXT</code> structure is
+defined as:</p>
+</div>
+<div id="VkPhysicalDeviceMemoryDecompressionFeaturesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_memory_decompression
+typedef struct VkPhysicalDeviceMemoryDecompressionFeaturesEXT {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           memoryDecompression;
+} VkPhysicalDeviceMemoryDecompressionFeaturesEXT;</code></pre>
+</div>
 </div>
 <div id="VkPhysicalDeviceMemoryDecompressionFeaturesNV" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_memory_decompression
-typedef struct VkPhysicalDeviceMemoryDecompressionFeaturesNV {
-    VkStructureType    sType;
-    void*              pNext;
-    VkBool32           memoryDecompression;
-} VkPhysicalDeviceMemoryDecompressionFeaturesNV;</code></pre>
+// Equivalent to VkPhysicalDeviceMemoryDecompressionFeaturesEXT
+typedef VkPhysicalDeviceMemoryDecompressionFeaturesEXT VkPhysicalDeviceMemoryDecompressionFeaturesNV;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4606,12 +4608,12 @@ whether memory decompression is supported.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code>VkPhysicalDeviceMemoryDecompressionFeaturesNV</code> structure is included in the <code>pNext</code> chain of the
+<p>If the <code>VkPhysicalDeviceMemoryDecompressionFeaturesEXT</code> structure is included in the <code>pNext</code> chain of the
 <a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
 <a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
 corresponding feature is supported.
 If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
-described by <code>VkPhysicalDeviceMemoryDecompressionFeaturesNV</code>, it <strong>must</strong> add an instance of the structure,
+described by <code>VkPhysicalDeviceMemoryDecompressionFeaturesEXT</code>, it <strong>must</strong> add an instance of the structure,
 with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
 chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
 </div>
@@ -4621,8 +4623,8 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkPhysicalDeviceMemoryDecompressionFeaturesNV-sType-sType" href="#VUID-VkPhysicalDeviceMemoryDecompressionFeaturesNV-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceMemoryDecompressionFeaturesNV-sType-sType</span><br>
- <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_NV</code></p>
+<p><a id="VUID-VkPhysicalDeviceMemoryDecompressionFeaturesEXT-sType-sType" href="#VUID-VkPhysicalDeviceMemoryDecompressionFeaturesEXT-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceMemoryDecompressionFeaturesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT</code></p>
 </li>
 </ul>
 </div>
@@ -4665,12 +4667,10 @@ typedef struct VkPhysicalDeviceDescriptorIndexingFeatures {
 } VkPhysicalDeviceDescriptorIndexingFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceDescriptorIndexingFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkPhysicalDeviceDescriptorIndexingFeatures
 typedef VkPhysicalDeviceDescriptorIndexingFeatures VkPhysicalDeviceDescriptorIndexingFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -4965,7 +4965,7 @@ structure.</p>
 </li>
 <li>
 <p><a id="features-indirectCopy"></a> <code>indirectCopy</code> indicates whether
-<a href="copies.html#indirect-copies" class="xref page">indirect copies</a> are supported.</p>
+<a href="copies.html#indirect-copies" class="xref page">indirect memory to memory or, memory to image    copies</a> are supported.</p>
 </li>
 </ul>
 </div>
@@ -4997,6 +4997,72 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR</code> structure is defined
+as:</p>
+</div>
+<div id="VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_copy_memory_indirect
+typedef struct VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           indirectMemoryCopy;
+    VkBool32           indirectMemoryToImageCopy;
+} VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-indirectMemoryCopy"></a> <code>indirectMemoryCopy</code> indicates
+whether <a href="copies.html#indirect-copies" class="xref page">indirect memory to memory copies</a> are
+supported.</p>
+</li>
+<li>
+<p><a id="features-indirectMemoryToImageCopy"></a> <code>indirectMemoryToImageCopy</code>
+indicates whether <a href="copies.html#indirect-copies" class="xref page">indirect memory to image copies</a>
+are supported.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR-sType-sType" href="#VUID-VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDeviceVertexAttributeDivisorFeatures</code> structure is
 defined as:</p>
 </div>
@@ -5011,21 +5077,17 @@ typedef struct VkPhysicalDeviceVertexAttributeDivisorFeatures {
 } VkPhysicalDeviceVertexAttributeDivisorFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceVertexAttributeDivisorFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_vertex_attribute_divisor
+// Equivalent to VkPhysicalDeviceVertexAttributeDivisorFeatures
 typedef VkPhysicalDeviceVertexAttributeDivisorFeatures VkPhysicalDeviceVertexAttributeDivisorFeaturesKHR;</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>or the equivalent</p>
 </div>
 <div id="VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_vertex_attribute_divisor
+// Equivalent to VkPhysicalDeviceVertexAttributeDivisorFeatures
 typedef VkPhysicalDeviceVertexAttributeDivisorFeatures VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -5225,12 +5287,10 @@ typedef struct VkPhysicalDeviceVulkanMemoryModelFeatures {
 } VkPhysicalDeviceVulkanMemoryModelFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceVulkanMemoryModelFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_vulkan_memory_model
+// Equivalent to VkPhysicalDeviceVulkanMemoryModelFeatures
 typedef VkPhysicalDeviceVulkanMemoryModelFeatures VkPhysicalDeviceVulkanMemoryModelFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -5311,12 +5371,10 @@ typedef struct VkPhysicalDeviceInlineUniformBlockFeatures {
 } VkPhysicalDeviceInlineUniformBlockFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceInlineUniformBlockFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_inline_uniform_block
+// Equivalent to VkPhysicalDeviceInlineUniformBlockFeatures
 typedef VkPhysicalDeviceInlineUniformBlockFeatures VkPhysicalDeviceInlineUniformBlockFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -5582,12 +5640,10 @@ typedef struct VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR {
 } VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceComputeShaderDerivativesFeaturesNV" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_compute_shader_derivatives
+// Equivalent to VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR
 typedef VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR VkPhysicalDeviceComputeShaderDerivativesFeaturesNV;</code></pre>
 </div>
 </div>
@@ -5659,12 +5715,10 @@ typedef struct VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR {
 } VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_fragment_shader_barycentric
+// Equivalent to VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR
 typedef VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV;</code></pre>
 </div>
 </div>
@@ -6014,12 +6068,10 @@ typedef struct VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT {
 } VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_QCOM_fragment_density_map_offset
+// Equivalent to VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT
 typedef VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT VkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM;</code></pre>
 </div>
 </div>
@@ -6202,12 +6254,10 @@ typedef struct VkPhysicalDeviceScalarBlockLayoutFeatures {
 } VkPhysicalDeviceScalarBlockLayoutFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceScalarBlockLayoutFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_scalar_block_layout
+// Equivalent to VkPhysicalDeviceScalarBlockLayoutFeatures
 typedef VkPhysicalDeviceScalarBlockLayoutFeatures VkPhysicalDeviceScalarBlockLayoutFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -6275,12 +6325,10 @@ typedef struct VkPhysicalDeviceUniformBufferStandardLayoutFeatures {
 } VkPhysicalDeviceUniformBufferStandardLayoutFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_uniform_buffer_standard_layout
+// Equivalent to VkPhysicalDeviceUniformBufferStandardLayoutFeatures
 typedef VkPhysicalDeviceUniformBufferStandardLayoutFeatures VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -6475,12 +6523,10 @@ typedef struct VkPhysicalDeviceBufferDeviceAddressFeatures {
 } VkPhysicalDeviceBufferDeviceAddressFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceBufferDeviceAddressFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_buffer_device_address
+// Equivalent to VkPhysicalDeviceBufferDeviceAddressFeatures
 typedef VkPhysicalDeviceBufferDeviceAddressFeatures VkPhysicalDeviceBufferDeviceAddressFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -6590,6 +6636,7 @@ typedef struct VkPhysicalDeviceBufferDeviceAddressFeaturesEXT {
 <div id="VkPhysicalDeviceBufferAddressFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_buffer_device_address
+// Equivalent to VkPhysicalDeviceBufferDeviceAddressFeaturesEXT
 typedef VkPhysicalDeviceBufferDeviceAddressFeaturesEXT VkPhysicalDeviceBufferAddressFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -6750,12 +6797,10 @@ typedef struct VkPhysicalDeviceImagelessFramebufferFeatures {
 } VkPhysicalDeviceImagelessFramebufferFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceImagelessFramebufferFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_imageless_framebuffer
+// Equivalent to VkPhysicalDeviceImagelessFramebufferFeatures
 typedef VkPhysicalDeviceImagelessFramebufferFeatures VkPhysicalDeviceImagelessFramebufferFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -7269,12 +7314,10 @@ typedef struct VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures {
 } VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_shader_subgroup_extended_types
+// Equivalent to VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures
 typedef VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures VkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -7345,12 +7388,10 @@ typedef struct VkPhysicalDeviceHostQueryResetFeatures {
 } VkPhysicalDeviceHostQueryResetFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceHostQueryResetFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_host_query_reset
+// Equivalent to VkPhysicalDeviceHostQueryResetFeatures
 typedef VkPhysicalDeviceHostQueryResetFeatures VkPhysicalDeviceHostQueryResetFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -7537,12 +7578,10 @@ typedef struct VkPhysicalDeviceTimelineSemaphoreFeatures {
 } VkPhysicalDeviceTimelineSemaphoreFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceTimelineSemaphoreFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkPhysicalDeviceTimelineSemaphoreFeatures
 typedef VkPhysicalDeviceTimelineSemaphoreFeatures VkPhysicalDeviceTimelineSemaphoreFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -7705,21 +7744,17 @@ typedef struct VkPhysicalDeviceIndexTypeUint8Features {
 } VkPhysicalDeviceIndexTypeUint8Features;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceIndexTypeUint8FeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_index_type_uint8
+// Equivalent to VkPhysicalDeviceIndexTypeUint8Features
 typedef VkPhysicalDeviceIndexTypeUint8Features VkPhysicalDeviceIndexTypeUint8FeaturesKHR;</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>or the equivalent</p>
 </div>
 <div id="VkPhysicalDeviceIndexTypeUint8FeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_index_type_uint8
+// Equivalent to VkPhysicalDeviceIndexTypeUint8Features
 typedef VkPhysicalDeviceIndexTypeUint8Features VkPhysicalDeviceIndexTypeUint8FeaturesEXT;</code></pre>
 </div>
 </div>
@@ -7920,12 +7955,10 @@ typedef struct VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures {
 } VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_separate_depth_stencil_layouts
+// Equivalent to VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures
 typedef VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -8060,12 +8093,10 @@ typedef struct VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures {
 } VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_shader_demote_to_helper_invocation
+// Equivalent to VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures
 typedef VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -8316,12 +8347,10 @@ typedef struct VkPhysicalDeviceTextureCompressionASTCHDRFeatures {
 } VkPhysicalDeviceTextureCompressionASTCHDRFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_texture_compression_astc_hdr
+// Equivalent to VkPhysicalDeviceTextureCompressionASTCHDRFeatures
 typedef VkPhysicalDeviceTextureCompressionASTCHDRFeatures VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -8450,21 +8479,17 @@ typedef struct VkPhysicalDeviceLineRasterizationFeatures {
 } VkPhysicalDeviceLineRasterizationFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceLineRasterizationFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_line_rasterization
+// Equivalent to VkPhysicalDeviceLineRasterizationFeatures
 typedef VkPhysicalDeviceLineRasterizationFeatures VkPhysicalDeviceLineRasterizationFeaturesKHR;</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>or the equivalent</p>
 </div>
 <div id="VkPhysicalDeviceLineRasterizationFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_line_rasterization
+// Equivalent to VkPhysicalDeviceLineRasterizationFeatures
 typedef VkPhysicalDeviceLineRasterizationFeatures VkPhysicalDeviceLineRasterizationFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -8560,12 +8585,10 @@ typedef struct VkPhysicalDeviceSubgroupSizeControlFeatures {
 } VkPhysicalDeviceSubgroupSizeControlFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceSubgroupSizeControlFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_subgroup_size_control
+// Equivalent to VkPhysicalDeviceSubgroupSizeControlFeatures
 typedef VkPhysicalDeviceSubgroupSizeControlFeatures VkPhysicalDeviceSubgroupSizeControlFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -9207,6 +9230,65 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <li>
 <p><a id="VUID-VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR-sType-sType" href="#VUID-VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE</code> structure is
+defined as:</p>
+</div>
+<div id="VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef struct VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           videoEncodeRgbConversion;
+} VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-videoEncodeRgbConversion"></a> <code>videoEncodeRgbConversion</code>
+specifies that the implementation supports <a href="videocoding.html#encode-rgb-conversion" class="xref page">video    encode RGB conversion</a>.</p>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE-sType-sType" href="#VUID-VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE</code></p>
 </li>
 </ul>
 </div>
@@ -10619,21 +10701,17 @@ typedef struct VkPhysicalDeviceGlobalPriorityQueryFeatures {
 } VkPhysicalDeviceGlobalPriorityQueryFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_global_priority
+// Equivalent to VkPhysicalDeviceGlobalPriorityQueryFeatures
 typedef VkPhysicalDeviceGlobalPriorityQueryFeatures VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR;</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>or the equivalent</p>
 </div>
 <div id="VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_global_priority_query
+// Equivalent to VkPhysicalDeviceGlobalPriorityQueryFeatures
 typedef VkPhysicalDeviceGlobalPriorityQueryFeatures VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -10701,12 +10779,10 @@ typedef struct VkPhysicalDevicePipelineCreationCacheControlFeatures {
 } VkPhysicalDevicePipelineCreationCacheControlFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDevicePipelineCreationCacheControlFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_pipeline_creation_cache_control
+// Equivalent to VkPhysicalDevicePipelineCreationCacheControlFeatures
 typedef VkPhysicalDevicePipelineCreationCacheControlFeatures VkPhysicalDevicePipelineCreationCacheControlFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -10802,12 +10878,10 @@ typedef struct VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures {
 } VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_zero_initialize_workgroup_memory
+// Equivalent to VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures
 typedef VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -10875,12 +10949,10 @@ typedef struct VkPhysicalDevicePrivateDataFeatures {
 } VkPhysicalDevicePrivateDataFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDevicePrivateDataFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_private_data
+// Equivalent to VkPhysicalDevicePrivateDataFeatures
 typedef VkPhysicalDevicePrivateDataFeatures VkPhysicalDevicePrivateDataFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -10903,7 +10975,7 @@ structure.</p>
 <li>
 <p><a id="extension-features-privateData"></a> <code>privateData</code> indicates
 whether the implementation supports private data.
-See <a href="VK_EXT_private_data.html#private-data" class="xref page">Private Data</a>.</p>
+See <a href="private_data.html#private-data" class="xref page">Private Data</a>.</p>
 </li>
 </ul>
 </div>
@@ -11010,12 +11082,10 @@ typedef struct VkPhysicalDeviceRobustness2FeaturesKHR {
 } VkPhysicalDeviceRobustness2FeaturesKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceRobustness2FeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_robustness2
+// Equivalent to VkPhysicalDeviceRobustness2FeaturesKHR
 typedef VkPhysicalDeviceRobustness2FeaturesKHR VkPhysicalDeviceRobustness2FeaturesEXT;</code></pre>
 </div>
 </div>
@@ -11103,12 +11173,10 @@ typedef struct VkPhysicalDeviceImageRobustnessFeatures {
 } VkPhysicalDeviceImageRobustnessFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceImageRobustnessFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_image_robustness
+// Equivalent to VkPhysicalDeviceImageRobustnessFeatures
 typedef VkPhysicalDeviceImageRobustnessFeatures VkPhysicalDeviceImageRobustnessFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -11176,12 +11244,10 @@ typedef struct VkPhysicalDeviceShaderTerminateInvocationFeatures {
 } VkPhysicalDeviceShaderTerminateInvocationFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_shader_terminate_invocation
+// Equivalent to VkPhysicalDeviceShaderTerminateInvocationFeatures
 typedef VkPhysicalDeviceShaderTerminateInvocationFeatures VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -11744,12 +11810,10 @@ typedef struct VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT {
 } VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_mutable_descriptor_type
+// Equivalent to VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT
 typedef VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE;</code></pre>
 </div>
 </div>
@@ -12082,12 +12146,10 @@ typedef struct VkPhysicalDeviceSynchronization2Features {
 } VkPhysicalDeviceSynchronization2Features;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceSynchronization2FeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_synchronization2
+// Equivalent to VkPhysicalDeviceSynchronization2Features
 typedef VkPhysicalDeviceSynchronization2Features VkPhysicalDeviceSynchronization2FeaturesKHR;</code></pre>
 </div>
 </div>
@@ -12619,12 +12681,10 @@ typedef struct VkPhysicalDevicePipelineProtectedAccessFeatures {
 } VkPhysicalDevicePipelineProtectedAccessFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDevicePipelineProtectedAccessFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_pipeline_protected_access
+// Equivalent to VkPhysicalDevicePipelineProtectedAccessFeatures
 typedef VkPhysicalDevicePipelineProtectedAccessFeatures VkPhysicalDevicePipelineProtectedAccessFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -14078,12 +14138,10 @@ typedef struct VkPhysicalDeviceHostImageCopyFeatures {
 } VkPhysicalDeviceHostImageCopyFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceHostImageCopyFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_host_image_copy
+// Equivalent to VkPhysicalDeviceHostImageCopyFeatures
 typedef VkPhysicalDeviceHostImageCopyFeatures VkPhysicalDeviceHostImageCopyFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -14130,6 +14188,76 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <li>
 <p><a id="VUID-VkPhysicalDeviceHostImageCopyFeatures-sType-sType" href="#VUID-VkPhysicalDeviceHostImageCopyFeatures-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceHostImageCopyFeatures-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDevicePresentTimingFeaturesEXT</code> structure is defined as:</p>
+</div>
+<div id="VkPhysicalDevicePresentTimingFeaturesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef struct VkPhysicalDevicePresentTimingFeaturesEXT {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           presentTiming;
+    VkBool32           presentAtAbsoluteTime;
+    VkBool32           presentAtRelativeTime;
+} VkPhysicalDevicePresentTimingFeaturesEXT;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-presentTiming"></a> <code>presentTiming</code> indicates that the
+implementation supports <code>vkGetPastPresentationTimingEXT</code>.</p>
+</li>
+<li>
+<p><a id="features-presentAtAbsoluteTime"></a> <code>presentAtAbsoluteTime</code> indicates
+that the implementation supports specifying absolute target present
+times.</p>
+</li>
+<li>
+<p><a id="features-presentAtRelativeTime"></a> <code>presentAtRelativeTime</code> indicates
+that the implementation supports specifying relative target present
+times.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDevicePresentTimingFeaturesEXT</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDevicePresentTimingFeaturesEXT</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDevicePresentTimingFeaturesEXT-sType-sType" href="#VUID-VkPhysicalDevicePresentTimingFeaturesEXT-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDevicePresentTimingFeaturesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT</code></p>
 </li>
 </ul>
 </div>
@@ -14198,6 +14326,74 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDeviceShaderFmaFeaturesKHR</code> structure is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceShaderFmaFeaturesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_shader_fma
+typedef struct VkPhysicalDeviceShaderFmaFeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           shaderFmaFloat16;
+    VkBool32           shaderFmaFloat32;
+    VkBool32           shaderFmaFloat64;
+} VkPhysicalDeviceShaderFmaFeaturesKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-shaderFmaFloat16"></a> <code>shaderFmaFloat16</code> indicates whether
+the implementation supports <code>OpFmaKHR</code> for Float16 types in shaders.</p>
+</li>
+<li>
+<p><a id="features-shaderFmaFloat32"></a> <code>shaderFmaFloat32</code> indicates whether
+the implementation supports <code>OpFmaKHR</code> for Float32 types in shaders.</p>
+</li>
+<li>
+<p><a id="features-shaderFmaFloat64"></a> <code>shaderFmaFloat64</code> indicates whether
+the implementation supports <code>OpFmaKHR</code> for Float64 types in shaders.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceShaderFmaFeaturesKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceShaderFmaFeaturesKHR</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceShaderFmaFeaturesKHR-sType-sType" href="#VUID-VkPhysicalDeviceShaderFmaFeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceShaderFmaFeaturesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDeviceShaderIntegerDotProductFeatures</code> structure is
 defined as:</p>
 </div>
@@ -14211,12 +14407,10 @@ typedef struct VkPhysicalDeviceShaderIntegerDotProductFeatures {
 } VkPhysicalDeviceShaderIntegerDotProductFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_shader_integer_dot_product
+// Equivalent to VkPhysicalDeviceShaderIntegerDotProductFeatures
 typedef VkPhysicalDeviceShaderIntegerDotProductFeatures VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -14284,12 +14478,10 @@ typedef struct VkPhysicalDeviceMaintenance4Features {
 } VkPhysicalDeviceMaintenance4Features;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceMaintenance4FeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance4
+// Equivalent to VkPhysicalDeviceMaintenance4Features
 typedef VkPhysicalDeviceMaintenance4Features VkPhysicalDeviceMaintenance4FeaturesKHR;</code></pre>
 </div>
 </div>
@@ -14383,12 +14575,10 @@ typedef struct VkPhysicalDeviceMaintenance5Features {
 } VkPhysicalDeviceMaintenance5Features;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceMaintenance5FeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance5
+// Equivalent to VkPhysicalDeviceMaintenance5Features
 typedef VkPhysicalDeviceMaintenance5Features VkPhysicalDeviceMaintenance5FeaturesKHR;</code></pre>
 </div>
 </div>
@@ -14537,12 +14727,10 @@ typedef struct VkPhysicalDeviceMaintenance6Features {
 } VkPhysicalDeviceMaintenance6Features;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceMaintenance6FeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance6
+// Equivalent to VkPhysicalDeviceMaintenance6Features
 typedef VkPhysicalDeviceMaintenance6Features VkPhysicalDeviceMaintenance6FeaturesKHR;</code></pre>
 </div>
 </div>
@@ -14870,10 +15058,11 @@ This can be used for compiling pipelines or shaders for the purpose of
 filling pipeline caches.</p>
 </li>
 <li>
-<p>Queue family ownership transfers are no longer required when
-transitioning resources created with <code>VK_SHARING_MODE_EXCLUSIVE</code>
-between queue families that support <code>VK_QUEUE_GRAPHICS_BIT</code> and
-those that support only <code>VK_QUEUE_TRANSFER_BIT</code>.</p>
+<p>Queue family ownership transfers are no longer required for buffers and
+linear images.
+For optimally tiled images, a new physical device query is added to
+check if resources created with <code>VK_SHARING_MODE_EXCLUSIVE</code> <strong>can</strong>
+automatically transfer ownership between two queue families.</p>
 </li>
 <li>
 <p><a href="limits.html#limits-image2DViewOf3DSparse" class="xref page"><code>image2DViewOf3DSparse</code></a> enables
@@ -14912,6 +15101,100 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDeviceMaintenance10FeaturesKHR</code> structure is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceMaintenance10FeaturesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance10
+typedef struct VkPhysicalDeviceMaintenance10FeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           maintenance10;
+} VkPhysicalDeviceMaintenance10FeaturesKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-maintenance10"></a> <code>maintenance10</code> indicates that the
+implementation supports the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>New image format feature bits that indicate support for copying depth
+or stencil aspects using non-graphics queue families</p>
+</li>
+<li>
+<p>If <a href="fragops.html#vkCmdSetSampleMaskEXT" class="xref page">vkCmdSetSampleMaskEXT</a> is called with <code>pSampleMask</code> set to
+<code>NULL</code>, it is treated as if the mask has all bits set to <code>1</code>.</p>
+</li>
+<li>
+<p>Add <a href="renderpass.html#vkCmdEndRendering2KHR" class="xref page">vkCmdEndRendering2KHR</a> as an extensible version of
+<a href="renderpass.html#vkCmdEndRendering" class="xref page">vkCmdEndRendering</a></p>
+</li>
+<li>
+<p>Add input attachment information to dynamic rendering</p>
+</li>
+<li>
+<p>Require that vertex inputs follow sRGB encoding when those formats are
+used, instead of being underspecified.</p>
+</li>
+<li>
+<p>Add a query to determine if sRGB images are resolved in nonlinear or
+linear space by default</p>
+</li>
+<li>
+<p>Add an optional feature to allow applications to override the default
+sRGB resolve behavior</p>
+</li>
+<li>
+<p>Add resolve mode and depth-stencil resolve support to
+<code>vkCmdResolveImage2</code> to bring it in-line with render pass attachment
+resolves</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceMaintenance10FeaturesKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceMaintenance10FeaturesKHR</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceMaintenance10FeaturesKHR-sType-sType" href="#VUID-VkPhysicalDeviceMaintenance10FeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceMaintenance10FeaturesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDeviceDynamicRenderingFeatures</code> structure is defined as:</p>
 </div>
 <div id="VkPhysicalDeviceDynamicRenderingFeatures" class="listingblock">
@@ -14924,12 +15207,10 @@ typedef struct VkPhysicalDeviceDynamicRenderingFeatures {
 } VkPhysicalDeviceDynamicRenderingFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceDynamicRenderingFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_dynamic_rendering
+// Equivalent to VkPhysicalDeviceDynamicRenderingFeatures
 typedef VkPhysicalDeviceDynamicRenderingFeatures VkPhysicalDeviceDynamicRenderingFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -14974,6 +15255,64 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <li>
 <p><a id="VUID-VkPhysicalDeviceDynamicRenderingFeatures-sType-sType" href="#VUID-VkPhysicalDeviceDynamicRenderingFeatures-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceDynamicRenderingFeatures-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceCustomResolveFeaturesEXT</code> structure is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceCustomResolveFeaturesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_custom_resolve
+typedef struct VkPhysicalDeviceCustomResolveFeaturesEXT {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           customResolve;
+} VkPhysicalDeviceCustomResolveFeaturesEXT;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-customResolve"></a> <code>customResolve</code> specifies that the
+implementation supports render pass resolves using shaders.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceCustomResolveFeaturesEXT</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceCustomResolveFeaturesEXT</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceCustomResolveFeaturesEXT-sType-sType" href="#VUID-VkPhysicalDeviceCustomResolveFeaturesEXT-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceCustomResolveFeaturesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT</code></p>
 </li>
 </ul>
 </div>
@@ -15059,12 +15398,10 @@ typedef struct VkPhysicalDevicePipelineRobustnessFeatures {
 } VkPhysicalDevicePipelineRobustnessFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDevicePipelineRobustnessFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_pipeline_robustness
+// Equivalent to VkPhysicalDevicePipelineRobustnessFeatures
 typedef VkPhysicalDevicePipelineRobustnessFeatures VkPhysicalDevicePipelineRobustnessFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -15216,12 +15553,10 @@ typedef struct VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT {
 } VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_ARM_rasterization_order_attachment_access
+// Equivalent to VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT
 typedef VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM;</code></pre>
 </div>
 </div>
@@ -15434,8 +15769,8 @@ structure.</p>
 <code>attachmentFeedbackLoopLayout</code> indicates whether the implementation
 supports using
 <code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> image layout
-for images created with
-<code>VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT</code>.</p>
+for images created with the
+<code>VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT</code> usage flag set.</p>
 </li>
 </ul>
 </div>
@@ -16019,12 +16354,10 @@ typedef struct VkPhysicalDeviceShaderFloatControls2Features {
 } VkPhysicalDeviceShaderFloatControls2Features;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceShaderFloatControls2FeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_shader_float_controls2
+// Equivalent to VkPhysicalDeviceShaderFloatControls2Features
 typedef VkPhysicalDeviceShaderFloatControls2Features VkPhysicalDeviceShaderFloatControls2FeaturesKHR;</code></pre>
 </div>
 </div>
@@ -16527,12 +16860,10 @@ typedef struct VkPhysicalDeviceDepthClampZeroOneFeaturesKHR {
 } VkPhysicalDeviceDepthClampZeroOneFeaturesKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceDepthClampZeroOneFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_depth_clamp_zero_one
+// Equivalent to VkPhysicalDeviceDepthClampZeroOneFeaturesKHR
 typedef VkPhysicalDeviceDepthClampZeroOneFeaturesKHR VkPhysicalDeviceDepthClampZeroOneFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -17238,12 +17569,10 @@ typedef struct VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR {
 } VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR
 typedef VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT;</code></pre>
 </div>
 </div>
@@ -17333,12 +17662,10 @@ typedef struct VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR {
 } VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_mode_fifo_latest_ready
+// Equivalent to VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR
 typedef VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT;</code></pre>
 </div>
 </div>
@@ -17473,6 +17800,66 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT</code> structure
+is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_ray_tracing_invocation_reorder
+typedef struct VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           rayTracingInvocationReorder;
+} VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-rayTracingInvocationReorder"></a>
+<code>rayTracingInvocationReorder</code> indicates that the implementation
+supports <code>SPV_EXT_shader_invocation_reorder</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT-sType-sType" href="#VUID-VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV</code> structure is
 defined as:</p>
 </div>
@@ -17499,7 +17886,7 @@ typedef struct VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV {
 structure.</p>
 </li>
 <li>
-<p><a id="features-rayTracingInvocationReorder"></a>
+<p><a id="features-rayTracingInvocationReorderNV"></a>
 <code>rayTracingInvocationReorder</code> indicates that the implementation
 supports <code>SPV_NV_shader_invocation_reorder</code>.</p>
 </li>
@@ -18001,7 +18388,7 @@ structure.</p>
 </li>
 <li>
 <p><a id="features-ycbcrDegamma"></a> <code>ycbcrDegamma</code> indicates whether the
-implementation supports <a href="textures.html#textures-ycbcr-degamma" class="xref page">Y′C<sub>B</sub>C<sub>R</sub> degamma</a>.</p>
+implementation supports <a href="textures.html#textures-YCbCr-degamma" class="xref page">Y′C<sub>B</sub>C<sub>R</sub> degamma</a>.</p>
 </li>
 </ul>
 </div>
@@ -18710,12 +19097,10 @@ typedef struct VkPhysicalDeviceShaderSubgroupRotateFeatures {
 } VkPhysicalDeviceShaderSubgroupRotateFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_shader_subgroup_rotate
+// Equivalent to VkPhysicalDeviceShaderSubgroupRotateFeatures
 typedef VkPhysicalDeviceShaderSubgroupRotateFeatures VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -18786,12 +19171,10 @@ typedef struct VkPhysicalDeviceShaderExpectAssumeFeatures {
 } VkPhysicalDeviceShaderExpectAssumeFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceShaderExpectAssumeFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_shader_expect_assume
+// Equivalent to VkPhysicalDeviceShaderExpectAssumeFeatures
 typedef VkPhysicalDeviceShaderExpectAssumeFeatures VkPhysicalDeviceShaderExpectAssumeFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -18856,12 +19239,10 @@ typedef struct VkPhysicalDeviceDynamicRenderingLocalReadFeatures {
 } VkPhysicalDeviceDynamicRenderingLocalReadFeatures;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceDynamicRenderingLocalReadFeaturesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_dynamic_rendering_local_read
+// Equivalent to VkPhysicalDeviceDynamicRenderingLocalReadFeatures
 typedef VkPhysicalDeviceDynamicRenderingLocalReadFeatures VkPhysicalDeviceDynamicRenderingLocalReadFeaturesKHR;</code></pre>
 </div>
 </div>
@@ -19762,6 +20143,67 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT</code>
+structure is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_shader_uniform_buffer_unsized_array
+typedef struct VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           shaderUniformBufferUnsizedArray;
+} VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-shaderUniformBufferUnsizedArray"></a>
+<code>shaderUniformBufferUnsizedArray</code> indicates that the implementation
+supports declaring the last member of a uniform buffer block as an
+unsized array.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT-sType-sType" href="#VUID-VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDeviceFormatPackFeaturesARM</code> structure is defined as:</p>
 </div>
 <div id="VkPhysicalDeviceFormatPackFeaturesARM" class="listingblock">
@@ -19917,6 +20359,74 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDeviceDataGraphModelFeaturesQCOM</code> structure is defined
+as:</p>
+</div>
+<div id="VkPhysicalDeviceDataGraphModelFeaturesQCOM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_QCOM_data_graph_model
+typedef struct VkPhysicalDeviceDataGraphModelFeaturesQCOM {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           dataGraphModel;
+} VkPhysicalDeviceDataGraphModelFeaturesQCOM;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-dataGraphModelQCOM"></a> <code>dataGraphModel</code> specifies whether
+the functionality defined by this extension is available, and guarantees
+that the implementation supports a data graph queue family with at least
+one of the following engine types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_NEURAL_QCOM</code></p>
+</li>
+<li>
+<p><code>VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_COMPUTE_QCOM</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceDataGraphModelFeaturesQCOM</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceDataGraphModelFeaturesQCOM</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceDataGraphModelFeaturesQCOM-sType-sType" href="#VUID-VkPhysicalDeviceDataGraphModelFeaturesQCOM-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceDataGraphModelFeaturesQCOM-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDeviceShaderFloat8FeaturesEXT</code> structure is defined as:</p>
 </div>
 <div id="VkPhysicalDeviceShaderFloat8FeaturesEXT" class="listingblock">
@@ -19978,6 +20488,132 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 </div>
 </div>
 </div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceShader64BitIndexingFeaturesEXT</code> structure is
+defined as:</p>
+</div>
+<div id="VkPhysicalDeviceShader64BitIndexingFeaturesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_shader_64bit_indexing
+typedef struct VkPhysicalDeviceShader64BitIndexingFeaturesEXT {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           shader64BitIndexing;
+} VkPhysicalDeviceShader64BitIndexingFeaturesEXT;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-shader64BitIndexing"></a> <code>shader64BitIndexing</code> indicates
+    that the implementation supports <a href="../appendices/spirvenv.html#spirvenv-64bindexing" class="xref page">using 64-bit    address calculations</a> for indexing
+cooperative matrices,
+cooperative vectors,
+    storage buffers, and physical storage buffers.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceShader64BitIndexingFeaturesEXT</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceShader64BitIndexingFeaturesEXT</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceShader64BitIndexingFeaturesEXT-sType-sType" href="#VUID-VkPhysicalDeviceShader64BitIndexingFeaturesEXT-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceShader64BitIndexingFeaturesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDevicePerformanceCountersByRegionFeaturesARM</code> structure
+is defined as:</p>
+</div>
+<div id="VkPhysicalDevicePerformanceCountersByRegionFeaturesARM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_ARM_performance_counters_by_region
+typedef struct VkPhysicalDevicePerformanceCountersByRegionFeaturesARM {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           performanceCountersByRegion;
+} VkPhysicalDevicePerformanceCountersByRegionFeaturesARM;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-performanceCountersByRegion"></a>
+<code>performanceCountersByRegion</code> specifies whether the implementation
+supports capture of per region performance counters.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See <a href="../appendices/extensions.html#appendix-performance-counters-by-region-security" class="xref page">security model</a> for
+additional guarantees made by implementations that expose this feature.</p>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDevicePerformanceCountersByRegionFeaturesARM</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDevicePerformanceCountersByRegionFeaturesARM</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDevicePerformanceCountersByRegionFeaturesARM-sType-sType" href="#VUID-VkPhysicalDevicePerformanceCountersByRegionFeaturesARM-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDevicePerformanceCountersByRegionFeaturesARM-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -19999,11 +20635,11 @@ the following features <strong>must</strong> be supported:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#features-storageBuffer16BitAccess"><code>storageBuffer16BitAccess</code></a>
-if <a href="#features-uniformAndStorageBuffer16BitAccess"><code>uniformAndStorageBuffer16BitAccess</code></a> is supported</p>
+<p><a href="#features-multiview"><code>multiview</code></a></p>
 </li>
 <li>
-<p><a href="#features-multiview"><code>multiview</code></a></p>
+<p><a href="#features-storageBuffer16BitAccess"><code>storageBuffer16BitAccess</code></a>
+if <a href="#features-uniformAndStorageBuffer16BitAccess"><code>uniformAndStorageBuffer16BitAccess</code></a> is supported</p>
 </li>
 <li>
 <p><a href="#features-shaderDrawParameters"><code>shaderDrawParameters</code></a>
@@ -20019,6 +20655,24 @@ the following features <strong>must</strong> be supported:</p>
 <ul>
 <li>
 <p><a href="#features-subgroupBroadcastDynamicId"><code>subgroupBroadcastDynamicId</code></a></p>
+</li>
+<li>
+<p><a href="#features-imagelessFramebuffer"><code>imagelessFramebuffer</code></a></p>
+</li>
+<li>
+<p><a href="#features-uniformBufferStandardLayout"><code>uniformBufferStandardLayout</code></a></p>
+</li>
+<li>
+<p><a href="#features-shaderSubgroupExtendedTypes"><code>shaderSubgroupExtendedTypes</code></a></p>
+</li>
+<li>
+<p><a href="#features-separateDepthStencilLayouts"><code>separateDepthStencilLayouts</code></a></p>
+</li>
+<li>
+<p><a href="#features-hostQueryReset"><code>hostQueryReset</code></a></p>
+</li>
+<li>
+<p><a href="#features-timelineSemaphore"><code>timelineSemaphore</code></a></p>
 </li>
 <li>
 <p><a href="#features-samplerMirrorClampToEdge"><code>samplerMirrorClampToEdge</code></a>
@@ -20111,24 +20765,6 @@ if <code><a href="../appendices/extensions.html#VK_EXT_shader_viewport_index_lay
 <li>
 <p><a href="#features-samplerFilterMinmax"><code>samplerFilterMinmax</code></a>
 if <code><a href="../appendices/extensions.html#VK_EXT_sampler_filter_minmax" class="xref page">VK_EXT_sampler_filter_minmax</a></code> is supported</p>
-</li>
-<li>
-<p><a href="#features-imagelessFramebuffer"><code>imagelessFramebuffer</code></a></p>
-</li>
-<li>
-<p><a href="#features-uniformBufferStandardLayout"><code>uniformBufferStandardLayout</code></a></p>
-</li>
-<li>
-<p><a href="#features-shaderSubgroupExtendedTypes"><code>shaderSubgroupExtendedTypes</code></a></p>
-</li>
-<li>
-<p><a href="#features-separateDepthStencilLayouts"><code>separateDepthStencilLayouts</code></a></p>
-</li>
-<li>
-<p><a href="#features-hostQueryReset"><code>hostQueryReset</code></a></p>
-</li>
-<li>
-<p><a href="#features-timelineSemaphore"><code>timelineSemaphore</code></a></p>
 </li>
 </ul>
 </div>
@@ -20316,11 +20952,11 @@ the following features <strong>must</strong> be supported:</p>
 <p><a href="#features-maintenance6"><code>maintenance6</code></a></p>
 </li>
 <li>
-<p><a href="#features-pipelineProtectedAccess"><code>pipelineProtectedAccess</code></a>
-if <a href="#features-protectedMemory"><code>protectedMemory</code></a> is supported</p>
+<p><a href="#features-pipelineRobustness"><code>pipelineRobustness</code></a></p>
 </li>
 <li>
-<p><a href="#features-pipelineRobustness"><code>pipelineRobustness</code></a></p>
+<p><a href="#features-pipelineProtectedAccess"><code>pipelineProtectedAccess</code></a>
+if <a href="#features-protectedMemory"><code>protectedMemory</code></a> is supported</p>
 </li>
 </ul>
 </div>
@@ -20556,6 +21192,10 @@ at least one of <a href="#features-rectangularLines"><code>rectangularLines</cod
 <a href="#features-maintenance6"><code>maintenance6</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_KHR_copy_memory_indirect" class="xref page">VK_KHR_copy_memory_indirect</a></code> is supported,
+<a href="#features-indirectMemoryCopy"><code>indirectMemoryCopy</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_video_encode_intra_refresh" class="xref page">VK_KHR_video_encode_intra_refresh</a></code> is supported,
 <a href="#features-videoEncodeIntraRefresh"><code>videoEncodeIntraRefresh</code></a> <strong>must</strong> be supported</p>
 </li>
@@ -20576,6 +21216,10 @@ at least one of <a href="#features-rectangularLines"><code>rectangularLines</cod
 <a href="#features-maintenance8"><code>maintenance8</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_KHR_shader_fma" class="xref page">VK_KHR_shader_fma</a></code> is supported,
+<a href="#features-shaderFmaFloat32"><code>shaderFmaFloat32</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_maintenance9" class="xref page">VK_KHR_maintenance9</a></code> is supported,
 <a href="#features-maintenance9"><code>maintenance9</code></a> <strong>must</strong> be supported</p>
 </li>
@@ -20594,6 +21238,10 @@ at least one of <a href="#features-robustBufferAccess2"><code>robustBufferAccess
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_present_mode_fifo_latest_ready" class="xref page">VK_KHR_present_mode_fifo_latest_ready</a></code> is supported,
 <a href="#features-presentModeFifoLatestReady"><code>presentModeFifoLatestReady</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
+<p>If <code><a href="../appendices/extensions.html#VK_KHR_maintenance10" class="xref page">VK_KHR_maintenance10</a></code> is supported,
+<a href="#features-maintenance10"><code>maintenance10</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_EXT_transform_feedback" class="xref page">VK_EXT_transform_feedback</a></code> is supported,
@@ -20738,6 +21386,10 @@ at least one of <a href="#features-computeDerivativeGroupQuads"><code>computeDer
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_NV_scissor_exclusive" class="xref page">VK_NV_scissor_exclusive</a></code> is supported,
 <a href="#features-exclusiveScissor"><code>exclusiveScissor</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
+<p>If <code><a href="../appendices/extensions.html#VK_EXT_present_timing" class="xref page">VK_EXT_present_timing</a></code> is supported,
+<a href="#features-presentTiming"><code>presentTiming</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_INTEL_shader_integer_functions2" class="xref page">VK_INTEL_shader_integer_functions2</a></code> is supported,
@@ -21084,6 +21736,10 @@ the following features <strong>must</strong> be supported:</p>
 <a href="#features-globalPriorityQuery"><code>globalPriorityQuery</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_VALVE_video_encode_rgb_conversion" class="xref page">VK_VALVE_video_encode_rgb_conversion</a></code> is supported,
+<a href="#features-videoEncodeRgbConversion"><code>videoEncodeRgbConversion</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_EXT_image_view_min_lod" class="xref page">VK_EXT_image_view_min_lod</a></code> is supported,
 <a href="#features-minLod"><code>minLod</code></a> <strong>must</strong> be supported</p>
 </li>
@@ -21278,7 +21934,7 @@ if <code><a href="../appendices/extensions.html#VK_EXT_transform_feedback" class
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_NV_ray_tracing_invocation_reorder" class="xref page">VK_NV_ray_tracing_invocation_reorder</a></code> is supported,
-<a href="#features-rayTracingInvocationReorder"><code>rayTracingInvocationReorder</code></a> <strong>must</strong> be supported</p>
+<a href="#features-rayTracingInvocationReorderNV"><code>VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV</code>::<code>rayTracingInvocationReorder</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_NV_cooperative_vector" class="xref page">VK_NV_cooperative_vector</a></code> is supported,
@@ -21353,6 +22009,10 @@ if <code><a href="../appendices/extensions.html#VK_EXT_transform_feedback" class
 <a href="#features-tileMemoryHeap"><code>tileMemoryHeap</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_EXT_memory_decompression" class="xref page">VK_EXT_memory_decompression</a></code> is supported,
+<a href="#features-memoryDecompression"><code>memoryDecompression</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_NV_raw_access_chains" class="xref page">VK_NV_raw_access_chains</a></code> is supported,
 <a href="#features-shaderRawAccessChains"><code>shaderRawAccessChains</code></a> <strong>must</strong> be supported</p>
 </li>
@@ -21393,6 +22053,10 @@ if <code><a href="../appendices/extensions.html#VK_EXT_transform_feedback" class
 <a href="#features-imageAlignmentControl"><code>imageAlignmentControl</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_EXT_ray_tracing_invocation_reorder" class="xref page">VK_EXT_ray_tracing_invocation_reorder</a></code> is supported,
+<a href="#features-rayTracingInvocationReorder"><code>rayTracingInvocationReorder</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_EXT_depth_clamp_control" class="xref page">VK_EXT_depth_clamp_control</a></code> is supported,
 <a href="#features-depthClampControl"><code>depthClampControl</code></a> <strong>must</strong> be supported</p>
 </li>
@@ -21407,6 +22071,10 @@ at least one of <a href="#features-cooperativeMatrixWorkgroupScope"><code>cooper
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_ARM_pipeline_opacity_micromap" class="xref page">VK_ARM_pipeline_opacity_micromap</a></code> is supported,
 <a href="#features-pipelineOpacityMicromap"><code>pipelineOpacityMicromap</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
+<p>If <code><a href="../appendices/extensions.html#VK_ARM_performance_counters_by_region" class="xref page">VK_ARM_performance_counters_by_region</a></code> is supported,
+<a href="#features-performanceCountersByRegion"><code>performanceCountersByRegion</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_EXT_vertex_attribute_robustness" class="xref page">VK_EXT_vertex_attribute_robustness</a></code> is supported,
@@ -21433,8 +22101,24 @@ at least one of <a href="#features-cooperativeMatrixWorkgroupScope"><code>cooper
 <a href="#features-zeroInitializeDeviceMemory"><code>zeroInitializeDeviceMemory</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_EXT_shader_64bit_indexing" class="xref page">VK_EXT_shader_64bit_indexing</a></code> is supported,
+<a href="#features-shader64BitIndexing"><code>shader64BitIndexing</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
+<p>If <code><a href="../appendices/extensions.html#VK_EXT_custom_resolve" class="xref page">VK_EXT_custom_resolve</a></code> is supported,
+<a href="#features-customResolve"><code>customResolve</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
+<p>If <code><a href="../appendices/extensions.html#VK_QCOM_data_graph_model" class="xref page">VK_QCOM_data_graph_model</a></code> is supported,
+<a href="#features-dataGraphModelQCOM"><code>VkPhysicalDeviceDataGraphModelFeaturesQCOM</code>::<code>dataGraphModel</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_SEC_pipeline_cache_incremental_mode" class="xref page">VK_SEC_pipeline_cache_incremental_mode</a></code> is supported,
 <a href="../appendices/extensions.html#features-pipelineCacheIncrementalMode" class="xref page"><code>pipelineCacheIncrementalMode</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
+<p>If <code><a href="../appendices/extensions.html#VK_EXT_shader_uniform_buffer_unsized_array" class="xref page">VK_EXT_shader_uniform_buffer_unsized_array</a></code> is supported,
+<a href="#features-shaderUniformBufferUnsizedArray"><code>shaderUniformBufferUnsizedArray</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_acceleration_structure" class="xref page">VK_KHR_acceleration_structure</a></code> is supported,
@@ -21600,6 +22284,25 @@ supported.</p>
 </div>
 <div class="paragraph">
 <p>All other features defined in the Specification are <strong>optional</strong>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Applications running on Vulkan implementations advertising a
+<a href="devsandqueues.html#VkPhysicalDeviceDriverProperties" class="xref page">VkPhysicalDeviceDriverProperties</a>::<code>conformanceVersion</code> less than
+1.4.4.0 should be aware that the
+<a href="#features-formatRgba10x6WithoutYCbCrSampler"><code>formatRgba10x6WithoutYCbCrSampler</code></a>
+feature may not be supported despite <code><a href="../appendices/extensions.html#VK_EXT_rgba10x6_formats" class="xref page">VK_EXT_rgba10x6_formats</a></code> being
+advertised.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

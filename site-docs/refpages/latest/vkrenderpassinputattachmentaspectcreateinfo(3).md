@@ -22,7 +22,7 @@ VkRenderPassInputAttachmentAspectCreateInfo - Structure specifying, for a given 
 The `VkRenderPassInputAttachmentAspectCreateInfo` structure is defined
 as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_1
@@ -33,9 +33,8 @@ typedef struct VkRenderPassInputAttachmentAspectCreateInfo {
     const VkInputAttachmentAspectReference*    pAspectReferences;
 } VkRenderPassInputAttachmentAspectCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance2
+// Equivalent to VkRenderPassInputAttachmentAspectCreateInfo
 typedef VkRenderPassInputAttachmentAspectCreateInfo VkRenderPassInputAttachmentAspectCreateInfoKHR;
 
 * 
@@ -81,7 +80,7 @@ Valid Usage (Implicit)
 
  `aspectReferenceCount` **must** be greater than `0`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkInputAttachmentAspectReference](VkInputAttachmentAspectReference.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_maintenance2](VK_KHR_maintenance2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkInputAttachmentAspectReference](VkInputAttachmentAspectReference.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/renderpass.html#VkRenderPassInputAttachmentAspectCreateInfo).
 

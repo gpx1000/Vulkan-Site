@@ -26,9 +26,8 @@ void vkCmdSetRenderingAttachmentLocations(
     VkCommandBuffer                             commandBuffer,
     const VkRenderingAttachmentLocationInfo*    pLocationInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_dynamic_rendering_local_read
+// Equivalent to vkCmdSetRenderingAttachmentLocations
 void vkCmdSetRenderingAttachmentLocationsKHR(
     VkCommandBuffer                             commandBuffer,
     const VkRenderingAttachmentLocationInfo*    pLocationInfo);
@@ -94,7 +93,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetRenderingAttachmentLocations-commandBuffer-cmdpool) VUID-vkCmdSetRenderingAttachmentLocations-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetRenderingAttachmentLocations-renderpass) VUID-vkCmdSetRenderingAttachmentLocations-renderpass
@@ -119,7 +118,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | State |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

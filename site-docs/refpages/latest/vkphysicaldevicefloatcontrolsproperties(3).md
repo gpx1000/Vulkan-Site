@@ -44,9 +44,8 @@ typedef struct VkPhysicalDeviceFloatControlsProperties {
     VkBool32                             shaderRoundingModeRTZFloat64;
 } VkPhysicalDeviceFloatControlsProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_shader_float_controls
+// Equivalent to VkPhysicalDeviceFloatControlsProperties
 typedef VkPhysicalDeviceFloatControlsProperties VkPhysicalDeviceFloatControlsPropertiesKHR;
 
 * 

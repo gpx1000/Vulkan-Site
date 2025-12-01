@@ -32,9 +32,8 @@ typedef enum VkExternalSemaphoreFeatureFlagBits {
     VK_EXTERNAL_SEMAPHORE_FEATURE_IMPORTABLE_BIT_KHR = VK_EXTERNAL_SEMAPHORE_FEATURE_IMPORTABLE_BIT,
 } VkExternalSemaphoreFeatureFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkExternalSemaphoreFeatureFlagBits
 typedef VkExternalSemaphoreFeatureFlagBits VkExternalSemaphoreFeatureFlagBitsKHR;
 
 * 
@@ -45,7 +44,7 @@ handles of this type **can** be exported from Vulkan semaphore objects.
 `VK_EXTERNAL_SEMAPHORE_FEATURE_IMPORTABLE_BIT` specifies that
 handles of this type **can** be imported as Vulkan semaphore objects.
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalSemaphoreFeatureFlags](VkExternalSemaphoreFeatureFlags.html)
+[VK_KHR_external_semaphore_capabilities](VK_KHR_external_semaphore_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalSemaphoreFeatureFlags](VkExternalSemaphoreFeatureFlags.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkExternalSemaphoreFeatureFlagBits).
 

@@ -58,14 +58,11 @@ in the tessellation control shader.
 When using pipelines, this
 instruction **may** be specified in either the tessellation evaluation or
 tessellation control shader.
-When using shader objects, tessellation-related modes that are **required**
-**must** be specified in the tessellation evaluation shader, and **may** also be
-specified in the tessellation control shader.
-Other tessellation-related modes **may** be specified in the tessellation
+When using shader objects, `OutputVertices` **must** be specified in the
+tessellation control shader, and **may** also be specified in the tessellation
 evaluation shader.
-When using pipelines, other
-tessellation-related execution modes **can** also be specified in either the
-tessellation control or tessellation evaluation shaders.
+Other tessellation-related execution modes **can** also be specified in either
+the tessellation control or tessellation evaluation shaders.
 
 Any tessellation-related modes specified in both the tessellation control
 and tessellation evaluation shaders **must** be the same.
@@ -99,9 +96,6 @@ mode **must** be set in at least one of the tessellation shader stages.
 Controls generation of points rather than triangles or lines.
 This functionality defaults to disabled, and is enabled if either shader
 stage includes the execution mode.
-When using [shader objects](shaders.html#shaders-objects), if `PointMode` is set
-in the tessellation control stage, it **must** be identically set in the
-tessellation evaluation stage.
 If the `[VK_KHR_portability_subset](../appendices/extensions.html#VK_KHR_portability_subset)` extension is enabled, and
 [VkPhysicalDevicePortabilitySubsetFeaturesKHR](features.html#VkPhysicalDevicePortabilitySubsetFeaturesKHR)::`tessellationPointMode`
 is `VK_FALSE`, then point mode tessellation is not supported by the
@@ -603,9 +597,8 @@ typedef struct VkPipelineTessellationDomainOriginStateCreateInfo {
     VkTessellationDomainOrigin    domainOrigin;
 } VkPipelineTessellationDomainOriginStateCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance2
+// Equivalent to VkPipelineTessellationDomainOriginStateCreateInfo
 typedef VkPipelineTessellationDomainOriginStateCreateInfo VkPipelineTessellationDomainOriginStateCreateInfoKHR;
 
 * 
@@ -651,9 +644,8 @@ typedef enum VkTessellationDomainOrigin {
     VK_TESSELLATION_DOMAIN_ORIGIN_LOWER_LEFT_KHR = VK_TESSELLATION_DOMAIN_ORIGIN_LOWER_LEFT,
 } VkTessellationDomainOrigin;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance2
+// Equivalent to VkTessellationDomainOrigin
 typedef VkTessellationDomainOrigin VkTessellationDomainOriginKHR;
 
 * 
@@ -729,7 +721,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetTessellationDomainOriginEXT-commandBuffer-cmdpool) VUID-vkCmdSetTessellationDomainOriginEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetTessellationDomainOriginEXT-videocoding) VUID-vkCmdSetTessellationDomainOriginEXT-videocoding
@@ -749,7 +741,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

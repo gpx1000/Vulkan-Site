@@ -28,9 +28,8 @@ typedef enum VkSemaphoreWaitFlagBits {
     VK_SEMAPHORE_WAIT_ANY_BIT_KHR = VK_SEMAPHORE_WAIT_ANY_BIT,
 } VkSemaphoreWaitFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkSemaphoreWaitFlagBits
 typedef VkSemaphoreWaitFlagBits VkSemaphoreWaitFlagBitsKHR;
 
 * 

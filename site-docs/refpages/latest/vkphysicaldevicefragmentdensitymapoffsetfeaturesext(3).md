@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT {
     VkBool32           fragmentDensityMapOffset;
 } VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT;
 
-or the equivalent
-
 // Provided by VK_QCOM_fragment_density_map_offset
+// Equivalent to VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT
 typedef VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT VkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM;
 
 This structure describes the following feature:
@@ -64,7 +63,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT`
 
-[VK_EXT_fragment_density_map_offset](VK_EXT_fragment_density_map_offset.html), `VkBool32`, [VkStructureType](VkStructureType.html)
+[VK_EXT_fragment_density_map_offset](VK_EXT_fragment_density_map_offset.html), [VK_QCOM_fragment_density_map_offset](VK_QCOM_fragment_density_map_offset.html), `VkBool32`, [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/features.html#VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT).
 

@@ -69,10 +69,9 @@ The [format features](../../../../spec/latest/chapters/resources.html#resources-
 
 If the `aspect` member of any element of `pRanges` includes
 `VK_IMAGE_ASPECT_STENCIL_BIT`, and `image` was created with
-[separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` **must** have been included in the
-[VkImageStencilUsageCreateInfo](VkImageStencilUsageCreateInfo.html)::`stencilUsage` used to create
-`image`
+[separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo), it must have
+been created with the `VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag
+set
 
 * 
 [](#VUID-vkCmdClearDepthStencilImage-pRanges-02659) VUID-vkCmdClearDepthStencilImage-pRanges-02659
@@ -81,16 +80,15 @@ If the `aspect` member of any element of `pRanges` includes
 `VK_IMAGE_ASPECT_STENCIL_BIT`,
 and `image` was not created with
 [separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` **must** have been included in the
-[VkImageCreateInfo](VkImageCreateInfo.html)::`usage` used to create `image`
+the `VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag **must** have been set
+in the [VkImageCreateInfo](VkImageCreateInfo.html)::`usage` used to create `image`
 
 * 
 [](#VUID-vkCmdClearDepthStencilImage-pRanges-02660) VUID-vkCmdClearDepthStencilImage-pRanges-02660
 
 If the `aspect` member of any element of `pRanges` includes
-`VK_IMAGE_ASPECT_DEPTH_BIT`, `VK_IMAGE_USAGE_TRANSFER_DST_BIT`
-**must** have been included in the [VkImageCreateInfo](VkImageCreateInfo.html)::`usage`
-used to create `image`
+`VK_IMAGE_ASPECT_DEPTH_BIT`, `image` **must** have been created
+with the `VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdClearDepthStencilImage-image-00010) VUID-vkCmdClearDepthStencilImage-image-00010
@@ -223,12 +221,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdClearDepthStencilImage-commandBuffer-cmdpool) VUID-vkCmdClearDepthStencilImage-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdClearDepthStencilImage-renderpass) VUID-vkCmdClearDepthStencilImage-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdClearDepthStencilImage-suspended) VUID-vkCmdClearDepthStencilImage-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdClearDepthStencilImage-videocoding) VUID-vkCmdClearDepthStencilImage-videocoding
@@ -258,7 +261,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics | Action |
+Secondary | Outside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

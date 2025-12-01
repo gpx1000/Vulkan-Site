@@ -29,8 +29,16 @@ If there are still no messages and you are sure that validation layers are turne
 Also ensure that your SDK version is at least 1.1.106.0 to support the `VK_LAYER_KHRONOS_validation` layer.
 
 This appears to be a compatibility problem in the Steam client beta.
-There are a few possible workarounds:     * Opt out of the Steam beta program.
-* Set the `DISABLE_VK_LAYER_VALVE_steam_overlay_1` environment variable to `1`     * Delete the Steam overlay Vulkan layer entry in the registry under `HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers`
+There are a few possible workarounds:
+
+* 
+Opt out of the Steam beta program.
+
+* 
+Set the `DISABLE_VK_LAYER_VALVE_steam_overlay_1` environment variable to `1`
+
+* 
+Delete the Steam overlay Vulkan layer entry in the registry under `HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers`
 
 Example:
 

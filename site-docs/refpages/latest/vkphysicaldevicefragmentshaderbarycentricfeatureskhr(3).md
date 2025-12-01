@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR {
     VkBool32           fragmentShaderBarycentric;
 } VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR;
 
-or the equivalent
-
 // Provided by VK_NV_fragment_shader_barycentric
+// Equivalent to VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR
 typedef VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV;
 
 This structure describes the following feature:
@@ -69,7 +68,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR`
 
-[VK_KHR_fragment_shader_barycentric](VK_KHR_fragment_shader_barycentric.html), `VkBool32`, [VkStructureType](VkStructureType.html)
+[VK_KHR_fragment_shader_barycentric](VK_KHR_fragment_shader_barycentric.html), [VK_NV_fragment_shader_barycentric](VK_NV_fragment_shader_barycentric.html), `VkBool32`, [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/features.html#VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR).
 

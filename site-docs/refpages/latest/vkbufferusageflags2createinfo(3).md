@@ -28,9 +28,8 @@ typedef struct VkBufferUsageFlags2CreateInfo {
     VkBufferUsageFlags2    usage;
 } VkBufferUsageFlags2CreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkBufferUsageFlags2CreateInfo
 typedef VkBufferUsageFlags2CreateInfo VkBufferUsageFlags2CreateInfoKHR;
 
 * 

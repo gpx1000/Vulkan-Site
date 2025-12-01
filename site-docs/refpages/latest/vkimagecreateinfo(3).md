@@ -152,9 +152,9 @@ otherwise indicated by
 * 
 `samples` is `VK_SAMPLE_COUNT_1_BIT`
 
-Images created with usage including
-`VK_IMAGE_USAGE_TILE_MEMORY_BIT_QCOM` have further restrictions on their
-limits and capabilities compared to images created without this bit.
+Images created with the `VK_IMAGE_USAGE_TILE_MEMORY_BIT_QCOM` usage flag
+set have further restrictions on their limits and capabilities compared to
+images created without this flag.
 Creation of images with usage including
 `VK_IMAGE_USAGE_TILE_MEMORY_BIT_QCOM` **may** not be supported unless
 parameters meet all of the constraints:
@@ -204,10 +204,10 @@ type requirements of the image as described in
 [Sparse Resource Memory Requirements](../../../../spec/latest/chapters/sparsemem.html#sparsememory-memory-requirements) and
 [Resource Memory Association](../../../../spec/latest/chapters/resources.html#resources-association).
 
-|  | For images created without `VK_IMAGE_CREATE_EXTENDED_USAGE_BIT` a
+|  | For images created without the `VK_IMAGE_CREATE_EXTENDED_USAGE_BIT` flag
 | --- | --- |
-`usage` bit is valid if it is supported for the format the image is
-created with.
+set, a `usage` bit is valid if it is supported for the format the image
+is created with.
 
 For images created with `VK_IMAGE_CREATE_EXTENDED_USAGE_BIT` a
 `usage` bit is valid if it is supported for at least one of the formats
@@ -951,8 +951,8 @@ If the logical device was created with
 If `flags` contains
 `VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT`, then
 `mipLevels` **must** be one, `arrayLayers` **must** be one,
-`imageType` **must** be `VK_IMAGE_TYPE_2D`.
-and `imageCreateMaybeLinear` (as defined in
+`imageType` **must** be `VK_IMAGE_TYPE_2D`, and
+`imageCreateMaybeLinear` (as defined in
 [Image Creation Limits](../../../../spec/latest/chapters/resources.html#resources-image-creation-limits)) **must** be
 `VK_FALSE`
 
@@ -1037,13 +1037,13 @@ multiple of 2
 * 
 [](#VUID-VkImageCreateInfo-format-09583) VUID-VkImageCreateInfo-format-09583
 
-If `format` is one of the `VK_FORMAT_PVTRC1_*_IMG` formats,
+If `format` is one of the `VK_FORMAT_PVRTC1_*_IMG` formats,
 `extent.width` **must** be a power of 2
 
 * 
 [](#VUID-VkImageCreateInfo-format-09584) VUID-VkImageCreateInfo-format-09584
 
-If `format` is one of the `VK_FORMAT_PVTRC1_*_IMG` formats,
+If `format` is one of the `VK_FORMAT_PVRTC1_*_IMG` formats,
 `extent.height` **must** be a power of 2
 
 * 
@@ -1447,6 +1447,14 @@ structure and for any element of its `pProfiles` member
 enabled
 
 * 
+[](#VUID-VkImageCreateInfo-pNext-10920) VUID-VkImageCreateInfo-pNext-10920
+
+If the `pNext` chain includes a
+[VkVideoEncodeProfileRgbConversionInfoVALVE](VkVideoEncodeProfileRgbConversionInfoVALVE.html) structure, then the
+[`videoEncodeRgbConversion`](../../../../spec/latest/chapters/features.html#features-videoEncodeRgbConversion)
+feature **must** be enabled
+
+* 
 [](#VUID-VkImageCreateInfo-usage-10251) VUID-VkImageCreateInfo-usage-10251
 
 If `usage` includes
@@ -1678,7 +1686,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkImageCreateInfo-pNext-pNext) VUID-VkImageCreateInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkBufferCollectionImageCreateInfoFUCHSIA](VkBufferCollectionImageCreateInfoFUCHSIA.html), [VkDedicatedAllocationImageCreateInfoNV](VkDedicatedAllocationImageCreateInfoNV.html), [VkExportMetalObjectCreateInfoEXT](VkExportMetalObjectCreateInfoEXT.html), [VkExternalFormatANDROID](VkExternalFormatANDROID.html), [VkExternalFormatQNX](VkExternalFormatQNX.html), [VkExternalMemoryImageCreateInfo](VkExternalMemoryImageCreateInfo.html), [VkExternalMemoryImageCreateInfoNV](VkExternalMemoryImageCreateInfoNV.html), [VkImageAlignmentControlCreateInfoMESA](VkImageAlignmentControlCreateInfoMESA.html), [VkImageCompressionControlEXT](VkImageCompressionControlEXT.html), [VkImageDrmFormatModifierExplicitCreateInfoEXT](VkImageDrmFormatModifierExplicitCreateInfoEXT.html), [VkImageDrmFormatModifierListCreateInfoEXT](VkImageDrmFormatModifierListCreateInfoEXT.html), [VkImageFormatListCreateInfo](VkImageFormatListCreateInfo.html), [VkImageStencilUsageCreateInfo](VkImageStencilUsageCreateInfo.html), [VkImageSwapchainCreateInfoKHR](VkImageSwapchainCreateInfoKHR.html), [VkImportMetalIOSurfaceInfoEXT](VkImportMetalIOSurfaceInfoEXT.html), [VkImportMetalTextureInfoEXT](VkImportMetalTextureInfoEXT.html), [VkOpaqueCaptureDescriptorDataCreateInfoEXT](VkOpaqueCaptureDescriptorDataCreateInfoEXT.html), [VkOpticalFlowImageFormatInfoNV](VkOpticalFlowImageFormatInfoNV.html), or [VkVideoProfileListInfoKHR](VkVideoProfileListInfoKHR.html)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkBufferCollectionImageCreateInfoFUCHSIA](VkBufferCollectionImageCreateInfoFUCHSIA.html), [VkDedicatedAllocationImageCreateInfoNV](VkDedicatedAllocationImageCreateInfoNV.html), [VkExportMetalObjectCreateInfoEXT](VkExportMetalObjectCreateInfoEXT.html), [VkExternalFormatANDROID](VkExternalFormatANDROID.html), [VkExternalFormatOHOS](VkExternalFormatOHOS.html), [VkExternalFormatQNX](VkExternalFormatQNX.html), [VkExternalMemoryImageCreateInfo](VkExternalMemoryImageCreateInfo.html), [VkExternalMemoryImageCreateInfoNV](VkExternalMemoryImageCreateInfoNV.html), [VkImageAlignmentControlCreateInfoMESA](VkImageAlignmentControlCreateInfoMESA.html), [VkImageCompressionControlEXT](VkImageCompressionControlEXT.html), [VkImageDrmFormatModifierExplicitCreateInfoEXT](VkImageDrmFormatModifierExplicitCreateInfoEXT.html), [VkImageDrmFormatModifierListCreateInfoEXT](VkImageDrmFormatModifierListCreateInfoEXT.html), [VkImageFormatListCreateInfo](VkImageFormatListCreateInfo.html), [VkImageStencilUsageCreateInfo](VkImageStencilUsageCreateInfo.html), [VkImageSwapchainCreateInfoKHR](VkImageSwapchainCreateInfoKHR.html), [VkImportMetalIOSurfaceInfoEXT](VkImportMetalIOSurfaceInfoEXT.html), [VkImportMetalTextureInfoEXT](VkImportMetalTextureInfoEXT.html), [VkNativeBufferOHOS](VkNativeBufferOHOS.html), [VkOpaqueCaptureDescriptorDataCreateInfoEXT](VkOpaqueCaptureDescriptorDataCreateInfoEXT.html), [VkOpticalFlowImageFormatInfoNV](VkOpticalFlowImageFormatInfoNV.html), [VkSwapchainImageCreateInfoOHOS](VkSwapchainImageCreateInfoOHOS.html), or [VkVideoProfileListInfoKHR](VkVideoProfileListInfoKHR.html)
 
 * 
 [](#VUID-VkImageCreateInfo-sType-unique) VUID-VkImageCreateInfo-sType-unique

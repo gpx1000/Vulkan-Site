@@ -31,9 +31,8 @@ typedef struct VkPipelineRobustnessCreateInfo {
     VkPipelineRobustnessImageBehavior     images;
 } VkPipelineRobustnessCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_robustness
+// Equivalent to VkPipelineRobustnessCreateInfo
 typedef VkPipelineRobustnessCreateInfo VkPipelineRobustnessCreateInfoEXT;
 
 * 

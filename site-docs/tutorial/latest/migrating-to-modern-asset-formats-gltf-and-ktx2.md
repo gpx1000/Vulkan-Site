@@ -163,6 +163,8 @@ Let’s compare traditional image formats with KTX2:
 | Metadata | Limited | Comprehensive texture metadata |
 | Supported features | Basic 2D images | All GPU texture types (2D, 3D, cubemaps, arrays) |
 
+For loading glTF models (instead of obj) we’ll be using the open source [headery only C++ tiny glTF library](https://github.com/syoyo/tinygltf).
+
 First, we need to include the tinygltf library instead of tinyobjloader:
 
 // Replace this:
@@ -271,6 +273,8 @@ While our basic implementation only extracts geometry and texture coordinates, g
 **Scenes and nodes**: Process scene hierarchy through `model.scenes` and `model.nodes`
 
 For a complete application, you would typically process these additional features to take full advantage of glTF.
+
+For loading KTX files (instead of formats like png or jpeg) we’ll be using the open source [KTX (Khronos Texture) Library and Tools](https://github.com/KhronosGroup/KTX-Software).
 
 First, we need to include the KTX library:
 

@@ -28,9 +28,8 @@ void vkGetDeviceImageSubresourceLayout(
     const VkDeviceImageSubresourceInfo*         pInfo,
     VkSubresourceLayout2*                       pLayout);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to vkGetDeviceImageSubresourceLayout
 void vkGetDeviceImageSubresourceLayoutKHR(
     VkDevice                                    device,
     const VkDeviceImageSubresourceInfo*         pInfo,

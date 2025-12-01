@@ -126,7 +126,7 @@ Daniel Rakos, RasterGrid
 Ping Liu, Intel
 
 * 
-Aidan Fabius, Core Avionics & Industrial Inc.
+Aidan Fabius, Lynx
 
 * 
 Lynne Iribarren, Independent

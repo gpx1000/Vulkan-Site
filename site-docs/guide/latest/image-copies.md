@@ -29,6 +29,7 @@
 - [Partial Texel Block](#_partial_texel_block)
 - [Partial_Texel_Block](#_partial_texel_block)
 - [Multi-Planar](#_multi_planar)
+- [Singlar-Planar YCbCr](#_singlar_planar_ycbcr)
 
 ## Content
 
@@ -237,7 +238,13 @@ VkBufferImageCopy region[2];
 region[0].imageSubresource.aspectMask = VK_IMAGE_ASPECT_PLANE_0_BIT;
 region[0].imageExtent = {width, height, 1};
 
-region[0].imageSubresource.aspectMask = VK_IMAGE_ASPECT_PLANE_1_BIT;
-region[0].imageExtent = {width / 2, height / 2, 1};
+region[1].imageSubresource.aspectMask = VK_IMAGE_ASPECT_PLANE_1_BIT;
+region[1].imageExtent = {width / 2, height / 2, 1};
 
 ![image_copies_multi_planar.svg](_images/image_copies_multi_planar.svg)
+
+There is anthoer edge case to watch out for! Formats such as `VK_FORMAT_G8B8G8R8_422_UNORM` can be tricky as they not are technically compressed, but also not multi-planar (so you copy with `VK_IMAGE_ASPECT_COLOR_BIT`).
+
+The spec does give you a hint how to and handle them for copies:
+
+"[VK_FORMAT_G8B8G8R8_422_UNORM] For the purposes of the constraints on copy extents, this format is treated as a compressed format with a 2×1 compressed texel block."

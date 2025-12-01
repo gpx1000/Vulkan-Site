@@ -35,9 +35,8 @@ typedef struct VkWriteDescriptorSetInlineUniformBlock {
     const void*        pData;
 } VkWriteDescriptorSetInlineUniformBlock;
 
-or the equivalent
-
 // Provided by VK_EXT_inline_uniform_block
+// Equivalent to VkWriteDescriptorSetInlineUniformBlock
 typedef VkWriteDescriptorSetInlineUniformBlock VkWriteDescriptorSetInlineUniformBlockEXT;
 
 * 

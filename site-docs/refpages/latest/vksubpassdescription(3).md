@@ -21,7 +21,7 @@ VkSubpassDescription - Structure specifying a subpass description
 
 The `VkSubpassDescription` structure is defined as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -108,7 +108,7 @@ discarded.
 
 If
 `flags` does not include
-`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM`, and if
+`VK_SUBPASS_DESCRIPTION_CUSTOM_RESOLVE_BIT_EXT`, and if
 `pResolveAttachments` is not `NULL`, each of its elements corresponds to
 a color attachment (the element in `pColorAttachments` at the same
 index), and a [multisample resolve operation](../../../../spec/latest/chapters/renderpass.html#renderpass-resolve-operations) is defined for each attachment unless the resolve attachment
@@ -116,7 +116,7 @@ index is `VK_ATTACHMENT_UNUSED`.
 
 Similarly, if
 `flags` does not include
-`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM`, and
+`VK_SUBPASS_DESCRIPTION_CUSTOM_RESOLVE_BIT_EXT`, and
 [VkSubpassDescriptionDepthStencilResolve](VkSubpassDescriptionDepthStencilResolve.html)::`pDepthStencilResolveAttachment`
 is not `NULL` and does not have the value `VK_ATTACHMENT_UNUSED`, it
 corresponds to the depth/stencil attachment in
@@ -148,6 +148,13 @@ If `pDepthStencilAttachment` is `NULL`, or if its attachment index is
 `VK_ATTACHMENT_UNUSED`, it indicates that no depth/stencil attachment
 will be used in the subpass.
 
+Following this call, if the [`customResolve`](../../../../spec/latest/chapters/features.html#features-customResolve)
+feature is enabled the fragment area **may** be reduced to (1,1) if a
+fragment density map is attached to the render pass.
+If this occurs, reads of input attachments **may** return the value for the
+original larger fragment containing the smaller fragment or use the new
+fragment area.
+
 The contents of an attachment within the render area become **undefined** at
 the start of a subpass **S** if all of the following conditions are true:
 
@@ -167,7 +174,7 @@ In addition, the contents of an attachment within the render area become
 are true:
 
 * 
-`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM` is set.
+`VK_SUBPASS_DESCRIPTION_CUSTOM_RESOLVE_BIT_EXT` is set.
 
 * 
 The attachment is used as a color or depth/stencil in the subpass.
@@ -227,7 +234,7 @@ If the `attachment` member of an element of
 [](#VUID-VkSubpassDescription-attachment-06915) VUID-VkSubpassDescription-attachment-06915
 
 If the `attachment` member of `pDepthStencilAttachment` is not
-`VK_ATTACHMENT_UNUSED`, ts `layout` member **must** not be
+`VK_ATTACHMENT_UNUSED`, its `layout` member **must** not be
 `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL` or
 `VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL`
 
@@ -486,14 +493,14 @@ also include `VK_SUBPASS_DESCRIPTION_PER_VIEW_ATTRIBUTES_BIT_NVX`
 [](#VUID-VkSubpassDescription-flags-03341) VUID-VkSubpassDescription-flags-03341
 
 If `flags` includes
-`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM`, and if
+`VK_SUBPASS_DESCRIPTION_CUSTOM_RESOLVE_BIT_EXT`, and if
 `pResolveAttachments` is not `NULL`, then each resolve attachment
 **must** be `VK_ATTACHMENT_UNUSED`
 
 [](#VUID-VkSubpassDescription-flags-03343) VUID-VkSubpassDescription-flags-03343
 
 If `flags` includes
-`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM`, then the subpass
+`VK_SUBPASS_DESCRIPTION_CUSTOM_RESOLVE_BIT_EXT`, then the subpass
 **must** be the last subpass in a subpass dependency chain
 
 [](#VUID-VkSubpassDescription-pInputAttachments-02868) VUID-VkSubpassDescription-pInputAttachments-02868

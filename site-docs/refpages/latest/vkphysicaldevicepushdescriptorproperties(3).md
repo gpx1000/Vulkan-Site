@@ -28,9 +28,8 @@ typedef struct VkPhysicalDevicePushDescriptorProperties {
     uint32_t           maxPushDescriptors;
 } VkPhysicalDevicePushDescriptorProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_push_descriptor
+// Equivalent to VkPhysicalDevicePushDescriptorProperties
 typedef VkPhysicalDevicePushDescriptorProperties VkPhysicalDevicePushDescriptorPropertiesKHR;
 
 * 

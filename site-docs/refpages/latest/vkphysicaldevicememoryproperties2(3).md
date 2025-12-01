@@ -28,9 +28,8 @@ typedef struct VkPhysicalDeviceMemoryProperties2 {
     VkPhysicalDeviceMemoryProperties    memoryProperties;
 } VkPhysicalDeviceMemoryProperties2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkPhysicalDeviceMemoryProperties2
 typedef VkPhysicalDeviceMemoryProperties2 VkPhysicalDeviceMemoryProperties2KHR;
 
 * 
@@ -62,7 +61,7 @@ Valid Usage (Implicit)
 
  The `sType` value of each structure in the `pNext` chain **must** be unique
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDeviceMemoryProperties](VkPhysicalDeviceMemoryProperties.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceMemoryProperties2](vkGetPhysicalDeviceMemoryProperties2.html), [vkGetPhysicalDeviceMemoryProperties2](vkGetPhysicalDeviceMemoryProperties2.html)
+[VK_KHR_get_physical_device_properties2](VK_KHR_get_physical_device_properties2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDeviceMemoryProperties](VkPhysicalDeviceMemoryProperties.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceMemoryProperties2](vkGetPhysicalDeviceMemoryProperties2.html), [vkGetPhysicalDeviceMemoryProperties2](vkGetPhysicalDeviceMemoryProperties2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/memory.html#VkPhysicalDeviceMemoryProperties2).
 

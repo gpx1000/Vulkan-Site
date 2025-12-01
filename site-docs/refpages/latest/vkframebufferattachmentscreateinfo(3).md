@@ -21,7 +21,7 @@ VkFramebufferAttachmentsCreateInfo - Structure specifying parameters of images t
 
 The `VkFramebufferAttachmentsCreateInfo` structure is defined as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -32,9 +32,8 @@ typedef struct VkFramebufferAttachmentsCreateInfo {
     const VkFramebufferAttachmentImageInfo*    pAttachmentImageInfos;
 } VkFramebufferAttachmentsCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_imageless_framebuffer
+// Equivalent to VkFramebufferAttachmentsCreateInfo
 typedef VkFramebufferAttachmentsCreateInfo VkFramebufferAttachmentsCreateInfoKHR;
 
 * 
@@ -66,7 +65,7 @@ Valid Usage (Implicit)
 
  If `attachmentImageInfoCount` is not `0`, `pAttachmentImageInfos` **must** be a valid pointer to an array of `attachmentImageInfoCount` valid [VkFramebufferAttachmentImageInfo](VkFramebufferAttachmentImageInfo.html) structures
 
-[VK_VERSION_1_2](VK_VERSION_1_2.html), [VkFramebufferAttachmentImageInfo](VkFramebufferAttachmentImageInfo.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_imageless_framebuffer](VK_KHR_imageless_framebuffer.html), [VK_VERSION_1_2](VK_VERSION_1_2.html), [VkFramebufferAttachmentImageInfo](VkFramebufferAttachmentImageInfo.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/renderpass.html#VkFramebufferAttachmentsCreateInfo).
 

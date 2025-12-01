@@ -28,8 +28,6 @@ physical device, and the same driver version as the resource’s
 
 #define VK_QUEUE_FAMILY_EXTERNAL          (~1U)
 
-or the equivalent
-
 #define VK_QUEUE_FAMILY_EXTERNAL_KHR      VK_QUEUE_FAMILY_EXTERNAL
 
 [VK_KHR_external_memory](VK_KHR_external_memory.html), [VK_VERSION_1_1](VK_VERSION_1_1.html)

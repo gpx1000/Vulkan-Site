@@ -15,7 +15,7 @@
 
 ## Content
 
-CoreMaxIDARM - Max core ID that can be observed on the device running the invovation reading CoreMaxIDARM
+CoreMaxIDARM - Max core ID that can be observed on the device running the invocation reading CoreMaxIDARM
 
 `CoreMaxIDARM`
 

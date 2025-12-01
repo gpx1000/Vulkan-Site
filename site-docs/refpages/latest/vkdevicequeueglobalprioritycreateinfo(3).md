@@ -32,14 +32,12 @@ typedef struct VkDeviceQueueGlobalPriorityCreateInfo {
     VkQueueGlobalPriority    globalPriority;
 } VkDeviceQueueGlobalPriorityCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_global_priority
+// Equivalent to VkDeviceQueueGlobalPriorityCreateInfo
 typedef VkDeviceQueueGlobalPriorityCreateInfo VkDeviceQueueGlobalPriorityCreateInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_global_priority
+// Equivalent to VkDeviceQueueGlobalPriorityCreateInfo
 typedef VkDeviceQueueGlobalPriorityCreateInfo VkDeviceQueueGlobalPriorityCreateInfoEXT;
 
 * 

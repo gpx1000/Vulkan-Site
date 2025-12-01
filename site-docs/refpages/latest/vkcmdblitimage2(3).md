@@ -27,9 +27,8 @@ void vkCmdBlitImage2(
     VkCommandBuffer                             commandBuffer,
     const VkBlitImageInfo2*                     pBlitImageInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_copy_commands2
+// Equivalent to vkCmdBlitImage2
 void vkCmdBlitImage2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkBlitImageInfo2*                     pBlitImageInfo);
@@ -89,12 +88,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBlitImage2-commandBuffer-cmdpool) VUID-vkCmdBlitImage2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBlitImage2-renderpass) VUID-vkCmdBlitImage2-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdBlitImage2-suspended) VUID-vkCmdBlitImage2-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBlitImage2-videocoding) VUID-vkCmdBlitImage2-videocoding
@@ -114,7 +118,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics | Action |
+Secondary | Outside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

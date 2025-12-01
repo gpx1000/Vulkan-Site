@@ -102,7 +102,7 @@ Familiarity with RAII, initializer lists
 A compiler with decent support of C++20 features
 
 * 
-Visual Studio 2017+, GCC 7+, Or Clang 5+
+Visual Studio 2017+, GCC 7+, or Clang 5+
 
 Some existing experience with realtime 3D computer graphics
 
@@ -131,16 +131,12 @@ We will use C++ features like classes and RAII to organize logic and
 To make it easier to learn to work with Vulkan, we’ll be using the newer
 [Vulkan-Hpp](https://github.com/KhronosGroup/Vulkan-Hpp) bindings that
   abstract some of the dirty work and help prevent certain classes of errors.
-We’ll also use Vulkan raii and the Vulkan C++20 module. With this
-combination, we show how to use Vulkan in a method that will translate
-directly into large projects where C++ libraries have traditionally caused
-large build times while also showing one method of making Vulkan a joy to
-work with.
-
-To make it easier to understand the core concepts and to follow along for
-developers using other programming languages, also to get some experience with
-the base API we’ll be using the original C API when we describe the objects
-and the concepts that are being used.
+We’ll also use Vulkan RAII and, optionally, the Vulkan C++20 module. The
+attachments template has modules disabled by default for maximum compatibility,
+but we recommend enabling them if your toolchain supports it. With this
+combination, we show how to use Vulkan in a way that translates directly into
+large projects where C++ libraries have traditionally caused long build times,
+while also showing one method of making Vulkan a joy to work with.
 
 The contents of this repository are licensed as [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), unless stated otherwise.
 By contributing to this repository, you agree to license your contributions to the public under that same license.

@@ -28,9 +28,8 @@ typedef struct VkSamplerReductionModeCreateInfo {
     VkSamplerReductionMode    reductionMode;
 } VkSamplerReductionModeCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_sampler_filter_minmax
+// Equivalent to VkSamplerReductionModeCreateInfo
 typedef VkSamplerReductionModeCreateInfo VkSamplerReductionModeCreateInfoEXT;
 
 * 

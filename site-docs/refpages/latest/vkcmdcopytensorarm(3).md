@@ -24,7 +24,7 @@ To copy data between tensor objects, call:
 // Provided by VK_ARM_tensors
 void vkCmdCopyTensorARM(
     VkCommandBuffer                             commandBuffer,
-     const VkCopyTensorInfoARM*                 pCopyTensorInfo);
+    const VkCopyTensorInfoARM*                  pCopyTensorInfo);
 
 * 
 `commandBuffer` is the command buffer into which the command will be
@@ -54,12 +54,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyTensorARM-commandBuffer-cmdpool) VUID-vkCmdCopyTensorARM-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyTensorARM-renderpass) VUID-vkCmdCopyTensorARM-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyTensorARM-suspended) VUID-vkCmdCopyTensorARM-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyTensorARM-videocoding) VUID-vkCmdCopyTensorARM-videocoding
@@ -79,11 +84,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 

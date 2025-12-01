@@ -302,7 +302,40 @@
     <a class="nav-link" href="../17_Multithreading.html">Multithreading</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../courses/18_Ray_tracing/00_Overview.html">Ray Tracing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/00_Overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/01_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/02_Acceleration_structures.html">Acceleration structures</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/03_Ray_query_shadows.html">Ray query shadows</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/04_TLAS_animation.html">TLAS animation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/05_Shadow_transparency.html">Shadow transparency</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/06_Reflections.html">Reflections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../courses/18_Ray_tracing/07_Conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../90_FAQ.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -439,7 +472,7 @@ The only two changes you have to make are the <code>format</code> and the <code>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::ImageViewCreateInfo viewInfo({}, image, vk::ImageViewType::e2D, format, {}, { vk::ImageAspectFlagBits::eColor, 0, 1, 0, 1 });</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::ImageViewCreateInfo viewInfo{ .image = image, .viewType = vk::ImageViewType::e2D, .format = format, .subresourceRange = { vk::ImageAspectFlagBits::eColor, 0, 1, 0, 1 }};</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -457,7 +490,8 @@ Finish creating the image view by calling <code>vkCreateImageView</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::raii::ImageView createImageView(vk::raii::Image&amp; image, vk::Format format) {
-    vk::ImageViewCreateInfo viewInfo({}, image, vk::ImageViewType::e2D, format, {}, { vk::ImageAspectFlagBits::eColor, 0, 1, 0, 1 });
+    vk::ImageViewCreateInfo viewInfo{ .image = image, .viewType = vk::ImageViewType::e2D,
+        .format = format, .subresourceRange = { vk::ImageAspectFlagBits::eColor, 0, 1, 0, 1 } };
     return vk::raii::ImageView( device, viewInfo );
 }</code></pre>
 </div>
@@ -559,7 +593,7 @@ void createTextureSampler() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::SamplerCreateInfo samplerInfo( {}, vk::Filter::eLinear, vk::Filter::eLinear);</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::SamplerCreateInfo samplerInfo{.magFilter = vk::Filter::eLinear, .minFilter = vk::Filter::eLinear};</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -569,8 +603,8 @@ The choices are <code>VK_FILTER_NEAREST</code> and <code>VK_FILTER_LINEAR</code>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::SamplerCreateInfo samplerInfo( {}, vk::Filter::eLinear, vk::Filter::eLinear, vk::SamplerMipmapMode::eLinear, vk::SamplerAddressMode::eRepeat,
-                                    vk::SamplerAddressMode::eRepeat);</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::SamplerCreateInfo samplerInfo{.magFilter = vk::Filter::eLinear, .minFilter = vk::Filter::eLinear,  .mipmapMode = vk::SamplerMipmapMode::eLinear,
+    .addressModeU = vk::SamplerAddressMode::eRepeat, .addressModeV = vk::SamplerAddressMode::eRepeat };</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -606,12 +640,13 @@ However, the repeat mode is probably the most common mode, because it can be use
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::PhysicalDeviceProperties properties = physicalDevice.getProperties();
-        vk::SamplerCreateInfo samplerInfo( {}, vk::Filter::eLinear, vk::Filter::eLinear, vk::SamplerMipmapMode::eLinear, vk::SamplerAddressMode::eRepeat,
-                                            vk::SamplerAddressMode::eRepeat, vk::SamplerAddressMode::eRepeat, 0);</code></pre>
+vk::SamplerCreateInfo samplerInfo{.magFilter = vk::Filter::eLinear, .minFilter = vk::Filter::eLinear,  .mipmapMode = vk::SamplerMipmapMode::eLinear,
+    .addressModeU = vk::SamplerAddressMode::eRepeat, .addressModeV = vk::SamplerAddressMode::eRepeat, .addressModeW = vk::SamplerAddressMode::eRepeat,
+    .anisotropyEnable = vk::True, .maxAnisotropy = properties.limits.maxSamplerAnisotropy};</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>These two fields specify if anisotropic filtering should be used.
+<p>The <code>anisotropyEnable</code> field specifies if anisotropic filtering should be used.
 There is no reason not to use this unless performance is a concern.
 The <code>maxAnisotropy</code> field limits the number of texel samples that can be used to calculate the final color.
 A lower value results in better performance, but lower quality results.
@@ -630,9 +665,10 @@ If we want to go for maximum quality, we can simply use that value directly:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::PhysicalDeviceProperties properties = physicalDevice.getProperties();
-vk::SamplerCreateInfo samplerInfo( {}, vk::Filter::eLinear, vk::Filter::eLinear, vk::SamplerMipmapMode::eLinear, vk::SamplerAddressMode::eRepeat,
-                                    vk::SamplerAddressMode::eRepeat, vk::SamplerAddressMode::eRepeat, 0, 1,
-                                    properties.limits.maxSamplerAnisotropy, vk::False, vk::CompareOp::eAlways);</code></pre>
+vk::SamplerCreateInfo samplerInfo{.magFilter = vk::Filter::eLinear, .minFilter = vk::Filter::eLinear,  .mipmapMode = vk::SamplerMipmapMode::eLinear,
+    .addressModeU = vk::SamplerAddressMode::eRepeat, .addressModeV = vk::SamplerAddressMode::eRepeat, .addressModeW = vk::SamplerAddressMode::eRepeat,
+    .anisotropyEnable = vk::True, .maxAnisotropy = properties.limits.maxSamplerAnisotropy,
+    .compareEnable = vk::False, .compareOp = vk::CompareOp::eAlways};</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -725,8 +761,11 @@ We need to update the <code>createLogicalDevice</code> function to request it:</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::PhysicalDeviceFeatures deviceFeatures;
-deviceFeatures.samplerAnisotropy = vk::True;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::StructureChain&lt;vk::PhysicalDeviceFeatures2, vk::PhysicalDeviceVulkan13Features, vk::PhysicalDeviceExtendedDynamicStateFeaturesEXT&gt; featureChain = {
+    {.features = {.samplerAnisotropy = true } },            // vk::PhysicalDeviceFeatures2
+    {.synchronization2 = true, .dynamicRendering = true },  // vk::PhysicalDeviceVulkan13Features
+    {.extendedDynamicState = true }                         // vk::PhysicalDeviceExtendedDynamicStateFeaturesEXT
+};</code></pre>
 </div>
 </div>
 <div class="paragraph">

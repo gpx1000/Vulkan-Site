@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures {
     VkBool32           shaderSubgroupExtendedTypes;
 } VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_shader_subgroup_extended_types
+// Equivalent to VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures
 typedef VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures VkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR;
 
 This structure describes the following feature:

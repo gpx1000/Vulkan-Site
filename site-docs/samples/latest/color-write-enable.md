@@ -54,10 +54,10 @@ How to set up the render subpass and framebuffers for multiple color attachments
 * 
 How to write a fragment shader with multiple outputs.
 
-[https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_color_write_enable.html](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_color_write_enable.html)
+[https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_color_write_enable.html](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_color_write_enable.html)
 
-[https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSubpassDescription.html](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSubpassDescription.html)
+[https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescription.html](https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescription.html)
 
-[https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkFramebufferCreateInfo.html](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkFramebufferCreateInfo.html)
+[https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferCreateInfo.html](https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferCreateInfo.html)
 
-[https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorWriteMaskEXT.html](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorWriteMaskEXT.html)
+[https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorWriteMaskEXT.html](https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorWriteMaskEXT.html)

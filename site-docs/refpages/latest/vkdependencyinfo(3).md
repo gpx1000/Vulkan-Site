@@ -34,9 +34,8 @@ typedef struct VkDependencyInfo {
     const VkImageMemoryBarrier2*     pImageMemoryBarriers;
 } VkDependencyInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkDependencyInfo
 typedef VkDependencyInfo VkDependencyInfoKHR;
 
 * 

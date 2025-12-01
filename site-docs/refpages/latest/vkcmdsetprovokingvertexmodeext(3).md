@@ -84,7 +84,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetProvokingVertexModeEXT-commandBuffer-cmdpool) VUID-vkCmdSetProvokingVertexModeEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetProvokingVertexModeEXT-videocoding) VUID-vkCmdSetProvokingVertexModeEXT-videocoding
@@ -104,7 +104,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

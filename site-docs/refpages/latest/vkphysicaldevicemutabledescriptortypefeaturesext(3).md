@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT {
     VkBool32           mutableDescriptorType;
 } VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT;
 
-or the equivalent
-
 // Provided by VK_VALVE_mutable_descriptor_type
+// Equivalent to VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT
 typedef VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE;
 
 This structure describes the following feature:

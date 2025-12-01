@@ -34,9 +34,8 @@ typedef struct VkBlitImageInfo2 {
     VkFilter               filter;
 } VkBlitImageInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_copy_commands2
+// Equivalent to VkBlitImageInfo2
 typedef VkBlitImageInfo2 VkBlitImageInfo2KHR;
 
 * 
@@ -95,8 +94,8 @@ The [format features](../../../../spec/latest/chapters/resources.html#resources-
 * 
 [](#VUID-VkBlitImageInfo2-srcImage-00219) VUID-VkBlitImageInfo2-srcImage-00219
 
-`srcImage` **must** have been created with
-`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag
+`srcImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag set
 
 * 
 [](#VUID-VkBlitImageInfo2-srcImage-00220) VUID-VkBlitImageInfo2-srcImage-00220
@@ -143,8 +142,8 @@ The [format features](../../../../spec/latest/chapters/resources.html#resources-
 * 
 [](#VUID-VkBlitImageInfo2-dstImage-00224) VUID-VkBlitImageInfo2-dstImage-00224
 
-`dstImage` **must** have been created with
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag
+`dstImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-VkBlitImageInfo2-dstImage-00225) VUID-VkBlitImageInfo2-dstImage-00225

@@ -38,9 +38,8 @@ typedef enum VkDescriptorBindingFlagBits {
     VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT_EXT = VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT,
 } VkDescriptorBindingFlagBits;
 
-or the equivalent
-
 // Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorBindingFlagBits
 typedef VkDescriptorBindingFlagBits VkDescriptorBindingFlagBitsEXT;
 
 * 

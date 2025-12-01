@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceTimelineSemaphoreProperties {
     uint64_t           maxTimelineSemaphoreValueDifference;
 } VkPhysicalDeviceTimelineSemaphoreProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkPhysicalDeviceTimelineSemaphoreProperties
 typedef VkPhysicalDeviceTimelineSemaphoreProperties VkPhysicalDeviceTimelineSemaphorePropertiesKHR;
 
 * 

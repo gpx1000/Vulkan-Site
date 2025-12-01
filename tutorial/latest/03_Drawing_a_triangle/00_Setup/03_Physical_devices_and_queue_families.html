@@ -302,7 +302,40 @@
     <a class="nav-link" href="../../17_Multithreading.html">Multithreading</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../courses/18_Ray_tracing/00_Overview.html">Ray Tracing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/00_Overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/01_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/02_Acceleration_structures.html">Acceleration structures</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/03_Ray_query_shadows.html">Ray query shadows</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/04_TLAS_animation.html">TLAS animation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/05_Shadow_transparency.html">Shadow transparency</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/06_Reflections.html">Reflections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/07_Conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../90_FAQ.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -427,7 +460,7 @@ VkPhysicalDevice handle added as a new class member.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::raii::PhysicalDevice physicalDevice;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::raii::PhysicalDevice physicalDevice = nullptr;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -459,7 +492,7 @@ add to that function.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">for (const auto&amp; device : devices) {
-    physicalDevice = std::make_unique&lt;vk::raii::PhysicalDevice&gt;(device);
+    physicalDevice = device;
     break;
 }</code></pre>
 </div>
@@ -500,14 +533,15 @@ function would look like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">bool isDeviceSuitable(VkPhysicalDevice device) {
-    auto deviceProperties = device.getProperties();
-    auto deviceFeatures = device.getFeatures();
-    if (deviceProperties.deviceType == vk::PhysicalDeviceType::eDiscreteGpu &amp;&amp;
-           deviceFeatures.geometryShader) {
-        physicalDevice = std::make_unique&lt;vk::raii::PhysicalDevice&gt;(device);
-        break;
-   }
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">bool isDeviceSuitable(vk::raii::PhysicalDevice physicalDevice) {
+    auto deviceProperties = physicalDevice.getProperties();
+    auto deviceFeatures = physicalDevice.getFeatures();
+
+    if (deviceProperties.deviceType == vk::PhysicalDeviceType::eDiscreteGpu &amp;&amp; deviceFeatures.geometryShader) {
+        return true;
+    }
+
+    return false;
 }</code></pre>
 </div>
 </div>
@@ -525,7 +559,7 @@ something like that as follows:</p>
 ...
 
 void pickPhysicalDevice() {
-    auto devices = vk::raii::PhysicalDevices( *instance );
+    auto devices = vk::raii::PhysicalDevices( instance );
     if (devices.empty()) {
         throw std::runtime_error( "failed to find GPUs with Vulkan support!" );
     }
@@ -554,7 +588,7 @@ void pickPhysicalDevice() {
 
     // Check if the best candidate is suitable at all
     if (candidates.rbegin()-&gt;first &gt; 0) {
-        physicalDevice = std::make_unique&lt;vk::raii::PhysicalDevice&gt;(candidates.rbegin()-&gt;second);
+        physicalDevice = candidates.rbegin()-&gt;second;
     } else {
         throw std::runtime_error("failed to find a suitable GPU!");
     }
@@ -599,7 +633,6 @@ void pickPhysicalDevice() {
                 found = found &amp;&amp;  extensionIter != extensions.end();
             }
             isSuitable = isSuitable &amp;&amp; found;
-            printf("\n");
             if (isSuitable) {
                 physicalDevice = device;
             }
@@ -635,9 +668,9 @@ could look like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint32_t findQueueFamilies(VkPhysicalDevice device) {
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint32_t findQueueFamilies(vk::raii::PhysicalDevice physicalDevice) {
     // find the index of the first queue family that supports graphics
-    std::vector&lt;vk::QueueFamilyProperties&gt; queueFamilyProperties = physicalDevice-&gt;getQueueFamilyProperties();
+    std::vector&lt;vk::QueueFamilyProperties&gt; queueFamilyProperties = physicalDevice.getQueueFamilyProperties();
 
     // get the first index into queueFamilyProperties which supports graphics
     auto graphicsQueueFamilyProperty =

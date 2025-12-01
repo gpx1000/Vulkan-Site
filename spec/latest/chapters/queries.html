@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -421,19 +430,38 @@ The state of these queries <strong>can</strong> be read back on the host, or cop
 buffer object on the device.</p>
 </div>
 <div class="paragraph">
-<p>The supported query types are <a href="#queries-occlusion">Occlusion Queries</a>,
-<a href="#queries-pipestats">Pipeline Statistics Queries</a>,
-<a href="#queries-result-status-only">Result Status Queries</a>,
-<a href="#queries-video-encode-feedback">Video Encode Feedback Queries</a>
-and <a href="#queries-timestamps">Timestamp Queries</a>.
-<a href="#queries-performance">Performance Queries</a> are supported if the associated
-extension is available.
-<a href="#queries-transform-feedback">Transform Feedback Queries</a> are supported if
-the associated extension is available.
-<a href="#queries-performance-intel">Intel Performance Queries</a> are supported if the associated extension is
-available.
-<a href="#queries-mesh-shader">Mesh Shader Queries</a> are supported if the associated
-extension is available.</p>
+<p>The supported query types are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#queries-occlusion">Occlusion Queries</a></p>
+</li>
+<li>
+<p><a href="#queries-pipestats">Pipeline Statistics Queries</a></p>
+</li>
+<li>
+<p><a href="#queries-timestamps">Timestamp Queries</a></p>
+</li>
+<li>
+<p><a href="#queries-result-status-only">Result Status Queries</a></p>
+</li>
+<li>
+<p><a href="#queries-video-encode-feedback">Video Encode Feedback Queries</a></p>
+</li>
+<li>
+<p><a href="#queries-performance">Performance Queries</a></p>
+</li>
+<li>
+<p><a href="#queries-transform-feedback">Transform Feedback Queries</a></p>
+</li>
+<li>
+<p><a href="#queries-performance-intel">Intel Performance Queries</a></p>
+</li>
+<li>
+<p><a href="#queries-mesh-shader">Mesh Shader Queries</a></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Several additional queries with specific purposes associated with ray
@@ -622,16 +650,14 @@ queries managed by the pool.</p>
 <p><code>queryCount</code> is the number of queries managed by the pool.</p>
 </li>
 <li>
-<p><code>pipelineStatistics</code> is a bitmask of
-<a href="#VkQueryPipelineStatisticFlagBits">VkQueryPipelineStatisticFlagBits</a> specifying which counters will be
-returned in queries on the new pool, as described below in
-<a href="#queries-pipestats">Pipeline Statistics Queries</a>.</p>
+<p><code>pipelineStatistics</code>
+is a bitmask of <a href="#VkQueryPipelineStatisticFlagBits">VkQueryPipelineStatisticFlagBits</a> specifying which
+counters will be returned in queries on the new pool, as described below
+in <a href="#queries-pipestats">Pipeline Statistics Queries</a>.
+<code>pipelineStatistics</code> is ignored if <code>queryType</code> is not
+<code>VK_QUERY_TYPE_PIPELINE_STATISTICS</code>.</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p><code>pipelineStatistics</code> is ignored if <code>queryType</code> is not
-<code>VK_QUERY_TYPE_PIPELINE_STATISTICS</code>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -687,6 +713,14 @@ If <code>queryType</code> is <code>VK_QUERY_TYPE_PERFORMANCE_QUERY_KHR</code>, t
 <code>queryCount</code> <strong>must</strong> be greater than 0</p>
 </li>
 <li>
+<p><a id="VUID-VkQueryPoolCreateInfo-queryType-11839" href="#VUID-VkQueryPoolCreateInfo-queryType-11839"></a> <span class="vuid">VUID-VkQueryPoolCreateInfo-queryType-11839</span><br>
+
+If <code>queryType</code> is <code>VK_QUERY_TYPE_RESULT_STATUS_ONLY_KHR</code>, then
+at least one of the queue families of the device <strong>must</strong> support
+<a href="#queries-result-status-only">result status queries</a>, as indicated by
+<a href="devsandqueues.html#VkQueueFamilyQueryResultStatusPropertiesKHR" class="xref page">VkQueueFamilyQueryResultStatusPropertiesKHR</a>::<code>queryResultStatusSupport</code></p>
+</li>
+<li>
 <p><a id="VUID-VkQueryPoolCreateInfo-pNext-10779" href="#VUID-VkQueryPoolCreateInfo-pNext-10779"></a> <span class="vuid">VUID-VkQueryPoolCreateInfo-pNext-10779</span><br>
 
 If the <code>pNext</code> chain includes a <a href="videocoding.html#VkVideoProfileInfoKHR" class="xref page">VkVideoProfileInfoKHR</a>
@@ -730,6 +764,14 @@ structure and its <code>videoCodecOperation</code> member is
 <code>VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR</code>, then the
 <a href="features.html#features-videoEncodeAV1" class="xref page"><code>videoEncodeAV1</code></a> feature <strong>must</strong> be
 enabled</p>
+</li>
+<li>
+<p><a id="VUID-VkQueryPoolCreateInfo-pNext-10918" href="#VUID-VkQueryPoolCreateInfo-pNext-10918"></a> <span class="vuid">VUID-VkQueryPoolCreateInfo-pNext-10918</span><br>
+
+If the <code>pNext</code> chain includes a
+<a href="videocoding.html#VkVideoEncodeProfileRgbConversionInfoVALVE" class="xref page">VkVideoEncodeProfileRgbConversionInfoVALVE</a> structure, then the
+<a href="features.html#features-videoEncodeRgbConversion" class="xref page"><code>videoEncodeRgbConversion</code></a>
+feature <strong>must</strong> be enabled</p>
 </li>
 </ul>
 </div>
@@ -1382,11 +1424,15 @@ of queries <span class="eq">[<code>firstQuery</code>, <code>firstQuery</code> +
 </li>
 <li>
 <p><a id="VUID-vkCmdResetQueryPool-commandBuffer-cmdpool" href="#VUID-vkCmdResetQueryPool-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdResetQueryPool-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, compute, decode, encode, or optical flow operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, <code>VK_QUEUE_OPTICAL_FLOW_BIT_NV</code>, <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdResetQueryPool-renderpass" href="#VUID-vkCmdResetQueryPool-renderpass"></a> <span class="vuid">VUID-vkCmdResetQueryPool-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdResetQueryPool-suspended" href="#VUID-vkCmdResetQueryPool-suspended"></a> <span class="vuid">VUID-vkCmdResetQueryPool-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdResetQueryPool-videocoding" href="#VUID-vkCmdResetQueryPool-videocoding"></a> <span class="vuid">VUID-vkCmdResetQueryPool-videocoding</span><br>
@@ -1441,11 +1487,11 @@ of queries <span class="eq">[<code>firstQuery</code>, <code>firstQuery</code> +
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute<br>
-Decode<br>
-Encode<br>
-Opticalflow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_OPTICAL_FLOW_BIT_NV<br>
+VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -1477,12 +1523,10 @@ void vkResetQueryPool(
     uint32_t                                    queryCount);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkResetQueryPoolEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_host_query_reset
+// Equivalent to vkResetQueryPool
 void vkResetQueryPoolEXT(
     VkDevice                                    device,
     VkQueryPool                                 queryPool,
@@ -1586,11 +1630,13 @@ in <code>queryPool</code> <strong>must</strong> not be in use by calls to
 <div class="paragraph">
 <p>Once queries are reset and ready for use, query commands <strong>can</strong> be issued to a
 command buffer.
-Occlusion queries and pipeline statistics queries count events - drawn
-samples and pipeline stage invocations, respectively - resulting from
-commands that are recorded between a <a href="#vkCmdBeginQuery">vkCmdBeginQuery</a> command and a
-<a href="#vkCmdEndQuery">vkCmdEndQuery</a> command within a specified command buffer, effectively
-scoping a set of drawing and/or dispatching commands.
+Pipeline statistics queries count pipeline stage invocations
+and occlusion queries count drawn samples
+resulting from commands that are recorded between a <a href="#vkCmdBeginQuery">vkCmdBeginQuery</a>
+command and a <a href="#vkCmdEndQuery">vkCmdEndQuery</a> command within a specified command buffer,
+effectively scoping a set of dispatching
+and/or drawing
+commands.
 Timestamp queries write timestamps to a query pool.
 Performance queries record performance counters to a query pool.</p>
 </div>
@@ -2023,7 +2069,11 @@ affecting the same query</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginQuery-commandBuffer-cmdpool" href="#VUID-vkCmdBeginQuery-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBeginQuery-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, compute, decode, or encode operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBeginQuery-suspended" href="#VUID-vkCmdBeginQuery-suspended"></a> <span class="vuid">VUID-vkCmdBeginQuery-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginQuery-commonparent" href="#VUID-vkCmdBeginQuery-commonparent"></a> <span class="vuid">VUID-vkCmdBeginQuery-commonparent</span><br>
@@ -2074,10 +2124,10 @@ affecting the same query</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute<br>
-Decode<br>
-Encode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action<br>
 State</p></td>
 </tr>
@@ -2476,7 +2526,11 @@ affecting the same query</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginQueryIndexedEXT-commandBuffer-cmdpool" href="#VUID-vkCmdBeginQueryIndexedEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBeginQueryIndexedEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, compute, decode, or encode operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBeginQueryIndexedEXT-suspended" href="#VUID-vkCmdBeginQueryIndexedEXT-suspended"></a> <span class="vuid">VUID-vkCmdBeginQueryIndexedEXT-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginQueryIndexedEXT-videocoding" href="#VUID-vkCmdBeginQueryIndexedEXT-videocoding"></a> <span class="vuid">VUID-vkCmdBeginQueryIndexedEXT-videocoding</span><br>
@@ -2531,10 +2585,10 @@ affecting the same query</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute<br>
-Decode<br>
-Encode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action<br>
 State</p></td>
 </tr>
@@ -2593,8 +2647,7 @@ more <a href="#VkQueryControlFlagBits">VkQueryControlFlagBits</a>.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>To end a query after the set of desired drawing or dispatching commands is
-executed, call:</p>
+<p>To end a query after the set of desired commands is recorded, call:</p>
 </div>
 <div id="vkCmdEndQuery" class="listingblock">
 <div class="content">
@@ -2732,7 +2785,11 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEndQuery-commandBuffer-cmdpool" href="#VUID-vkCmdEndQuery-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdEndQuery-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, compute, decode, or encode operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEndQuery-suspended" href="#VUID-vkCmdEndQuery-suspended"></a> <span class="vuid">VUID-vkCmdEndQuery-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEndQuery-commonparent" href="#VUID-vkCmdEndQuery-commonparent"></a> <span class="vuid">VUID-vkCmdEndQuery-commonparent</span><br>
@@ -2783,10 +2840,10 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute<br>
-Decode<br>
-Encode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action<br>
 State</p></td>
 </tr>
@@ -2957,7 +3014,11 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEndQueryIndexedEXT-commandBuffer-cmdpool" href="#VUID-vkCmdEndQueryIndexedEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdEndQueryIndexedEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, compute, decode, or encode operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEndQueryIndexedEXT-suspended" href="#VUID-vkCmdEndQueryIndexedEXT-suspended"></a> <span class="vuid">VUID-vkCmdEndQueryIndexedEXT-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEndQueryIndexedEXT-videocoding" href="#VUID-vkCmdEndQueryIndexedEXT-videocoding"></a> <span class="vuid">VUID-vkCmdEndQueryIndexedEXT-videocoding</span><br>
@@ -3012,10 +3073,10 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute<br>
-Decode<br>
-Encode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action<br>
 State</p></td>
 </tr>
@@ -3047,69 +3108,82 @@ by the command, and each subsequent query&#8217;s result begins <code>stride</co
 bytes later.</p>
 </li>
 <li>
-<p>Occlusion queries, pipeline statistics queries,
-transform feedback queries,
-primitives generated queries,
-mesh shader queries,
-video encode feedback queries,
-and timestamp queries store results in a tightly packed array of
-unsigned integers, either 32- or 64-bits as requested by the command,
-storing the numerical results and, if requested, the availability
-status.</p>
+<p>Each query writes results in a tightly packed array of result values as
+follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Occlusion queries write one unsigned integer value - the number of
+samples passed.</p>
 </li>
 <li>
-<p>Performance queries store results in a tightly packed array whose type
-is determined by the <code>unit</code> member of the corresponding
-<a href="devsandqueues.html#VkPerformanceCounterKHR" class="xref page">VkPerformanceCounterKHR</a>.</p>
+<p>Pipeline statistics queries write one unsigned integer value for each
+bit that is enabled in the <code>pipelineStatistics</code> when the pool is
+created, and the statistics values are written in bit order starting
+from the least significant bit.</p>
 </li>
 <li>
-<p>If <code>VK_QUERY_RESULT_WITH_AVAILABILITY_BIT</code> is used, the final
-element of each query&#8217;s result is an integer indicating whether the
-query&#8217;s result is available, with any non-zero value indicating that it
-is available.</p>
+<p>Timestamp queries write one unsigned integer value.</p>
 </li>
 <li>
-<p>If <code>VK_QUERY_RESULT_WITH_STATUS_BIT_KHR</code> is used, the final element
-of each query&#8217;s result is an integer value indicating that status of the
-query result.
-Positive values indicate success, negative values indicate failure, and
-0 indicates that the result is not yet available.
-Specific error codes are encoded in the <a href="#VkQueryResultStatusKHR">VkQueryResultStatusKHR</a>
-enumeration.</p>
+<p>Performance queries write one <a href="#VkPerformanceCounterResultKHR">VkPerformanceCounterResultKHR</a> value
+for each <a href="devsandqueues.html#VkPerformanceCounterKHR" class="xref page">VkPerformanceCounterKHR</a> in the query.</p>
 </li>
 <li>
-<p>Occlusion queries write one integer value - the number of samples
-passed.
-Pipeline statistics queries write one integer value for each bit that is
-enabled in the <code>pipelineStatistics</code> when the pool is created, and
-the statistics values are written in bit order starting from the least
-significant bit.
-Timestamp queries write one integer value.
-Performance queries write one <a href="#VkPerformanceCounterResultKHR">VkPerformanceCounterResultKHR</a> value
-for each <a href="devsandqueues.html#VkPerformanceCounterKHR" class="xref page">VkPerformanceCounterKHR</a> in the query.
-Transform feedback queries write two integers; the first integer is the
-number of primitives successfully written to the corresponding transform
-feedback buffer and the second is the number of primitives output to the
-vertex stream, regardless of whether they were successfully captured or
-not.
-In other words, if the transform feedback buffer was sized too small for
-the number of primitives output by the vertex stream, the first integer
-represents the number of primitives actually written and the second is
-the number that would have been written if all the transform feedback
-buffers associated with that vertex stream were large enough.
-Primitives generated queries write the number of primitives output to
-the vertex stream, regardless of whether transform feedback is active or
-not, or whether they were successfully captured by transform feedback or
-not.
-This is identical to the second integer of the transform feedback
-queries if transform feedback is active.
-Mesh shader queries write a single integer.
-Video encode feedback queries write one or more integer values for each
-bit that is enabled in
+<p>Transform feedback queries write two unsigned integer values; the first
+integer is the number of primitives successfully written to the
+corresponding transform feedback buffer and the second is the number of
+primitives output to the vertex stream, regardless of whether they were
+successfully captured or not.
+In other words, if the transform feedback buffer was sized too small
+for the number of primitives output by the vertex stream, the first
+integer represents the number of primitives actually written and the
+second is the number that would have been written if all the transform
+feedback buffers associated with that vertex stream were large enough.</p>
+</li>
+<li>
+<p>Primitives generated queries write one unsigned integer value: the
+number of primitives output to the vertex stream, regardless of whether
+transform feedback is active or not, or whether they were successfully
+captured by transform feedback or not.
+This is identical to the second integer result value produced by
+transform feedback queries if transform feedback is active.</p>
+</li>
+<li>
+<p>Mesh shader queries write a single unsigned integer.</p>
+</li>
+<li>
+<p>Video encode feedback queries write one or more signed or unsigned
+integer values for each bit that is enabled in
 <a href="#VkQueryPoolVideoEncodeFeedbackCreateInfoKHR">VkQueryPoolVideoEncodeFeedbackCreateInfoKHR</a>::<code>encodeFeedbackFlags</code>
 when the pool is created, and the feedback values are written in bit
 order starting from the least significant bit, as described
 <a href="#queries-video-encode-feedback">here</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If <code>VK_QUERY_RESULT_WITH_AVAILABILITY_BIT</code> is specified, an
+additional unsigned integer result value is written indicating whether
+the query&#8217;s result is available, with any non-zero value indicating that
+it is available.</p>
+</li>
+<li>
+<p>If <code>VK_QUERY_RESULT_WITH_STATUS_BIT_KHR</code> is specified, an additional
+signed integer result value is written indicating the status of the
+query result.
+Positive values indicate success, negative values indicate failure, and
+zero indicates that the result is not yet available.
+Specific error codes are as defined in the <a href="#VkQueryResultStatusKHR">VkQueryResultStatusKHR</a>
+enumeration.</p>
+</li>
+<li>
+<p>The bit width of all integer result values written by all query types is
+either 32- or 64-bits, as requested by the command.
+The only exceptions are the <a href="#VkPerformanceCounterResultKHR">VkPerformanceCounterResultKHR</a> values
+written by performance queries whose type is determined by the
+<code>unit</code> member of the corresponding <a href="devsandqueues.html#VkPerformanceCounterKHR" class="xref page">VkPerformanceCounterKHR</a>.</p>
 </li>
 <li>
 <p>If more than one query is retrieved and <code>stride</code> is not at least as
@@ -3389,6 +3463,15 @@ If the <code>queryType</code> used to create <code>queryPool</code> was
 <code>VK_QUERY_TYPE_PERFORMANCE_QUERY_KHR</code>, the <code>queryPool</code> <strong>must</strong>
 have been recorded once for each pass as retrieved via a call to
 <a href="#vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR">vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR</a></p>
+</li>
+<li>
+<p><a id="VUID-vkGetQueryPoolResults-queryType-11874" href="#VUID-vkGetQueryPoolResults-queryType-11874"></a> <span class="vuid">VUID-vkGetQueryPoolResults-queryType-11874</span><br>
+
+If the <code>queryType</code> used to create <code>queryPool</code> was not
+<code>VK_QUERY_TYPE_RESULT_STATUS_ONLY_KHR</code>
+or <code>VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR</code>,
+then <code>flags</code> <strong>must</strong> not include
+<code>VK_QUERY_RESULT_WITH_STATUS_BIT_KHR</code></p>
 </li>
 <li>
 <p><a id="VUID-vkGetQueryPoolResults-queryType-09442" href="#VUID-vkGetQueryPoolResults-queryType-09442"></a> <span class="vuid">VUID-vkGetQueryPoolResults-queryType-09442</span><br>
@@ -3857,6 +3940,15 @@ have been recorded once for each pass as retrieved via a call to
 <a href="#vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR">vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR</a></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdCopyQueryPoolResults-queryType-11874" href="#VUID-vkCmdCopyQueryPoolResults-queryType-11874"></a> <span class="vuid">VUID-vkCmdCopyQueryPoolResults-queryType-11874</span><br>
+
+If the <code>queryType</code> used to create <code>queryPool</code> was not
+<code>VK_QUERY_TYPE_RESULT_STATUS_ONLY_KHR</code>
+or <code>VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR</code>,
+then <code>flags</code> <strong>must</strong> not include
+<code>VK_QUERY_RESULT_WITH_STATUS_BIT_KHR</code></p>
+</li>
+<li>
 <p><a id="VUID-vkCmdCopyQueryPoolResults-queryType-09442" href="#VUID-vkCmdCopyQueryPoolResults-queryType-09442"></a> <span class="vuid">VUID-vkCmdCopyQueryPoolResults-queryType-09442</span><br>
 
 If the <code>queryType</code> used to create <code>queryPool</code> was
@@ -3906,8 +3998,8 @@ contain the result of each query, as described
 <li>
 <p><a id="VUID-vkCmdCopyQueryPoolResults-dstBuffer-00825" href="#VUID-vkCmdCopyQueryPoolResults-dstBuffer-00825"></a> <span class="vuid">VUID-vkCmdCopyQueryPoolResults-dstBuffer-00825</span><br>
 
-<code>dstBuffer</code> <strong>must</strong> have been created with
-<code>VK_BUFFER_USAGE_TRANSFER_DST_BIT</code> usage flag</p>
+<code>dstBuffer</code> <strong>must</strong> have been created with the
+<code>VK_BUFFER_USAGE_TRANSFER_DST_BIT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyQueryPoolResults-dstBuffer-00826" href="#VUID-vkCmdCopyQueryPoolResults-dstBuffer-00826"></a> <span class="vuid">VUID-vkCmdCopyQueryPoolResults-dstBuffer-00826</span><br>
@@ -3972,11 +4064,15 @@ prior executed commands</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyQueryPoolResults-commandBuffer-cmdpool" href="#VUID-vkCmdCopyQueryPoolResults-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdCopyQueryPoolResults-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyQueryPoolResults-renderpass" href="#VUID-vkCmdCopyQueryPoolResults-renderpass"></a> <span class="vuid">VUID-vkCmdCopyQueryPoolResults-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdCopyQueryPoolResults-suspended" href="#VUID-vkCmdCopyQueryPoolResults-suspended"></a> <span class="vuid">VUID-vkCmdCopyQueryPoolResults-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyQueryPoolResults-videocoding" href="#VUID-vkCmdCopyQueryPoolResults-videocoding"></a> <span class="vuid">VUID-vkCmdCopyQueryPoolResults-videocoding</span><br>
@@ -4031,8 +4127,8 @@ prior executed commands</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -4090,8 +4186,8 @@ count of passing samples is non-zero.</p>
 <p>Not setting <code>VK_QUERY_CONTROL_PRECISE_BIT</code> mode <strong>may</strong> be more efficient
 on some implementations, and <strong>should</strong> be used where it is sufficient to know
 a boolean result on whether any samples passed the per-fragment tests.
-In this case, some implementations <strong>may</strong> only return zero or one, indifferent
-to the actual number of samples passing the per-fragment tests.</p>
+In this case, some implementations <strong>may</strong> only return zero or one, regardless
+of the actual number of samples passing the per-fragment tests.</p>
 </div>
 <div class="paragraph">
 <p>Setting <code>VK_QUERY_CONTROL_PRECISE_BIT</code> does not guarantee that different
@@ -4136,10 +4232,14 @@ but still not be visible in a final image.</p>
 <div class="paragraph">
 <p>Pipeline statistics queries allow the application to sample a specified set
 of <code>VkPipeline</code> counters.
-These counters are accumulated by Vulkan for a set of either drawing or
+These counters are accumulated by Vulkan for a set of
+either drawing or
 dispatching commands while a pipeline statistics query is active.
 As such, pipeline statistics queries are available on queue families
-supporting either graphics or compute operations.
+supporting</p>
+</div>
+<div class="paragraph">
+<p>compute operations.
 The availability of pipeline statistics queries is indicated by the
 <code>pipelineStatisticsQuery</code> member of the <code>VkPhysicalDeviceFeatures</code>
 object (see <code>vkGetPhysicalDeviceFeatures</code> and <code>vkCreateDevice</code> for
@@ -4420,12 +4520,10 @@ void vkCmdWriteTimestamp2(
     uint32_t                                    query);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdWriteTimestamp2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_synchronization2
+// Equivalent to vkCmdWriteTimestamp2
 void vkCmdWriteTimestamp2KHR(
     VkCommandBuffer                             commandBuffer,
     VkPipelineStageFlags2                       stage,
@@ -4717,7 +4815,11 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdWriteTimestamp2-commandBuffer-cmdpool" href="#VUID-vkCmdWriteTimestamp2-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdWriteTimestamp2-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, or encode operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, <code>VK_QUEUE_TRANSFER_BIT</code>, <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdWriteTimestamp2-suspended" href="#VUID-vkCmdWriteTimestamp2-suspended"></a> <span class="vuid">VUID-vkCmdWriteTimestamp2-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdWriteTimestamp2-commonparent" href="#VUID-vkCmdWriteTimestamp2-commonparent"></a> <span class="vuid">VUID-vkCmdWriteTimestamp2-commonparent</span><br>
@@ -4768,11 +4870,11 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
-Graphics<br>
-Compute<br>
-Decode<br>
-Encode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_TRANSFER_BIT<br>
+VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -5051,7 +5153,11 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdWriteTimestamp-commandBuffer-cmdpool" href="#VUID-vkCmdWriteTimestamp-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdWriteTimestamp-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, encode, or optical flow operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, <code>VK_QUEUE_OPTICAL_FLOW_BIT_NV</code>, <code>VK_QUEUE_TRANSFER_BIT</code>, <code>VK_QUEUE_VIDEO_DECODE_BIT_KHR</code>, or <code>VK_QUEUE_VIDEO_ENCODE_BIT_KHR</code> operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdWriteTimestamp-suspended" href="#VUID-vkCmdWriteTimestamp-suspended"></a> <span class="vuid">VUID-vkCmdWriteTimestamp-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdWriteTimestamp-commonparent" href="#VUID-vkCmdWriteTimestamp-commonparent"></a> <span class="vuid">VUID-vkCmdWriteTimestamp-commonparent</span><br>
@@ -5102,12 +5208,12 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
-Graphics<br>
-Compute<br>
-Decode<br>
-Encode<br>
-Opticalflow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_OPTICAL_FLOW_BIT_NV<br>
+VK_QUEUE_TRANSFER_BIT<br>
+VK_QUEUE_VIDEO_DECODE_BIT_KHR<br>
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -5181,7 +5287,7 @@ queried via a call to
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Command buffers created with
+<p>Command buffers recorded with
 <code>VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT</code> <strong>must</strong> not be re-submitted.
 Changing command buffer usage bits <strong>may</strong> affect performance.
 To avoid this, the application <strong>should</strong> re-record any command buffers with
@@ -6012,6 +6118,7 @@ typedef struct VkQueryPoolPerformanceQueryCreateInfoINTEL {
 <div id="VkQueryPoolCreateInfoINTEL" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_INTEL_performance_query
+// Equivalent to VkQueryPoolPerformanceQueryCreateInfoINTEL
 typedef VkQueryPoolPerformanceQueryCreateInfoINTEL VkQueryPoolCreateInfoINTEL;</code></pre>
 </div>
 </div>
@@ -6120,7 +6227,11 @@ part of the query result.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetPerformanceMarkerINTEL-commandBuffer-cmdpool" href="#VUID-vkCmdSetPerformanceMarkerINTEL-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetPerformanceMarkerINTEL-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, compute, or transfer operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, or <code>VK_QUEUE_TRANSFER_BIT</code> operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdSetPerformanceMarkerINTEL-suspended" href="#VUID-vkCmdSetPerformanceMarkerINTEL-suspended"></a> <span class="vuid">VUID-vkCmdSetPerformanceMarkerINTEL-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetPerformanceMarkerINTEL-videocoding" href="#VUID-vkCmdSetPerformanceMarkerINTEL-videocoding"></a> <span class="vuid">VUID-vkCmdSetPerformanceMarkerINTEL-videocoding</span><br>
@@ -6171,9 +6282,9 @@ part of the query result.</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute<br>
-Transfer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_TRANSFER_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action<br>
 State</p></td>
 </tr>
@@ -6327,7 +6438,11 @@ to insert.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetPerformanceStreamMarkerINTEL-commandBuffer-cmdpool" href="#VUID-vkCmdSetPerformanceStreamMarkerINTEL-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetPerformanceStreamMarkerINTEL-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, compute, or transfer operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, or <code>VK_QUEUE_TRANSFER_BIT</code> operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdSetPerformanceStreamMarkerINTEL-suspended" href="#VUID-vkCmdSetPerformanceStreamMarkerINTEL-suspended"></a> <span class="vuid">VUID-vkCmdSetPerformanceStreamMarkerINTEL-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetPerformanceStreamMarkerINTEL-videocoding" href="#VUID-vkCmdSetPerformanceStreamMarkerINTEL-videocoding"></a> <span class="vuid">VUID-vkCmdSetPerformanceStreamMarkerINTEL-videocoding</span><br>
@@ -6378,9 +6493,9 @@ to insert.</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute<br>
-Transfer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_TRANSFER_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action<br>
 State</p></td>
 </tr>
@@ -6564,7 +6679,7 @@ to override.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetPerformanceOverrideINTEL-commandBuffer-cmdpool" href="#VUID-vkCmdSetPerformanceOverrideINTEL-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetPerformanceOverrideINTEL-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, compute, or transfer operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_GRAPHICS_BIT</code>, or <code>VK_QUEUE_TRANSFER_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetPerformanceOverrideINTEL-videocoding" href="#VUID-vkCmdSetPerformanceOverrideINTEL-videocoding"></a> <span class="vuid">VUID-vkCmdSetPerformanceOverrideINTEL-videocoding</span><br>
@@ -6615,9 +6730,9 @@ to override.</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute<br>
-Transfer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT<br>
+VK_QUEUE_TRANSFER_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>

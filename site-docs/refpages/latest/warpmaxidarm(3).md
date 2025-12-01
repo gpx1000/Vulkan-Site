@@ -15,7 +15,7 @@
 
 ## Content
 
-WarpMaxIDARM - Max ID for a warp on the core running a shader invovation
+WarpMaxIDARM - Max ID for a warp on the core running a shader invocation
 
 `WarpMaxIDARM`
 

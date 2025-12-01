@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -892,7 +901,7 @@ typedef enum VkFormat {
   // Provided by VK_EXT_4444_formats
     VK_FORMAT_A4B4G4R4_UNORM_PACK16_EXT = VK_FORMAT_A4B4G4R4_UNORM_PACK16,
   // Provided by VK_NV_optical_flow
-  // VK_FORMAT_R16G16_S10_5_NV is a deprecated alias
+  // VK_FORMAT_R16G16_S10_5_NV is a legacy alias
     VK_FORMAT_R16G16_S10_5_NV = VK_FORMAT_R16G16_SFIXED5_NV,
   // Provided by VK_KHR_maintenance5
     VK_FORMAT_A1B5G5R5_UNORM_PACK16_KHR = VK_FORMAT_A1B5G5R5_UNORM_PACK16,
@@ -5726,7 +5735,7 @@ device, call:</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/versions.html#versions-1.1" class="xref page">Vulkan Version 1.1</a>. See <a href="../appendices/deprecation.html#deprecation-gpdp2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is superseded by <a href="../appendices/versions.html#versions-1.1" class="xref page">Vulkan Version 1.1</a>. See <a href="../appendices/legacy.html#legacy-gpdp2" class="xref page">Legacy Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -6233,12 +6242,10 @@ void vkGetPhysicalDeviceFormatProperties2(
     VkFormatProperties2*                        pFormatProperties);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkGetPhysicalDeviceFormatProperties2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to vkGetPhysicalDeviceFormatProperties2
 void vkGetPhysicalDeviceFormatProperties2KHR(
     VkPhysicalDevice                            physicalDevice,
     VkFormat                                    format,
@@ -6304,12 +6311,10 @@ typedef struct VkFormatProperties2 {
 } VkFormatProperties2;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkFormatProperties2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkFormatProperties2
 typedef VkFormatProperties2 VkFormatProperties2KHR;</code></pre>
 </div>
 </div>
@@ -6677,12 +6682,10 @@ typedef struct VkFormatProperties3 {
 } VkFormatProperties3;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkFormatProperties3KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_format_feature_flags2
+// Equivalent to VkFormatProperties3
 typedef VkFormatProperties3 VkFormatProperties3KHR;</code></pre>
 </div>
 </div>
@@ -6860,18 +6863,26 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_VECTOR_BI
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_NV = 0x40000000000ULL;
 // Provided by VK_ARM_data_graph
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TENSOR_DATA_GRAPH_BIT_ARM = 0x1000000000000ULL;
+// Provided by VK_KHR_copy_memory_indirect
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR = 0x800000000000000ULL;
 // Provided by VK_KHR_video_encode_quantization_map
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR = 0x2000000000000ULL;
 // Provided by VK_KHR_video_encode_quantization_map
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR = 0x4000000000000ULL;</code></pre>
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR = 0x4000000000000ULL;
+// Provided by VK_KHR_maintenance10 with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_COMPUTE_QUEUE_BIT_KHR = 0x10000000000000ULL;
+// Provided by VK_KHR_maintenance10 with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_TRANSFER_QUEUE_BIT_KHR = 0x20000000000000ULL;
+// Provided by VK_KHR_maintenance10 with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_COMPUTE_QUEUE_BIT_KHR = 0x40000000000000ULL;
+// Provided by VK_KHR_maintenance10 with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_TRANSFER_QUEUE_BIT_KHR = 0x80000000000000ULL;</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>or the equivalent</p>
 </div>
 <div id="VkFormatFeatureFlagBits2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_format_feature_flags2
+// Equivalent to VkFormatFeatureFlagBits2
 typedef VkFormatFeatureFlagBits2 VkFormatFeatureFlagBits2KHR;</code></pre>
 </div>
 </div>
@@ -7072,6 +7083,30 @@ image view with this format <strong>can</strong> be used as an output
 <a href="videocoding.html#reconstructed-picture" class="xref page">reconstructed picture</a> or an input
 <a href="videocoding.html#reference-picture" class="xref page">reference picture</a> in
 <a href="videocoding.html#video-encode-operations" class="xref page">video encode operations</a>.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_COMPUTE_QUEUE_BIT_KHR</code> specifies
+that the depth aspect of this format can be copied using a queue family
+that supports <code>VK_QUEUE_COMPUTE_BIT</code> but does not support
+<code>VK_QUEUE_GRAPHICS_BIT</code>.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_TRANSFER_QUEUE_BIT_KHR</code> specifies
+that the depth aspect of this format can be copied using a queue family
+that supports <code>VK_QUEUE_TRANSFER_BIT</code> but does not support
+<code>VK_QUEUE_GRAPHICS_BIT</code> or <code>VK_QUEUE_COMPUTE_BIT</code>.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_COMPUTE_QUEUE_BIT_KHR</code>
+specifies that the stencil aspect of this format can be copied using a
+queue family that supports <code>VK_QUEUE_COMPUTE_BIT</code> but does not
+support <code>VK_QUEUE_GRAPHICS_BIT</code>.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_TRANSFER_QUEUE_BIT_KHR</code>
+specifies that the stencil aspect of this format can be copied using a
+queue family that supports <code>VK_QUEUE_TRANSFER_BIT</code> but does not
+support <code>VK_QUEUE_GRAPHICS_BIT</code> or <code>VK_QUEUE_COMPUTE_BIT</code>.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -7141,7 +7176,12 @@ image views created with this format <strong>can</strong> be sampled in
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT</code> specifies that an
-image <strong>can</strong> be created with <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code>.</p>
+image <strong>can</strong> be created with the <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code>
+usage flag set.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR</code> specifies that
+a <a href="resources.html#VkImage" class="xref page">VkImage</a> <strong>can</strong> be used as destination for <a href="copies.html#indirect-copies" class="xref page">    indirect copies</a>.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code>
@@ -7267,7 +7307,7 @@ of any particular tensor.</p>
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_ARM_tensors
 typedef struct VkTensorFormatPropertiesARM {
     VkStructureType          sType;
-    const void*              pNext;
+    void*                    pNext;
     VkFormatFeatureFlags2    optimalTilingTensorFeatures;
     VkFormatFeatureFlags2    linearTilingTensorFeatures;
 } VkTensorFormatPropertiesARM;</code></pre>
@@ -7351,12 +7391,10 @@ tensor view <strong>can</strong> be used as a <a href="descriptorsets.html#descr
 typedef VkFlags64 VkFormatFeatureFlags2;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkFormatFeatureFlags2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_format_feature_flags2
+// Equivalent to VkFormatFeatureFlags2
 typedef VkFormatFeatureFlags2 VkFormatFeatureFlags2KHR;</code></pre>
 </div>
 </div>
@@ -7574,6 +7612,9 @@ preconditions, with more information in the table where the symbol appears</p></
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT</code></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR</code></p></td>
+</tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all" style="width: 70%;">
@@ -7600,22 +7641,27 @@ preconditions, with more information in the table where the symbol appears</p></
 <table id="formats-mandatory-features-subbyte" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 12. Mandatory Format Support: Sub-Byte Components</caption>
 <colgroup>
-<col style="width: 48%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
+<col style="width: 48.1481%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7038%;">
 </colgroup>
 <tbody>
+<tr>
+<td class="tableblock halign-right valign-top" colspan="14"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="15"><p class="tableblock">↓</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-right valign-top" colspan="13"><p class="tableblock"><code>VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT</code></p></td>
 <td class="tableblock halign-center valign-middle" rowspan="14"><p class="tableblock">↓</p></td>
@@ -7686,9 +7732,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R4G4_UNORM_PACK8</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -7718,12 +7766,14 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_B4G4R4A4_UNORM_PACK16</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -7750,9 +7800,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_B5G6R5_UNORM_PACK16</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -7782,9 +7834,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_B5G5R5A1_UNORM_PACK16</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -7814,9 +7868,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A1B5G5R5_UNORM_PACK16</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -7846,6 +7902,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A4B4G4R4_UNORM_PACK16</code></p></td>
@@ -7862,14 +7919,15 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">Format features marked † <strong>must</strong> be supported for
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock">Format features marked † <strong>must</strong> be supported for
 <code>optimalTilingFeatures</code> if the <code>VkPhysicalDevice</code> supports the
 <a href="features.html#VkPhysicalDevice4444FormatsFeaturesEXT" class="xref page">VkPhysicalDevice4444FormatsFeaturesEXT</a>::<code>formatA4R4G4B4</code> feature.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">Format features marked ‡ <strong>must</strong> be supported for
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock">Format features marked ‡ <strong>must</strong> be supported for
 <code>optimalTilingFeatures</code> if the <code>VkPhysicalDevice</code> supports the
 <a href="features.html#VkPhysicalDevice4444FormatsFeaturesEXT" class="xref page">VkPhysicalDevice4444FormatsFeaturesEXT</a>::<code>formatA4B4G4R4</code> feature.</p></td>
 </tr>
@@ -7879,22 +7937,27 @@ preconditions, with more information in the table where the symbol appears</p></
 <table id="formats-mandatory-features-2byte" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 13. Mandatory Format Support: 1-3 Byte-Sized Components</caption>
 <colgroup>
-<col style="width: 48%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
+<col style="width: 48.1481%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7038%;">
 </colgroup>
 <tbody>
+<tr>
+<td class="tableblock halign-right valign-top" colspan="14"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="15"><p class="tableblock">↓</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-right valign-top" colspan="13"><p class="tableblock"><code>VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT</code></p></td>
 <td class="tableblock halign-center valign-middle" rowspan="14"><p class="tableblock">↓</p></td>
@@ -7965,6 +8028,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8_SNORM</code></p></td>
@@ -7981,9 +8045,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8_USCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8013,6 +8079,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8_UINT</code></p></td>
@@ -8029,6 +8096,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8_SINT</code></p></td>
@@ -8045,9 +8113,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8_SRGB</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8077,6 +8147,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8G8_SNORM</code></p></td>
@@ -8093,9 +8164,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8G8_USCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8125,6 +8198,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8G8_UINT</code></p></td>
@@ -8141,6 +8215,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8G8_SINT</code></p></td>
@@ -8157,9 +8232,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8G8_SRGB</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8189,9 +8266,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8G8B8_SNORM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8221,9 +8300,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8G8B8_SSCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8253,9 +8334,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8G8B8_SINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8285,9 +8368,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_B8G8R8_UNORM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8317,9 +8402,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_B8G8R8_USCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8349,9 +8436,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_B8G8R8_UINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8381,9 +8470,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_B8G8R8_SRGB</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8413,9 +8504,10 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">Format features marked with ‡ <strong>must</strong> be supported for
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock">Format features marked with ‡ <strong>must</strong> be supported for
 <code>optimalTilingFeatures</code> if the <code>VkPhysicalDevice</code> supports the
 <a href="features.html#features-shaderStorageImageExtendedFormats" class="xref page"><code>shaderStorageImageExtendedFormats</code></a> feature.</p></td>
 </tr>
@@ -8425,22 +8517,27 @@ preconditions, with more information in the table where the symbol appears</p></
 <table id="formats-mandatory-features-4byte" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 14. Mandatory Format Support: 4 Byte-Sized Components</caption>
 <colgroup>
-<col style="width: 48%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
+<col style="width: 48.1481%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7038%;">
 </colgroup>
 <tbody>
+<tr>
+<td class="tableblock halign-right valign-top" colspan="14"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="15"><p class="tableblock">↓</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-right valign-top" colspan="13"><p class="tableblock"><code>VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT</code></p></td>
 <td class="tableblock halign-center valign-middle" rowspan="14"><p class="tableblock">↓</p></td>
@@ -8511,6 +8608,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8G8B8A8_SNORM</code></p></td>
@@ -8527,9 +8625,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8G8B8A8_USCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8559,6 +8659,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8G8B8A8_UINT</code></p></td>
@@ -8575,6 +8676,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8G8B8A8_SINT</code></p></td>
@@ -8591,6 +8693,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8G8B8A8_SRGB</code></p></td>
@@ -8602,6 +8705,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8623,9 +8727,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_B8G8R8A8_SNORM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8655,9 +8761,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_B8G8R8A8_SSCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8687,9 +8795,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_B8G8R8A8_SINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8719,6 +8829,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A8B8G8R8_UNORM_PACK32</code></p></td>
@@ -8734,6 +8845,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
@@ -8751,9 +8863,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A8B8G8R8_USCALED_PACK32</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8783,6 +8897,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A8B8G8R8_UINT_PACK32</code></p></td>
@@ -8798,6 +8913,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
@@ -8815,6 +8931,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A8B8G8R8_SRGB_PACK32</code></p></td>
@@ -8831,6 +8948,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -8838,22 +8956,27 @@ preconditions, with more information in the table where the symbol appears</p></
 <table id="formats-mandatory-features-10bit" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 15. Mandatory Format Support: 10-, 12-, and 14-Bit Components</caption>
 <colgroup>
-<col style="width: 48%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
+<col style="width: 48.1481%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7038%;">
 </colgroup>
 <tbody>
+<tr>
+<td class="tableblock halign-right valign-top" colspan="14"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="15"><p class="tableblock">↓</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-right valign-top" colspan="13"><p class="tableblock"><code>VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT</code></p></td>
 <td class="tableblock halign-center valign-middle" rowspan="14"><p class="tableblock">↓</p></td>
@@ -8924,9 +9047,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A2R10G10B10_SNORM_PACK32</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8956,9 +9081,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A2R10G10B10_SSCALED_PACK32</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -8988,9 +9115,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A2R10G10B10_SINT_PACK32</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9020,9 +9149,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A2B10G10R10_SNORM_PACK32</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9052,9 +9183,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A2B10G10R10_SSCALED_PACK32</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9084,9 +9217,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A2B10G10R10_SINT_PACK32</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9116,9 +9251,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R10X6G10X6_UNORM_2PACK16</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9148,9 +9285,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R12X4G12X4_UNORM_2PACK16</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9180,9 +9319,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R10X6G10X6_UINT_2PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9212,9 +9353,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R12X4_UINT_PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9244,9 +9387,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9276,9 +9421,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2G14X2_UINT_2PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9308,9 +9455,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2_UNORM_PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9340,9 +9489,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9372,6 +9523,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM</code></p></td>
@@ -9388,9 +9540,10 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">Format features marked with ‡ <strong>must</strong> be supported for
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock">Format features marked with ‡ <strong>must</strong> be supported for
 <code>optimalTilingFeatures</code> if the <code>VkPhysicalDevice</code> supports the
 <a href="features.html#features-shaderStorageImageExtendedFormats" class="xref page"><code>shaderStorageImageExtendedFormats</code></a> feature.</p></td>
 </tr>
@@ -9400,22 +9553,27 @@ preconditions, with more information in the table where the symbol appears</p></
 <table id="formats-mandatory-features-16bit" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 16. Mandatory Format Support: 16-bit Components</caption>
 <colgroup>
-<col style="width: 48%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
+<col style="width: 48.1481%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7038%;">
 </colgroup>
 <tbody>
+<tr>
+<td class="tableblock halign-right valign-top" colspan="14"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="15"><p class="tableblock">↓</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-right valign-top" colspan="13"><p class="tableblock"><code>VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT</code></p></td>
 <td class="tableblock halign-center valign-middle" rowspan="14"><p class="tableblock">↓</p></td>
@@ -9486,6 +9644,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16_SNORM</code></p></td>
@@ -9502,9 +9661,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16_USCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9534,6 +9695,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16_UINT</code></p></td>
@@ -9550,6 +9712,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16_SINT</code></p></td>
@@ -9566,6 +9729,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16_SFLOAT</code></p></td>
@@ -9582,6 +9746,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16_UNORM</code></p></td>
@@ -9598,6 +9763,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16_SNORM</code></p></td>
@@ -9614,9 +9780,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16_USCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9646,6 +9814,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16_UINT</code></p></td>
@@ -9662,6 +9831,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16_SINT</code></p></td>
@@ -9678,6 +9848,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16_SFLOAT</code></p></td>
@@ -9693,10 +9864,12 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">§</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">§</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16B16_UNORM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9726,9 +9899,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16B16_USCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9758,9 +9933,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16B16_UINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9790,9 +9967,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16B16_SFLOAT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9822,6 +10001,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16B16A16_SNORM</code></p></td>
@@ -9838,9 +10018,11 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16B16A16_USCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -9870,6 +10052,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16B16A16_UINT</code></p></td>
@@ -9886,6 +10069,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16B16A16_SINT</code></p></td>
@@ -9902,6 +10086,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16B16A16_SFLOAT</code></p></td>
@@ -9917,15 +10102,16 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">§</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">Format features marked with ‡ <strong>must</strong> be supported for
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock">Format features marked with ‡ <strong>must</strong> be supported for
 <code>optimalTilingFeatures</code> if the <code>VkPhysicalDevice</code> supports the
 <a href="features.html#features-shaderStorageImageExtendedFormats" class="xref page"><code>shaderStorageImageExtendedFormats</code></a> feature.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">Format features marked with § <strong>must</strong> be supported for
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock">Format features marked with § <strong>must</strong> be supported for
 <code>optimalTilingFeatures</code> if the <code>VkPhysicalDevice</code> supports
 the <a href="features.html#features-shaderFloat16VectorAtomics" class="xref page"><code>shaderFloat16VectorAtomics</code></a>
 feature.</p></td>
@@ -9936,22 +10122,27 @@ feature.</p></td>
 <table id="formats-mandatory-features-32bit" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 17. Mandatory Format Support: 32-bit Components</caption>
 <colgroup>
-<col style="width: 48%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
+<col style="width: 48.1481%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7038%;">
 </colgroup>
 <tbody>
+<tr>
+<td class="tableblock halign-right valign-top" colspan="14"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="15"><p class="tableblock">↓</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-right valign-top" colspan="13"><p class="tableblock"><code>VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT</code></p></td>
 <td class="tableblock halign-center valign-middle" rowspan="14"><p class="tableblock">↓</p></td>
@@ -10021,6 +10212,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
@@ -10037,6 +10229,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
@@ -10054,6 +10247,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R32G32_UINT</code></p></td>
@@ -10070,6 +10264,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R32G32_SINT</code></p></td>
@@ -10086,6 +10281,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R32G32_SFLOAT</code></p></td>
@@ -10102,6 +10298,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R32G32B32_UINT</code></p></td>
@@ -10115,6 +10312,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10134,6 +10332,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R32G32B32_SFLOAT</code></p></td>
@@ -10147,6 +10346,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10166,6 +10366,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R32G32B32A32_SINT</code></p></td>
@@ -10182,6 +10383,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R32G32B32A32_SFLOAT</code></p></td>
@@ -10198,9 +10400,10 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">Format features marked with † <strong>must</strong> be supported for
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock">Format features marked with † <strong>must</strong> be supported for
 <code>optimalTilingFeatures</code> if the <code>VkPhysicalDevice</code> supports
 the <a href="features.html#features-shaderImageFloat32Atomics" class="xref page"><code>shaderImageFloat32Atomics</code></a>
 or the <a href="features.html#features-shaderImageFloat32AtomicAdd" class="xref page"><code>shaderImageFloat32AtomicAdd</code></a>
@@ -10213,22 +10416,27 @@ feature.</p></td>
 <table id="formats-mandatory-features-64bit" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 18. Mandatory Format Support: 64-bit/uneven Components</caption>
 <colgroup>
-<col style="width: 48%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
+<col style="width: 48.1481%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7038%;">
 </colgroup>
 <tbody>
+<tr>
+<td class="tableblock halign-right valign-top" colspan="14"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="15"><p class="tableblock">↓</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-right valign-top" colspan="13"><p class="tableblock"><code>VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT</code></p></td>
 <td class="tableblock halign-center valign-middle" rowspan="14"><p class="tableblock">↓</p></td>
@@ -10299,6 +10507,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R64_SINT</code></p></td>
@@ -10315,9 +10524,11 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R64_SFLOAT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10347,9 +10558,11 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R64G64_SINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10379,9 +10592,11 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R64G64B64_UINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10411,9 +10626,11 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R64G64B64_SFLOAT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10443,9 +10660,11 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R64G64B64A64_SINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10475,6 +10694,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_B10G11R11_UFLOAT_PACK32</code></p></td>
@@ -10491,6 +10711,7 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_E5B9G9R9_UFLOAT_PACK32</code></p></td>
@@ -10507,14 +10728,15 @@ feature.</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">Format features marked with ‡ <strong>must</strong> be supported for
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock">Format features marked with ‡ <strong>must</strong> be supported for
 <code>optimalTilingFeatures</code> if the <code>VkPhysicalDevice</code> supports the
 <a href="features.html#features-shaderStorageImageExtendedFormats" class="xref page"><code>shaderStorageImageExtendedFormats</code></a> feature.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">If the <a href="features.html#features-shaderImageInt64Atomics" class="xref page"><code>shaderImageInt64Atomics</code></a>
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock">If the <a href="features.html#features-shaderImageInt64Atomics" class="xref page"><code>shaderImageInt64Atomics</code></a>
 feature is supported, <code>VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT</code> and
 <code>VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT</code> <strong>must</strong> be advertised in
 <code>optimalTilingFeatures</code> for both <code>VK_FORMAT_R64_UINT</code> and
@@ -10526,22 +10748,27 @@ feature is supported, <code>VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT</code> and
 <table id="formats-mandatory-features-depth-stencil" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 19. Mandatory Format Support: Depth/Stencil With <code>VkImageType</code> <code>VK_IMAGE_TYPE_2D</code></caption>
 <colgroup>
-<col style="width: 48%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
+<col style="width: 48.1481%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7038%;">
 </colgroup>
 <tbody>
+<tr>
+<td class="tableblock halign-right valign-top" colspan="14"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="15"><p class="tableblock">↓</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-right valign-top" colspan="13"><p class="tableblock"><code>VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT</code></p></td>
 <td class="tableblock halign-center valign-middle" rowspan="14"><p class="tableblock">↓</p></td>
@@ -10612,6 +10839,7 @@ feature is supported, <code>VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_X8_D24_UNORM_PACK32</code></p></td>
@@ -10624,6 +10852,7 @@ feature is supported, <code>VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10644,9 +10873,11 @@ feature is supported, <code>VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_S8_UINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10676,6 +10907,7 @@ feature is supported, <code>VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_D24_UNORM_S8_UINT</code></p></td>
@@ -10688,6 +10920,7 @@ feature is supported, <code>VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10708,15 +10941,16 @@ feature is supported, <code>VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock"><code>VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT</code> feature <strong>must</strong> be
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock"><code>VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT</code> feature <strong>must</strong> be
 supported for at least one of <code>VK_FORMAT_X8_D24_UNORM_PACK32</code> and
 <code>VK_FORMAT_D32_SFLOAT</code>, and <strong>must</strong> be supported for at least one of
 <code>VK_FORMAT_D24_UNORM_S8_UINT</code> and <code>VK_FORMAT_D32_SFLOAT_S8_UINT</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock"><code>bufferFeatures</code> <strong>must</strong> not support any features for these formats</p></td>
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock"><code>bufferFeatures</code> <strong>must</strong> not support any features for these formats</p></td>
 </tr>
 </tbody>
 </table>
@@ -10724,22 +10958,27 @@ supported for at least one of <code>VK_FORMAT_X8_D24_UNORM_PACK32</code> and
 <table id="formats-mandatory-features-bcn" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 20. Mandatory Format Support: BC Compressed Formats With <code>VkImageType</code> <code>VK_IMAGE_TYPE_2D</code> and <code>VK_IMAGE_TYPE_3D</code></caption>
 <colgroup>
-<col style="width: 48%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
+<col style="width: 48.1481%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7038%;">
 </colgroup>
 <tbody>
+<tr>
+<td class="tableblock halign-right valign-top" colspan="14"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="15"><p class="tableblock">↓</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-right valign-top" colspan="13"><p class="tableblock"><code>VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT</code></p></td>
 <td class="tableblock halign-center valign-middle" rowspan="14"><p class="tableblock">↓</p></td>
@@ -10810,12 +11049,14 @@ supported for at least one of <code>VK_FORMAT_X8_D24_UNORM_PACK32</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_BC1_RGB_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10842,12 +11083,14 @@ supported for at least one of <code>VK_FORMAT_X8_D24_UNORM_PACK32</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_BC1_RGBA_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10874,12 +11117,14 @@ supported for at least one of <code>VK_FORMAT_X8_D24_UNORM_PACK32</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_BC2_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10906,12 +11151,14 @@ supported for at least one of <code>VK_FORMAT_X8_D24_UNORM_PACK32</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_BC3_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10938,12 +11185,14 @@ supported for at least one of <code>VK_FORMAT_X8_D24_UNORM_PACK32</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_BC4_SNORM_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -10970,12 +11219,14 @@ supported for at least one of <code>VK_FORMAT_X8_D24_UNORM_PACK32</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_BC5_SNORM_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11002,12 +11253,14 @@ supported for at least one of <code>VK_FORMAT_X8_D24_UNORM_PACK32</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_BC6H_SFLOAT_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11034,6 +11287,7 @@ supported for at least one of <code>VK_FORMAT_X8_D24_UNORM_PACK32</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_BC7_SRGB_BLOCK</code></p></td>
@@ -11050,9 +11304,10 @@ supported for at least one of <code>VK_FORMAT_X8_D24_UNORM_PACK32</code> and
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">The <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT</code>,
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock">The <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT</code>,
 <code>VK_FORMAT_FEATURE_BLIT_SRC_BIT</code> and
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT</code> features <strong>must</strong> be
 supported in <code>optimalTilingFeatures</code> for all the formats in at least
@@ -11065,22 +11320,27 @@ one of: this table, <a href="#formats-mandatory-features-etc">Mandatory Format S
 <table id="formats-mandatory-features-etc" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 21. Mandatory Format Support: ETC2 and EAC Compressed Formats With <code>VkImageType</code> <code>VK_IMAGE_TYPE_2D</code></caption>
 <colgroup>
-<col style="width: 48%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
+<col style="width: 48.1481%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7038%;">
 </colgroup>
 <tbody>
+<tr>
+<td class="tableblock halign-right valign-top" colspan="14"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="15"><p class="tableblock">↓</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-right valign-top" colspan="13"><p class="tableblock"><code>VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT</code></p></td>
 <td class="tableblock halign-center valign-middle" rowspan="14"><p class="tableblock">↓</p></td>
@@ -11151,12 +11411,14 @@ one of: this table, <a href="#formats-mandatory-features-etc">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ETC2_R8G8B8_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11183,12 +11445,14 @@ one of: this table, <a href="#formats-mandatory-features-etc">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ETC2_R8G8B8A1_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11215,12 +11479,14 @@ one of: this table, <a href="#formats-mandatory-features-etc">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ETC2_R8G8B8A8_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11247,12 +11513,14 @@ one of: this table, <a href="#formats-mandatory-features-etc">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_EAC_R11_SNORM_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11279,6 +11547,7 @@ one of: this table, <a href="#formats-mandatory-features-etc">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_EAC_R11G11_SNORM_BLOCK</code></p></td>
@@ -11295,9 +11564,10 @@ one of: this table, <a href="#formats-mandatory-features-etc">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">The <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT</code>,
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock">The <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT</code>,
 <code>VK_FORMAT_FEATURE_BLIT_SRC_BIT</code> and
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT</code> features <strong>must</strong> be
 supported in <code>optimalTilingFeatures</code> for all the formats in at least
@@ -11310,22 +11580,27 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <table id="formats-mandatory-features-astc" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 22. Mandatory Format Support: ASTC LDR Compressed Formats With <code>VkImageType</code> <code>VK_IMAGE_TYPE_2D</code></caption>
 <colgroup>
-<col style="width: 48%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
-<col style="width: 4%;">
+<col style="width: 48.1481%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7037%;">
+<col style="width: 3.7038%;">
 </colgroup>
 <tbody>
+<tr>
+<td class="tableblock halign-right valign-top" colspan="14"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="15"><p class="tableblock">↓</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-right valign-top" colspan="13"><p class="tableblock"><code>VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT</code></p></td>
 <td class="tableblock halign-center valign-middle" rowspan="14"><p class="tableblock">↓</p></td>
@@ -11396,12 +11671,14 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_4x4_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11428,12 +11705,14 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_5x4_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11460,12 +11739,14 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_5x5_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11492,12 +11773,14 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_6x5_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11524,12 +11807,14 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_6x6_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11556,12 +11841,14 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_8x5_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11588,12 +11875,14 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_8x6_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11620,12 +11909,14 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_8x8_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11652,12 +11943,14 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_10x5_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11684,12 +11977,14 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_10x6_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11716,12 +12011,14 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_10x8_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11748,12 +12045,14 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_10x10_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11780,12 +12079,14 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_12x10_SRGB_BLOCK</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11812,6 +12113,7 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_ASTC_12x12_SRGB_BLOCK</code></p></td>
@@ -11828,9 +12130,10 @@ one of: this table, <a href="#formats-mandatory-features-bcn">Mandatory Format S
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">The <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT</code>,
+<td class="tableblock halign-left valign-top" colspan="15"><p class="tableblock">The <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT</code>,
 <code>VK_FORMAT_FEATURE_BLIT_SRC_BIT</code> and
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT</code> features <strong>must</strong> be
 supported in <code>optimalTilingFeatures</code> for all the formats in at least

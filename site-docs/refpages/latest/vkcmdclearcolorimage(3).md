@@ -72,8 +72,8 @@ The [format features](../../../../spec/latest/chapters/resources.html#resources-
 * 
 [](#VUID-vkCmdClearColorImage-image-00002) VUID-vkCmdClearColorImage-image-00002
 
-`image` **must** have been created with
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag
+`image` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdClearColorImage-image-01545) VUID-vkCmdClearColorImage-image-01545
@@ -203,12 +203,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdClearColorImage-commandBuffer-cmdpool) VUID-vkCmdClearColorImage-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdClearColorImage-renderpass) VUID-vkCmdClearColorImage-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdClearColorImage-suspended) VUID-vkCmdClearColorImage-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdClearColorImage-videocoding) VUID-vkCmdClearColorImage-videocoding
@@ -238,9 +243,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

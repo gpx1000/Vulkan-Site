@@ -25,9 +25,8 @@ To end a render pass instance, call:
 void vkCmdEndRendering(
     VkCommandBuffer                             commandBuffer);
 
-or the equivalent command
-
 // Provided by VK_KHR_dynamic_rendering
+// Equivalent to vkCmdEndRendering
 void vkCmdEndRenderingKHR(
     VkCommandBuffer                             commandBuffer);
 
@@ -88,12 +87,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdEndRendering-commandBuffer-cmdpool) VUID-vkCmdEndRendering-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdEndRendering-renderpass) VUID-vkCmdEndRendering-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdEndRendering-suspended) VUID-vkCmdEndRendering-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdEndRendering-videocoding) VUID-vkCmdEndRendering-videocoding
@@ -113,7 +117,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action
 
 State |
 

@@ -21,9 +21,8 @@ VkPipelineCreateFlags2 - Bitmask of VkPipelineCreateFlagBits2
 // Provided by VK_VERSION_1_4
 typedef VkFlags64 VkPipelineCreateFlags2;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkPipelineCreateFlags2
 typedef VkPipelineCreateFlags2 VkPipelineCreateFlags2KHR;
 
 `VkPipelineCreateFlags2` is a bitmask type for setting a mask of zero or

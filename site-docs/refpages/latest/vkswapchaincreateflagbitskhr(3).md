@@ -29,6 +29,8 @@ typedef enum VkSwapchainCreateFlagBitsKHR {
     VK_SWAPCHAIN_CREATE_PROTECTED_BIT_KHR = 0x00000002,
   // Provided by VK_KHR_swapchain_mutable_format
     VK_SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR = 0x00000004,
+  // Provided by VK_EXT_present_timing
+    VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT = 0x00000200,
   // Provided by VK_KHR_present_id2
     VK_SWAPCHAIN_CREATE_PRESENT_ID_2_BIT_KHR = 0x00000040,
   // Provided by VK_KHR_present_wait2
@@ -81,6 +83,12 @@ applications **can** use `vkWaitForPresent2KHR` to wait for the
 presentation engine to have begun presentation of the presentation
 request associated with [VkPresentWait2InfoKHR](VkPresentWait2InfoKHR.html)::`presentId` on
 `swapchain`.
+
+* 
+`VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT` specifies that features
+supported by the swapchain device in
+[VkPhysicalDevicePresentTimingFeaturesEXT](VkPhysicalDevicePresentTimingFeaturesEXT.html) **can** be used to collect
+timing information or schedule presentation requests at specific times.
 
 [VK_KHR_swapchain](VK_KHR_swapchain.html), [VkSwapchainCreateFlagsKHR](VkSwapchainCreateFlagsKHR.html)
 

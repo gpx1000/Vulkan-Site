@@ -27,9 +27,8 @@ void vkCmdSetDepthBoundsTestEnable(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    depthBoundsTestEnable);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetDepthBoundsTestEnable
 void vkCmdSetDepthBoundsTestEnableEXT(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    depthBoundsTestEnable);
@@ -89,7 +88,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDepthBoundsTestEnable-commandBuffer-cmdpool) VUID-vkCmdSetDepthBoundsTestEnable-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDepthBoundsTestEnable-videocoding) VUID-vkCmdSetDepthBoundsTestEnable-videocoding
@@ -109,7 +108,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

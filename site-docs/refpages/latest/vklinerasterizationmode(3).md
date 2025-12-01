@@ -46,14 +46,12 @@ typedef enum VkLineRasterizationMode {
     VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_KHR = VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH,
 } VkLineRasterizationMode;
 
-or the equivalent
-
 // Provided by VK_KHR_line_rasterization
+// Equivalent to VkLineRasterizationMode
 typedef VkLineRasterizationMode VkLineRasterizationModeKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_line_rasterization
+// Equivalent to VkLineRasterizationMode
 typedef VkLineRasterizationMode VkLineRasterizationModeEXT;
 
 * 

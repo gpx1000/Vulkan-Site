@@ -36,9 +36,8 @@ typedef enum VkSamplerReductionMode {
     VK_SAMPLER_REDUCTION_MODE_MAX_EXT = VK_SAMPLER_REDUCTION_MODE_MAX,
 } VkSamplerReductionMode;
 
-or the equivalent
-
 // Provided by VK_EXT_sampler_filter_minmax
+// Equivalent to VkSamplerReductionMode
 typedef VkSamplerReductionMode VkSamplerReductionModeEXT;
 
 * 

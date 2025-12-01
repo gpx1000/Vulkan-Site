@@ -118,8 +118,8 @@ If `createFlags` includes
 * 
 [](#VUID-VkMicromapCreateInfoEXT-buffer-07435) VUID-VkMicromapCreateInfoEXT-buffer-07435
 
-`buffer` **must** have been created with a `usage` value containing
-`VK_BUFFER_USAGE_MICROMAP_STORAGE_BIT_EXT`
+`buffer` **must** have been created with the
+`VK_BUFFER_USAGE_MICROMAP_STORAGE_BIT_EXT` usage flag set
 
 * 
 [](#VUID-VkMicromapCreateInfoEXT-buffer-07436) VUID-VkMicromapCreateInfoEXT-buffer-07436

@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceImagelessFramebufferFeatures {
     VkBool32           imagelessFramebuffer;
 } VkPhysicalDeviceImagelessFramebufferFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_imageless_framebuffer
+// Equivalent to VkPhysicalDeviceImagelessFramebufferFeatures
 typedef VkPhysicalDeviceImagelessFramebufferFeatures VkPhysicalDeviceImagelessFramebufferFeaturesKHR;
 
 This structure describes the following feature:

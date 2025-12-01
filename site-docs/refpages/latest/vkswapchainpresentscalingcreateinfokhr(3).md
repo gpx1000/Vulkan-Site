@@ -49,9 +49,8 @@ typedef struct VkSwapchainPresentScalingCreateInfoKHR {
     VkPresentGravityFlagsKHR    presentGravityY;
 } VkSwapchainPresentScalingCreateInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkSwapchainPresentScalingCreateInfoKHR
 typedef VkSwapchainPresentScalingCreateInfoKHR VkSwapchainPresentScalingCreateInfoEXT;
 
 * 

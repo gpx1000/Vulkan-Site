@@ -726,7 +726,7 @@ which aspects of the image the properties apply to.
 
 * 
 `imageGranularity` is the width, height, and depth of the sparse
-image block in texels or compressed texel blocks.
+image block in texels.
 
 * 
 `flags` is a bitmask of [VkSparseImageFormatFlagBits](#VkSparseImageFormatFlagBits) specifying
@@ -773,7 +773,7 @@ This is usually one element for each aspect in the image, but for
 interleaved depth/stencil images there is only one element describing the
 combined aspects.
 
-|  | This functionality is deprecated by [Vulkan Version 1.1](../appendices/versions.html#versions-1.1). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-gpdp2) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.1](../appendices/versions.html#versions-1.1). See [Legacy Functionality](../appendices/legacy.html#legacy-gpdp2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -911,9 +911,8 @@ void vkGetPhysicalDeviceSparseImageFormatProperties2(
     uint32_t*                                   pPropertyCount,
     VkSparseImageFormatProperties2*             pProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to vkGetPhysicalDeviceSparseImageFormatProperties2
 void vkGetPhysicalDeviceSparseImageFormatProperties2KHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceSparseImageFormatInfo2* pFormatInfo,
@@ -977,9 +976,8 @@ typedef struct VkPhysicalDeviceSparseImageFormatInfo2 {
     VkImageTiling            tiling;
 } VkPhysicalDeviceSparseImageFormatInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkPhysicalDeviceSparseImageFormatInfo2
 typedef VkPhysicalDeviceSparseImageFormatInfo2 VkPhysicalDeviceSparseImageFormatInfo2KHR;
 
 * 
@@ -1066,9 +1064,8 @@ typedef struct VkSparseImageFormatProperties2 {
     VkSparseImageFormatProperties    properties;
 } VkSparseImageFormatProperties2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkSparseImageFormatProperties2
 typedef VkSparseImageFormatProperties2 VkSparseImageFormatProperties2KHR;
 
 * 
@@ -1264,9 +1261,8 @@ void vkGetImageSparseMemoryRequirements2(
     uint32_t*                                   pSparseMemoryRequirementCount,
     VkSparseImageMemoryRequirements2*           pSparseMemoryRequirements);
 
-or the equivalent command
-
 // Provided by VK_KHR_get_memory_requirements2
+// Equivalent to vkGetImageSparseMemoryRequirements2
 void vkGetImageSparseMemoryRequirements2KHR(
     VkDevice                                    device,
     const VkImageSparseMemoryRequirementsInfo2* pInfo,
@@ -1322,9 +1318,8 @@ void vkGetDeviceImageSparseMemoryRequirements(
     uint32_t*                                   pSparseMemoryRequirementCount,
     VkSparseImageMemoryRequirements2*           pSparseMemoryRequirements);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance4
+// Equivalent to vkGetDeviceImageSparseMemoryRequirements
 void vkGetDeviceImageSparseMemoryRequirementsKHR(
     VkDevice                                    device,
     const VkDeviceImageMemoryRequirements*      pInfo,
@@ -1379,9 +1374,8 @@ typedef struct VkImageSparseMemoryRequirementsInfo2 {
     VkImage            image;
 } VkImageSparseMemoryRequirementsInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_memory_requirements2
+// Equivalent to VkImageSparseMemoryRequirementsInfo2
 typedef VkImageSparseMemoryRequirementsInfo2 VkImageSparseMemoryRequirementsInfo2KHR;
 
 * 
@@ -1420,9 +1414,8 @@ typedef struct VkSparseImageMemoryRequirements2 {
     VkSparseImageMemoryRequirements    memoryRequirements;
 } VkSparseImageMemoryRequirements2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_memory_requirements2
+// Equivalent to VkSparseImageMemoryRequirements2
 typedef VkSparseImageMemoryRequirements2 VkSparseImageMemoryRequirements2KHR;
 
 * 
@@ -2114,7 +2107,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkQueueBindSparse-queuetype) VUID-vkQueueBindSparse-queuetype
 
- The `queue` **must** support sparse binding operations
+ The `queue` **must** support `VK_QUEUE_SPARSE_BINDING_BIT` operations
 
 * 
 [](#VUID-vkQueueBindSparse-commonparent) VUID-vkQueueBindSparse-commonparent
@@ -2132,7 +2125,7 @@ Host access to `fence` **must** be externally synchronized
 Command Properties
 | [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| - | - | - | SPARSE_BINDING | - |
+| - | - | - | VK_QUEUE_SPARSE_BINDING_BIT | - |
 
 Return Codes
 
@@ -2369,9 +2362,8 @@ typedef struct VkDeviceGroupBindSparseInfo {
     uint32_t           memoryDeviceIndex;
 } VkDeviceGroupBindSparseInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_device_group
+// Equivalent to VkDeviceGroupBindSparseInfo
 typedef VkDeviceGroupBindSparseInfo VkDeviceGroupBindSparseInfoKHR;
 
 * 

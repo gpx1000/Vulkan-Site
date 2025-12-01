@@ -40,7 +40,7 @@ structure
 `collection` is the [VkBufferCollectionFUCHSIA](VkBufferCollectionFUCHSIA.html) handle
 
 * 
-`index` the index of the buffer to import from `collection`
+`index` is the index of the buffer to import from `collection`
 
 Valid Usage
 
@@ -48,7 +48,7 @@ Valid Usage
 [](#VUID-VkImportMemoryBufferCollectionFUCHSIA-index-06406) VUID-VkImportMemoryBufferCollectionFUCHSIA-index-06406
 
 `index` **must** be less than the value retrieved as
-[VkBufferCollectionPropertiesFUCHSIA](VkBufferCollectionPropertiesFUCHSIA.html):bufferCount
+[VkBufferCollectionPropertiesFUCHSIA](VkBufferCollectionPropertiesFUCHSIA.html)::`bufferCount`
 
 Valid Usage (Implicit)
 

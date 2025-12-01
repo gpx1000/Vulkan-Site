@@ -88,7 +88,7 @@ Ahmed Abdelkhalek, AMD
 Benjamin Cheng, AMD
 
 * 
-Aidan Fabius, Core Avionics & Industrial Inc.
+Aidan Fabius, Lynx
 
 * 
 Ping Liu, Intel

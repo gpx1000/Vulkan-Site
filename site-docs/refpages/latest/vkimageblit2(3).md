@@ -31,9 +31,8 @@ typedef struct VkImageBlit2 {
     VkOffset3D                  dstOffsets[2];
 } VkImageBlit2;
 
-or the equivalent
-
 // Provided by VK_KHR_copy_commands2
+// Equivalent to VkImageBlit2
 typedef VkImageBlit2 VkImageBlit2KHR;
 
 * 

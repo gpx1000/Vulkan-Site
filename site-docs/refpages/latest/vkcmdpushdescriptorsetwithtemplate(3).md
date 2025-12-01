@@ -31,9 +31,8 @@ void vkCmdPushDescriptorSetWithTemplate(
     uint32_t                                    set,
     const void*                                 pData);
 
-or the equivalent command
-
 // Provided by VK_KHR_descriptor_update_template with VK_KHR_push_descriptor, VK_KHR_push_descriptor with VK_VERSION_1_1 or VK_KHR_descriptor_update_template
+// Equivalent to vkCmdPushDescriptorSetWithTemplate
 void vkCmdPushDescriptorSetWithTemplateKHR(
     VkCommandBuffer                             commandBuffer,
     VkDescriptorUpdateTemplate                  descriptorUpdateTemplate,
@@ -110,6 +109,12 @@ by `descriptorUpdateTemplate` when it was created with
 `layout` was created
 
 * 
+[](#VUID-vkCmdPushDescriptorSetWithTemplate-set-11854) VUID-vkCmdPushDescriptorSetWithTemplate-set-11854
+
+`set` **must** reference a valid [VkDescriptorSetLayout](VkDescriptorSetLayout.html) handle in
+`layout`
+
+* 
 [](#VUID-vkCmdPushDescriptorSetWithTemplate-set-07305) VUID-vkCmdPushDescriptorSetWithTemplate-set-07305
 
 `set` **must** be the unique set number in the pipeline layout that
@@ -147,7 +152,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPushDescriptorSetWithTemplate-commandBuffer-cmdpool) VUID-vkCmdPushDescriptorSetWithTemplate-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdPushDescriptorSetWithTemplate-videocoding) VUID-vkCmdPushDescriptorSetWithTemplate-videocoding
@@ -172,9 +177,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

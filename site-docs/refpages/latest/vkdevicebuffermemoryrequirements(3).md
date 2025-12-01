@@ -28,9 +28,8 @@ typedef struct VkDeviceBufferMemoryRequirements {
     const VkBufferCreateInfo*    pCreateInfo;
 } VkDeviceBufferMemoryRequirements;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance4
+// Equivalent to VkDeviceBufferMemoryRequirements
 typedef VkDeviceBufferMemoryRequirements VkDeviceBufferMemoryRequirementsKHR;
 
 * 

@@ -31,9 +31,8 @@ typedef struct VkAabbPositionsKHR {
     float    maxZ;
 } VkAabbPositionsKHR;
 
-or the equivalent
-
 // Provided by VK_NV_ray_tracing
+// Equivalent to VkAabbPositionsKHR
 typedef VkAabbPositionsKHR VkAabbPositionsNV;
 
 * 

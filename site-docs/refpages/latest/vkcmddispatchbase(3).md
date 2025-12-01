@@ -32,9 +32,8 @@ void vkCmdDispatchBase(
     uint32_t                                    groupCountY,
     uint32_t                                    groupCountZ);
 
-or the equivalent command
-
 // Provided by VK_KHR_device_group
+// Equivalent to vkCmdDispatchBase
 void vkCmdDispatchBaseKHR(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    baseGroupX,
@@ -343,6 +342,13 @@ by
 the [VkPipeline](VkPipeline.html) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](VkPipeline.html) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDispatchBase-imageLayout-00344) VUID-vkCmdDispatchBase-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](VkImageLayout.html)
+**must** match the subresource accessible from the [VkImageView](VkImageView.html) as
+defined by the [image layout    matching rules](../../../../spec/latest/chapters/resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDispatchBase-None-08115) VUID-vkCmdDispatchBase-None-08115
@@ -860,7 +866,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDispatchBase-commandBuffer-cmdpool) VUID-vkCmdDispatchBase-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
+
+* 
+[](#VUID-vkCmdDispatchBase-suspended) VUID-vkCmdDispatchBase-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDispatchBase-videocoding) VUID-vkCmdDispatchBase-videocoding
@@ -880,13 +891,13 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Compute | Action |
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 
 vkCmdDispatchBase is affected by [conditional rendering](../../../../spec/latest/chapters/drawing.html#drawing-conditional-rendering)
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkCommandBuffer](VkCommandBuffer.html)
+[VK_KHR_device_group](VK_KHR_device_group.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkCommandBuffer](VkCommandBuffer.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/dispatch.html#vkCmdDispatchBase).
 

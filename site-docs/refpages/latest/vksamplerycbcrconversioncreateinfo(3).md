@@ -35,9 +35,8 @@ typedef struct VkSamplerYcbcrConversionCreateInfo {
     VkBool32                         forceExplicitReconstruction;
 } VkSamplerYcbcrConversionCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrConversionCreateInfo
 typedef VkSamplerYcbcrConversionCreateInfo VkSamplerYcbcrConversionCreateInfoKHR;
 
 * 
@@ -194,7 +193,7 @@ correspond to components of the `format`; that is,
 `components.r`, `components.g`, and `components.b` **must** not
 be `VK_COMPONENT_SWIZZLE_ZERO` or `VK_COMPONENT_SWIZZLE_ONE`,
 and **must** not correspond to a component containing zero or one as a
-consequence of [conversion to RGBA](../../../../spec/latest/chapters/textures.html#textures-conversion-to-rgba)
+consequence of [component substitution](../../../../spec/latest/chapters/images.html#images-component-substitution)
 
 * 
 [](#VUID-VkSamplerYcbcrConversionCreateInfo-ycbcrRange-02748) VUID-VkSamplerYcbcrConversionCreateInfo-ycbcrRange-02748
@@ -256,7 +255,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkSamplerYcbcrConversionCreateInfo-pNext-pNext) VUID-VkSamplerYcbcrConversionCreateInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkExternalFormatANDROID](VkExternalFormatANDROID.html), [VkExternalFormatQNX](VkExternalFormatQNX.html), or [VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM](VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.html)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkExternalFormatANDROID](VkExternalFormatANDROID.html), [VkExternalFormatOHOS](VkExternalFormatOHOS.html), [VkExternalFormatQNX](VkExternalFormatQNX.html), or [VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM](VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.html)
 
 * 
 [](#VUID-VkSamplerYcbcrConversionCreateInfo-sType-unique) VUID-VkSamplerYcbcrConversionCreateInfo-sType-unique
@@ -303,7 +302,7 @@ reconstructed to luma component resolution using nearest-neighbour sampling.
 Otherwise, chroma samples are reconstructed using interpolation.
 More details can be found in [the description of sampler Y′CBCR conversion](../../../../spec/latest/chapters/textures.html#textures-sampler-YCbCr-conversion) in the [Image Operations](../../../../spec/latest/chapters/textures.html#textures) chapter.
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), `VkBool32`, [VkChromaLocation](VkChromaLocation.html), [VkComponentMapping](VkComponentMapping.html), [VkFilter](VkFilter.html), [VkFormat](VkFormat.html), [VkSamplerYcbcrModelConversion](VkSamplerYcbcrModelConversion.html), [VkSamplerYcbcrRange](VkSamplerYcbcrRange.html), [VkStructureType](VkStructureType.html), [vkCreateSamplerYcbcrConversion](vkCreateSamplerYcbcrConversion.html), [vkCreateSamplerYcbcrConversion](vkCreateSamplerYcbcrConversion.html)
+[VK_KHR_sampler_ycbcr_conversion](VK_KHR_sampler_ycbcr_conversion.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), `VkBool32`, [VkChromaLocation](VkChromaLocation.html), [VkComponentMapping](VkComponentMapping.html), [VkFilter](VkFilter.html), [VkFormat](VkFormat.html), [VkSamplerYcbcrModelConversion](VkSamplerYcbcrModelConversion.html), [VkSamplerYcbcrRange](VkSamplerYcbcrRange.html), [VkStructureType](VkStructureType.html), [vkCreateSamplerYcbcrConversion](vkCreateSamplerYcbcrConversion.html), [vkCreateSamplerYcbcrConversion](vkCreateSamplerYcbcrConversion.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/samplers.html#VkSamplerYcbcrConversionCreateInfo).
 

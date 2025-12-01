@@ -35,12 +35,12 @@ Implementing multi-threaded recording of draw calls can help reduce CPU frame ti
 In tile-based renderers, the best approach to split the draw calls is to record them in secondary command buffers.
 This way they can all be submitted to the same render pass, and can take advantage of tile local memory.
 
-Secondary command buffers can inherit the render pass state from a primary command buffer using a [VkCommandBufferInheritanceInfo](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkCommandBufferInheritanceInfo.html) structure which is passed to [vkBeginCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkBeginCommandBuffer.html) as part of [VkCommandBufferBeginInfo](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkCommandBufferBeginInfo.html), along with the flag `VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT`.
+Secondary command buffers can inherit the render pass state from a primary command buffer using a [VkCommandBufferInheritanceInfo](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferInheritanceInfo.html) structure which is passed to [vkBeginCommandBuffer](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBeginCommandBuffer.html) as part of [VkCommandBufferBeginInfo](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferBeginInfo.html), along with the flag `VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT`.
 Secondary command buffers may then be recorded concurrently.
 
-The primary command buffer must have used the flag `VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS` in [vkCmdBeginRenderPass](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkCmdBeginRenderPass.html).
+The primary command buffer must have used the flag `VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS` in [vkCmdBeginRenderPass](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginRenderPass.html).
 
-Finally, the primary command buffer records [vkCmdExecuteCommands](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkCmdExecuteCommands.html) (before [vkCmdEndRenderPass](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkCmdEndRenderPass.html)) with an array of recorded secondary command buffers to execute.
+Finally, the primary command buffer records [vkCmdExecuteCommands](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdExecuteCommands.html) (before [vkCmdEndRenderPass](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndRenderPass.html)) with an array of recorded secondary command buffers to execute.
 The sample divides the draw calls for opaque objects based on the slider value.
 It then submits a separate buffer for transparent objects if any, and finally one for the GUI elements if visible.
 
@@ -48,10 +48,10 @@ To record command buffers concurrently, the framework needs to manage resource p
 According to the Vulkan Spec:
 
 * 
-[*A command pool must not be used concurrently in multiple threads.*](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkCommandPool.html)
+[*A command pool must not be used concurrently in multiple threads.*](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandPool.html)
 
 * 
-[*The application must not allocate and/or free descriptor sets from the same pool in multiple threads simultaneously.*](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkDescriptorPool.html)
+[*The application must not allocate and/or free descriptor sets from the same pool in multiple threads simultaneously.*](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorPool.html)
 
 In the framework, each frame in the queue (e.g.
 three frames in case of triple buffering) manages a collection of pools so that each thread can own:
@@ -105,12 +105,12 @@ This sample compares them and demonstrates the best approach.
 * 
 [Resetting the command pool](#resetting-the-command-pool)
 
-Command buffers are allocated from a command pool with [vkAllocateCommandBuffers](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkAllocateCommandBuffers.html).
+Command buffers are allocated from a command pool with [vkAllocateCommandBuffers](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkAllocateCommandBuffers.html).
 They can then be recorded and submitted to a queue for the Vulkan device to execute them.
 
-A possible approach to managing the command buffers for each frame in our application would be to free them once they are executed, using [vkFreeCommandBuffers](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkFreeCommandBuffers.html).
+A possible approach to managing the command buffers for each frame in our application would be to free them once they are executed, using [vkFreeCommandBuffers](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkFreeCommandBuffers.html).
 
-The command pool will not automatically recycle memory from deleted command buffers if the command pool was created without the [RESET_COMMAND_BUFFER_BIT](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkCommandPoolCreateFlagBits.html) flag.
+The command pool will not automatically recycle memory from deleted command buffers if the command pool was created without the [RESET_COMMAND_BUFFER_BIT](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandPoolCreateFlagBits.html) flag.
 This flag however will force separate internal allocators to be used for each command buffer in the pool, which can increase CPU overhead compared to a single pool reset.
 
 This is the worst-performing method of managing command buffers as it involves a significant CPU overhead for allocating and freeing memory frequently.
@@ -119,19 +119,19 @@ The sample shows how to use the framework to follow this approach and profile it
 ![Allocate and Free](../../../_images/samples/performance/command_buffer_usage/images/allocate_and_free.jpg)
 
 Rather than freeing and re-allocating the memory used by a command buffer, it is more efficient to recycle it for recording new commands.
-There are two ways of resetting a command buffer: individually, with [vkResetCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkResetCommandBuffer.html), or indirectly by resetting the command pool with [vkResetCommandPool](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkResetCommandPool.html).
+There are two ways of resetting a command buffer: individually, with [vkResetCommandBuffer](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetCommandBuffer.html), or indirectly by resetting the command pool with [vkResetCommandPool](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetCommandPool.html).
 
-In order to reset command buffers individually with [vkResetCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkResetCommandBuffer.html), the pool must have been created with the [RESET_COMMAND_BUFFER_BIT](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkCommandPoolCreateFlagBits.html) flag set.
+In order to reset command buffers individually with [vkResetCommandBuffer](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetCommandBuffer.html), the pool must have been created with the [RESET_COMMAND_BUFFER_BIT](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandPoolCreateFlagBits.html) flag set.
 The buffer will then return to a recordable state and the command pool can reuse the memory it allocated for it.
 
-However frequent calls to [vkResetCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkResetCommandBuffer.html) are more expensive than a command pool reset.
+However frequent calls to [vkResetCommandBuffer](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetCommandBuffer.html) are more expensive than a command pool reset.
 
 ![Reset Buffers](../../../_images/samples/performance/command_buffer_usage/images/reset_buffers.jpg)
 
-Resetting the pool with [vkResetCommandPool](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkResetCommandPool.html) automatically resets all the command buffers allocated by it.
+Resetting the pool with [vkResetCommandPool](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetCommandPool.html) automatically resets all the command buffers allocated by it.
 Doing this periodically will allow the pool to reuse the memory allocated for command buffers with lower CPU overhead.
 
-To reset the pool the flag [RESET_COMMAND_BUFFER_BIT](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkCommandPoolCreateFlagBits.html) is *not* required, and it is actually better to avoid it since it prevents it from using a single large allocator for all buffers in the pool thus increasing memory overhead.
+To reset the pool the flag [RESET_COMMAND_BUFFER_BIT](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandPoolCreateFlagBits.html) is *not* required, and it is actually better to avoid it since it prevents it from using a single large allocator for all buffers in the pool thus increasing memory overhead.
 
 ![Reset Pool](../../../_images/samples/performance/command_buffer_usage/images/reset_pool.jpg)
 
@@ -141,9 +141,9 @@ However the number of secondary command buffers should be kept low since their i
 This sample lets the user adjust the number of command buffers.
 Using a high number of secondary command buffers causes the application to become CPU bound and makes the differences between the described memory allocation approaches more pronounced.
 
-All command buffers in this sample are initialized with the [ONE_TIME_SUBMIT_BIT](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkCommandBufferUsageFlagBits.html) flag set.
+All command buffers in this sample are initialized with the [ONE_TIME_SUBMIT_BIT](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferUsageFlagBits.html) flag set.
 This indicates to the driver that the buffer will not be re-submitted after execution, and allows it to optimize accordingly.
-Performance may be reduced if the [SIMULTANEOUS_USE_BIT](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkCommandBufferUsageFlagBits.html) flag is set instead.
+Performance may be reduced if the [SIMULTANEOUS_USE_BIT](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferUsageFlagBits.html) flag is set instead.
 
 This sample provides options to try the three different approaches to command buffer management described above and monitor their efficiency.
 This is relatively obvious directly on the device by monitoring frame time.
@@ -170,7 +170,7 @@ In this application the differences between individual reset and pool reset are 
 [Multi-threaded recording with multiple render passes](../multithreading_render_passes/README.html)
 
 * 
-[Command Buffer Allocation and Management](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/chap6.html#commandbuffer-allocation)
+[Command Buffer Allocation and Management](https://www.khronos.org/registry/vulkan/specs/latest/html/chap6.html#commandbuffer-allocation)
 
 * 
 [Command Buffer Lifecycle](https://www.khronos.org/registry/vulkan/specs/1.0-wsi_extensions/html/chap5.html#commandbuffers-lifecycle)
@@ -187,19 +187,19 @@ Use secondary command buffers to allow multi-threaded render pass construction.
 Minimize the number of secondary command buffer invocations used per frame.
 
 * 
-Set [ONE_TIME_SUBMIT_BIT](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkCommandBufferUsageFlagBits.html) if you are not going to reuse the command buffer.
+Set [ONE_TIME_SUBMIT_BIT](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferUsageFlagBits.html) if you are not going to reuse the command buffer.
 
 * 
-Periodically call [vkResetCommandPool()](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkResetCommandPool.html) to release the memory if you are not reusing command buffers.
+Periodically call [vkResetCommandPool()](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetCommandPool.html) to release the memory if you are not reusing command buffers.
 
 **Don’t**
 
 * 
-Set [RESET_COMMAND_BUFFER_BIT](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkCommandPoolCreateFlagBits.html) if you only need to free the whole pool.
+Set [RESET_COMMAND_BUFFER_BIT](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandPoolCreateFlagBits.html) if you only need to free the whole pool.
 If the bit is not set, some implementations might use a single large allocator for the pool, reducing memory management overhead.
 
 * 
-Call [vkResetCommandBuffer()](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkResetCommandBuffer.html) on a high frequency call path.
+Call [vkResetCommandBuffer()](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetCommandBuffer.html) on a high frequency call path.
 
 **Impact**
 
@@ -218,7 +218,7 @@ Increased memory usage until a manual command pool reset is triggered.
 **Debugging**
 
 * 
-Evaluate every use of any command buffer flag other than [ONE_TIME_SUBMIT_BIT](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkCommandBufferUsageFlagBits.html), and review whether it’s a necessary use of the flag combination.
+Evaluate every use of any command buffer flag other than [ONE_TIME_SUBMIT_BIT](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferUsageFlagBits.html), and review whether it’s a necessary use of the flag combination.
 
 * 
-Evaluate every use of [vkResetCommandBuffer()](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkResetCommandBuffer.html) and see if it could be replaced with [vkResetCommandPool()](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkResetCommandPool.html) instead.
+Evaluate every use of [vkResetCommandBuffer()](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetCommandBuffer.html) and see if it could be replaced with [vkResetCommandPool()](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetCommandPool.html) instead.

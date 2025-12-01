@@ -18,7 +18,13 @@
 
 VkTensorARM - Opaque handle to a tensor object
 
-Tensors represent multidimensional arrays of data.
+Tensors are similar to [images](../../../../spec/latest/chapters/images.html#images), in that they have
+multi-dimensional access as documented in the [Tensor Operations](../../../../spec/latest/chapters/VK_ARM_tensors/tensorops.html#tensors) chapter, but a
+tensor’s dimensions are not predefined.
+A tensor can have an arbitrary number of dimensions, up to
+[`maxTensorDimensionCount`](../../../../spec/latest/chapters/limits.html#limits-maxTensorDimensionCount), with one
+index per dimension used to access the tensor.
+
 Tensors **can** be used by binding them to pipelines via descriptor sets, or by
 directly specifying them as parameters to certain commands.
 

@@ -40,8 +40,8 @@ single site.This allows searching and cross-linking across documents, to
 help navigate quickly to the information you need for developing
 Vulkan-based applications.
 
-This build of the site includes the Vulkan 1.4.326 API specification
-(with all registered extensions), generated on 2025-09-09 23:42:25Z from git branch: main commit: d6e7f443f8abca606b3f312b84bc8903d14e08e8.
+This build of the site includes the Vulkan 1.4.335 API specification
+(with all registered extensions), generated on 2025-12-01 09:45:46Z from git branch: main commit: 60a4ad187cf3be4ede658f0fae7dd392192a314b.
 
 The site is organized into “components”.
 The left navigation sidebar links to pages in the current component.

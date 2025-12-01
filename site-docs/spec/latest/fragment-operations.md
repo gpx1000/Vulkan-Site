@@ -475,7 +475,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDiscardRectangleEXT-commandBuffer-cmdpool) VUID-vkCmdSetDiscardRectangleEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDiscardRectangleEXT-videocoding) VUID-vkCmdSetDiscardRectangleEXT-videocoding
@@ -500,7 +500,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -558,7 +558,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDiscardRectangleEnableEXT-commandBuffer-cmdpool) VUID-vkCmdSetDiscardRectangleEnableEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDiscardRectangleEnableEXT-videocoding) VUID-vkCmdSetDiscardRectangleEnableEXT-videocoding
@@ -578,7 +578,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -638,7 +638,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDiscardRectangleModeEXT-commandBuffer-cmdpool) VUID-vkCmdSetDiscardRectangleModeEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDiscardRectangleModeEXT-videocoding) VUID-vkCmdSetDiscardRectangleModeEXT-videocoding
@@ -658,7 +658,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -790,7 +790,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetScissor-commandBuffer-cmdpool) VUID-vkCmdSetScissor-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetScissor-videocoding) VUID-vkCmdSetScissor-videocoding
@@ -815,7 +815,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1013,7 +1013,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetExclusiveScissorNV-commandBuffer-cmdpool) VUID-vkCmdSetExclusiveScissorNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetExclusiveScissorNV-videocoding) VUID-vkCmdSetExclusiveScissorNV-videocoding
@@ -1038,7 +1038,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1118,7 +1118,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetExclusiveScissorEnableNV-commandBuffer-cmdpool) VUID-vkCmdSetExclusiveScissorEnableNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetExclusiveScissorEnableNV-videocoding) VUID-vkCmdSetExclusiveScissorEnableNV-videocoding
@@ -1143,7 +1143,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1171,6 +1171,9 @@ recorded.
 * 
 `pSampleMask` is a pointer to an array of `VkSampleMask`
 values, where the array size is based on the `samples` parameter.
+If the [`maintenance10`](features.html#features-maintenance10) feature is
+enabled, and this parameter is set to `NULL`, it is treated as if the
+mask has all bits set to `1`.
 
 This command sets the sample mask for subsequent drawing commands
 when drawing using [shader objects](shaders.html#shaders-objects), or
@@ -1194,6 +1197,12 @@ enabled
 * 
 The [`shaderObject`](features.html#features-shaderObject) feature is enabled
 
+[](#VUID-vkCmdSetSampleMaskEXT-pSampleMask-10999) VUID-vkCmdSetSampleMaskEXT-pSampleMask-10999
+
+`pSampleMask` **must** not be `NULL`
+if the [`maintenance10`](features.html#features-maintenance10) feature is not
+enabled
+
 Valid Usage (Implicit)
 
 * 
@@ -1209,7 +1218,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetSampleMaskEXT-pSampleMask-parameter) VUID-vkCmdSetSampleMaskEXT-pSampleMask-parameter
 
- `pSampleMask` **must** be a valid pointer to an array of    `VkSampleMask` values
+ If `pSampleMask` is not `NULL`, `pSampleMask` **must** be a valid pointer to an array of    `VkSampleMask` values
 
 * 
 [](#VUID-vkCmdSetSampleMaskEXT-commandBuffer-recording) VUID-vkCmdSetSampleMaskEXT-commandBuffer-recording
@@ -1219,7 +1228,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetSampleMaskEXT-commandBuffer-cmdpool) VUID-vkCmdSetSampleMaskEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetSampleMaskEXT-videocoding) VUID-vkCmdSetSampleMaskEXT-videocoding
@@ -1239,7 +1248,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1477,9 +1486,9 @@ phase a fragment reads from a single sample at its location.
 * 
 Programmable resolve - a fragment reads from all samples at its location
 (per-sample shading is disabled).
-This requires the use of a "full-screen triangle" instead of a rectangle
-composed of two triangles in order to avoid data races along the shared
-edge of the triangles.
+This requires the use of a “full-screen triangle” instead of a
+rectangle composed of two triangles in order to avoid data races along
+the shared edge of the triangles.
 
 * 
 1:1 texturing with LOD - in use cases such a deferred screen space
@@ -1630,7 +1639,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetAlphaToCoverageEnableEXT-commandBuffer-cmdpool) VUID-vkCmdSetAlphaToCoverageEnableEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetAlphaToCoverageEnableEXT-videocoding) VUID-vkCmdSetAlphaToCoverageEnableEXT-videocoding
@@ -1650,7 +1659,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1714,7 +1723,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetAlphaToOneEnableEXT-commandBuffer-cmdpool) VUID-vkCmdSetAlphaToOneEnableEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetAlphaToOneEnableEXT-videocoding) VUID-vkCmdSetAlphaToOneEnableEXT-videocoding
@@ -1734,7 +1743,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -2020,9 +2029,8 @@ void vkCmdSetDepthBoundsTestEnable(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    depthBoundsTestEnable);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetDepthBoundsTestEnable
 void vkCmdSetDepthBoundsTestEnableEXT(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    depthBoundsTestEnable);
@@ -2082,7 +2090,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDepthBoundsTestEnable-commandBuffer-cmdpool) VUID-vkCmdSetDepthBoundsTestEnable-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDepthBoundsTestEnable-videocoding) VUID-vkCmdSetDepthBoundsTestEnable-videocoding
@@ -2102,7 +2110,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -2171,7 +2179,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDepthBounds-commandBuffer-cmdpool) VUID-vkCmdSetDepthBounds-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDepthBounds-videocoding) VUID-vkCmdSetDepthBounds-videocoding
@@ -2191,7 +2199,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -2270,9 +2278,8 @@ void vkCmdSetStencilTestEnable(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    stencilTestEnable);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetStencilTestEnable
 void vkCmdSetStencilTestEnableEXT(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    stencilTestEnable);
@@ -2326,7 +2333,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetStencilTestEnable-commandBuffer-cmdpool) VUID-vkCmdSetStencilTestEnable-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetStencilTestEnable-videocoding) VUID-vkCmdSetStencilTestEnable-videocoding
@@ -2346,7 +2353,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -2363,9 +2370,8 @@ void vkCmdSetStencilOp(
     VkStencilOp                                 depthFailOp,
     VkCompareOp                                 compareOp);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetStencilOp
 void vkCmdSetStencilOpEXT(
     VkCommandBuffer                             commandBuffer,
     VkStencilFaceFlags                          faceMask,
@@ -2470,7 +2476,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetStencilOp-commandBuffer-cmdpool) VUID-vkCmdSetStencilOp-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetStencilOp-videocoding) VUID-vkCmdSetStencilOp-videocoding
@@ -2490,7 +2496,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -2613,7 +2619,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetStencilCompareMask-commandBuffer-cmdpool) VUID-vkCmdSetStencilCompareMask-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetStencilCompareMask-videocoding) VUID-vkCmdSetStencilCompareMask-videocoding
@@ -2633,7 +2639,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -2646,7 +2652,7 @@ typedef enum VkStencilFaceFlagBits {
     VK_STENCIL_FACE_FRONT_BIT = 0x00000001,
     VK_STENCIL_FACE_BACK_BIT = 0x00000002,
     VK_STENCIL_FACE_FRONT_AND_BACK = 0x00000003,
-  // VK_STENCIL_FRONT_AND_BACK is a deprecated alias
+  // VK_STENCIL_FRONT_AND_BACK is a legacy alias
     VK_STENCIL_FRONT_AND_BACK = VK_STENCIL_FACE_FRONT_AND_BACK,
 } VkStencilFaceFlagBits;
 
@@ -2725,7 +2731,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetStencilWriteMask-commandBuffer-cmdpool) VUID-vkCmdSetStencilWriteMask-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetStencilWriteMask-videocoding) VUID-vkCmdSetStencilWriteMask-videocoding
@@ -2745,7 +2751,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -2807,7 +2813,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetStencilReference-commandBuffer-cmdpool) VUID-vkCmdSetStencilReference-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetStencilReference-videocoding) VUID-vkCmdSetStencilReference-videocoding
@@ -2827,7 +2833,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -3084,7 +3090,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDepthClampRangeEXT-commandBuffer-cmdpool) VUID-vkCmdSetDepthClampRangeEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDepthClampRangeEXT-videocoding) VUID-vkCmdSetDepthClampRangeEXT-videocoding
@@ -3104,7 +3110,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -3182,9 +3188,8 @@ void vkCmdSetDepthTestEnable(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    depthTestEnable);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetDepthTestEnable
 void vkCmdSetDepthTestEnableEXT(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    depthTestEnable);
@@ -3238,7 +3243,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDepthTestEnable-commandBuffer-cmdpool) VUID-vkCmdSetDepthTestEnable-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDepthTestEnable-videocoding) VUID-vkCmdSetDepthTestEnable-videocoding
@@ -3258,7 +3263,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -3272,9 +3277,8 @@ void vkCmdSetDepthCompareOp(
     VkCommandBuffer                             commandBuffer,
     VkCompareOp                                 depthCompareOp);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetDepthCompareOp
 void vkCmdSetDepthCompareOpEXT(
     VkCommandBuffer                             commandBuffer,
     VkCompareOp                                 depthCompareOp);
@@ -3335,7 +3339,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDepthCompareOp-commandBuffer-cmdpool) VUID-vkCmdSetDepthCompareOp-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDepthCompareOp-videocoding) VUID-vkCmdSetDepthCompareOp-videocoding
@@ -3355,7 +3359,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -3369,9 +3373,8 @@ void vkCmdSetDepthWriteEnable(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    depthWriteEnable);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetDepthWriteEnable
 void vkCmdSetDepthWriteEnableEXT(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    depthWriteEnable);
@@ -3425,7 +3428,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDepthWriteEnable-commandBuffer-cmdpool) VUID-vkCmdSetDepthWriteEnable-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDepthWriteEnable-videocoding) VUID-vkCmdSetDepthWriteEnable-videocoding
@@ -3445,7 +3448,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -3560,7 +3563,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetRepresentativeFragmentTestEnableNV-commandBuffer-cmdpool) VUID-vkCmdSetRepresentativeFragmentTestEnableNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetRepresentativeFragmentTestEnableNV-videocoding) VUID-vkCmdSetRepresentativeFragmentTestEnableNV-videocoding
@@ -3580,7 +3583,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -3734,7 +3737,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetCoverageToColorEnableNV-commandBuffer-cmdpool) VUID-vkCmdSetCoverageToColorEnableNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetCoverageToColorEnableNV-videocoding) VUID-vkCmdSetCoverageToColorEnableNV-videocoding
@@ -3754,7 +3757,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -3814,7 +3817,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetCoverageToColorLocationNV-commandBuffer-cmdpool) VUID-vkCmdSetCoverageToColorLocationNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetCoverageToColorLocationNV-videocoding) VUID-vkCmdSetCoverageToColorLocationNV-videocoding
@@ -3834,7 +3837,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -4050,7 +4053,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetCoverageReductionModeNV-commandBuffer-cmdpool) VUID-vkCmdSetCoverageReductionModeNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetCoverageReductionModeNV-videocoding) VUID-vkCmdSetCoverageReductionModeNV-videocoding
@@ -4070,7 +4073,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -4420,7 +4423,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetCoverageModulationModeNV-commandBuffer-cmdpool) VUID-vkCmdSetCoverageModulationModeNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetCoverageModulationModeNV-videocoding) VUID-vkCmdSetCoverageModulationModeNV-videocoding
@@ -4440,7 +4443,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -4500,7 +4503,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetCoverageModulationTableEnableNV-commandBuffer-cmdpool) VUID-vkCmdSetCoverageModulationTableEnableNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetCoverageModulationTableEnableNV-videocoding) VUID-vkCmdSetCoverageModulationTableEnableNV-videocoding
@@ -4520,7 +4523,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -4592,7 +4595,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetCoverageModulationTableNV-commandBuffer-cmdpool) VUID-vkCmdSetCoverageModulationTableNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetCoverageModulationTableNV-videocoding) VUID-vkCmdSetCoverageModulationTableNV-videocoding
@@ -4617,7 +4620,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

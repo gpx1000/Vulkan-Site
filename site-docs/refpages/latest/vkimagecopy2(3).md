@@ -32,9 +32,8 @@ typedef struct VkImageCopy2 {
     VkExtent3D                  extent;
 } VkImageCopy2;
 
-or the equivalent
-
 // Provided by VK_KHR_copy_commands2
+// Equivalent to VkImageCopy2
 typedef VkImageCopy2 VkImageCopy2KHR;
 
 * 

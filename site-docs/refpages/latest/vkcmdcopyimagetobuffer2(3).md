@@ -26,9 +26,8 @@ void vkCmdCopyImageToBuffer2(
     VkCommandBuffer                             commandBuffer,
     const VkCopyImageToBufferInfo2*             pCopyImageToBufferInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_copy_commands2
+// Equivalent to vkCmdCopyImageToBuffer2
 void vkCmdCopyImageToBuffer2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkCopyImageToBufferInfo2*             pCopyImageToBufferInfo);
@@ -88,11 +87,64 @@ of `commandBuffer`’s command pool’s queue family, as described in
 * 
 [](#VUID-vkCmdCopyImageToBuffer2-commandBuffer-10216) VUID-vkCmdCopyImageToBuffer2-commandBuffer-10216
 
+   If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+   `commandBuffer` was allocated from does not support
+   `VK_QUEUE_GRAPHICS_BIT`,
+   and the [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is not
+   enabled,
+for each element of `pCopyImageToBufferInfo->pRegions`, the `aspectMask` member of
+`imageSubresource` **must** not be `VK_IMAGE_ASPECT_DEPTH_BIT` or
+`VK_IMAGE_ASPECT_STENCIL_BIT`
+
+* 
+[](#VUID-vkCmdCopyImageToBuffer2-commandBuffer-11790) VUID-vkCmdCopyImageToBuffer2-commandBuffer-11790
+
 If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
 `commandBuffer` was allocated from does not support
-`VK_QUEUE_GRAPHICS_BIT`, for each element of `pCopyImageToBufferInfo->pRegions`, the
-`aspectMask` member of `imageSubresource` **must** not be
-`VK_IMAGE_ASPECT_DEPTH_BIT` or `VK_IMAGE_ASPECT_STENCIL_BIT`
+`VK_QUEUE_GRAPHICS_BIT` but does support `VK_QUEUE_COMPUTE_BIT`,
+and in any element of `pCopyImageToBufferInfo->pRegions` the `aspectMask` member of
+`imageSubresource` is `VK_IMAGE_ASPECT_DEPTH_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `srcImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_COMPUTE_QUEUE_BIT_KHR`
+
+* 
+[](#VUID-vkCmdCopyImageToBuffer2-commandBuffer-11791) VUID-vkCmdCopyImageToBuffer2-commandBuffer-11791
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` and `VK_QUEUE_COMPUTE_BIT`, but does
+support `VK_QUEUE_TRANSFER_BIT`, and in any element of
+`pCopyImageToBufferInfo->pRegions` the `aspectMask` member of `imageSubresource` is
+`VK_IMAGE_ASPECT_DEPTH_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `srcImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_TRANSFER_QUEUE_BIT_KHR`
+
+* 
+[](#VUID-vkCmdCopyImageToBuffer2-commandBuffer-11792) VUID-vkCmdCopyImageToBuffer2-commandBuffer-11792
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` but does support `VK_QUEUE_COMPUTE_BIT`,
+and in any element of `pCopyImageToBufferInfo->pRegions` the `aspectMask` member of
+`imageSubresource` is `VK_IMAGE_ASPECT_STENCIL_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `srcImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_COMPUTE_QUEUE_BIT_KHR`
+
+* 
+[](#VUID-vkCmdCopyImageToBuffer2-commandBuffer-11793) VUID-vkCmdCopyImageToBuffer2-commandBuffer-11793
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` and `VK_QUEUE_COMPUTE_BIT`, but does
+support `VK_QUEUE_TRANSFER_BIT`, and in any element of
+`pCopyImageToBufferInfo->pRegions` the `aspectMask` member of `imageSubresource` is
+`VK_IMAGE_ASPECT_STENCIL_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `srcImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_TRANSFER_QUEUE_BIT_KHR`
 
 Valid Usage (Implicit)
 
@@ -114,12 +166,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyImageToBuffer2-commandBuffer-cmdpool) VUID-vkCmdCopyImageToBuffer2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyImageToBuffer2-renderpass) VUID-vkCmdCopyImageToBuffer2-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyImageToBuffer2-suspended) VUID-vkCmdCopyImageToBuffer2-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyImageToBuffer2-videocoding) VUID-vkCmdCopyImageToBuffer2-videocoding
@@ -139,11 +196,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 

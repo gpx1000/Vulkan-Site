@@ -45,17 +45,19 @@ structure.
 
 * 
 `indexType` is the type of triangle indices used when indexing this
-micromap
+micromap.
 
 * 
-`indexBuffer` is the address containing the triangle indices
+`indexBuffer` is a device or host address of memory containing the
+triangle indices.
+When `indexType` is `VK_INDEX_TYPE_NONE_KHR` it **must** be `NULL`.
 
 * 
-`indexStride` is the byte stride between triangle indices
+`indexStride` is the byte stride between triangle indices.
 
 * 
 `baseTriangle` is the base value added to the non-negative triangle
-indices
+indices.
 
 * 
 `usageCountsCount` specifies the number of usage counts structures
@@ -71,7 +73,7 @@ structures.
 
 * 
 `micromap` is the handle to the micromap object to include in this
-geometry
+geometry.
 
 If `VkAccelerationStructureTrianglesOpacityMicromapEXT` is included in
 the `pNext` chain of a

@@ -34,7 +34,7 @@ which aspects of the image the properties apply to.
 
 * 
 `imageGranularity` is the width, height, and depth of the sparse
-image block in texels or compressed texel blocks.
+image block in texels.
 
 * 
 `flags` is a bitmask of [VkSparseImageFormatFlagBits](VkSparseImageFormatFlagBits.html) specifying

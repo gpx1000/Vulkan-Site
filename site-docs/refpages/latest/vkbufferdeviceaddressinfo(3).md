@@ -28,14 +28,12 @@ typedef struct VkBufferDeviceAddressInfo {
     VkBuffer           buffer;
 } VkBufferDeviceAddressInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_buffer_device_address
+// Equivalent to VkBufferDeviceAddressInfo
 typedef VkBufferDeviceAddressInfo VkBufferDeviceAddressInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_buffer_device_address
+// Equivalent to VkBufferDeviceAddressInfo
 typedef VkBufferDeviceAddressInfo VkBufferDeviceAddressInfoEXT;
 
 * 
@@ -53,8 +51,8 @@ Valid Usage
 * 
 [](#VUID-VkBufferDeviceAddressInfo-buffer-02601) VUID-VkBufferDeviceAddressInfo-buffer-02601
 
-`buffer` **must** have been created with
-`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT`
+`buffer` **must** have been created with the
+`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` usage flag set
 
 Valid Usage (Implicit)
 

@@ -30,6 +30,7 @@ typedef struct VkPhysicalDeviceShaderDrawParametersFeatures {
 } VkPhysicalDeviceShaderDrawParametersFeatures;
 
 // Provided by VK_VERSION_1_1
+// Equivalent to VkPhysicalDeviceShaderDrawParametersFeatures
 typedef VkPhysicalDeviceShaderDrawParametersFeatures VkPhysicalDeviceShaderDrawParameterFeatures;
 
 This structure describes the following feature:

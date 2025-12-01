@@ -26,9 +26,8 @@ void vkCmdResolveImage2(
     VkCommandBuffer                             commandBuffer,
     const VkResolveImageInfo2*                  pResolveImageInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_copy_commands2
+// Equivalent to vkCmdResolveImage2
 void vkCmdResolveImage2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkResolveImageInfo2*                  pResolveImageInfo);
@@ -88,12 +87,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdResolveImage2-commandBuffer-cmdpool) VUID-vkCmdResolveImage2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdResolveImage2-renderpass) VUID-vkCmdResolveImage2-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdResolveImage2-suspended) VUID-vkCmdResolveImage2-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdResolveImage2-videocoding) VUID-vkCmdResolveImage2-videocoding
@@ -113,7 +117,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics | Action |
+Secondary | Outside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

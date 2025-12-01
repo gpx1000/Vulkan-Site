@@ -28,9 +28,8 @@ typedef struct VkImageStencilUsageCreateInfo {
     VkImageUsageFlags    stencilUsage;
 } VkImageStencilUsageCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_separate_stencil_usage
+// Equivalent to VkImageStencilUsageCreateInfo
 typedef VkImageStencilUsageCreateInfo VkImageStencilUsageCreateInfoEXT;
 
 * 

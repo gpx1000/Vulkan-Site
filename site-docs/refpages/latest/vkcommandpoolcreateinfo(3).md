@@ -74,6 +74,21 @@ If the `pNext` chain includes a
 `queueFamilyIndex` and the `physicalDevice` that was used to
 create `device`
 
+* 
+[](#VUID-VkCommandPoolCreateInfo-queueFamilyIndex-11830) VUID-VkCommandPoolCreateInfo-queueFamilyIndex-11830
+
+If `queueFamilyIndex` designates a queue family that supports
+`VK_QUEUE_DATA_GRAPH_BIT_ARM` and enumerates a foreign engine
+through [vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM](vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM.html) with
+type
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_NEURAL_QCOM`
+or
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_COMPUTE_QCOM`,
+the `pNext` chain must include
+[VkDataGraphProcessingEngineCreateInfoARM](VkDataGraphProcessingEngineCreateInfoARM.html) with
+[VkPhysicalDeviceDataGraphProcessingEngineARM](VkPhysicalDeviceDataGraphProcessingEngineARM.html)::`isForeign` set
+to `VK_TRUE` for all elements of `pProcessingEngines`
+
 Valid Usage (Implicit)
 
 * 

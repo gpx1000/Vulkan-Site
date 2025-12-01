@@ -27,7 +27,7 @@
 |  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/graphics_pipeline_library). |
 | --- | --- |
 
-The [`VK_EXT_graphics_pipeline_library`](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_EXT_graphics_pipeline_library.html) extensions allows separate compilation of different parts of the graphics pipeline.
+The [`VK_EXT_graphics_pipeline_library`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_EXT_graphics_pipeline_library.html) extensions allows separate compilation of different parts of the graphics pipeline.
 With this it’s now possible to split up the monolithic pipeline creation into different steps and re-use common parts shared across different pipelines.
 
 Compared to monolithic pipeline state, this results in faster pipeline creation times, making this extension a good fit for applications and games that do a lot of pipeline creation at runtime.
@@ -35,16 +35,16 @@ Compared to monolithic pipeline state, this results in faster pipeline creation 
 As noted above, the monolithic pipeline state has been split into distinct parts that can be compiled independently:
 
 * 
-[Vertex Input Interface](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#pipeline-graphics-subsets-vertex-input)
+[Vertex Input Interface](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#pipeline-graphics-subsets-vertex-input)
 
 * 
-[Pre-Rasterization Shaders](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#pipeline-graphics-subsets-pre-rasterization)
+[Pre-Rasterization Shaders](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#pipeline-graphics-subsets-pre-rasterization)
 
 * 
-[Fragment Shader](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#pipeline-graphics-subsets-fragment-shader)
+[Fragment Shader](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#pipeline-graphics-subsets-fragment-shader)
 
 * 
-[Fragment Output Interface](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#pipeline-graphics-subsets-fragment-output)
+[Fragment Output Interface](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#pipeline-graphics-subsets-fragment-output)
 
 Creating a pipeline library (part) is similar to creating a pipeline, with the difference that you only need to specify the properties required for that specific pipeline state (see above).
 E.g.

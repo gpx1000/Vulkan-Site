@@ -302,7 +302,40 @@
     <a class="nav-link" href="17_Multithreading.html">Multithreading</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="courses/18_Ray_tracing/00_Overview.html">Ray Tracing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/00_Overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/01_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/02_Acceleration_structures.html">Acceleration structures</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/03_Ray_query_shadows.html">Ray query shadows</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/04_TLAS_animation.html">TLAS animation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/05_Shadow_transparency.html">Shadow transparency</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/06_Reflections.html">Reflections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/07_Conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="90_FAQ.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -405,6 +438,26 @@ separately here.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_getting_the_code"><a class="anchor" href="#_getting_the_code"></a>Getting the code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First we need to clone the code for the tutorial from the <a href="https://github.com/KhronosGroup/Vulkan-Tutorial">github repository</a>.
+This requires an install of the <a href="https://git-scm.com/">git</a> version control system.</p>
+</div>
+<div class="paragraph">
+<p>With git installed we can locally clone the repository like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/KhronosGroup/Vulkan-Tutorial</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will clone the repository to a new folder (inside the current one) called <code>Vulkan-Tutorial</code>. The Source files for the chapters are located in the <code>attachments</code> folder.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_dependency_install_scripts"><a class="anchor" href="#_dependency_install_scripts"></a>Dependency Install Scripts</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -467,13 +520,7 @@ It includes headers, standard validation layers, debugging tools and a loader fo
 The loader looks up the functions in the driver at runtime, similarly to GLEW for OpenGL—if you&#8217;re familiar with that.</p>
 </div>
 <div class="paragraph">
-<p>The SDK can be downloaded from <a href="https://vulkan.lunarg.com/">the LunarG website</a> using the buttons at the bottom of the page.
-You don&#8217;t have to create an account, but it will give you access to some additional documentation that may be useful to you.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/images/vulkan_sdk_download_buttons.png" alt="vulkan sdk download buttons">
-</div>
+<p>The SDK can be downloaded from <a href="https://vulkan.lunarg.com/sdk/home">the LunarG website</a>.</p>
 </div>
 <div class="paragraph">
 <p>Proceed through the installation and pay attention to the installation location of the SDK.
@@ -483,9 +530,9 @@ Go to the directory where you installed the SDK, open the <code>bin</code> direc
 </div>
 <div class="paragraph">
 <p>There is another program in this directory that will be useful for
-development. The <code>glslangValidator</code> and <code>glslc</code> programs will be
+development. The <code>slangc</code> command line program will be
 used to compile shaders from the human-readable
-<a href="https://en.wikipedia.org/wiki/OpenGL_Shading_Language">GLSL</a> to bytecode.
+<a href="https://shader-slang.org/slang/user-guide/">Slang Shading Language</a> to bytecode.
 We&#8217;ll cover this in depth in the
 <a href="03_Drawing_a_triangle/02_Graphics_pipeline_basics/01_Shader_modules.html" class="xref page">shader modules</a>
  chapter. The <code>bin</code> directory also contains the binaries of
@@ -497,11 +544,10 @@ contains the libraries.</p>
 Feel free to explore the other files, but we won&#8217;t need them for this tutorial.</p>
 </div>
 <div class="paragraph">
-<p>To automatically set the environment variables up that VulkanSDK will use to
-make life easier with the CMake project configuration and various other
-tooling, We recommend using the <code>setup-env</code> script. This can be added to
-your auto-start for your terminal and IDE setup such that those environment
-variables work everywhere.</p>
+<p>To automatically set the environment variables that VulkanSDK will use to
+simplify CMake project configuration and other tooling, we recommend using
+the <code>setup-env</code> script on Linux. You can add this script to your terminal&#8217;s auto-start
+or IDE setup to ensure these environment variables are available in all your sessions.</p>
 </div>
 <div class="paragraph">
 <p>If you receive an error message, then ensure that your drivers are up to date,
@@ -560,16 +606,29 @@ for an example of a working project.</p>
 <div class="paragraph">
 <p>Vulkan has support for C&#43;&#43; modules which became available with c&#43;&#43;20. A
 large advantage of C&#43;&#43; modules is they give all the benefits of C&#43;&#43; without
-the overhead long compile times. To do this, the .cppm file must be compiled
-for your target device. This tutorial serves as an example of taking
-advantage of C&#43;&#43; modules. The CMakeLists.txt in our tutorial has all the
-instructions needed for building the module automatically:</p>
+the overhead of long compile times. To do this, the .cppm file must be compiled
+for your target device. This tutorial demonstrates how to take advantage of C&#43;&#43;
+modules. However, to maximize compatibility across compilers and IDEs, the
+attachments template has C&#43;&#43;20 module support disabled by default, but it is
+recommended to enable it if your toolchain supports it.</p>
+</div>
+<div class="paragraph">
+<p>To enable the Vulkan C&#43;&#43;20 module in the attachments template, configure CMake with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cmake -DENABLE_CPP20_MODULE=ON ..</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When enabled, the CMakeLists.txt contains all the instructions needed for building the
+module automatically. The relevant snippet looks like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-cmake hljs" data-lang="cmake">find_package (Vulkan REQUIRED)
 
-# set up Vulkan C++ module
+# set up Vulkan C++ module (enabled when ENABLE_CPP20_MODULE=ON)
 add_library(VulkanCppModule)
 add_library(Vulkan::cppm ALIAS VulkanCppModule)
 
@@ -577,31 +636,25 @@ target_compile_definitions(VulkanCppModule PUBLIC
         VULKAN_HPP_DISPATCH_LOADER_DYNAMIC=1
         VULKAN_HPP_NO_STRUCT_CONSTRUCTORS=1
 )
-target_include_directories(VulkanCppModule
-        PRIVATE
-        "${Vulkan_INCLUDE_DIR}"
-)
-target_link_libraries(VulkanCppModule
-        PUBLIC
-        Vulkan::Vulkan
-)
+
+target_include_directories(VulkanCppModule PRIVATE "${Vulkan_INCLUDE_DIR}")
+
+target_link_libraries(VulkanCppModule PUBLIC Vulkan::Vulkan)
 
 set_target_properties(VulkanCppModule PROPERTIES CXX_STANDARD 20)
 
 target_sources(VulkanCppModule
         PUBLIC
         FILE_SET cxx_modules TYPE CXX_MODULES
-        BASE_DIRS
-        "${Vulkan_INCLUDE_DIR}"
-        FILES
-        "${Vulkan_INCLUDE_DIR}/vulkan/vulkan.cppm"
+        BASE_DIRS "${Vulkan_INCLUDE_DIR}"
+        FILES "${Vulkan_INCLUDE_DIR}/vulkan/vulkan.cppm"
 )</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The VulkanCppModule target only needs to be defined once, then add it to the
-dependency of your consuming project, and it will be built automatically, and
-you won&#8217;t need to also add Vulkan::Vulkan to your project.</p>
+dependencies of your consuming project, and it will be built automatically. You
+won&#8217;t need to also add Vulkan::Vulkan to your project.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -609,7 +662,10 @@ you won&#8217;t need to also add Vulkan::Vulkan to your project.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>That is all that is required to add Vulkan to any project.</p>
+<p>If you choose to keep modules disabled (the default), you can continue to use the
+traditional header-based includes (e.g., <code>#include &lt;vulkan/vulkan_raii.hpp&gt;</code>). The
+sample code in the attachments is written to compile either way and will import the
+module only when <code>ENABLE_CPP20_MODULE=ON</code> (which defines <code>USE_CPP20_MODULES</code>).</p>
 </div>
 </div>
 <div class="sect2">
@@ -708,7 +764,7 @@ GLFW on the <a href="https://www.glfw.org/download.html">official website</a>.</
 <p>In this tutorial, we&#8217;ll be using the 64-bit binaries, but you can of course also
 choose to build in 32-bit mode. In that case make sure to link with the Vulkan
 SDK binaries in the <code>Lib32</code> directory instead of <code>Lib</code>. After downloading it, extract the archive
-to a convenient location. I&#8217;ve chosen to create a <code>Libraries</code> directory in the
+to a convenient location. We&#8217;ve chosen to create a <code>Libraries</code> directory in the
 Visual Studio directory under documents.</p>
 </div>
 <div class="imageblock">
@@ -749,13 +805,11 @@ CMake project for Vulkan and write a little bit of code to make sure that
 everything works.</p>
 </div>
 <div class="paragraph">
-<p>I will assume that you already have some basic experience with CMake, like
+<p>We will assume that you already have some basic experience with CMake, like
 how variables and rules work. If not, you can get up to speed very quickly with <a href="https://cmake.org/cmake/help/book/mastering-cmake/cmake/Help/guide/tutorial/">this tutorial</a>.</p>
 </div>
 <div class="paragraph">
-<p>You can now use the <a href="https://github.com/KhronosGroup/Vulkan-Tutorial/tree/main/attachments">attachments</a> directory in this tutorial
-as a template for your Vulkan projects. Make a copy, rename it to something like <code>HelloTriangle</code>
-and remove all the code in <code>main.cpp</code>.</p>
+<p>You can now use the code from any of the following chapters found in the <code>attachment</code> folder as a template for your Vulkan projects. Make a copy, rename it to something like <code>HelloTriangle</code> and remove all the code in <code>main.cpp</code>.</p>
 </div>
 <div class="paragraph">
 <p>Congratulations, you&#8217;re all set for <a href="03_Drawing_a_triangle/00_Setup/00_Base_code.html" class="xref page">playing with Vulkan</a>!</p>
@@ -936,7 +990,7 @@ CMake project for Vulkan and write a little bit of code to make sure that
 everything works.</p>
 </div>
 <div class="paragraph">
-<p>I will assume that you already have some basic experience with CMake, like
+<p>We will assume that you already have some basic experience with CMake, like
 how variables and rules work. If not, you can get up to speed very quickly with <a href="https://cmake.org/cmake/help/book/mastering-cmake/cmake/Help/guide/tutorial/">this tutorial</a>.</p>
 </div>
 <div class="paragraph">

@@ -309,6 +309,13 @@ command and the bound [VkPipeline](VkPipeline.html) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
 
 * 
+[](#VUID-vkCmdDispatchIndirect-imageLayout-00344) VUID-vkCmdDispatchIndirect-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](VkImageLayout.html)
+**must** match the subresource accessible from the [VkImageView](VkImageView.html) as
+defined by the [image layout    matching rules](../../../../spec/latest/chapters/resources.html#resources-image-layouts-matching-rule)
+
+* 
 [](#VUID-vkCmdDispatchIndirect-None-08115) VUID-vkCmdDispatchIndirect-None-08115
 
 If the descriptors used by the [VkPipeline](VkPipeline.html) bound to the pipeline
@@ -744,7 +751,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDispatchIndirect-buffer-02709) VUID-vkCmdDispatchIndirect-buffer-02709
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDispatchIndirect-offset-02710) VUID-vkCmdDispatchIndirect-offset-02710
@@ -782,7 +789,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDispatchIndirect-commandBuffer-cmdpool) VUID-vkCmdDispatchIndirect-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
+
+* 
+[](#VUID-vkCmdDispatchIndirect-suspended) VUID-vkCmdDispatchIndirect-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDispatchIndirect-videocoding) VUID-vkCmdDispatchIndirect-videocoding
@@ -807,7 +819,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Compute | Action |
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 

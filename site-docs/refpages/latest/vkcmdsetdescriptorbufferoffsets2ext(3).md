@@ -69,7 +69,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDescriptorBufferOffsets2EXT-commandBuffer-cmdpool) VUID-vkCmdSetDescriptorBufferOffsets2EXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or data_graph operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_DATA_GRAPH_BIT_ARM`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDescriptorBufferOffsets2EXT-videocoding) VUID-vkCmdSetDescriptorBufferOffsets2EXT-videocoding
@@ -89,11 +89,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_DATA_GRAPH_BIT_ARM
 
-Data_Graph | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

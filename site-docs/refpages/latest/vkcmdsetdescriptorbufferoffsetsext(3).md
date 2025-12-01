@@ -180,6 +180,23 @@ The [VkDescriptorSetLayout](VkDescriptorSetLayout.html) for each set from `first
 `VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT` bit set
 
 * 
+[](#VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11803) VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11803
+
+The [VkDescriptorSetLayout](VkDescriptorSetLayout.html) for each set from `firstSet` to
+`firstSet` +  `setCount` when `layout` was created
+**must** not have been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR` bit set
+
+* 
+[](#VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11804) VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11804
+
+The [VkDescriptorSetLayout](VkDescriptorSetLayout.html) for each set from `firstSet` to
+`firstSet` +  `setCount` when `layout` was created
+**must** not have been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT`
+bit set
+
+* 
 [](#VUID-vkCmdSetDescriptorBufferOffsetsEXT-None-08060) VUID-vkCmdSetDescriptorBufferOffsetsEXT-None-08060
 
 The [`descriptorBuffer`](../../../../spec/latest/chapters/features.html#features-descriptorBuffer) feature **must**
@@ -226,7 +243,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDescriptorBufferOffsetsEXT-commandBuffer-cmdpool) VUID-vkCmdSetDescriptorBufferOffsetsEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or data_graph operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_DATA_GRAPH_BIT_ARM`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDescriptorBufferOffsetsEXT-videocoding) VUID-vkCmdSetDescriptorBufferOffsetsEXT-videocoding
@@ -256,11 +273,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_DATA_GRAPH_BIT_ARM
 
-Data_Graph | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

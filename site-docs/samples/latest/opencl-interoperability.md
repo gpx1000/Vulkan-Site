@@ -54,7 +54,7 @@ This allows us to reuse it with two different APIs:
 
 ![Sample](../../../_images/samples/extensions/open_cl_interop_arm/images/shared_hardware_buffer.png)
 
-In Vulkan hardware buffers can be imported or exported using [VK_ANDROID_external_memory_android_hardware_buffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html) extension.
+In Vulkan hardware buffers can be imported or exported using [VK_ANDROID_external_memory_android_hardware_buffer](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html) extension.
 AHardwareBuffer can be bound to a `VkDeviceMemory` object, which serves as an allocation for objects of type `VkImage` or `VkBuffer`.
 
 If we need to use an image backed by an AHardwareBuffer, we must specify while creating the image.
@@ -82,7 +82,7 @@ export_memory_allocate_Info.pNext = &dedicated_allocate_info;
 export_memory_allocate_Info.handleTypes = VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID;
 
 This is specified as `pNext` of `VkMemoryAllocateInfo`, while `allocationSize` is set to 0.
-You can find more info on this in the [specification](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VkMemoryRequirements).
+You can find more info on this in the [specification](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VkMemoryRequirements).
 
 Once the memory is allocated **and** bound to the image (or buffer), we can export a handle of type `AHardwareBuffer`:
 
@@ -162,7 +162,7 @@ In this sample one of such handle types is demonstrated: Android Hardware Buffer
 The extensions used in this case are:
 
 * 
-[VK_ANDROID_external_memory_android_hardware_buffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html)
+[VK_ANDROID_external_memory_android_hardware_buffer](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html)
 
 * 
 [cl_arm_import_memory](https://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_import_memory.txt)

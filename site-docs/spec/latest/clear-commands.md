@@ -76,8 +76,8 @@ The [format features](resources.html#resources-image-format-features) of `image`
 * 
 [](#VUID-vkCmdClearColorImage-image-00002) VUID-vkCmdClearColorImage-image-00002
 
-`image` **must** have been created with
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag
+`image` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdClearColorImage-image-01545) VUID-vkCmdClearColorImage-image-01545
@@ -207,12 +207,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdClearColorImage-commandBuffer-cmdpool) VUID-vkCmdClearColorImage-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdClearColorImage-renderpass) VUID-vkCmdClearColorImage-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdClearColorImage-suspended) VUID-vkCmdClearColorImage-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdClearColorImage-videocoding) VUID-vkCmdClearColorImage-videocoding
@@ -242,9 +247,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -300,10 +305,9 @@ The [format features](resources.html#resources-image-format-features) of `image`
 
 If the `aspect` member of any element of `pRanges` includes
 `VK_IMAGE_ASPECT_STENCIL_BIT`, and `image` was created with
-[separate stencil usage](resources.html#VkImageStencilUsageCreateInfo),
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` **must** have been included in the
-[VkImageStencilUsageCreateInfo](resources.html#VkImageStencilUsageCreateInfo)::`stencilUsage` used to create
-`image`
+[separate stencil usage](resources.html#VkImageStencilUsageCreateInfo), it must have
+been created with the `VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag
+set
 
 * 
 [](#VUID-vkCmdClearDepthStencilImage-pRanges-02659) VUID-vkCmdClearDepthStencilImage-pRanges-02659
@@ -312,16 +316,15 @@ If the `aspect` member of any element of `pRanges` includes
 `VK_IMAGE_ASPECT_STENCIL_BIT`,
 and `image` was not created with
 [separate stencil usage](resources.html#VkImageStencilUsageCreateInfo),
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` **must** have been included in the
-[VkImageCreateInfo](resources.html#VkImageCreateInfo)::`usage` used to create `image`
+the `VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag **must** have been set
+in the [VkImageCreateInfo](resources.html#VkImageCreateInfo)::`usage` used to create `image`
 
 * 
 [](#VUID-vkCmdClearDepthStencilImage-pRanges-02660) VUID-vkCmdClearDepthStencilImage-pRanges-02660
 
 If the `aspect` member of any element of `pRanges` includes
-`VK_IMAGE_ASPECT_DEPTH_BIT`, `VK_IMAGE_USAGE_TRANSFER_DST_BIT`
-**must** have been included in the [VkImageCreateInfo](resources.html#VkImageCreateInfo)::`usage`
-used to create `image`
+`VK_IMAGE_ASPECT_DEPTH_BIT`, `image` **must** have been created
+with the `VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdClearDepthStencilImage-image-00010) VUID-vkCmdClearDepthStencilImage-image-00010
@@ -454,12 +457,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdClearDepthStencilImage-commandBuffer-cmdpool) VUID-vkCmdClearDepthStencilImage-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdClearDepthStencilImage-renderpass) VUID-vkCmdClearDepthStencilImage-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdClearDepthStencilImage-suspended) VUID-vkCmdClearDepthStencilImage-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdClearDepthStencilImage-videocoding) VUID-vkCmdClearDepthStencilImage-videocoding
@@ -489,7 +497,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics | Action |
+Secondary | Outside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -700,12 +708,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdClearAttachments-commandBuffer-cmdpool) VUID-vkCmdClearAttachments-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdClearAttachments-renderpass) VUID-vkCmdClearAttachments-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdClearAttachments-suspended) VUID-vkCmdClearAttachments-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdClearAttachments-videocoding) VUID-vkCmdClearAttachments-videocoding
@@ -735,7 +748,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -950,9 +963,8 @@ The data word is written to memory according to the host endianness.
 
 `vkCmdFillBuffer` is treated as a “transfer” operation for the
 purposes of synchronization barriers.
-The `VK_BUFFER_USAGE_TRANSFER_DST_BIT` **must** be specified in `usage`
-of [VkBufferCreateInfo](resources.html#VkBufferCreateInfo) in order for the buffer to be compatible with
-`vkCmdFillBuffer`.
+It is only compatible with buffers created with the
+`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag set.
 
 Valid Usage
 
@@ -987,8 +999,8 @@ multiple of `4`
 * 
 [](#VUID-vkCmdFillBuffer-dstBuffer-00029) VUID-vkCmdFillBuffer-dstBuffer-00029
 
-`dstBuffer` **must** have been created with
-`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag
+`dstBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdFillBuffer-apiVersion-07894) VUID-vkCmdFillBuffer-apiVersion-07894
@@ -1039,12 +1051,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdFillBuffer-commandBuffer-cmdpool) VUID-vkCmdFillBuffer-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdFillBuffer-renderpass) VUID-vkCmdFillBuffer-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdFillBuffer-suspended) VUID-vkCmdFillBuffer-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdFillBuffer-videocoding) VUID-vkCmdFillBuffer-videocoding
@@ -1069,11 +1086,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 
@@ -1151,8 +1168,8 @@ Valid Usage
 * 
 [](#VUID-vkCmdUpdateBuffer-dstBuffer-00034) VUID-vkCmdUpdateBuffer-dstBuffer-00034
 
-`dstBuffer` **must** have been created with
-`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag
+`dstBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdUpdateBuffer-dstBuffer-00035) VUID-vkCmdUpdateBuffer-dstBuffer-00035
@@ -1214,12 +1231,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdUpdateBuffer-commandBuffer-cmdpool) VUID-vkCmdUpdateBuffer-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdUpdateBuffer-renderpass) VUID-vkCmdUpdateBuffer-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdUpdateBuffer-suspended) VUID-vkCmdUpdateBuffer-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdUpdateBuffer-videocoding) VUID-vkCmdUpdateBuffer-videocoding
@@ -1249,11 +1271,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 

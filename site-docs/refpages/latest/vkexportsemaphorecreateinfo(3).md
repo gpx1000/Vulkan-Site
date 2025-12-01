@@ -31,9 +31,8 @@ typedef struct VkExportSemaphoreCreateInfo {
     VkExternalSemaphoreHandleTypeFlags    handleTypes;
 } VkExportSemaphoreCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore
+// Equivalent to VkExportSemaphoreCreateInfo
 typedef VkExportSemaphoreCreateInfo VkExportSemaphoreCreateInfoKHR;
 
 * 
@@ -71,7 +70,7 @@ Valid Usage (Implicit)
 
  `handleTypes` **must** be a valid combination of [VkExternalSemaphoreHandleTypeFlagBits](VkExternalSemaphoreHandleTypeFlagBits.html) values
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalSemaphoreHandleTypeFlags](VkExternalSemaphoreHandleTypeFlags.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_external_semaphore](VK_KHR_external_semaphore.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalSemaphoreHandleTypeFlags](VkExternalSemaphoreHandleTypeFlags.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/synchronization.html#VkExportSemaphoreCreateInfo).
 

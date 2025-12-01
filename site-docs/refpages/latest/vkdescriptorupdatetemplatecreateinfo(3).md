@@ -35,9 +35,8 @@ typedef struct VkDescriptorUpdateTemplateCreateInfo {
     uint32_t                                  set;
 } VkDescriptorUpdateTemplateCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplateCreateInfo
 typedef VkDescriptorUpdateTemplateCreateInfo VkDescriptorUpdateTemplateCreateInfoKHR;
 
 * 
@@ -183,7 +182,7 @@ Valid Usage (Implicit)
 
  Both of `descriptorSetLayout`, and `pipelineLayout` that are valid handles of non-ignored parameters **must** have been created, allocated, or retrieved from the same [VkDevice](VkDevice.html)
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDescriptorSetLayout](VkDescriptorSetLayout.html), [VkDescriptorUpdateTemplateCreateFlags](VkDescriptorUpdateTemplateCreateFlags.html), [VkDescriptorUpdateTemplateEntry](VkDescriptorUpdateTemplateEntry.html), [VkDescriptorUpdateTemplateType](VkDescriptorUpdateTemplateType.html), [VkPipelineBindPoint](VkPipelineBindPoint.html), [VkPipelineLayout](VkPipelineLayout.html), [VkStructureType](VkStructureType.html), [vkCreateDescriptorUpdateTemplate](vkCreateDescriptorUpdateTemplate.html), [vkCreateDescriptorUpdateTemplate](vkCreateDescriptorUpdateTemplate.html)
+[VK_KHR_descriptor_update_template](VK_KHR_descriptor_update_template.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDescriptorSetLayout](VkDescriptorSetLayout.html), [VkDescriptorUpdateTemplateCreateFlags](VkDescriptorUpdateTemplateCreateFlags.html), [VkDescriptorUpdateTemplateEntry](VkDescriptorUpdateTemplateEntry.html), [VkDescriptorUpdateTemplateType](VkDescriptorUpdateTemplateType.html), [VkPipelineBindPoint](VkPipelineBindPoint.html), [VkPipelineLayout](VkPipelineLayout.html), [VkStructureType](VkStructureType.html), [vkCreateDescriptorUpdateTemplate](vkCreateDescriptorUpdateTemplate.html), [vkCreateDescriptorUpdateTemplate](vkCreateDescriptorUpdateTemplate.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/descriptorsets.html#VkDescriptorUpdateTemplateCreateInfo).
 

@@ -21,9 +21,8 @@ VkBufferUsageFlags2 - Bitmask of VkBufferUsageFlagBits2
 // Provided by VK_VERSION_1_4
 typedef VkFlags64 VkBufferUsageFlags2;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkBufferUsageFlags2
 typedef VkBufferUsageFlags2 VkBufferUsageFlags2KHR;
 
 `VkBufferUsageFlags2` is a bitmask type for setting a mask of zero or

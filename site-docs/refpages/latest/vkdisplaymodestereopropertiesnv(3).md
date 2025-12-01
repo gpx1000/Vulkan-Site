@@ -24,7 +24,7 @@ The `VkDisplayModeStereoPropertiesNV` structure is defined as:
 // Provided by VK_NV_display_stereo
 typedef struct VkDisplayModeStereoPropertiesNV {
     VkStructureType    sType;
-    const void*        pNext;
+    void*              pNext;
     VkBool32           hdmi3DSupported;
 } VkDisplayModeStereoPropertiesNV;
 

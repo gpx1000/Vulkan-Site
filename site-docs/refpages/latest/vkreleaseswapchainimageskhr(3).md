@@ -28,9 +28,8 @@ VkResult vkReleaseSwapchainImagesKHR(
     VkDevice                                    device,
     const VkReleaseSwapchainImagesInfoKHR*      pReleaseInfo);
 
-or the equivalent
-
 // Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to vkReleaseSwapchainImagesKHR
 VkResult vkReleaseSwapchainImagesEXT(
     VkDevice                                    device,
     const VkReleaseSwapchainImagesInfoKHR*      pReleaseInfo);

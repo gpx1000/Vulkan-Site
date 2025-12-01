@@ -26,9 +26,8 @@ VkResult vkCopyMemoryToImage(
     VkDevice                                    device,
     const VkCopyMemoryToImageInfo*              pCopyMemoryToImageInfo);
 
-or the equivalent command
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to vkCopyMemoryToImage
 VkResult vkCopyMemoryToImageEXT(
     VkDevice                                    device,
     const VkCopyMemoryToImageInfo*              pCopyMemoryToImageInfo);

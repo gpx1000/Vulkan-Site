@@ -23,8 +23,6 @@ containing a driver information string, as returned in
 
 #define VK_MAX_DRIVER_INFO_SIZE           256U
 
-or the equivalent
-
 #define VK_MAX_DRIVER_INFO_SIZE_KHR       VK_MAX_DRIVER_INFO_SIZE
 
 [VK_KHR_driver_properties](VK_KHR_driver_properties.html), [VK_VERSION_1_2](VK_VERSION_1_2.html)

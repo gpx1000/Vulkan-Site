@@ -107,6 +107,14 @@ original image for which the allocation was created; and the
 or smaller than the original image for which the allocation was created
 
 * 
+[](#VUID-vkBindImageMemory-memory-10926) VUID-vkBindImageMemory-memory-10926
+
+If the `VkMemoryAllocateInfo` provided when `memory` was
+allocated included a [VkMemoryDedicatedAllocateInfo](VkMemoryDedicatedAllocateInfo.html) structure in
+its `pNext` chain, [VkMemoryDedicatedAllocateInfo](VkMemoryDedicatedAllocateInfo.html)::`buffer`
+**must** have been [VK_NULL_HANDLE](VK_NULL_HANDLE.html)
+
+* 
 [](#VUID-vkBindImageMemory-None-01901) VUID-vkBindImageMemory-None-01901
 
 If image was created with the `VK_IMAGE_CREATE_PROTECTED_BIT` bit

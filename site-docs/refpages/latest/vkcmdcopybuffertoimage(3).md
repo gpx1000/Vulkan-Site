@@ -73,7 +73,7 @@ Valid Usage
 [](#VUID-vkCmdCopyBufferToImage-dstImage-07966) VUID-vkCmdCopyBufferToImage-dstImage-07966
 
 If `dstImage` is non-sparse then the image
-or the specified *disjoint* plane
+or each specified *disjoint* plane
 **must** be bound completely and contiguously to a single
 `VkDeviceMemory` object
 
@@ -165,9 +165,62 @@ of `commandBuffer`’s command pool’s queue family, as described in
 
 If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
 `commandBuffer` was allocated from does not support
-`VK_QUEUE_GRAPHICS_BIT`, for each element of `pRegions`, the
-`aspectMask` member of `imageSubresource` **must** not be
-`VK_IMAGE_ASPECT_DEPTH_BIT` or `VK_IMAGE_ASPECT_STENCIL_BIT`
+`VK_QUEUE_GRAPHICS_BIT`,
+and the [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is not
+enabled,
+for each element of `pRegions`, the `aspectMask` member of
+`imageSubresource` **must** not be `VK_IMAGE_ASPECT_DEPTH_BIT` or
+`VK_IMAGE_ASPECT_STENCIL_BIT`
+
+* 
+[](#VUID-vkCmdCopyBufferToImage-commandBuffer-11778) VUID-vkCmdCopyBufferToImage-commandBuffer-11778
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` but does support `VK_QUEUE_COMPUTE_BIT`,
+and in any element of `pRegions` the `aspectMask` member of
+`imageSubresource` is `VK_IMAGE_ASPECT_DEPTH_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `dstImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_COMPUTE_QUEUE_BIT_KHR`
+
+* 
+[](#VUID-vkCmdCopyBufferToImage-commandBuffer-11779) VUID-vkCmdCopyBufferToImage-commandBuffer-11779
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` and `VK_QUEUE_COMPUTE_BIT`, but does
+support `VK_QUEUE_TRANSFER_BIT`, and in any element of
+`pRegions` the `aspectMask` member of `imageSubresource` is
+`VK_IMAGE_ASPECT_DEPTH_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `dstImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_TRANSFER_QUEUE_BIT_KHR`
+
+* 
+[](#VUID-vkCmdCopyBufferToImage-commandBuffer-11780) VUID-vkCmdCopyBufferToImage-commandBuffer-11780
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` but does support `VK_QUEUE_COMPUTE_BIT`,
+and in any element of `pRegions` the `aspectMask` member of
+`imageSubresource` is `VK_IMAGE_ASPECT_STENCIL_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `dstImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_COMPUTE_QUEUE_BIT_KHR`
+
+* 
+[](#VUID-vkCmdCopyBufferToImage-commandBuffer-11781) VUID-vkCmdCopyBufferToImage-commandBuffer-11781
+
+If the queue family used to create the [VkCommandPool](VkCommandPool.html) which
+`commandBuffer` was allocated from does not support
+`VK_QUEUE_GRAPHICS_BIT` and `VK_QUEUE_COMPUTE_BIT`, but does
+support `VK_QUEUE_TRANSFER_BIT`, and in any element of
+`pRegions` the `aspectMask` member of `imageSubresource` is
+`VK_IMAGE_ASPECT_STENCIL_BIT`, then the
+[format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of `dstImage`
+**must** contain
+`VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_TRANSFER_QUEUE_BIT_KHR`
 
 * 
 [](#VUID-vkCmdCopyBufferToImage-pRegions-00171) VUID-vkCmdCopyBufferToImage-pRegions-00171
@@ -185,8 +238,8 @@ in memory
 * 
 [](#VUID-vkCmdCopyBufferToImage-srcBuffer-00174) VUID-vkCmdCopyBufferToImage-srcBuffer-00174
 
-`srcBuffer` **must** have been created with
-`VK_BUFFER_USAGE_TRANSFER_SRC_BIT` usage flag
+`srcBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFER_SRC_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdCopyBufferToImage-dstImage-01997) VUID-vkCmdCopyBufferToImage-dstImage-01997
@@ -203,8 +256,8 @@ contiguously to a single `VkDeviceMemory` object
 * 
 [](#VUID-vkCmdCopyBufferToImage-dstImage-00177) VUID-vkCmdCopyBufferToImage-dstImage-00177
 
-`dstImage` **must** have been created with
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag
+`dstImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdCopyBufferToImage-dstImageLayout-00180) VUID-vkCmdCopyBufferToImage-dstImageLayout-00180
@@ -497,12 +550,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyBufferToImage-commandBuffer-cmdpool) VUID-vkCmdCopyBufferToImage-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyBufferToImage-renderpass) VUID-vkCmdCopyBufferToImage-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyBufferToImage-suspended) VUID-vkCmdCopyBufferToImage-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyBufferToImage-videocoding) VUID-vkCmdCopyBufferToImage-videocoding
@@ -532,11 +590,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 

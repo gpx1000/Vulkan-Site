@@ -25,7 +25,7 @@
 
 ![Mesh Shader Culling](../../../_images/samples/extensions/mesh_shader_culling/images/mesh_shader_culling.png)
 
-This sample demonstrates how to incorporate the Vulkan extension [`VK_EXT_mesh_shader`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_EXT_mesh_shader), and introduces per primitive culling in a mesh shader.
+This sample demonstrates how to incorporate the Vulkan extension [`VK_EXT_mesh_shader`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VK_EXT_mesh_shader), and introduces per primitive culling in a mesh shader.
 
 1) [enable the mesh shader extension](#enabling-mesh-shading)  2) [create a mesh shading graphic pipeline](#creating-pipeline)  3) [generate a simple mesh using meshlets](#mesh-shader)  4) [establish a basic cull logic for the meshlets.](#mesh-shader-culling)
 

@@ -34,9 +34,8 @@ typedef struct VkAttachmentSampleCountInfoAMD {
     VkSampleCountFlagBits           depthStencilAttachmentSamples;
 } VkAttachmentSampleCountInfoAMD;
 
-or the equivalent
-
 // Provided by VK_NV_framebuffer_mixed_samples with VK_VERSION_1_3 or VK_KHR_dynamic_rendering
+// Equivalent to VkAttachmentSampleCountInfoAMD
 typedef VkAttachmentSampleCountInfoAMD VkAttachmentSampleCountInfoNV;
 
 * 

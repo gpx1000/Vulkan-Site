@@ -62,6 +62,13 @@ will write to and read from the same image with
 specifies that source and destination stages are not ignored when
 performing a [queue family ownership    transfer](../../../../spec/latest/chapters/synchronization.html#synchronization-queue-transfers).
 
+* 
+`VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR` specifies that
+[vkCmdSetEvent2](vkCmdSetEvent2.html) **must** only include the
+[source stage mask](../../../../spec/latest/chapters/synchronization.html#synchronization-pipeline-stages-masks) of the
+first synchronization scope, and that [vkCmdWaitEvents2](vkCmdWaitEvents2.html) **must**
+specify the complete barrier.
+
 [VK_VERSION_1_0](VK_VERSION_1_0.html), [VkDependencyFlags](VkDependencyFlags.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/synchronization.html#VkDependencyFlagBits).

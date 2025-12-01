@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -889,6 +898,23 @@ building an acceleration structure with a geometry type of
 </tr>
 </table>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The required alignment of the device addresses passed in to parameters below
+might not be provided by the base address of a <a href="resources.html#VkBuffer" class="xref page">VkBuffer</a> created with
+the correct usage flags and must still be manually aligned by the
+application code.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div id="acceleration-structure-scratch" class="paragraph">
 <p>Accesses to the acceleration structure scratch buffers as identified by the
 <a href="#VkAccelerationStructureBuildGeometryInfoKHR">VkAccelerationStructureBuildGeometryInfoKHR</a>::<code>scratchData</code> buffer
@@ -1380,14 +1406,15 @@ The buffers from which the buffer device addresses for all of the
 <code>pInfos</code>[i].<code>pGeometries</code> and <code>pInfos</code>[i].<code>ppGeometries</code>
 are queried <strong>must</strong> have been created with the
 <code>VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR</code>
-usage flag</p>
+usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03674" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03674"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03674</span><br>
 
 The buffer from which the buffer device address
 <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> is queried <strong>must</strong> have
-been created with <code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> usage flag</p>
+been created with the <code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> usage
+flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03802" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03802"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03802</span><br>
@@ -1405,7 +1432,7 @@ member <strong>must</strong> be a multiple of
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03804" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03804"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03804</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>,
 <code>geometry.triangles.vertexData.deviceAddress</code> <strong>must</strong> be a valid
@@ -1414,7 +1441,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03711" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03711"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03711</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>,
 <code>geometry.triangles.vertexData.deviceAddress</code> <strong>must</strong> be aligned to
@@ -1424,7 +1451,7 @@ the size in bytes of the smallest component of the format in
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03806" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03806"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03806</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if
 <code>geometry.triangles.indexType</code> is not <code>VK_INDEX_TYPE_NONE_KHR</code>,
@@ -1434,7 +1461,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03712" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03712"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03712</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, and with
 <code>geometry.triangles.indexType</code> not equal to
@@ -1445,7 +1472,7 @@ size in bytes of the type in <code>indexType</code></p>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03808" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03808"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03808</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if
 <code>geometry.triangles.transformData.deviceAddress</code> is not <code>0</code>, it
@@ -1454,7 +1481,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03810" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03810"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03810</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if
 <code>geometry.triangles.transformData.deviceAddress</code> is not <code>0</code>, it
@@ -1463,7 +1490,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03811" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03811"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03811</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_AABBS_KHR</code>,
 <code>geometry.aabbs.data.deviceAddress</code> <strong>must</strong> be a valid
@@ -1472,7 +1499,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03714" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03714"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03714</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_AABBS_KHR</code>,
 <code>geometry.aabbs.data.deviceAddress</code> <strong>must</strong> be aligned to <code>8</code> bytes</p>
@@ -1480,7 +1507,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03715" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03715"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03715</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>, if <code>geometry.arrayOfPointers</code>
 is <code>VK_FALSE</code>, <code>geometry.instances.data.deviceAddress</code> <strong>must</strong> be
@@ -1489,7 +1516,7 @@ aligned to <code>16</code> bytes</p>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03716" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03716"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03716</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>, if <code>geometry.arrayOfPointers</code>
 is <code>VK_TRUE</code>, <code>geometry.instances.data.deviceAddress</code> <strong>must</strong> be
@@ -1498,7 +1525,7 @@ aligned to <code>8</code> bytes</p>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03717" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03717"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03717</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>, if <code>geometry.arrayOfPointers</code>
 is <code>VK_TRUE</code>, each element of
@@ -1508,7 +1535,7 @@ aligned to <code>16</code> bytes</p>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03813" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03813"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03813</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>,
 <code>geometry.instances.data.deviceAddress</code> <strong>must</strong> be a valid
@@ -1517,7 +1544,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-06707" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-06707"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-06707</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>, each
 <a href="#VkAccelerationStructureInstanceKHR">VkAccelerationStructureInstanceKHR</a>::<code>accelerationStructureReference</code>
@@ -1528,7 +1555,7 @@ a valid acceleration structure</p>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10607" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10607"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10607</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>, if
 <code>VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_EXT</code> is set in
@@ -1546,7 +1573,7 @@ set in <a href="#VkAccelerationStructureBuildGeometryInfoKHR">VkAccelerationStru
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10904" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10904"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10904</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if there is an instance of
 <a href="#VkAccelerationStructureTrianglesOpacityMicromapEXT">VkAccelerationStructureTrianglesOpacityMicromapEXT</a> in the
@@ -1557,12 +1584,98 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10905" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10905"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10905</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if there is an instance of
 <a href="#VkAccelerationStructureTrianglesOpacityMicromapEXT">VkAccelerationStructureTrianglesOpacityMicromapEXT</a> in the
 <code>geometry.triangles.pNext</code> chain, and its <code>indexType</code> is not
 <code>VK_INDEX_TYPE_NONE_KHR</code>, then its <code>indexBuffer.deviceAddress</code>
+<strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11845" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11845"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11845</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if there is an instance of
+<a href="#VkAccelerationStructureGeometryMotionTrianglesDataNV">VkAccelerationStructureGeometryMotionTrianglesDataNV</a> in the
+<code>geometry.triangles.pNext</code> chain, then its
+<code>vertexData.deviceAddress</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11846" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11846"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11846</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_SPHERES_NV</code>, if
+<a href="#VkAccelerationStructureGeometrySpheresDataNV">VkAccelerationStructureGeometrySpheresDataNV</a>::<code>indexType</code> is
+<code>VK_INDEX_TYPE_NONE_KHR</code>, then its <code>indexData.deviceAddress</code>
+<strong>must</strong> be 0</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11847" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11847"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11847</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_SPHERES_NV</code>, if
+<a href="#VkAccelerationStructureGeometrySpheresDataNV">VkAccelerationStructureGeometrySpheresDataNV</a>::<code>indexType</code> is
+not <code>VK_INDEX_TYPE_NONE_KHR</code>, then its <code>indexData.deviceAddress</code>
+<strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11848" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11848"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11848</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometrySpheresDataNV">VkAccelerationStructureGeometrySpheresDataNV</a>::<code>vertexData.deviceAddress</code>
+<strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11849" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11849"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11849</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometrySpheresDataNV">VkAccelerationStructureGeometrySpheresDataNV</a>::<code>radiusData.deviceAddress</code>
+<strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11850" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11850"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11850</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV</code>, if
+<a href="#VkAccelerationStructureGeometryLinearSweptSpheresDataNV">VkAccelerationStructureGeometryLinearSweptSpheresDataNV</a>::<code>indexType</code>
+is <code>VK_INDEX_TYPE_NONE_KHR</code>, then its <code>indexData.deviceAddress</code>
+<strong>must</strong> be 0</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11851" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11851"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11851</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV</code>, if
+<a href="#VkAccelerationStructureGeometryLinearSweptSpheresDataNV">VkAccelerationStructureGeometryLinearSweptSpheresDataNV</a>::<code>indexType</code>
+is not <code>VK_INDEX_TYPE_NONE_KHR</code>, then its
+<code>indexData.deviceAddress</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11852" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11852"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11852</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometryLinearSweptSpheresDataNV">VkAccelerationStructureGeometryLinearSweptSpheresDataNV</a>::<code>vertexData.deviceAddress</code>
+<strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11853" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11853"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-11853</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometryLinearSweptSpheresDataNV">VkAccelerationStructureGeometryLinearSweptSpheresDataNV</a>::<code>radiusData.deviceAddress</code>
 <strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
 </li>
 </ul>
@@ -1637,11 +1750,15 @@ For each element of <code>pInfos</code>[i] whose <code>pGeometries</code> or
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-commandBuffer-cmdpool" href="#VUID-vkCmdBuildAccelerationStructuresKHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-renderpass" href="#VUID-vkCmdBuildAccelerationStructuresKHR-renderpass"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-suspended" href="#VUID-vkCmdBuildAccelerationStructuresKHR-suspended"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-videocoding" href="#VUID-vkCmdBuildAccelerationStructuresKHR-videocoding"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-videocoding</span><br>
@@ -1696,7 +1813,7 @@ For each element of <code>pInfos</code>[i] whose <code>pGeometries</code> or
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -2234,14 +2351,15 @@ The buffers from which the buffer device addresses for all of the
 <code>pInfos</code>[i].<code>pGeometries</code> and <code>pInfos</code>[i].<code>ppGeometries</code>
 are queried <strong>must</strong> have been created with the
 <code>VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR</code>
-usage flag</p>
+usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03674" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03674"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03674</span><br>
 
 The buffer from which the buffer device address
 <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> is queried <strong>must</strong> have
-been created with <code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> usage flag</p>
+been created with the <code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> usage
+flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03802" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03802"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03802</span><br>
@@ -2259,7 +2377,7 @@ member <strong>must</strong> be a multiple of
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03804" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03804"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03804</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>,
 <code>geometry.triangles.vertexData.deviceAddress</code> <strong>must</strong> be a valid
@@ -2268,7 +2386,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03711" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03711"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03711</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>,
 <code>geometry.triangles.vertexData.deviceAddress</code> <strong>must</strong> be aligned to
@@ -2278,7 +2396,7 @@ the size in bytes of the smallest component of the format in
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03806" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03806"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03806</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if
 <code>geometry.triangles.indexType</code> is not <code>VK_INDEX_TYPE_NONE_KHR</code>,
@@ -2288,7 +2406,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03712" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03712"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03712</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, and with
 <code>geometry.triangles.indexType</code> not equal to
@@ -2299,7 +2417,7 @@ size in bytes of the type in <code>indexType</code></p>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03808" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03808"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03808</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if
 <code>geometry.triangles.transformData.deviceAddress</code> is not <code>0</code>, it
@@ -2308,7 +2426,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03810" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03810"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03810</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if
 <code>geometry.triangles.transformData.deviceAddress</code> is not <code>0</code>, it
@@ -2317,7 +2435,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03811" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03811"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03811</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_AABBS_KHR</code>,
 <code>geometry.aabbs.data.deviceAddress</code> <strong>must</strong> be a valid
@@ -2326,7 +2444,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03714" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03714"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03714</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_AABBS_KHR</code>,
 <code>geometry.aabbs.data.deviceAddress</code> <strong>must</strong> be aligned to <code>8</code> bytes</p>
@@ -2334,7 +2452,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03715" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03715"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03715</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>, if <code>geometry.arrayOfPointers</code>
 is <code>VK_FALSE</code>, <code>geometry.instances.data.deviceAddress</code> <strong>must</strong> be
@@ -2343,7 +2461,7 @@ aligned to <code>16</code> bytes</p>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03716" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03716"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03716</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>, if <code>geometry.arrayOfPointers</code>
 is <code>VK_TRUE</code>, <code>geometry.instances.data.deviceAddress</code> <strong>must</strong> be
@@ -2352,7 +2470,7 @@ aligned to <code>8</code> bytes</p>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03717" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03717"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03717</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>, if <code>geometry.arrayOfPointers</code>
 is <code>VK_TRUE</code>, each element of
@@ -2362,7 +2480,7 @@ aligned to <code>16</code> bytes</p>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03813" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03813"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03813</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>,
 <code>geometry.instances.data.deviceAddress</code> <strong>must</strong> be a valid
@@ -2371,7 +2489,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-06707" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-06707"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-06707</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>, each
 <a href="#VkAccelerationStructureInstanceKHR">VkAccelerationStructureInstanceKHR</a>::<code>accelerationStructureReference</code>
@@ -2382,7 +2500,7 @@ a valid acceleration structure</p>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10607" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10607"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10607</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>, if
 <code>VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_EXT</code> is set in
@@ -2400,7 +2518,7 @@ set in <a href="#VkAccelerationStructureBuildGeometryInfoKHR">VkAccelerationStru
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10904" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10904"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10904</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if there is an instance of
 <a href="#VkAccelerationStructureTrianglesOpacityMicromapEXT">VkAccelerationStructureTrianglesOpacityMicromapEXT</a> in the
@@ -2411,7 +2529,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10905" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10905"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10905</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if there is an instance of
 <a href="#VkAccelerationStructureTrianglesOpacityMicromapEXT">VkAccelerationStructureTrianglesOpacityMicromapEXT</a> in the
@@ -2420,9 +2538,95 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11845" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11845"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11845</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if there is an instance of
+<a href="#VkAccelerationStructureGeometryMotionTrianglesDataNV">VkAccelerationStructureGeometryMotionTrianglesDataNV</a> in the
+<code>geometry.triangles.pNext</code> chain, then its
+<code>vertexData.deviceAddress</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11846" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11846"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11846</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_SPHERES_NV</code>, if
+<a href="#VkAccelerationStructureGeometrySpheresDataNV">VkAccelerationStructureGeometrySpheresDataNV</a>::<code>indexType</code> is
+<code>VK_INDEX_TYPE_NONE_KHR</code>, then its <code>indexData.deviceAddress</code>
+<strong>must</strong> be 0</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11847" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11847"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11847</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_SPHERES_NV</code>, if
+<a href="#VkAccelerationStructureGeometrySpheresDataNV">VkAccelerationStructureGeometrySpheresDataNV</a>::<code>indexType</code> is
+not <code>VK_INDEX_TYPE_NONE_KHR</code>, then its <code>indexData.deviceAddress</code>
+<strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11848" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11848"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11848</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometrySpheresDataNV">VkAccelerationStructureGeometrySpheresDataNV</a>::<code>vertexData.deviceAddress</code>
+<strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11849" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11849"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11849</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometrySpheresDataNV">VkAccelerationStructureGeometrySpheresDataNV</a>::<code>radiusData.deviceAddress</code>
+<strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11850" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11850"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11850</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV</code>, if
+<a href="#VkAccelerationStructureGeometryLinearSweptSpheresDataNV">VkAccelerationStructureGeometryLinearSweptSpheresDataNV</a>::<code>indexType</code>
+is <code>VK_INDEX_TYPE_NONE_KHR</code>, then its <code>indexData.deviceAddress</code>
+<strong>must</strong> be 0</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11851" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11851"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11851</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV</code>, if
+<a href="#VkAccelerationStructureGeometryLinearSweptSpheresDataNV">VkAccelerationStructureGeometryLinearSweptSpheresDataNV</a>::<code>indexType</code>
+is not <code>VK_INDEX_TYPE_NONE_KHR</code>, then its
+<code>indexData.deviceAddress</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11852" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11852"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11852</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometryLinearSweptSpheresDataNV">VkAccelerationStructureGeometryLinearSweptSpheresDataNV</a>::<code>vertexData.deviceAddress</code>
+<strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11853" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11853"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-11853</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometryLinearSweptSpheresDataNV">VkAccelerationStructureGeometryLinearSweptSpheresDataNV</a>::<code>radiusData.deviceAddress</code>
+<strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03646" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03646"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03646</span><br>
 
-For any element of <code>pIndirectDeviceAddresses</code>[i], all device
+For each element of <code>pIndirectDeviceAddresses</code>[i], all device
 addresses between <code>pIndirectDeviceAddresses</code>[i] and
 <span class="eq"><code>pIndirectDeviceAddresses</code>[i] + 
 (<code>pInfos</code>[i].<code>geometryCount</code> × <code>pIndirectStrides</code>[i]) -
@@ -2431,9 +2635,9 @@ addresses between <code>pIndirectDeviceAddresses</code>[i] and
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03647" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03647"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03647</span><br>
 
-For any element of <code>pIndirectDeviceAddresses</code>, the buffer from which
-it was queried <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT</code> bit set</p>
+For each element of <code>pIndirectDeviceAddresses</code>, the buffer from
+which it was queried <strong>must</strong> have been created with the
+<code>VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03648" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03648"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03648</span><br>
@@ -2507,11 +2711,15 @@ the <code>primitiveCount</code> value specified by the
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-commandBuffer-cmdpool" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-renderpass" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-renderpass"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-suspended" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-suspended"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-videocoding" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-videocoding"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-videocoding</span><br>
@@ -2566,7 +2774,7 @@ the <code>primitiveCount</code> value specified by the
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -2652,7 +2860,7 @@ built into <code>dstAccelerationStructure</code>.</p>
 <a href="#VkAccelerationStructureGeometryKHR">VkAccelerationStructureGeometryKHR</a> structures.</p>
 </li>
 <li>
-<p><code>scratchData</code> is the device or host address to memory that will be
+<p><code>scratchData</code> is the device or host address of memory that will be
 used as scratch memory for the build.</p>
 </li>
 </ul>
@@ -3104,7 +3312,7 @@ structure.</p>
 <p><code>vertexFormat</code> is the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of each vertex element.</p>
 </li>
 <li>
-<p><code>vertexData</code> is a device or host address to memory containing vertex
+<p><code>vertexData</code> is a device or host address of memory containing vertex
 data for this geometry.</p>
 </li>
 <li>
@@ -3117,8 +3325,9 @@ data for this geometry.</p>
 <p><code>indexType</code> is the <a href="drawing.html#VkIndexType" class="xref page">VkIndexType</a> of each index element.</p>
 </li>
 <li>
-<p><code>indexData</code> is a device or host address to memory containing index
-data for this geometry.</p>
+<p><code>indexData</code> is a device or host address of memory containing index
+data for this geometry.
+When <code>indexType</code> is <code>VK_INDEX_TYPE_NONE_KHR</code> it <strong>must</strong> be <code>NULL</code>.</p>
 </li>
 <li>
 <p><code>transformData</code> is a device or host address to memory containing an
@@ -3305,17 +3514,19 @@ structure.</p>
 </li>
 <li>
 <p><code>indexType</code> is the type of triangle indices used when indexing this
-micromap</p>
+micromap.</p>
 </li>
 <li>
-<p><code>indexBuffer</code> is the address containing the triangle indices</p>
+<p><code>indexBuffer</code> is a device or host address of memory containing the
+triangle indices.
+When <code>indexType</code> is <code>VK_INDEX_TYPE_NONE_KHR</code> it <strong>must</strong> be <code>NULL</code>.</p>
 </li>
 <li>
-<p><code>indexStride</code> is the byte stride between triangle indices</p>
+<p><code>indexStride</code> is the byte stride between triangle indices.</p>
 </li>
 <li>
 <p><code>baseTriangle</code> is the base value added to the non-negative triangle
-indices</p>
+indices.</p>
 </li>
 <li>
 <p><code>usageCountsCount</code> specifies the number of usage counts structures
@@ -3331,7 +3542,7 @@ structures.</p>
 </li>
 <li>
 <p><code>micromap</code> is the handle to the micromap object to include in this
-geometry</p>
+geometry.</p>
 </li>
 </ul>
 </div>
@@ -3562,7 +3773,9 @@ primitive flag values.</p>
 micromap.</p>
 </li>
 <li>
-<p><code>indexBuffer</code> is the address containing the triangle indices.</p>
+<p><code>indexBuffer</code> is a device or host address of memory containing the
+triangle indices.
+When <code>indexType</code> is <code>VK_INDEX_TYPE_NONE_KHR</code> it <strong>must</strong> be <code>NULL</code>.</p>
 </li>
 <li>
 <p><code>indexStride</code> is the byte stride between triangle indices.</p>
@@ -3814,15 +4027,15 @@ set to <code>dst</code> and
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructureNV-scratch-03522" href="#VUID-vkCmdBuildAccelerationStructureNV-scratch-03522"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructureNV-scratch-03522</span><br>
 
-<code>scratch</code> <strong>must</strong> have been created with
-<code>VK_BUFFER_USAGE_RAY_TRACING_BIT_NV</code> usage flag</p>
+<code>scratch</code> <strong>must</strong> have been created with the
+<code>VK_BUFFER_USAGE_RAY_TRACING_BIT_NV</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructureNV-instanceData-03523" href="#VUID-vkCmdBuildAccelerationStructureNV-instanceData-03523"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructureNV-instanceData-03523</span><br>
 
 If <code>instanceData</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>instanceData</code>
-<strong>must</strong> have been created with <code>VK_BUFFER_USAGE_RAY_TRACING_BIT_NV</code>
-usage flag</p>
+<strong>must</strong> have been created with the
+<code>VK_BUFFER_USAGE_RAY_TRACING_BIT_NV</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructureNV-accelerationStructureReference-03786" href="#VUID-vkCmdBuildAccelerationStructureNV-accelerationStructureReference-03786"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructureNV-accelerationStructureReference-03786</span><br>
@@ -3899,11 +4112,15 @@ If <code>update</code> is <code>VK_TRUE</code>, the <code>src</code> and <code>d
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-cmdpool" href="#VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructureNV-renderpass" href="#VUID-vkCmdBuildAccelerationStructureNV-renderpass"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructureNV-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructureNV-suspended" href="#VUID-vkCmdBuildAccelerationStructureNV-suspended"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructureNV-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructureNV-videocoding" href="#VUID-vkCmdBuildAccelerationStructureNV-videocoding"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructureNV-videocoding</span><br>
@@ -3958,7 +4175,7 @@ If <code>update</code> is <code>VK_TRUE</code>, the <code>src</code> and <code>d
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -3988,12 +4205,10 @@ typedef struct VkTransformMatrixKHR {
 } VkTransformMatrixKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkTransformMatrixNV" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_ray_tracing
+// Equivalent to VkTransformMatrixKHR
 typedef VkTransformMatrixKHR VkTransformMatrixNV;</code></pre>
 </div>
 </div>
@@ -4048,7 +4263,7 @@ typedef struct VkAccelerationStructureGeometryAabbsDataKHR {
 structure.</p>
 </li>
 <li>
-<p><code>data</code> is a device or host address to memory containing
+<p><code>data</code> is a device or host address of memory containing
 <a href="#VkAabbPositionsKHR">VkAabbPositionsKHR</a> structures containing position data for each
 axis-aligned bounding box in the geometry.</p>
 </li>
@@ -4114,12 +4329,10 @@ typedef struct VkAabbPositionsKHR {
 } VkAabbPositionsKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkAabbPositionsNV" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_ray_tracing
+// Equivalent to VkAabbPositionsKHR
 typedef VkAabbPositionsKHR VkAabbPositionsNV;</code></pre>
 </div>
 </div>
@@ -4267,12 +4480,10 @@ typedef struct VkAccelerationStructureInstanceKHR {
 } VkAccelerationStructureInstanceKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkAccelerationStructureInstanceNV" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_ray_tracing
+// Equivalent to VkAccelerationStructureInstanceKHR
 typedef VkAccelerationStructureInstanceKHR VkAccelerationStructureInstanceNV;</code></pre>
 </div>
 </div>
@@ -4414,20 +4625,18 @@ typedef enum VkGeometryInstanceFlagBitsKHR {
   // Provided by VK_NV_ray_tracing
     VK_GEOMETRY_INSTANCE_FORCE_NO_OPAQUE_BIT_NV = VK_GEOMETRY_INSTANCE_FORCE_NO_OPAQUE_BIT_KHR,
   // Provided by VK_EXT_opacity_micromap
-  // VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_EXT is a deprecated alias
+  // VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_EXT is a legacy alias
     VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_EXT = VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_BIT_EXT,
   // Provided by VK_EXT_opacity_micromap
-  // VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT is a deprecated alias
+  // VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT is a legacy alias
     VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT = VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_EXT,
 } VkGeometryInstanceFlagBitsKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkGeometryInstanceFlagBitsNV" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_ray_tracing
+// Equivalent to VkGeometryInstanceFlagBitsKHR
 typedef VkGeometryInstanceFlagBitsKHR VkGeometryInstanceFlagBitsNV;</code></pre>
 </div>
 </div>
@@ -4474,12 +4683,10 @@ same flag.</p>
 typedef VkFlags VkGeometryInstanceFlagsKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkGeometryInstanceFlagsNV" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_ray_tracing
+// Equivalent to VkGeometryInstanceFlagsKHR
 typedef VkGeometryInstanceFlagsKHR VkGeometryInstanceFlagsNV;</code></pre>
 </div>
 </div>
@@ -5167,7 +5374,7 @@ of the compressed data.</p>
 
 The buffer from which <code>compressedData.deviceAddress</code> is queried
 <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_2_COMPRESSED_DATA_DGF1_BIT_AMDX</code> usage flag</p>
+<code>VK_BUFFER_USAGE_2_COMPRESSED_DATA_DGF1_BIT_AMDX</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-denseGeometryFormat-10886" href="#VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-denseGeometryFormat-10886"></a> <span class="vuid">VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-denseGeometryFormat-10886</span><br>
@@ -5544,7 +5751,7 @@ structure.</p>
 <p><code>vertexFormat</code> is the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of each LSS vertex element.</p>
 </li>
 <li>
-<p><code>vertexData</code> is a device or host address to memory containing vertex
+<p><code>vertexData</code> is a device or host address of memory containing vertex
 data for this geometry.</p>
 </li>
 <li>
@@ -5554,7 +5761,7 @@ data for this geometry.</p>
 <p><code>radiusFormat</code> is the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of each LSS radius.</p>
 </li>
 <li>
-<p><code>radiusData</code> is a device or host address to memory containing LSS
+<p><code>radiusData</code> is a device or host address of memory containing LSS
 radius data value.</p>
 </li>
 <li>
@@ -5564,8 +5771,9 @@ radius data value.</p>
 <p><code>indexType</code> is the <a href="drawing.html#VkIndexType" class="xref page">VkIndexType</a> of each index element.</p>
 </li>
 <li>
-<p><code>indexData</code> is <code>NULL</code> or a device or host address to memory
-containing index data for vertex and radius buffers for this geometry.</p>
+<p><code>indexData</code> is a device or host address of memory containing index
+data for vertex and radius buffers for this geometry.
+When <code>indexType</code> is <code>VK_INDEX_TYPE_NONE_KHR</code> it <strong>must</strong> be <code>NULL</code>.</p>
 </li>
 <li>
 <p><code>indexStride</code> is the stride in bytes between each index element.</p>
@@ -5595,11 +5803,6 @@ rendered individually using subsequent pairs of vertices similar to
 
 The <a href="features.html#features-linearSweptSpheres" class="xref page">linearSweptSpheres</a> feature <strong>must</strong> be
 enabled</p>
-</li>
-<li>
-<p><a id="VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-vertexData-10420" href="#VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-vertexData-10420"></a> <span class="vuid">VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-vertexData-10420</span><br>
-
-The memory address in <code>vertexData</code> <strong>must</strong> not be <code>0</code> or `NULL'</p>
 </li>
 <li>
 <p><a id="VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-vertexStride-10421" href="#VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-vertexStride-10421"></a> <span class="vuid">VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-vertexStride-10421</span><br>
@@ -5639,11 +5842,6 @@ The <a href="resources.html#resources-buffer-view-format-features" class="xref p
 <code>VK_FORMAT_FEATURE_2_ACCELERATION_STRUCTURE_RADIUS_BUFFER_BIT_NV</code></p>
 </li>
 <li>
-<p><a id="VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-radiusData-10425" href="#VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-radiusData-10425"></a> <span class="vuid">VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-radiusData-10425</span><br>
-
-The memory address in <code>radiusData</code> <strong>must</strong> not be <code>0</code> or `NULL'</p>
-</li>
-<li>
 <p><a id="VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-radiusData-10426" href="#VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-radiusData-10426"></a> <span class="vuid">VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-radiusData-10426</span><br>
 
 All values referenced in <code>radiusData</code> <strong>must</strong> be greater than or equal
@@ -5659,8 +5857,8 @@ If <code>indexingMode</code> is
 <li>
 <p><a id="VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-indexData-10428" href="#VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-indexData-10428"></a> <span class="vuid">VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-indexData-10428</span><br>
 
-If <code>indexData</code> is not <code>NULL</code>, <code>indexType</code> <strong>must</strong> be one of
-<code>VK_INDEX_TYPE_UINT16</code> or <code>VK_INDEX_TYPE_UINT32</code></p>
+<code>indexType</code> <strong>must</strong> be <code>VK_INDEX_TYPE_UINT16</code>,
+<code>VK_INDEX_TYPE_UINT32</code>, or <code>VK_INDEX_TYPE_NONE_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -5836,7 +6034,7 @@ structure.</p>
 element.</p>
 </li>
 <li>
-<p><code>vertexData</code> is a device or host address to memory containing vertex
+<p><code>vertexData</code> is a device or host address of memory containing vertex
 data in form of pairs of centers of spheres that define all sphere
 geometry.</p>
 </li>
@@ -5847,7 +6045,7 @@ geometry.</p>
 <p><code>radiusFormat</code> is the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of each sphere&#8217;s radius.</p>
 </li>
 <li>
-<p><code>radiusData</code> is a device or host address to memory containing
+<p><code>radiusData</code> is a device or host address of memory containing
 sphere&#8217;s radius data value.</p>
 </li>
 <li>
@@ -5857,8 +6055,9 @@ sphere&#8217;s radius data value.</p>
 <p><code>indexType</code> is the <a href="drawing.html#VkIndexType" class="xref page">VkIndexType</a> of each index element.</p>
 </li>
 <li>
-<p><code>indexData</code> is <code>NULL</code> or a device or host address to memory
-containing index data for vertex and radius buffers for this geometry.</p>
+<p><code>indexData</code> is a device or host address of memory containing index
+data for vertex and radius buffers for this geometry.
+When <code>indexType</code> is <code>VK_INDEX_TYPE_NONE_KHR</code> it <strong>must</strong> be <code>NULL</code>.</p>
 </li>
 <li>
 <p><code>indexStride</code> is the stride in bytes between each index element.</p>
@@ -5874,11 +6073,6 @@ containing index data for vertex and radius buffers for this geometry.</p>
 <p><a id="VUID-VkAccelerationStructureGeometrySpheresDataNV-None-10429" href="#VUID-VkAccelerationStructureGeometrySpheresDataNV-None-10429"></a> <span class="vuid">VUID-VkAccelerationStructureGeometrySpheresDataNV-None-10429</span><br>
 
 The <a href="features.html#features-spheres" class="xref page">spheres</a> feature <strong>must</strong> be enabled</p>
-</li>
-<li>
-<p><a id="VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexData-10430" href="#VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexData-10430"></a> <span class="vuid">VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexData-10430</span><br>
-
-The memory address in <code>vertexData</code> <strong>must</strong> not be <code>0</code> or `NULL'</p>
 </li>
 <li>
 <p><a id="VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexStride-10431" href="#VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexStride-10431"></a> <span class="vuid">VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexStride-10431</span><br>
@@ -5904,11 +6098,6 @@ that format is a <a href="formats.html#formats-packed" class="xref page">packed 
 <span class="eq">2<sup>32</sup>-1</span></p>
 </li>
 <li>
-<p><a id="VUID-VkAccelerationStructureGeometrySpheresDataNV-radiusData-10433" href="#VUID-VkAccelerationStructureGeometrySpheresDataNV-radiusData-10433"></a> <span class="vuid">VUID-VkAccelerationStructureGeometrySpheresDataNV-radiusData-10433</span><br>
-
-The memory address in <code>radiusData</code> <strong>must</strong> not be <code>0</code> or `NULL'</p>
-</li>
-<li>
 <p><a id="VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexFormat-10434" href="#VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexFormat-10434"></a> <span class="vuid">VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexFormat-10434</span><br>
 
 The <a href="resources.html#resources-buffer-view-format-features" class="xref page">format features</a> of
@@ -5931,8 +6120,8 @@ to <code>0</code></p>
 <li>
 <p><a id="VUID-VkAccelerationStructureGeometrySpheresDataNV-indexData-10437" href="#VUID-VkAccelerationStructureGeometrySpheresDataNV-indexData-10437"></a> <span class="vuid">VUID-VkAccelerationStructureGeometrySpheresDataNV-indexData-10437</span><br>
 
-If <code>indexData</code> is not <code>NULL</code>, <code>indexType</code> <strong>must</strong> be one of
-<code>VK_INDEX_TYPE_UINT16</code> or <code>VK_INDEX_TYPE_UINT32</code></p>
+<code>indexType</code> <strong>must</strong> be <code>VK_INDEX_TYPE_UINT16</code>,
+<code>VK_INDEX_TYPE_UINT32</code>, <code>VK_INDEX_TYPE_NONE_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -6153,11 +6342,15 @@ been built with
 </li>
 <li>
 <p><a id="VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-commandBuffer-cmdpool" href="#VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-renderpass" href="#VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-renderpass"></a> <span class="vuid">VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-suspended" href="#VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-suspended"></a> <span class="vuid">VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-videocoding" href="#VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-videocoding"></a> <span class="vuid">VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-videocoding</span><br>
@@ -6216,7 +6409,7 @@ been built with
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -6363,11 +6556,15 @@ been built with
 </li>
 <li>
 <p><a id="VUID-vkCmdWriteAccelerationStructuresPropertiesNV-commandBuffer-cmdpool" href="#VUID-vkCmdWriteAccelerationStructuresPropertiesNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdWriteAccelerationStructuresPropertiesNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdWriteAccelerationStructuresPropertiesNV-renderpass" href="#VUID-vkCmdWriteAccelerationStructuresPropertiesNV-renderpass"></a> <span class="vuid">VUID-vkCmdWriteAccelerationStructuresPropertiesNV-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdWriteAccelerationStructuresPropertiesNV-suspended" href="#VUID-vkCmdWriteAccelerationStructuresPropertiesNV-suspended"></a> <span class="vuid">VUID-vkCmdWriteAccelerationStructuresPropertiesNV-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdWriteAccelerationStructuresPropertiesNV-videocoding" href="#VUID-vkCmdWriteAccelerationStructuresPropertiesNV-videocoding"></a> <span class="vuid">VUID-vkCmdWriteAccelerationStructuresPropertiesNV-videocoding</span><br>
@@ -6426,7 +6623,7 @@ been built with
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -6530,11 +6727,15 @@ device memory</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-cmdpool" href="#VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyAccelerationStructureKHR-renderpass" href="#VUID-vkCmdCopyAccelerationStructureKHR-renderpass"></a> <span class="vuid">VUID-vkCmdCopyAccelerationStructureKHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdCopyAccelerationStructureKHR-suspended" href="#VUID-vkCmdCopyAccelerationStructureKHR-suspended"></a> <span class="vuid">VUID-vkCmdCopyAccelerationStructureKHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyAccelerationStructureKHR-videocoding" href="#VUID-vkCmdCopyAccelerationStructureKHR-videocoding"></a> <span class="vuid">VUID-vkCmdCopyAccelerationStructureKHR-videocoding</span><br>
@@ -6585,7 +6786,7 @@ device memory</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -6851,11 +7052,15 @@ command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyAccelerationStructureNV-commandBuffer-cmdpool" href="#VUID-vkCmdCopyAccelerationStructureNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdCopyAccelerationStructureNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyAccelerationStructureNV-renderpass" href="#VUID-vkCmdCopyAccelerationStructureNV-renderpass"></a> <span class="vuid">VUID-vkCmdCopyAccelerationStructureNV-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdCopyAccelerationStructureNV-suspended" href="#VUID-vkCmdCopyAccelerationStructureNV-suspended"></a> <span class="vuid">VUID-vkCmdCopyAccelerationStructureNV-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyAccelerationStructureNV-videocoding" href="#VUID-vkCmdCopyAccelerationStructureNV-videocoding"></a> <span class="vuid">VUID-vkCmdCopyAccelerationStructureNV-videocoding</span><br>
@@ -6910,7 +7115,7 @@ command</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -6950,12 +7155,10 @@ typedef enum VkCopyAccelerationStructureModeKHR {
 } VkCopyAccelerationStructureModeKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkCopyAccelerationStructureModeNV" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_ray_tracing
+// Equivalent to VkCopyAccelerationStructureModeKHR
 typedef VkCopyAccelerationStructureModeKHR VkCopyAccelerationStructureModeNV;</code></pre>
 </div>
 </div>
@@ -7036,8 +7239,8 @@ synchronized with the
 <code>VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR</code>
 <a href="synchronization.html#synchronization-pipeline-stages" class="xref page">pipeline stage</a> or the
 <code>VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR</code>
-<a href="synchronization.html#synchronization-pipeline-stages" class="xref page">pipeline stage</a>, and an access
-type of <code>VK_ACCESS_TRANSFER_WRITE_BIT</code>.</p>
+<a href="synchronization.html#synchronization-pipeline-stages" class="xref page">pipeline stage</a>, and an access type of
+<code>VK_ACCESS_TRANSFER_WRITE_BIT</code>.</p>
 </div>
 <div class="paragraph">
 <p>This command produces the same results as
@@ -7143,11 +7346,15 @@ device memory</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyAccelerationStructureToMemoryKHR-commandBuffer-cmdpool" href="#VUID-vkCmdCopyAccelerationStructureToMemoryKHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdCopyAccelerationStructureToMemoryKHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyAccelerationStructureToMemoryKHR-renderpass" href="#VUID-vkCmdCopyAccelerationStructureToMemoryKHR-renderpass"></a> <span class="vuid">VUID-vkCmdCopyAccelerationStructureToMemoryKHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdCopyAccelerationStructureToMemoryKHR-suspended" href="#VUID-vkCmdCopyAccelerationStructureToMemoryKHR-suspended"></a> <span class="vuid">VUID-vkCmdCopyAccelerationStructureToMemoryKHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyAccelerationStructureToMemoryKHR-videocoding" href="#VUID-vkCmdCopyAccelerationStructureToMemoryKHR-videocoding"></a> <span class="vuid">VUID-vkCmdCopyAccelerationStructureToMemoryKHR-videocoding</span><br>
@@ -7198,7 +7405,7 @@ device memory</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -7239,11 +7446,11 @@ typedef struct VkCopyAccelerationStructureToMemoryInfoKHR {
 structure.</p>
 </li>
 <li>
-<p><code>src</code> is the source acceleration structure for the copy</p>
+<p><code>src</code> is the source acceleration structure for the copy.</p>
 </li>
 <li>
-<p><code>dst</code> is the device or host address to memory which is the target
-for the copy</p>
+<p><code>dst</code> is the device or host address of memory which is the target
+for the copy.</p>
 </li>
 <li>
 <p><code>mode</code> is a <a href="#VkCopyAccelerationStructureModeKHR">VkCopyAccelerationStructureModeKHR</a> value
@@ -7412,11 +7619,15 @@ device memory</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMemoryToAccelerationStructureKHR-commandBuffer-cmdpool" href="#VUID-vkCmdCopyMemoryToAccelerationStructureKHR-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdCopyMemoryToAccelerationStructureKHR-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMemoryToAccelerationStructureKHR-renderpass" href="#VUID-vkCmdCopyMemoryToAccelerationStructureKHR-renderpass"></a> <span class="vuid">VUID-vkCmdCopyMemoryToAccelerationStructureKHR-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdCopyMemoryToAccelerationStructureKHR-suspended" href="#VUID-vkCmdCopyMemoryToAccelerationStructureKHR-suspended"></a> <span class="vuid">VUID-vkCmdCopyMemoryToAccelerationStructureKHR-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMemoryToAccelerationStructureKHR-videocoding" href="#VUID-vkCmdCopyMemoryToAccelerationStructureKHR-videocoding"></a> <span class="vuid">VUID-vkCmdCopyMemoryToAccelerationStructureKHR-videocoding</span><br>
@@ -7467,7 +7678,7 @@ device memory</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -7512,7 +7723,7 @@ typedef struct VkCopyMemoryToAccelerationStructureInfoKHR {
 structure.</p>
 </li>
 <li>
-<p><code>src</code> is the device or host address to memory containing the source
+<p><code>src</code> is the device or host address of memory containing the source
 data for the copy.</p>
 </li>
 <li>
@@ -8490,9 +8701,8 @@ and <a href="#VkClusterAccelerationStructureCommandsInfoNV">VkClusterAcceleratio
 </div>
 <div class="paragraph">
 <p>Accesses to memory with input data as identified by any used values of
-<a href="#VkClusterAccelerationStructureCommandsInfoNV">VkClusterAccelerationStructureCommandsInfoNV</a>::<code>srcInfosArray</code>,
-<a href="#VkClusterAccelerationStructureCommandsInfoNV">VkClusterAccelerationStructureCommandsInfoNV</a>::<code>srcInfosCount</code> and
-<a href="#VkClusterAccelerationStructureCommandsInfoNV">VkClusterAccelerationStructureCommandsInfoNV</a>::<code>addressResolutionFlags</code>
+<a href="#VkClusterAccelerationStructureCommandsInfoNV">VkClusterAccelerationStructureCommandsInfoNV</a>::<code>srcInfosArray</code> and
+<a href="#VkClusterAccelerationStructureCommandsInfoNV">VkClusterAccelerationStructureCommandsInfoNV</a>::<code>srcInfosCount</code>
 <strong>must</strong> be <a href="synchronization.html#synchronization-dependencies" class="xref page">synchronized</a> with the
 <code>VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR</code>
 <a href="synchronization.html#synchronization-pipeline-stages" class="xref page">pipeline stage</a> and an
@@ -8627,17 +8837,17 @@ for multiple acceleration structure builds <strong>must</strong> not overlap wit
 
 The buffer from which the buffer device address for
 <code>pCommandInfos-&gt;scratchData</code> is queried <strong>must</strong> have been created with
-the <code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> usage flag</p>
+the <code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10458" href="#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10458"></a> <span class="vuid">VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10458</span><br>
 
 The buffers from which the buffer device addresses for
-<code>pCommandInfos-&gt;srcInfosArray</code>, <code>pCommandInfos-&gt;srcInfosCount</code>
-and <code>pCommandInfos-&gt;addressResolutionFlags</code> are queried <strong>must</strong> have
-been created with the
+<code>pCommandInfos-&gt;srcInfosArray</code> and
+<code>pCommandInfos-&gt;srcInfosCount</code> are queried <strong>must</strong> have been created
+with the
 <code>VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR</code>
-usage flag</p>
+usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10459" href="#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10459"></a> <span class="vuid">VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10459</span><br>
@@ -8646,7 +8856,8 @@ The buffers from which the buffer device addresses for
 <code>pCommandInfos-&gt;dstImplicitData</code> and
 <code>pCommandInfos-&gt;dstAddressesArray</code> are queried <strong>must</strong> have been
 created with the
-<code>VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR</code> usage flag
+set</p>
 </li>
 </ul>
 </div>
@@ -8671,11 +8882,15 @@ created with the
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-commandBuffer-cmdpool" href="#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-renderpass" href="#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-renderpass"></a> <span class="vuid">VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-suspended" href="#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-suspended"></a> <span class="vuid">VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-videocoding" href="#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-videocoding"></a> <span class="vuid">VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-videocoding</span><br>
@@ -8726,7 +8941,7 @@ created with the
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -8937,9 +9152,15 @@ If <a href="#VkClusterAccelerationStructureInputInfoNV">VkClusterAccelerationStr
 
 If <a href="#VkClusterAccelerationStructureInputInfoNV">VkClusterAccelerationStructureInputInfoNV</a>::<code>opMode</code> is
 <code>VK_CLUSTER_ACCELERATION_STRUCTURE_OP_MODE_EXPLICIT_DESTINATIONS_NV</code>,
-the address in <code>dstAddressesArray</code> <strong>must</strong> be a valid address with
-sizes of individual buffers large enough to accommodate built or moved
-clusters</p>
+the address in <code>dstAddressesArray</code> <strong>must</strong> be a valid address</p>
+</li>
+<li>
+<p><a id="VUID-VkClusterAccelerationStructureCommandsInfoNV-opMode-12209" href="#VUID-VkClusterAccelerationStructureCommandsInfoNV-opMode-12209"></a> <span class="vuid">VUID-VkClusterAccelerationStructureCommandsInfoNV-opMode-12209</span><br>
+
+If <a href="#VkClusterAccelerationStructureInputInfoNV">VkClusterAccelerationStructureInputInfoNV</a>::<code>opMode</code> is
+<code>VK_CLUSTER_ACCELERATION_STRUCTURE_OP_MODE_EXPLICIT_DESTINATIONS_NV</code>,
+the addresses in <code>dstAddressesArray</code> <strong>must</strong> be large enough to
+accommodate built or moved clusters</p>
 </li>
 <li>
 <p><a id="VUID-VkClusterAccelerationStructureCommandsInfoNV-opMode-10472" href="#VUID-VkClusterAccelerationStructureCommandsInfoNV-opMode-10472"></a> <span class="vuid">VUID-VkClusterAccelerationStructureCommandsInfoNV-opMode-10472</span><br>
@@ -10682,7 +10903,7 @@ each other</p>
 
 The buffer from which the buffer device address for
 <code>pBuildInfo-&gt;scratchData</code> is queried <strong>must</strong> have been created with
-the <code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> usage flag</p>
+the <code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10551" href="#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10551"></a> <span class="vuid">VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10551</span><br>
@@ -10691,7 +10912,7 @@ The buffers from which the buffer device addresses for
 <code>pBuildInfo-&gt;srcInfos</code> and <code>pBuildInfo-&gt;srcInfosCount</code> are
 queried <strong>must</strong> have been created with the
 <code>VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR</code>
-usage flag</p>
+usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10552" href="#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10552"></a> <span class="vuid">VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10552</span><br>
@@ -10700,7 +10921,8 @@ The buffers from which the buffer device addresses for
 <code>pBuildInfo-&gt;srcAccelerationStructureData</code> and
 <code>pBuildInfo-&gt;dstAccelerationStructureData</code> are queried <strong>must</strong> have
 been created with the
-<code>VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR</code> usage flag</p>
+<code>VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR</code> usage flag
+set</p>
 </li>
 </ul>
 </div>
@@ -10725,11 +10947,15 @@ been created with the
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildPartitionedAccelerationStructuresNV-commandBuffer-cmdpool" href="#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBuildPartitionedAccelerationStructuresNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildPartitionedAccelerationStructuresNV-renderpass" href="#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-renderpass"></a> <span class="vuid">VUID-vkCmdBuildPartitionedAccelerationStructuresNV-renderpass</span><br>
  This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildPartitionedAccelerationStructuresNV-suspended" href="#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-suspended"></a> <span class="vuid">VUID-vkCmdBuildPartitionedAccelerationStructuresNV-suspended</span><br>
+ This command <strong>must</strong> not be called between suspended render pass instances</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildPartitionedAccelerationStructuresNV-videocoding" href="#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-videocoding"></a> <span class="vuid">VUID-vkCmdBuildPartitionedAccelerationStructuresNV-videocoding</span><br>
@@ -10780,7 +11006,7 @@ been created with the
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
@@ -12095,7 +12321,7 @@ and primitive count</p>
 <li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-03771" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-03771"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-03771</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>,
 <code>geometry.triangles.vertexData.hostAddress</code> <strong>must</strong> be a valid host
@@ -12104,7 +12330,7 @@ address</p>
 <li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-03772" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-03772"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-03772</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if
 <code>geometry.triangles.indexType</code> is not <code>VK_INDEX_TYPE_NONE_KHR</code>,
@@ -12114,7 +12340,7 @@ address</p>
 <li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-03773" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-03773"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-03773</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if
 <code>geometry.triangles.transformData.hostAddress</code> is not <code>0</code>, it <strong>must</strong>
@@ -12123,7 +12349,7 @@ be a valid host address</p>
 <li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-03774" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-03774"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-03774</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_AABBS_KHR</code>, <code>geometry.aabbs.data.hostAddress</code>
 <strong>must</strong> be a valid host address</p>
@@ -12155,7 +12381,7 @@ bound to memory that was not allocated with multiple instances</p>
 <li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-03778" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-03778"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-03778</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>,
 <code>geometry.instances.data.hostAddress</code> <strong>must</strong> be a valid host address</p>
@@ -12163,7 +12389,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-03779" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-03779"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-03779</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>, each
 <a href="#VkAccelerationStructureInstanceKHR">VkAccelerationStructureInstanceKHR</a>::<code>accelerationStructureReference</code>
@@ -12173,7 +12399,7 @@ value in <code>geometry.instances.data.hostAddress</code> <strong>must</strong> 
 <li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-04930" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-04930"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-04930</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code> with
 <code>VK_BUILD_ACCELERATION_STRUCTURE_MOTION_BIT_NV</code> set, each
@@ -12183,9 +12409,19 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <a href="resources.html#VkAccelerationStructureKHR" class="xref page">VkAccelerationStructureKHR</a> object</p>
 </li>
 <li>
+<p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-11820" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-11820"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-11820</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if there is an instance of
+<a href="#VkAccelerationStructureGeometryMotionTrianglesDataNV">VkAccelerationStructureGeometryMotionTrianglesDataNV</a> in the
+<code>geometry.triangles.pNext</code> chain, then its
+<code>vertexData.hostAddress</code> <strong>must</strong> not be 0</p>
+</li>
+<li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-10892" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-10892"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-10892</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if there is an instance of
 <a href="#VkAccelerationStructureTrianglesOpacityMicromapEXT">VkAccelerationStructureTrianglesOpacityMicromapEXT</a> in the
@@ -12194,9 +12430,96 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <strong>must</strong> be 0</p>
 </li>
 <li>
+<p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-11821" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-11821"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-11821</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>, if there is an instance of
+<a href="#VkAccelerationStructureTrianglesOpacityMicromapEXT">VkAccelerationStructureTrianglesOpacityMicromapEXT</a> in the
+<code>geometry.triangles.pNext</code> chain, and its <code>indexType</code> is not
+<code>VK_INDEX_TYPE_NONE_KHR</code>, then its <code>indexBuffer.hostAddress</code>
+<strong>must</strong> not be 0</p>
+</li>
+<li>
+<p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-11822" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-11822"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-11822</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometrySpheresDataNV">VkAccelerationStructureGeometrySpheresDataNV</a>::<code>indexType</code> is
+<code>VK_INDEX_TYPE_NONE_KHR</code>, then its <code>indexData.hostAddress</code> <strong>must</strong>
+be 0</p>
+</li>
+<li>
+<p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-11823" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-11823"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-11823</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometrySpheresDataNV">VkAccelerationStructureGeometrySpheresDataNV</a>::<code>indexType</code> is
+not <code>VK_INDEX_TYPE_NONE_KHR</code>, then its <code>indexData.hostAddress</code>
+<strong>must</strong> not be 0</p>
+</li>
+<li>
+<p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-11824" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-11824"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-11824</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometrySpheresDataNV">VkAccelerationStructureGeometrySpheresDataNV</a>::<code>vertexData.hostAddress</code>
+<strong>must</strong> not be 0</p>
+</li>
+<li>
+<p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-11825" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-11825"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-11825</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometrySpheresDataNV">VkAccelerationStructureGeometrySpheresDataNV</a>::<code>radiusData.hostAddress</code>
+<strong>must</strong> not be 0</p>
+</li>
+<li>
+<p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-11826" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-11826"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-11826</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometryLinearSweptSpheresDataNV">VkAccelerationStructureGeometryLinearSweptSpheresDataNV</a>::<code>indexType</code>
+is <code>VK_INDEX_TYPE_NONE_KHR</code>, then its <code>indexData.hostAddress</code>
+<strong>must</strong> be 0</p>
+</li>
+<li>
+<p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-11827" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-11827"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-11827</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometryLinearSweptSpheresDataNV">VkAccelerationStructureGeometryLinearSweptSpheresDataNV</a>::<code>indexType</code>
+is not <code>VK_INDEX_TYPE_NONE_KHR</code>, then its
+<code>indexData.hostAddress</code> <strong>must</strong> not be 0</p>
+</li>
+<li>
+<p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-11828" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-11828"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-11828</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometryLinearSweptSpheresDataNV">VkAccelerationStructureGeometryLinearSweptSpheresDataNV</a>::<code>vertexData.hostAddress</code>
+<strong>must</strong> not be 0</p>
+</li>
+<li>
+<p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-11829" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-11829"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-11829</span><br>
+
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
+<code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
+<code>VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV</code>,
+<a href="#VkAccelerationStructureGeometryLinearSweptSpheresDataNV">VkAccelerationStructureGeometryLinearSweptSpheresDataNV</a>::<code>radiusData.hostAddress</code>
+<strong>must</strong> not be 0</p>
+</li>
+<li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-10893" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-10893"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-10893</span><br>
 
-For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
+For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code>, <code>geometryType</code> <strong>must</strong> not be
 <code>VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX</code></p>
 </li>

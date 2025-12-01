@@ -31,9 +31,8 @@ typedef struct VkPhysicalDeviceBufferDeviceAddressFeatures {
     VkBool32           bufferDeviceAddressMultiDevice;
 } VkPhysicalDeviceBufferDeviceAddressFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_buffer_device_address
+// Equivalent to VkPhysicalDeviceBufferDeviceAddressFeatures
 typedef VkPhysicalDeviceBufferDeviceAddressFeatures VkPhysicalDeviceBufferDeviceAddressFeaturesKHR;
 
 This structure describes the following features:

@@ -21,7 +21,7 @@ VkRenderPassBeginInfo - Structure specifying render pass begin information
 
 The `VkRenderPassBeginInfo` structure is defined as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -433,7 +433,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkRenderPassBeginInfo-pNext-pNext) VUID-VkRenderPassBeginInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDeviceGroupRenderPassBeginInfo](VkDeviceGroupRenderPassBeginInfo.html), [VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM](VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM.html), [VkRenderPassAttachmentBeginInfo](VkRenderPassAttachmentBeginInfo.html), [VkRenderPassSampleLocationsBeginInfoEXT](VkRenderPassSampleLocationsBeginInfoEXT.html), [VkRenderPassStripeBeginInfoARM](VkRenderPassStripeBeginInfoARM.html), or [VkRenderPassTransformBeginInfoQCOM](VkRenderPassTransformBeginInfoQCOM.html)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDeviceGroupRenderPassBeginInfo](VkDeviceGroupRenderPassBeginInfo.html), [VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM](VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM.html), [VkRenderPassAttachmentBeginInfo](VkRenderPassAttachmentBeginInfo.html), [VkRenderPassPerformanceCountersByRegionBeginInfoARM](VkRenderPassPerformanceCountersByRegionBeginInfoARM.html), [VkRenderPassSampleLocationsBeginInfoEXT](VkRenderPassSampleLocationsBeginInfoEXT.html), [VkRenderPassStripeBeginInfoARM](VkRenderPassStripeBeginInfoARM.html), or [VkRenderPassTransformBeginInfoQCOM](VkRenderPassTransformBeginInfoQCOM.html)
 
 * 
 [](#VUID-VkRenderPassBeginInfo-sType-unique) VUID-VkRenderPassBeginInfo-sType-unique

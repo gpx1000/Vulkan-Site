@@ -30,9 +30,8 @@ typedef struct VkPhysicalDeviceInlineUniformBlockFeatures {
     VkBool32           descriptorBindingInlineUniformBlockUpdateAfterBind;
 } VkPhysicalDeviceInlineUniformBlockFeatures;
 
-or the equivalent
-
 // Provided by VK_EXT_inline_uniform_block
+// Equivalent to VkPhysicalDeviceInlineUniformBlockFeatures
 typedef VkPhysicalDeviceInlineUniformBlockFeatures VkPhysicalDeviceInlineUniformBlockFeaturesEXT;
 
 This structure describes the following features:

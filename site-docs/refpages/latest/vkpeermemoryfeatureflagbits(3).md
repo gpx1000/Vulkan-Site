@@ -38,9 +38,8 @@ typedef enum VkPeerMemoryFeatureFlagBits {
     VK_PEER_MEMORY_FEATURE_GENERIC_DST_BIT_KHR = VK_PEER_MEMORY_FEATURE_GENERIC_DST_BIT,
 } VkPeerMemoryFeatureFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_device_group
+// Equivalent to VkPeerMemoryFeatureFlagBits
 typedef VkPeerMemoryFeatureFlagBits VkPeerMemoryFeatureFlagBitsKHR;
 
 * 
@@ -75,7 +74,7 @@ For example, an application doing split-frame rendering would use
 framebuffer attachments that include both local and peer memory bindings,
 but would scissor the rendering to only update local memory.
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPeerMemoryFeatureFlags](VkPeerMemoryFeatureFlags.html)
+[VK_KHR_device_group](VK_KHR_device_group.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPeerMemoryFeatureFlags](VkPeerMemoryFeatureFlags.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/memory.html#VkPeerMemoryFeatureFlagBits).
 

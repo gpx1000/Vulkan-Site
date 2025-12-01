@@ -73,7 +73,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDiscardRectangleModeEXT-commandBuffer-cmdpool) VUID-vkCmdSetDiscardRectangleModeEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDiscardRectangleModeEXT-videocoding) VUID-vkCmdSetDiscardRectangleModeEXT-videocoding
@@ -93,7 +93,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

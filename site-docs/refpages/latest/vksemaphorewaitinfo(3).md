@@ -31,9 +31,8 @@ typedef struct VkSemaphoreWaitInfo {
     const uint64_t*         pValues;
 } VkSemaphoreWaitInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkSemaphoreWaitInfo
 typedef VkSemaphoreWaitInfo VkSemaphoreWaitInfoKHR;
 
 * 

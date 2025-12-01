@@ -25,7 +25,7 @@ supported surface counter types, are:
 // Provided by VK_EXT_display_surface_counter
 typedef enum VkSurfaceCounterFlagBitsEXT {
     VK_SURFACE_COUNTER_VBLANK_BIT_EXT = 0x00000001,
-  // VK_SURFACE_COUNTER_VBLANK_EXT is a deprecated alias
+  // VK_SURFACE_COUNTER_VBLANK_EXT is a legacy alias
     VK_SURFACE_COUNTER_VBLANK_EXT = VK_SURFACE_COUNTER_VBLANK_BIT_EXT,
 } VkSurfaceCounterFlagBitsEXT;
 

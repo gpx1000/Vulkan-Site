@@ -132,6 +132,14 @@ its `pNext` chain, and
 `memoryOffset` **must** be zero
 
 * 
+[](#VUID-vkBindBufferMemory-memory-10925) VUID-vkBindBufferMemory-memory-10925
+
+If the `VkMemoryAllocateInfo` provided when `memory` was
+allocated included a [VkMemoryDedicatedAllocateInfo](VkMemoryDedicatedAllocateInfo.html) structure in
+its `pNext` chain, [VkMemoryDedicatedAllocateInfo](VkMemoryDedicatedAllocateInfo.html)::`image`
+**must** have been [VK_NULL_HANDLE](VK_NULL_HANDLE.html)
+
+* 
 [](#VUID-vkBindBufferMemory-None-01898) VUID-vkBindBufferMemory-None-01898
 
 If `buffer` was created with the
@@ -206,8 +214,8 @@ with a non-`NULL` `buffer` value,
 If the
 [VkPhysicalDeviceBufferDeviceAddressFeatures](VkPhysicalDeviceBufferDeviceAddressFeatures.html)::`bufferDeviceAddress`
 feature is enabled and `buffer` was created with the
-`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` bit set, `memory`
-**must** have been allocated with the
+`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` usage flag set,
+`memory` **must** have been allocated with the
 `VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT` bit set
 
 * 

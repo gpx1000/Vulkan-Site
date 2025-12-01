@@ -28,9 +28,8 @@ typedef struct VkPhysicalDeviceSynchronization2Features {
     VkBool32           synchronization2;
 } VkPhysicalDeviceSynchronization2Features;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkPhysicalDeviceSynchronization2Features
 typedef VkPhysicalDeviceSynchronization2Features VkPhysicalDeviceSynchronization2FeaturesKHR;
 
 This structure describes the following feature:

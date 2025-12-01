@@ -26,9 +26,8 @@ typedef struct VkTransformMatrixKHR {
     float    matrix[3][4];
 } VkTransformMatrixKHR;
 
-or the equivalent
-
 // Provided by VK_NV_ray_tracing
+// Equivalent to VkTransformMatrixKHR
 typedef VkTransformMatrixKHR VkTransformMatrixNV;
 
 * 

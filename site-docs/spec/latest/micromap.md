@@ -171,14 +171,15 @@ The buffers from which the buffer device addresses for all of the
 `data` and `triangleArray` members of all `pInfos`[i] are
 queried **must** have been created with the
 `VK_BUFFER_USAGE_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT` usage flag
+set
 
 * 
 [](#VUID-vkCmdBuildMicromapsEXT-pInfos-07511) VUID-vkCmdBuildMicromapsEXT-pInfos-07511
 
 For each element of `pInfos`[i] the buffer from which the buffer
 device address `pInfos`[i].`scratchData.deviceAddress` is
-queried **must** have been created with
-`VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` usage flag
+queried **must** have been created with the
+`VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdBuildMicromapsEXT-pInfos-07512) VUID-vkCmdBuildMicromapsEXT-pInfos-07512
@@ -231,12 +232,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBuildMicromapsEXT-commandBuffer-cmdpool) VUID-vkCmdBuildMicromapsEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdBuildMicromapsEXT-renderpass) VUID-vkCmdBuildMicromapsEXT-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdBuildMicromapsEXT-suspended) VUID-vkCmdBuildMicromapsEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBuildMicromapsEXT-videocoding) VUID-vkCmdBuildMicromapsEXT-videocoding
@@ -261,7 +267,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 
@@ -374,15 +380,15 @@ structures.
 [VkMicromapUsageEXT](#VkMicromapUsageEXT) structures.
 
 * 
-`data` is the device or host address to memory which contains the
+`data` is the device or host address of memory which contains the
 data for the micromap.
 
 * 
-`scratchData` is the device or host address to memory that will be
+`scratchData` is the device or host address of memory that will be
 used as scratch memory for the build.
 
 * 
-`triangleArray` is the device or host address to memory containing
+`triangleArray` is the device or host address of memory containing
 the [VkMicromapTriangleEXT](#VkMicromapTriangleEXT) data
 
 * 
@@ -766,12 +772,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdWriteMicromapsPropertiesEXT-commandBuffer-cmdpool) VUID-vkCmdWriteMicromapsPropertiesEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdWriteMicromapsPropertiesEXT-renderpass) VUID-vkCmdWriteMicromapsPropertiesEXT-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdWriteMicromapsPropertiesEXT-suspended) VUID-vkCmdWriteMicromapsPropertiesEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdWriteMicromapsPropertiesEXT-videocoding) VUID-vkCmdWriteMicromapsPropertiesEXT-videocoding
@@ -801,7 +812,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 
@@ -867,12 +878,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyMicromapEXT-commandBuffer-cmdpool) VUID-vkCmdCopyMicromapEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyMicromapEXT-renderpass) VUID-vkCmdCopyMicromapEXT-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyMicromapEXT-suspended) VUID-vkCmdCopyMicromapEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyMicromapEXT-videocoding) VUID-vkCmdCopyMicromapEXT-videocoding
@@ -892,7 +908,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 
@@ -1110,12 +1126,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyMicromapToMemoryEXT-commandBuffer-cmdpool) VUID-vkCmdCopyMicromapToMemoryEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyMicromapToMemoryEXT-renderpass) VUID-vkCmdCopyMicromapToMemoryEXT-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyMicromapToMemoryEXT-suspended) VUID-vkCmdCopyMicromapToMemoryEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyMicromapToMemoryEXT-videocoding) VUID-vkCmdCopyMicromapToMemoryEXT-videocoding
@@ -1135,7 +1156,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 
@@ -1161,7 +1182,7 @@ structure.
 `src` is the source micromap for the copy
 
 * 
-`dst` is the device or host address to memory which is the target
+`dst` is the device or host address of memory which is the target
 for the copy
 
 * 
@@ -1283,12 +1304,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyMemoryToMicromapEXT-commandBuffer-cmdpool) VUID-vkCmdCopyMemoryToMicromapEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyMemoryToMicromapEXT-renderpass) VUID-vkCmdCopyMemoryToMicromapEXT-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyMemoryToMicromapEXT-suspended) VUID-vkCmdCopyMemoryToMicromapEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyMemoryToMicromapEXT-videocoding) VUID-vkCmdCopyMemoryToMicromapEXT-videocoding
@@ -1308,7 +1334,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 
@@ -1333,7 +1359,7 @@ typedef struct VkCopyMemoryToMicromapInfoEXT {
 structure.
 
 * 
-`src` is the device or host address to memory containing the source
+`src` is the device or host address of memory containing the source
 data for the copy.
 
 * 

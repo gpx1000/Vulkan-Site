@@ -62,7 +62,7 @@ Start afresh
 
 This proposal focuses on the second option.
 
-This extension adds Vulkan support for the [`SPV_KHR_compute_shader_derivatives`](http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions//KHR/SPV_KHR_compute_shader_derivatives.html) SPIR-V extension.
+This extension adds Vulkan support for the [`SPV_KHR_compute_shader_derivatives`](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_compute_shader_derivatives.html) SPIR-V extension.
 
 The SPIR-V extension provides two new execution modes, both of which allow execution models with defined workgroups to use built-ins that evaluate derivatives explicitly or implicitly. Derivatives will be computed via differencing over a 2x2 group of shader invocations.
 

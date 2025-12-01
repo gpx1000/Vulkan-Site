@@ -27,9 +27,8 @@ void vkTrimCommandPool(
     VkCommandPool                               commandPool,
     VkCommandPoolTrimFlags                      flags);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance1
+// Equivalent to vkTrimCommandPool
 void vkTrimCommandPoolKHR(
     VkDevice                                    device,
     VkCommandPool                               commandPool,
@@ -111,7 +110,7 @@ Host Synchronization
 * 
 Host access to `commandPool` **must** be externally synchronized
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkCommandPool](VkCommandPool.html), [VkCommandPoolTrimFlags](VkCommandPoolTrimFlags.html), [VkDevice](VkDevice.html)
+[VK_KHR_maintenance1](VK_KHR_maintenance1.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkCommandPool](VkCommandPool.html), [VkCommandPoolTrimFlags](VkCommandPoolTrimFlags.html), [VkDevice](VkDevice.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/cmdbuffers.html#vkTrimCommandPool).
 

@@ -85,7 +85,7 @@ shader stages in the pipeline will be executed after those shader stages as
 normal.
 Task shaders cannot be included in a graphics pipeline used for a draw node.
 
-In addition to the shader name and index, an internal "node index" is also
+In addition to the shader name and index, an internal “node index” is also
 generated for each node, which can be queried with
 [vkGetExecutionGraphPipelineNodeIndexAMDX](vkGetExecutionGraphPipelineNodeIndexAMDX.html), and is used exclusively for
 initial dispatch of an execution graph.
@@ -154,8 +154,9 @@ descriptor type
 [](#VUID-VkExecutionGraphPipelineCreateInfoAMDX-layout-07991) VUID-VkExecutionGraphPipelineCreateInfoAMDX-layout-07991
 
 If a [resource variable](../../../../spec/latest/chapters/interfaces.html#interfaces-resources) is declared in a shader
-as an array, the corresponding descriptor set in `layout` **must**
-match the descriptor count
+as an array, the corresponding descriptor binding used to create
+`layout` **must** have a `descriptorCount` that is greater than or
+equal to the length of the array
 
 * 
 [](#VUID-VkExecutionGraphPipelineCreateInfoAMDX-None-10391) VUID-VkExecutionGraphPipelineCreateInfoAMDX-None-10391
@@ -163,6 +164,13 @@ match the descriptor count
 If a [resource variables](../../../../spec/latest/chapters/interfaces.html#interfaces-resources) is declared in a shader
 as an array of descriptors, then the descriptor type of that variable
 **must** not be `VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK`
+
+* 
+[](#VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-11798) VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-11798
+
+If [shader64BitIndexing](../../../../spec/latest/chapters/features.html#features-shader64BitIndexing) feature is not
+enabled, `flags` **must** not contain
+`VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT`
 
 * 
 [](#VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-03365) VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-03365

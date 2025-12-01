@@ -56,6 +56,11 @@ The application **must** ensure that the configuration of the Metal
 [VkImage](VkImage.html).
 Failure to do so results in **undefined** behavior.
 
+|  | Due to `id` already being backed by memory, images created with
+| --- | --- |
+`VkImportMetalTextureInfoEXT` in the `pNext` of the
+[VkImageCreateInfo](VkImageCreateInfo.html) will be treated as bound to a VkDeviceMemory. |
+
 Valid Usage (Implicit)
 
 * 

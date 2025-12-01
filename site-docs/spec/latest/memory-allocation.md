@@ -636,7 +636,7 @@ types available.
 
 To query memory properties, call:
 
-|  | This functionality is deprecated by [Vulkan Version 1.1](../appendices/versions.html#versions-1.1). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-gpdp2) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.1](../appendices/versions.html#versions-1.1). See [Legacy Functionality](../appendices/legacy.html#legacy-gpdp2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -1012,9 +1012,8 @@ void vkGetPhysicalDeviceMemoryProperties2(
     VkPhysicalDevice                            physicalDevice,
     VkPhysicalDeviceMemoryProperties2*          pMemoryProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to vkGetPhysicalDeviceMemoryProperties2
 void vkGetPhysicalDeviceMemoryProperties2KHR(
     VkPhysicalDevice                            physicalDevice,
     VkPhysicalDeviceMemoryProperties2*          pMemoryProperties);
@@ -1052,9 +1051,8 @@ typedef struct VkPhysicalDeviceMemoryProperties2 {
     VkPhysicalDeviceMemoryProperties    memoryProperties;
 } VkPhysicalDeviceMemoryProperties2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkPhysicalDeviceMemoryProperties2
 typedef VkPhysicalDeviceMemoryProperties2 VkPhysicalDeviceMemoryProperties2KHR;
 
 * 
@@ -1474,7 +1472,7 @@ There **must** be less than
 memory allocations currently allocated on the device
 
 * 
-[](#VUID-VkTileMemoryBindInfoQCOM-memoryTypeIndex) VUID-VkTileMemoryBindInfoQCOM-memoryTypeIndex
+[](#VUID-vkAllocateMemory-tileMemoryHeap-10976) VUID-vkAllocateMemory-tileMemoryHeap-10976
 
 If the [`tileMemoryHeap`](features.html#features-tileMemoryHeap) feature is not
 enabled, `pAllocateInfo->memoryTypeIndex` **must** not identify a
@@ -2193,7 +2191,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkMemoryAllocateInfo-pNext-pNext) VUID-VkMemoryAllocateInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDedicatedAllocationMemoryAllocateInfoNV](#VkDedicatedAllocationMemoryAllocateInfoNV), [VkExportMemoryAllocateInfo](#VkExportMemoryAllocateInfo), [VkExportMemoryAllocateInfoNV](#VkExportMemoryAllocateInfoNV), [VkExportMemoryWin32HandleInfoKHR](#VkExportMemoryWin32HandleInfoKHR), [VkExportMemoryWin32HandleInfoNV](#VkExportMemoryWin32HandleInfoNV), [VkExportMetalObjectCreateInfoEXT](#VkExportMetalObjectCreateInfoEXT), [VkImportAndroidHardwareBufferInfoANDROID](#VkImportAndroidHardwareBufferInfoANDROID), [VkImportMemoryBufferCollectionFUCHSIA](resources.html#VkImportMemoryBufferCollectionFUCHSIA), [VkImportMemoryFdInfoKHR](#VkImportMemoryFdInfoKHR), [VkImportMemoryHostPointerInfoEXT](#VkImportMemoryHostPointerInfoEXT), [VkImportMemoryMetalHandleInfoEXT](#VkImportMemoryMetalHandleInfoEXT), [VkImportMemoryWin32HandleInfoKHR](#VkImportMemoryWin32HandleInfoKHR), [VkImportMemoryWin32HandleInfoNV](#VkImportMemoryWin32HandleInfoNV), [VkImportMemoryZirconHandleInfoFUCHSIA](#VkImportMemoryZirconHandleInfoFUCHSIA), [VkImportMetalBufferInfoEXT](#VkImportMetalBufferInfoEXT), [VkImportScreenBufferInfoQNX](#VkImportScreenBufferInfoQNX), [VkMemoryAllocateFlagsInfo](#VkMemoryAllocateFlagsInfo), [VkMemoryDedicatedAllocateInfo](#VkMemoryDedicatedAllocateInfo), [VkMemoryDedicatedAllocateInfoTensorARM](#VkMemoryDedicatedAllocateInfoTensorARM), [VkMemoryOpaqueCaptureAddressAllocateInfo](#VkMemoryOpaqueCaptureAddressAllocateInfo), or [VkMemoryPriorityAllocateInfoEXT](#VkMemoryPriorityAllocateInfoEXT)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDedicatedAllocationMemoryAllocateInfoNV](#VkDedicatedAllocationMemoryAllocateInfoNV), [VkExportMemoryAllocateInfo](#VkExportMemoryAllocateInfo), [VkExportMemoryAllocateInfoNV](#VkExportMemoryAllocateInfoNV), [VkExportMemoryWin32HandleInfoKHR](#VkExportMemoryWin32HandleInfoKHR), [VkExportMemoryWin32HandleInfoNV](#VkExportMemoryWin32HandleInfoNV), [VkExportMetalObjectCreateInfoEXT](#VkExportMetalObjectCreateInfoEXT), [VkImportAndroidHardwareBufferInfoANDROID](#VkImportAndroidHardwareBufferInfoANDROID), [VkImportMemoryBufferCollectionFUCHSIA](resources.html#VkImportMemoryBufferCollectionFUCHSIA), [VkImportMemoryFdInfoKHR](#VkImportMemoryFdInfoKHR), [VkImportMemoryHostPointerInfoEXT](#VkImportMemoryHostPointerInfoEXT), [VkImportMemoryMetalHandleInfoEXT](#VkImportMemoryMetalHandleInfoEXT), [VkImportMemoryWin32HandleInfoKHR](#VkImportMemoryWin32HandleInfoKHR), [VkImportMemoryWin32HandleInfoNV](#VkImportMemoryWin32HandleInfoNV), [VkImportMemoryZirconHandleInfoFUCHSIA](#VkImportMemoryZirconHandleInfoFUCHSIA), [VkImportMetalBufferInfoEXT](#VkImportMetalBufferInfoEXT), [VkImportNativeBufferInfoOHOS](resources.html#VkImportNativeBufferInfoOHOS), [VkImportScreenBufferInfoQNX](#VkImportScreenBufferInfoQNX), [VkMemoryAllocateFlagsInfo](#VkMemoryAllocateFlagsInfo), [VkMemoryDedicatedAllocateInfo](#VkMemoryDedicatedAllocateInfo), [VkMemoryDedicatedAllocateInfoTensorARM](#VkMemoryDedicatedAllocateInfoTensorARM), [VkMemoryOpaqueCaptureAddressAllocateInfo](#VkMemoryOpaqueCaptureAddressAllocateInfo), or [VkMemoryPriorityAllocateInfoEXT](#VkMemoryPriorityAllocateInfoEXT)
 
 * 
 [](#VUID-VkMemoryAllocateInfo-sType-unique) VUID-VkMemoryAllocateInfo-sType-unique
@@ -2214,9 +2212,8 @@ typedef struct VkMemoryDedicatedAllocateInfo {
     VkBuffer           buffer;
 } VkMemoryDedicatedAllocateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_dedicated_allocation
+// Equivalent to VkMemoryDedicatedAllocateInfo
 typedef VkMemoryDedicatedAllocateInfo VkMemoryDedicatedAllocateInfoKHR;
 
 * 
@@ -2250,8 +2247,8 @@ At least one of `image` and `buffer` **must** be
 Android Hardware Buffer
 or an imported
 QNX Screen buffer
-    , `VkMemoryAllocateInfo`::`allocationSize` **must** equal the
-    `VkMemoryRequirements`::`size` of the image
+    , `VkMemoryAllocateInfo`::`allocationSize` **must** be greater than
+    or equal to the `VkMemoryRequirements`::`size` of the image
 
 * 
 [](#VUID-VkMemoryDedicatedAllocateInfo-image-01434) VUID-VkMemoryDedicatedAllocateInfo-image-01434
@@ -2268,8 +2265,8 @@ created without `VK_IMAGE_CREATE_SPARSE_BINDING_BIT` set in
 Android Hardware Buffer
 or an imported
 QNX Screen buffer
-    , `VkMemoryAllocateInfo`::`allocationSize` **must** equal the
-    `VkMemoryRequirements`::`size` of the buffer
+    , `VkMemoryAllocateInfo`::`allocationSize` **must** be greater than
+    or equal to the `VkMemoryRequirements`::`size` of the buffer
 
 * 
 [](#VUID-VkMemoryDedicatedAllocateInfo-buffer-01436) VUID-VkMemoryDedicatedAllocateInfo-buffer-01436
@@ -2417,7 +2414,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindTileMemoryQCOM-commandBuffer-cmdpool) VUID-vkCmdBindTileMemoryQCOM-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindTileMemoryQCOM-renderpass) VUID-vkCmdBindTileMemoryQCOM-renderpass
@@ -2442,9 +2439,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -2764,9 +2761,8 @@ typedef struct VkExportMemoryAllocateInfo {
     VkExternalMemoryHandleTypeFlags    handleTypes;
 } VkExportMemoryAllocateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory
+// Equivalent to VkExportMemoryAllocateInfo
 typedef VkExportMemoryAllocateInfo VkExportMemoryAllocateInfoKHR;
 
 * 
@@ -5803,6 +5799,11 @@ The application **must** ensure that the configuration of the Metal
 [VkImage](resources.html#VkImage).
 Failure to do so results in **undefined** behavior.
 
+|  | Due to `id` already being backed by memory, images created with
+| --- | --- |
+`VkImportMetalTextureInfoEXT` in the `pNext` of the
+[VkImageCreateInfo](resources.html#VkImageCreateInfo) will be treated as bound to a VkDeviceMemory. |
+
 Valid Usage (Implicit)
 
 * 
@@ -6625,9 +6626,8 @@ typedef struct VkMemoryAllocateFlagsInfo {
     uint32_t                 deviceMask;
 } VkMemoryAllocateFlagsInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_device_group
+// Equivalent to VkMemoryAllocateFlagsInfo
 typedef VkMemoryAllocateFlagsInfo VkMemoryAllocateFlagsInfoKHR;
 
 * 
@@ -6727,9 +6727,8 @@ typedef enum VkMemoryAllocateFlagBits {
     VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_KHR = VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT,
 } VkMemoryAllocateFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_device_group
+// Equivalent to VkMemoryAllocateFlagBits
 typedef VkMemoryAllocateFlagBits VkMemoryAllocateFlagBitsKHR;
 
 * 
@@ -6740,9 +6739,9 @@ allocated for the devices in
 * 
 `VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT` specifies that the memory
 **can** be attached to a buffer object created with the
-`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` bit set in `usage`,
-and that the memory handle **can** be used to retrieve an opaque address
-via [vkGetDeviceMemoryOpaqueCaptureAddress](#vkGetDeviceMemoryOpaqueCaptureAddress).
+`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` usage flag set, and that
+the memory handle **can** be used to retrieve an opaque address via
+[vkGetDeviceMemoryOpaqueCaptureAddress](#vkGetDeviceMemoryOpaqueCaptureAddress).
 
 * 
 `VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT` specifies
@@ -6758,9 +6757,8 @@ application is able to access it.
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkMemoryAllocateFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_device_group
+// Equivalent to VkMemoryAllocateFlags
 typedef VkMemoryAllocateFlags VkMemoryAllocateFlagsKHR;
 
 `VkMemoryAllocateFlags` is a bitmask type for setting a mask of zero or
@@ -6778,9 +6776,8 @@ typedef struct VkMemoryOpaqueCaptureAddressAllocateInfo {
     uint64_t           opaqueCaptureAddress;
 } VkMemoryOpaqueCaptureAddressAllocateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_buffer_device_address
+// Equivalent to VkMemoryOpaqueCaptureAddressAllocateInfo
 typedef VkMemoryOpaqueCaptureAddressAllocateInfo VkMemoryOpaqueCaptureAddressAllocateInfoKHR;
 
 * 
@@ -7119,9 +7116,8 @@ VkResult vkMapMemory2(
     const VkMemoryMapInfo*                      pMemoryMapInfo,
     void**                                      ppData);
 
-or the equivalent command
-
 // Provided by VK_KHR_map_memory2
+// Equivalent to vkMapMemory2
 VkResult vkMapMemory2KHR(
     VkDevice                                    device,
     const VkMemoryMapInfo*                      pMemoryMapInfo,
@@ -7197,9 +7193,8 @@ typedef struct VkMemoryMapInfo {
     VkDeviceSize        size;
 } VkMemoryMapInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_map_memory2
+// Equivalent to VkMemoryMapInfo
 typedef VkMemoryMapInfo VkMemoryMapInfoKHR;
 
 * 
@@ -7814,9 +7809,8 @@ VkResult vkUnmapMemory2(
     VkDevice                                    device,
     const VkMemoryUnmapInfo*                    pMemoryUnmapInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_map_memory2
+// Equivalent to vkUnmapMemory2
 VkResult vkUnmapMemory2KHR(
     VkDevice                                    device,
     const VkMemoryUnmapInfo*                    pMemoryUnmapInfo);
@@ -7872,9 +7866,8 @@ typedef struct VkMemoryUnmapInfo {
     VkDeviceMemory        memory;
 } VkMemoryUnmapInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_map_memory2
+// Equivalent to VkMemoryUnmapInfo
 typedef VkMemoryUnmapInfo VkMemoryUnmapInfoKHR;
 
 * 
@@ -7949,9 +7942,8 @@ typedef enum VkMemoryUnmapFlagBits {
     VK_MEMORY_UNMAP_RESERVE_BIT_EXT = 0x00000001,
 } VkMemoryUnmapFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_map_memory2
+// Equivalent to VkMemoryUnmapFlagBits
 typedef VkMemoryUnmapFlagBits VkMemoryUnmapFlagBitsKHR;
 
 * 
@@ -7972,9 +7964,8 @@ mapped and [vkUnmapMemory2](#vkUnmapMemory2) will return
 // Provided by VK_VERSION_1_4
 typedef VkFlags VkMemoryUnmapFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_map_memory2
+// Equivalent to VkMemoryUnmapFlags
 typedef VkMemoryUnmapFlags VkMemoryUnmapFlagsKHR;
 
 `VkMemoryUnmapFlags` is a bitmask type for setting a mask of zero or
@@ -8547,9 +8538,8 @@ void vkGetDeviceGroupPeerMemoryFeatures(
     uint32_t                                    remoteDeviceIndex,
     VkPeerMemoryFeatureFlags*                   pPeerMemoryFeatures);
 
-or the equivalent command
-
 // Provided by VK_KHR_device_group
+// Equivalent to vkGetDeviceGroupPeerMemoryFeatures
 void vkGetDeviceGroupPeerMemoryFeaturesKHR(
     VkDevice                                    device,
     uint32_t                                    heapIndex,
@@ -8632,9 +8622,8 @@ typedef enum VkPeerMemoryFeatureFlagBits {
     VK_PEER_MEMORY_FEATURE_GENERIC_DST_BIT_KHR = VK_PEER_MEMORY_FEATURE_GENERIC_DST_BIT,
 } VkPeerMemoryFeatureFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_device_group
+// Equivalent to VkPeerMemoryFeatureFlagBits
 typedef VkPeerMemoryFeatureFlagBits VkPeerMemoryFeatureFlagBitsKHR;
 
 * 
@@ -8672,9 +8661,8 @@ but would scissor the rendering to only update local memory.
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkPeerMemoryFeatureFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_device_group
+// Equivalent to VkPeerMemoryFeatureFlags
 typedef VkPeerMemoryFeatureFlags VkPeerMemoryFeatureFlagsKHR;
 
 `VkPeerMemoryFeatureFlags` is a bitmask type for setting a mask of zero
@@ -8687,9 +8675,8 @@ uint64_t vkGetDeviceMemoryOpaqueCaptureAddress(
     VkDevice                                    device,
     const VkDeviceMemoryOpaqueCaptureAddressInfo* pInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_buffer_device_address
+// Equivalent to vkGetDeviceMemoryOpaqueCaptureAddress
 uint64_t vkGetDeviceMemoryOpaqueCaptureAddressKHR(
     VkDevice                                    device,
     const VkDeviceMemoryOpaqueCaptureAddressInfo* pInfo);
@@ -8756,9 +8743,8 @@ typedef struct VkDeviceMemoryOpaqueCaptureAddressInfo {
     VkDeviceMemory     memory;
 } VkDeviceMemoryOpaqueCaptureAddressInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_buffer_device_address
+// Equivalent to VkDeviceMemoryOpaqueCaptureAddressInfo
 typedef VkDeviceMemoryOpaqueCaptureAddressInfo VkDeviceMemoryOpaqueCaptureAddressInfoKHR;
 
 * 

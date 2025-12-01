@@ -63,7 +63,8 @@ be `VK_IMAGE_LAYOUT_GENERAL` or
 [](#VUID-VkRenderingFragmentDensityMapAttachmentInfoEXT-imageView-06158) VUID-VkRenderingFragmentDensityMapAttachmentInfoEXT-imageView-06158
 
 If `imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), it **must** have been
-created with `VK_IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT`
+created with the `VK_IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT` usage
+flag set_EXT
 
 * 
 [](#VUID-VkRenderingFragmentDensityMapAttachmentInfoEXT-imageView-06159) VUID-VkRenderingFragmentDensityMapAttachmentInfoEXT-imageView-06159

@@ -28,9 +28,8 @@ typedef struct VkImageFormatProperties2 {
     VkImageFormatProperties    imageFormatProperties;
 } VkImageFormatProperties2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkImageFormatProperties2
 typedef VkImageFormatProperties2 VkImageFormatProperties2KHR;
 
 * 
@@ -71,14 +70,14 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkImageFormatProperties2-pNext-pNext) VUID-VkImageFormatProperties2-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAndroidHardwareBufferUsageANDROID](VkAndroidHardwareBufferUsageANDROID.html), [VkExternalImageFormatProperties](VkExternalImageFormatProperties.html), [VkFilterCubicImageViewImageFormatPropertiesEXT](VkFilterCubicImageViewImageFormatPropertiesEXT.html), [VkHostImageCopyDevicePerformanceQuery](VkHostImageCopyDevicePerformanceQuery.html), [VkImageCompressionPropertiesEXT](VkImageCompressionPropertiesEXT.html), [VkSamplerYcbcrConversionImageFormatProperties](VkSamplerYcbcrConversionImageFormatProperties.html), or [VkTextureLODGatherFormatPropertiesAMD](VkTextureLODGatherFormatPropertiesAMD.html)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAndroidHardwareBufferUsageANDROID](VkAndroidHardwareBufferUsageANDROID.html), [VkExternalImageFormatProperties](VkExternalImageFormatProperties.html), [VkFilterCubicImageViewImageFormatPropertiesEXT](VkFilterCubicImageViewImageFormatPropertiesEXT.html), [VkHostImageCopyDevicePerformanceQuery](VkHostImageCopyDevicePerformanceQuery.html), [VkImageCompressionPropertiesEXT](VkImageCompressionPropertiesEXT.html), [VkNativeBufferUsageOHOS](VkNativeBufferUsageOHOS.html), [VkSamplerYcbcrConversionImageFormatProperties](VkSamplerYcbcrConversionImageFormatProperties.html), or [VkTextureLODGatherFormatPropertiesAMD](VkTextureLODGatherFormatPropertiesAMD.html)
 
 * 
 [](#VUID-VkImageFormatProperties2-sType-unique) VUID-VkImageFormatProperties2-sType-unique
 
  The `sType` value of each structure in the `pNext` chain **must** be unique
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImageFormatProperties](VkImageFormatProperties.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceImageFormatProperties2](vkGetPhysicalDeviceImageFormatProperties2.html), [vkGetPhysicalDeviceImageFormatProperties2](vkGetPhysicalDeviceImageFormatProperties2.html)
+[VK_KHR_get_physical_device_properties2](VK_KHR_get_physical_device_properties2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImageFormatProperties](VkImageFormatProperties.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceImageFormatProperties2](vkGetPhysicalDeviceImageFormatProperties2.html), [vkGetPhysicalDeviceImageFormatProperties2](vkGetPhysicalDeviceImageFormatProperties2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkImageFormatProperties2).
 

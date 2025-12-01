@@ -302,7 +302,40 @@
     <a class="nav-link" href="17_Multithreading.html">Multithreading</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="courses/18_Ray_tracing/00_Overview.html">Ray Tracing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/00_Overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/01_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/02_Acceleration_structures.html">Acceleration structures</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/03_Ray_query_shadows.html">Ray query shadows</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/04_TLAS_animation.html">TLAS animation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/05_Shadow_transparency.html">Shadow transparency</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/06_Reflections.html">Reflections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="courses/18_Ray_tracing/07_Conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="90_FAQ.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -550,7 +583,7 @@ shaderStorageBuffersMemory.emplace_back(std::move(shaderStorageBufferTempMemory)
 </div>
 </div>
 <div class="paragraph">
-<p>The SLang shader declaration for accessing such a buffer looks like this:</p>
+<p>The Slang shader declaration for accessing such a buffer looks like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -611,7 +644,7 @@ textureImage = std::make_unique&lt;vk::raii::SwapchainKHR&gt;( *device, swapChai
 <p>The two flags <code>vk::ImageUsageFlagBits::eSampled</code> and <code>vk::ImageUsageFlagBits::eStorage</code> set with <code>imageInfo.usage</code> tell the implementation that we want to use this image for two different scenarios: as an image sampled in the fragment shader and as a storage image in the computer shader;</p>
 </div>
 <div class="paragraph">
-<p>The SLang shader declaration for storage image looks similar to sampled images
+<p>The Slang shader declaration for storage image looks similar to sampled images
 used, e.g.,
 in the fragment shader:</p>
 </div>
@@ -1145,7 +1178,7 @@ for (size_t i = 0; i &lt; MAX_FRAMES_IN_FLIGHT; i++) {
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">{
     // Compute submission
-    while ( vk::Result::eTimeout == device-&gt;waitForFences( **computeInFlightFences[currentFrame], vk::True, FenceTimeout ) )
+    while ( vk::Result::eTimeout == device-&gt;waitForFences(**computeInFlightFences[currentFrame], vk::True, UINT64_MAX) )
         ;
 
     updateUniformBuffer(currentFrame);
@@ -1158,7 +1191,7 @@ for (size_t i = 0; i &lt; MAX_FRAMES_IN_FLIGHT; i++) {
 }
 {
     // Graphics submission
-    while ( vk::Result::eTimeout == device-&gt;waitForFences( **inFlightFences[currentFrame], vk::True, FenceTimeout ) )
+    while ( vk::Result::eTimeout == device-&gt;waitForFences(**inFlightFences[currentFrame], vk::True, UINT64_MAX))
 ...
 
     device-&gt;resetFences(  **inFlightFences[currentFrame] );

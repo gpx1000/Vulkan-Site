@@ -431,16 +431,16 @@ single `VkDeviceMemory` object
 
 If `descriptorType` is `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER` or
 `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC`, the `buffer` member
-of each element of `pBufferInfo` **must** have been created with
-`VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT` set
+of each element of `pBufferInfo` **must** have been created with the
+`VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorType-00331) VUID-VkWriteDescriptorSet-descriptorType-00331
 
 If `descriptorType` is `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER` or
 `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC`, the `buffer` member
-of each element of `pBufferInfo` **must** have been created with
-`VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` set
+of each element of `pBufferInfo` **must** have been created with the
+`VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorType-00332) VUID-VkWriteDescriptorSet-descriptorType-00332
@@ -456,8 +456,10 @@ of each element of `pBufferInfo`, or the
 [](#VUID-VkWriteDescriptorSet-descriptorType-00333) VUID-VkWriteDescriptorSet-descriptorType-00333
 
 If `descriptorType` is `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER` or
-`VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC`, the `range` member
-of each element of `pBufferInfo`, or the
+`VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC`,
+and the [`shader64BitIndexing`](../../../../spec/latest/chapters/features.html#features-shader64BitIndexing)
+feature is not enabled,
+the `range` member of each element of `pBufferInfo`, or the
 [effective range](../../../../spec/latest/chapters/descriptorsets.html#buffer-info-effective-range) if `range` is
 `VK_WHOLE_SIZE`, **must** be less than or equal to
 `VkPhysicalDeviceLimits`::`maxStorageBufferRange`
@@ -490,7 +492,7 @@ each element of `pImageInfo` **must** have been created with the
 If `descriptorType` is `VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE` or
 `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`, the `imageView`
 member of each element of `pImageInfo` **must** have been created with
-`VK_IMAGE_USAGE_SAMPLED_BIT` set
+the `VK_IMAGE_USAGE_SAMPLED_BIT` usage flag set
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorType-04149) VUID-VkWriteDescriptorSet-descriptorType-04149
@@ -526,14 +528,15 @@ member of the list given in [Storage    Image](../../../../spec/latest/chapters/
 
 If `descriptorType` is `VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT`,
 the `imageView` member of each element of `pImageInfo` **must**
-have been created with `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` set
+have been created with the `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+usage flag set
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorType-00339) VUID-VkWriteDescriptorSet-descriptorType-00339
 
 If `descriptorType` is `VK_DESCRIPTOR_TYPE_STORAGE_IMAGE`, the
 `imageView` member of each element of `pImageInfo` **must** have
-been created with `VK_IMAGE_USAGE_STORAGE_BIT` set
+been created with the `VK_IMAGE_USAGE_STORAGE_BIT` usage flag set
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorType-02752) VUID-VkWriteDescriptorSet-descriptorType-02752
@@ -565,8 +568,8 @@ included in the `pNext` chain or with a
 If `descriptorType` is
 `VK_DESCRIPTOR_TYPE_SAMPLE_WEIGHT_IMAGE_QCOM`, the `imageView`
 member of each element of `pImageInfo` **must** have been created with
-a view created with an `image` created with
-`VK_IMAGE_USAGE_SAMPLE_WEIGHT_BIT_QCOM`
+a view created with an `image` created with the
+`VK_IMAGE_USAGE_SAMPLE_WEIGHT_BIT_QCOM` usage flag set
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorType-06943) VUID-VkWriteDescriptorSet-descriptorType-06943
@@ -574,8 +577,8 @@ a view created with an `image` created with
 If `descriptorType` is
 `VK_DESCRIPTOR_TYPE_BLOCK_MATCH_IMAGE_QCOM`, the `imageView`
 member of each element of `pImageInfo` **must** have been created with
-a view created with an `image` created with
-`VK_IMAGE_USAGE_SAMPLE_BLOCK_MATCH_BIT_QCOM`
+a view created with an `image` created with the
+`VK_IMAGE_USAGE_SAMPLE_BLOCK_MATCH_BIT_QCOM` usage flag set
 
 Valid Usage (Implicit)
 

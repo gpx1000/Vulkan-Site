@@ -312,6 +312,9 @@
     <a class="nav-link" href="../extended_dynamic_state2/README.html">Extended dynamic state2</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../fragment_density_map/README.html">Fragment density map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../fragment_shader_barycentric/README.html">Fragment shader barycentric</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -397,6 +400,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../synchronization_2/README.html">Synchronization 2</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../tensor_and_data_graph/README.html">Tensor and Data Graph</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../tensor_and_data_graph/simple_tensor_and_data_graph/README.html">Simple Tensor and Data Graph</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../timeline_semaphore/README.html">Timeline semaphore</a>
@@ -534,6 +546,9 @@
     <a class="nav-link" href="../../../docs/misc.html">Miscellaneous</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Samples" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -695,7 +710,7 @@ This allows us to reuse it with two different APIs:</p>
 <div class="sect2">
 <h3 id="_support_by_vulkan_api"><a class="anchor" href="#_support_by_vulkan_api"></a>Support by Vulkan API</h3>
 <div class="paragraph">
-<p>In Vulkan hardware buffers can be imported or exported using <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html">VK_ANDROID_external_memory_android_hardware_buffer</a> extension.
+<p>In Vulkan hardware buffers can be imported or exported using <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html">VK_ANDROID_external_memory_android_hardware_buffer</a> extension.
 AHardwareBuffer can be bound to a <code>VkDeviceMemory</code> object, which serves as an allocation for objects of type <code>VkImage</code> or <code>VkBuffer</code>.</p>
 </div>
 <div class="paragraph">
@@ -738,7 +753,7 @@ export_memory_allocate_Info.handleTypes = VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID
 </div>
 <div class="paragraph">
 <p>This is specified as <code>pNext</code> of <code>VkMemoryAllocateInfo</code>, while <code>allocationSize</code> is set to 0.
-You can find more info on this in the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VkMemoryRequirements">specification</a>.</p>
+You can find more info on this in the <a href="https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#VkMemoryRequirements">specification</a>.</p>
 </div>
 <div class="paragraph">
 <p>Once the memory is allocated <strong>and</strong> bound to the image (or buffer), we can export a handle of type <code>AHardwareBuffer</code>:</p>
@@ -881,7 +896,7 @@ In this sample one of such handle types is demonstrated: Android Hardware Buffer
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html">VK_ANDROID_external_memory_android_hardware_buffer</a></p>
+<p><a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html">VK_ANDROID_external_memory_android_hardware_buffer</a></p>
 </li>
 <li>
 <p><a href="https://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_import_memory.txt">cl_arm_import_memory</a></p>

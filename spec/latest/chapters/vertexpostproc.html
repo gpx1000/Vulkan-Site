@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -484,6 +493,9 @@ transform feedback.</p>
 feedback stage while transform feedback is active, the values of the
 specified output variables are assembled into primitives and appended to the
 bound transform feedback buffers.
+Any primitive for which any pair of vertices have the same position <strong>should</strong>
+be assembled for transform feedback normally but it <strong>may</strong> be discarded prior
+to primitive assembly instead.
 After activating transform feedback, the values of the first assembled
 primitive are written at the starting offsets of the bound transform
 feedback buffers, and subsequent primitives are appended to the buffer.
@@ -657,10 +669,8 @@ state is updated by the command.</p>
 <p><code>pSizes</code> is <code>NULL</code> or a pointer to an array of <code>VkDeviceSize</code>
 buffer sizes, specifying the maximum number of bytes to capture to the
 corresponding transform feedback buffer.
-If <code>pSizes</code> is <code>NULL</code>, or the value of the <code>pSizes</code> array
-element is <code>VK_WHOLE_SIZE</code>, then the maximum number of bytes
-captured will be the size of the corresponding buffer minus the buffer
-offset.</p>
+If <code>pSizes</code> is <code>NULL</code>, it is equivalent to setting a <code>pSizes</code>
+array where every element is <code>VK_WHOLE_SIZE</code>.</p>
 </li>
 </ul>
 </div>
@@ -671,6 +681,12 @@ offset.</p>
 <code>bindingCount</code>)</span>.
 The transform feedback binding is updated to start at the offset indicated
 by <code>pOffsets</code>[i] from the start of the buffer <code>pBuffers</code>[i].</p>
+</div>
+<div id="transform-feedback-effective-size" class="paragraph">
+<p>When an element of <code>pSizes</code>[i] is <code>VK_WHOLE_SIZE</code>, or <code>pSizes</code>
+is <code>NULL</code>, the effective range is calculated by taking the size of
+<code>pBuffers</code>[i] minus <code>pOffsets</code>[i].
+Otherwise, the effective range is equal to the element in <code>pSizes</code>[i].</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -711,29 +727,15 @@ All elements of <code>pOffsets</code> <strong>must</strong> be a multiple of 4</
 <p><a id="VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02360" href="#VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02360"></a> <span class="vuid">VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02360</span><br>
 
 All elements of <code>pBuffers</code> <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_BUFFER_BIT_EXT</code> flag</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdBindTransformFeedbackBuffersEXT-pSize-02361" href="#VUID-vkCmdBindTransformFeedbackBuffersEXT-pSize-02361"></a> <span class="vuid">VUID-vkCmdBindTransformFeedbackBuffersEXT-pSize-02361</span><br>
-
-If the optional <code>pSize</code> array is specified, each element of
-<code>pSizes</code> <strong>must</strong> either be <code>VK_WHOLE_SIZE</code>, or be less than or
-equal to
-<code>VkPhysicalDeviceTransformFeedbackPropertiesEXT</code>::<code>maxTransformFeedbackBufferSize</code></p>
-</li>
-<li>
-<p><a id="VUID-vkCmdBindTransformFeedbackBuffersEXT-pSizes-02362" href="#VUID-vkCmdBindTransformFeedbackBuffersEXT-pSizes-02362"></a> <span class="vuid">VUID-vkCmdBindTransformFeedbackBuffersEXT-pSizes-02362</span><br>
-
-All elements of <code>pSizes</code> <strong>must</strong> be either <code>VK_WHOLE_SIZE</code>, or
-less than or equal to the size of the corresponding buffer in
-<code>pBuffers</code></p>
+<code>VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_BUFFER_BIT_EXT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindTransformFeedbackBuffersEXT-pOffsets-02363" href="#VUID-vkCmdBindTransformFeedbackBuffersEXT-pOffsets-02363"></a> <span class="vuid">VUID-vkCmdBindTransformFeedbackBuffersEXT-pOffsets-02363</span><br>
 
-All elements of <code>pOffsets</code> plus <code>pSizes</code>, where the
-<code>pSizes</code>, element is not <code>VK_WHOLE_SIZE</code>, <strong>must</strong> be less than or
-equal to the size of the corresponding buffer in <code>pBuffers</code></p>
+All elements of <code>pOffsets</code> plus the
+<a href="#transform-feedback-effective-size">effective size</a> of the element,
+<strong>must</strong> be less than or equal to the size of the corresponding buffer in
+<code>pBuffers</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02364" href="#VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02364"></a> <span class="vuid">VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02364</span><br>
@@ -774,7 +776,7 @@ Transform feedback <strong>must</strong> not be active when the
 </li>
 <li>
 <p><a id="VUID-vkCmdBindTransformFeedbackBuffersEXT-commandBuffer-cmdpool" href="#VUID-vkCmdBindTransformFeedbackBuffersEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBindTransformFeedbackBuffersEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindTransformFeedbackBuffersEXT-videocoding" href="#VUID-vkCmdBindTransformFeedbackBuffersEXT-videocoding"></a> <span class="vuid">VUID-vkCmdBindTransformFeedbackBuffersEXT-videocoding</span><br>
@@ -833,7 +835,7 @@ Transform feedback <strong>must</strong> not be active when the
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -979,9 +981,9 @@ If <code>pCounterBuffer</code> is <code>NULL</code>, then <code>pCounterBufferOf
 <p><a id="VUID-vkCmdBeginTransformFeedbackEXT-pCounterBuffers-02372" href="#VUID-vkCmdBeginTransformFeedbackEXT-pCounterBuffers-02372"></a> <span class="vuid">VUID-vkCmdBeginTransformFeedbackEXT-pCounterBuffers-02372</span><br>
 
 For each buffer handle in the <code>pCounterBuffers</code> array that is not
-<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> it <strong>must</strong> have been created with a <code>usage</code> value
-containing
-<code>VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT</code></p>
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> it <strong>must</strong> have been created with the
+<code>VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT</code> usage
+flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginTransformFeedbackEXT-firstCounterBuffer-09630" href="#VUID-vkCmdBeginTransformFeedbackEXT-firstCounterBuffer-09630"></a> <span class="vuid">VUID-vkCmdBeginTransformFeedbackEXT-firstCounterBuffer-09630</span><br>
@@ -1041,7 +1043,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginTransformFeedbackEXT-commandBuffer-cmdpool" href="#VUID-vkCmdBeginTransformFeedbackEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBeginTransformFeedbackEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginTransformFeedbackEXT-renderpass" href="#VUID-vkCmdBeginTransformFeedbackEXT-renderpass"></a> <span class="vuid">VUID-vkCmdBeginTransformFeedbackEXT-renderpass</span><br>
@@ -1100,7 +1102,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Inside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -1228,9 +1230,9 @@ If <code>pCounterBuffer</code> is <code>NULL</code>, then <code>pCounterBufferOf
 <p><a id="VUID-vkCmdEndTransformFeedbackEXT-pCounterBuffers-02380" href="#VUID-vkCmdEndTransformFeedbackEXT-pCounterBuffers-02380"></a> <span class="vuid">VUID-vkCmdEndTransformFeedbackEXT-pCounterBuffers-02380</span><br>
 
 For each buffer handle in the <code>pCounterBuffers</code> array that is not
-<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> it <strong>must</strong> have been created with a <code>usage</code> value
-containing
-<code>VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT</code></p>
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> it <strong>must</strong> have been created with the
+<code>VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT</code> usage
+flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEndTransformFeedbackEXT-None-10657" href="#VUID-vkCmdEndTransformFeedbackEXT-None-10657"></a> <span class="vuid">VUID-vkCmdEndTransformFeedbackEXT-None-10657</span><br>
@@ -1262,7 +1264,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEndTransformFeedbackEXT-commandBuffer-cmdpool" href="#VUID-vkCmdEndTransformFeedbackEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdEndTransformFeedbackEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEndTransformFeedbackEXT-renderpass" href="#VUID-vkCmdEndTransformFeedbackEXT-renderpass"></a> <span class="vuid">VUID-vkCmdEndTransformFeedbackEXT-renderpass</span><br>
@@ -1321,7 +1323,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Inside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -1538,7 +1540,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetViewportSwizzleNV-commandBuffer-cmdpool" href="#VUID-vkCmdSetViewportSwizzleNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetViewportSwizzleNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetViewportSwizzleNV-videocoding" href="#VUID-vkCmdSetViewportSwizzleNV-videocoding"></a> <span class="vuid">VUID-vkCmdSetViewportSwizzleNV-videocoding</span><br>
@@ -1593,7 +1595,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -1987,7 +1989,7 @@ If <code>provokingVertexMode</code> is
 </li>
 <li>
 <p><a id="VUID-vkCmdSetProvokingVertexModeEXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetProvokingVertexModeEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetProvokingVertexModeEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetProvokingVertexModeEXT-videocoding" href="#VUID-vkCmdSetProvokingVertexModeEXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetProvokingVertexModeEXT-videocoding</span><br>
@@ -2038,7 +2040,7 @@ If <code>provokingVertexMode</code> is
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -2227,7 +2229,7 @@ If the <a href="features.html#features-depthClamp" class="xref page"><code>depth
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthClampEnableEXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetDepthClampEnableEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDepthClampEnableEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthClampEnableEXT-videocoding" href="#VUID-vkCmdSetDepthClampEnableEXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetDepthClampEnableEXT-videocoding</span><br>
@@ -2278,7 +2280,7 @@ If the <a href="features.html#features-depthClamp" class="xref page"><code>depth
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -2379,7 +2381,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthClipEnableEXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetDepthClipEnableEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDepthClipEnableEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthClipEnableEXT-videocoding" href="#VUID-vkCmdSetDepthClipEnableEXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetDepthClipEnableEXT-videocoding</span><br>
@@ -2430,7 +2432,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -2488,12 +2490,10 @@ typedef enum VkPointClippingBehavior {
 } VkPointClippingBehavior;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPointClippingBehaviorKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance2
+// Equivalent to VkPointClippingBehavior
 typedef VkPointClippingBehavior VkPointClippingBehaviorKHR;</code></pre>
 </div>
 </div>
@@ -2708,7 +2708,7 @@ be enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthClipNegativeOneToOneEXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetDepthClipNegativeOneToOneEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDepthClipNegativeOneToOneEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthClipNegativeOneToOneEXT-videocoding" href="#VUID-vkCmdSetDepthClipNegativeOneToOneEXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetDepthClipNegativeOneToOneEXT-videocoding</span><br>
@@ -2759,7 +2759,7 @@ be enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -3001,7 +3001,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetViewportWScalingEnableNV-commandBuffer-cmdpool" href="#VUID-vkCmdSetViewportWScalingEnableNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetViewportWScalingEnableNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetViewportWScalingEnableNV-videocoding" href="#VUID-vkCmdSetViewportWScalingEnableNV-videocoding"></a> <span class="vuid">VUID-vkCmdSetViewportWScalingEnableNV-videocoding</span><br>
@@ -3052,7 +3052,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -3155,7 +3155,7 @@ The sum of <code>firstViewport</code> and <code>viewportCount</code> <strong>mus
 </li>
 <li>
 <p><a id="VUID-vkCmdSetViewportWScalingNV-commandBuffer-cmdpool" href="#VUID-vkCmdSetViewportWScalingNV-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetViewportWScalingNV-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetViewportWScalingNV-videocoding" href="#VUID-vkCmdSetViewportWScalingNV-videocoding"></a> <span class="vuid">VUID-vkCmdSetViewportWScalingNV-videocoding</span><br>
@@ -3210,7 +3210,7 @@ The sum of <code>firstViewport</code> and <code>viewportCount</code> <strong>mus
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -3615,12 +3615,10 @@ void vkCmdSetViewportWithCount(
     const VkViewport*                           pViewports);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdSetViewportWithCountEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetViewportWithCount
 void vkCmdSetViewportWithCountEXT(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    viewportCount,
@@ -3720,7 +3718,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetViewportWithCount-commandBuffer-cmdpool" href="#VUID-vkCmdSetViewportWithCount-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetViewportWithCount-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetViewportWithCount-videocoding" href="#VUID-vkCmdSetViewportWithCount-videocoding"></a> <span class="vuid">VUID-vkCmdSetViewportWithCount-videocoding</span><br>
@@ -3775,7 +3773,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -3807,12 +3805,10 @@ void vkCmdSetScissorWithCount(
     const VkRect2D*                             pScissors);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdSetScissorWithCountEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetScissorWithCount
 void vkCmdSetScissorWithCountEXT(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    scissorCount,
@@ -3932,7 +3928,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetScissorWithCount-commandBuffer-cmdpool" href="#VUID-vkCmdSetScissorWithCount-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetScissorWithCount-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetScissorWithCount-videocoding" href="#VUID-vkCmdSetScissorWithCount-videocoding"></a> <span class="vuid">VUID-vkCmdSetScissorWithCount-videocoding</span><br>
@@ -3987,7 +3983,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -4148,7 +4144,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetViewport-commandBuffer-cmdpool" href="#VUID-vkCmdSetViewport-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetViewport-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetViewport-videocoding" href="#VUID-vkCmdSetViewport-videocoding"></a> <span class="vuid">VUID-vkCmdSetViewport-videocoding</span><br>
@@ -4203,7 +4199,7 @@ enabled</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>

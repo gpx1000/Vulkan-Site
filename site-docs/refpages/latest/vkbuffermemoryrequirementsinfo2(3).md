@@ -28,9 +28,8 @@ typedef struct VkBufferMemoryRequirementsInfo2 {
     VkBuffer           buffer;
 } VkBufferMemoryRequirementsInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_memory_requirements2
+// Equivalent to VkBufferMemoryRequirementsInfo2
 typedef VkBufferMemoryRequirementsInfo2 VkBufferMemoryRequirementsInfo2KHR;
 
 * 
@@ -60,7 +59,7 @@ Valid Usage (Implicit)
 
  `buffer` **must** be a valid [VkBuffer](VkBuffer.html) handle
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkBuffer](VkBuffer.html), [VkStructureType](VkStructureType.html), [vkGetBufferMemoryRequirements2](vkGetBufferMemoryRequirements2.html), [vkGetBufferMemoryRequirements2](vkGetBufferMemoryRequirements2.html)
+[VK_KHR_get_memory_requirements2](VK_KHR_get_memory_requirements2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkBuffer](VkBuffer.html), [VkStructureType](VkStructureType.html), [vkGetBufferMemoryRequirements2](vkGetBufferMemoryRequirements2.html), [vkGetBufferMemoryRequirements2](vkGetBufferMemoryRequirements2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/resources.html#VkBufferMemoryRequirementsInfo2).
 

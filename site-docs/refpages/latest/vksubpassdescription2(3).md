@@ -21,7 +21,7 @@ VkSubpassDescription2 - Structure specifying a subpass description
 
 The `VkSubpassDescription2` structure is defined as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -41,9 +41,8 @@ typedef struct VkSubpassDescription2 {
     const uint32_t*                  pPreserveAttachments;
 } VkSubpassDescription2;
 
-or the equivalent
-
 // Provided by VK_KHR_create_renderpass2
+// Equivalent to VkSubpassDescription2
 typedef VkSubpassDescription2 VkSubpassDescription2KHR;
 
 * 
@@ -203,7 +202,7 @@ If the `attachment` member of an element of
 [](#VUID-VkSubpassDescription2-attachment-06915) VUID-VkSubpassDescription2-attachment-06915
 
 If the `attachment` member of `pDepthStencilAttachment` is not
-`VK_ATTACHMENT_UNUSED`, ts `layout` member **must** not be
+`VK_ATTACHMENT_UNUSED`, its `layout` member **must** not be
 `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL` or
 `VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL`
 
@@ -570,8 +569,8 @@ than [`maxMultiviewViewCount`](../../../../spec/latest/chapters/devsandqueues.ht
 If the [`externalFormatResolve`](../../../../spec/latest/chapters/features.html#features-externalFormatResolve)
 feature is enabled, `pResolveAttachments` is not `NULL`, and
 `colorAttachmentCount` is not `1`, any element of
-`pResolveAttachments` that is not `VK_ATTACHMENT_UNUSED`, **must** not
-have a format of `VK_FORMAT_UNDEFINED`
+`pResolveAttachments` that is not `VK_ATTACHMENT_UNUSED`, **must**
+not have a format of `VK_FORMAT_UNDEFINED`
 
 [](#VUID-VkSubpassDescription2-externalFormatResolve-09345) VUID-VkSubpassDescription2-externalFormatResolve-09345
 
@@ -614,21 +613,21 @@ attachment used in this subpass **must** not include
 [](#VUID-VkSubpassDescription2-flags-04907) VUID-VkSubpassDescription2-flags-04907
 
 If `flags` includes
-`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM`, and if
+`VK_SUBPASS_DESCRIPTION_CUSTOM_RESOLVE_BIT_EXT`, and if
 `pResolveAttachments` is not `NULL`, then each resolve attachment
 **must** be `VK_ATTACHMENT_UNUSED`
 
 [](#VUID-VkSubpassDescription2-flags-04908) VUID-VkSubpassDescription2-flags-04908
 
 If `flags` includes
-`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM`, and if
+`VK_SUBPASS_DESCRIPTION_CUSTOM_RESOLVE_BIT_EXT`, and if
 `pDepthStencilResolveAttachment` is not `NULL`, then the
 depth/stencil resolve attachment **must** be `VK_ATTACHMENT_UNUSED`
 
 [](#VUID-VkSubpassDescription2-flags-04909) VUID-VkSubpassDescription2-flags-04909
 
 If `flags` includes
-`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM`, then the subpass
+`VK_SUBPASS_DESCRIPTION_CUSTOM_RESOLVE_BIT_EXT`, then the subpass
 **must** be the last subpass in a subpass dependency chain
 
 Valid Usage (Implicit)

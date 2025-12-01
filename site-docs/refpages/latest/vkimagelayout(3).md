@@ -154,7 +154,7 @@ image/sampler, or input attachment.
 `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL` **must** only be used as a
 color or resolve attachment in a `VkFramebuffer`.
 This layout is valid only for image subresources of images created with
-the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` usage bit enabled.
+the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` usage flag set.
 
 * 
 `VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL` specifies a
@@ -224,13 +224,13 @@ the `VK_IMAGE_USAGE_SAMPLED_BIT` or
 source image of a transfer command (see the definition of
 [    `VK_PIPELINE_STAGE_TRANSFER_BIT`](../../../../spec/latest/chapters/synchronization.html#synchronization-pipeline-stages-transfer)).
 This layout is valid only for image subresources of images created with
-the `VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage bit enabled.
+the `VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag set.
 
 * 
 `VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL` **must** only be used as a
 destination image of a transfer command.
 This layout is valid only for image subresources of images created with
-the `VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage bit enabled.
+the `VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag set.
 
 * 
 `VK_IMAGE_LAYOUT_PRESENT_SRC_KHR` **must** only be used for presenting
@@ -248,20 +248,20 @@ or
     [shading rate image](../../../../spec/latest/chapters/primsrast.html#primsrast-shading-rate-image).
     This layout is valid only for image subresources of images created with
     the `VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` usage
-    bit enabled.
+    flag set.
 
 * 
 `VK_IMAGE_LAYOUT_FRAGMENT_DENSITY_MAP_OPTIMAL_EXT` **must** only be
 used as a fragment density map attachment in a `VkRenderPass`.
 This layout is valid only for image subresources of images created with
-the `VK_IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT` usage bit enabled.
+the `VK_IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT` usage flag set.
 
 * 
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR` **must** only be used as a
 [decode output picture](../../../../spec/latest/chapters/videocoding.html#decode-output-picture) in a
 [video decode operation](../../../../spec/latest/chapters/videocoding.html#video-decode-operations).
 This layout is valid only for image subresources of images created with
-the `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` usage bit enabled.
+the `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` usage flag set.
 
 * 
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_SRC_KHR` is reserved for future use.
@@ -271,7 +271,7 @@ the `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` usage bit enabled.
 output [reconstructed picture](../../../../spec/latest/chapters/videocoding.html#reconstructed-picture) or an input
 [reference picture](../../../../spec/latest/chapters/videocoding.html#reference-picture) in a [    video decode operation](../../../../spec/latest/chapters/videocoding.html#video-decode-operations).
 This layout is valid only for image subresources of images created with
-the `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` usage bit enabled.
+the `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` usage flag set.
 
 * 
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_DST_KHR` is reserved for future use.
@@ -281,14 +281,14 @@ the `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` usage bit enabled.
 [encode input picture](../../../../spec/latest/chapters/videocoding.html#encode-input-picture) in a
 [video encode operation](../../../../spec/latest/chapters/videocoding.html#video-encode-operations).
 This layout is valid only for image subresources of images created with
-the `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR` usage bit enabled.
+the `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR` usage flag set.
 
 * 
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR` **must** only be used as an
 output [reconstructed picture](../../../../spec/latest/chapters/videocoding.html#reconstructed-picture) or an input
 [reference picture](../../../../spec/latest/chapters/videocoding.html#reference-picture) in a [    video encode operation](../../../../spec/latest/chapters/videocoding.html#video-encode-operations).
 This layout is valid only for image subresources of images created with
-the `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR` usage bit enabled.
+the `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR` usage flag set.
 
 * 
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` **must** only be
@@ -296,21 +296,21 @@ used as either a color attachment or depth/stencil attachment and/or
 read-only access in a shader as a sampled image, combined image/sampler,
 or input attachment.
 This layout is valid only for image subresources of images created with
-the `VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT` usage bit
-enabled and either the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` and either the
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_SAMPLED_BIT` usage bits enabled.
+the `VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT` usage flag
+set, and either the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flags set, and
+either the `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flags set
 
 * 
 `VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ` **must** only be used as either
 a storage image, or a color or depth/stencil attachment and an input
 attachment.
 This layout is valid only for image subresources of images created with
-either `VK_IMAGE_USAGE_STORAGE_BIT`, or both
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` and either of
+either the `VK_IMAGE_USAGE_STORAGE_BIT` usage flag set, or both the
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` and either of the
 `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`.
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flags set.
 
 * 
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR` **must** only be
@@ -318,8 +318,7 @@ used as a [quantization map](../../../../spec/latest/chapters/videocoding.html#e
 [video encode operation](../../../../spec/latest/chapters/videocoding.html#video-encode-operations).
 This layout is valid only for image subresources of images created with
 the `VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR` or
-`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` usage bit
-enabled.
+`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` usage flags set.
 
 * 
 `VK_IMAGE_LAYOUT_TENSOR_ALIASING_ARM` specifies the layout that an
@@ -329,7 +328,7 @@ interpret the data in memory.
 See [Memory Aliasing](../../../../spec/latest/chapters/resources.html#resources-memory-aliasing) for a complete set of rules for
 tensor/image aliasing.
 This layout is valid only for image subresources of images created with
-`VK_IMAGE_USAGE_TENSOR_ALIASING_BIT_ARM`.
+the `VK_IMAGE_USAGE_TENSOR_ALIASING_BIT_ARM` usage flag set.
 
 The layout of each image subresource is not a state of the image subresource
 itself, but is rather a property of how the data in memory is organized, and
@@ -391,7 +390,7 @@ For example, when a subresource is used as both an attachment and a sampled
 image (i.e., not an input attachment), [enabling feedback loop](../../../../spec/latest/chapters/renderpass.html#renderpass-feedbackloop) adds extra guarantees which `VK_IMAGE_LAYOUT_GENERAL`
 alone does not. |
 
-[VK_VERSION_1_0](VK_VERSION_1_0.html), [VkAttachmentDescription](VkAttachmentDescription.html), [VkAttachmentDescription2](VkAttachmentDescription2.html), [VkAttachmentDescriptionStencilLayout](VkAttachmentDescriptionStencilLayout.html), [VkAttachmentReference](VkAttachmentReference.html), [VkAttachmentReference2](VkAttachmentReference2.html), [VkAttachmentReferenceStencilLayout](VkAttachmentReferenceStencilLayout.html), [VkBlitImageInfo2](VkBlitImageInfo2.html), [VkCopyBufferToImageInfo2](VkCopyBufferToImageInfo2.html), [VkCopyImageInfo2](VkCopyImageInfo2.html), [VkCopyImageToBufferInfo2](VkCopyImageToBufferInfo2.html), [VkCopyImageToImageInfo](VkCopyImageToImageInfo.html), [VkCopyImageToMemoryInfo](VkCopyImageToMemoryInfo.html), [VkCopyMemoryToImageInfo](VkCopyMemoryToImageInfo.html), [VkDescriptorImageInfo](VkDescriptorImageInfo.html), [VkHostImageLayoutTransitionInfo](VkHostImageLayoutTransitionInfo.html), [VkImageCreateInfo](VkImageCreateInfo.html), [VkImageMemoryBarrier](VkImageMemoryBarrier.html), [VkImageMemoryBarrier2](VkImageMemoryBarrier2.html), [VkPhysicalDeviceHostImageCopyProperties](VkPhysicalDeviceHostImageCopyProperties.html), [VkPhysicalDeviceVulkan14Properties](VkPhysicalDeviceVulkan14Properties.html), [VkRenderingAttachmentInfo](VkRenderingAttachmentInfo.html), [VkRenderingFragmentDensityMapAttachmentInfoEXT](VkRenderingFragmentDensityMapAttachmentInfoEXT.html), [VkRenderingFragmentShadingRateAttachmentInfoKHR](VkRenderingFragmentShadingRateAttachmentInfoKHR.html), [VkResolveImageInfo2](VkResolveImageInfo2.html), [vkBindOpticalFlowSessionImageNV](vkBindOpticalFlowSessionImageNV.html), [vkCmdBindInvocationMaskHUAWEI](vkCmdBindInvocationMaskHUAWEI.html), [vkCmdBindShadingRateImageNV](vkCmdBindShadingRateImageNV.html), [vkCmdBlitImage](vkCmdBlitImage.html), [vkCmdClearColorImage](vkCmdClearColorImage.html), [vkCmdClearDepthStencilImage](vkCmdClearDepthStencilImage.html), [vkCmdCopyBufferToImage](vkCmdCopyBufferToImage.html), [vkCmdCopyImage](vkCmdCopyImage.html), [vkCmdCopyImageToBuffer](vkCmdCopyImageToBuffer.html), [vkCmdCopyMemoryToImageIndirectNV](vkCmdCopyMemoryToImageIndirectNV.html), [vkCmdResolveImage](vkCmdResolveImage.html)
+[VK_VERSION_1_0](VK_VERSION_1_0.html), [VkAttachmentDescription](VkAttachmentDescription.html), [VkAttachmentDescription2](VkAttachmentDescription2.html), [VkAttachmentDescriptionStencilLayout](VkAttachmentDescriptionStencilLayout.html), [VkAttachmentReference](VkAttachmentReference.html), [VkAttachmentReference2](VkAttachmentReference2.html), [VkAttachmentReferenceStencilLayout](VkAttachmentReferenceStencilLayout.html), [VkBlitImageInfo2](VkBlitImageInfo2.html), [VkCopyBufferToImageInfo2](VkCopyBufferToImageInfo2.html), [VkCopyImageInfo2](VkCopyImageInfo2.html), [VkCopyImageToBufferInfo2](VkCopyImageToBufferInfo2.html), [VkCopyImageToImageInfo](VkCopyImageToImageInfo.html), [VkCopyImageToMemoryInfo](VkCopyImageToMemoryInfo.html), [VkCopyMemoryToImageIndirectInfoKHR](VkCopyMemoryToImageIndirectInfoKHR.html), [VkCopyMemoryToImageInfo](VkCopyMemoryToImageInfo.html), [VkDescriptorImageInfo](VkDescriptorImageInfo.html), [VkHostImageLayoutTransitionInfo](VkHostImageLayoutTransitionInfo.html), [VkImageCreateInfo](VkImageCreateInfo.html), [VkImageMemoryBarrier](VkImageMemoryBarrier.html), [VkImageMemoryBarrier2](VkImageMemoryBarrier2.html), [VkPhysicalDeviceHostImageCopyProperties](VkPhysicalDeviceHostImageCopyProperties.html), [VkPhysicalDeviceVulkan14Properties](VkPhysicalDeviceVulkan14Properties.html), [VkRenderingAttachmentInfo](VkRenderingAttachmentInfo.html), [VkRenderingFragmentDensityMapAttachmentInfoEXT](VkRenderingFragmentDensityMapAttachmentInfoEXT.html), [VkRenderingFragmentShadingRateAttachmentInfoKHR](VkRenderingFragmentShadingRateAttachmentInfoKHR.html), [VkResolveImageInfo2](VkResolveImageInfo2.html), [vkBindOpticalFlowSessionImageNV](vkBindOpticalFlowSessionImageNV.html), [vkCmdBindInvocationMaskHUAWEI](vkCmdBindInvocationMaskHUAWEI.html), [vkCmdBindShadingRateImageNV](vkCmdBindShadingRateImageNV.html), [vkCmdBlitImage](vkCmdBlitImage.html), [vkCmdClearColorImage](vkCmdClearColorImage.html), [vkCmdClearDepthStencilImage](vkCmdClearDepthStencilImage.html), [vkCmdCopyBufferToImage](vkCmdCopyBufferToImage.html), [vkCmdCopyImage](vkCmdCopyImage.html), [vkCmdCopyImageToBuffer](vkCmdCopyImageToBuffer.html), [vkCmdCopyMemoryToImageIndirectNV](vkCmdCopyMemoryToImageIndirectNV.html), [vkCmdResolveImage](vkCmdResolveImage.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/resources.html#VkImageLayout).
 

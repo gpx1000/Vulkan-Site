@@ -67,7 +67,8 @@ of `VK_FORMAT_R8_UINT`
 [](#VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04979) VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04979
 
 If `imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), it **must** have been
-created with `VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI` set
+created with the `VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI` usage
+flag set
 
 * 
 [](#VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04980) VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04980
@@ -118,7 +119,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindInvocationMaskHUAWEI-commandBuffer-cmdpool) VUID-vkCmdBindInvocationMaskHUAWEI-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdBindInvocationMaskHUAWEI-renderpass) VUID-vkCmdBindInvocationMaskHUAWEI-renderpass
@@ -148,7 +149,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | State |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | State |
 
 Conditional Rendering
 

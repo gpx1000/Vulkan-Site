@@ -35,9 +35,8 @@ typedef struct VkRenderingInfo {
     const VkRenderingAttachmentInfo*    pStencilAttachment;
 } VkRenderingInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_dynamic_rendering, VK_QCOM_tile_properties with VK_KHR_dynamic_rendering or VK_VERSION_1_3
+// Equivalent to VkRenderingInfo
 typedef VkRenderingInfo VkRenderingInfoKHR;
 
 * 
@@ -214,7 +213,7 @@ the sum of `renderArea.extent.height` and `renderArea.offset.y`
 If the `pNext` chain does not contain
 [VkDeviceGroupRenderPassBeginInfo](VkDeviceGroupRenderPassBeginInfo.html) or its
 `deviceRenderAreaCount` member is equal to 0,
-the width of the `imageView` member of any element of
+the width of the `imageView` member of each element of
 `pColorAttachments`, `pDepthAttachment`, or
 `pStencilAttachment` that is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html) **must** be
 greater than or equal to `renderArea.offset.x` + 
@@ -225,7 +224,7 @@ greater than or equal to `renderArea.offset.x` +
 If the `pNext` chain does not contain
 [VkDeviceGroupRenderPassBeginInfo](VkDeviceGroupRenderPassBeginInfo.html) or its
 `deviceRenderAreaCount` member is equal to 0,
-the height of the `imageView` member of any element of
+the height of the `imageView` member of each element of
 `pColorAttachments`, `pDepthAttachment`, or
 `pStencilAttachment` that is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html) **must** be
 greater than or equal to `renderArea.offset.y` + 
@@ -269,8 +268,8 @@ structure **must** be the same
 
 If `colorAttachmentCount` is not `0` and the `imageView` member
 of an element of `pColorAttachments` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html),
-that `imageView` **must** have been created with
-`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT`
+that `imageView` **must** have been created with the
+`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` usage flag set
 
 [](#VUID-VkRenderingInfo-colorAttachmentCount-09476) VUID-VkRenderingInfo-colorAttachmentCount-09476
 
@@ -281,7 +280,8 @@ either its `resolveMode` member set to
 its `imageView` member not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), and its
 `resolveMode` member not set to `VK_RESOLVE_MODE_NONE`, the
 `resolveImageView` member of that element of `pColorAttachments`
-**must** have been created with `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT`
+**must** have been created with the
+`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` usage flag set
 
 [](#VUID-VkRenderingInfo-pDepthAttachment-06547) VUID-VkRenderingInfo-pDepthAttachment-06547
 
@@ -294,15 +294,15 @@ that includes a depth component
 
 If `pDepthAttachment` is not `NULL` and
 `pDepthAttachment->imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html),
-`pDepthAttachment->imageView` **must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+`pDepthAttachment->imageView` **must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 [](#VUID-VkRenderingInfo-pDepthAttachment-09477) VUID-VkRenderingInfo-pDepthAttachment-09477
 
 If `pDepthAttachment` is not `NULL` and
 `pDepthAttachment->resolveMode` is not `VK_RESOLVE_MODE_NONE`,
 `pDepthAttachment->resolveImageView` **must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+the `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 [](#VUID-VkRenderingInfo-pStencilAttachment-06548) VUID-VkRenderingInfo-pStencilAttachment-06548
 
@@ -315,16 +315,15 @@ format that includes a stencil aspect
 
 If `pStencilAttachment` is not `NULL` and
 `pStencilAttachment->imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html),
-`pStencilAttachment->imageView` **must** have been created with a
-stencil usage including
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+`pStencilAttachment->imageView` **must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 [](#VUID-VkRenderingInfo-pStencilAttachment-09478) VUID-VkRenderingInfo-pStencilAttachment-09478
 
 If `pStencilAttachment` is not `NULL` and
 `pStencilAttachment->resolveMode` is not `VK_RESOLVE_MODE_NONE`,
 `pStencilAttachment->resolveImageView` **must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+the `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 [](#VUID-VkRenderingInfo-colorAttachmentCount-06090) VUID-VkRenderingInfo-colorAttachmentCount-06090
 
@@ -364,6 +363,26 @@ If `pStencilAttachment` is not `NULL` and
 `pStencilAttachment->imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html),
 `pStencilAttachment->layout` **must** not be
 `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL`
+
+[](#VUID-VkRenderingInfo-flags-11514) VUID-VkRenderingInfo-flags-11514
+
+If `flags` contains `VK_RENDERING_CUSTOM_RESOLVE_BIT_EXT` or
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, then the
+[`customResolve`](../../../../spec/latest/chapters/features.html#features-customResolve) feature **must** enabled
+
+[](#VUID-VkRenderingInfo-pColorAttachments-11515) VUID-VkRenderingInfo-pColorAttachments-11515
+
+For any element of `pColorAttachments`, `pDepthAttachment`, or
+`pStencilAttachment`, if `resolveMode` contains
+`VK_RESOLVE_MODE_CUSTOM_BIT_EXT`, then `flags` **must** contain
+`VK_RENDERING_CUSTOM_RESOLVE_BIT_EXT`
+
+[](#VUID-VkRenderingInfo-flags-11516) VUID-VkRenderingInfo-flags-11516
+
+If `flags` contains `VK_RENDERING_CUSTOM_RESOLVE_BIT_EXT`, then
+for any element of `pColorAttachments`, `pDepthAttachment`, or
+`pStencilAttachment`, `resolveMode` **must** be
+`VK_RESOLVE_MODE_CUSTOM_BIT_EXT` or `VK_RESOLVE_MODE_NONE`
 
 [](#VUID-VkRenderingInfo-pStencilAttachment-06095) VUID-VkRenderingInfo-pStencilAttachment-06095
 
@@ -896,7 +915,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkRenderingInfo-pNext-pNext) VUID-VkRenderingInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDeviceGroupRenderPassBeginInfo](VkDeviceGroupRenderPassBeginInfo.html), [VkMultisampledRenderToSingleSampledInfoEXT](VkMultisampledRenderToSingleSampledInfoEXT.html), [VkMultiviewPerViewAttributesInfoNVX](VkMultiviewPerViewAttributesInfoNVX.html), [VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM](VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM.html), [VkRenderPassStripeBeginInfoARM](VkRenderPassStripeBeginInfoARM.html), [VkRenderPassTileShadingCreateInfoQCOM](VkRenderPassTileShadingCreateInfoQCOM.html), [VkRenderingFragmentDensityMapAttachmentInfoEXT](VkRenderingFragmentDensityMapAttachmentInfoEXT.html), [VkRenderingFragmentShadingRateAttachmentInfoKHR](VkRenderingFragmentShadingRateAttachmentInfoKHR.html), or [VkTileMemorySizeInfoQCOM](VkTileMemorySizeInfoQCOM.html)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDeviceGroupRenderPassBeginInfo](VkDeviceGroupRenderPassBeginInfo.html), [VkMultisampledRenderToSingleSampledInfoEXT](VkMultisampledRenderToSingleSampledInfoEXT.html), [VkMultiviewPerViewAttributesInfoNVX](VkMultiviewPerViewAttributesInfoNVX.html), [VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM](VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM.html), [VkRenderPassPerformanceCountersByRegionBeginInfoARM](VkRenderPassPerformanceCountersByRegionBeginInfoARM.html), [VkRenderPassStripeBeginInfoARM](VkRenderPassStripeBeginInfoARM.html), [VkRenderPassTileShadingCreateInfoQCOM](VkRenderPassTileShadingCreateInfoQCOM.html), [VkRenderingFragmentDensityMapAttachmentInfoEXT](VkRenderingFragmentDensityMapAttachmentInfoEXT.html), [VkRenderingFragmentShadingRateAttachmentInfoKHR](VkRenderingFragmentShadingRateAttachmentInfoKHR.html), or [VkTileMemorySizeInfoQCOM](VkTileMemorySizeInfoQCOM.html)
 
 * 
 [](#VUID-VkRenderingInfo-sType-unique) VUID-VkRenderingInfo-sType-unique

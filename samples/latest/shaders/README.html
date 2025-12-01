@@ -312,6 +312,9 @@
     <a class="nav-link" href="../samples/extensions/extended_dynamic_state2/README.html">Extended dynamic state2</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../samples/extensions/fragment_density_map/README.html">Fragment density map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../samples/extensions/fragment_shader_barycentric/README.html">Fragment shader barycentric</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -397,6 +400,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../samples/extensions/synchronization_2/README.html">Synchronization 2</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../samples/extensions/tensor_and_data_graph/README.html">Tensor and Data Graph</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../samples/extensions/tensor_and_data_graph/simple_tensor_and_data_graph/README.html">Simple Tensor and Data Graph</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../samples/extensions/timeline_semaphore/README.html">Timeline semaphore</a>
@@ -535,6 +547,9 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Samples" target="_blank" rel="noopener">GitHub Repository</a></span>
+  </li>
 </ul>
   </li>
 </ul>
@@ -628,7 +643,7 @@
 <h2 id="_shader_languages"><a class="anchor" href="#_shader_languages"></a>Shader languages</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This folder contains the textual shaders for the samples. All samples come with GLSL shaders and some optionally with HLSL shaders. For samples that support both shader language this is a good way to compare GLSL to HLSL syntax when targeting SPIR-V for Vulkan.</p>
+<p>This folder contains the textual shaders for the samples. All samples come with GLSL shaders and some optionally with Slang and HLSL shaders. For samples that support multiple shader languages, this is a good way to compare the syntax differences when targeting SPIR-V for Vulkan.</p>
 </div>
 </div>
 </div>
@@ -636,7 +651,18 @@
 <h2 id="_compiling_shaders"><a class="anchor" href="#_compiling_shaders"></a>Compiling shaders</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The samples load offline compiled SPIR-V variants of the GLSL/HLSL shaders. If you have the appropriate compiler installed, e.g. via the LunarG VUlkan SDK, shaders will be automatically compiled when building the samples project.</p>
+<p>The samples load offline compiled SPIR-V variants of the GLSL/Slang/HLSL shaders. If you have the appropriate compiler installed, e.g. via the LunarG VUlkan SDK, shaders will be automatically compiled when building the samples project.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note for compiling Slang shaders</strong>:  The minimum required version of the Slang compiler is <code>2025.16.1</code>. Older versions might have issues compiling shaders or may result in invalid SPIR-V. It&#8217;s advised to use the latest version from <a href="https://github.com/shader-slang/slang/releases">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_selecting_shading_language"><a class="anchor" href="#_selecting_shading_language"></a>Selecting shading language</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To select a shading language, use the <code>--shading-language</code> argument followed by the shading language <code>glsl</code>, <code>slang</code> or <code>hlsl</code>. Samples default to <code>glsl</code>.</p>
 </div>
 </div>
 </div>
@@ -653,6 +679,9 @@
 </li>
 <li>
 <p><a href="../../../guide/latest/high_level_shader_language_comparison.html" class="xref page">High level shading language comparison</a></p>
+</li>
+<li>
+<p><a href="https://shader-slang.org/docs/">Slang shading language documentation</a></p>
 </li>
 </ul>
 </div>

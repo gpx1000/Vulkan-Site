@@ -21,7 +21,7 @@ VkSubpassDependency2 - Structure specifying a subpass dependency
 
 The `VkSubpassDependency2` structure is defined as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -38,9 +38,8 @@ typedef struct VkSubpassDependency2 {
     int32_t                 viewOffset;
 } VkSubpassDependency2;
 
-or the equivalent
-
 // Provided by VK_KHR_create_renderpass2
+// Equivalent to VkSubpassDependency2
 typedef VkSubpassDependency2 VkSubpassDependency2KHR;
 
 * 

@@ -26,6 +26,10 @@ typedef enum VkTimeDomainKHR {
     VK_TIME_DOMAIN_CLOCK_MONOTONIC_KHR = 1,
     VK_TIME_DOMAIN_CLOCK_MONOTONIC_RAW_KHR = 2,
     VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_KHR = 3,
+  // Provided by VK_EXT_present_timing
+    VK_TIME_DOMAIN_PRESENT_STAGE_LOCAL_EXT = 1000208000,
+  // Provided by VK_EXT_present_timing
+    VK_TIME_DOMAIN_SWAPCHAIN_LOCAL_EXT = 1000208001,
   // Provided by VK_EXT_calibrated_timestamps
     VK_TIME_DOMAIN_DEVICE_EXT = VK_TIME_DOMAIN_DEVICE_KHR,
   // Provided by VK_EXT_calibrated_timestamps
@@ -36,9 +40,8 @@ typedef enum VkTimeDomainKHR {
     VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_EXT = VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_KHR,
 } VkTimeDomainKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_calibrated_timestamps
+// Equivalent to VkTimeDomainKHR
 typedef VkTimeDomainKHR VkTimeDomainEXT;
 
 * 
@@ -49,6 +52,19 @@ comparable with device timestamp values captured using
 or [vkCmdWriteTimestamp2](vkCmdWriteTimestamp2.html)
 and are defined to be incrementing according to the
 [`timestampPeriod`](../../../../spec/latest/chapters/limits.html#limits-timestampPeriod) of the device.
+
+* 
+`VK_TIME_DOMAIN_PRESENT_STAGE_LOCAL_EXT` specifies a time domain
+unique to a particular swapchain and a specific present stage.
+Timestamp values in this time domain are in units of nanosecond and are
+comparable only with other values from the same swapchain and present
+stage.
+
+* 
+`VK_TIME_DOMAIN_SWAPCHAIN_LOCAL_EXT` specifies a time domain unique
+to a particular swapchain.
+Timestamp values in this time domain are in units of nanosecond and are
+comparable only with other values from the same swapchain.
 
 * 
 `VK_TIME_DOMAIN_CLOCK_MONOTONIC_KHR` specifies the CLOCK_MONOTONIC
@@ -95,7 +111,7 @@ LARGE_INTEGER counter;
 QueryPerformanceCounter(&counter);
 return counter.QuadPart;
 
-[VK_EXT_calibrated_timestamps](VK_EXT_calibrated_timestamps.html), [VK_KHR_calibrated_timestamps](VK_KHR_calibrated_timestamps.html), [VkCalibratedTimestampInfoKHR](VkCalibratedTimestampInfoKHR.html), [vkGetPhysicalDeviceCalibrateableTimeDomainsKHR](vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html), [vkGetPhysicalDeviceCalibrateableTimeDomainsKHR](vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html)
+[VK_EXT_calibrated_timestamps](VK_EXT_calibrated_timestamps.html), [VK_KHR_calibrated_timestamps](VK_KHR_calibrated_timestamps.html), [VkCalibratedTimestampInfoKHR](VkCalibratedTimestampInfoKHR.html), [VkPastPresentationTimingEXT](VkPastPresentationTimingEXT.html), [VkSwapchainTimeDomainPropertiesEXT](VkSwapchainTimeDomainPropertiesEXT.html), [vkGetPhysicalDeviceCalibrateableTimeDomainsKHR](vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html), [vkGetPhysicalDeviceCalibrateableTimeDomainsKHR](vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/synchronization.html#VkTimeDomainKHR).
 

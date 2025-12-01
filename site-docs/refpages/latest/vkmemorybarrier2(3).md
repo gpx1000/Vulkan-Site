@@ -31,9 +31,8 @@ typedef struct VkMemoryBarrier2 {
     VkAccessFlags2           dstAccessMask;
 } VkMemoryBarrier2;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkMemoryBarrier2
 typedef VkMemoryBarrier2 VkMemoryBarrier2KHR;
 
 * 
@@ -181,6 +180,7 @@ If `srcAccessMask` includes
 `VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT`, `srcStageMask` **must**
 include `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`,
 `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR`,
 `VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT`, or
 `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT`
 
@@ -568,6 +568,22 @@ If `srcAccessMask` includes
 `VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
+[](#VUID-VkMemoryBarrier2-srcAccessMask-11771) VUID-VkMemoryBarrier2-srcAccessMask-11771
+
+If `srcAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_READ_BIT_EXT`,
+`srcStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
+[](#VUID-VkMemoryBarrier2-srcAccessMask-11772) VUID-VkMemoryBarrier2-srcAccessMask-11772
+
+If `srcAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_WRITE_BIT_EXT`,
+`srcStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
 [](#VUID-VkMemoryBarrier2-dstStageMask-03929) VUID-VkMemoryBarrier2-dstStageMask-03929
 
 If the [`geometryShader`](../../../../spec/latest/chapters/features.html#features-geometryShader) feature is not
@@ -675,6 +691,7 @@ If `dstAccessMask` includes
 `VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT`, `dstStageMask` **must**
 include `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`,
 `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
+`VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR`,
 `VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT`, or
 `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT`
 
@@ -1060,6 +1077,22 @@ If `dstAccessMask` includes
 `dstStageMask` **must** include
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
 `VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
+
+* 
+[](#VUID-VkMemoryBarrier2-dstAccessMask-11771) VUID-VkMemoryBarrier2-dstAccessMask-11771
+
+If `dstAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_READ_BIT_EXT`,
+`dstStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
+
+* 
+[](#VUID-VkMemoryBarrier2-dstAccessMask-11772) VUID-VkMemoryBarrier2-dstAccessMask-11772
+
+If `dstAccessMask` includes
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_WRITE_BIT_EXT`,
+`dstStageMask` **must** include
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT`
 
 Valid Usage (Implicit)
 

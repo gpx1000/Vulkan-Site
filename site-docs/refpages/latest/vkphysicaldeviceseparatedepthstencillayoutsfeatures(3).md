@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures {
     VkBool32           separateDepthStencilLayouts;
 } VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_separate_depth_stencil_layouts
+// Equivalent to VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures
 typedef VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR;
 
 This structure describes the following feature:

@@ -329,6 +329,13 @@ command and the bound [VkPipeline](VkPipeline.html) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
 
 * 
+[](#VUID-vkCmdDispatchGraphIndirectCountAMDX-imageLayout-00344) VUID-vkCmdDispatchGraphIndirectCountAMDX-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](VkImageLayout.html)
+**must** match the subresource accessible from the [VkImageView](VkImageView.html) as
+defined by the [image layout    matching rules](../../../../spec/latest/chapters/resources.html#resources-image-layouts-matching-rule)
+
+* 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-None-08115) VUID-vkCmdDispatchGraphIndirectCountAMDX-None-08115
 
 If the descriptors used by the [VkPipeline](VkPipeline.html) bound to the pipeline
@@ -736,7 +743,7 @@ graph pipeline
 `scratch` **must** be a device address within a [VkBuffer](VkBuffer.html) created
 with the `VK_BUFFER_USAGE_EXECUTION_GRAPH_SCRATCH_BIT_AMDX`
 or `VK_BUFFER_USAGE_2_EXECUTION_GRAPH_SCRATCH_BIT_AMDX`
-flag
+usage flags set
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-10194) VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-10194
@@ -789,7 +796,8 @@ this command is executed on the device
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09160) VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09160
 
 `countInfo` **must** be a device address within a [VkBuffer](VkBuffer.html)
-created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` flag
+created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag
+set
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09161) VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09161
@@ -808,7 +816,8 @@ this command is executed on the device
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09163) VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09163
 
 `countInfo->infos` **must** be a device address within a [VkBuffer](VkBuffer.html)
-created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` flag
+created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag
+set
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09164) VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09164
@@ -839,7 +848,7 @@ and `payloadStride` when this command is executed on the device
 For each [VkDispatchGraphInfoAMDX](VkDispatchGraphInfoAMDX.html) structure in
 `countInfo->infos`, `payloads` **must** be a device address within
 a [VkBuffer](VkBuffer.html) created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` flag
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09168) VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09168
@@ -893,7 +902,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-cmdpool) VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
+
+* 
+[](#VUID-vkCmdDispatchGraphIndirectCountAMDX-suspended) VUID-vkCmdDispatchGraphIndirectCountAMDX-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-videocoding) VUID-vkCmdDispatchGraphIndirectCountAMDX-videocoding
@@ -913,9 +927,9 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](../../../../spec/latest/chapters/cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../../../../spec/latest/chapters/renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../../../../spec/latest/chapters/videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../../../../spec/latest/chapters/devsandqueues.html#VkQueueFlagBits) | [Command Type](../../../../spec/latest/chapters/fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Both | Outside | Graphics
+| Primary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

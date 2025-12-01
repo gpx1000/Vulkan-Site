@@ -32,9 +32,8 @@ typedef enum VkPresentScalingFlagBitsKHR {
     VK_PRESENT_SCALING_STRETCH_BIT_EXT = VK_PRESENT_SCALING_STRETCH_BIT_KHR,
 } VkPresentScalingFlagBitsKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkPresentScalingFlagBitsKHR
 typedef VkPresentScalingFlagBitsKHR VkPresentScalingFlagBitsEXT;
 
 * 

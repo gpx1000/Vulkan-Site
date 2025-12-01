@@ -29,9 +29,8 @@ void vkGetDeviceImageSparseMemoryRequirements(
     uint32_t*                                   pSparseMemoryRequirementCount,
     VkSparseImageMemoryRequirements2*           pSparseMemoryRequirements);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance4
+// Equivalent to vkGetDeviceImageSparseMemoryRequirements
 void vkGetDeviceImageSparseMemoryRequirementsKHR(
     VkDevice                                    device,
     const VkDeviceImageMemoryRequirements*      pInfo,

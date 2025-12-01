@@ -28,9 +28,8 @@ typedef struct VkImageMemoryRequirementsInfo2 {
     VkImage            image;
 } VkImageMemoryRequirementsInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_memory_requirements2
+// Equivalent to VkImageMemoryRequirementsInfo2
 typedef VkImageMemoryRequirementsInfo2 VkImageMemoryRequirementsInfo2KHR;
 
 * 
@@ -114,7 +113,7 @@ Valid Usage (Implicit)
 
  `image` **must** be a valid [VkImage](VkImage.html) handle
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImage](VkImage.html), [VkStructureType](VkStructureType.html), [vkGetImageMemoryRequirements2](vkGetImageMemoryRequirements2.html), [vkGetImageMemoryRequirements2](vkGetImageMemoryRequirements2.html)
+[VK_KHR_get_memory_requirements2](VK_KHR_get_memory_requirements2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkImage](VkImage.html), [VkStructureType](VkStructureType.html), [vkGetImageMemoryRequirements2](vkGetImageMemoryRequirements2.html), [vkGetImageMemoryRequirements2](vkGetImageMemoryRequirements2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/resources.html#VkImageMemoryRequirementsInfo2).
 

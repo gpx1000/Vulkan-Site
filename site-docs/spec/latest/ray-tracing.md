@@ -80,6 +80,12 @@ one **can** directly call.
 | `OpHitObjectTraceRayNV` | X | X |  |  |  |
 | `OpHitObjectTraceRayMotionNV` | X | X |  |  |  |
 | `OpHitObjectExecuteShaderNV` |  |  | X | X |  |
+| `OpHitObjectExecuteShaderEXT` |  |  | X | X |  |
+| `OpHitObjectTraceRayEXT` | X | X |  |  |  |
+| `OpHitObjectReorderExecuteShaderEXT` |  |  | X | X |  |
+| `OpHitObjectTraceReorderExecuteEXT` | X | X | X | X |  |
+| `OpHitObjectTraceRayMotionEXT` | X | X |  |  |  |
+| `OpHitObjectTraceMotionReorderExecuteEXT` | X | X | X | X |  |
 
 The invocations created by shader call instructions are grouped into
 subgroups by the implementation.
@@ -118,6 +124,11 @@ same `SubgroupLocalInvocationId`.
 The `OpTraceRayKHR`,
 `OpTraceRayMotionNV`,
 `OpReorderThreadWithHintNV`, `OpReorderThreadWithHitObjectNV`,
+`OpReorderThreadWithHintEXT`, `OpReorderThreadWithHitObjectEXT`,
+`OpHitObjectTraceRayEXT`, `OpHitObjectReorderExecuteShaderEXT`,
+`OpHitObjectTraceReorderExecuteEXT`,
+`OpHitObjectTraceRayMotionEXT`,
+`OpHitObjectTraceMotionReorderExecuteEXT`,
 `OpReportIntersectionKHR`, and `OpExecuteCallableKHR` instructions are
 invocation repack instructions.
 
@@ -503,6 +514,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdTraceRaysKHR-imageLayout-00344) VUID-vkCmdTraceRaysKHR-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdTraceRaysKHR-None-08115) VUID-vkCmdTraceRaysKHR-None-08115
@@ -919,7 +937,7 @@ to its `stride` member
 
 The buffer from which the `pRayGenShaderBindingTable->deviceAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-vkCmdTraceRaysKHR-pRayGenShaderBindingTable-03682) VUID-vkCmdTraceRaysKHR-pRayGenShaderBindingTable-03682
@@ -932,7 +950,7 @@ The buffer from which the `pRayGenShaderBindingTable->deviceAddress` is queried
 
 The buffer from which the `pMissShaderBindingTable->deviceAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-vkCmdTraceRaysKHR-pMissShaderBindingTable-03685) VUID-vkCmdTraceRaysKHR-pMissShaderBindingTable-03685
@@ -957,7 +975,7 @@ The buffer from which the `pMissShaderBindingTable->deviceAddress` is queried
 
 The buffer from which the `pHitShaderBindingTable->deviceAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-vkCmdTraceRaysKHR-pHitShaderBindingTable-03689) VUID-vkCmdTraceRaysKHR-pHitShaderBindingTable-03689
@@ -982,7 +1000,7 @@ The buffer from which the `pHitShaderBindingTable->deviceAddress` is queried
 
 The buffer from which the `pCallableShaderBindingTable->deviceAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-vkCmdTraceRaysKHR-pCallableShaderBindingTable-03693) VUID-vkCmdTraceRaysKHR-pCallableShaderBindingTable-03693
@@ -1003,29 +1021,14 @@ The buffer from which the `pCallableShaderBindingTable->deviceAddress` is querie
 `VkPhysicalDeviceRayTracingPipelinePropertiesKHR`::`maxShaderGroupStride`
 
 * 
-[](#VUID-vkCmdTraceRaysKHR-flags-03696) VUID-vkCmdTraceRaysKHR-flags-03696
-
-If the bound ray tracing pipeline was created with `flags` that
-included
-`VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_BIT_KHR`,
-`pHitShaderBindingTable->deviceAddress` **must** not be zero
-
-* 
-[](#VUID-vkCmdTraceRaysKHR-flags-03697) VUID-vkCmdTraceRaysKHR-flags-03697
-
-If the bound ray tracing pipeline was created with `flags` that
-included
-`VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_BIT_KHR`,
-`pHitShaderBindingTable->deviceAddress` **must** not be zero
-
-* 
 [](#VUID-vkCmdTraceRaysKHR-flags-03511) VUID-vkCmdTraceRaysKHR-flags-03511
 
 If the bound ray tracing pipeline was created with `flags` that
 included
 `VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_MISS_SHADERS_BIT_KHR`, the
-shader group handle identified by `pMissShaderBindingTable->deviceAddress` **must**
-not be zero
+entries in the table identified by `pMissShaderBindingTable->deviceAddress`
+accessed as a result of this command in order to execute a miss shader
+**must** not be zero
 
 * 
 [](#VUID-vkCmdTraceRaysKHR-flags-03512) VUID-vkCmdTraceRaysKHR-flags-03512
@@ -1145,12 +1148,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdTraceRaysKHR-commandBuffer-cmdpool) VUID-vkCmdTraceRaysKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdTraceRaysKHR-renderpass) VUID-vkCmdTraceRaysKHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdTraceRaysKHR-suspended) VUID-vkCmdTraceRaysKHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdTraceRaysKHR-videocoding) VUID-vkCmdTraceRaysKHR-videocoding
@@ -1170,7 +1178,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 
@@ -1224,7 +1232,8 @@ of `VK_FORMAT_R8_UINT`
 [](#VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04979) VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04979
 
 If `imageView` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), it **must** have been
-created with `VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI` set
+created with the `VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI` usage
+flag set
 
 * 
 [](#VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04980) VUID-vkCmdBindInvocationMaskHUAWEI-imageView-04980
@@ -1275,7 +1284,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindInvocationMaskHUAWEI-commandBuffer-cmdpool) VUID-vkCmdBindInvocationMaskHUAWEI-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdBindInvocationMaskHUAWEI-renderpass) VUID-vkCmdBindInvocationMaskHUAWEI-renderpass
@@ -1305,7 +1314,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | State |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | State |
 
 Conditional Rendering
 
@@ -1616,6 +1625,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdTraceRaysIndirectKHR-imageLayout-00344) VUID-vkCmdTraceRaysIndirectKHR-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdTraceRaysIndirectKHR-None-08115) VUID-vkCmdTraceRaysIndirectKHR-None-08115
@@ -2032,7 +2048,7 @@ to its `stride` member
 
 The buffer from which the `pRayGenShaderBindingTable->deviceAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-vkCmdTraceRaysIndirectKHR-pRayGenShaderBindingTable-03682) VUID-vkCmdTraceRaysIndirectKHR-pRayGenShaderBindingTable-03682
@@ -2045,7 +2061,7 @@ The buffer from which the `pRayGenShaderBindingTable->deviceAddress` is queried
 
 The buffer from which the `pMissShaderBindingTable->deviceAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-vkCmdTraceRaysIndirectKHR-pMissShaderBindingTable-03685) VUID-vkCmdTraceRaysIndirectKHR-pMissShaderBindingTable-03685
@@ -2070,7 +2086,7 @@ The buffer from which the `pMissShaderBindingTable->deviceAddress` is queried
 
 The buffer from which the `pHitShaderBindingTable->deviceAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-vkCmdTraceRaysIndirectKHR-pHitShaderBindingTable-03689) VUID-vkCmdTraceRaysIndirectKHR-pHitShaderBindingTable-03689
@@ -2095,7 +2111,7 @@ The buffer from which the `pHitShaderBindingTable->deviceAddress` is queried
 
 The buffer from which the `pCallableShaderBindingTable->deviceAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-vkCmdTraceRaysIndirectKHR-pCallableShaderBindingTable-03693) VUID-vkCmdTraceRaysIndirectKHR-pCallableShaderBindingTable-03693
@@ -2116,29 +2132,14 @@ The buffer from which the `pCallableShaderBindingTable->deviceAddress` is querie
 `VkPhysicalDeviceRayTracingPipelinePropertiesKHR`::`maxShaderGroupStride`
 
 * 
-[](#VUID-vkCmdTraceRaysIndirectKHR-flags-03696) VUID-vkCmdTraceRaysIndirectKHR-flags-03696
-
-If the bound ray tracing pipeline was created with `flags` that
-included
-`VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_BIT_KHR`,
-`pHitShaderBindingTable->deviceAddress` **must** not be zero
-
-* 
-[](#VUID-vkCmdTraceRaysIndirectKHR-flags-03697) VUID-vkCmdTraceRaysIndirectKHR-flags-03697
-
-If the bound ray tracing pipeline was created with `flags` that
-included
-`VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_BIT_KHR`,
-`pHitShaderBindingTable->deviceAddress` **must** not be zero
-
-* 
 [](#VUID-vkCmdTraceRaysIndirectKHR-flags-03511) VUID-vkCmdTraceRaysIndirectKHR-flags-03511
 
 If the bound ray tracing pipeline was created with `flags` that
 included
 `VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_MISS_SHADERS_BIT_KHR`, the
-shader group handle identified by `pMissShaderBindingTable->deviceAddress` **must**
-not be zero
+entries in the table identified by `pMissShaderBindingTable->deviceAddress`
+accessed as a result of this command in order to execute a miss shader
+**must** not be zero
 
 * 
 [](#VUID-vkCmdTraceRaysIndirectKHR-flags-03512) VUID-vkCmdTraceRaysIndirectKHR-flags-03512
@@ -2192,7 +2193,8 @@ been created with
 [](#VUID-vkCmdTraceRaysIndirectKHR-indirectDeviceAddress-03633) VUID-vkCmdTraceRaysIndirectKHR-indirectDeviceAddress-03633
 
 The buffer from which `indirectDeviceAddress` was queried **must** have
-been created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+been created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage
+flag set
 
 * 
 [](#VUID-vkCmdTraceRaysIndirectKHR-indirectDeviceAddress-03634) VUID-vkCmdTraceRaysIndirectKHR-indirectDeviceAddress-03634
@@ -2259,12 +2261,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdTraceRaysIndirectKHR-commandBuffer-cmdpool) VUID-vkCmdTraceRaysIndirectKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdTraceRaysIndirectKHR-renderpass) VUID-vkCmdTraceRaysIndirectKHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdTraceRaysIndirectKHR-suspended) VUID-vkCmdTraceRaysIndirectKHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdTraceRaysIndirectKHR-videocoding) VUID-vkCmdTraceRaysIndirectKHR-videocoding
@@ -2284,7 +2291,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 
@@ -2625,6 +2632,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdTraceRaysIndirect2KHR-imageLayout-00344) VUID-vkCmdTraceRaysIndirect2KHR-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdTraceRaysIndirect2KHR-None-08115) VUID-vkCmdTraceRaysIndirect2KHR-None-08115
@@ -3034,7 +3048,8 @@ used to create the bound ray tracing pipeline
 [](#VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03633) VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03633
 
 The buffer from which `indirectDeviceAddress` was queried **must** have
-been created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+been created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage
+flag set
 
 * 
 [](#VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03634) VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03634
@@ -3081,12 +3096,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdTraceRaysIndirect2KHR-commandBuffer-cmdpool) VUID-vkCmdTraceRaysIndirect2KHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdTraceRaysIndirect2KHR-renderpass) VUID-vkCmdTraceRaysIndirect2KHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdTraceRaysIndirect2KHR-suspended) VUID-vkCmdTraceRaysIndirect2KHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdTraceRaysIndirect2KHR-videocoding) VUID-vkCmdTraceRaysIndirect2KHR-videocoding
@@ -3106,7 +3126,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 
@@ -3206,7 +3226,7 @@ Valid Usage
 
 The buffer from which the `raygenShaderRecordAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-VkTraceRaysIndirectCommand2KHR-pRayGenShaderBindingTable-03682) VUID-VkTraceRaysIndirectCommand2KHR-pRayGenShaderBindingTable-03682
@@ -3219,7 +3239,7 @@ The buffer from which the `raygenShaderRecordAddress` is queried
 
 The buffer from which the `missShaderBindingTableAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-VkTraceRaysIndirectCommand2KHR-pMissShaderBindingTable-03685) VUID-VkTraceRaysIndirectCommand2KHR-pMissShaderBindingTable-03685
@@ -3244,7 +3264,7 @@ The buffer from which the `missShaderBindingTableAddress` is queried
 
 The buffer from which the `hitShaderBindingTableAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-VkTraceRaysIndirectCommand2KHR-pHitShaderBindingTable-03689) VUID-VkTraceRaysIndirectCommand2KHR-pHitShaderBindingTable-03689
@@ -3269,7 +3289,7 @@ The buffer from which the `hitShaderBindingTableAddress` is queried
 
 The buffer from which the `callableShaderBindingTableAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-VkTraceRaysIndirectCommand2KHR-pCallableShaderBindingTable-03693) VUID-VkTraceRaysIndirectCommand2KHR-pCallableShaderBindingTable-03693
@@ -3290,29 +3310,14 @@ The buffer from which the `callableShaderBindingTableAddress` is queried
 `VkPhysicalDeviceRayTracingPipelinePropertiesKHR`::`maxShaderGroupStride`
 
 * 
-[](#VUID-VkTraceRaysIndirectCommand2KHR-flags-03696) VUID-VkTraceRaysIndirectCommand2KHR-flags-03696
-
-If the bound ray tracing pipeline was created with `flags` that
-included
-`VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_BIT_KHR`,
-`hitShaderBindingTableAddress` **must** not be zero
-
-* 
-[](#VUID-VkTraceRaysIndirectCommand2KHR-flags-03697) VUID-VkTraceRaysIndirectCommand2KHR-flags-03697
-
-If the bound ray tracing pipeline was created with `flags` that
-included
-`VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_BIT_KHR`,
-`hitShaderBindingTableAddress` **must** not be zero
-
-* 
 [](#VUID-VkTraceRaysIndirectCommand2KHR-flags-03511) VUID-VkTraceRaysIndirectCommand2KHR-flags-03511
 
 If the bound ray tracing pipeline was created with `flags` that
 included
 `VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_MISS_SHADERS_BIT_KHR`, the
-shader group handle identified by `missShaderBindingTableAddress` **must**
-not be zero
+entries in the table identified by `missShaderBindingTableAddress`
+accessed as a result of this command in order to execute a miss shader
+**must** not be zero
 
 * 
 [](#VUID-VkTraceRaysIndirectCommand2KHR-flags-03512) VUID-VkTraceRaysIndirectCommand2KHR-flags-03512
@@ -3759,6 +3764,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdTraceRaysNV-imageLayout-00344) VUID-vkCmdTraceRaysNV-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdTraceRaysNV-None-08115) VUID-vkCmdTraceRaysNV-None-08115
@@ -4336,12 +4348,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdTraceRaysNV-commandBuffer-cmdpool) VUID-vkCmdTraceRaysNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdTraceRaysNV-renderpass) VUID-vkCmdTraceRaysNV-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdTraceRaysNV-suspended) VUID-vkCmdTraceRaysNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdTraceRaysNV-videocoding) VUID-vkCmdTraceRaysNV-videocoding
@@ -4366,7 +4383,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 

@@ -34,9 +34,8 @@ VkResult vkGetCalibratedTimestampsKHR(
     uint64_t*                                   pTimestamps,
     uint64_t*                                   pMaxDeviation);
 
-or the equivalent command
-
 // Provided by VK_EXT_calibrated_timestamps
+// Equivalent to vkGetCalibratedTimestampsKHR
 VkResult vkGetCalibratedTimestampsEXT(
     VkDevice                                    device,
     uint32_t                                    timestampCount,

@@ -126,12 +126,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdResetQueryPool-commandBuffer-cmdpool) VUID-vkCmdResetQueryPool-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, decode, encode, or optical flow operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, `VK_QUEUE_OPTICAL_FLOW_BIT_NV`, `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdResetQueryPool-renderpass) VUID-vkCmdResetQueryPool-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdResetQueryPool-suspended) VUID-vkCmdResetQueryPool-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdResetQueryPool-videocoding) VUID-vkCmdResetQueryPool-videocoding
@@ -156,15 +161,15 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_GRAPHICS_BIT
 
-Decode
+VK_QUEUE_OPTICAL_FLOW_BIT_NV
 
-Encode
+VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Opticalflow | Action |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action |
 
 Conditional Rendering
 

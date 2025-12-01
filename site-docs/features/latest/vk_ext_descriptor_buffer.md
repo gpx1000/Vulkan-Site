@@ -426,7 +426,7 @@ vkCmdBindDescriptorBuffersEXT(
 Unlike binding descriptor sets, there’s no invalidating going on with this binding – a buffer remains bound and is interpreted by a pipeline in the manner the pipeline expects, irrespective of what layout was used to construct the buffer for each set.
 
 There must be no more than `maxSamplerDescriptorBufferBindings` descriptor buffers containing sampler descriptor data bound.
-Such buffers must be created with `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT`.
+Such buffers must be created with the `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` usage flag set.
 
 There must be no more than `maxResourceDescriptorBufferBindings` descriptor buffers containing resource descriptors bound.
 Such buffers must be bound with `VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`.
@@ -455,7 +455,7 @@ VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT = 0x00400000
 
 `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` specifies that the buffer will be used to contain sampler descriptors when bound as a descriptor buffer.
 `VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT` specifies that the buffer will be used to contain resource descriptors, i.e. non-sampler descriptors, when bound as a descriptor buffer.
-Buffers containing `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER` descriptors must have been created with both `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` and `VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`.
+Buffers containing `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER` descriptors must have been created with both the `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` and `VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT` usage flags set.
 
 Each descriptor set is associated with a buffer and an offset into that buffer which can be set by:
 
@@ -527,7 +527,7 @@ When pushing descriptors using this kind of set layout, it is required that a de
 The intention here is that implementation can reserve scratch space in descriptor buffers for the purposes of dealing with push descriptors.
 The mechanics here are highly magical and implementation defined in nature and is considered too burdensome to expect that applications deal with it.
 
-Binding a buffer that was created with `VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT` requires the application to record any current push descriptors again.
+Binding a buffer that was created with the `VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT` usage flag set requires the application to record any current push descriptors again.
 
 When creating a resource with the capture/replay feature enabled, an opaque handle can be obtained which can be passed into creation calls in a future replay, causing descriptors to be created with the same data.
 
@@ -672,7 +672,7 @@ typedef struct VkPhysicalDeviceDescriptorBufferPropertiesEXT {
 `combinedImageSamplerDescriptorSingleArray` indicates that the implementation does not require an array of `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER` descriptors to be written into a descriptor buffer as an array of image descriptors, immediately followed by an array of sampler descriptors.
 
 * 
-`bufferlessPushDescriptors` indicates that the implementation does not require a buffer created with `VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT` to be bound when using push descriptors.
+`bufferlessPushDescriptors` indicates that the implementation does not require a buffer created with the `VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT` usage flag set to be bound when using push descriptors.
 
 * 
 `allowSamplerImageViewPostSubmitCreation` indicates that the implementation does not restrict when the `VkSampler` or `VkImageView` objects used to retrieve descriptor data can be created in relation to command buffer submission. If this value is `VK_FALSE`, then the application must create any `VkSampler` or `VkImageView` objects whose descriptor data is accessed during the execution of a command buffer, before the `vkQueueSubmit` (or `vkQueueSubmit2`) call that submits that command buffer.

@@ -51,7 +51,7 @@ Ratified
 **Contact**
 
 * 
-Lina Versace [linyaa-kiwi](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_external_memory_dma_buf] @linyaa-kiwi%0A*Here describe the issue or question you have about the VK_EXT_external_memory_dma_buf extension*)
+James Jones [cubanismo](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_external_memory_dma_buf] @cubanismo%0A*Here describe the issue or question you have about the VK_EXT_external_memory_dma_buf extension*)
 
 **Last Modified Date**
 

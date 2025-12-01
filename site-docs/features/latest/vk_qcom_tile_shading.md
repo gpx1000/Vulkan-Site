@@ -35,8 +35,8 @@
 - [3.11. Features and Properties structures](#_features_and_properties_structures)
 - [3.11._Features_and_Properties_structures](#_features_and_properties_structures)
 - [4. Issues](#_issues)
-- [4.1. Are all attachment types(color, depth/stencil, input, resolve) accessible via tile attachment load/store operations.](#_are_all_attachment_typescolor_depthstencil_input_resolve_accessible_via_tile_attachment_loadstore_operations)
-- [4.1._Are_all_attachment_types(color,_depth/stencil,_input,_resolve)_accessible_via_tile_attachment_load/store_operations.](#_are_all_attachment_typescolor_depthstencil_input_resolve_accessible_via_tile_attachment_loadstore_operations)
+- [4.1. Are all attachment types (color, depth/stencil, input, resolve) accessible via tile attachment load/store operations?](#_are_all_attachment_types_color_depthstencil_input_resolve_accessible_via_tile_attachment_loadstore_operations)
+- [4.1._Are_all_attachment_types_(color,_depth/stencil,_input,_resolve)_accessible_via_tile_attachment_load/store_operations?](#_are_all_attachment_types_color_depthstencil_input_resolve_accessible_via_tile_attachment_loadstore_operations)
 - [4.2. Should draw commands be allowed when per-tile execution mode is enabled?](#_should_draw_commands_be_allowed_when_per_tile_execution_mode_is_enabled)
 - [4.2._Should_draw_commands_be_allowed_when_per-tile_execution_mode_is_enabled?](#_should_draw_commands_be_allowed_when_per_tile_execution_mode_is_enabled)
 - [4.3. Should texture sampling be supported on tile attachments?](#_should_texture_sampling_be_supported_on_tile_attachments)
@@ -94,7 +94,7 @@ Table of Contents
 
 [4. Issues](#_issues)
 
-[4.1. Are all attachment types(color, depth/stencil, input, resolve) accessible via tile attachment load/store operations.](#_are_all_attachment_typescolor_depthstencil_input_resolve_accessible_via_tile_attachment_loadstore_operations)
+[4.1. Are all attachment types (color, depth/stencil, input, resolve) accessible via tile attachment load/store operations?](#_are_all_attachment_types_color_depthstencil_input_resolve_accessible_via_tile_attachment_loadstore_operations)
 [4.2. Should draw commands be allowed when per-tile execution mode is enabled?](#_should_draw_commands_be_allowed_when_per_tile_execution_mode_is_enabled)
 [4.3. Should texture sampling be supported on tile attachments?](#_should_texture_sampling_be_supported_on_tile_attachments)
 [4.4. Does this extension offer any guarantees for the granularity of the tile dimensions?](#_does_this_extension_offer_any_guarantees_for_the_granularity_of_the_tile_dimensions)
@@ -115,7 +115,7 @@ Table of Contents
 
 This document proposes a new extension that adds "tile shading" to Vulkan.
 
-Rendering pipelines that interleave compute with graphics, have become
+Rendering pipelines that interleave compute with graphics have become
 increasingly common.
 Tile-based lighting techniques are commonly used in Forward+ and Tile
 Deferred renderers leverage compute shaders to optimize the subsequent
@@ -196,7 +196,7 @@ Tile shading extends Vulkan render passes with new functionality. When tile shad
 enabled for a render pass instance, these are the highlights of the new functionality:
 
 * 
-Fragment shaders can declare [tile image attachment](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-attachment-access.html)
+Fragment shaders can declare [tile image attachment](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-attachment-access)
 resources allowing fragment shader invocations to load pixel values of other fragments
 within the same tile, or to sample from the pixels in a tile attachment.
 
@@ -205,12 +205,12 @@ Fragment shaders can use [built-in input variables](#spirv-changes) that describ
 active tile’s extent in framebuffer coordinates.
 
 * 
-[Tile aprons](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-aprons.html) can be enabled and pixels in the apron
+[Tile aprons](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-aprons) can be enabled and pixels in the apron
 region can be accessed by the fragment shader.
 
 * 
 A new state command is added that enables/disables
-[per-tile execution model](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html).
+[per-tile execution model](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model).
 When this execution model is enabled:
 
 `VkCmdDispatch*` commands can be recorded in a render pass instance.
@@ -223,11 +223,11 @@ and in the API via `VK_QCOM_tile_properties`.
 
 * 
 Compute shaders have all the same functionality described above for fragment shaders.
-This includes load/store/sample of [tile image attachments](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-attachment-access.html),
-[built-in input variables](#spirv-changes), and [tile aprons](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-aprons.html).
+This includes load/store/sample of [tile image attachments](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-attachment-access),
+[built-in input variables](#spirv-changes), and [tile aprons](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-aprons).
 
 Vulkan tile shading will empower applications to leverage tile memory by injecting
-per-tile commands into GPU’s existing TBDR geometry pipeline, allowing compute to
+per-tile commands into the GPU’s existing TBDR geometry pipeline, allowing compute to
 participate fully in render passes, and enabling operations
 that happen while the color and depth values reside in tile memory.
 
@@ -252,17 +252,17 @@ typedef struct VkRenderPassTileShadingCreateInfoQCOM {
 } VkRenderPassTileShadingCreateInfoQCOM;
 
 `tileApronSize` specifies the width and height of the
-[ tile apron](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-aprons.html).
+[tile apron](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-aprons).
 If tile apron is not used, this should be set to 0.
 
 When tile shading is enabled for a render pass, the following
 features become available to shaders within that render pass:
   * Compute shaders can declare the `TileShadingQCOM` capability.
-  * Fragment shaders shaders can declare the `TileShadingQCOM` capability if the
+  * Fragment shaders can declare the `TileShadingQCOM` capability if the
     `tileShadingFragmentStage` feature is enabled.
 
-Within a render pass that [enables tile shading](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading.html),
-the [per-tile execution mode](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html)
+Within a render pass that [enables tile shading](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading),
+the [per-tile execution mode](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model)
 can be enabled or disabled:
 
 typedef struct VkPerTileBeginInfoQCOM {
@@ -280,7 +280,7 @@ void vkCmdBeginPerTileExecutionQCOM(
     const VkPerTileBeginInfoQCOM* pPerTileBeginInfo);
 
 void vkCmdEndPerTileExecutionQCOM(
-    VkCommandBuffer               commandBuffer);
+    VkCommandBuffer               commandBuffer,
     const VkPerTileEndInfoQCOM*   pPerTileEndInfo);
 
 Inside each begin/end block, *per-tile execution mode* is enabled.
@@ -295,12 +295,12 @@ tiles are processed and the ordering of commands across tiles is undefined.
 When *per-tile execution mode* is enabled, and if the `tileShadingPerTileDispatch`
 feature is enabled, `VkCmdDispatch*` commands can be recorded inside a render pass.
 These per-tile dispatches can use the functionality described in
-[SPIRV changes](#spirv-changes).
+[SPIR-V changes](#spirv-changes).
 
 When *per-tile execution mode* is enabled, the
-[Per-Tile Command Restrictions](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-command-restrictions.html) apply.
+[Per-Tile Command Restrictions](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-command-restrictions) apply.
 
-When executing secondary command buffers in a render pass with tile shading enabled a
+When executing secondary command buffers in a render pass with tile shading enabled, a
 VkRenderPassTileShadingInfoQCOM must have been supplied when recording the secondary command
 buffer in VkCommandBufferInheritanceInfo.
 
@@ -320,7 +320,7 @@ Tile attachment variables are further subdivided into "storage tile
 attachment" and "sampled tile attachment" variables. The former supports
 load/store operations and is backed by a descriptor of
 type `VK_DESCRIPTOR_TYPE_STORAGE_IMAGE`, while the latter supports sampling
-and is backed by a descriptor of type `VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE`
+and is backed by a descriptor of type `VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE`.
 
 Existing features and format restrictions for storage images and sampled images
 also apply when accessing a storage tile attachment or sampled tile attachment. For
@@ -344,7 +344,7 @@ Tile attachment variables can be aggregated into arrays.
 More details on tile attachment variable declarations and associated load/store/sample
 operations are described in the [SPIR-V Changes](#spirv-changes).
 
-When [per-tile execution mode](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html)
+When [per-tile execution mode](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model)
 is enabled within a render pass instance, the set of commands that can
 be recorded is largely unchanged. This section documents several exceptions.
 Due to the continuously evolving API, this may not be a complete list of exceptions.
@@ -355,21 +355,21 @@ Where *per-tile execution model* is enabled the following are disallowed:
   * Transform feedback commands are not allowed:  `vkCmdBeginTransformFeedbackEXT`,
    `vkCmdEndTransformFeedbackEXT`.
   * Query commands are not allowed: `vkCmdBeginQueryIndexedEXT`, `vkCmdEndQueryIndexedEXT`,
-   `vkCmdBeginQuery`, `vkCmdWriteTimestamp',
+   `vkCmdBeginQuery`, `vkCmdWriteTimestamp`,
    `vkCmdEndQuery`, `vkCmdDebugMarkerBeginEXT`, `vkCmdDebugMarkerEndEXT`,
     `vkCmdDebugMarkerInsertEXT`.
   * Some synchronization commands are not allowed:   `vkCmdWaitEvents2`, `vkCmdWaitEvents`.
   * The following action command is not allowed: `vkCmdClearAttachments`
   * Access of an attachment with layout `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL`
     as provided by [VK_EXT_attachment_feedback_loop_layout](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_attachment_feedback_loop_layout).
-  * Any commands that would cause a invocations of the tessellation, geometry, ray tracing,
+  * Any commands that would cause an invocation of the tessellation, geometry, ray tracing,
     or mesh shading shader stages.
 
 Other tile shading restrictions:
 
 * 
 A render pass that enables tile shading must not be recorded
-inside a command buffer created with `VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT`.
+inside a command buffer created with the `VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT` usage flag set.
 
 * 
 A render pass that enables tile shading must not include the
@@ -381,7 +381,7 @@ A render pass that enables tile shading must not render
 to Android Hardware Buffers with external formats as provided by
 [VK_ANDROID_external_format_resolve](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_ANDROID_external_format_resolve).
 
-In a render pass that enables tile shading, a *tile apron* be enabled by setting
+In a render pass that enables tile shading, a *tile apron* can be enabled by setting
 `tileApronSize` to a value other than (0,0). Subpass must be specified with flags
 that include `VK_SUBPASS_DESCRIPTION_TILE_SHADING_APRON_BIT_QCOM` or the apron
 size will be (0,0) for that subpass, and apps must not access values outside the tile.
@@ -389,11 +389,11 @@ The tile apron enables shader invocations to load from tile attachment variables
 location that is outside the current tile. The (width,height) value of `tileApronSize`
 specifies the number of pixels in the horizontal and vertical directions that are
 included in the apron region. For example, (1,1) means that the apron region extends
-the top, bottom, left and right margins of the tile by 1 pixel. The `tileApronSize`
+the top, bottom, left, and right margins of the tile by 1 pixel. The `tileApronSize`
 must not exceed `VkPhysicalDeviceTileShadingPropertiesQCOM::maxApronSize`.
 
 The tile apron feature is expected to be important for image-based algorithms that require
-access to a single pixel and the neighborhood of pixels around it. These included image
+access to a single pixel and the neighborhood of pixels around it. These include image
 processing use cases such as convolution image processing and gaming use cases such as
 screen-space ambient occlusion (SSAO).
 A good mental model for the tile apron is to think of it as enabling "overlapping
@@ -430,7 +430,7 @@ void vkCmdDispatchTileQCOM(
     const VkDispatchTileInfoQCOM* pDispatchTileInfo);
 
 This command operates in the
-[per-tile execution model](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html),
+[per-tile execution model](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model),
 invoking a separate dispatch for each *covered tile*.
 The global workgroup count and local workgroup size of each dispatch are defined by the
 implementation to efficiently iterate over a uniform grid of pixel blocks within
@@ -466,7 +466,7 @@ Execution Mode                      Meaning
 -------------                       ---------------------------------------
 NonCoherentTileAttachmentReadQCOM   Disables raster order guarantee. Fragment only.
 
-[Tile attachment](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-attachment-access.html) variables are declared
+[Tile attachment](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-attachment-access) variables are declared
 as  `OpTypeImage` variables with storage class `TileAttachmentQCOM`.
 Such variables can be used to perform tile read/write operations, tile sampling
 operations, or tile atomic operations.
@@ -490,7 +490,7 @@ type `VK_DESCRIPTOR_TYPE_STORAGE_IMAGE`, `VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE`,
 that is equivalent to the `VkImageView` specified as an attachment in the current
 render pass instance.
 
-Other restrictions, such the valid shader stages, formats, and image coordinates
+Other restrictions, such as the valid shader stages, formats, and image coordinates
 for access to these tile image variables are specified by Vulkan SPIR-V environment.
 
 The extension adds the optional execution mode `NonCoherentTileAttachmentReadQCOM`.
@@ -531,7 +531,7 @@ A fragment or compute shader can use loads (`OpImageRead`, `OpImageSparseRead`) 
 or tile input attachments.
 
 * 
-If the [tile apron](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-aprons.html) has width or height greater than zero, then loads
+If the [tile apron](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-aprons) has width or height greater than zero, then loads
 and sampling of apron pixels (outside the tile, but within
 the apron) are allowed. Stores to apron pixels are disallowed. If not executing in a dynamic render pass,
 the subpass flags must include `VK_SUBPASS_DESCRIPTION_TILE_SHADING_APRON_BIT_QCOM`.
@@ -541,7 +541,7 @@ If the `OpImageRead`, `OpImageSparseRead`, `OpImageWrite`, or `OpImageTexelPoint
 tile attachment, the Coordinate must be a location within the tile extent and within
 the render pass `renderArea`.
 
-The GLSL extension GL_QCOM_tile_shading will adds the following types, storage qualifiers,
+The GLSL extension GL_QCOM_tile_shading will add the following types, storage qualifiers,
 layout qualifiers, and built-in variables.
 
 Layout Qualifier                   Meaning
@@ -672,7 +672,7 @@ made to pipeline barriers:
    a render pass are extended to include the following:
 
    VK_ACCESS_INDIRECT_COMMAND_READ_BIT
-   VK_ACCESS_SHADER_SAMPLED_READ_BIT,
+   VK_ACCESS_SHADER_SAMPLED_READ_BIT
    VK_ACCESS_SHADER_STORAGE_READ_BIT
    VK_ACCESS_SHADER_STORAGE_WRITE_BIT
    VK_ACCESS_SHADER_TILE_ATTACHMENT_READ_BIT
@@ -723,7 +723,7 @@ in the fragment stage.
 `tileShadingColorAttachments` indicates the implementation supports
 use of `OpImageRead` and `OpImageSparseRead` in the supported stages
 to access a color attachment.
-In addition, this feature indicates support for  and `OpImageStore` and
+In addition, this feature indicates support for `OpImageStore` and
 `OpImageSparseRead` to access a color attachment in the compute stage.
 
 * 
@@ -756,7 +756,7 @@ recording of draw commands inside a per-tile execution block.
 `tileShadingPerTileDispatch` indicates the implementation supports
 the recording of dispatch commands inside a render pass. Note that
 dispatches inside a render pass are allowed only where
-[per-tile execution](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html) is enabled.
+[per-tile execution](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model) is enabled.
 
 * 
 `tileShadingDispatchTile` indicates the implementation supports
@@ -819,7 +819,7 @@ There are no known use cases for tile stores to input attachments, and it seemed
 unexpected that an "input attachment" would be modified. Shader writes to
 depth/stencil attachments is unexpected and may require disablement of
 implementation-specific depth acceleration features. Resolve attachments are
-unlikely to be backed by tile memory  Within a fragment shader, stores to the
+unlikely to be backed by tile memory. Within a fragment shader, stores to the
 color attachment do not seem useful and could be difficult to synchronize with
 fragment output writes. For those reasons, the above cases are disallowed
 in this extension.
@@ -832,7 +832,7 @@ cover the current tile, then the implementation may "skip" such primitives for
 that tile.
 If a draw command contains no primitives that cover the current tile, the
 draw call may be entirely skipped for that tile.
-This is important feature for maximizing TBDR rendering efficiency.
+This is an important feature for maximizing TBDR rendering efficiency.
 
 With this extension, per-tile draws are introduced. A per-tile draw guarantees
 the draw will be executed for each tile, effectively bypassing the above
@@ -863,7 +863,7 @@ The resulting `OpSampledImage` variable can be used with all the texture
 instructions.
 
 * 
-Texture coordinates for are relative to the attachment dimensions, rather than
+Texture coordinates are relative to the attachment dimensions, rather than
 relative to the tile dimensions.
 
 * 
@@ -898,7 +898,7 @@ most application use cases for tile shading. `VK_QCOM_tile_properties` exposes
 the number of layers in the tile, allowing the application to handle either
 implementation style.
 
-PROPOSED: Yes, this is supported. The the existing `VK_QCOM_tile_properties`
+PROPOSED: Yes, this is supported. The existing `VK_QCOM_tile_properties`
 extension exposes support for multi-layered tiles.
 
 PROPOSED: No, this is not allowed.
@@ -918,7 +918,7 @@ for dynamic render passes.
 RESOLVED: No, there is no change to the behavior.
 
 RESOLVED: Yes, if a render pass enables tile shading but not the
-[ per-tile execution model](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html), then
+[per-tile execution model](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model), then
 fragment shader invocations can load pixel values from tile attachment
 variables.
 
@@ -926,7 +926,7 @@ This includes loading the pixel value of the fragment coordinate
 (aka "framebuffer fetch") as well as the ability to load pixel values
 of other fragments within the tile and/or the apron region.
 
-RESOLVED: No, while such a feature is desirable for many TBDR GPUs and is related to
+RESOLVED: No, while such a feature is desirable for many TBDR GPUs and is related
 to this extension, but was considered beyond the scope of this extension.
 
 Use-cases such as deferred shading and deferred lighting are often implemented with multiple
@@ -938,7 +938,7 @@ the same block of tile memory to be interpreted as multiple layouts or formats.
 Such reinterpretation of framebuffer pixels can be useful even if tile shading is not
 used. Therefore, it may be best handled as a completely separate extension.
 
-RESOLVED: Yes, one some Adreno ™ GPUs and for some use cases, the tile-sized
+RESOLVED: Yes, on some Adreno ™ GPUs and for some use cases, the tile-sized
 dispatch can improve GPU efficiency and has been incorporated into this extension.
 
 `vkCmdDispatchTileQCOM` provides a "tile-sized dispatch" where
@@ -949,7 +949,7 @@ most optimally perform load/store operations for the micro tile’s pixels.
 
 RESOLVED: No. In this proposal, a created graphics pipeline can be used in a render
 pass regardless whether the render pass enables tile shading, and regardless whether
-[per-tile execution mode](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html) is enabled. Similarly,
+[per-tile execution mode](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model) is enabled. Similarly,
 a created compute pipelines can now be used inside or outside a render pass. We decided
 not to require these usage flags during pipeline creation because we think it would be a burden
 to developers and because we do not anticipate implementations will require this information.

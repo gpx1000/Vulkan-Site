@@ -30,9 +30,8 @@ void vkCmdSetStencilOp(
     VkStencilOp                                 depthFailOp,
     VkCompareOp                                 compareOp);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetStencilOp
 void vkCmdSetStencilOpEXT(
     VkCommandBuffer                             commandBuffer,
     VkStencilFaceFlags                          faceMask,
@@ -137,7 +136,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetStencilOp-commandBuffer-cmdpool) VUID-vkCmdSetStencilOp-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetStencilOp-videocoding) VUID-vkCmdSetStencilOp-videocoding
@@ -157,7 +156,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

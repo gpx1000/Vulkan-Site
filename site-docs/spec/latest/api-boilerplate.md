@@ -154,7 +154,7 @@ Specification.
 
 // Provided by VK_VERSION_1_0
 // Version of this file
-#define VK_HEADER_VERSION 326
+#define VK_HEADER_VERSION 335
 
 `VK_HEADER_VERSION_COMPLETE` is the complete version number of the
 `vulkan_core.h` header, comprising the major, minor, and patch versions.
@@ -175,7 +175,7 @@ API version using, for example, one of the `VK_API_VERSION_`*_* values.
 `VK_API_VERSION` is now commented out of `vulkan_core.h` and **cannot** be
 used.
 
-|  | This functionality is deprecated by [Vulkan Version 1.0](versions.html#versions-1.0). See [Deprecated Functionality](deprecation.html#deprecation-version-macros) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.0](versions.html#versions-1.0). See [Legacy Functionality](legacy.html#legacy-version-macros) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0

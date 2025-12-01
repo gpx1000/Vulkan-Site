@@ -150,10 +150,13 @@ static const VkAccessFlagBits2 VK_ACCESS_2_OPTICAL_FLOW_WRITE_BIT_NV = 0x8000000
 static const VkAccessFlagBits2 VK_ACCESS_2_DATA_GRAPH_READ_BIT_ARM = 0x800000000000ULL;
 // Provided by VK_ARM_data_graph
 static const VkAccessFlagBits2 VK_ACCESS_2_DATA_GRAPH_WRITE_BIT_ARM = 0x1000000000000ULL;
-
-or the equivalent
+// Provided by VK_EXT_memory_decompression
+static const VkAccessFlagBits2 VK_ACCESS_2_MEMORY_DECOMPRESSION_READ_BIT_EXT = 0x80000000000000ULL;
+// Provided by VK_EXT_memory_decompression
+static const VkAccessFlagBits2 VK_ACCESS_2_MEMORY_DECOMPRESSION_WRITE_BIT_EXT = 0x100000000000000ULL;
 
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkAccessFlagBits2
 typedef VkAccessFlagBits2 VkAccessFlagBits2KHR;
 
 * 
@@ -177,6 +180,9 @@ trace,
     drawing or dispatch command.
     Such access occurs in the `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`
     pipeline stage.
+    It also specifies read access to command data read from indirect buffers
+    as part of a copy command with access occurring in the
+    `VK_PIPELINE_STAGE_2_COPY_INDIRECT_BIT_KHR` pipeline stage.
 
 * 
 `VK_ACCESS_2_INDEX_READ_BIT` specifies read access to an index
@@ -234,6 +240,9 @@ is equivalent to the logical OR of:
 
 * 
 `VK_ACCESS_2_SHADER_STORAGE_READ_BIT`
+
+* 
+`VK_ACCESS_2_SHADER_BINDING_TABLE_READ_BIT_KHR`
 
 * 
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM`
@@ -351,6 +360,20 @@ Such access occurs in the
 the target command buffer preprocess outputs.
 Such access occurs in the
 `VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT` pipeline stage.
+
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_READ_BIT_EXT` specifies read
+access to memory in decompression commands
+[vkCmdDecompressMemoryEXT](vkCmdDecompressMemoryEXT.html) and
+[vkCmdDecompressMemoryIndirectCountEXT](vkCmdDecompressMemoryIndirectCountEXT.html).
+Such access occurs in
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT` pipeline stage.
+
+`VK_ACCESS_2_MEMORY_DECOMPRESSION_WRITE_BIT_EXT` specifies write
+access to memory in decompression commands
+[vkCmdDecompressMemoryEXT](vkCmdDecompressMemoryEXT.html) and
+[vkCmdDecompressMemoryIndirectCountEXT](vkCmdDecompressMemoryIndirectCountEXT.html).
+Such access occurs in
+`VK_PIPELINE_STAGE_2_MEMORY_DECOMPRESSION_BIT_EXT` pipeline stage.
 
 `VK_ACCESS_2_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT` specifies
 read access to [color attachments](../../../../spec/latest/chapters/renderpass.html#renderpass), including

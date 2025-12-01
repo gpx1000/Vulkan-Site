@@ -170,6 +170,13 @@ specified by `pVideoProfile`, then `flags` **must** not include
 `VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR`
 
 * 
+[](#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-11759) VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-11759
+
+`pVideoProfile->videoCodecOperation` **must** be supported by the queue
+family index specified in `queueFamilyIndex`, as reported in
+[VkQueueFamilyVideoPropertiesKHR](VkQueueFamilyVideoPropertiesKHR.html)::`videoCodecOperations`
+
+* 
 [](#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-04845) VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-04845
 
 `pVideoProfile` **must** be a [supported video    profile](../../../../spec/latest/chapters/videocoding.html#video-profile-support)
@@ -356,6 +363,24 @@ chain of this structure includes a
 [vkGetPhysicalDeviceVideoCapabilitiesKHR](vkGetPhysicalDeviceVideoCapabilitiesKHR.html) for the video profile
 specified in `pVideoProfile`
 
+* 
+[](#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10923) VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10923
+
+If the `pVideoProfile->pNext` chain includes a
+[VkVideoEncodeProfileRgbConversionInfoVALVE](VkVideoEncodeProfileRgbConversionInfoVALVE.html) structure, then the
+[`videoEncodeRgbConversion`](../../../../spec/latest/chapters/features.html#features-videoEncodeRgbConversion)
+feature **must** be enabled
+
+* 
+[](#VUID-VkVideoSessionCreateInfoKHR-pNext-10924) VUID-VkVideoSessionCreateInfoKHR-pNext-10924
+
+If a [VkVideoEncodeProfileRgbConversionInfoVALVE](VkVideoEncodeProfileRgbConversionInfoVALVE.html) structure is
+included in the `pNext` chain of `pVideoProfile` and
+`VkVideoEncodeProfileRgbConversionInfoVALVE`::`performEncodeRgbConversion`
+is enabled, a [VkVideoEncodeSessionRgbConversionCreateInfoVALVE](VkVideoEncodeSessionRgbConversionCreateInfoVALVE.html)
+structure **must** be included in the `pNext` chain of
+[VkVideoSessionCreateInfoKHR](#).
+
 Valid Usage (Implicit)
 
 * 
@@ -366,7 +391,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkVideoSessionCreateInfoKHR-pNext-pNext) VUID-VkVideoSessionCreateInfoKHR-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoEncodeAV1SessionCreateInfoKHR](VkVideoEncodeAV1SessionCreateInfoKHR.html), [VkVideoEncodeH264SessionCreateInfoKHR](VkVideoEncodeH264SessionCreateInfoKHR.html), [VkVideoEncodeH265SessionCreateInfoKHR](VkVideoEncodeH265SessionCreateInfoKHR.html), or [VkVideoEncodeSessionIntraRefreshCreateInfoKHR](VkVideoEncodeSessionIntraRefreshCreateInfoKHR.html)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoEncodeAV1SessionCreateInfoKHR](VkVideoEncodeAV1SessionCreateInfoKHR.html), [VkVideoEncodeH264SessionCreateInfoKHR](VkVideoEncodeH264SessionCreateInfoKHR.html), [VkVideoEncodeH265SessionCreateInfoKHR](VkVideoEncodeH265SessionCreateInfoKHR.html), [VkVideoEncodeSessionIntraRefreshCreateInfoKHR](VkVideoEncodeSessionIntraRefreshCreateInfoKHR.html), or [VkVideoEncodeSessionRgbConversionCreateInfoVALVE](VkVideoEncodeSessionRgbConversionCreateInfoVALVE.html)
 
 * 
 [](#VUID-VkVideoSessionCreateInfoKHR-sType-unique) VUID-VkVideoSessionCreateInfoKHR-sType-unique

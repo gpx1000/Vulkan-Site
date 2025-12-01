@@ -26,9 +26,8 @@ void vkCmdBeginRendering(
     VkCommandBuffer                             commandBuffer,
     const VkRenderingInfo*                      pRenderingInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_dynamic_rendering
+// Equivalent to vkCmdBeginRendering
 void vkCmdBeginRenderingKHR(
     VkCommandBuffer                             commandBuffer,
     const VkRenderingInfo*                      pRenderingInfo);
@@ -126,14 +125,14 @@ the layout specified by
 * 
 [](#VUID-vkCmdBeginRendering-pRenderingInfo-09592) VUID-vkCmdBeginRendering-pRenderingInfo-09592
 
-For any element of `pRenderingInfo->pColorAttachments`, if
+For each element of `pRenderingInfo->pColorAttachments`, if
 `imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), that image view **must** be in
 the layout specified by `imageLayout`
 
 * 
 [](#VUID-vkCmdBeginRendering-pRenderingInfo-09593) VUID-vkCmdBeginRendering-pRenderingInfo-09593
 
-For any element of `pRenderingInfo->pColorAttachments`, if
+For each element of `pRenderingInfo->pColorAttachments`, if
 either `imageResolveMode` is
 `VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`, or
 `imageView` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html) and `resolveMode` is not
@@ -146,7 +145,7 @@ specified by `resolveImageLayout`
 
 If `VK_TILE_SHADING_RENDER_PASS_ENABLE_BIT_QCOM` is included in
 [VkRenderPassTileShadingCreateInfoQCOM](VkRenderPassTileShadingCreateInfoQCOM.html)::`flags`,
-`commandBuffer` **must** not have been created with
+`commandBuffer` **must** not have been recorded with
 `VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT`
 
 * 
@@ -154,6 +153,21 @@ If `VK_TILE_SHADING_RENDER_PASS_ENABLE_BIT_QCOM` is included in
 
 [VkRenderPassTileShadingCreateInfoQCOM](VkRenderPassTileShadingCreateInfoQCOM.html)::`flags` **must** not
 include `VK_TILE_SHADING_RENDER_PASS_PER_TILE_EXECUTION_BIT_QCOM`
+
+* 
+[](#VUID-vkCmdBeginRendering-pRenderingInfo-11750) VUID-vkCmdBeginRendering-pRenderingInfo-11750
+
+If `pRenderingInfo->flags` contains
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR`,
+[`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) **must** be enabled
+
+* 
+[](#VUID-vkCmdBeginRendering-pRenderingInfo-11751) VUID-vkCmdBeginRendering-pRenderingInfo-11751
+
+If `pRenderingInfo->flags` does not contain
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR`,
+attachments **must** not specify
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
 
 Valid Usage (Implicit)
 
@@ -175,12 +189,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBeginRendering-commandBuffer-cmdpool) VUID-vkCmdBeginRendering-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBeginRendering-renderpass) VUID-vkCmdBeginRendering-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdBeginRendering-suspended) VUID-vkCmdBeginRendering-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBeginRendering-videocoding) VUID-vkCmdBeginRendering-videocoding
@@ -200,7 +219,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics | Action
+Secondary | Outside | Outside | VK_QUEUE_GRAPHICS_BIT | Action
 
 State |
 

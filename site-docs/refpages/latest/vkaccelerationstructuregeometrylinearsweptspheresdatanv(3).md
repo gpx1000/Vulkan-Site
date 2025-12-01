@@ -55,7 +55,7 @@ structure.
 `vertexFormat` is the [VkFormat](VkFormat.html) of each LSS vertex element.
 
 * 
-`vertexData` is a device or host address to memory containing vertex
+`vertexData` is a device or host address of memory containing vertex
 data for this geometry.
 
 * 
@@ -65,7 +65,7 @@ data for this geometry.
 `radiusFormat` is the [VkFormat](VkFormat.html) of each LSS radius.
 
 * 
-`radiusData` is a device or host address to memory containing LSS
+`radiusData` is a device or host address of memory containing LSS
 radius data value.
 
 * 
@@ -75,8 +75,9 @@ radius data value.
 `indexType` is the [VkIndexType](VkIndexType.html) of each index element.
 
 * 
-`indexData` is `NULL` or a device or host address to memory
-containing index data for vertex and radius buffers for this geometry.
+`indexData` is a device or host address of memory containing index
+data for vertex and radius buffers for this geometry.
+When `indexType` is `VK_INDEX_TYPE_NONE_KHR` it **must** be `NULL`.
 
 * 
 `indexStride` is the stride in bytes between each index element.
@@ -100,11 +101,6 @@ Valid Usage
 
 The [linearSweptSpheres](../../../../spec/latest/chapters/features.html#features-linearSweptSpheres) feature **must** be
 enabled
-
-* 
-[](#VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-vertexData-10420) VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-vertexData-10420
-
-The memory address in `vertexData` **must** not be `0` or `NULL'
 
 * 
 [](#VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-vertexStride-10421) VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-vertexStride-10421
@@ -135,10 +131,6 @@ The [format features](../../../../spec/latest/chapters/resources.html#resources-
 `radiusFormat` **must** contain
 `VK_FORMAT_FEATURE_2_ACCELERATION_STRUCTURE_RADIUS_BUFFER_BIT_NV`
 
-[](#VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-radiusData-10425) VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-radiusData-10425
-
-The memory address in `radiusData` **must** not be `0` or `NULL'
-
 [](#VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-radiusData-10426) VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-radiusData-10426
 
 All values referenced in `radiusData` **must** be greater than or equal
@@ -152,8 +144,8 @@ If `indexingMode` is
 
 [](#VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-indexData-10428) VUID-VkAccelerationStructureGeometryLinearSweptSpheresDataNV-indexData-10428
 
-If `indexData` is not `NULL`, `indexType` **must** be one of
-`VK_INDEX_TYPE_UINT16` or `VK_INDEX_TYPE_UINT32`
+`indexType` **must** be `VK_INDEX_TYPE_UINT16`,
+`VK_INDEX_TYPE_UINT32`, or `VK_INDEX_TYPE_NONE_KHR`
 
 Valid Usage (Implicit)
 

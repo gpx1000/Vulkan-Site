@@ -54,9 +54,8 @@ The data word is written to memory according to the host endianness.
 
 `vkCmdFillBuffer` is treated as a “transfer” operation for the
 purposes of synchronization barriers.
-The `VK_BUFFER_USAGE_TRANSFER_DST_BIT` **must** be specified in `usage`
-of [VkBufferCreateInfo](VkBufferCreateInfo.html) in order for the buffer to be compatible with
-`vkCmdFillBuffer`.
+It is only compatible with buffers created with the
+`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag set.
 
 Valid Usage
 
@@ -91,8 +90,8 @@ multiple of `4`
 * 
 [](#VUID-vkCmdFillBuffer-dstBuffer-00029) VUID-vkCmdFillBuffer-dstBuffer-00029
 
-`dstBuffer` **must** have been created with
-`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag
+`dstBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdFillBuffer-apiVersion-07894) VUID-vkCmdFillBuffer-apiVersion-07894
@@ -143,12 +142,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdFillBuffer-commandBuffer-cmdpool) VUID-vkCmdFillBuffer-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdFillBuffer-renderpass) VUID-vkCmdFillBuffer-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdFillBuffer-suspended) VUID-vkCmdFillBuffer-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdFillBuffer-videocoding) VUID-vkCmdFillBuffer-videocoding
@@ -173,11 +177,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 

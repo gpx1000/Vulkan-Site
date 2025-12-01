@@ -89,8 +89,8 @@ Valid Usage
 * 
 [](#VUID-VkVideoEncodeInfoKHR-dstBuffer-08236) VUID-VkVideoEncodeInfoKHR-dstBuffer-08236
 
-`dstBuffer` **must** have been created with
-`VK_BUFFER_USAGE_VIDEO_ENCODE_DST_BIT_KHR` set
+`dstBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_VIDEO_ENCODE_DST_BIT_KHR` usage flag set
 
 * 
 [](#VUID-VkVideoEncodeInfoKHR-dstBufferOffset-08237) VUID-VkVideoEncodeInfoKHR-dstBufferOffset-08237

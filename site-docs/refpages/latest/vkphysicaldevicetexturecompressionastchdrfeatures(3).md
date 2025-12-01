@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceTextureCompressionASTCHDRFeatures {
     VkBool32           textureCompressionASTC_HDR;
 } VkPhysicalDeviceTextureCompressionASTCHDRFeatures;
 
-or the equivalent
-
 // Provided by VK_EXT_texture_compression_astc_hdr
+// Equivalent to VkPhysicalDeviceTextureCompressionASTCHDRFeatures
 typedef VkPhysicalDeviceTextureCompressionASTCHDRFeatures VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT;
 
 This structure describes the following feature:

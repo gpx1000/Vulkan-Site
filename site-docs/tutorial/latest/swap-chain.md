@@ -76,7 +76,7 @@ deviceCreateInfo.ppEnabledExtensionNames = deviceExtensions.data();
 Alternatively, we can do this at the construction and keep this very succinct:
 
 std::vector deviceExtensions = { vk::KHRSwapchainExtensionName };
-float                     queuePriority = 0.0f;
+float                     queuePriority = 0.5f;
 vk::DeviceQueueCreateInfo deviceQueueCreateInfo( {}, graphicsIndex, 1, &queuePriority );
 vk::DeviceCreateInfo      deviceCreateInfo( {}, deviceQueueCreateInfo, {}, deviceExtensions );
 
@@ -457,7 +457,7 @@ mistake and a helpful message is printed:
 ![swap chain validation layer](../../_images/images/swap_chain_validation_layer.png)
 
 The swap chain has been created now, so all that remains is retrieving the
-handles of the `VkImage`s in it. We’ll reference these during rendering
+handles of the `VkImage` objects it contains. We’ll reference these during rendering
 operations in later chapters.
 
 std::vector swapChainImages = swapChainImages = swapChain->getImages();

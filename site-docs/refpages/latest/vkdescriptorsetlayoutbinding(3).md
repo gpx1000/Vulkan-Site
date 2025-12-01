@@ -116,6 +116,22 @@ If `descriptorType` is `VK_DESCRIPTOR_TYPE_SAMPLER` or
 `descriptorCount` valid `VkSampler` handles
 
 * 
+[](#VUID-VkDescriptorSetLayoutBinding-descriptorType-12200) VUID-VkDescriptorSetLayoutBinding-descriptorType-12200
+
+If `descriptorType` is
+`VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`, and
+`descriptorCount` is not `0` and `pImmutableSamplers` is not
+`NULL`, either each element of `pImmutableSamplers` **must** be a
+`VkSampler` that enables [sampler Y′CBCR    conversion](../../../../spec/latest/chapters/samplers.html#samplers-YCbCr-conversion) or none of them enable sampler Y′CBCR conversion
+
+* 
+[](#VUID-VkDescriptorSetLayoutBinding-descriptorType-12215) VUID-VkDescriptorSetLayoutBinding-descriptorType-12215
+
+If `descriptorType` is `VK_DESCRIPTOR_TYPE_SAMPLER`, each
+element of `pImmutableSamplers` **must** not be a `VkSampler`
+object that enables [sampler Y′CBCR    conversion](../../../../spec/latest/chapters/samplers.html#samplers-YCbCr-conversion)
+
+* 
 [](#VUID-VkDescriptorSetLayoutBinding-descriptorType-04604) VUID-VkDescriptorSetLayoutBinding-descriptorType-04604
 
 If the [`inlineUniformBlock`](../../../../spec/latest/chapters/features.html#features-inlineUniformBlock) feature

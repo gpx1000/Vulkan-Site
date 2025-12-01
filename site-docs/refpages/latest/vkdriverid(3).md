@@ -50,6 +50,7 @@ typedef enum VkDriverId {
     VK_DRIVER_ID_IMAGINATION_OPEN_SOURCE_MESA = 25,
     VK_DRIVER_ID_MESA_HONEYKRISP = 26,
     VK_DRIVER_ID_VULKAN_SC_EMULATION_ON_VULKAN = 27,
+    VK_DRIVER_ID_MESA_KOSMICKRISP = 28,
   // Provided by VK_KHR_driver_properties
     VK_DRIVER_ID_AMD_PROPRIETARY_KHR = VK_DRIVER_ID_AMD_PROPRIETARY,
   // Provided by VK_KHR_driver_properties
@@ -76,9 +77,8 @@ typedef enum VkDriverId {
     VK_DRIVER_ID_BROADCOM_PROPRIETARY_KHR = VK_DRIVER_ID_BROADCOM_PROPRIETARY,
 } VkDriverId;
 
-or the equivalent
-
 // Provided by VK_KHR_driver_properties
+// Equivalent to VkDriverId
 typedef VkDriverId VkDriverIdKHR;
 
 |  | Khronos driver IDs may be allocated by vendors at any time.

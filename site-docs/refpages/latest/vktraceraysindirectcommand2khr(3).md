@@ -113,7 +113,7 @@ Valid Usage
 
 The buffer from which the `raygenShaderRecordAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-VkTraceRaysIndirectCommand2KHR-pRayGenShaderBindingTable-03682) VUID-VkTraceRaysIndirectCommand2KHR-pRayGenShaderBindingTable-03682
@@ -126,7 +126,7 @@ The buffer from which the `raygenShaderRecordAddress` is queried
 
 The buffer from which the `missShaderBindingTableAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-VkTraceRaysIndirectCommand2KHR-pMissShaderBindingTable-03685) VUID-VkTraceRaysIndirectCommand2KHR-pMissShaderBindingTable-03685
@@ -151,7 +151,7 @@ The buffer from which the `missShaderBindingTableAddress` is queried
 
 The buffer from which the `hitShaderBindingTableAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-VkTraceRaysIndirectCommand2KHR-pHitShaderBindingTable-03689) VUID-VkTraceRaysIndirectCommand2KHR-pHitShaderBindingTable-03689
@@ -176,7 +176,7 @@ The buffer from which the `hitShaderBindingTableAddress` is queried
 
 The buffer from which the `callableShaderBindingTableAddress` is queried
 **must** have been created with the
-`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag
+`VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR` usage flag set
 
 * 
 [](#VUID-VkTraceRaysIndirectCommand2KHR-pCallableShaderBindingTable-03693) VUID-VkTraceRaysIndirectCommand2KHR-pCallableShaderBindingTable-03693
@@ -197,29 +197,14 @@ The buffer from which the `callableShaderBindingTableAddress` is queried
 `VkPhysicalDeviceRayTracingPipelinePropertiesKHR`::`maxShaderGroupStride`
 
 * 
-[](#VUID-VkTraceRaysIndirectCommand2KHR-flags-03696) VUID-VkTraceRaysIndirectCommand2KHR-flags-03696
-
-If the bound ray tracing pipeline was created with `flags` that
-included
-`VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_BIT_KHR`,
-`hitShaderBindingTableAddress` **must** not be zero
-
-* 
-[](#VUID-VkTraceRaysIndirectCommand2KHR-flags-03697) VUID-VkTraceRaysIndirectCommand2KHR-flags-03697
-
-If the bound ray tracing pipeline was created with `flags` that
-included
-`VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_BIT_KHR`,
-`hitShaderBindingTableAddress` **must** not be zero
-
-* 
 [](#VUID-VkTraceRaysIndirectCommand2KHR-flags-03511) VUID-VkTraceRaysIndirectCommand2KHR-flags-03511
 
 If the bound ray tracing pipeline was created with `flags` that
 included
 `VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_MISS_SHADERS_BIT_KHR`, the
-shader group handle identified by `missShaderBindingTableAddress` **must**
-not be zero
+entries in the table identified by `missShaderBindingTableAddress`
+accessed as a result of this command in order to execute a miss shader
+**must** not be zero
 
 * 
 [](#VUID-VkTraceRaysIndirectCommand2KHR-flags-03512) VUID-VkTraceRaysIndirectCommand2KHR-flags-03512

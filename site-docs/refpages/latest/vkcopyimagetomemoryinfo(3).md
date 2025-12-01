@@ -32,9 +32,8 @@ typedef struct VkCopyImageToMemoryInfo {
     const VkImageToMemoryCopy*    pRegions;
 } VkCopyImageToMemoryInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to VkCopyImageToMemoryInfo
 typedef VkCopyImageToMemoryInfo VkCopyImageToMemoryInfoEXT;
 
 * 
@@ -87,9 +86,8 @@ copy command **must** be bound as described in
 If the stencil aspect of `srcImage` is accessed, and
 `srcImage` was not created with
 [separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`srcImage` **must** have been created with
-`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` set in
-[VkImageCreateInfo](VkImageCreateInfo.html)::`usage`
+`srcImage` **must** have been created with the
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` usage flag set
 
 * 
 [](#VUID-VkCopyImageToMemoryInfo-srcImage-09112) VUID-VkCopyImageToMemoryInfo-srcImage-09112
@@ -97,17 +95,15 @@ If the stencil aspect of `srcImage` is accessed, and
 If the stencil aspect of `srcImage` is accessed, and
 `srcImage` was created with
 [separate stencil usage](../../../../spec/latest/chapters/resources.html#VkImageStencilUsageCreateInfo),
-`srcImage` **must** have been created with
-`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` set in
-[VkImageStencilUsageCreateInfo](VkImageStencilUsageCreateInfo.html)::`stencilUsage`
+`srcImage` **must** have been created with the
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` usage flag set
 
 * 
 [](#VUID-VkCopyImageToMemoryInfo-srcImage-09113) VUID-VkCopyImageToMemoryInfo-srcImage-09113
 
 If non-stencil aspects of `srcImage` are accessed,
-`srcImage` **must** have been created with
-`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` set in
-[VkImageCreateInfo](VkImageCreateInfo.html)::`usage`
+`srcImage` **must** have been created with the
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` usage flag set
 
 * 
 [](#VUID-VkCopyImageToMemoryInfo-imageOffset-09114) VUID-VkCopyImageToMemoryInfo-imageOffset-09114
@@ -127,7 +123,7 @@ the extents of `srcImage` identified by `imageSubresource`
 [](#VUID-VkCopyImageToMemoryInfo-srcImage-07966) VUID-VkCopyImageToMemoryInfo-srcImage-07966
 
 If `srcImage` is non-sparse then the image
-or the specified *disjoint* plane
+or each specified *disjoint* plane
 **must** be bound completely and contiguously to a single
 `VkDeviceMemory` object
 

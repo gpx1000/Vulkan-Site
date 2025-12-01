@@ -229,6 +229,15 @@ have been recorded once for each pass as retrieved via a call to
 [vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR](vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html)
 
 * 
+[](#VUID-vkGetQueryPoolResults-queryType-11874) VUID-vkGetQueryPoolResults-queryType-11874
+
+If the `queryType` used to create `queryPool` was not
+`VK_QUERY_TYPE_RESULT_STATUS_ONLY_KHR`
+or `VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR`,
+then `flags` **must** not include
+`VK_QUERY_RESULT_WITH_STATUS_BIT_KHR`
+
+* 
 [](#VUID-vkGetQueryPoolResults-queryType-09442) VUID-vkGetQueryPoolResults-queryType-09442
 
 If the `queryType` used to create `queryPool` was

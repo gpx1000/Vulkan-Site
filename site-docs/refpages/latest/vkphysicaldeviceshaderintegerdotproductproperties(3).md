@@ -58,9 +58,8 @@ typedef struct VkPhysicalDeviceShaderIntegerDotProductProperties {
     VkBool32           integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated;
 } VkPhysicalDeviceShaderIntegerDotProductProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_shader_integer_dot_product
+// Equivalent to VkPhysicalDeviceShaderIntegerDotProductProperties
 typedef VkPhysicalDeviceShaderIntegerDotProductProperties VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR;
 
 * 

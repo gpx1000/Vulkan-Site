@@ -64,9 +64,9 @@ typedef enum VkResult {
   // Provided by VK_VERSION_1_1
     VK_ERROR_INVALID_EXTERNAL_HANDLE = -1000072003,
   // Provided by VK_VERSION_1_2
-    VK_ERROR_FRAGMENTATION = -1000161000,
-  // Provided by VK_VERSION_1_2
     VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS = -1000257000,
+  // Provided by VK_VERSION_1_2
+    VK_ERROR_FRAGMENTATION = -1000161000,
   // Provided by VK_VERSION_1_3
     VK_PIPELINE_COMPILE_REQUIRED = 1000297000,
   // Provided by VK_VERSION_1_4
@@ -97,6 +97,8 @@ typedef enum VkResult {
     VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR = -1000023005,
   // Provided by VK_EXT_image_drm_format_modifier
     VK_ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT = -1000158000,
+  // Provided by VK_EXT_present_timing
+    VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT = -1000208000,
   // Provided by VK_EXT_full_screen_exclusive
     VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT = -1000255000,
   // Provided by VK_KHR_deferred_host_operations
@@ -138,7 +140,7 @@ typedef enum VkResult {
   // Provided by VK_EXT_pipeline_creation_cache_control
     VK_ERROR_PIPELINE_COMPILE_REQUIRED_EXT = VK_PIPELINE_COMPILE_REQUIRED,
   // Provided by VK_EXT_shader_object
-  // VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT is a deprecated alias
+  // VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT is a legacy alias
     VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT = VK_INCOMPATIBLE_SHADER_BINARY_EXT,
 } VkResult;
 

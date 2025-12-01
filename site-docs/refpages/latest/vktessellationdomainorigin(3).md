@@ -31,9 +31,8 @@ typedef enum VkTessellationDomainOrigin {
     VK_TESSELLATION_DOMAIN_ORIGIN_LOWER_LEFT_KHR = VK_TESSELLATION_DOMAIN_ORIGIN_LOWER_LEFT,
 } VkTessellationDomainOrigin;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance2
+// Equivalent to VkTessellationDomainOrigin
 typedef VkTessellationDomainOrigin VkTessellationDomainOriginKHR;
 
 * 
@@ -50,7 +49,7 @@ This enum affects how the `VertexOrderCw` and `VertexOrderCcw`
 tessellation execution modes are interpreted, since the winding is defined
 relative to the orientation of the domain.
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPipelineTessellationDomainOriginStateCreateInfo](VkPipelineTessellationDomainOriginStateCreateInfo.html), [vkCmdSetTessellationDomainOriginEXT](vkCmdSetTessellationDomainOriginEXT.html)
+[VK_KHR_maintenance2](VK_KHR_maintenance2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPipelineTessellationDomainOriginStateCreateInfo](VkPipelineTessellationDomainOriginStateCreateInfo.html), [vkCmdSetTessellationDomainOriginEXT](vkCmdSetTessellationDomainOriginEXT.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/tessellation.html#VkTessellationDomainOrigin).
 

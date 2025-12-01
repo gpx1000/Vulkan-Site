@@ -32,9 +32,8 @@ typedef struct VkPipelineRenderingCreateInfo {
     VkFormat           stencilAttachmentFormat;
 } VkPipelineRenderingCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_dynamic_rendering
+// Equivalent to VkPipelineRenderingCreateInfo
 typedef VkPipelineRenderingCreateInfo VkPipelineRenderingCreateInfoKHR;
 
 * 

@@ -28,9 +28,8 @@ typedef struct VkAttachmentReferenceStencilLayout {
     VkImageLayout      stencilLayout;
 } VkAttachmentReferenceStencilLayout;
 
-or the equivalent
-
 // Provided by VK_KHR_separate_depth_stencil_layouts
+// Equivalent to VkAttachmentReferenceStencilLayout
 typedef VkAttachmentReferenceStencilLayout VkAttachmentReferenceStencilLayoutKHR;
 
 * 

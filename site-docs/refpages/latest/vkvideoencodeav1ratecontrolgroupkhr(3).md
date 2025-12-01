@@ -45,7 +45,7 @@ display order.
 
 |  | While the application can specify any rate control group for any frame,
 | --- | --- |
-indifferent of the frame type, prediction mode, or prediction direction,
+regardless of the frame type, prediction mode, or prediction direction,
 specifying a rate control group that does not reflect the prediction
 direction used by the encoded frame may result in unexpected behavior of the
 implementation’s rate control algorithm. |

@@ -21,7 +21,7 @@ vkGetPhysicalDeviceMemoryProperties - Reports memory information for the specifi
 
 To query memory properties, call:
 
-|  | This functionality is deprecated by [Vulkan Version 1.1](../../../../spec/latest/appendices/versions.html#versions-1.1). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-gpdp2) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.1](../../../../spec/latest/appendices/versions.html#versions-1.1). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-gpdp2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0

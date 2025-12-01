@@ -31,9 +31,8 @@ typedef struct VkPushDescriptorSetWithTemplateInfo {
     const void*                   pData;
 } VkPushDescriptorSetWithTemplateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance6 with VK_KHR_push_descriptor
+// Equivalent to VkPushDescriptorSetWithTemplateInfo
 typedef VkPushDescriptorSetWithTemplateInfo VkPushDescriptorSetWithTemplateInfoKHR;
 
 * 
@@ -110,6 +109,12 @@ by `descriptorUpdateTemplate` when it was created with
 `set` **must** be less than
 [VkPipelineLayoutCreateInfo](VkPipelineLayoutCreateInfo.html)::`setLayoutCount` provided when
 `layout` was created
+
+* 
+[](#VUID-VkPushDescriptorSetWithTemplateInfo-set-11854) VUID-VkPushDescriptorSetWithTemplateInfo-set-11854
+
+`set` **must** reference a valid [VkDescriptorSetLayout](VkDescriptorSetLayout.html) handle in
+`layout`
 
 * 
 [](#VUID-VkPushDescriptorSetWithTemplateInfo-set-07305) VUID-VkPushDescriptorSetWithTemplateInfo-set-07305

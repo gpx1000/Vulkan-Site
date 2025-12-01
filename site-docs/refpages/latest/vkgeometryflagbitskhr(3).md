@@ -31,9 +31,8 @@ typedef enum VkGeometryFlagBitsKHR {
     VK_GEOMETRY_NO_DUPLICATE_ANY_HIT_INVOCATION_BIT_NV = VK_GEOMETRY_NO_DUPLICATE_ANY_HIT_INVOCATION_BIT_KHR,
 } VkGeometryFlagBitsKHR;
 
-or the equivalent
-
 // Provided by VK_NV_ray_tracing
+// Equivalent to VkGeometryFlagBitsKHR
 typedef VkGeometryFlagBitsKHR VkGeometryFlagBitsNV;
 
 * 

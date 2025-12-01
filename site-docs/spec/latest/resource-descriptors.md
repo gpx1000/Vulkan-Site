@@ -856,9 +856,8 @@ typedef struct VkMutableDescriptorTypeCreateInfoEXT {
     const VkMutableDescriptorTypeListEXT*    pMutableDescriptorTypeLists;
 } VkMutableDescriptorTypeCreateInfoEXT;
 
-or the equivalent
-
 // Provided by VK_VALVE_mutable_descriptor_type
+// Equivalent to VkMutableDescriptorTypeCreateInfoEXT
 typedef VkMutableDescriptorTypeCreateInfoEXT VkMutableDescriptorTypeCreateInfoVALVE;
 
 * 
@@ -907,9 +906,8 @@ typedef struct VkMutableDescriptorTypeListEXT {
     const VkDescriptorType*    pDescriptorTypes;
 } VkMutableDescriptorTypeListEXT;
 
-or the equivalent
-
 // Provided by VK_VALVE_mutable_descriptor_type
+// Equivalent to VkMutableDescriptorTypeListEXT
 typedef VkMutableDescriptorTypeListEXT VkMutableDescriptorTypeListVALVE;
 
 * 
@@ -1163,6 +1161,22 @@ If `descriptorType` is `VK_DESCRIPTOR_TYPE_SAMPLER` or
 `descriptorCount` valid `VkSampler` handles
 
 * 
+[](#VUID-VkDescriptorSetLayoutBinding-descriptorType-12200) VUID-VkDescriptorSetLayoutBinding-descriptorType-12200
+
+If `descriptorType` is
+`VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`, and
+`descriptorCount` is not `0` and `pImmutableSamplers` is not
+`NULL`, either each element of `pImmutableSamplers` **must** be a
+`VkSampler` that enables [sampler Y′CBCR    conversion](samplers.html#samplers-YCbCr-conversion) or none of them enable sampler Y′CBCR conversion
+
+* 
+[](#VUID-VkDescriptorSetLayoutBinding-descriptorType-12215) VUID-VkDescriptorSetLayoutBinding-descriptorType-12215
+
+If `descriptorType` is `VK_DESCRIPTOR_TYPE_SAMPLER`, each
+element of `pImmutableSamplers` **must** not be a `VkSampler`
+object that enables [sampler Y′CBCR    conversion](samplers.html#samplers-YCbCr-conversion)
+
+* 
 [](#VUID-VkDescriptorSetLayoutBinding-descriptorType-04604) VUID-VkDescriptorSetLayoutBinding-descriptorType-04604
 
 If the [`inlineUniformBlock`](features.html#features-inlineUniformBlock) feature
@@ -1269,9 +1283,8 @@ typedef struct VkDescriptorSetLayoutBindingFlagsCreateInfo {
     const VkDescriptorBindingFlags*    pBindingFlags;
 } VkDescriptorSetLayoutBindingFlagsCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorSetLayoutBindingFlagsCreateInfo
 typedef VkDescriptorSetLayoutBindingFlagsCreateInfo VkDescriptorSetLayoutBindingFlagsCreateInfoEXT;
 
 * 
@@ -1480,9 +1493,8 @@ typedef enum VkDescriptorBindingFlagBits {
     VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT_EXT = VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT,
 } VkDescriptorBindingFlagBits;
 
-or the equivalent
-
 // Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorBindingFlagBits
 typedef VkDescriptorBindingFlagBits VkDescriptorBindingFlagBitsEXT;
 
 * 
@@ -1562,9 +1574,8 @@ implementation to observe updates to descriptors that are used. |
 // Provided by VK_VERSION_1_2
 typedef VkFlags VkDescriptorBindingFlags;
 
-or the equivalent
-
 // Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorBindingFlags
 typedef VkDescriptorBindingFlags VkDescriptorBindingFlagsEXT;
 
 `VkDescriptorBindingFlags` is a bitmask type for setting a mask of zero
@@ -1579,9 +1590,8 @@ void vkGetDescriptorSetLayoutSupport(
     const VkDescriptorSetLayoutCreateInfo*      pCreateInfo,
     VkDescriptorSetLayoutSupport*               pSupport);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance3
+// Equivalent to vkGetDescriptorSetLayoutSupport
 void vkGetDescriptorSetLayoutSupportKHR(
     VkDevice                                    device,
     const VkDescriptorSetLayoutCreateInfo*      pCreateInfo,
@@ -1654,9 +1664,8 @@ typedef struct VkDescriptorSetLayoutSupport {
     VkBool32           supported;
 } VkDescriptorSetLayoutSupport;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance3
+// Equivalent to VkDescriptorSetLayoutSupport
 typedef VkDescriptorSetLayoutSupport VkDescriptorSetLayoutSupportKHR;
 
 * 
@@ -1702,9 +1711,8 @@ typedef struct VkDescriptorSetVariableDescriptorCountLayoutSupport {
     uint32_t           maxVariableDescriptorCount;
 } VkDescriptorSetVariableDescriptorCountLayoutSupport;
 
-or the equivalent
-
 // Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorSetVariableDescriptorCountLayoutSupport
 typedef VkDescriptorSetVariableDescriptorCountLayoutSupport VkDescriptorSetVariableDescriptorCountLayoutSupportEXT;
 
 * 
@@ -3334,9 +3342,8 @@ typedef struct VkDescriptorPoolInlineUniformBlockCreateInfo {
     uint32_t           maxInlineUniformBlockBindings;
 } VkDescriptorPoolInlineUniformBlockCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_inline_uniform_block
+// Equivalent to VkDescriptorPoolInlineUniformBlockCreateInfo
 typedef VkDescriptorPoolInlineUniformBlockCreateInfo VkDescriptorPoolInlineUniformBlockCreateInfoEXT;
 
 * 
@@ -3851,9 +3858,8 @@ typedef struct VkDescriptorSetVariableDescriptorCountAllocateInfo {
     const uint32_t*    pDescriptorCounts;
 } VkDescriptorSetVariableDescriptorCountAllocateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorSetVariableDescriptorCountAllocateInfo
 typedef VkDescriptorSetVariableDescriptorCountAllocateInfo VkDescriptorSetVariableDescriptorCountAllocateInfoEXT;
 
 * 
@@ -4699,16 +4705,16 @@ single `VkDeviceMemory` object
 
 If `descriptorType` is `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER` or
 `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC`, the `buffer` member
-of each element of `pBufferInfo` **must** have been created with
-`VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT` set
+of each element of `pBufferInfo` **must** have been created with the
+`VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorType-00331) VUID-VkWriteDescriptorSet-descriptorType-00331
 
 If `descriptorType` is `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER` or
 `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC`, the `buffer` member
-of each element of `pBufferInfo` **must** have been created with
-`VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` set
+of each element of `pBufferInfo` **must** have been created with the
+`VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorType-00332) VUID-VkWriteDescriptorSet-descriptorType-00332
@@ -4724,8 +4730,10 @@ of each element of `pBufferInfo`, or the
 [](#VUID-VkWriteDescriptorSet-descriptorType-00333) VUID-VkWriteDescriptorSet-descriptorType-00333
 
 If `descriptorType` is `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER` or
-`VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC`, the `range` member
-of each element of `pBufferInfo`, or the
+`VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC`,
+and the [`shader64BitIndexing`](features.html#features-shader64BitIndexing)
+feature is not enabled,
+the `range` member of each element of `pBufferInfo`, or the
 [effective range](#buffer-info-effective-range) if `range` is
 `VK_WHOLE_SIZE`, **must** be less than or equal to
 `VkPhysicalDeviceLimits`::`maxStorageBufferRange`
@@ -4758,7 +4766,7 @@ each element of `pImageInfo` **must** have been created with the
 If `descriptorType` is `VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE` or
 `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`, the `imageView`
 member of each element of `pImageInfo` **must** have been created with
-`VK_IMAGE_USAGE_SAMPLED_BIT` set
+the `VK_IMAGE_USAGE_SAMPLED_BIT` usage flag set
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorType-04149) VUID-VkWriteDescriptorSet-descriptorType-04149
@@ -4794,14 +4802,15 @@ member of the list given in [Storage    Image](#descriptorsets-storageimage)
 
 If `descriptorType` is `VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT`,
 the `imageView` member of each element of `pImageInfo` **must**
-have been created with `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` set
+have been created with the `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+usage flag set
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorType-00339) VUID-VkWriteDescriptorSet-descriptorType-00339
 
 If `descriptorType` is `VK_DESCRIPTOR_TYPE_STORAGE_IMAGE`, the
 `imageView` member of each element of `pImageInfo` **must** have
-been created with `VK_IMAGE_USAGE_STORAGE_BIT` set
+been created with the `VK_IMAGE_USAGE_STORAGE_BIT` usage flag set
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorType-02752) VUID-VkWriteDescriptorSet-descriptorType-02752
@@ -4833,8 +4842,8 @@ included in the `pNext` chain or with a
 If `descriptorType` is
 `VK_DESCRIPTOR_TYPE_SAMPLE_WEIGHT_IMAGE_QCOM`, the `imageView`
 member of each element of `pImageInfo` **must** have been created with
-a view created with an `image` created with
-`VK_IMAGE_USAGE_SAMPLE_WEIGHT_BIT_QCOM`
+a view created with an `image` created with the
+`VK_IMAGE_USAGE_SAMPLE_WEIGHT_BIT_QCOM` usage flag set
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorType-06943) VUID-VkWriteDescriptorSet-descriptorType-06943
@@ -4842,8 +4851,8 @@ a view created with an `image` created with
 If `descriptorType` is
 `VK_DESCRIPTOR_TYPE_BLOCK_MATCH_IMAGE_QCOM`, the `imageView`
 member of each element of `pImageInfo` **must** have been created with
-a view created with an `image` created with
-`VK_IMAGE_USAGE_SAMPLE_BLOCK_MATCH_BIT_QCOM`
+a view created with an `image` created with the
+`VK_IMAGE_USAGE_SAMPLE_BLOCK_MATCH_BIT_QCOM` usage flag set
 
 Valid Usage (Implicit)
 
@@ -5225,13 +5234,6 @@ If `imageLayout` is
 `VK_IMAGE_ASPECT_COLOR_BIT`
 
 * 
-[](#VUID-VkDescriptorImageInfo-imageLayout-00344) VUID-VkDescriptorImageInfo-imageLayout-00344
-
-`imageLayout` **must** match the actual [VkImageLayout](resources.html#VkImageLayout) of each
-subresource accessible from `imageView` at the time this descriptor
-is accessed as defined by the [    image layout matching rules](resources.html#resources-image-layouts-matching-rule)
-
-* 
 [](#VUID-VkDescriptorImageInfo-sampler-01564) VUID-VkDescriptorImageInfo-sampler-01564
 
 If `sampler` is used and the [VkFormat](formats.html#VkFormat) of the image is a
@@ -5271,9 +5273,8 @@ typedef struct VkWriteDescriptorSetInlineUniformBlock {
     const void*        pData;
 } VkWriteDescriptorSetInlineUniformBlock;
 
-or the equivalent
-
 // Provided by VK_EXT_inline_uniform_block
+// Equivalent to VkWriteDescriptorSetInlineUniformBlock
 typedef VkWriteDescriptorSetInlineUniformBlock VkWriteDescriptorSetInlineUniformBlockEXT;
 
 * 
@@ -5542,7 +5543,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkWriteDescriptorSetTensorARM-pTensorViews-parameter) VUID-VkWriteDescriptorSetTensorARM-pTensorViews-parameter
 
- `pTensorViews` **must** be a valid pointer to an array of `tensorViewCount` valid [VkTensorViewARM](resources.html#VkTensorViewARM) handles
+ `pTensorViews` **must** be a valid pointer to an array of `tensorViewCount` valid or [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) [VkTensorViewARM](resources.html#VkTensorViewARM) handles
 
 * 
 [](#VUID-VkWriteDescriptorSetTensorARM-tensorViewCount-arraylength) VUID-VkWriteDescriptorSetTensorARM-tensorViewCount-arraylength
@@ -5794,9 +5795,8 @@ Descriptor update template objects are represented by
 // Provided by VK_VERSION_1_1
 VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkDescriptorUpdateTemplate)
 
-or the equivalent
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplate
 typedef VkDescriptorUpdateTemplate VkDescriptorUpdateTemplateKHR;
 
 Updating a large `VkDescriptorSet` array **can** be an expensive operation
@@ -5837,9 +5837,8 @@ VkResult vkCreateDescriptorUpdateTemplate(
     const VkAllocationCallbacks*                pAllocator,
     VkDescriptorUpdateTemplate*                 pDescriptorUpdateTemplate);
 
-or the equivalent command
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to vkCreateDescriptorUpdateTemplate
 VkResult vkCreateDescriptorUpdateTemplateKHR(
     VkDevice                                    device,
     const VkDescriptorUpdateTemplateCreateInfo* pCreateInfo,
@@ -5930,9 +5929,8 @@ typedef struct VkDescriptorUpdateTemplateCreateInfo {
     uint32_t                                  set;
 } VkDescriptorUpdateTemplateCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplateCreateInfo
 typedef VkDescriptorUpdateTemplateCreateInfo VkDescriptorUpdateTemplateCreateInfoKHR;
 
 * 
@@ -6081,9 +6079,8 @@ Valid Usage (Implicit)
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkDescriptorUpdateTemplateCreateFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplateCreateFlags
 typedef VkDescriptorUpdateTemplateCreateFlags VkDescriptorUpdateTemplateCreateFlagsKHR;
 
 `VkDescriptorUpdateTemplateCreateFlags` is a bitmask type for setting a
@@ -6104,9 +6101,8 @@ typedef enum VkDescriptorUpdateTemplateType {
     VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET_KHR = VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET,
 } VkDescriptorUpdateTemplateType;
 
-or the equivalent
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplateType
 typedef VkDescriptorUpdateTemplateType VkDescriptorUpdateTemplateTypeKHR;
 
 * 
@@ -6131,9 +6127,8 @@ typedef struct VkDescriptorUpdateTemplateEntry {
     size_t              stride;
 } VkDescriptorUpdateTemplateEntry;
 
-or the equivalent
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplateEntry
 typedef VkDescriptorUpdateTemplateEntry VkDescriptorUpdateTemplateEntryKHR;
 
 * 
@@ -6227,9 +6222,8 @@ void vkDestroyDescriptorUpdateTemplate(
     VkDescriptorUpdateTemplate                  descriptorUpdateTemplate,
     const VkAllocationCallbacks*                pAllocator);
 
-or the equivalent command
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to vkDestroyDescriptorUpdateTemplate
 void vkDestroyDescriptorUpdateTemplateKHR(
     VkDevice                                    device,
     VkDescriptorUpdateTemplate                  descriptorUpdateTemplate,
@@ -6300,9 +6294,8 @@ void vkUpdateDescriptorSetWithTemplate(
     VkDescriptorUpdateTemplate                  descriptorUpdateTemplate,
     const void*                                 pData);
 
-or the equivalent command
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to vkUpdateDescriptorSetWithTemplate
 void vkUpdateDescriptorSetWithTemplateKHR(
     VkDevice                                    device,
     VkDescriptorSet                             descriptorSet,
@@ -6334,11 +6327,13 @@ Valid Usage
 * 
 [](#VUID-vkUpdateDescriptorSetWithTemplate-pData-01685) VUID-vkUpdateDescriptorSetWithTemplate-pData-01685
 
-`pData` **must** be a valid pointer to a memory containing one or more
-valid instances of [VkDescriptorImageInfo](#VkDescriptorImageInfo),
-[VkDescriptorBufferInfo](#VkDescriptorBufferInfo), or [VkBufferView](resources.html#VkBufferView) in a layout defined
-by `descriptorUpdateTemplate` when it was created with
-[vkCreateDescriptorUpdateTemplate](#vkCreateDescriptorUpdateTemplate)
+    `pData` **must** be a valid pointer to a memory containing one or more
+    valid instances of
+[VkAccelerationStructureKHR](resources.html#VkAccelerationStructureKHR) handles,
+[VkAccelerationStructureNV](resources.html#VkAccelerationStructureNV) handles,
+    [VkDescriptorImageInfo](#VkDescriptorImageInfo), [VkDescriptorBufferInfo](#VkDescriptorBufferInfo), or
+    [VkBufferView](resources.html#VkBufferView) in a layout defined by `descriptorUpdateTemplate`
+    when it was created with [vkCreateDescriptorUpdateTemplate](#vkCreateDescriptorUpdateTemplate)
 
 * 
 [](#VUID-vkUpdateDescriptorSetWithTemplate-descriptorSet-06995) VUID-vkUpdateDescriptorSetWithTemplate-descriptorSet-06995
@@ -6731,7 +6726,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindDescriptorSets-commandBuffer-cmdpool) VUID-vkCmdBindDescriptorSets-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or data_graph operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_DATA_GRAPH_BIT_ARM`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindDescriptorSets-videocoding) VUID-vkCmdBindDescriptorSets-videocoding
@@ -6761,11 +6756,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_DATA_GRAPH_BIT_ARM
 
-Data_Graph | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -6779,9 +6774,8 @@ void vkCmdBindDescriptorSets2(
     VkCommandBuffer                             commandBuffer,
     const VkBindDescriptorSetsInfo*             pBindDescriptorSetsInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance6
+// Equivalent to vkCmdBindDescriptorSets2
 void vkCmdBindDescriptorSets2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkBindDescriptorSetsInfo*             pBindDescriptorSetsInfo);
@@ -6823,7 +6817,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindDescriptorSets2-commandBuffer-cmdpool) VUID-vkCmdBindDescriptorSets2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindDescriptorSets2-videocoding) VUID-vkCmdBindDescriptorSets2-videocoding
@@ -6843,9 +6837,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -6866,9 +6860,8 @@ typedef struct VkBindDescriptorSetsInfo {
     const uint32_t*           pDynamicOffsets;
 } VkBindDescriptorSetsInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance6
+// Equivalent to VkBindDescriptorSetsInfo
 typedef VkBindDescriptorSetsInfo VkBindDescriptorSetsInfoKHR;
 
 * 
@@ -7103,9 +7096,8 @@ void vkCmdPushDescriptorSet(
     uint32_t                                    descriptorWriteCount,
     const VkWriteDescriptorSet*                 pDescriptorWrites);
 
-or the equivalent command
-
 // Provided by VK_KHR_push_descriptor
+// Equivalent to vkCmdPushDescriptorSet
 void vkCmdPushDescriptorSetKHR(
     VkCommandBuffer                             commandBuffer,
     VkPipelineBindPoint                         pipelineBindPoint,
@@ -7254,7 +7246,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPushDescriptorSet-commandBuffer-cmdpool) VUID-vkCmdPushDescriptorSet-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdPushDescriptorSet-videocoding) VUID-vkCmdPushDescriptorSet-videocoding
@@ -7284,9 +7276,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -7299,9 +7291,8 @@ void vkCmdPushDescriptorSet2(
     VkCommandBuffer                             commandBuffer,
     const VkPushDescriptorSetInfo*              pPushDescriptorSetInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance6 with VK_KHR_push_descriptor
+// Equivalent to vkCmdPushDescriptorSet2
 void vkCmdPushDescriptorSet2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkPushDescriptorSetInfo*              pPushDescriptorSetInfo);
@@ -7349,7 +7340,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPushDescriptorSet2-commandBuffer-cmdpool) VUID-vkCmdPushDescriptorSet2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdPushDescriptorSet2-videocoding) VUID-vkCmdPushDescriptorSet2-videocoding
@@ -7369,9 +7360,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -7390,9 +7381,8 @@ typedef struct VkPushDescriptorSetInfo {
     const VkWriteDescriptorSet*    pDescriptorWrites;
 } VkPushDescriptorSetInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance6 with VK_KHR_push_descriptor
+// Equivalent to VkPushDescriptorSetInfo
 typedef VkPushDescriptorSetInfo VkPushDescriptorSetInfoKHR;
 
 * 
@@ -7534,9 +7524,8 @@ void vkCmdPushDescriptorSetWithTemplate(
     uint32_t                                    set,
     const void*                                 pData);
 
-or the equivalent command
-
 // Provided by VK_KHR_descriptor_update_template with VK_KHR_push_descriptor, VK_KHR_push_descriptor with VK_VERSION_1_1 or VK_KHR_descriptor_update_template
+// Equivalent to vkCmdPushDescriptorSetWithTemplate
 void vkCmdPushDescriptorSetWithTemplateKHR(
     VkCommandBuffer                             commandBuffer,
     VkDescriptorUpdateTemplate                  descriptorUpdateTemplate,
@@ -7613,6 +7602,12 @@ by `descriptorUpdateTemplate` when it was created with
 `layout` was created
 
 * 
+[](#VUID-vkCmdPushDescriptorSetWithTemplate-set-11854) VUID-vkCmdPushDescriptorSetWithTemplate-set-11854
+
+`set` **must** reference a valid [VkDescriptorSetLayout](#VkDescriptorSetLayout) handle in
+`layout`
+
+* 
 [](#VUID-vkCmdPushDescriptorSetWithTemplate-set-07305) VUID-vkCmdPushDescriptorSetWithTemplate-set-07305
 
 `set` **must** be the unique set number in the pipeline layout that
@@ -7650,7 +7645,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPushDescriptorSetWithTemplate-commandBuffer-cmdpool) VUID-vkCmdPushDescriptorSetWithTemplate-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdPushDescriptorSetWithTemplate-videocoding) VUID-vkCmdPushDescriptorSetWithTemplate-videocoding
@@ -7675,9 +7670,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -7738,9 +7733,8 @@ void vkCmdPushDescriptorSetWithTemplate2(
     VkCommandBuffer                             commandBuffer,
     const VkPushDescriptorSetWithTemplateInfo*  pPushDescriptorSetWithTemplateInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance6 with VK_KHR_push_descriptor
+// Equivalent to vkCmdPushDescriptorSetWithTemplate2
 void vkCmdPushDescriptorSetWithTemplate2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkPushDescriptorSetWithTemplateInfo*  pPushDescriptorSetWithTemplateInfo);
@@ -7773,7 +7767,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPushDescriptorSetWithTemplate2-commandBuffer-cmdpool) VUID-vkCmdPushDescriptorSetWithTemplate2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdPushDescriptorSetWithTemplate2-videocoding) VUID-vkCmdPushDescriptorSetWithTemplate2-videocoding
@@ -7793,9 +7787,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -7813,9 +7807,8 @@ typedef struct VkPushDescriptorSetWithTemplateInfo {
     const void*                   pData;
 } VkPushDescriptorSetWithTemplateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance6 with VK_KHR_push_descriptor
+// Equivalent to VkPushDescriptorSetWithTemplateInfo
 typedef VkPushDescriptorSetWithTemplateInfo VkPushDescriptorSetWithTemplateInfoKHR;
 
 * 
@@ -7892,6 +7885,12 @@ by `descriptorUpdateTemplate` when it was created with
 `set` **must** be less than
 [VkPipelineLayoutCreateInfo](#VkPipelineLayoutCreateInfo)::`setLayoutCount` provided when
 `layout` was created
+
+* 
+[](#VUID-VkPushDescriptorSetWithTemplateInfo-set-11854) VUID-VkPushDescriptorSetWithTemplateInfo-set-11854
+
+`set` **must** reference a valid [VkDescriptorSetLayout](#VkDescriptorSetLayout) handle in
+`layout`
 
 * 
 [](#VUID-VkPushDescriptorSetWithTemplateInfo-set-07305) VUID-VkPushDescriptorSetWithTemplateInfo-set-07305
@@ -8096,7 +8095,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPushConstants-commandBuffer-cmdpool) VUID-vkCmdPushConstants-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdPushConstants-videocoding) VUID-vkCmdPushConstants-videocoding
@@ -8126,9 +8125,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -8141,9 +8140,8 @@ void vkCmdPushConstants2(
     VkCommandBuffer                             commandBuffer,
     const VkPushConstantsInfo*                  pPushConstantsInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance6
+// Equivalent to vkCmdPushConstants2
 void vkCmdPushConstants2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkPushConstantsInfo*                  pPushConstantsInfo);
@@ -8176,7 +8174,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPushConstants2-commandBuffer-cmdpool) VUID-vkCmdPushConstants2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdPushConstants2-videocoding) VUID-vkCmdPushConstants2-videocoding
@@ -8196,9 +8194,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -8217,9 +8215,8 @@ typedef struct VkPushConstantsInfo {
     const void*           pValues;
 } VkPushConstantsInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance6
+// Equivalent to VkPushConstantsInfo
 typedef VkPushConstantsInfo VkPushConstantsInfoKHR;
 
 * 
@@ -8435,6 +8432,19 @@ be enabled
 `layout` **must** have been created with the
 `VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT` flag set
 
+* 
+[](#VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11811) VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11811
+
+`layout` **must** have not been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT` flag set
+
+* 
+[](#VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11812) VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11812
+
+`layout` **must** have not been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT`
+flag set
+
 Valid Usage (Implicit)
 
 * 
@@ -8535,6 +8545,19 @@ be enabled
 
 `layout` **must** have been created with the
 `VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT` flag set
+
+* 
+[](#VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11813) VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11813
+
+`layout` **must** have not been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT` flag set
+
+* 
+[](#VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11814) VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11814
+
+`layout` **must** have not been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT`
+flag set
 
 Valid Usage (Implicit)
 
@@ -8827,6 +8850,78 @@ If `type` is `VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV` and
 If `type` is `VK_DESCRIPTOR_TYPE_TENSOR_ARM`, a
 [VkDescriptorGetTensorInfoARM](#VkDescriptorGetTensorInfoARM) structure **must** be included in the
 `pNext` chain and `data` is ignored
+
+* 
+[](#VUID-VkDescriptorGetInfoEXT-type-12216) VUID-VkDescriptorGetInfoEXT-type-12216
+
+If `type` is `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`,
+`pCombinedImageSampler` is not `NULL`, and
+`pCombinedImageSampler->imageView` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`pCombinedImageSampler->imageView` member of `data` **must** have
+been created with `VK_IMAGE_USAGE_SAMPLED_BIT` set
+
+* 
+[](#VUID-VkDescriptorGetInfoEXT-type-12217) VUID-VkDescriptorGetInfoEXT-type-12217
+
+If `type` is `VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE`,
+`pSampledImage` is not `NULL`, and `pSampledImage->imageView` is
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the `pSampledImage->imageView` member of
+`data` **must** have been created with `VK_IMAGE_USAGE_SAMPLED_BIT`
+set
+
+* 
+[](#VUID-VkDescriptorGetInfoEXT-type-12218) VUID-VkDescriptorGetInfoEXT-type-12218
+
+If `type` is `VK_DESCRIPTOR_TYPE_STORAGE_IMAGE`,
+`pStorageImage` is not `NULL`, and `pStorageImage->imageView` is
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the `pStorageImage->imageView` member of
+`data` **must** have been created with `VK_IMAGE_USAGE_STORAGE_BIT`
+set
+
+* 
+[](#VUID-VkDescriptorGetInfoEXT-type-12219) VUID-VkDescriptorGetInfoEXT-type-12219
+
+If `type` is `VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT`, the
+`pInputAttachmentImage->imageView` member of `data` **must** have
+been created with `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` set
+
+* 
+[](#VUID-VkDescriptorGetInfoEXT-type-12220) VUID-VkDescriptorGetInfoEXT-type-12220
+
+If `type` is `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER`,
+`pUniformBuffer` is not `NULL` and `pUniformBuffer->address` is
+not zero, `pUniformBuffer->address` **must** be a device address
+allocated to the application from a buffer created with the
+`VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT` usage flag set
+
+* 
+[](#VUID-VkDescriptorGetInfoEXT-type-12221) VUID-VkDescriptorGetInfoEXT-type-12221
+
+If `type` is `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER`,
+`pStorageBuffer` is not `NULL` and `pStorageBuffer->address` is
+not zero, `pStorageBuffer->address` **must** be a device address
+allocated to the application from a buffer created with the
+`VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` usage flag set
+
+* 
+[](#VUID-VkDescriptorGetInfoEXT-type-12222) VUID-VkDescriptorGetInfoEXT-type-12222
+
+If `type` is `VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER`,
+`pUniformTexelBuffer` is not `NULL` and
+`pUniformTexelBuffer->address` is not zero,
+`pUniformTexelBuffer->address` **must** be a device address allocated
+to the application from a buffer created with the
+`VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT` usage flag set
+
+* 
+[](#VUID-VkDescriptorGetInfoEXT-type-12223) VUID-VkDescriptorGetInfoEXT-type-12223
+
+If `type` is `VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER`,
+`pStorageTexelBuffer` is not `NULL` and
+`pStorageTexelBuffer->address` is not zero,
+`pStorageTexelBuffer->address` **must** be a device address allocated
+to the application from a buffer created with the
+`VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT` usage flag set
 
 Valid Usage (Implicit)
 
@@ -9220,7 +9315,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkDescriptorGetTensorInfoARM-tensorView-parameter) VUID-VkDescriptorGetTensorInfoARM-tensorView-parameter
 
- `tensorView` **must** be a valid [VkTensorViewARM](resources.html#VkTensorViewARM) handle
+ If `tensorView` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), `tensorView` **must** be a valid [VkTensorViewARM](resources.html#VkTensorViewARM) handle
 
 Descriptor buffers have their own separate binding point on the command
 buffer, with buffers bound using [vkCmdBindDescriptorBuffersEXT](#vkCmdBindDescriptorBuffersEXT).
@@ -9307,33 +9402,33 @@ There **must** be no more than `1` element in `pBindingInfos` with
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08053) VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08053
 
-For any element of `pBindingInfos`, the buffer from which
+For each element of `pBindingInfos`, the buffer from which
 `address` was queried **must** have been created with the
-`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` bit set if it
-contains sampler descriptor data
+`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` usage flag set
+if it contains sampler descriptor data
 
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08054) VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08054
 
-For any element of `pBindingInfos`, the buffer from which
+For each element of `pBindingInfos`, the buffer from which
 `address` was queried **must** have been created with the
-`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT` bit set if it
-contains resource descriptor data
+`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT` usage flag set
+if it contains resource descriptor data
 
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08055) VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08055
 
-For any element of `pBindingInfos`, `usage` **must** match the
-buffer from which `address` was queried
+For each element of `pBindingInfos`, at least one buffer from which
+`address` was queried must contain `usage`
 
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-09947) VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-09947
 
 For all elements of `pBindingInfos`, the buffer from which
 `address` was queried **must** have been created with the
-`VK_BUFFER_USAGE_2_DATA_GRAPH_FOREIGN_DESCRIPTOR_BIT_ARM` bit set if
-the command pool from which `commandBuffer` was allocated from was
-created with any element of
+`VK_BUFFER_USAGE_2_DATA_GRAPH_FOREIGN_DESCRIPTOR_BIT_ARM` usage flag
+set if the command pool from which `commandBuffer` was allocated
+from was created with any element of
 [VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM)::pProcessingEngines with
 `isForeign` set to `VK_TRUE`
 
@@ -9357,7 +9452,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-commandBuffer-cmdpool) VUID-vkCmdBindDescriptorBuffersEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or data_graph operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_DATA_GRAPH_BIT_ARM`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-videocoding) VUID-vkCmdBindDescriptorBuffersEXT-videocoding
@@ -9382,11 +9477,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_DATA_GRAPH_BIT_ARM
 
-Data_Graph | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -9418,6 +9513,11 @@ address defining the descriptor buffer to be bound.
 `usage` is a bitmask of [VkBufferUsageFlagBits](resources.html#VkBufferUsageFlagBits) specifying the
 [VkBufferCreateInfo](resources.html#VkBufferCreateInfo)::`usage` for the buffer from which
 `address` was queried.
+Usage flags other than
+`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`,
+`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT`, and
+`VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT` are
+ignored.
 
 If the `pNext` chain includes a [VkBufferUsageFlags2CreateInfo](resources.html#VkBufferUsageFlags2CreateInfo)
 structure, [VkBufferUsageFlags2CreateInfo](resources.html#VkBufferUsageFlags2CreateInfo)::`usage` from that
@@ -9441,6 +9541,14 @@ If the `pNext` chain does not include a
 `usage` **must** not be 0
 
 * 
+[](#VUID-VkDescriptorBufferBindingInfoEXT-usage-10998) VUID-VkDescriptorBufferBindingInfoEXT-usage-10998
+
+The `usage` must include at least one of
+`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`,
+`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT`, or
+`VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
 [](#VUID-VkDescriptorBufferBindingInfoEXT-bufferlessPushDescriptors-08056) VUID-VkDescriptorBufferBindingInfoEXT-bufferlessPushDescriptors-08056
 
 If [    `VkPhysicalDeviceDescriptorBufferPropertiesEXT`::`bufferlessPushDescriptors`](limits.html#limits-bufferlessPushDescriptors)
@@ -9460,16 +9568,16 @@ the `pNext` chain **must** include a
 
 If `usage` includes
 `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT`, `address`
-**must** be an address within a valid buffer that was created with
-`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT`
+**must** be an address within a valid buffer that was created with the
+`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` usage flag set
 
 * 
 [](#VUID-VkDescriptorBufferBindingInfoEXT-usage-08123) VUID-VkDescriptorBufferBindingInfoEXT-usage-08123
 
 If `usage` includes
 `VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`, `address`
-**must** be an address within a valid buffer that was created with
-`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`
+**must** be an address within a valid buffer that was created with the
+`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT` usage flag set
 
 * 
 [](#VUID-VkDescriptorBufferBindingInfoEXT-usage-08124) VUID-VkDescriptorBufferBindingInfoEXT-usage-08124
@@ -9477,7 +9585,9 @@ If `usage` includes
 If `usage` includes
 `VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT`,
 `address` **must** be an address within a valid buffer that was created
-with `VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT`
+with the
+`VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT` usage
+flag set
 
 Valid Usage (Implicit)
 
@@ -9705,6 +9815,23 @@ The [VkDescriptorSetLayout](#VkDescriptorSetLayout) for each set from `firstSet`
 `VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT` bit set
 
 * 
+[](#VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11803) VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11803
+
+The [VkDescriptorSetLayout](#VkDescriptorSetLayout) for each set from `firstSet` to
+`firstSet` +  `setCount` when `layout` was created
+**must** not have been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR` bit set
+
+* 
+[](#VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11804) VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11804
+
+The [VkDescriptorSetLayout](#VkDescriptorSetLayout) for each set from `firstSet` to
+`firstSet` +  `setCount` when `layout` was created
+**must** not have been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT`
+bit set
+
+* 
 [](#VUID-vkCmdSetDescriptorBufferOffsetsEXT-None-08060) VUID-vkCmdSetDescriptorBufferOffsetsEXT-None-08060
 
 The [`descriptorBuffer`](features.html#features-descriptorBuffer) feature **must**
@@ -9751,7 +9878,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDescriptorBufferOffsetsEXT-commandBuffer-cmdpool) VUID-vkCmdSetDescriptorBufferOffsetsEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or data_graph operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_DATA_GRAPH_BIT_ARM`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDescriptorBufferOffsetsEXT-videocoding) VUID-vkCmdSetDescriptorBufferOffsetsEXT-videocoding
@@ -9781,11 +9908,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_DATA_GRAPH_BIT_ARM
 
-Data_Graph | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -9841,7 +9968,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDescriptorBufferOffsets2EXT-commandBuffer-cmdpool) VUID-vkCmdSetDescriptorBufferOffsets2EXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or data_graph operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_DATA_GRAPH_BIT_ARM`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDescriptorBufferOffsets2EXT-videocoding) VUID-vkCmdSetDescriptorBufferOffsets2EXT-videocoding
@@ -9861,11 +9988,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_DATA_GRAPH_BIT_ARM
 
-Data_Graph | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -9990,6 +10117,23 @@ The [VkDescriptorSetLayout](#VkDescriptorSetLayout) for each set from `firstSet`
 `firstSet` +  `setCount` when `layout` was created
 **must** have been created with the
 `VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT` bit set
+
+* 
+[](#VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11803) VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11803
+
+The [VkDescriptorSetLayout](#VkDescriptorSetLayout) for each set from `firstSet` to
+`firstSet` +  `setCount` when `layout` was created
+**must** not have been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR` bit set
+
+* 
+[](#VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11804) VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11804
+
+The [VkDescriptorSetLayout](#VkDescriptorSetLayout) for each set from `firstSet` to
+`firstSet` +  `setCount` when `layout` was created
+**must** not have been created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT`
+bit set
 
 * 
 [](#VUID-VkSetDescriptorBufferOffsetsInfoEXT-None-09495) VUID-VkSetDescriptorBufferOffsetsInfoEXT-None-09495
@@ -10141,7 +10285,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindDescriptorBufferEmbeddedSamplersEXT-commandBuffer-cmdpool) VUID-vkCmdBindDescriptorBufferEmbeddedSamplersEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindDescriptorBufferEmbeddedSamplersEXT-videocoding) VUID-vkCmdBindDescriptorBufferEmbeddedSamplersEXT-videocoding
@@ -10166,9 +10310,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -10225,7 +10369,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindDescriptorBufferEmbeddedSamplers2EXT-commandBuffer-cmdpool) VUID-vkCmdBindDescriptorBufferEmbeddedSamplers2EXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindDescriptorBufferEmbeddedSamplers2EXT-videocoding) VUID-vkCmdBindDescriptorBufferEmbeddedSamplers2EXT-videocoding
@@ -10245,9 +10389,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -10373,11 +10517,12 @@ sets.
 The [`VkPhysicalDeviceDescriptorBufferPropertiesEXT`::`bufferlessPushDescriptors`](limits.html#limits-bufferlessPushDescriptors)
 property indicates whether the implementation requires a buffer to back push
 descriptors.
-If the property is `VK_FALSE` then before recording any push descriptors
-the application **must** bind exactly `1` descriptor buffer that was created
-with the `VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT`
-bit set.
-When this buffer is bound any previously recorded push descriptors that are
+If the property is `VK_FALSE` then before recording any push
+descriptors, the application **must** bind exactly `1` descriptor buffer that
+was created with the
+`VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT` usage flag
+set.
+When this buffer is bound, any previously recorded push descriptors that are
 required for a subsequent command **must** be recorded again.
 
 In a similar way to [`bufferDeviceAddressCaptureReplay`](features.html#features-bufferDeviceAddressCaptureReplay), the

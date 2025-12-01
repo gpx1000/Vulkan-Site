@@ -70,7 +70,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdEndPerTileExecutionQCOM-commandBuffer-cmdpool) VUID-vkCmdEndPerTileExecutionQCOM-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdEndPerTileExecutionQCOM-renderpass) VUID-vkCmdEndPerTileExecutionQCOM-renderpass
@@ -92,9 +92,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics
+Secondary | Inside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

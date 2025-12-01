@@ -27,9 +27,8 @@ void vkGetPhysicalDeviceExternalBufferProperties(
     const VkPhysicalDeviceExternalBufferInfo*   pExternalBufferInfo,
     VkExternalBufferProperties*                 pExternalBufferProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to vkGetPhysicalDeviceExternalBufferProperties
 void vkGetPhysicalDeviceExternalBufferPropertiesKHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceExternalBufferInfo*   pExternalBufferInfo,
@@ -66,7 +65,7 @@ Valid Usage (Implicit)
 
  `pExternalBufferProperties` **must** be a valid pointer to a [VkExternalBufferProperties](VkExternalBufferProperties.html) structure
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalBufferProperties](VkExternalBufferProperties.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceExternalBufferInfo](VkPhysicalDeviceExternalBufferInfo.html)
+[VK_KHR_external_memory_capabilities](VK_KHR_external_memory_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalBufferProperties](VkExternalBufferProperties.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceExternalBufferInfo](VkPhysicalDeviceExternalBufferInfo.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#vkGetPhysicalDeviceExternalBufferProperties).
 

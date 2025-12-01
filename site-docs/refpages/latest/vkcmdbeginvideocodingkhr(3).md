@@ -150,13 +150,11 @@ and [Rate Control State](../../../../spec/latest/chapters/videocoding.html#encod
 Valid Usage
 
 * 
-[](#VUID-vkCmdBeginVideoCodingKHR-commandBuffer-07231) VUID-vkCmdBeginVideoCodingKHR-commandBuffer-07231
+[](#VUID-vkCmdBeginVideoCodingKHR-commandBuffer-11760) VUID-vkCmdBeginVideoCodingKHR-commandBuffer-11760
 
 The `VkCommandPool` that `commandBuffer` was allocated from
-**must** support the video codec operation `pBeginInfo->videoSession`
-was created with, as returned by
-[vkGetPhysicalDeviceQueueFamilyProperties2](vkGetPhysicalDeviceQueueFamilyProperties2.html) in
-[VkQueueFamilyVideoPropertiesKHR](VkQueueFamilyVideoPropertiesKHR.html)::`videoCodecOperations`
+**must** have been created with the same queue family index that
+`pBeginInfo->videoSession` was created with
 
 * 
 [](#VUID-vkCmdBeginVideoCodingKHR-None-07232) VUID-vkCmdBeginVideoCodingKHR-None-07232
@@ -307,12 +305,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBeginVideoCodingKHR-commandBuffer-cmdpool) VUID-vkCmdBeginVideoCodingKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdBeginVideoCodingKHR-renderpass) VUID-vkCmdBeginVideoCodingKHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdBeginVideoCodingKHR-suspended) VUID-vkCmdBeginVideoCodingKHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBeginVideoCodingKHR-videocoding) VUID-vkCmdBeginVideoCodingKHR-videocoding
@@ -335,9 +338,9 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](../../../../spec/latest/chapters/cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../../../../spec/latest/chapters/renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../../../../spec/latest/chapters/videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../../../../spec/latest/chapters/devsandqueues.html#VkQueueFlagBits) | [Command Type](../../../../spec/latest/chapters/fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Outside | Outside | Decode
+| Primary | Outside | Outside | VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Action
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action
 
 State |
 

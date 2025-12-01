@@ -126,7 +126,7 @@ replacing all instances of `"SAD"` with `"SSD"`.
 
 vec4 textureBlockMatchWindowSAD( sampler2D target,
                                  uvec2 targetCoord,
-                                 samler2D reference,
+                                 sampler2D reference,
                                  uvec2 refCoord,
                                  uvec2 blocksize) {
     // compareMode (MIN or MAX) comes from the vkSampler associated with `target`
@@ -155,7 +155,7 @@ pattern.
 
 vec4 textureBlockMatchGatherSAD( sampler2D target,
                                  uvec2 targetCoord,
-                                 samler2D reference,
+                                 sampler2D reference,
                                  uvec2 refCoord,
                                  uvec2 blocksize) {
     vec4 out;

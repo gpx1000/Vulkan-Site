@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceShaderFloatControls2Features {
     VkBool32           shaderFloatControls2;
 } VkPhysicalDeviceShaderFloatControls2Features;
 
-or the equivalent
-
 // Provided by VK_KHR_shader_float_controls2
+// Equivalent to VkPhysicalDeviceShaderFloatControls2Features
 typedef VkPhysicalDeviceShaderFloatControls2Features VkPhysicalDeviceShaderFloatControls2FeaturesKHR;
 
 This structure describes the following feature:

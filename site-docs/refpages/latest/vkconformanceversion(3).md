@@ -30,9 +30,8 @@ typedef struct VkConformanceVersion {
     uint8_t    patch;
 } VkConformanceVersion;
 
-or the equivalent
-
 // Provided by VK_KHR_driver_properties
+// Equivalent to VkConformanceVersion
 typedef VkConformanceVersion VkConformanceVersionKHR;
 
 * 

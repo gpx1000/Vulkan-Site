@@ -20,7 +20,7 @@ VK_VERSION_MINOR - Extract API minor version number
 `VK_VERSION_MINOR` extracts the API minor version number from a packed
 version number:
 
-|  | This functionality is deprecated by [Vulkan Version 1.0](../../../../spec/latest/appendices/versions.html#versions-1.0). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-version-macros) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.0](../../../../spec/latest/appendices/versions.html#versions-1.0). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-version-macros) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0

@@ -28,9 +28,8 @@ typedef struct VkPipelineCreateFlags2CreateInfo {
     VkPipelineCreateFlags2    flags;
 } VkPipelineCreateFlags2CreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkPipelineCreateFlags2CreateInfo
 typedef VkPipelineCreateFlags2CreateInfo VkPipelineCreateFlags2CreateInfoKHR;
 
 * 
@@ -60,11 +59,6 @@ Valid Usage (Implicit)
 [](#VUID-VkPipelineCreateFlags2CreateInfo-flags-parameter) VUID-VkPipelineCreateFlags2CreateInfo-flags-parameter
 
  `flags` **must** be a valid combination of [VkPipelineCreateFlagBits2](VkPipelineCreateFlagBits2.html) values
-
-* 
-[](#VUID-VkPipelineCreateFlags2CreateInfo-flags-requiredbitmask) VUID-VkPipelineCreateFlags2CreateInfo-flags-requiredbitmask
-
- `flags` **must** not be `0`
 
 [VK_KHR_maintenance5](VK_KHR_maintenance5.html), [VK_VERSION_1_4](VK_VERSION_1_4.html), [VkPipelineCreateFlags2](VkPipelineCreateFlags2.html), [VkStructureType](VkStructureType.html)
 

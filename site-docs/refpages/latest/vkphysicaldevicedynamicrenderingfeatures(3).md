@@ -28,9 +28,8 @@ typedef struct VkPhysicalDeviceDynamicRenderingFeatures {
     VkBool32           dynamicRendering;
 } VkPhysicalDeviceDynamicRenderingFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_dynamic_rendering
+// Equivalent to VkPhysicalDeviceDynamicRenderingFeatures
 typedef VkPhysicalDeviceDynamicRenderingFeatures VkPhysicalDeviceDynamicRenderingFeaturesKHR;
 
 This structure describes the following feature:

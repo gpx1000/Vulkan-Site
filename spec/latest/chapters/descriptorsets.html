@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -1445,12 +1454,10 @@ typedef struct VkMutableDescriptorTypeCreateInfoEXT {
 } VkMutableDescriptorTypeCreateInfoEXT;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkMutableDescriptorTypeCreateInfoVALVE" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_mutable_descriptor_type
+// Equivalent to VkMutableDescriptorTypeCreateInfoEXT
 typedef VkMutableDescriptorTypeCreateInfoEXT VkMutableDescriptorTypeCreateInfoVALVE;</code></pre>
 </div>
 </div>
@@ -1519,12 +1526,10 @@ typedef struct VkMutableDescriptorTypeListEXT {
 } VkMutableDescriptorTypeListEXT;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkMutableDescriptorTypeListVALVE" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_mutable_descriptor_type
+// Equivalent to VkMutableDescriptorTypeListEXT
 typedef VkMutableDescriptorTypeListEXT VkMutableDescriptorTypeListVALVE;</code></pre>
 </div>
 </div>
@@ -1844,6 +1849,22 @@ If <code>descriptorType</code> is <code>VK_DESCRIPTOR_TYPE_SAMPLER</code> or
 <code>descriptorCount</code> valid <code>VkSampler</code> handles</p>
 </li>
 <li>
+<p><a id="VUID-VkDescriptorSetLayoutBinding-descriptorType-12200" href="#VUID-VkDescriptorSetLayoutBinding-descriptorType-12200"></a> <span class="vuid">VUID-VkDescriptorSetLayoutBinding-descriptorType-12200</span><br>
+
+If <code>descriptorType</code> is
+<code>VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</code>, and
+<code>descriptorCount</code> is not <code>0</code> and <code>pImmutableSamplers</code> is not
+<code>NULL</code>, either each element of <code>pImmutableSamplers</code> <strong>must</strong> be a
+<code>VkSampler</code> that enables <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub>    conversion</a> or none of them enable sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</p>
+</li>
+<li>
+<p><a id="VUID-VkDescriptorSetLayoutBinding-descriptorType-12215" href="#VUID-VkDescriptorSetLayoutBinding-descriptorType-12215"></a> <span class="vuid">VUID-VkDescriptorSetLayoutBinding-descriptorType-12215</span><br>
+
+If <code>descriptorType</code> is <code>VK_DESCRIPTOR_TYPE_SAMPLER</code>, each
+element of <code>pImmutableSamplers</code> <strong>must</strong> not be a <code>VkSampler</code>
+object that enables <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub>    conversion</a></p>
+</li>
+<li>
 <p><a id="VUID-VkDescriptorSetLayoutBinding-descriptorType-04604" href="#VUID-VkDescriptorSetLayoutBinding-descriptorType-04604"></a> <span class="vuid">VUID-VkDescriptorSetLayoutBinding-descriptorType-04604</span><br>
 
 If the <a href="features.html#features-inlineUniformBlock" class="xref page"><code>inlineUniformBlock</code></a> feature
@@ -1969,12 +1990,10 @@ typedef struct VkDescriptorSetLayoutBindingFlagsCreateInfo {
 } VkDescriptorSetLayoutBindingFlagsCreateInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkDescriptorSetLayoutBindingFlagsCreateInfoEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorSetLayoutBindingFlagsCreateInfo
 typedef VkDescriptorSetLayoutBindingFlagsCreateInfo VkDescriptorSetLayoutBindingFlagsCreateInfoEXT;</code></pre>
 </div>
 </div>
@@ -2209,12 +2228,10 @@ typedef enum VkDescriptorBindingFlagBits {
 } VkDescriptorBindingFlagBits;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkDescriptorBindingFlagBitsEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorBindingFlagBits
 typedef VkDescriptorBindingFlagBits VkDescriptorBindingFlagBitsEXT;</code></pre>
 </div>
 </div>
@@ -2317,12 +2334,10 @@ implementation to observe updates to descriptors that are used.</p>
 typedef VkFlags VkDescriptorBindingFlags;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkDescriptorBindingFlagsEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorBindingFlags
 typedef VkDescriptorBindingFlags VkDescriptorBindingFlagsEXT;</code></pre>
 </div>
 </div>
@@ -2347,12 +2362,10 @@ void vkGetDescriptorSetLayoutSupport(
     VkDescriptorSetLayoutSupport*               pSupport);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkGetDescriptorSetLayoutSupportKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance3
+// Equivalent to vkGetDescriptorSetLayoutSupport
 void vkGetDescriptorSetLayoutSupportKHR(
     VkDevice                                    device,
     const VkDescriptorSetLayoutCreateInfo*      pCreateInfo,
@@ -2455,12 +2468,10 @@ typedef struct VkDescriptorSetLayoutSupport {
 } VkDescriptorSetLayoutSupport;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkDescriptorSetLayoutSupportKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance3
+// Equivalent to VkDescriptorSetLayoutSupport
 typedef VkDescriptorSetLayoutSupport VkDescriptorSetLayoutSupportKHR;</code></pre>
 </div>
 </div>
@@ -2524,12 +2535,10 @@ typedef struct VkDescriptorSetVariableDescriptorCountLayoutSupport {
 } VkDescriptorSetVariableDescriptorCountLayoutSupport;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkDescriptorSetVariableDescriptorCountLayoutSupportEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorSetVariableDescriptorCountLayoutSupport
 typedef VkDescriptorSetVariableDescriptorCountLayoutSupport VkDescriptorSetVariableDescriptorCountLayoutSupportEXT;</code></pre>
 </div>
 </div>
@@ -4531,12 +4540,10 @@ typedef struct VkDescriptorPoolInlineUniformBlockCreateInfo {
 } VkDescriptorPoolInlineUniformBlockCreateInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkDescriptorPoolInlineUniformBlockCreateInfoEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_inline_uniform_block
+// Equivalent to VkDescriptorPoolInlineUniformBlockCreateInfo
 typedef VkDescriptorPoolInlineUniformBlockCreateInfo VkDescriptorPoolInlineUniformBlockCreateInfoEXT;</code></pre>
 </div>
 </div>
@@ -5233,12 +5240,10 @@ typedef struct VkDescriptorSetVariableDescriptorCountAllocateInfo {
 } VkDescriptorSetVariableDescriptorCountAllocateInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkDescriptorSetVariableDescriptorCountAllocateInfoEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorSetVariableDescriptorCountAllocateInfo
 typedef VkDescriptorSetVariableDescriptorCountAllocateInfo VkDescriptorSetVariableDescriptorCountAllocateInfoEXT;</code></pre>
 </div>
 </div>
@@ -6273,16 +6278,16 @@ single <code>VkDeviceMemory</code> object</p>
 
 If <code>descriptorType</code> is <code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER</code> or
 <code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code>, the <code>buffer</code> member
-of each element of <code>pBufferInfo</code> <strong>must</strong> have been created with
-<code>VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT</code> set</p>
+of each element of <code>pBufferInfo</code> <strong>must</strong> have been created with the
+<code>VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSet-descriptorType-00331" href="#VUID-VkWriteDescriptorSet-descriptorType-00331"></a> <span class="vuid">VUID-VkWriteDescriptorSet-descriptorType-00331</span><br>
 
 If <code>descriptorType</code> is <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER</code> or
 <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code>, the <code>buffer</code> member
-of each element of <code>pBufferInfo</code> <strong>must</strong> have been created with
-<code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> set</p>
+of each element of <code>pBufferInfo</code> <strong>must</strong> have been created with the
+<code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSet-descriptorType-00332" href="#VUID-VkWriteDescriptorSet-descriptorType-00332"></a> <span class="vuid">VUID-VkWriteDescriptorSet-descriptorType-00332</span><br>
@@ -6298,8 +6303,10 @@ of each element of <code>pBufferInfo</code>, or the
 <p><a id="VUID-VkWriteDescriptorSet-descriptorType-00333" href="#VUID-VkWriteDescriptorSet-descriptorType-00333"></a> <span class="vuid">VUID-VkWriteDescriptorSet-descriptorType-00333</span><br>
 
 If <code>descriptorType</code> is <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER</code> or
-<code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code>, the <code>range</code> member
-of each element of <code>pBufferInfo</code>, or the
+<code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code>,
+and the <a href="features.html#features-shader64BitIndexing" class="xref page"><code>shader64BitIndexing</code></a>
+feature is not enabled,
+the <code>range</code> member of each element of <code>pBufferInfo</code>, or the
 <a href="#buffer-info-effective-range">effective range</a> if <code>range</code> is
 <code>VK_WHOLE_SIZE</code>, <strong>must</strong> be less than or equal to
 <code>VkPhysicalDeviceLimits</code>::<code>maxStorageBufferRange</code></p>
@@ -6332,7 +6339,7 @@ each element of <code>pImageInfo</code> <strong>must</strong> have been created 
 If <code>descriptorType</code> is <code>VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE</code> or
 <code>VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</code>, the <code>imageView</code>
 member of each element of <code>pImageInfo</code> <strong>must</strong> have been created with
-<code>VK_IMAGE_USAGE_SAMPLED_BIT</code> set</p>
+the <code>VK_IMAGE_USAGE_SAMPLED_BIT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSet-descriptorType-04149" href="#VUID-VkWriteDescriptorSet-descriptorType-04149"></a> <span class="vuid">VUID-VkWriteDescriptorSet-descriptorType-04149</span><br>
@@ -6368,14 +6375,15 @@ member of the list given in <a href="#descriptorsets-storageimage">Storage    Im
 
 If <code>descriptorType</code> is <code>VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</code>,
 the <code>imageView</code> member of each element of <code>pImageInfo</code> <strong>must</strong>
-have been created with <code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code> set</p>
+have been created with the <code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code>
+usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSet-descriptorType-00339" href="#VUID-VkWriteDescriptorSet-descriptorType-00339"></a> <span class="vuid">VUID-VkWriteDescriptorSet-descriptorType-00339</span><br>
 
 If <code>descriptorType</code> is <code>VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</code>, the
 <code>imageView</code> member of each element of <code>pImageInfo</code> <strong>must</strong> have
-been created with <code>VK_IMAGE_USAGE_STORAGE_BIT</code> set</p>
+been created with the <code>VK_IMAGE_USAGE_STORAGE_BIT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSet-descriptorType-02752" href="#VUID-VkWriteDescriptorSet-descriptorType-02752"></a> <span class="vuid">VUID-VkWriteDescriptorSet-descriptorType-02752</span><br>
@@ -6407,8 +6415,8 @@ included in the <code>pNext</code> chain or with a
 If <code>descriptorType</code> is
 <code>VK_DESCRIPTOR_TYPE_SAMPLE_WEIGHT_IMAGE_QCOM</code>, the <code>imageView</code>
 member of each element of <code>pImageInfo</code> <strong>must</strong> have been created with
-a view created with an <code>image</code> created with
-<code>VK_IMAGE_USAGE_SAMPLE_WEIGHT_BIT_QCOM</code></p>
+a view created with an <code>image</code> created with the
+<code>VK_IMAGE_USAGE_SAMPLE_WEIGHT_BIT_QCOM</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSet-descriptorType-06943" href="#VUID-VkWriteDescriptorSet-descriptorType-06943"></a> <span class="vuid">VUID-VkWriteDescriptorSet-descriptorType-06943</span><br>
@@ -6416,8 +6424,8 @@ a view created with an <code>image</code> created with
 If <code>descriptorType</code> is
 <code>VK_DESCRIPTOR_TYPE_BLOCK_MATCH_IMAGE_QCOM</code>, the <code>imageView</code>
 member of each element of <code>pImageInfo</code> <strong>must</strong> have been created with
-a view created with an <code>image</code> created with
-<code>VK_IMAGE_USAGE_SAMPLE_BLOCK_MATCH_BIT_QCOM</code></p>
+a view created with an <code>image</code> created with the
+<code>VK_IMAGE_USAGE_SAMPLE_BLOCK_MATCH_BIT_QCOM</code> usage flag set</p>
 </li>
 </ul>
 </div>
@@ -6876,13 +6884,6 @@ If <code>imageLayout</code> is
 <code>VK_IMAGE_ASPECT_COLOR_BIT</code></p>
 </li>
 <li>
-<p><a id="VUID-VkDescriptorImageInfo-imageLayout-00344" href="#VUID-VkDescriptorImageInfo-imageLayout-00344"></a> <span class="vuid">VUID-VkDescriptorImageInfo-imageLayout-00344</span><br>
-
-<code>imageLayout</code> <strong>must</strong> match the actual <a href="resources.html#VkImageLayout" class="xref page">VkImageLayout</a> of each
-subresource accessible from <code>imageView</code> at the time this descriptor
-is accessed as defined by the <a href="resources.html#resources-image-layouts-matching-rule" class="xref page">    image layout matching rules</a></p>
-</li>
-<li>
 <p><a id="VUID-VkDescriptorImageInfo-sampler-01564" href="#VUID-VkDescriptorImageInfo-sampler-01564"></a> <span class="vuid">VUID-VkDescriptorImageInfo-sampler-01564</span><br>
 
 If <code>sampler</code> is used and the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of the image is a
@@ -6941,12 +6942,10 @@ typedef struct VkWriteDescriptorSetInlineUniformBlock {
 } VkWriteDescriptorSetInlineUniformBlock;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkWriteDescriptorSetInlineUniformBlockEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_inline_uniform_block
+// Equivalent to VkWriteDescriptorSetInlineUniformBlock
 typedef VkWriteDescriptorSetInlineUniformBlock VkWriteDescriptorSetInlineUniformBlockEXT;</code></pre>
 </div>
 </div>
@@ -7321,7 +7320,7 @@ enabled, each element of <code>pTensorViews</code> <strong>must</strong> not be
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSetTensorARM-pTensorViews-parameter" href="#VUID-VkWriteDescriptorSetTensorARM-pTensorViews-parameter"></a> <span class="vuid">VUID-VkWriteDescriptorSetTensorARM-pTensorViews-parameter</span><br>
- <code>pTensorViews</code> <strong>must</strong> be a valid pointer to an array of <code>tensorViewCount</code> valid <a href="resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a> handles</p>
+ <code>pTensorViews</code> <strong>must</strong> be a valid pointer to an array of <code>tensorViewCount</code> valid or <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> <a href="resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a> handles</p>
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSetTensorARM-tensorViewCount-arraylength" href="#VUID-VkWriteDescriptorSetTensorARM-tensorViewCount-arraylength"></a> <span class="vuid">VUID-VkWriteDescriptorSetTensorARM-tensorViewCount-arraylength</span><br>
@@ -7621,12 +7620,10 @@ frequently updating the same set of descriptors in descriptor sets.</p>
 VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkDescriptorUpdateTemplate)</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkDescriptorUpdateTemplateKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplate
 typedef VkDescriptorUpdateTemplate VkDescriptorUpdateTemplateKHR;</code></pre>
 </div>
 </div>
@@ -7681,12 +7678,10 @@ VkResult vkCreateDescriptorUpdateTemplate(
     VkDescriptorUpdateTemplate*                 pDescriptorUpdateTemplate);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCreateDescriptorUpdateTemplateKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_descriptor_update_template
+// Equivalent to vkCreateDescriptorUpdateTemplate
 VkResult vkCreateDescriptorUpdateTemplateKHR(
     VkDevice                                    device,
     const VkDescriptorUpdateTemplateCreateInfo* pCreateInfo,
@@ -7809,12 +7804,10 @@ typedef struct VkDescriptorUpdateTemplateCreateInfo {
 } VkDescriptorUpdateTemplateCreateInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkDescriptorUpdateTemplateCreateInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplateCreateInfo
 typedef VkDescriptorUpdateTemplateCreateInfo VkDescriptorUpdateTemplateCreateInfoKHR;</code></pre>
 </div>
 </div>
@@ -7982,12 +7975,10 @@ If <code>templateType</code> is
 typedef VkFlags VkDescriptorUpdateTemplateCreateFlags;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkDescriptorUpdateTemplateCreateFlagsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplateCreateFlags
 typedef VkDescriptorUpdateTemplateCreateFlags VkDescriptorUpdateTemplateCreateFlagsKHR;</code></pre>
 </div>
 </div>
@@ -8018,12 +8009,10 @@ typedef enum VkDescriptorUpdateTemplateType {
 } VkDescriptorUpdateTemplateType;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkDescriptorUpdateTemplateTypeKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplateType
 typedef VkDescriptorUpdateTemplateType VkDescriptorUpdateTemplateTypeKHR;</code></pre>
 </div>
 </div>
@@ -8061,12 +8050,10 @@ typedef struct VkDescriptorUpdateTemplateEntry {
 } VkDescriptorUpdateTemplateEntry;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkDescriptorUpdateTemplateEntryKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplateEntry
 typedef VkDescriptorUpdateTemplateEntry VkDescriptorUpdateTemplateEntryKHR;</code></pre>
 </div>
 </div>
@@ -8190,12 +8177,10 @@ void vkDestroyDescriptorUpdateTemplate(
     const VkAllocationCallbacks*                pAllocator);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkDestroyDescriptorUpdateTemplateKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_descriptor_update_template
+// Equivalent to vkDestroyDescriptorUpdateTemplate
 void vkDestroyDescriptorUpdateTemplateKHR(
     VkDevice                                    device,
     VkDescriptorUpdateTemplate                  descriptorUpdateTemplate,
@@ -8296,12 +8281,10 @@ void vkUpdateDescriptorSetWithTemplate(
     const void*                                 pData);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkUpdateDescriptorSetWithTemplateKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_descriptor_update_template
+// Equivalent to vkUpdateDescriptorSetWithTemplate
 void vkUpdateDescriptorSetWithTemplateKHR(
     VkDevice                                    device,
     VkDescriptorSet                             descriptorSet,
@@ -8341,11 +8324,13 @@ handles
 <li>
 <p><a id="VUID-vkUpdateDescriptorSetWithTemplate-pData-01685" href="#VUID-vkUpdateDescriptorSetWithTemplate-pData-01685"></a> <span class="vuid">VUID-vkUpdateDescriptorSetWithTemplate-pData-01685</span><br>
 
-<code>pData</code> <strong>must</strong> be a valid pointer to a memory containing one or more
-valid instances of <a href="#VkDescriptorImageInfo">VkDescriptorImageInfo</a>,
-<a href="#VkDescriptorBufferInfo">VkDescriptorBufferInfo</a>, or <a href="resources.html#VkBufferView" class="xref page">VkBufferView</a> in a layout defined
-by <code>descriptorUpdateTemplate</code> when it was created with
-<a href="#vkCreateDescriptorUpdateTemplate">vkCreateDescriptorUpdateTemplate</a></p>
+    <code>pData</code> <strong>must</strong> be a valid pointer to a memory containing one or more
+    valid instances of
+<a href="resources.html#VkAccelerationStructureKHR" class="xref page">VkAccelerationStructureKHR</a> handles,
+<a href="resources.html#VkAccelerationStructureNV" class="xref page">VkAccelerationStructureNV</a> handles,
+    <a href="#VkDescriptorImageInfo">VkDescriptorImageInfo</a>, <a href="#VkDescriptorBufferInfo">VkDescriptorBufferInfo</a>, or
+    <a href="resources.html#VkBufferView" class="xref page">VkBufferView</a> in a layout defined by <code>descriptorUpdateTemplate</code>
+    when it was created with <a href="#vkCreateDescriptorUpdateTemplate">vkCreateDescriptorUpdateTemplate</a></p>
 </li>
 <li>
 <p><a id="VUID-vkUpdateDescriptorSetWithTemplate-descriptorSet-06995" href="#VUID-vkUpdateDescriptorSetWithTemplate-descriptorSet-06995"></a> <span class="vuid">VUID-vkUpdateDescriptorSetWithTemplate-descriptorSet-06995</span><br>
@@ -8790,7 +8775,7 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorSets-commandBuffer-cmdpool" href="#VUID-vkCmdBindDescriptorSets-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBindDescriptorSets-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, compute, or data_graph operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_DATA_GRAPH_BIT_ARM</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorSets-videocoding" href="#VUID-vkCmdBindDescriptorSets-videocoding"></a> <span class="vuid">VUID-vkCmdBindDescriptorSets-videocoding</span><br>
@@ -8849,9 +8834,9 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute<br>
-Data_Graph</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_DATA_GRAPH_BIT_ARM<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -8882,12 +8867,10 @@ void vkCmdBindDescriptorSets2(
     const VkBindDescriptorSetsInfo*             pBindDescriptorSetsInfo);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdBindDescriptorSets2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance6
+// Equivalent to vkCmdBindDescriptorSets2
 void vkCmdBindDescriptorSets2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkBindDescriptorSetsInfo*             pBindDescriptorSetsInfo);</code></pre>
@@ -8940,7 +8923,7 @@ queue family</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorSets2-commandBuffer-cmdpool" href="#VUID-vkCmdBindDescriptorSets2-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBindDescriptorSets2-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorSets2-videocoding" href="#VUID-vkCmdBindDescriptorSets2-videocoding"></a> <span class="vuid">VUID-vkCmdBindDescriptorSets2-videocoding</span><br>
@@ -8991,8 +8974,8 @@ queue family</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -9030,12 +9013,10 @@ typedef struct VkBindDescriptorSetsInfo {
 } VkBindDescriptorSetsInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkBindDescriptorSetsInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance6
+// Equivalent to VkBindDescriptorSetsInfo
 typedef VkBindDescriptorSetsInfo VkBindDescriptorSetsInfoKHR;</code></pre>
 </div>
 </div>
@@ -9298,12 +9279,10 @@ void vkCmdPushDescriptorSet(
     const VkWriteDescriptorSet*                 pDescriptorWrites);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdPushDescriptorSetKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_push_descriptor
+// Equivalent to vkCmdPushDescriptorSet
 void vkCmdPushDescriptorSetKHR(
     VkCommandBuffer                             commandBuffer,
     VkPipelineBindPoint                         pipelineBindPoint,
@@ -9468,7 +9447,7 @@ If the <a href="../appendices/extensions.html#VK_KHR_push_descriptor" class="xre
 </li>
 <li>
 <p><a id="VUID-vkCmdPushDescriptorSet-commandBuffer-cmdpool" href="#VUID-vkCmdPushDescriptorSet-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdPushDescriptorSet-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdPushDescriptorSet-videocoding" href="#VUID-vkCmdPushDescriptorSet-videocoding"></a> <span class="vuid">VUID-vkCmdPushDescriptorSet-videocoding</span><br>
@@ -9527,8 +9506,8 @@ If the <a href="../appendices/extensions.html#VK_KHR_push_descriptor" class="xre
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -9558,12 +9537,10 @@ void vkCmdPushDescriptorSet2(
     const VkPushDescriptorSetInfo*              pPushDescriptorSetInfo);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdPushDescriptorSet2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance6 with VK_KHR_push_descriptor
+// Equivalent to vkCmdPushDescriptorSet2
 void vkCmdPushDescriptorSet2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkPushDescriptorSetInfo*              pPushDescriptorSetInfo);</code></pre>
@@ -9623,7 +9600,7 @@ If the <a href="../appendices/extensions.html#VK_KHR_push_descriptor" class="xre
 </li>
 <li>
 <p><a id="VUID-vkCmdPushDescriptorSet2-commandBuffer-cmdpool" href="#VUID-vkCmdPushDescriptorSet2-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdPushDescriptorSet2-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdPushDescriptorSet2-videocoding" href="#VUID-vkCmdPushDescriptorSet2-videocoding"></a> <span class="vuid">VUID-vkCmdPushDescriptorSet2-videocoding</span><br>
@@ -9674,8 +9651,8 @@ If the <a href="../appendices/extensions.html#VK_KHR_push_descriptor" class="xre
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -9711,12 +9688,10 @@ typedef struct VkPushDescriptorSetInfo {
 } VkPushDescriptorSetInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPushDescriptorSetInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance6 with VK_KHR_push_descriptor
+// Equivalent to VkPushDescriptorSetInfo
 typedef VkPushDescriptorSetInfo VkPushDescriptorSetInfoKHR;</code></pre>
 </div>
 </div>
@@ -9886,12 +9861,10 @@ void vkCmdPushDescriptorSetWithTemplate(
     const void*                                 pData);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdPushDescriptorSetWithTemplateKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_descriptor_update_template with VK_KHR_push_descriptor, VK_KHR_push_descriptor with VK_VERSION_1_1 or VK_KHR_descriptor_update_template
+// Equivalent to vkCmdPushDescriptorSetWithTemplate
 void vkCmdPushDescriptorSetWithTemplateKHR(
     VkCommandBuffer                             commandBuffer,
     VkDescriptorUpdateTemplate                  descriptorUpdateTemplate,
@@ -9976,6 +9949,12 @@ by <code>descriptorUpdateTemplate</code> when it was created with
 <code>layout</code> was created</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdPushDescriptorSetWithTemplate-set-11854" href="#VUID-vkCmdPushDescriptorSetWithTemplate-set-11854"></a> <span class="vuid">VUID-vkCmdPushDescriptorSetWithTemplate-set-11854</span><br>
+
+<code>set</code> <strong>must</strong> reference a valid <a href="#VkDescriptorSetLayout">VkDescriptorSetLayout</a> handle in
+<code>layout</code></p>
+</li>
+<li>
 <p><a id="VUID-vkCmdPushDescriptorSetWithTemplate-set-07305" href="#VUID-vkCmdPushDescriptorSetWithTemplate-set-07305"></a> <span class="vuid">VUID-vkCmdPushDescriptorSetWithTemplate-set-07305</span><br>
 
 <code>set</code> <strong>must</strong> be the unique set number in the pipeline layout that
@@ -10016,7 +9995,7 @@ If the <a href="../appendices/extensions.html#VK_KHR_push_descriptor" class="xre
 </li>
 <li>
 <p><a id="VUID-vkCmdPushDescriptorSetWithTemplate-commandBuffer-cmdpool" href="#VUID-vkCmdPushDescriptorSetWithTemplate-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdPushDescriptorSetWithTemplate-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdPushDescriptorSetWithTemplate-videocoding" href="#VUID-vkCmdPushDescriptorSetWithTemplate-videocoding"></a> <span class="vuid">VUID-vkCmdPushDescriptorSetWithTemplate-videocoding</span><br>
@@ -10071,8 +10050,8 @@ If the <a href="../appendices/extensions.html#VK_KHR_push_descriptor" class="xre
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -10152,12 +10131,10 @@ void vkCmdPushDescriptorSetWithTemplate2(
     const VkPushDescriptorSetWithTemplateInfo*  pPushDescriptorSetWithTemplateInfo);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdPushDescriptorSetWithTemplate2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance6 with VK_KHR_push_descriptor
+// Equivalent to vkCmdPushDescriptorSetWithTemplate2
 void vkCmdPushDescriptorSetWithTemplate2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkPushDescriptorSetWithTemplateInfo*  pPushDescriptorSetWithTemplateInfo);</code></pre>
@@ -10194,7 +10171,7 @@ recorded in.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdPushDescriptorSetWithTemplate2-commandBuffer-cmdpool" href="#VUID-vkCmdPushDescriptorSetWithTemplate2-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdPushDescriptorSetWithTemplate2-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdPushDescriptorSetWithTemplate2-videocoding" href="#VUID-vkCmdPushDescriptorSetWithTemplate2-videocoding"></a> <span class="vuid">VUID-vkCmdPushDescriptorSetWithTemplate2-videocoding</span><br>
@@ -10245,8 +10222,8 @@ recorded in.</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -10281,12 +10258,10 @@ typedef struct VkPushDescriptorSetWithTemplateInfo {
 } VkPushDescriptorSetWithTemplateInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPushDescriptorSetWithTemplateInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance6 with VK_KHR_push_descriptor
+// Equivalent to VkPushDescriptorSetWithTemplateInfo
 typedef VkPushDescriptorSetWithTemplateInfo VkPushDescriptorSetWithTemplateInfoKHR;</code></pre>
 </div>
 </div>
@@ -10371,6 +10346,12 @@ by <code>descriptorUpdateTemplate</code> when it was created with
 <code>set</code> <strong>must</strong> be less than
 <a href="#VkPipelineLayoutCreateInfo">VkPipelineLayoutCreateInfo</a>::<code>setLayoutCount</code> provided when
 <code>layout</code> was created</p>
+</li>
+<li>
+<p><a id="VUID-VkPushDescriptorSetWithTemplateInfo-set-11854" href="#VUID-VkPushDescriptorSetWithTemplateInfo-set-11854"></a> <span class="vuid">VUID-VkPushDescriptorSetWithTemplateInfo-set-11854</span><br>
+
+<code>set</code> <strong>must</strong> reference a valid <a href="#VkDescriptorSetLayout">VkDescriptorSetLayout</a> handle in
+<code>layout</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPushDescriptorSetWithTemplateInfo-set-07305" href="#VUID-VkPushDescriptorSetWithTemplateInfo-set-07305"></a> <span class="vuid">VUID-VkPushDescriptorSetWithTemplateInfo-set-07305</span><br>
@@ -10628,7 +10609,7 @@ for each push constant range that overlaps that byte, <code>stageFlags</code>
 </li>
 <li>
 <p><a id="VUID-vkCmdPushConstants-commandBuffer-cmdpool" href="#VUID-vkCmdPushConstants-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdPushConstants-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdPushConstants-videocoding" href="#VUID-vkCmdPushConstants-videocoding"></a> <span class="vuid">VUID-vkCmdPushConstants-videocoding</span><br>
@@ -10687,8 +10668,8 @@ for each push constant range that overlaps that byte, <code>stageFlags</code>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -10718,12 +10699,10 @@ void vkCmdPushConstants2(
     const VkPushConstantsInfo*                  pPushConstantsInfo);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdPushConstants2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance6
+// Equivalent to vkCmdPushConstants2
 void vkCmdPushConstants2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkPushConstantsInfo*                  pPushConstantsInfo);</code></pre>
@@ -10760,7 +10739,7 @@ structure.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdPushConstants2-commandBuffer-cmdpool" href="#VUID-vkCmdPushConstants2-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdPushConstants2-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdPushConstants2-videocoding" href="#VUID-vkCmdPushConstants2-videocoding"></a> <span class="vuid">VUID-vkCmdPushConstants2-videocoding</span><br>
@@ -10811,8 +10790,8 @@ structure.</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -10848,12 +10827,10 @@ typedef struct VkPushConstantsInfo {
 } VkPushConstantsInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPushConstantsInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance6
+// Equivalent to VkPushConstantsInfo
 typedef VkPushConstantsInfo VkPushConstantsInfoKHR;</code></pre>
 </div>
 </div>
@@ -11126,6 +11103,19 @@ be enabled</p>
 <code>layout</code> <strong>must</strong> have been created with the
 <code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code> flag set</p>
 </li>
+<li>
+<p><a id="VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11811" href="#VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11811"></a> <span class="vuid">VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11811</span><br>
+
+<code>layout</code> <strong>must</strong> have not been created with the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT</code> flag set</p>
+</li>
+<li>
+<p><a id="VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11812" href="#VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11812"></a> <span class="vuid">VUID-vkGetDescriptorSetLayoutSizeEXT-layout-11812</span><br>
+
+<code>layout</code> <strong>must</strong> have not been created with the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT</code>
+flag set</p>
+</li>
 </ul>
 </div>
 </div>
@@ -11258,6 +11248,19 @@ be enabled</p>
 
 <code>layout</code> <strong>must</strong> have been created with the
 <code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code> flag set</p>
+</li>
+<li>
+<p><a id="VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11813" href="#VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11813"></a> <span class="vuid">VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11813</span><br>
+
+<code>layout</code> <strong>must</strong> have not been created with the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT</code> flag set</p>
+</li>
+<li>
+<p><a id="VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11814" href="#VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11814"></a> <span class="vuid">VUID-vkGetDescriptorSetLayoutBindingOffsetEXT-layout-11814</span><br>
+
+<code>layout</code> <strong>must</strong> have not been created with the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT</code>
+flag set</p>
 </li>
 </ul>
 </div>
@@ -11597,6 +11600,78 @@ If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV</code
 If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code>, a
 <a href="#VkDescriptorGetTensorInfoARM">VkDescriptorGetTensorInfoARM</a> structure <strong>must</strong> be included in the
 <code>pNext</code> chain and <code>data</code> is ignored</p>
+</li>
+<li>
+<p><a id="VUID-VkDescriptorGetInfoEXT-type-12216" href="#VUID-VkDescriptorGetInfoEXT-type-12216"></a> <span class="vuid">VUID-VkDescriptorGetInfoEXT-type-12216</span><br>
+
+If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</code>,
+<code>pCombinedImageSampler</code> is not <code>NULL</code>, and
+<code>pCombinedImageSampler-&gt;imageView</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the
+<code>pCombinedImageSampler-&gt;imageView</code> member of <code>data</code> <strong>must</strong> have
+been created with <code>VK_IMAGE_USAGE_SAMPLED_BIT</code> set</p>
+</li>
+<li>
+<p><a id="VUID-VkDescriptorGetInfoEXT-type-12217" href="#VUID-VkDescriptorGetInfoEXT-type-12217"></a> <span class="vuid">VUID-VkDescriptorGetInfoEXT-type-12217</span><br>
+
+If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE</code>,
+<code>pSampledImage</code> is not <code>NULL</code>, and <code>pSampledImage-&gt;imageView</code> is
+not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the <code>pSampledImage-&gt;imageView</code> member of
+<code>data</code> <strong>must</strong> have been created with <code>VK_IMAGE_USAGE_SAMPLED_BIT</code>
+set</p>
+</li>
+<li>
+<p><a id="VUID-VkDescriptorGetInfoEXT-type-12218" href="#VUID-VkDescriptorGetInfoEXT-type-12218"></a> <span class="vuid">VUID-VkDescriptorGetInfoEXT-type-12218</span><br>
+
+If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</code>,
+<code>pStorageImage</code> is not <code>NULL</code>, and <code>pStorageImage-&gt;imageView</code> is
+not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the <code>pStorageImage-&gt;imageView</code> member of
+<code>data</code> <strong>must</strong> have been created with <code>VK_IMAGE_USAGE_STORAGE_BIT</code>
+set</p>
+</li>
+<li>
+<p><a id="VUID-VkDescriptorGetInfoEXT-type-12219" href="#VUID-VkDescriptorGetInfoEXT-type-12219"></a> <span class="vuid">VUID-VkDescriptorGetInfoEXT-type-12219</span><br>
+
+If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</code>, the
+<code>pInputAttachmentImage-&gt;imageView</code> member of <code>data</code> <strong>must</strong> have
+been created with <code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code> set</p>
+</li>
+<li>
+<p><a id="VUID-VkDescriptorGetInfoEXT-type-12220" href="#VUID-VkDescriptorGetInfoEXT-type-12220"></a> <span class="vuid">VUID-VkDescriptorGetInfoEXT-type-12220</span><br>
+
+If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER</code>,
+<code>pUniformBuffer</code> is not <code>NULL</code> and <code>pUniformBuffer-&gt;address</code> is
+not zero, <code>pUniformBuffer-&gt;address</code> <strong>must</strong> be a device address
+allocated to the application from a buffer created with the
+<code>VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT</code> usage flag set</p>
+</li>
+<li>
+<p><a id="VUID-VkDescriptorGetInfoEXT-type-12221" href="#VUID-VkDescriptorGetInfoEXT-type-12221"></a> <span class="vuid">VUID-VkDescriptorGetInfoEXT-type-12221</span><br>
+
+If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER</code>,
+<code>pStorageBuffer</code> is not <code>NULL</code> and <code>pStorageBuffer-&gt;address</code> is
+not zero, <code>pStorageBuffer-&gt;address</code> <strong>must</strong> be a device address
+allocated to the application from a buffer created with the
+<code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> usage flag set</p>
+</li>
+<li>
+<p><a id="VUID-VkDescriptorGetInfoEXT-type-12222" href="#VUID-VkDescriptorGetInfoEXT-type-12222"></a> <span class="vuid">VUID-VkDescriptorGetInfoEXT-type-12222</span><br>
+
+If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER</code>,
+<code>pUniformTexelBuffer</code> is not <code>NULL</code> and
+<code>pUniformTexelBuffer-&gt;address</code> is not zero,
+<code>pUniformTexelBuffer-&gt;address</code> <strong>must</strong> be a device address allocated
+to the application from a buffer created with the
+<code>VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT</code> usage flag set</p>
+</li>
+<li>
+<p><a id="VUID-VkDescriptorGetInfoEXT-type-12223" href="#VUID-VkDescriptorGetInfoEXT-type-12223"></a> <span class="vuid">VUID-VkDescriptorGetInfoEXT-type-12223</span><br>
+
+If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER</code>,
+<code>pStorageTexelBuffer</code> is not <code>NULL</code> and
+<code>pStorageTexelBuffer-&gt;address</code> is not zero,
+<code>pStorageTexelBuffer-&gt;address</code> <strong>must</strong> be a device address allocated
+to the application from a buffer created with the
+<code>VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT</code> usage flag set</p>
 </li>
 </ul>
 </div>
@@ -12074,7 +12149,7 @@ enabled, <code>tensorView</code> <strong>must</strong> not be <a href="../append
 </li>
 <li>
 <p><a id="VUID-VkDescriptorGetTensorInfoARM-tensorView-parameter" href="#VUID-VkDescriptorGetTensorInfoARM-tensorView-parameter"></a> <span class="vuid">VUID-VkDescriptorGetTensorInfoARM-tensorView-parameter</span><br>
- <code>tensorView</code> <strong>must</strong> be a valid <a href="resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a> handle</p>
+ If <code>tensorView</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>tensorView</code> <strong>must</strong> be a valid <a href="resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a> handle</p>
 </li>
 </ul>
 </div>
@@ -12185,33 +12260,33 @@ There <strong>must</strong> be no more than <code>1</code> element in <code>pBin
 <li>
 <p><a id="VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08053" href="#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08053"></a> <span class="vuid">VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08053</span><br>
 
-For any element of <code>pBindingInfos</code>, the buffer from which
+For each element of <code>pBindingInfos</code>, the buffer from which
 <code>address</code> was queried <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT</code> bit set if it
-contains sampler descriptor data</p>
+<code>VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT</code> usage flag set
+if it contains sampler descriptor data</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08054" href="#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08054"></a> <span class="vuid">VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08054</span><br>
 
-For any element of <code>pBindingInfos</code>, the buffer from which
+For each element of <code>pBindingInfos</code>, the buffer from which
 <code>address</code> was queried <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT</code> bit set if it
-contains resource descriptor data</p>
+<code>VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT</code> usage flag set
+if it contains resource descriptor data</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08055" href="#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08055"></a> <span class="vuid">VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08055</span><br>
 
-For any element of <code>pBindingInfos</code>, <code>usage</code> <strong>must</strong> match the
-buffer from which <code>address</code> was queried</p>
+For each element of <code>pBindingInfos</code>, at least one buffer from which
+<code>address</code> was queried must contain <code>usage</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-09947" href="#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-09947"></a> <span class="vuid">VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-09947</span><br>
 
 For all elements of <code>pBindingInfos</code>, the buffer from which
 <code>address</code> was queried <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_2_DATA_GRAPH_FOREIGN_DESCRIPTOR_BIT_ARM</code> bit set if
-the command pool from which <code>commandBuffer</code> was allocated from was
-created with any element of
+<code>VK_BUFFER_USAGE_2_DATA_GRAPH_FOREIGN_DESCRIPTOR_BIT_ARM</code> usage flag
+set if the command pool from which <code>commandBuffer</code> was allocated
+from was created with any element of
 <a href="VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM" class="xref page">VkDataGraphProcessingEngineCreateInfoARM</a>::pProcessingEngines with
 <code>isForeign</code> set to <code>VK_TRUE</code></p>
 </li>
@@ -12238,7 +12313,7 @@ created with any element of
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorBuffersEXT-commandBuffer-cmdpool" href="#VUID-vkCmdBindDescriptorBuffersEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBindDescriptorBuffersEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, compute, or data_graph operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_DATA_GRAPH_BIT_ARM</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorBuffersEXT-videocoding" href="#VUID-vkCmdBindDescriptorBuffersEXT-videocoding"></a> <span class="vuid">VUID-vkCmdBindDescriptorBuffersEXT-videocoding</span><br>
@@ -12293,9 +12368,9 @@ created with any element of
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute<br>
-Data_Graph</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_DATA_GRAPH_BIT_ARM<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -12345,7 +12420,12 @@ address defining the descriptor buffer to be bound.</p>
 <li>
 <p><code>usage</code> is a bitmask of <a href="resources.html#VkBufferUsageFlagBits" class="xref page">VkBufferUsageFlagBits</a> specifying the
 <a href="resources.html#VkBufferCreateInfo" class="xref page">VkBufferCreateInfo</a>::<code>usage</code> for the buffer from which
-<code>address</code> was queried.</p>
+<code>address</code> was queried.
+Usage flags other than
+<code>VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT</code>,
+<code>VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT</code>, and
+<code>VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT</code> are
+ignored.</p>
 </li>
 </ul>
 </div>
@@ -12377,6 +12457,14 @@ If the <code>pNext</code> chain does not include a
 <code>usage</code> <strong>must</strong> not be 0</p>
 </li>
 <li>
+<p><a id="VUID-VkDescriptorBufferBindingInfoEXT-usage-10998" href="#VUID-VkDescriptorBufferBindingInfoEXT-usage-10998"></a> <span class="vuid">VUID-VkDescriptorBufferBindingInfoEXT-usage-10998</span><br>
+
+The <code>usage</code> must include at least one of
+<code>VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT</code>,
+<code>VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT</code>, or
+<code>VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
+</li>
+<li>
 <p><a id="VUID-VkDescriptorBufferBindingInfoEXT-bufferlessPushDescriptors-08056" href="#VUID-VkDescriptorBufferBindingInfoEXT-bufferlessPushDescriptors-08056"></a> <span class="vuid">VUID-VkDescriptorBufferBindingInfoEXT-bufferlessPushDescriptors-08056</span><br>
 
 If <a href="limits.html#limits-bufferlessPushDescriptors" class="xref page">    <code>VkPhysicalDeviceDescriptorBufferPropertiesEXT</code>::<code>bufferlessPushDescriptors</code></a>
@@ -12396,16 +12484,16 @@ the <code>pNext</code> chain <strong>must</strong> include a
 
 If <code>usage</code> includes
 <code>VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT</code>, <code>address</code>
-<strong>must</strong> be an address within a valid buffer that was created with
-<code>VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
+<strong>must</strong> be an address within a valid buffer that was created with the
+<code>VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorBufferBindingInfoEXT-usage-08123" href="#VUID-VkDescriptorBufferBindingInfoEXT-usage-08123"></a> <span class="vuid">VUID-VkDescriptorBufferBindingInfoEXT-usage-08123</span><br>
 
 If <code>usage</code> includes
 <code>VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT</code>, <code>address</code>
-<strong>must</strong> be an address within a valid buffer that was created with
-<code>VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
+<strong>must</strong> be an address within a valid buffer that was created with the
+<code>VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorBufferBindingInfoEXT-usage-08124" href="#VUID-VkDescriptorBufferBindingInfoEXT-usage-08124"></a> <span class="vuid">VUID-VkDescriptorBufferBindingInfoEXT-usage-08124</span><br>
@@ -12413,7 +12501,9 @@ If <code>usage</code> includes
 If <code>usage</code> includes
 <code>VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT</code>,
 <code>address</code> <strong>must</strong> be an address within a valid buffer that was created
-with <code>VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
+with the
+<code>VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT</code> usage
+flag set</p>
 </li>
 </ul>
 </div>
@@ -12725,6 +12815,23 @@ The <a href="#VkDescriptorSetLayout">VkDescriptorSetLayout</a> for each set from
 <code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code> bit set</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11803" href="#VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11803"></a> <span class="vuid">VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11803</span><br>
+
+The <a href="#VkDescriptorSetLayout">VkDescriptorSetLayout</a> for each set from <code>firstSet</code> to
+<span class="eq"><code>firstSet</code> +  <code>setCount</code></span> when <code>layout</code> was created
+<strong>must</strong> not have been created with the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR</code> bit set</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11804" href="#VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11804"></a> <span class="vuid">VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-11804</span><br>
+
+The <a href="#VkDescriptorSetLayout">VkDescriptorSetLayout</a> for each set from <code>firstSet</code> to
+<span class="eq"><code>firstSet</code> +  <code>setCount</code></span> when <code>layout</code> was created
+<strong>must</strong> not have been created with the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT</code>
+bit set</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdSetDescriptorBufferOffsetsEXT-None-08060" href="#VUID-vkCmdSetDescriptorBufferOffsetsEXT-None-08060"></a> <span class="vuid">VUID-vkCmdSetDescriptorBufferOffsetsEXT-None-08060</span><br>
 
 The <a href="features.html#features-descriptorBuffer" class="xref page"><code>descriptorBuffer</code></a> feature <strong>must</strong>
@@ -12771,7 +12878,7 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDescriptorBufferOffsetsEXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetDescriptorBufferOffsetsEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDescriptorBufferOffsetsEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, compute, or data_graph operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_DATA_GRAPH_BIT_ARM</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDescriptorBufferOffsetsEXT-videocoding" href="#VUID-vkCmdSetDescriptorBufferOffsetsEXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetDescriptorBufferOffsetsEXT-videocoding</span><br>
@@ -12830,9 +12937,9 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute<br>
-Data_Graph</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_DATA_GRAPH_BIT_ARM<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -12915,7 +13022,7 @@ stage supported by the <code>commandBuffer</code>&#8217;s parent
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDescriptorBufferOffsets2EXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetDescriptorBufferOffsets2EXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetDescriptorBufferOffsets2EXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, compute, or data_graph operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, <code>VK_QUEUE_DATA_GRAPH_BIT_ARM</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDescriptorBufferOffsets2EXT-videocoding" href="#VUID-vkCmdSetDescriptorBufferOffsets2EXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetDescriptorBufferOffsets2EXT-videocoding</span><br>
@@ -12966,9 +13073,9 @@ stage supported by the <code>commandBuffer</code>&#8217;s parent
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute<br>
-Data_Graph</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_DATA_GRAPH_BIT_ARM<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -13118,6 +13225,23 @@ The <a href="#VkDescriptorSetLayout">VkDescriptorSetLayout</a> for each set from
 <span class="eq"><code>firstSet</code> +  <code>setCount</code></span> when <code>layout</code> was created
 <strong>must</strong> have been created with the
 <code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code> bit set</p>
+</li>
+<li>
+<p><a id="VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11803" href="#VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11803"></a> <span class="vuid">VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11803</span><br>
+
+The <a href="#VkDescriptorSetLayout">VkDescriptorSetLayout</a> for each set from <code>firstSet</code> to
+<span class="eq"><code>firstSet</code> +  <code>setCount</code></span> when <code>layout</code> was created
+<strong>must</strong> not have been created with the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR</code> bit set</p>
+</li>
+<li>
+<p><a id="VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11804" href="#VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11804"></a> <span class="vuid">VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-11804</span><br>
+
+The <a href="#VkDescriptorSetLayout">VkDescriptorSetLayout</a> for each set from <code>firstSet</code> to
+<span class="eq"><code>firstSet</code> +  <code>setCount</code></span> when <code>layout</code> was created
+<strong>must</strong> not have been created with the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT</code>
+bit set</p>
 </li>
 </ul>
 </div>
@@ -13294,7 +13418,7 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorBufferEmbeddedSamplersEXT-commandBuffer-cmdpool" href="#VUID-vkCmdBindDescriptorBufferEmbeddedSamplersEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBindDescriptorBufferEmbeddedSamplersEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorBufferEmbeddedSamplersEXT-videocoding" href="#VUID-vkCmdBindDescriptorBufferEmbeddedSamplersEXT-videocoding"></a> <span class="vuid">VUID-vkCmdBindDescriptorBufferEmbeddedSamplersEXT-videocoding</span><br>
@@ -13349,8 +13473,8 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -13434,7 +13558,7 @@ Each bit in <code>pBindDescriptorBufferEmbeddedSamplersInfo-&gt;stageFlags</code
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorBufferEmbeddedSamplers2EXT-commandBuffer-cmdpool" href="#VUID-vkCmdBindDescriptorBufferEmbeddedSamplers2EXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBindDescriptorBufferEmbeddedSamplers2EXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_COMPUTE_BIT</code>, or <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorBufferEmbeddedSamplers2EXT-videocoding" href="#VUID-vkCmdBindDescriptorBufferEmbeddedSamplers2EXT-videocoding"></a> <span class="vuid">VUID-vkCmdBindDescriptorBufferEmbeddedSamplers2EXT-videocoding</span><br>
@@ -13485,8 +13609,8 @@ Each bit in <code>pBindDescriptorBufferEmbeddedSamplersInfo-&gt;stageFlags</code
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_COMPUTE_BIT<br>
+VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -13659,11 +13783,12 @@ sets.</p>
 <p>The <a href="limits.html#limits-bufferlessPushDescriptors" class="xref page"><code>VkPhysicalDeviceDescriptorBufferPropertiesEXT</code>::<code>bufferlessPushDescriptors</code></a>
 property indicates whether the implementation requires a buffer to back push
 descriptors.
-If the property is <code>VK_FALSE</code> then before recording any push descriptors
-the application <strong>must</strong> bind exactly <code>1</code> descriptor buffer that was created
-with the <code>VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT</code>
-bit set.
-When this buffer is bound any previously recorded push descriptors that are
+If the property is <code>VK_FALSE</code> then before recording any push
+descriptors, the application <strong>must</strong> bind exactly <code>1</code> descriptor buffer that
+was created with the
+<code>VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT</code> usage flag
+set.
+When this buffer is bound, any previously recorded push descriptors that are
 required for a subsequent command <strong>must</strong> be recorded again.</p>
 </div>
 </div>

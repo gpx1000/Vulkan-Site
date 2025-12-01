@@ -48,6 +48,13 @@ Not ratified
 
 None
 
+**Deprecation State**
+
+* 
+*Promoted* to
+[VK_EXT_custom_resolve](VK_EXT_custom_resolve.html)
+extension
+
 **Contact**
 
 * 
@@ -116,7 +123,7 @@ This is part of suite of small extensions to render pass.
 Following the style guide, instead of following VK_KHR_create_renderpass2.
 
 2) Should the VK_SAMPLE_COUNT_1_BIT be required for each pColorAttachment
-and the DepthStencilAttachent?
+and the DepthStencilAttachment?
 
 **RESOLVED** No.
 

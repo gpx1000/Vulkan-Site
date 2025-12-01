@@ -31,9 +31,8 @@ typedef struct VkSemaphoreSubmitInfo {
     uint32_t                 deviceIndex;
 } VkSemaphoreSubmitInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkSemaphoreSubmitInfo
 typedef VkSemaphoreSubmitInfo VkSemaphoreSubmitInfoKHR;
 
 * 

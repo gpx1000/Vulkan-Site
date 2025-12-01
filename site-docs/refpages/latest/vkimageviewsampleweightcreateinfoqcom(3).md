@@ -51,7 +51,7 @@ weight filter origin.
 dimensions.
 
 * 
-`numPhases` is number of sub-pixel filter phases.
+`numPhases` is the number of sub-pixel filter phases.
 
 The `filterCenter` specifies the origin or center of the filter kernel,
 as described in [Weight Sampling Operation](../../../../spec/latest/chapters/textures.html#textures-weightimage-filteroperation).

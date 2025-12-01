@@ -87,7 +87,7 @@ Interacts with VK_KHR_format_feature_flags2
 **Contact**
 
 * 
-Lina Versace [linyaa-kiwi](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_image_drm_format_modifier] @linyaa-kiwi%0A*Here describe the issue or question you have about the VK_EXT_image_drm_format_modifier extension*)
+James Jones [cubanismo](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_image_drm_format_modifier] @cubanismo%0A*Here describe the issue or question you have about the VK_EXT_image_drm_format_modifier extension*)
 
 **Last Modified Date**
 

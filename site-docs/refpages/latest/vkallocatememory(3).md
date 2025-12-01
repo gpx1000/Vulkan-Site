@@ -176,7 +176,7 @@ There **must** be less than
 memory allocations currently allocated on the device
 
 * 
-[](#VUID-VkTileMemoryBindInfoQCOM-memoryTypeIndex) VUID-VkTileMemoryBindInfoQCOM-memoryTypeIndex
+[](#VUID-vkAllocateMemory-tileMemoryHeap-10976) VUID-vkAllocateMemory-tileMemoryHeap-10976
 
 If the [`tileMemoryHeap`](../../../../spec/latest/chapters/features.html#features-tileMemoryHeap) feature is not
 enabled, `pAllocateInfo->memoryTypeIndex` **must** not identify a

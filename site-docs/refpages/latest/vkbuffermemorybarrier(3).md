@@ -92,10 +92,17 @@ If the destination access mask includes `VK_ACCESS_HOST_WRITE_BIT` or
 [memory domain operation](../../../../spec/latest/chapters/synchronization.html#synchronization-dependencies-available-and-visible) is performed where available memory in the device domain is also
 made available to the host domain.
 
-|  | When `VK_MEMORY_PROPERTY_HOST_COHERENT_BIT` is used, available memory in
+|  | Host writes to device memory that was allocated without
 | --- | --- |
-host domain is automatically made visible to host domain, and any host write
-is automatically made available to host domain. |
+`VK_MEMORY_PROPERTY_HOST_COHERENT_BIT` have to be flushed with
+[vkFlushMappedMemoryRanges](vkFlushMappedMemoryRanges.html) before they can be accessed safely on the
+device.
+Similarly, device writes to such memory have to be invalidated with
+[vkInvalidateMappedMemoryRanges](vkInvalidateMappedMemoryRanges.html) before they can be accessed safely on
+the host.
+
+Memory allocated with `VK_MEMORY_PROPERTY_HOST_COHERENT_BIT` does not
+need to have these additional operations performed. |
 
 If `srcQueueFamilyIndex` is not equal to `dstQueueFamilyIndex`, and
 `srcQueueFamilyIndex` is equal to the current queue family, then the

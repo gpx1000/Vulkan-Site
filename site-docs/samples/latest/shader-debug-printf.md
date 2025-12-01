@@ -28,7 +28,7 @@
 
 ![Sample](../../../_images/samples/extensions/shader_debugprintf/images/sample.png)
 
-This sample demonstrates the usage of the [VK_KHR_shader_non_semantic_info](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_shader_non_semantic_info.html) for adding means to output debug messages from SPIR-V shaders using a print function at runtime.
+This sample demonstrates the usage of the [VK_KHR_shader_non_semantic_info](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_shader_non_semantic_info.html) for adding means to output debug messages from SPIR-V shaders using a print function at runtime.
 
 It allows you to output invocation related debug messages from a given shader stage and can help to find problems or bugs together with a graphics debugger like [RenderDoc](https://www.renderdoc.org). But it’s also possible to display that data in your application (e.g. a debug window or the command line), although this has some limitations like a fixed buffer size that all messages need to fit in.
 

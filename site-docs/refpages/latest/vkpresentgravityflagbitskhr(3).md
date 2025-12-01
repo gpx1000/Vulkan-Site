@@ -33,9 +33,8 @@ typedef enum VkPresentGravityFlagBitsKHR {
     VK_PRESENT_GRAVITY_CENTERED_BIT_EXT = VK_PRESENT_GRAVITY_CENTERED_BIT_KHR,
 } VkPresentGravityFlagBitsKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkPresentGravityFlagBitsKHR
 typedef VkPresentGravityFlagBitsKHR VkPresentGravityFlagBitsEXT;
 
 * 

@@ -182,8 +182,7 @@ number of layers (`arrayLayers`) for an image.
 maximum number of addressable texels for a buffer view created on a
 buffer which was created with the
 `VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT` or
-`VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT` set in the `usage`
-member of the [VkBufferCreateInfo](VkBufferCreateInfo.html) structure.
+`VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT` usage flag set.
 
 * 
  `maxUniformBufferRange` is the
@@ -200,6 +199,8 @@ maximum value that **can** be specified in the `range` member of a
 [vkUpdateDescriptorSets](vkUpdateDescriptorSets.html) for descriptors of type
 `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER` or
 `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC`.
+If the [`shader64BitIndexing`](../../../../spec/latest/chapters/features.html#features-shader64BitIndexing)
+feature is enabled, this limit does not apply.
 
 * 
  `maxPushConstantsSize` is the
@@ -911,37 +912,37 @@ structure **must** be less than or equal to this limit.
 
 `sampledImageColorSampleCounts` is a bitmask1 of
 [VkSampleCountFlagBits](VkSampleCountFlagBits.html) indicating the sample counts supported for
-all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, `usage`
-containing `VK_IMAGE_USAGE_SAMPLED_BIT`, and a non-integer color
+all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, the
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flag set, and a non-integer color
 format.
 
 * 
 
 `sampledImageIntegerSampleCounts` is a bitmask1 of
 [VkSampleCountFlagBits](VkSampleCountFlagBits.html) indicating the sample counts supported for
-all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, `usage`
-containing `VK_IMAGE_USAGE_SAMPLED_BIT`, and an integer color
+all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, the
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flag set, and an integer color
 format.
 
 * 
 
 `sampledImageDepthSampleCounts` is a bitmask1 of
 [VkSampleCountFlagBits](VkSampleCountFlagBits.html) indicating the sample counts supported for
-all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, `usage`
-containing `VK_IMAGE_USAGE_SAMPLED_BIT`, and a depth format.
+all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, the
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flag set, and a depth format.
 
 * 
 
 `sampledImageStencilSampleCounts` is a bitmask1 of
 [VkSampleCountFlagBits](VkSampleCountFlagBits.html) indicating the sample counts supported for
-all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, `usage`
-containing `VK_IMAGE_USAGE_SAMPLED_BIT`, and a stencil format.
+all 2D images created with `VK_IMAGE_TILING_OPTIMAL`, the
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flag set, and a stencil format.
 
 * 
  `storageImageSampleCounts` is a
 bitmask1 of [VkSampleCountFlagBits](VkSampleCountFlagBits.html) indicating the sample counts
 supported for all 2D images created with `VK_IMAGE_TILING_OPTIMAL`,
-and `usage` containing `VK_IMAGE_USAGE_STORAGE_BIT`.
+and the `VK_IMAGE_USAGE_STORAGE_BIT` usage flag set.
 
 * 
  `maxSampleMaskWords` is the maximum

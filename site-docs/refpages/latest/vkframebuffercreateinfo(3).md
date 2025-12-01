@@ -21,7 +21,7 @@ VkFramebufferCreateInfo - Structure specifying parameters of a newly created fra
 
 The `VkFramebufferCreateInfo` structure is defined as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -118,8 +118,8 @@ not `0`, `pAttachments` **must** be a valid pointer to an array of
 If `flags` does not include
 `VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT`, each element of
 `pAttachments` that is used as a color attachment or resolve
-attachment by `renderPass` **must** have been created with a
-`usage` value including `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT`
+attachment by `renderPass` **must** have been created with the
+`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkFramebufferCreateInfo-pAttachments-02633) VUID-VkFramebufferCreateInfo-pAttachments-02633
@@ -127,8 +127,8 @@ attachment by `renderPass` **must** have been created with a
 If `flags` does not include
 `VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT`, each element of
 `pAttachments` that is used as a depth/stencil attachment by
-`renderPass` **must** have been created with a `usage` value
-including `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+`renderPass` **must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkFramebufferCreateInfo-pAttachments-02634) VUID-VkFramebufferCreateInfo-pAttachments-02634
@@ -136,8 +136,8 @@ including `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
 If `flags` does not include
 `VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT`, each element of
 `pAttachments` that is used as a depth/stencil resolve attachment by
-`renderPass` **must** have been created with a `usage` value
-including `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+`renderPass` **must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkFramebufferCreateInfo-pAttachments-00879) VUID-VkFramebufferCreateInfo-pAttachments-00879
@@ -145,20 +145,8 @@ including `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
 If `renderpass` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), `flags` does not
 include `VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT`, each element of
 `pAttachments` that is used as an input attachment by
-`renderPass` **must** have been created with a `usage` value
-including `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
-
-* 
-[](#VUID-VkFramebufferCreateInfo-flags-10917) VUID-VkFramebufferCreateInfo-flags-10917
-
-If `flags` does not include
-`VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT`, each element of
-`pAttachments` that is used as a color attachment or resolve
-attachment by `renderPass` **must** have been created with a
-[VkImageSubresourceRange](VkImageSubresourceRange.html)::`aspectMask` including
-`VK_IMAGE_ASPECT_PLANE_0_BIT`, `VK_IMAGE_ASPECT_PLANE_1_BIT`,
-`VK_IMAGE_ASPECT_PLANE_2_BIT`, or
-`VK_IMAGE_ASPECT_COLOR_BIT`
+`renderPass` **must** have been created with the
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkFramebufferCreateInfo-pAttachments-02552) VUID-VkFramebufferCreateInfo-pAttachments-02552
@@ -603,8 +591,9 @@ If `flags` does not include
 If `flags` does not include
 `VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT`, each element of
 `pAttachments` that is used as a fragment shading rate attachment by
-`renderPass` **must** have been created with a `usage` value
-including `VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
+`renderPass` **must** have been created with the
+`VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` usage flag
+set
 
 * 
 [](#VUID-VkFramebufferCreateInfo-flags-04549) VUID-VkFramebufferCreateInfo-flags-04549

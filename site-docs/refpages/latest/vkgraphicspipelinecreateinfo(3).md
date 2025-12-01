@@ -177,8 +177,8 @@ dynamic.
     equal to Vulkan 1.3
 or
     [VK_KHR_maintenance4](VK_KHR_maintenance4.html) is enabled
-    `layout` **must** not be accessed outside of the duration of the
-    command this structure is passed to.
+    `layout` **must** not be accessed by the implementation outside of the
+    duration of the command this structure is passed to.
 
 * 
 `renderPass` is a handle to a render pass object describing the
@@ -347,6 +347,11 @@ flag
 Inclusion/omission of the
 `VK_PIPELINE_CREATE_2_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE` flag
 
+The `customResolve` parameter of [VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html).
+Formats are ignored, and not including the structure behaves identically
+to setting `customResolve` to `VK_FALSE`, unlike in
+[fragment output interface    state](../../../../spec/latest/chapters/pipelines.html#pipelines-graphics-subsets-fragment-output).
+
 If
 a pipeline specifies
 [pre-rasterization state](../../../../spec/latest/chapters/pipelines.html#pipelines-graphics-subsets-pre-rasterization)
@@ -388,6 +393,9 @@ Fragment output state is defined by:
 
 * 
 [VkExternalFormatANDROID](VkExternalFormatANDROID.html)
+
+* 
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)
 
 * 
 Inclusion/omission of the
@@ -523,8 +531,9 @@ descriptor type
 [](#VUID-VkGraphicsPipelineCreateInfo-layout-07991) VUID-VkGraphicsPipelineCreateInfo-layout-07991
 
 If a [resource variable](../../../../spec/latest/chapters/interfaces.html#interfaces-resources) is declared in a shader
-as an array, the corresponding descriptor set in `layout` **must**
-match the descriptor count
+as an array, the corresponding descriptor binding used to create
+`layout` **must** have a `descriptorCount` that is greater than or
+equal to the length of the array
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-None-10391) VUID-VkGraphicsPipelineCreateInfo-None-10391
@@ -532,6 +541,13 @@ match the descriptor count
 If a [resource variables](../../../../spec/latest/chapters/interfaces.html#interfaces-resources) is declared in a shader
 as an array of descriptors, then the descriptor type of that variable
 **must** not be `VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK`
+
+* 
+[](#VUID-VkGraphicsPipelineCreateInfo-flags-11798) VUID-VkGraphicsPipelineCreateInfo-flags-11798
+
+If [shader64BitIndexing](../../../../spec/latest/chapters/features.html#features-shader64BitIndexing) feature is not
+enabled, `flags` **must** not contain
+`VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT`
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-stage-02096) VUID-VkGraphicsPipelineCreateInfo-stage-02096
@@ -681,13 +697,6 @@ is `VK_FALSE`,
 a `PointSize` decorated variable **must** be written to
 if the [`maintenance5`](../../../../spec/latest/chapters/features.html#features-maintenance5) feature is not
 enabled
-
-* 
-[](#VUID-VkGraphicsPipelineCreateInfo-maintenance5-08775) VUID-VkGraphicsPipelineCreateInfo-maintenance5-08775
-
-If the [`maintenance5`](../../../../spec/latest/chapters/features.html#features-maintenance5) feature is enabled
-and a `PointSize` decorated variable is written to, all execution
-paths **must** write to a `PointSize` decorated variable
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-TessellationEvaluation-07724) VUID-VkGraphicsPipelineCreateInfo-TessellationEvaluation-07724
@@ -1896,21 +1905,25 @@ member of `pDynamicState` set to
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-rasterizationSamples-04899) VUID-VkGraphicsPipelineCreateInfo-rasterizationSamples-04899
 
-If the pipeline requires [    fragment shader state](../../../../spec/latest/chapters/pipelines.html#pipelines-graphics-subsets-fragment-shader), and the
-`[VK_QCOM_render_pass_shader_resolve](VK_QCOM_render_pass_shader_resolve.html)` extension is enabled,
-`rasterizationSamples` is not dynamic, and if subpass has any input
-attachments, and if the subpass description contains
-`VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_QCOM`, then the sample
-count of the input attachments **must** equal `rasterizationSamples`
+    If the pipeline requires [    fragment shader state](../../../../spec/latest/chapters/pipelines.html#pipelines-graphics-subsets-fragment-shader), and
+    the `[VK_QCOM_render_pass_shader_resolve](VK_QCOM_render_pass_shader_resolve.html)` extension
+or
+    the [`customResolve`](../../../../spec/latest/chapters/features.html#features-customResolve) feature
+    is enabled, `rasterizationSamples` is not dynamic, and if subpass
+    has any input attachments, and if the subpass description contains
+    `VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_EXT`, then the sample
+    count of the input attachments **must** equal `rasterizationSamples`
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-sampleShadingEnable-04900) VUID-VkGraphicsPipelineCreateInfo-sampleShadingEnable-04900
 
-If the pipeline requires [    fragment shader state](../../../../spec/latest/chapters/pipelines.html#pipelines-graphics-subsets-fragment-shader), and the
-`[VK_QCOM_render_pass_shader_resolve](VK_QCOM_render_pass_shader_resolve.html)` extension is enabled, and if
-the subpass description contains
-`VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_QCOM`, then
-`sampleShadingEnable` **must** be false
+    If the pipeline requires [    fragment shader state](../../../../spec/latest/chapters/pipelines.html#pipelines-graphics-subsets-fragment-shader), and
+    the `[VK_QCOM_render_pass_shader_resolve](VK_QCOM_render_pass_shader_resolve.html)` extension
+or
+    the [`customResolve`](../../../../spec/latest/chapters/features.html#features-customResolve) feature
+    is enabled, and if the subpass description contains
+    `VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_EXT`, then
+    `sampleShadingEnable` **must** be false
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-dynamicRendering-06576) VUID-VkGraphicsPipelineCreateInfo-dynamicRendering-06576
@@ -2110,6 +2123,16 @@ If `renderPass` is [VK_NULL_HANDLE](VK_NULL_HANDLE.html), `pColorBlendState` is
 not dynamic, and the pipeline is being created with
 [fragment output interface    state](../../../../spec/latest/chapters/pipelines.html#pipelines-graphics-subsets-fragment-output), `pColorBlendState->attachmentCount` **must** be equal to
 [VkPipelineRenderingCreateInfo](VkPipelineRenderingCreateInfo.html)::`colorAttachmentCount`
+
+* 
+[](#VUID-VkGraphicsPipelineCreateInfo-renderPass-11504) VUID-VkGraphicsPipelineCreateInfo-renderPass-11504
+
+If `renderPass` is [VK_NULL_HANDLE](VK_NULL_HANDLE.html), a
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) is in the pNext chain, and the
+pipeline is being created with
+[fragment output interface    state](../../../../spec/latest/chapters/pipelines.html#pipelines-graphics-subsets-fragment-output), [VkPipelineRenderingCreateInfo](VkPipelineRenderingCreateInfo.html)::`colorAttachmentCount`
+**must** be equal to
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`colorAttachmentCount`
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-renderPass-06057) VUID-VkGraphicsPipelineCreateInfo-renderPass-06057
@@ -2786,6 +2809,76 @@ not set, or the [alphaToOne](../../../../spec/latest/chapters/features.html#feat
 and `VK_DYNAMIC_STATE_ALPHA_TO_ONE_ENABLE_EXT` is not set,
 then `pMultisampleState` **must** be a valid pointer to a valid
 [VkPipelineMultisampleStateCreateInfo](VkPipelineMultisampleStateCreateInfo.html) structure
+
+* 
+[](#VUID-VkGraphicsPipelineCreateInfo-flags-11856) VUID-VkGraphicsPipelineCreateInfo-flags-11856
+
+If [VkGraphicsPipelineLibraryCreateInfoEXT](VkGraphicsPipelineLibraryCreateInfoEXT.html)::`flags` includes
+either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`,
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) is included and
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` is
+`VK_TRUE`, and an element of
+[VkPipelineLibraryCreateInfoKHR](VkPipelineLibraryCreateInfoKHR.html)::`pLibraries` also includes
+either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`, the library
+**must** also include [VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) and the
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` specified by the
+library **must** be `VK_TRUE`
+
+* 
+[](#VUID-VkGraphicsPipelineCreateInfo-flags-11857) VUID-VkGraphicsPipelineCreateInfo-flags-11857
+
+If [VkGraphicsPipelineLibraryCreateInfoEXT](VkGraphicsPipelineLibraryCreateInfoEXT.html)::`flags` includes
+either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`,
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) is not included or
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` is
+`VK_FALSE`, and an element of
+[VkPipelineLibraryCreateInfoKHR](VkPipelineLibraryCreateInfoKHR.html)::`pLibraries` also includes
+either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`, either the
+library **must** not include [VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) or the
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` specified by the
+library **must** be `VK_FALSE`
+
+* 
+[](#VUID-VkGraphicsPipelineCreateInfo-customResolve-11858) VUID-VkGraphicsPipelineCreateInfo-customResolve-11858
+
+If one element of [VkPipelineLibraryCreateInfoKHR](VkPipelineLibraryCreateInfoKHR.html) includes either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`,
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) is included and
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` is
+`VK_TRUE`, and another element of
+[VkPipelineLibraryCreateInfoKHR](VkPipelineLibraryCreateInfoKHR.html)::`pLibraries` also includes
+either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`, the other
+library **must** also include [VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) and the
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` specified by the
+library **must** be `VK_TRUE`
+
+* 
+[](#VUID-VkGraphicsPipelineCreateInfo-customResolve-11859) VUID-VkGraphicsPipelineCreateInfo-customResolve-11859
+
+If one element of [VkPipelineLibraryCreateInfoKHR](VkPipelineLibraryCreateInfoKHR.html) includes either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`,
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) is not included or
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` is
+`VK_FALSE`, and another element of
+[VkPipelineLibraryCreateInfoKHR](VkPipelineLibraryCreateInfoKHR.html)::`pLibraries` also includes
+either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`, either the
+other library **must** not include [VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html) or
+the [VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` specified by
+the library **must** be `VK_FALSE`
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-flags-06633) VUID-VkGraphicsPipelineCreateInfo-flags-06633
@@ -3645,7 +3738,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-pNext-pNext) VUID-VkGraphicsPipelineCreateInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAttachmentSampleCountInfoAMD](VkAttachmentSampleCountInfoAMD.html), [VkExternalFormatANDROID](VkExternalFormatANDROID.html), [VkGraphicsPipelineLibraryCreateInfoEXT](VkGraphicsPipelineLibraryCreateInfoEXT.html), [VkGraphicsPipelineShaderGroupsCreateInfoNV](VkGraphicsPipelineShaderGroupsCreateInfoNV.html), [VkMultiviewPerViewAttributesInfoNVX](VkMultiviewPerViewAttributesInfoNVX.html), [VkPipelineBinaryInfoKHR](VkPipelineBinaryInfoKHR.html), [VkPipelineCompilerControlCreateInfoAMD](VkPipelineCompilerControlCreateInfoAMD.html), [VkPipelineCreateFlags2CreateInfo](VkPipelineCreateFlags2CreateInfo.html), [VkPipelineCreationFeedbackCreateInfo](VkPipelineCreationFeedbackCreateInfo.html), [VkPipelineDiscardRectangleStateCreateInfoEXT](VkPipelineDiscardRectangleStateCreateInfoEXT.html), [VkPipelineFragmentDensityMapLayeredCreateInfoVALVE](VkPipelineFragmentDensityMapLayeredCreateInfoVALVE.html), [VkPipelineFragmentShadingRateEnumStateCreateInfoNV](VkPipelineFragmentShadingRateEnumStateCreateInfoNV.html), [VkPipelineFragmentShadingRateStateCreateInfoKHR](VkPipelineFragmentShadingRateStateCreateInfoKHR.html), [VkPipelineLibraryCreateInfoKHR](VkPipelineLibraryCreateInfoKHR.html), [VkPipelineRenderingCreateInfo](VkPipelineRenderingCreateInfo.html), [VkPipelineRepresentativeFragmentTestStateCreateInfoNV](VkPipelineRepresentativeFragmentTestStateCreateInfoNV.html), [VkPipelineRobustnessCreateInfo](VkPipelineRobustnessCreateInfo.html), [VkRenderingAttachmentLocationInfo](VkRenderingAttachmentLocationInfo.html), or [VkRenderingInputAttachmentIndexInfo](VkRenderingInputAttachmentIndexInfo.html)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAttachmentSampleCountInfoAMD](VkAttachmentSampleCountInfoAMD.html), [VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html), [VkExternalFormatANDROID](VkExternalFormatANDROID.html), [VkExternalFormatOHOS](VkExternalFormatOHOS.html), [VkGraphicsPipelineLibraryCreateInfoEXT](VkGraphicsPipelineLibraryCreateInfoEXT.html), [VkGraphicsPipelineShaderGroupsCreateInfoNV](VkGraphicsPipelineShaderGroupsCreateInfoNV.html), [VkMultiviewPerViewAttributesInfoNVX](VkMultiviewPerViewAttributesInfoNVX.html), [VkPipelineBinaryInfoKHR](VkPipelineBinaryInfoKHR.html), [VkPipelineCompilerControlCreateInfoAMD](VkPipelineCompilerControlCreateInfoAMD.html), [VkPipelineCreateFlags2CreateInfo](VkPipelineCreateFlags2CreateInfo.html), [VkPipelineCreationFeedbackCreateInfo](VkPipelineCreationFeedbackCreateInfo.html), [VkPipelineDiscardRectangleStateCreateInfoEXT](VkPipelineDiscardRectangleStateCreateInfoEXT.html), [VkPipelineFragmentDensityMapLayeredCreateInfoVALVE](VkPipelineFragmentDensityMapLayeredCreateInfoVALVE.html), [VkPipelineFragmentShadingRateEnumStateCreateInfoNV](VkPipelineFragmentShadingRateEnumStateCreateInfoNV.html), [VkPipelineFragmentShadingRateStateCreateInfoKHR](VkPipelineFragmentShadingRateStateCreateInfoKHR.html), [VkPipelineLibraryCreateInfoKHR](VkPipelineLibraryCreateInfoKHR.html), [VkPipelineRenderingCreateInfo](VkPipelineRenderingCreateInfo.html), [VkPipelineRepresentativeFragmentTestStateCreateInfoNV](VkPipelineRepresentativeFragmentTestStateCreateInfoNV.html), [VkPipelineRobustnessCreateInfo](VkPipelineRobustnessCreateInfo.html), [VkRenderingAttachmentLocationInfo](VkRenderingAttachmentLocationInfo.html), or [VkRenderingInputAttachmentIndexInfo](VkRenderingInputAttachmentIndexInfo.html)
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-sType-unique) VUID-VkGraphicsPipelineCreateInfo-sType-unique

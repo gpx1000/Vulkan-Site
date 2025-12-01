@@ -55,6 +55,13 @@ Not ratified
 * 
 [SPV_NV_shader_invocation_reorder](https://github.khronos.org/SPIRV-Registry/extensions/NV/SPV_NV_shader_invocation_reorder.html)
 
+**Deprecation State**
+
+* 
+*Promoted* to
+[VK_EXT_ray_tracing_invocation_reorder](VK_EXT_ray_tracing_invocation_reorder.html)
+extension
+
 **Contact**
 
 * 
@@ -96,7 +103,7 @@ Extending [VkPhysicalDeviceProperties2](VkPhysicalDeviceProperties2.html):
 [VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV](VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.html)
 
 * 
-[VkRayTracingInvocationReorderModeNV](VkRayTracingInvocationReorderModeNV.html)
+[VkRayTracingInvocationReorderModeNV](VkRayTracingInvocationReorderModeEXT.html)
 
 * 
 `VK_NV_RAY_TRACING_INVOCATION_REORDER_EXTENSION_NAME`
@@ -105,8 +112,16 @@ Extending [VkPhysicalDeviceProperties2](VkPhysicalDeviceProperties2.html):
 `VK_NV_RAY_TRACING_INVOCATION_REORDER_SPEC_VERSION`
 
 * 
+Extending [VkRayTracingInvocationReorderModeEXT](VkRayTracingInvocationReorderModeEXT.html):
+
+`VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_NV`
+
+* 
+`VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_NV`
+
 Extending [VkStructureType](VkStructureType.html):
 
+* 
 `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV`
 
 * 
@@ -120,7 +135,7 @@ Intrinsics](https://github.com/microsoft/DirectXShaderCompiler/wiki/GL_EXT_spirv
 
 The codes for shader invocation reorder are obtained from
 [this
-page](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/NV/SPV_NV_shader_invocation_reorder.html):
+page](https://github.khronos.org/SPIRV-Registry/extensions/NV/SPV_NV_shader_invocation_reorder.html):
 
 #define ShaderInvocationReorderNV 5383
 #define HitObjectAttributeNV 5385

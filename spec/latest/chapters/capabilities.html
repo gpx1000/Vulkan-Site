@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -456,7 +465,7 @@ sample counts for certain image types, or additional capabilities for
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/versions.html#versions-1.1" class="xref page">Vulkan Version 1.1</a>. See <a href="../appendices/deprecation.html#deprecation-gpdp2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is superseded by <a href="../appendices/versions.html#versions-1.1" class="xref page">Vulkan Version 1.1</a>. See <a href="../appendices/legacy.html#legacy-gpdp2" class="xref page">Legacy Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -1080,12 +1089,10 @@ VkResult vkGetPhysicalDeviceImageFormatProperties2(
     VkImageFormatProperties2*                   pImageFormatProperties);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkGetPhysicalDeviceImageFormatProperties2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to vkGetPhysicalDeviceImageFormatProperties2
 VkResult vkGetPhysicalDeviceImageFormatProperties2KHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceImageFormatInfo2*     pImageFormatInfo,
@@ -1285,12 +1292,10 @@ typedef struct VkPhysicalDeviceImageFormatInfo2 {
 } VkPhysicalDeviceImageFormatInfo2;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceImageFormatInfo2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkPhysicalDeviceImageFormatInfo2
 typedef VkPhysicalDeviceImageFormatInfo2 VkPhysicalDeviceImageFormatInfo2KHR;</code></pre>
 </div>
 </div>
@@ -1421,12 +1426,10 @@ typedef struct VkImageFormatProperties2 {
 } VkImageFormatProperties2;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkImageFormatProperties2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkImageFormatProperties2
 typedef VkImageFormatProperties2 VkImageFormatProperties2KHR;</code></pre>
 </div>
 </div>
@@ -1485,7 +1488,7 @@ This exception only applies to <code>imageFormatProperties</code>, not <code>sTy
 </li>
 <li>
 <p><a id="VUID-VkImageFormatProperties2-pNext-pNext" href="#VUID-VkImageFormatProperties2-pNext-pNext"></a> <span class="vuid">VUID-VkImageFormatProperties2-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkAndroidHardwareBufferUsageANDROID">VkAndroidHardwareBufferUsageANDROID</a>, <a href="#VkExternalImageFormatProperties">VkExternalImageFormatProperties</a>, <a href="#VkFilterCubicImageViewImageFormatPropertiesEXT">VkFilterCubicImageViewImageFormatPropertiesEXT</a>, <a href="#VkHostImageCopyDevicePerformanceQuery">VkHostImageCopyDevicePerformanceQuery</a>, <a href="resources.html#VkImageCompressionPropertiesEXT" class="xref page">VkImageCompressionPropertiesEXT</a>, <a href="#VkSamplerYcbcrConversionImageFormatProperties">VkSamplerYcbcrConversionImageFormatProperties</a>, or <a href="#VkTextureLODGatherFormatPropertiesAMD">VkTextureLODGatherFormatPropertiesAMD</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkAndroidHardwareBufferUsageANDROID">VkAndroidHardwareBufferUsageANDROID</a>, <a href="#VkExternalImageFormatProperties">VkExternalImageFormatProperties</a>, <a href="#VkFilterCubicImageViewImageFormatPropertiesEXT">VkFilterCubicImageViewImageFormatPropertiesEXT</a>, <a href="#VkHostImageCopyDevicePerformanceQuery">VkHostImageCopyDevicePerformanceQuery</a>, <a href="resources.html#VkImageCompressionPropertiesEXT" class="xref page">VkImageCompressionPropertiesEXT</a>, <a href="resources.html#VkNativeBufferUsageOHOS" class="xref page">VkNativeBufferUsageOHOS</a>, <a href="#VkSamplerYcbcrConversionImageFormatProperties">VkSamplerYcbcrConversionImageFormatProperties</a>, or <a href="#VkTextureLODGatherFormatPropertiesAMD">VkTextureLODGatherFormatPropertiesAMD</a></p>
 </li>
 <li>
 <p><a id="VUID-VkImageFormatProperties2-sType-unique" href="#VUID-VkImageFormatProperties2-sType-unique"></a> <span class="vuid">VUID-VkImageFormatProperties2-sType-unique</span><br>
@@ -1574,12 +1577,10 @@ typedef struct VkPhysicalDeviceExternalImageFormatInfo {
 } VkPhysicalDeviceExternalImageFormatInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceExternalImageFormatInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkPhysicalDeviceExternalImageFormatInfo
 typedef VkPhysicalDeviceExternalImageFormatInfo VkPhysicalDeviceExternalImageFormatInfoKHR;</code></pre>
 </div>
 </div>
@@ -1660,6 +1661,8 @@ typedef enum VkExternalMemoryHandleTypeFlagBits {
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_ZIRCON_VMO_BIT_FUCHSIA = 0x00000800,
   // Provided by VK_NV_external_memory_rdma
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_RDMA_ADDRESS_BIT_NV = 0x00001000,
+  // Provided by VK_OHOS_external_memory
+    VK_EXTERNAL_MEMORY_HANDLE_TYPE_OH_NATIVE_BUFFER_BIT_OHOS = 0x00008000,
   // Provided by VK_QNX_external_memory_screen_buffer
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_SCREEN_BUFFER_BIT_QNX = 0x00004000,
   // Provided by VK_EXT_external_memory_metal
@@ -1685,12 +1688,10 @@ typedef enum VkExternalMemoryHandleTypeFlagBits {
 } VkExternalMemoryHandleTypeFlagBits;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalMemoryHandleTypeFlagBitsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryHandleTypeFlagBits
 typedef VkExternalMemoryHandleTypeFlagBits VkExternalMemoryHandleTypeFlagBitsKHR;</code></pre>
 </div>
 </div>
@@ -1962,12 +1963,10 @@ prevent incompatible usage of dma-bufs (such as
 typedef VkFlags VkExternalMemoryHandleTypeFlags;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalMemoryHandleTypeFlagsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryHandleTypeFlags
 typedef VkExternalMemoryHandleTypeFlags VkExternalMemoryHandleTypeFlagsKHR;</code></pre>
 </div>
 </div>
@@ -1992,12 +1991,10 @@ typedef struct VkExternalImageFormatProperties {
 } VkExternalImageFormatProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalImageFormatPropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalImageFormatProperties
 typedef VkExternalImageFormatProperties VkExternalImageFormatPropertiesKHR;</code></pre>
 </div>
 </div>
@@ -2047,12 +2044,10 @@ typedef struct VkExternalMemoryProperties {
 } VkExternalMemoryProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalMemoryPropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryProperties
 typedef VkExternalMemoryProperties VkExternalMemoryPropertiesKHR;</code></pre>
 </div>
 </div>
@@ -2111,12 +2106,10 @@ typedef enum VkExternalMemoryFeatureFlagBits {
 } VkExternalMemoryFeatureFlagBits;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalMemoryFeatureFlagBitsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryFeatureFlagBits
 typedef VkExternalMemoryFeatureFlagBits VkExternalMemoryFeatureFlagBitsKHR;</code></pre>
 </div>
 </div>
@@ -2199,12 +2192,10 @@ images or buffers with external handle type
 typedef VkFlags VkExternalMemoryFeatureFlags;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalMemoryFeatureFlagsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryFeatureFlags
 typedef VkExternalMemoryFeatureFlags VkExternalMemoryFeatureFlagsKHR;</code></pre>
 </div>
 </div>
@@ -2354,12 +2345,10 @@ typedef struct VkSamplerYcbcrConversionImageFormatProperties {
 } VkSamplerYcbcrConversionImageFormatProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSamplerYcbcrConversionImageFormatPropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrConversionImageFormatProperties
 typedef VkSamplerYcbcrConversionImageFormatProperties VkSamplerYcbcrConversionImageFormatPropertiesKHR;</code></pre>
 </div>
 </div>
@@ -2548,12 +2537,10 @@ typedef struct VkHostImageCopyDevicePerformanceQuery {
 } VkHostImageCopyDevicePerformanceQuery;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkHostImageCopyDevicePerformanceQueryEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_host_image_copy
+// Equivalent to VkHostImageCopyDevicePerformanceQuery
 typedef VkHostImageCopyDevicePerformanceQuery VkHostImageCopyDevicePerformanceQueryEXT;</code></pre>
 </div>
 </div>
@@ -2570,8 +2557,8 @@ structure.</p>
 <p><code>optimalDeviceAccess</code> returns <code>VK_TRUE</code> if use of host image
 copy has no adverse effect on device access performance, compared to an
 image that is created with exact same creation parameters, and bound to
-the same <a href="memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</a>, except that
-<code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code> is replaced with
+the same <a href="memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</a>, except that the
+<code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code> usage flag is replaced with
 <code>VK_IMAGE_USAGE_TRANSFER_SRC_BIT</code> and
 <code>VK_IMAGE_USAGE_TRANSFER_DST_BIT</code>.</p>
 </li>
@@ -2579,8 +2566,9 @@ the same <a href="memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</
 <p><code>identicalMemoryLayout</code> returns <code>VK_TRUE</code> if use of host image
 copy has no impact on memory layout compared to an image that is created
 with exact same creation parameters, and bound to the same
-<a href="memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</a>, except that <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code>
-is replaced with <code>VK_IMAGE_USAGE_TRANSFER_SRC_BIT</code> and
+<a href="memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</a>, except that the
+<code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code> usage flag is replaced with
+<code>VK_IMAGE_USAGE_TRANSFER_SRC_BIT</code> and
 <code>VK_IMAGE_USAGE_TRANSFER_DST_BIT</code>.</p>
 </li>
 </ul>
@@ -3030,12 +3018,10 @@ void vkGetPhysicalDeviceExternalBufferProperties(
     VkExternalBufferProperties*                 pExternalBufferProperties);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkGetPhysicalDeviceExternalBufferPropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_memory_capabilities
+// Equivalent to vkGetPhysicalDeviceExternalBufferProperties
 void vkGetPhysicalDeviceExternalBufferPropertiesKHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceExternalBufferInfo*   pExternalBufferInfo,
@@ -3100,12 +3086,10 @@ typedef struct VkPhysicalDeviceExternalBufferInfo {
 } VkPhysicalDeviceExternalBufferInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceExternalBufferInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkPhysicalDeviceExternalBufferInfo
 typedef VkPhysicalDeviceExternalBufferInfo VkPhysicalDeviceExternalBufferInfoKHR;</code></pre>
 </div>
 </div>
@@ -3214,12 +3198,10 @@ typedef struct VkExternalBufferProperties {
 } VkExternalBufferProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalBufferPropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalBufferProperties
 typedef VkExternalBufferProperties VkExternalBufferPropertiesKHR;</code></pre>
 </div>
 </div>
@@ -3467,12 +3449,10 @@ void vkGetPhysicalDeviceExternalSemaphoreProperties(
     VkExternalSemaphoreProperties*              pExternalSemaphoreProperties);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkGetPhysicalDeviceExternalSemaphorePropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to vkGetPhysicalDeviceExternalSemaphoreProperties
 void vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfo,
@@ -3535,12 +3515,10 @@ typedef struct VkPhysicalDeviceExternalSemaphoreInfo {
 } VkPhysicalDeviceExternalSemaphoreInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceExternalSemaphoreInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkPhysicalDeviceExternalSemaphoreInfo
 typedef VkPhysicalDeviceExternalSemaphoreInfo VkPhysicalDeviceExternalSemaphoreInfoKHR;</code></pre>
 </div>
 </div>
@@ -3619,12 +3597,10 @@ typedef enum VkExternalSemaphoreHandleTypeFlagBits {
 } VkExternalSemaphoreHandleTypeFlagBits;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalSemaphoreHandleTypeFlagBitsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkExternalSemaphoreHandleTypeFlagBits
 typedef VkExternalSemaphoreHandleTypeFlagBits VkExternalSemaphoreHandleTypeFlagBitsKHR;</code></pre>
 </div>
 </div>
@@ -3779,12 +3755,10 @@ following table:</p>
 typedef VkFlags VkExternalSemaphoreHandleTypeFlags;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalSemaphoreHandleTypeFlagsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkExternalSemaphoreHandleTypeFlags
 typedef VkExternalSemaphoreHandleTypeFlags VkExternalSemaphoreHandleTypeFlagsKHR;</code></pre>
 </div>
 </div>
@@ -3811,12 +3785,10 @@ typedef struct VkExternalSemaphoreProperties {
 } VkExternalSemaphoreProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalSemaphorePropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkExternalSemaphoreProperties
 typedef VkExternalSemaphoreProperties VkExternalSemaphorePropertiesKHR;</code></pre>
 </div>
 </div>
@@ -3891,12 +3863,10 @@ typedef enum VkExternalSemaphoreFeatureFlagBits {
 } VkExternalSemaphoreFeatureFlagBits;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalSemaphoreFeatureFlagBitsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkExternalSemaphoreFeatureFlagBits
 typedef VkExternalSemaphoreFeatureFlagBits VkExternalSemaphoreFeatureFlagBitsKHR;</code></pre>
 </div>
 </div>
@@ -3922,12 +3892,10 @@ handles of this type <strong>can</strong> be imported as Vulkan semaphore object
 typedef VkFlags VkExternalSemaphoreFeatureFlags;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalSemaphoreFeatureFlagsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkExternalSemaphoreFeatureFlags
 typedef VkExternalSemaphoreFeatureFlags VkExternalSemaphoreFeatureFlagsKHR;</code></pre>
 </div>
 </div>
@@ -3958,12 +3926,10 @@ void vkGetPhysicalDeviceExternalFenceProperties(
     VkExternalFenceProperties*                  pExternalFenceProperties);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkGetPhysicalDeviceExternalFencePropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_fence_capabilities
+// Equivalent to vkGetPhysicalDeviceExternalFenceProperties
 void vkGetPhysicalDeviceExternalFencePropertiesKHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceExternalFenceInfo*    pExternalFenceInfo,
@@ -4026,12 +3992,10 @@ typedef struct VkPhysicalDeviceExternalFenceInfo {
 } VkPhysicalDeviceExternalFenceInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceExternalFenceInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkPhysicalDeviceExternalFenceInfo
 typedef VkPhysicalDeviceExternalFenceInfo VkPhysicalDeviceExternalFenceInfoKHR;</code></pre>
 </div>
 </div>
@@ -4134,12 +4098,10 @@ typedef enum VkExternalFenceHandleTypeFlagBits {
 } VkExternalFenceHandleTypeFlagBits;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalFenceHandleTypeFlagBitsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkExternalFenceHandleTypeFlagBits
 typedef VkExternalFenceHandleTypeFlagBits VkExternalFenceHandleTypeFlagBitsKHR;</code></pre>
 </div>
 </div>
@@ -4239,12 +4201,10 @@ following table:</p>
 typedef VkFlags VkExternalFenceHandleTypeFlags;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalFenceHandleTypeFlagsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkExternalFenceHandleTypeFlags
 typedef VkExternalFenceHandleTypeFlags VkExternalFenceHandleTypeFlagsKHR;</code></pre>
 </div>
 </div>
@@ -4271,12 +4231,10 @@ typedef struct VkExternalFenceProperties {
 } VkExternalFenceProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalFencePropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkExternalFenceProperties
 typedef VkExternalFenceProperties VkExternalFencePropertiesKHR;</code></pre>
 </div>
 </div>
@@ -4343,12 +4301,10 @@ typedef enum VkExternalFenceFeatureFlagBits {
 } VkExternalFenceFeatureFlagBits;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalFenceFeatureFlagBitsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkExternalFenceFeatureFlagBits
 typedef VkExternalFenceFeatureFlagBits VkExternalFenceFeatureFlagBitsKHR;</code></pre>
 </div>
 </div>
@@ -4374,12 +4330,10 @@ type <strong>can</strong> be imported to Vulkan fence objects.</p>
 typedef VkFlags VkExternalFenceFeatureFlags;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkExternalFenceFeatureFlagsKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkExternalFenceFeatureFlags
 typedef VkExternalFenceFeatureFlags VkExternalFenceFeatureFlagsKHR;</code></pre>
 </div>
 </div>
@@ -4409,12 +4363,10 @@ VkResult vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
     VkTimeDomainKHR*                            pTimeDomains);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkGetPhysicalDeviceCalibrateableTimeDomainsEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_calibrated_timestamps
+// Equivalent to vkGetPhysicalDeviceCalibrateableTimeDomainsKHR
 VkResult vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(
     VkPhysicalDevice                            physicalDevice,
     uint32_t*                                   pTimeDomainCount,

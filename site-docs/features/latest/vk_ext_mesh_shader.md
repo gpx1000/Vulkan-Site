@@ -132,12 +132,13 @@ This is notionally similar to the purpose of tessellation shaders, but without t
 Applications can use task shaders to determine the number of launched mesh shader workgroups at whatever input granularity they want, and however they see fit.
 
 As task and mesh shaders change how primitives are dispatched, a subsequent modification of rasterization order is made.
-Within a mesh shader workgroup, primitives are rasterized in the order in which they are defined in the output.
-A group of mesh shaders either launched directly by the API, indirectly by the API,
-or indirectly from a single task shader workgroup will rasterize their outputs in sequential order based on their flattened global invocation index,
-equal to   , where `x`, `y`, and `z` refer to the components of the `GlobalInvocationId` built-in.
-`width` and `height` are equal to `NumWorkgroups` times `WorkgroupSize` for their respective dimensions.
-When using task shaders, there is no rasterization order guarantee between mesh shaders launched by separate task shader workgroups, even within the same draw command.
+Within a mesh shader workgroup, primitives are rasterized in the order in which they are defined in the output index array.
+A group of mesh shader workgroups either launched directly by the API, indirectly by the API,
+or indirectly from a single task shader workgroup will rasterize their outputs in sequential order based on their flattened workgroup index,
+equal to *x* + *y* * *width* + *z* * *width* * *height*, where *x*, *y*, and *z* refer to the components of the `WorkgroupId` built-in.
+*width* and *height* are equal to `NumWorkgroups` for their respective dimensions.
+When using task shaders, there is a similar sequential order based on the flattened workgroup index for the task shader dispatch.
+Mesh workgroups launched from a later task workgroup rasterize their output after the ones launched by an earlier task workgroup.
 
 Graphics pipelines can now be created using mesh and task shaders in place of vertex, tessellation, and geometry shaders.
 This can be achieved by omitting existing pre-rasterization shaders and including a mesh shader stage, and optionally a task shader stage.

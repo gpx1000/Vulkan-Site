@@ -312,6 +312,9 @@
     <a class="nav-link" href="../../extensions/extended_dynamic_state2/README.html">Extended dynamic state2</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../extensions/fragment_density_map/README.html">Fragment density map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/fragment_shader_barycentric/README.html">Fragment shader barycentric</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -397,6 +400,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/synchronization_2/README.html">Synchronization 2</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../extensions/tensor_and_data_graph/README.html">Tensor and Data Graph</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../extensions/tensor_and_data_graph/simple_tensor_and_data_graph/README.html">Simple Tensor and Data Graph</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/timeline_semaphore/README.html">Timeline semaphore</a>
@@ -534,6 +546,9 @@
     <a class="nav-link" href="../../../docs/misc.html">Miscellaneous</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Samples" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -879,10 +894,10 @@ This tutorial aims to ease some of the confusion and uncertainty around this sub
 <p>Buffer array with dynamic indexing</p>
 </li>
 <li>
-<p><a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_inline_uniform_block.html">Inline uniform buffer objects</a> (click to read more)</p>
+<p><a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_EXT_inline_uniform_block.html">Inline uniform buffer objects</a> (click to read more)</p>
 </li>
 <li>
-<p><a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_push_descriptor.html">Push descriptors</a> (click to read more)</p>
+<p><a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_KHR_push_descriptor.html">Push descriptors</a> (click to read more)</p>
 </li>
 </ul>
 </div>
@@ -986,7 +1001,7 @@ This, for example, can hold our world matrix and our view-projection matrix.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>To then send the push constant data to the shader we use the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#vkCmdPushConstants"><code>vkCmdPushConstants</code></a> function:</p>
+<p>To then send the push constant data to the shader we use the <a href="https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#vkCmdPushConstants"><code>vkCmdPushConstants</code></a> function:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1057,7 +1072,7 @@ So therefore we can deduce that for this shader we&#8217;d need a pipeline that 
 </div>
 <div class="paragraph">
 <p>After a <strong>descriptor set</strong> is allocated, it needs to be updated with the <strong>descriptors</strong>.
-The update process requires us to specify a list of <strong>write operations</strong>, where a write operation is a <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkWriteDescriptorSet.html"><code>VkWriteDescriptorSet</code></a> struct.</p>
+The update process requires us to specify a list of <strong>write operations</strong>, where a write operation is a <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWriteDescriptorSet.html"><code>VkWriteDescriptorSet</code></a> struct.</p>
 </div>
 <div class="paragraph">
 <p>Then the valid <strong>descriptor set</strong> is bound to a command buffer so that when <code>vkCmdDraw*()</code> commands are run, the right resources are made available in the GPU.</p>
@@ -1219,7 +1234,7 @@ out_pos = model_matrix * vec4(in_pos, 1.0);</code></pre>
 <p>It&#8217;s important to note that we can use other mechanisms to push this index to the shader, such as push constants.</p>
 </div>
 <div class="paragraph">
-<p>For example, this <code>vkCmdDrawIndexed</code> is taken from the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexed.html">Vulkan spec</a>:</p>
+<p>For example, this <code>vkCmdDrawIndexed</code> is taken from the <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawIndexed.html">Vulkan spec</a>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1284,7 +1299,7 @@ This <code>uint32_t</code> will be substituted in wherever <code>gl_InstanceInde
 <div class="ulist">
 <ul>
 <li>
-<p>The <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html">Vulkan 1.2 spec</a></p>
+<p>The <a href="https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html">Vulkan 1.2 spec</a></p>
 </li>
 <li>
 <p>"Writing an efficient Vulkan renderer" by Arseny Kapoulkine <a href="https://zeux.io/2020/02/27/writing-an-efficient-vulkan-renderer/" class="bare">https://zeux.io/2020/02/27/writing-an-efficient-vulkan-renderer/</a></p>

@@ -20,7 +20,7 @@
 vkCmdCopyMemoryIndirectNV - Copy data between memory regions
 
 To copy data between two memory regions by specifying copy parameters
-indirectly in a buffer, call:
+indirectly in memory, call:
 
 // Provided by VK_NV_copy_memory_indirect
 void vkCmdCopyMemoryIndirectNV(
@@ -34,13 +34,13 @@ void vkCmdCopyMemoryIndirectNV(
 recorded.
 
 * 
-`copyBufferAddress` is the buffer address specifying the copy
+`copyBufferAddress` is the memory address specifying the copy
 parameters.
-This buffer is laid out in memory as an array of
-[VkCopyMemoryIndirectCommandNV](VkCopyMemoryIndirectCommandNV.html) structures.
+It is laid out as an array of [VkCopyMemoryIndirectCommandNV](VkCopyMemoryIndirectCommandKHR.html)
+structures.
 
 * 
-`copyCount` is the number of copies to execute, and can be zero.
+`copyCount` is the number of copies to execute, and **can** be zero.
 
 * 
 `stride` is the stride in bytes between successive sets of copy
@@ -68,14 +68,21 @@ enabled
 [](#VUID-vkCmdCopyMemoryIndirectNV-stride-07655) VUID-vkCmdCopyMemoryIndirectNV-stride-07655
 
 `stride` **must** be a multiple of `4` and **must** be greater than or
-equal to sizeof(`VkCopyMemoryIndirectCommandNV`)
+equal to sizeof([VkCopyMemoryIndirectCommandNV](VkCopyMemoryIndirectCommandKHR.html))
 
 * 
 [](#VUID-vkCmdCopyMemoryIndirectNV-commandBuffer-07656) VUID-vkCmdCopyMemoryIndirectNV-commandBuffer-07656
 
 The [VkCommandPool](VkCommandPool.html) that `commandBuffer` was allocated from
-**must** support at least one of the
-[VkPhysicalDeviceCopyMemoryIndirectPropertiesNV](VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.html)::`supportedQueues`
+**must** support at least one of the queue types specified in
+[VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR](VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR.html)::`supportedQueues`
+
+* 
+[](#VUID-vkCmdCopyMemoryIndirectNV-copyBufferAddress-10946) VUID-vkCmdCopyMemoryIndirectNV-copyBufferAddress-10946
+
+Any of the source or destination memory regions specified in
+`copyBufferAddress` **must** not overlap with any of the specified
+destination memory regions
 
 Valid Usage (Implicit)
 
@@ -97,12 +104,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyMemoryIndirectNV-commandBuffer-cmdpool) VUID-vkCmdCopyMemoryIndirectNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyMemoryIndirectNV-renderpass) VUID-vkCmdCopyMemoryIndirectNV-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyMemoryIndirectNV-suspended) VUID-vkCmdCopyMemoryIndirectNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyMemoryIndirectNV-videocoding) VUID-vkCmdCopyMemoryIndirectNV-videocoding
@@ -122,11 +134,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 

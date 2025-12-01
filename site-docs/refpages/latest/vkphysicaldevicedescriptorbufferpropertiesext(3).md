@@ -72,15 +72,15 @@ structure.
 
 `combinedImageSamplerDescriptorSingleArray` indicates that the
 implementation does not require an array of
-`VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER` descriptors to be written
-into a descriptor buffer as an array of image descriptors, immediately
-followed by an array of sampler descriptors.
+`VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER` descriptors to be
+written into a descriptor buffer as an array of image descriptors,
+immediately followed by an array of sampler descriptors.
 
 * 
  `bufferlessPushDescriptors`
 indicates that the implementation does not require a buffer created with
-`VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT` to be bound
-when using push descriptors.
+the `VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT`
+usage flag set to be bound when using push descriptors.
 
 * 
 
@@ -256,20 +256,23 @@ accessible to a shader.
 
 `samplerDescriptorBufferAddressSpaceSize` indicates the total size
 in bytes of the address space available for descriptor buffers created
-with `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT`.
+with the `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` usage
+flag set.
 
 * 
 
 `resourceDescriptorBufferAddressSpaceSize` indicates the total size
 in bytes of the address space available for descriptor buffers created
-with `VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`.
+with the `VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT` usage
+flag set.
 
 * 
 
 `descriptorBufferAddressSpaceSize` indicates the total size in bytes
 of the address space available for descriptor buffers created with both
-`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` and
-`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`.
+the `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` and
+`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT` usage flags
+set.
 
 A descriptor binding with type `VK_DESCRIPTOR_TYPE_MUTABLE_EXT` has a
 descriptor size which is implied by the descriptor types included in the

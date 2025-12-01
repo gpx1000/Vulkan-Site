@@ -61,6 +61,13 @@ or
 
 [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2)
 
+**Deprecation State**
+
+* 
+*Promoted* to
+[VK_KHR_copy_memory_indirect](VK_KHR_copy_memory_indirect.html)
+extension
+
 **Contact**
 
 * 
@@ -97,10 +104,10 @@ parameters are not known during the command buffer creation time.
 [vkCmdCopyMemoryToImageIndirectNV](vkCmdCopyMemoryToImageIndirectNV.html)
 
 * 
-[VkCopyMemoryIndirectCommandNV](VkCopyMemoryIndirectCommandNV.html)
+[VkCopyMemoryIndirectCommandNV](VkCopyMemoryIndirectCommandKHR.html)
 
 * 
-[VkCopyMemoryToImageIndirectCommandNV](VkCopyMemoryToImageIndirectCommandNV.html)
+[VkCopyMemoryToImageIndirectCommandNV](VkCopyMemoryToImageIndirectCommandKHR.html)
 
 * 
 Extending [VkPhysicalDeviceFeatures2](VkPhysicalDeviceFeatures2.html), [VkDeviceCreateInfo](VkDeviceCreateInfo.html):
@@ -110,7 +117,7 @@ Extending [VkPhysicalDeviceFeatures2](VkPhysicalDeviceFeatures2.html), [VkDevice
 Extending [VkPhysicalDeviceProperties2](VkPhysicalDeviceProperties2.html):
 
 * 
-[VkPhysicalDeviceCopyMemoryIndirectPropertiesNV](VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.html)
+[VkPhysicalDeviceCopyMemoryIndirectPropertiesNV](VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR.html)
 
 * 
 `VK_NV_COPY_MEMORY_INDIRECT_EXTENSION_NAME`

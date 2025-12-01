@@ -125,7 +125,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkQueueBindSparse-queuetype) VUID-vkQueueBindSparse-queuetype
 
- The `queue` **must** support sparse binding operations
+ The `queue` **must** support `VK_QUEUE_SPARSE_BINDING_BIT` operations
 
 * 
 [](#VUID-vkQueueBindSparse-commonparent) VUID-vkQueueBindSparse-commonparent
@@ -143,7 +143,7 @@ Host access to `fence` **must** be externally synchronized
 Command Properties
 | [Command Buffer Levels](../../../../spec/latest/chapters/cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../../../../spec/latest/chapters/renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../../../../spec/latest/chapters/videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../../../../spec/latest/chapters/devsandqueues.html#VkQueueFlagBits) | [Command Type](../../../../spec/latest/chapters/fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| - | - | - | SPARSE_BINDING | - |
+| - | - | - | VK_QUEUE_SPARSE_BINDING_BIT | - |
 
 Return Codes
 

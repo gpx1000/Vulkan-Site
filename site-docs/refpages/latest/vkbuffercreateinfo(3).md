@@ -261,6 +261,14 @@ structure and for any element of its `pProfiles` member
 enabled
 
 * 
+[](#VUID-VkBufferCreateInfo-pNext-10919) VUID-VkBufferCreateInfo-pNext-10919
+
+If the `pNext` chain includes a
+[VkVideoEncodeProfileRgbConversionInfoVALVE](VkVideoEncodeProfileRgbConversionInfoVALVE.html) structure, then the
+[`videoEncodeRgbConversion`](../../../../spec/latest/chapters/features.html#features-videoEncodeRgbConversion)
+feature **must** be enabled
+
+* 
 [](#VUID-VkBufferCreateInfo-size-06409) VUID-VkBufferCreateInfo-size-06409
 
 `size` **must** be less than or equal to

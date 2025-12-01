@@ -29,9 +29,8 @@ typedef struct VkPhysicalDevicePipelineRobustnessFeatures {
     VkBool32           pipelineRobustness;
 } VkPhysicalDevicePipelineRobustnessFeatures;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_robustness
+// Equivalent to VkPhysicalDevicePipelineRobustnessFeatures
 typedef VkPhysicalDevicePipelineRobustnessFeatures VkPhysicalDevicePipelineRobustnessFeaturesEXT;
 
 This structure describes the following feature:

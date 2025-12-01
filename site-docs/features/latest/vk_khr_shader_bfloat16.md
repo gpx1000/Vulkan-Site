@@ -45,7 +45,7 @@ With machine learning algorithms commonly being run on GPUs, it has become desir
 This extension enables bfloat16 as one of those types.
 bfloat16 is a floating point type devised to provide similar dynamic range as IEEE754 binary 32-bit floating-point, with less precision at half the size, particularly for use with machine learning algorithms.
 
-Two existing features widely used for machine learning algorithms include [SPV_KHR_cooperative_matrix](https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_cooperative_matrix.asciidoc), and the [OpDot](https://registry.khronos.org/SPIR-V/specs/unified1/SPIRV.html#OpDot) instruction.
+Two existing features widely used for machine learning algorithms include [SPV_KHR_cooperative_matrix](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_cooperative_matrix.html), and the [OpDot](https://registry.khronos.org/SPIR-V/specs/unified1/SPIRV.html#OpDot) instruction.
 Any proposal here has to support that functionality, as well as basic manipulation of data for these types, and some way to perform standard arithmetic.
 
 This extension adds a new *Floating Point Encoding* value, enabling the operand to be specified when creating a floating point type:

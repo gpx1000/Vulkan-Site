@@ -61,9 +61,8 @@ and [VkClusterAccelerationStructureCommandsInfoNV](VkClusterAccelerationStructur
 `VK_ACCESS_ACCELERATION_STRUCTURE_WRITE_BIT_KHR`.
 
 Accesses to memory with input data as identified by any used values of
-[VkClusterAccelerationStructureCommandsInfoNV](VkClusterAccelerationStructureCommandsInfoNV.html)::`srcInfosArray`,
-[VkClusterAccelerationStructureCommandsInfoNV](VkClusterAccelerationStructureCommandsInfoNV.html)::`srcInfosCount` and
-[VkClusterAccelerationStructureCommandsInfoNV](VkClusterAccelerationStructureCommandsInfoNV.html)::`addressResolutionFlags`
+[VkClusterAccelerationStructureCommandsInfoNV](VkClusterAccelerationStructureCommandsInfoNV.html)::`srcInfosArray` and
+[VkClusterAccelerationStructureCommandsInfoNV](VkClusterAccelerationStructureCommandsInfoNV.html)::`srcInfosCount`
 **must** be [synchronized](../../../../spec/latest/chapters/synchronization.html#synchronization-dependencies) with the
 `VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`
 [pipeline stage](../../../../spec/latest/chapters/synchronization.html#synchronization-pipeline-stages) and an
@@ -195,17 +194,17 @@ for multiple acceleration structure builds **must** not overlap with
 
 The buffer from which the buffer device address for
 `pCommandInfos->scratchData` is queried **must** have been created with
-the `VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` usage flag
+the `VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10458) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10458
 
 The buffers from which the buffer device addresses for
-`pCommandInfos->srcInfosArray`, `pCommandInfos->srcInfosCount`
-and `pCommandInfos->addressResolutionFlags` are queried **must** have
-been created with the
+`pCommandInfos->srcInfosArray` and
+`pCommandInfos->srcInfosCount` are queried **must** have been created
+with the
 `VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR`
-usage flag
+usage flag set
 
 * 
 [](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10459) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10459
@@ -215,6 +214,7 @@ The buffers from which the buffer device addresses for
 `pCommandInfos->dstAddressesArray` are queried **must** have been
 created with the
 `VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR` usage flag
+set
 
 Valid Usage (Implicit)
 
@@ -236,12 +236,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-commandBuffer-cmdpool) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-renderpass) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-suspended) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-videocoding) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-videocoding
@@ -261,7 +266,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 

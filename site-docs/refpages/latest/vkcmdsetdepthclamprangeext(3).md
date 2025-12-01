@@ -86,7 +86,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDepthClampRangeEXT-commandBuffer-cmdpool) VUID-vkCmdSetDepthClampRangeEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetDepthClampRangeEXT-videocoding) VUID-vkCmdSetDepthClampRangeEXT-videocoding
@@ -106,7 +106,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

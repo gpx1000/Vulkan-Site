@@ -29,9 +29,8 @@ void vkUpdateDescriptorSetWithTemplate(
     VkDescriptorUpdateTemplate                  descriptorUpdateTemplate,
     const void*                                 pData);
 
-or the equivalent command
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to vkUpdateDescriptorSetWithTemplate
 void vkUpdateDescriptorSetWithTemplateKHR(
     VkDevice                                    device,
     VkDescriptorSet                             descriptorSet,
@@ -63,11 +62,13 @@ Valid Usage
 * 
 [](#VUID-vkUpdateDescriptorSetWithTemplate-pData-01685) VUID-vkUpdateDescriptorSetWithTemplate-pData-01685
 
-`pData` **must** be a valid pointer to a memory containing one or more
-valid instances of [VkDescriptorImageInfo](VkDescriptorImageInfo.html),
-[VkDescriptorBufferInfo](VkDescriptorBufferInfo.html), or [VkBufferView](VkBufferView.html) in a layout defined
-by `descriptorUpdateTemplate` when it was created with
-[vkCreateDescriptorUpdateTemplate](vkCreateDescriptorUpdateTemplate.html)
+    `pData` **must** be a valid pointer to a memory containing one or more
+    valid instances of
+[VkAccelerationStructureKHR](VkAccelerationStructureKHR.html) handles,
+[VkAccelerationStructureNV](VkAccelerationStructureNV.html) handles,
+    [VkDescriptorImageInfo](VkDescriptorImageInfo.html), [VkDescriptorBufferInfo](VkDescriptorBufferInfo.html), or
+    [VkBufferView](VkBufferView.html) in a layout defined by `descriptorUpdateTemplate`
+    when it was created with [vkCreateDescriptorUpdateTemplate](vkCreateDescriptorUpdateTemplate.html)
 
 * 
 [](#VUID-vkUpdateDescriptorSetWithTemplate-descriptorSet-06995) VUID-vkUpdateDescriptorSetWithTemplate-descriptorSet-06995
@@ -179,7 +180,7 @@ AppDataStructure appData;
 // fill appData here or cache it in your engine
 vkUpdateDescriptorSetWithTemplate(myDevice, myDescriptorSet, myDescriptorUpdateTemplate, &appData);
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDescriptorSet](VkDescriptorSet.html), [VkDescriptorUpdateTemplate](VkDescriptorUpdateTemplate.html), [VkDevice](VkDevice.html)
+[VK_KHR_descriptor_update_template](VK_KHR_descriptor_update_template.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDescriptorSet](VkDescriptorSet.html), [VkDescriptorUpdateTemplate](VkDescriptorUpdateTemplate.html), [VkDevice](VkDevice.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/descriptorsets.html#vkUpdateDescriptorSetWithTemplate).
 

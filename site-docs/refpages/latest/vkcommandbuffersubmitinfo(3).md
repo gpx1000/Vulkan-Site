@@ -29,9 +29,8 @@ typedef struct VkCommandBufferSubmitInfo {
     uint32_t           deviceMask;
 } VkCommandBufferSubmitInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkCommandBufferSubmitInfo
 typedef VkCommandBufferSubmitInfo VkCommandBufferSubmitInfoKHR;
 
 * 

@@ -35,9 +35,8 @@ typedef enum VkFenceImportFlagBits {
     VK_FENCE_IMPORT_TEMPORARY_BIT_KHR = VK_FENCE_IMPORT_TEMPORARY_BIT,
 } VkFenceImportFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence
+// Equivalent to VkFenceImportFlagBits
 typedef VkFenceImportFlagBits VkFenceImportFlagBitsKHR;
 
 * 
@@ -46,7 +45,7 @@ will be imported only temporarily, as described in
 [Importing Fence Payloads](../../../../spec/latest/chapters/synchronization.html#synchronization-fences-importing),
 regardless of the permanence of `handleType`.
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkFenceImportFlags](VkFenceImportFlags.html)
+[VK_KHR_external_fence](VK_KHR_external_fence.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkFenceImportFlags](VkFenceImportFlags.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/synchronization.html#VkFenceImportFlagBits).
 

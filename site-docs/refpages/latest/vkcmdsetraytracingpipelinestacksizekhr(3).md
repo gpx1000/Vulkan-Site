@@ -66,7 +66,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetRayTracingPipelineStackSizeKHR-commandBuffer-cmdpool) VUID-vkCmdSetRayTracingPipelineStackSizeKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdSetRayTracingPipelineStackSizeKHR-renderpass) VUID-vkCmdSetRayTracingPipelineStackSizeKHR-renderpass
@@ -91,7 +91,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | State |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | State |
 
 Conditional Rendering
 

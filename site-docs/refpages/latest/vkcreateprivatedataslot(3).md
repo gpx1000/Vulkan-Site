@@ -28,9 +28,8 @@ VkResult vkCreatePrivateDataSlot(
     const VkAllocationCallbacks*                pAllocator,
     VkPrivateDataSlot*                          pPrivateDataSlot);
 
-or the equivalent command
-
 // Provided by VK_EXT_private_data
+// Equivalent to vkCreatePrivateDataSlot
 VkResult vkCreatePrivateDataSlotEXT(
     VkDevice                                    device,
     const VkPrivateDataSlotCreateInfo*          pCreateInfo,
@@ -106,7 +105,7 @@ Return Codes
 
 [VK_EXT_private_data](VK_EXT_private_data.html), [VK_VERSION_1_3](VK_VERSION_1_3.html), [VkAllocationCallbacks](VkAllocationCallbacks.html), [VkDevice](VkDevice.html), [VkPrivateDataSlot](VkPrivateDataSlot.html), [VkPrivateDataSlotCreateInfo](VkPrivateDataSlotCreateInfo.html)
 
-For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/VK_EXT_private_data.html#vkCreatePrivateDataSlot).
+For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/private_data.html#vkCreatePrivateDataSlot).
 
 This page is extracted from the Vulkan Specification.
 Fixes and changes should be made to the Specification, not directly.

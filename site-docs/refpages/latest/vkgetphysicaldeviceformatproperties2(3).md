@@ -28,9 +28,8 @@ void vkGetPhysicalDeviceFormatProperties2(
     VkFormat                                    format,
     VkFormatProperties2*                        pFormatProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to vkGetPhysicalDeviceFormatProperties2
 void vkGetPhysicalDeviceFormatProperties2KHR(
     VkPhysicalDevice                            physicalDevice,
     VkFormat                                    format,
@@ -69,7 +68,7 @@ Valid Usage (Implicit)
 
  `pFormatProperties` **must** be a valid pointer to a [VkFormatProperties2](VkFormatProperties2.html) structure
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkFormat](VkFormat.html), [VkFormatProperties2](VkFormatProperties2.html), [VkPhysicalDevice](VkPhysicalDevice.html)
+[VK_KHR_get_physical_device_properties2](VK_KHR_get_physical_device_properties2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkFormat](VkFormat.html), [VkFormatProperties2](VkFormatProperties2.html), [VkPhysicalDevice](VkPhysicalDevice.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/formats.html#vkGetPhysicalDeviceFormatProperties2).
 

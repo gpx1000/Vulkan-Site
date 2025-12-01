@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceDynamicRenderingLocalReadFeatures {
     VkBool32           dynamicRenderingLocalRead;
 } VkPhysicalDeviceDynamicRenderingLocalReadFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_dynamic_rendering_local_read
+// Equivalent to VkPhysicalDeviceDynamicRenderingLocalReadFeatures
 typedef VkPhysicalDeviceDynamicRenderingLocalReadFeatures VkPhysicalDeviceDynamicRenderingLocalReadFeaturesKHR;
 
 This structure describes the following feature:

@@ -156,7 +156,9 @@ vk::raii::DeviceMemory textureImageMemory = nullptr;
 
 The parameters for an image are specified in a `VkImageCreateInfo` struct:
 
-vk::ImageCreateInfo imageInfo( {}, vk::ImageType::e2D, format, {width, height, 1}, 1, 1, vk::SampleCountFlagBits::e1, tiling, usage, vk::SharingMode::eExclusive, 0);
+vk::ImageCreateInfo imageInfo{ .imageType = vk::ImageType::e2D, .format = format,
+    .extent = {width, height, 1}, .mipLevels = 1, .arrayLayers = 1, .samples = vk::SampleCountFlagBits::e1,
+    .tiling = tiling, .usage = usage, .sharingMode = vk::SharingMode::eExclusive};
 
 The image type, specified in the `imageType` field, tells Vulkan with what kind of coordinate system the texels in the image are going to be addressed.
 It is possible to create 1D, 2D and 3D images.
@@ -227,12 +229,16 @@ This function is already getting quite large and there’ll be a need to create 
 Create the function and move the image object creation and memory allocation to it:
 
 void createImage(uint32_t width, uint32_t height, vk::Format format, vk::ImageTiling tiling, vk::ImageUsageFlags usage, vk::MemoryPropertyFlags properties, vk::raii::Image& image, vk::raii::DeviceMemory& imageMemory) {
-    vk::ImageCreateInfo imageInfo( {}, vk::ImageType::e2D, format, {width, height, 1}, 1, 1, vk::SampleCountFlagBits::e1, tiling, usage, vk::SharingMode::eExclusive, 0);
+    vk::ImageCreateInfo imageInfo{ .imageType = vk::ImageType::e2D, .format = format,
+        .extent = {width, height, 1}, .mipLevels = 1, .arrayLayers = 1,
+        .samples = vk::SampleCountFlagBits::e1, .tiling = tiling,
+        .usage = usage, .sharingMode = vk::SharingMode::eExclusive };
 
     image = vk::raii::Image( device, imageInfo );
 
     vk::MemoryRequirements memRequirements = image.getMemoryRequirements();
-    vk::MemoryAllocateInfo allocInfo( memRequirements.size, findMemoryType(memRequirements.memoryTypeBits, properties) );
+    vk::MemoryAllocateInfo allocInfo{ .allocationSize = memRequirements.size,
+                                        .memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties) };
     imageMemory = vk::raii::DeviceMemory( device, allocInfo );
     image.bindMemory(imageMemory, 0);
 }
@@ -278,10 +284,10 @@ These transitions are performed using pipeline barriers, which not only change t
 The function we’re going to write now involves recording and executing a command buffer again, so now’s a good time to move that logic into a helper function or two:
 
 vk::raii::CommandBuffer beginSingleTimeCommands() {
-    vk::CommandBufferAllocateInfo allocInfo(commandPool, vk::CommandBufferLevel::ePrimary, 1);
+    vk::CommandBufferAllocateInfo allocInfo{ .commandPool = commandPool, .level = vk::CommandBufferLevel::ePrimary, .commandBufferCount = 1 };
     vk::raii::CommandBuffer commandBuffer = std::move(device.allocateCommandBuffers(allocInfo).front());
 
-    vk::CommandBufferBeginInfo beginInfo( vk::CommandBufferUsageFlagBits::eOneTimeSubmit );
+    vk::CommandBufferBeginInfo beginInfo{ .flags = vk::CommandBufferUsageFlagBits::eOneTimeSubmit };
     commandBuffer.begin(beginInfo);
 
     return commandBuffer;
@@ -290,7 +296,7 @@ vk::raii::CommandBuffer beginSingleTimeCommands() {
 void endSingleTimeCommands(vk::raii::CommandBuffer& commandBuffer) {
     commandBuffer.end();
 
-    vk::SubmitInfo submitInfo( {}, {}, {*commandBuffer});
+    vk::SubmitInfo submitInfo{ .commandBufferCount = 1, .pCommandBuffers = &*commandBuffer };
     graphicsQueue.submit(submitInfo, nullptr);
     graphicsQueue.waitIdle();
 }
@@ -317,12 +323,12 @@ One of the most common ways to perform layout transitions is using an *image mem
 A pipeline barrier like that is generally used to synchronize access to resources, like ensuring that a write to a buffer completes before reading from it, but it can also be used to transition image layouts and transfer queue family ownership when `VK_SHARING_MODE_EXCLUSIVE` is used.
 There is an equivalent *buffer memory barrier* to do this for buffers.
 
-vk::ImageMemoryBarrier barrier( {}, {}, oldLayout, newLayout, {}, {}, image, { vk::ImageAspectFlagBits::eColor, 0, 1, 0, 1 } );
+vk::ImageMemoryBarrier barrier{ .oldLayout = oldLayout, .newLayout = newLayout, .image = image, .subresourceRange = { vk::ImageAspectFlagBits::eColor, 0, 1, 0, 1 } };
 
-The first two fields specify layout transition.
+`oldLayout` and `newLayout` specify the the layout transition.
 It is possible to use `VK_IMAGE_LAYOUT_UNDEFINED` as `oldLayout` if you don’t care about the existing contents of the image.
 
-If you are using the barrier to transfer queue family ownership, then these two fields should be the indices of the queue families.
+If you are using the barrier to transfer queue family ownership, then `oldLayout` and `newLayout` fields should be the indices of the queue families.
 They must be set to `VK_QUEUE_FAMILY_IGNORED` if you don’t want to do this (not the default value!).
 
 The `image` and `subresourceRange` specify the image that is affected and the specific part of the image.
@@ -338,7 +344,7 @@ All types of pipeline barriers are submitted using the same function.
 The first parameter after the command buffer specifies in which pipeline stage the operations occur that should happen before the barrier.
 The second parameter specifies the pipeline stage in which operations will wait on the barrier.
 The pipeline stages that you are allowed to specify before and after the barrier depend on how you use the resource before and after the barrier.
-The allowed values are listed in [this table](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/chap7.html#synchronization-access-types-supported) of the specification.
+The allowed values are listed in [this table](https://docs.vulkan.org/spec/latest/chapters/synchronization.html#synchronization-access-types-supported) of the specification.
 For example, if you’re going to read from a uniform after the barrier, you would specify a usage of `VK_ACCESS_UNIFORM_READ_BIT` and the earliest shader that will read from the uniform as pipeline stage, for example `VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT`.
 It would not make sense to specify a non-shader pipeline stage for this type of usage and the validation layers will warn you when you specify a pipeline stage that does not match the type of usage.
 
@@ -360,7 +366,8 @@ void copyBufferToImage(const vk::raii::Buffer& buffer, vk::raii::Image& image, u
 Just like with buffer copies, you need to specify which part of the buffer is going to be copied to which part of the image.
 This happens through `VkBufferImageCopy` structs:
 
-vk::BufferImageCopy region( 0, 0, 0, { vk::ImageAspectFlagBits::eColor, 0, 0, 1 }, {0, 0, 0}, {width, height, 1});
+vk::BufferImageCopy region{ .bufferOffset = 0, .bufferRowLength = 0, .bufferImageHeight = 0,
+    .imageSubresource = { vk::ImageAspectFlagBits::eColor, 0, 0, 1 }, .imageOffset = {0, 0, 0}, .imageExtent = {width, height, 1} };
 
 Most of these fields are self-explanatory.
 The `bufferOffset` specifies the byte offset in the buffer at which the pixel values start.
@@ -438,7 +445,7 @@ As you can see in the aforementioned table, transfer writes must occur in the pi
 Since the writings don’t have to wait on anything, you may specify an empty access mask and the earliest possible pipeline stage `VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT` for the pre-barrier operations.
 It should be noted that `VK_PIPELINE_STAGE_TRANSFER_BIT` is not a *real* stage within the graphics and compute pipelines.
 It is more of a pseudo-stage where transfers happen.
-See [the documentation](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/chap7.html#VkPipelineStageFlagBits) for more information and other examples of pseudo-stages.
+See [the documentation](https://docs.vulkan.org/spec/latest/chapters/synchronization.html#VkPipelineStageFlagBits) for more information and other examples of pseudo-stages.
 
 The image will be written in the same pipeline stage and subsequently read by the fragment shader, which is why we specify shader reading access in the fragment shader pipeline stage.
 

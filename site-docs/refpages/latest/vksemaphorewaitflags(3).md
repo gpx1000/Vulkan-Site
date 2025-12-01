@@ -21,9 +21,8 @@ VkSemaphoreWaitFlags - Bitmask of VkSemaphoreWaitFlagBits
 // Provided by VK_VERSION_1_2
 typedef VkFlags VkSemaphoreWaitFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkSemaphoreWaitFlags
 typedef VkSemaphoreWaitFlags VkSemaphoreWaitFlagsKHR;
 
 `VkSemaphoreWaitFlags` is a bitmask type for setting a mask of zero or

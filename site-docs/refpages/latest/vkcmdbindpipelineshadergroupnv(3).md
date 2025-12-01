@@ -98,7 +98,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindPipelineShaderGroupNV-commandBuffer-cmdpool) VUID-vkCmdBindPipelineShaderGroupNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindPipelineShaderGroupNV-videocoding) VUID-vkCmdBindPipelineShaderGroupNV-videocoding
@@ -123,9 +123,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

@@ -104,7 +104,7 @@ Specification.
 As Vulkan uses variant 0, this change is fully backwards compatible with the
 previous version number format for Vulkan implementations.
 New version number macros have been added for this change and the old macros
-deprecated.
+marked as legacy.
 For existing applications using the older format and macros, an
 implementation with non-zero variant will decode as a very high Vulkan
 version.
@@ -155,7 +155,7 @@ packed version number:
 `VK_VERSION_MAJOR` extracts the API major version number from a packed
 version number:
 
-|  | This functionality is deprecated by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-version-macros) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Legacy Functionality](../appendices/legacy.html#legacy-version-macros) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -170,7 +170,7 @@ packed version number:
 `VK_VERSION_MINOR` extracts the API minor version number from a packed
 version number:
 
-|  | This functionality is deprecated by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-version-macros) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Legacy Functionality](../appendices/legacy.html#legacy-version-macros) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -185,7 +185,7 @@ packed version number:
 `VK_VERSION_PATCH` extracts the API patch version number from a packed
 version number:
 
-|  | This functionality is deprecated by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-version-macros) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Legacy Functionality](../appendices/legacy.html#legacy-version-macros) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -211,7 +211,7 @@ version number:
 
 `VK_MAKE_VERSION` constructs an API version number.
 
-|  | This functionality is deprecated by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-version-macros) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Legacy Functionality](../appendices/legacy.html#legacy-version-macros) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -414,7 +414,7 @@ being loaded as an implicitly enabled layer; it has no additional effect.
 
 To enumerate device layers, call:
 
-|  | This functionality is deprecated by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-devicelayers) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Legacy Functionality](../appendices/legacy.html#legacy-devicelayers) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -500,7 +500,7 @@ Return Codes
 `VK_ERROR_VALIDATION_FAILED`
 
 The `ppEnabledLayerNames` and `enabledLayerCount` members of
-[VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) are deprecated and their values **must** be ignored by
+[VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) are legacy and their values **must** be ignored by
 implementations.
 However, for compatibility, only an empty list of layers or a list that
 exactly matches the sequence enabled at instance creation time are valid,
@@ -894,8 +894,8 @@ Changes in the minor version of the specification indicate that new
 functionality has been added to the core specification.
 This will usually include new interfaces in the header, and **may** also
 include behavior changes and bug fixes.
-Core functionality **may** be deprecated in a minor version, but will not be
-obsoleted or removed.
+Core functionality **may** be marked as legacy in a minor version, but will not
+be obsoleted or removed.
 
 The specification’s minor version is strictly increasing for a given major
 version of the specification; any change to a specification as described
@@ -912,8 +912,8 @@ across minor versions, though in general they are with few exceptions - see
 
 A difference in the major version of specifications indicates a large set of
 changes which will likely include interface changes, behavioral changes,
-removal of [deprecated functionality](../appendices/deprecation.html#deprecation), and the modification,
-addition, or replacement of other functionality.
+removal of [legacy functionality](../appendices/legacy.html#legacy), and the modification, addition,
+or replacement of other functionality.
 
 The specification’s major version is monotonically increasing; any change to
 the specification as described above will result in the major version being
@@ -1008,8 +1008,8 @@ The `VK_COLORSPACE_SRGB_NONLINEAR_KHR` would not be promoted, because it
 is a backwards compatibility alias that exists only due to a naming mistake
 when the extension was initially published. |
 
-Extensions **may** be marked as [deprecated](../appendices/deprecation.html#deprecation) when they are no
-longer intended to be used by applications under certain conditions.
+Extensions **may** be marked as [deprecated](../appendices/legacy.html#legacy) when they are no longer
+intended to be used by applications under certain conditions.
 Generally, a new feature will become available to solve the use case in
 another extension or core version of the API, but it is not guaranteed.
 

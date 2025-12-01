@@ -91,8 +91,8 @@ Valid Usage
 * 
 [](#VUID-vkCmdUpdateBuffer-dstBuffer-00034) VUID-vkCmdUpdateBuffer-dstBuffer-00034
 
-`dstBuffer` **must** have been created with
-`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag
+`dstBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdUpdateBuffer-dstBuffer-00035) VUID-vkCmdUpdateBuffer-dstBuffer-00035
@@ -154,12 +154,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdUpdateBuffer-commandBuffer-cmdpool) VUID-vkCmdUpdateBuffer-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdUpdateBuffer-renderpass) VUID-vkCmdUpdateBuffer-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdUpdateBuffer-suspended) VUID-vkCmdUpdateBuffer-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdUpdateBuffer-videocoding) VUID-vkCmdUpdateBuffer-videocoding
@@ -189,11 +194,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 

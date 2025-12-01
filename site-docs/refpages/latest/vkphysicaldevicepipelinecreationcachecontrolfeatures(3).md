@@ -29,9 +29,8 @@ typedef struct VkPhysicalDevicePipelineCreationCacheControlFeatures {
     VkBool32           pipelineCreationCacheControl;
 } VkPhysicalDevicePipelineCreationCacheControlFeatures;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_creation_cache_control
+// Equivalent to VkPhysicalDevicePipelineCreationCacheControlFeatures
 typedef VkPhysicalDevicePipelineCreationCacheControlFeatures VkPhysicalDevicePipelineCreationCacheControlFeaturesEXT;
 
 This structure describes the following feature:

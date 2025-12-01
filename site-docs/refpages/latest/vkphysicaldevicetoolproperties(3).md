@@ -32,9 +32,8 @@ typedef struct VkPhysicalDeviceToolProperties {
     char                  layer[VK_MAX_EXTENSION_NAME_SIZE];
 } VkPhysicalDeviceToolProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_tooling_info
+// Equivalent to VkPhysicalDeviceToolProperties
 typedef VkPhysicalDeviceToolProperties VkPhysicalDeviceToolPropertiesEXT;
 
 * 

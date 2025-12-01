@@ -221,12 +221,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdClearAttachments-commandBuffer-cmdpool) VUID-vkCmdClearAttachments-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdClearAttachments-renderpass) VUID-vkCmdClearAttachments-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdClearAttachments-suspended) VUID-vkCmdClearAttachments-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdClearAttachments-videocoding) VUID-vkCmdClearAttachments-videocoding
@@ -256,7 +261,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

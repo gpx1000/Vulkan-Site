@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -1367,7 +1376,7 @@ distinct attribute locations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetVertexInputEXT-commandBuffer-cmdpool" href="#VUID-vkCmdSetVertexInputEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdSetVertexInputEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetVertexInputEXT-videocoding" href="#VUID-vkCmdSetVertexInputEXT-videocoding"></a> <span class="vuid">VUID-vkCmdSetVertexInputEXT-videocoding</span><br>
@@ -1418,7 +1427,7 @@ distinct attribute locations</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -1746,7 +1755,7 @@ corresponding element in <code>pBuffers</code></p>
 <p><a id="VUID-vkCmdBindVertexBuffers-pBuffers-00627" href="#VUID-vkCmdBindVertexBuffers-pBuffers-00627"></a> <span class="vuid">VUID-vkCmdBindVertexBuffers-pBuffers-00627</span><br>
 
 All elements of <code>pBuffers</code> <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_VERTEX_BUFFER_BIT</code> flag</p>
+<code>VK_BUFFER_USAGE_VERTEX_BUFFER_BIT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindVertexBuffers-pBuffers-00628" href="#VUID-vkCmdBindVertexBuffers-pBuffers-00628"></a> <span class="vuid">VUID-vkCmdBindVertexBuffers-pBuffers-00628</span><br>
@@ -1794,7 +1803,7 @@ corresponding element of <code>pOffsets</code> <strong>must</strong> be zero</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindVertexBuffers-commandBuffer-cmdpool" href="#VUID-vkCmdBindVertexBuffers-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBindVertexBuffers-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindVertexBuffers-videocoding" href="#VUID-vkCmdBindVertexBuffers-videocoding"></a> <span class="vuid">VUID-vkCmdBindVertexBuffers-videocoding</span><br>
@@ -1853,7 +1862,7 @@ corresponding element of <code>pOffsets</code> <strong>must</strong> be zero</p>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -1889,12 +1898,10 @@ void vkCmdBindVertexBuffers2(
     const VkDeviceSize*                         pStrides);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCmdBindVertexBuffers2EXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdBindVertexBuffers2
 void vkCmdBindVertexBuffers2EXT(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    firstBinding,
@@ -2053,7 +2060,7 @@ If <code>pSizes</code> is not <code>NULL</code>, all elements of <code>pOffsets<
 <p><a id="VUID-vkCmdBindVertexBuffers2-pBuffers-03359" href="#VUID-vkCmdBindVertexBuffers2-pBuffers-03359"></a> <span class="vuid">VUID-vkCmdBindVertexBuffers2-pBuffers-03359</span><br>
 
 All elements of <code>pBuffers</code> <strong>must</strong> have been created with the
-<code>VK_BUFFER_USAGE_VERTEX_BUFFER_BIT</code> flag</p>
+<code>VK_BUFFER_USAGE_VERTEX_BUFFER_BIT</code> usage flag set</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindVertexBuffers2-pBuffers-03360" href="#VUID-vkCmdBindVertexBuffers2-pBuffers-03360"></a> <span class="vuid">VUID-vkCmdBindVertexBuffers2-pBuffers-03360</span><br>
@@ -2126,7 +2133,7 @@ extent is calculated as the
 </li>
 <li>
 <p><a id="VUID-vkCmdBindVertexBuffers2-commandBuffer-cmdpool" href="#VUID-vkCmdBindVertexBuffers2-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBindVertexBuffers2-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics operations</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support <code>VK_QUEUE_GRAPHICS_BIT</code> operations</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindVertexBuffers2-videocoding" href="#VUID-vkCmdBindVertexBuffers2-videocoding"></a> <span class="vuid">VUID-vkCmdBindVertexBuffers2-videocoding</span><br>
@@ -2185,7 +2192,7 @@ extent is calculated as the
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_QUEUE_GRAPHICS_BIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
 </tr>
 </tbody>
@@ -2231,21 +2238,17 @@ typedef struct VkPipelineVertexInputDivisorStateCreateInfo {
 } VkPipelineVertexInputDivisorStateCreateInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPipelineVertexInputDivisorStateCreateInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_vertex_attribute_divisor
+// Equivalent to VkPipelineVertexInputDivisorStateCreateInfo
 typedef VkPipelineVertexInputDivisorStateCreateInfo VkPipelineVertexInputDivisorStateCreateInfoKHR;</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>or the equivalent</p>
 </div>
 <div id="VkPipelineVertexInputDivisorStateCreateInfoEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_vertex_attribute_divisor
+// Equivalent to VkPipelineVertexInputDivisorStateCreateInfo
 typedef VkPipelineVertexInputDivisorStateCreateInfo VkPipelineVertexInputDivisorStateCreateInfoEXT;</code></pre>
 </div>
 </div>
@@ -2307,21 +2310,17 @@ typedef struct VkVertexInputBindingDivisorDescription {
 } VkVertexInputBindingDivisorDescription;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkVertexInputBindingDivisorDescriptionKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_vertex_attribute_divisor
+// Equivalent to VkVertexInputBindingDivisorDescription
 typedef VkVertexInputBindingDivisorDescription VkVertexInputBindingDivisorDescriptionKHR;</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>or the equivalent</p>
 </div>
 <div id="VkVertexInputBindingDivisorDescriptionEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_vertex_attribute_divisor
+// Equivalent to VkVertexInputBindingDivisorDescription
 typedef VkVertexInputBindingDivisorDescription VkVertexInputBindingDivisorDescriptionEXT;</code></pre>
 </div>
 </div>
@@ -2478,14 +2477,19 @@ attribAddress = bufferBindingAddress + effectiveVertexOffset + attribDesc.offset
 <h3 id="fxvertex-input-extraction"><a class="anchor" href="#fxvertex-input-extraction"></a>Vertex Input Extraction</h3>
 <div class="paragraph">
 <p>For each attribute, raw data is extracted starting at <code>attribAddress</code> and is
-converted from the <a href="#VkVertexInputAttributeDescription">VkVertexInputAttributeDescription</a>&#8217;s <code>format</code> to
-either floating-point, unsigned integer, or signed integer based on the
-<a href="formats.html#formats-numericformat" class="xref page">numeric type</a> of <code>format</code>.
-The numeric type of <code>format</code> <strong>must</strong> match the numeric type of the input
-variable in the shader.
+converted from the <a href="#VkVertexInputAttributeDescription">VkVertexInputAttributeDescription</a>&#8217;s <code>format</code> in
+the same manner as described for <a href="images.html#images-reads" class="xref page">image reads</a> as if a texel
+were read from that address.
+The numeric type of the attribute&#8217;s <code>format</code> <strong>must</strong> match the numeric
+type of the input variable in the shader.
 The input variable in the shader <strong>must</strong> be declared as a 64-bit data type if
 and only if <code>format</code> is a 64-bit data type.
-If
+If the sum of <code>attribAddress</code> and the data extracted is outside of the bound
+vertex buffer, behavior is as described by
+<a href="shaders.html#shaders-execution-memory-access-bounds" class="xref page">Shader Out-of-Bounds Memory Access</a>.</p>
+</div>
+<div class="paragraph">
+<p>If
 either <code>format</code> is a 64-bit format or the
 <a href="features.html#features-legacyVertexAttributes" class="xref page"><code>legacyVertexAttributes</code></a> feature is
 not enabled, and
@@ -2497,19 +2501,23 @@ if either <code>format</code> is a 64-bit format or the
 <a href="features.html#features-legacyVertexAttributes" class="xref page"><code>legacyVertexAttributes</code></a> feature is
 not enabled,
 <code>attribAddress</code> <strong>must</strong> be a multiple of the size in bytes of the component
-type indicated by <code>format</code> (see <a href="formats.html#formats" class="xref page">Formats</a>).
-For attributes that are not 64-bit data types, each component is converted
-to the format of the input variable based on its type and size (as defined
-in the <a href="formats.html#formats-definition" class="xref page">Format Definition</a> section for each
-<a href="formats.html#VkFormat" class="xref page">VkFormat</a>), using the appropriate equations in <a href="fundamentals.html#fundamentals-fp16" class="xref page">16-Bit Floating-Point Numbers</a>, <a href="fundamentals.html#fundamentals-fp11" class="xref page">Unsigned 11-Bit Floating-Point Numbers</a>, <a href="fundamentals.html#fundamentals-fp10" class="xref page">Unsigned 10-Bit Floating-Point Numbers</a>, <a href="fundamentals.html#fundamentals-fixedconv" class="xref page">Fixed-Point Data Conversion</a>, and
-<a href="textures.html#textures-sexp-RGB" class="xref page">Shared Exponent to RGB</a>.
-Signed integer components smaller than 32 bits are sign-extended.
-Attributes that are not 64-bit data types are expanded to four components in
-the same way as described in <a href="textures.html#textures-conversion-to-rgba" class="xref page">conversion to RGBA</a>.
-The number of components in the vertex shader input variable need not
+type indicated by <code>format</code> (see <a href="formats.html#formats" class="xref page">Formats</a>).</p>
+</div>
+<div class="paragraph">
+<p>The number of components in the vertex shader input variable need not
 exactly match the number of components in the format.
 If the vertex shader has fewer components, the extra components are
-discarded.</p>
+discarded.
+If the <a href="formats.html#formats-numericformat" class="xref page">numeric format</a> of <code>format</code> uses sRGB
+encoding, and the <a href="features.html#features-maintenance10" class="xref page"><code>maintenance10</code></a> feature is
+enabled, the implementation <strong>must</strong> convert values from nonlinear to linear as
+described in the &#8220;sRGB EOTF&#8221; section of the <a href="introduction.html#data-format" class="xref page">Khronos Data Format Specification</a>.
+If the <a href="features.html#features-maintenance10" class="xref page"><code>maintenance10</code></a> feature is not
+enabled, the implementation <strong>should</strong> convert values from nonlinear to linear.
+Implementations
+which do not support <a href="features.html#features-maintenance10" class="xref page"><code>maintenance10</code></a>, and
+which do not convert nonlinear to linear for sRGB formats <strong>should</strong> not expose
+<code>VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT</code> for such formats.</p>
 </div>
 </div>
 </div>

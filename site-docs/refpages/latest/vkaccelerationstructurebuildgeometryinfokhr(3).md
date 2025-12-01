@@ -80,7 +80,7 @@ built into `dstAccelerationStructure`.
 [VkAccelerationStructureGeometryKHR](VkAccelerationStructureGeometryKHR.html) structures.
 
 * 
-`scratchData` is the device or host address to memory that will be
+`scratchData` is the device or host address of memory that will be
 used as scratch memory for the build.
 
 Only one of `pGeometries` or `ppGeometries` **can** be a valid pointer,

@@ -70,10 +70,11 @@ This can be used for compiling pipelines or shaders for the purpose of
 filling pipeline caches.
 
 * 
-Queue family ownership transfers are no longer required when
-transitioning resources created with `VK_SHARING_MODE_EXCLUSIVE`
-between queue families that support `VK_QUEUE_GRAPHICS_BIT` and
-those that support only `VK_QUEUE_TRANSFER_BIT`.
+Queue family ownership transfers are no longer required for buffers and
+linear images.
+For optimally tiled images, a new physical device query is added to
+check if resources created with `VK_SHARING_MODE_EXCLUSIVE` **can**
+automatically transfer ownership between two queue families.
 
 * 
 [`image2DViewOf3DSparse`](../../../../spec/latest/chapters/limits.html#limits-image2DViewOf3DSparse) enables

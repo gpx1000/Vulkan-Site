@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceShaderExpectAssumeFeatures {
     VkBool32           shaderExpectAssume;
 } VkPhysicalDeviceShaderExpectAssumeFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_shader_expect_assume
+// Equivalent to VkPhysicalDeviceShaderExpectAssumeFeatures
 typedef VkPhysicalDeviceShaderExpectAssumeFeatures VkPhysicalDeviceShaderExpectAssumeFeaturesKHR;
 
 * 

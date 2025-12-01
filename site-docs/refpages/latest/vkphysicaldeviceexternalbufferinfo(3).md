@@ -30,9 +30,8 @@ typedef struct VkPhysicalDeviceExternalBufferInfo {
     VkExternalMemoryHandleTypeFlagBits    handleType;
 } VkPhysicalDeviceExternalBufferInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkPhysicalDeviceExternalBufferInfo
 typedef VkPhysicalDeviceExternalBufferInfo VkPhysicalDeviceExternalBufferInfoKHR;
 
 * 
@@ -107,7 +106,7 @@ Valid Usage (Implicit)
 
  `handleType` **must** be a valid [VkExternalMemoryHandleTypeFlagBits](VkExternalMemoryHandleTypeFlagBits.html) value
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkBufferCreateFlags](VkBufferCreateFlags.html), [VkBufferUsageFlags](VkBufferUsageFlags.html), [VkExternalMemoryHandleTypeFlagBits](VkExternalMemoryHandleTypeFlagBits.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceExternalBufferProperties](vkGetPhysicalDeviceExternalBufferProperties.html), [vkGetPhysicalDeviceExternalBufferProperties](vkGetPhysicalDeviceExternalBufferProperties.html)
+[VK_KHR_external_memory_capabilities](VK_KHR_external_memory_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkBufferCreateFlags](VkBufferCreateFlags.html), [VkBufferUsageFlags](VkBufferUsageFlags.html), [VkExternalMemoryHandleTypeFlagBits](VkExternalMemoryHandleTypeFlagBits.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceExternalBufferProperties](vkGetPhysicalDeviceExternalBufferProperties.html), [vkGetPhysicalDeviceExternalBufferProperties](vkGetPhysicalDeviceExternalBufferProperties.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkPhysicalDeviceExternalBufferInfo).
 

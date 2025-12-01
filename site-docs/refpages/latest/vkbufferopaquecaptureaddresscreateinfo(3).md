@@ -31,9 +31,8 @@ typedef struct VkBufferOpaqueCaptureAddressCreateInfo {
     uint64_t           opaqueCaptureAddress;
 } VkBufferOpaqueCaptureAddressCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_buffer_device_address
+// Equivalent to VkBufferOpaqueCaptureAddressCreateInfo
 typedef VkBufferOpaqueCaptureAddressCreateInfo VkBufferOpaqueCaptureAddressCreateInfoKHR;
 
 * 

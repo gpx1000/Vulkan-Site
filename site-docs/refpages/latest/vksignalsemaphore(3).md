@@ -28,9 +28,8 @@ VkResult vkSignalSemaphore(
     VkDevice                                    device,
     const VkSemaphoreSignalInfo*                pSignalInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to vkSignalSemaphore
 VkResult vkSignalSemaphoreKHR(
     VkDevice                                    device,
     const VkSemaphoreSignalInfo*                pSignalInfo);

@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="../VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="../private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="../raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="../memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../appendices/boilerplate.html">API Boilerplate</a>
@@ -2409,7 +2418,7 @@ created surface object is returned.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The <code>vkCreateIOSSurfaceMVK</code> function is considered deprecated and has been
+<p>The <code>vkCreateIOSSurfaceMVK</code> function is considered legacy and has been
 superseded by <a href="#vkCreateMetalSurfaceEXT">vkCreateMetalSurfaceEXT</a> from the
 <code><a href="../../appendices/extensions.html#VK_EXT_metal_surface" class="xref page">VK_EXT_metal_surface</a></code> extension.</p>
 </div>
@@ -2626,7 +2635,7 @@ created surface object is returned.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The <code>vkCreateMacOSSurfaceMVK</code> function is considered deprecated and has been
+<p>The <code>vkCreateMacOSSurfaceMVK</code> function is considered legacy and has been
 superseded by <a href="#vkCreateMetalSurfaceEXT">vkCreateMetalSurfaceEXT</a> from the
 <code><a href="../../appendices/extensions.html#VK_EXT_metal_surface" class="xref page">VK_EXT_metal_surface</a></code> extension.</p>
 </div>
@@ -5723,7 +5732,7 @@ The <code>height</code> member of <code>visibleRegion</code> <strong>must</stron
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_display_stereo
 typedef struct VkDisplayModeStereoPropertiesNV {
     VkStructureType    sType;
-    const void*        pNext;
+    void*              pNext;
     VkBool32           hdmi3DSupported;
 } VkDisplayModeStereoPropertiesNV;</code></pre>
 </div>
@@ -7766,6 +7775,14 @@ VkBool32 vkGetPhysicalDeviceDirectFBPresentationSupportEXT(
 </div>
 </div>
 <div class="sect2">
+<h3 id="platformQuerySupport_metal"><a class="anchor" href="#platformQuerySupport_metal"></a>Metal Platform</h3>
+<div class="paragraph">
+<p>On Apple platforms with Metal support, all physical devices and queue
+families <strong>must</strong> be capable of presentation with any layer.
+As a result there is no Apple-specific query for these capabilities.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="platformQuerySupport_fuchsia"><a class="anchor" href="#platformQuerySupport_fuchsia"></a>Fuchsia Platform</h3>
 <div class="paragraph">
 <p>On Fuchsia, all physical devices and queue families <strong>must</strong> be capable of
@@ -8700,7 +8717,7 @@ not reflect that of any surface and will instead be as such:</p>
 </li>
 <li>
 <p><a id="VUID-VkSurfaceCapabilities2KHR-pNext-pNext" href="#VUID-VkSurfaceCapabilities2KHR-pNext-pNext"></a> <span class="vuid">VUID-VkSurfaceCapabilities2KHR-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDisplayNativeHdrSurfaceCapabilitiesAMD">VkDisplayNativeHdrSurfaceCapabilitiesAMD</a>, <a href="#VkLatencySurfaceCapabilitiesNV">VkLatencySurfaceCapabilitiesNV</a>, <a href="#VkSharedPresentSurfaceCapabilitiesKHR">VkSharedPresentSurfaceCapabilitiesKHR</a>, <a href="#VkSurfaceCapabilitiesFullScreenExclusiveEXT">VkSurfaceCapabilitiesFullScreenExclusiveEXT</a>, <a href="#VkSurfaceCapabilitiesPresentBarrierNV">VkSurfaceCapabilitiesPresentBarrierNV</a>, <a href="#VkSurfaceCapabilitiesPresentId2KHR">VkSurfaceCapabilitiesPresentId2KHR</a>, <a href="#VkSurfaceCapabilitiesPresentWait2KHR">VkSurfaceCapabilitiesPresentWait2KHR</a>, <a href="#VkSurfacePresentModeCompatibilityKHR">VkSurfacePresentModeCompatibilityKHR</a>, <a href="#VkSurfacePresentScalingCapabilitiesKHR">VkSurfacePresentScalingCapabilitiesKHR</a>, or <a href="#VkSurfaceProtectedCapabilitiesKHR">VkSurfaceProtectedCapabilitiesKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDisplayNativeHdrSurfaceCapabilitiesAMD">VkDisplayNativeHdrSurfaceCapabilitiesAMD</a>, <a href="#VkLatencySurfaceCapabilitiesNV">VkLatencySurfaceCapabilitiesNV</a>, <a href="#VkPresentTimingSurfaceCapabilitiesEXT">VkPresentTimingSurfaceCapabilitiesEXT</a>, <a href="#VkSharedPresentSurfaceCapabilitiesKHR">VkSharedPresentSurfaceCapabilitiesKHR</a>, <a href="#VkSurfaceCapabilitiesFullScreenExclusiveEXT">VkSurfaceCapabilitiesFullScreenExclusiveEXT</a>, <a href="#VkSurfaceCapabilitiesPresentBarrierNV">VkSurfaceCapabilitiesPresentBarrierNV</a>, <a href="#VkSurfaceCapabilitiesPresentId2KHR">VkSurfaceCapabilitiesPresentId2KHR</a>, <a href="#VkSurfaceCapabilitiesPresentWait2KHR">VkSurfaceCapabilitiesPresentWait2KHR</a>, <a href="#VkSurfacePresentModeCompatibilityKHR">VkSurfacePresentModeCompatibilityKHR</a>, <a href="#VkSurfacePresentScalingCapabilitiesKHR">VkSurfacePresentScalingCapabilitiesKHR</a>, or <a href="#VkSurfaceProtectedCapabilitiesKHR">VkSurfaceProtectedCapabilitiesKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-VkSurfaceCapabilities2KHR-sType-unique" href="#VUID-VkSurfaceCapabilities2KHR-sType-unique"></a> <span class="vuid">VUID-VkSurfaceCapabilities2KHR-sType-unique</span><br>
@@ -8728,7 +8745,7 @@ which <strong>can</strong> be passed in <code>pNext</code> parameter of
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_surface_protected_capabilities
 typedef struct VkSurfaceProtectedCapabilitiesKHR {
     VkStructureType    sType;
-    const void*        pNext;
+    void*              pNext;
     VkBool32           supportsProtected;
 } VkSurfaceProtectedCapabilitiesKHR;</code></pre>
 </div>
@@ -8797,12 +8814,10 @@ typedef struct VkSurfacePresentScalingCapabilitiesKHR {
 } VkSurfacePresentScalingCapabilitiesKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSurfacePresentScalingCapabilitiesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkSurfacePresentScalingCapabilitiesKHR
 typedef VkSurfacePresentScalingCapabilitiesKHR VkSurfacePresentScalingCapabilitiesEXT;</code></pre>
 </div>
 </div>
@@ -8915,12 +8930,10 @@ typedef enum VkPresentScalingFlagBitsKHR {
 } VkPresentScalingFlagBitsKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPresentScalingFlagBitsEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkPresentScalingFlagBitsKHR
 typedef VkPresentScalingFlagBitsKHR VkPresentScalingFlagBitsEXT;</code></pre>
 </div>
 </div>
@@ -8958,12 +8971,10 @@ dimensions are equal to those of the surface.</p>
 typedef VkFlags VkPresentScalingFlagsKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPresentScalingFlagsEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkPresentScalingFlagsKHR
 typedef VkPresentScalingFlagsKHR VkPresentScalingFlagsEXT;</code></pre>
 </div>
 </div>
@@ -8994,12 +9005,10 @@ typedef enum VkPresentGravityFlagBitsKHR {
 } VkPresentGravityFlagBitsKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPresentGravityFlagBitsEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkPresentGravityFlagBitsKHR
 typedef VkPresentGravityFlagBitsKHR VkPresentGravityFlagBitsEXT;</code></pre>
 </div>
 </div>
@@ -9035,12 +9044,10 @@ presented image before or after transformation.</p>
 typedef VkFlags VkPresentGravityFlagsKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPresentGravityFlagsEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkPresentGravityFlagsKHR
 typedef VkPresentGravityFlagsKHR VkPresentGravityFlagsEXT;</code></pre>
 </div>
 </div>
@@ -9065,12 +9072,10 @@ typedef struct VkSurfacePresentModeKHR {
 } VkSurfacePresentModeKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSurfacePresentModeEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkSurfacePresentModeKHR
 typedef VkSurfacePresentModeKHR VkSurfacePresentModeEXT;</code></pre>
 </div>
 </div>
@@ -9185,12 +9190,10 @@ typedef struct VkSurfacePresentModeCompatibilityKHR {
 } VkSurfacePresentModeCompatibilityKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSurfacePresentModeCompatibilityEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkSurfacePresentModeCompatibilityKHR
 typedef VkSurfacePresentModeCompatibilityKHR VkSurfacePresentModeCompatibilityEXT;</code></pre>
 </div>
 </div>
@@ -9584,6 +9587,80 @@ swapchain if <code>presentWait2Supported</code> is <code>VK_FALSE</code>.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPresentTimingSurfaceCapabilitiesEXT</code> structure is defined as:</p>
+</div>
+<div id="VkPresentTimingSurfaceCapabilitiesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef struct VkPresentTimingSurfaceCapabilitiesEXT {
+    VkStructureType           sType;
+    void*                     pNext;
+    VkBool32                  presentTimingSupported;
+    VkBool32                  presentAtAbsoluteTimeSupported;
+    VkBool32                  presentAtRelativeTimeSupported;
+    VkPresentStageFlagsEXT    presentStageQueries;
+} VkPresentTimingSurfaceCapabilitiesEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>presentTimingSupported</code> indicates whether querying presentation
+timestamps is supported for a swapchain created from
+<a href="#VkPhysicalDeviceSurfaceInfo2KHR">VkPhysicalDeviceSurfaceInfo2KHR</a>::<code>surface</code>.</p>
+</li>
+<li>
+<p><code>presentAtAbsoluteTimeSupported</code> indicates whether a swapchain
+created from <a href="#VkPhysicalDeviceSurfaceInfo2KHR">VkPhysicalDeviceSurfaceInfo2KHR</a>::<code>surface</code>
+supports presenting images with absolute times.</p>
+</li>
+<li>
+<p><code>presentAtRelativeTimeSupported</code> indicates whether a swapchain
+created from <a href="#VkPhysicalDeviceSurfaceInfo2KHR">VkPhysicalDeviceSurfaceInfo2KHR</a>::<code>surface</code>
+supports presenting images with relative times.</p>
+</li>
+<li>
+<p><code>presentStageQueries</code> is a bitmask of
+<a href="#VkPresentStageFlagBitsEXT">VkPresentStageFlagBitsEXT</a> indicating which present stages a
+swapchain created from
+<a href="#VkPhysicalDeviceSurfaceInfo2KHR">VkPhysicalDeviceSurfaceInfo2KHR</a>::<code>surface</code> is able to provide
+timing information for.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPresentTimingSurfaceCapabilitiesEXT-sType-sType" href="#VUID-VkPresentTimingSurfaceCapabilitiesEXT-sType-sType"></a> <span class="vuid">VUID-VkPresentTimingSurfaceCapabilitiesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PRESENT_TIMING_SURFACE_CAPABILITIES_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPresentTimingSurfaceCapabilitiesEXT-presentStageQueries-parameter" href="#VUID-VkPresentTimingSurfaceCapabilitiesEXT-presentStageQueries-parameter"></a> <span class="vuid">VUID-VkPresentTimingSurfaceCapabilitiesEXT-presentStageQueries-parameter</span><br>
+ <code>presentStageQueries</code> <strong>must</strong> be a valid combination of <a href="#VkPresentStageFlagBitsEXT">VkPresentStageFlagBitsEXT</a> values</p>
+</li>
+<li>
+<p><a id="VUID-VkPresentTimingSurfaceCapabilitiesEXT-presentStageQueries-requiredbitmask" href="#VUID-VkPresentTimingSurfaceCapabilitiesEXT-presentStageQueries-requiredbitmask"></a> <span class="vuid">VUID-VkPresentTimingSurfaceCapabilitiesEXT-presentStageQueries-requiredbitmask</span><br>
+ <code>presentStageQueries</code> <strong>must</strong> not be <code>0</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>To query the basic capabilities of a surface, needed in order to create a
 swapchain, call:</p>
 </div>
@@ -9866,7 +9943,7 @@ supported surface counter types, are:</p>
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_display_surface_counter
 typedef enum VkSurfaceCounterFlagBitsEXT {
     VK_SURFACE_COUNTER_VBLANK_BIT_EXT = 0x00000001,
-  // VK_SURFACE_COUNTER_VBLANK_EXT is a deprecated alias
+  // VK_SURFACE_COUNTER_VBLANK_EXT is a legacy alias
     VK_SURFACE_COUNTER_VBLANK_EXT = VK_SURFACE_COUNTER_VBLANK_BIT_EXT,
 } VkSurfaceCounterFlagBitsEXT;</code></pre>
 </div>
@@ -10514,7 +10591,7 @@ typedef enum VkColorSpaceKHR {
   // Provided by VK_EXT_swapchain_colorspace
     VK_COLOR_SPACE_HDR10_ST2084_EXT = 1000104008,
   // Provided by VK_EXT_swapchain_colorspace
-  // VK_COLOR_SPACE_DOLBYVISION_EXT is deprecated, but no reason was given in the API XML
+  // VK_COLOR_SPACE_DOLBYVISION_EXT is legacy, but no reason was given in the API XML
     VK_COLOR_SPACE_DOLBYVISION_EXT = 1000104009,
   // Provided by VK_EXT_swapchain_colorspace
     VK_COLOR_SPACE_HDR10_HLG_EXT = 1000104010,
@@ -10528,10 +10605,10 @@ typedef enum VkColorSpaceKHR {
     VK_COLOR_SPACE_EXTENDED_SRGB_NONLINEAR_EXT = 1000104014,
   // Provided by VK_AMD_display_native_hdr
     VK_COLOR_SPACE_DISPLAY_NATIVE_AMD = 1000213000,
-  // VK_COLORSPACE_SRGB_NONLINEAR_KHR is a deprecated alias
+  // VK_COLORSPACE_SRGB_NONLINEAR_KHR is a legacy alias
     VK_COLORSPACE_SRGB_NONLINEAR_KHR = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR,
   // Provided by VK_EXT_swapchain_colorspace
-  // VK_COLOR_SPACE_DCI_P3_LINEAR_EXT is a deprecated alias
+  // VK_COLOR_SPACE_DCI_P3_LINEAR_EXT is a legacy alias
     VK_COLOR_SPACE_DCI_P3_LINEAR_EXT = VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT,
 } VkColorSpaceKHR;</code></pre>
 </div>
@@ -10648,7 +10725,7 @@ The older enum is still available for backwards compatibility.</p>
 <code>VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT</code> was misnamed
 <code>VK_COLOR_SPACE_DCI_P3_LINEAR_EXT</code>.
 This has been updated to indicate that it uses RGB color encoding, not XYZ.
-The old name is deprecated but is maintained for backwards compatibility.</p>
+The old name is legacy but is maintained for backwards compatibility.</p>
 </div>
 </td>
 </tr>
@@ -10670,7 +10747,7 @@ proprietary OOTF to process the image.
 However, Dolby Vision profile 8.4 describes an encoding using the Hybrid Log
 Gamma (HLG) OETF, and there is no swapchain extension for signaling Dolby
 Vision metadata to be used by a proprietary OOTF.
-This enum is deprecated but is maintained for backwards compatibility.</p>
+This enum is legacy but is maintained for backwards compatibility.</p>
 </div>
 </td>
 </tr>
@@ -10716,10 +10793,9 @@ triggering a <code>surface_exists</code> protocol error.</p>
 components as having been encoded using an appropriate transfer function.
 Applications <strong>should</strong> ensure that the appropriate transfer function has been
 applied.
-<a href="../textures.html#textures-output-format-conversion" class="xref page">Textures Output Format Conversion</a>
-requires that all implementations implicitly apply the sRGB EOTF<sup>-1</sup> on R,
-G, and B components when shaders write to an sRGB pixel format image, which
-is useful for sRGB color spaces.
+<a href="../images.html#images-texel-encode" class="xref page">Texel encode</a> requires that all implementations
+implicitly apply the sRGB EOTF<sup>-1</sup> on R, G, and B components when shaders
+write to an sRGB pixel format image, which is useful for sRGB color spaces.
 For sRGB color spaces with other pixel formats, or other non-linear color
 spaces, applications <strong>can</strong> apply the transfer function explicitly in a
 shader.
@@ -11225,21 +11301,25 @@ each vertical blanking period in which the queue is non-empty.</p>
 </li>
 <li>
 <p><code>VK_PRESENT_MODE_FIFO_LATEST_READY_KHR</code> specifies that the
-presentation engine waits for the next vertical blanking period to
-update the current image.
-Tearing <strong>cannot</strong> be observed.
-An internal queue is used to hold pending presentation requests.
-New requests are appended to the end of the queue.
-At each vertical blanking period, the presentation engine dequeues all
-successive requests that are ready to be presented from the beginning of
-the queue.
-If using <code><a href="../../appendices/extensions.html#VK_GOOGLE_display_timing" class="xref page">VK_GOOGLE_display_timing</a></code> to provide a target present
-time, the presentation engine will check the specified time for each
-image.
-If the target present time is less-than or equal-to the current time,
-the presentation engine will dequeue the image and check the next one.
-The image of the last dequeued request will be presented.
-The other dequeued requests will be dropped.</p>
+    presentation engine waits for the next vertical blanking period to
+    update the current image.
+    Tearing <strong>cannot</strong> be observed.
+    An internal queue is used to hold pending presentation requests.
+    New requests are appended to the end of the queue.
+    At each vertical blanking period, the presentation engine dequeues all
+    successive requests that are ready to be presented from the beginning of
+    the queue.
+    If using
+    the <code><a href="../../appendices/extensions.html#VK_GOOGLE_display_timing" class="xref page">VK_GOOGLE_display_timing</a></code> extension
+or
+    the <a href="../features.html#features-presentAtAbsoluteTime" class="xref page"><code>presentAtAbsoluteTime</code></a>
+    feature
+    to provide a target present time, the presentation engine checks the
+    specified time for each image.
+    If the target present time is less-than or equal-to the current time,
+    the presentation engine dequeues the image and checks the next one.
+    The image of the last dequeued request is presented.
+    The other dequeued requests are dropped.</p>
 </li>
 <li>
 <p><code>VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR</code> specifies that the
@@ -12250,14 +12330,15 @@ platform-specific mechanism</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_display_timing_queries"><a class="anchor" href="#_display_timing_queries"></a>Display Timing Queries</h2>
+<h2 id="_present_timing_queries"><a class="anchor" href="#_present_timing_queries"></a>Present Timing Queries</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Traditional game and real-time-animation applications frequently use
 <code>VK_PRESENT_MODE_FIFO_KHR</code> so that presentable images are updated during
 the vertical blanking period of a given refresh cycle (RC) of the
 presentation engine&#8217;s display.
-This avoids the visual anomaly known as tearing.</p>
+On fixed refresh rate displays, this avoids the visual anomaly known as
+tearing.</p>
 </div>
 <div class="paragraph">
 <p>However, synchronizing the presentation of images with the RC does not
@@ -12267,32 +12348,1276 @@ accurately positioned for when that image will be displayed.
 The geometry may appear to move too little some RCs, and too much for
 others.
 Sometimes the animation appears to freeze, when the same image is used for
-more than one RC.</p>
+more RCs than other images.</p>
 </div>
 <div class="paragraph">
-<p>In order to minimize stuttering, an application needs to correctly position
-their geometry for when the presentable image will be displayed to the user.
-To accomplish this, applications need various timing information about the
-presentation engine&#8217;s display.
-They need to know when presentable images were actually presented, and when
-they could have been presented.
-Applications also need to tell the presentation engine to display an image
-no sooner than a given time.
-This can allow the application&#8217;s animation to look smooth to the user, with
-no stuttering.
-The <code><a href="../../appendices/extensions.html#VK_GOOGLE_display_timing" class="xref page">VK_GOOGLE_display_timing</a></code> extension allows an application to
-satisfy these needs.</p>
+<p>In order to minimize stuttering, an application needs to: 1) render and
+present images at a consistent rate that is, on fixed refresh rate displays,
+a multiple of the presentation engine&#8217;s refresh rate; 2) correctly position
+its geometry for when the presentable image will be displayed to the user.
+The
+<code><a href="../../appendices/extensions.html#VK_EXT_present_timing" class="xref page">VK_EXT_present_timing</a></code>
+or
+<code><a href="../../appendices/extensions.html#VK_GOOGLE_display_timing" class="xref page">VK_GOOGLE_display_timing</a></code>
+extension allows an application to satisfy these needs.</p>
 </div>
 <div class="paragraph">
 <p>The presentation engine&#8217;s display typically refreshes the pixels that are
 displayed to the user on a periodic basis.
-The period may be fixed or variable.
-In many cases, the presentation engine is associated with fixed refresh rate
-(FRR) display technology, with a fixed refresh rate (RR, e.g. 60Hz).
-In some cases, the presentation engine is associated with variable refresh
-rate (VRR) display technology, where each refresh cycle (RC) can vary in
-length.
-This extension treats VRR displays as if they are FRR.</p>
+This period <strong>may</strong> be fixed (Fixed Refresh Rate, FRR) or variable (Variable
+Refresh Rate, VRR).</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>In order to collect timing information about presentation, a swapchain needs
+an internal queue to store asynchronously updated results until applications
+collect them.</p>
+</div>
+<div class="paragraph">
+<p>To allocate the swapchain&#8217;s internal timing results queue, call:</p>
+</div>
+<div id="vkSetSwapchainPresentTimingQueueSizeEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+VkResult vkSetSwapchainPresentTimingQueueSizeEXT(
+    VkDevice                                    device,
+    VkSwapchainKHR                              swapchain,
+    uint32_t                                    size);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the device associated with <code>swapchain</code>.</p>
+</li>
+<li>
+<p><code>swapchain</code> is the swapchain to allocate a results queue for.</p>
+</li>
+<li>
+<p><code>size</code> is the requested number of slots in the internal results
+queue.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If this function is called multiple times, the internal queue is reallocated
+to fit the new <code>size</code>.
+If the new <code>size</code> is less than the current number of outstanding
+results, <code>VK_NOT_READY</code> is returned and no allocation is performed.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-12229" href="#VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-12229"></a> <span class="vuid">VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-12229</span><br>
+
+<code>swapchain</code> <strong>must</strong> have been created with
+<code>VkSwapchainCreateInfoKHR</code>::<code>flags</code> containing
+<code>VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkSetSwapchainPresentTimingQueueSizeEXT-device-parameter" href="#VUID-vkSetSwapchainPresentTimingQueueSizeEXT-device-parameter"></a> <span class="vuid">VUID-vkSetSwapchainPresentTimingQueueSizeEXT-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="../devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-parameter" href="#VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-parameter"></a> <span class="vuid">VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-parameter</span><br>
+ <code>swapchain</code> <strong>must</strong> be a valid <a href="#VkSwapchainKHR">VkSwapchainKHR</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-parent" href="#VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-parent"></a> <span class="vuid">VUID-vkSetSwapchainPresentTimingQueueSizeEXT-swapchain-parent</span><br>
+ <code>swapchain</code> <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Host Synchronization</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Return Codes</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-successcodes" class="xref page">Success</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_NOT_READY</code></p>
+</li>
+<li>
+<p><code>VK_SUCCESS</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The implementation maintains an internal monotonically increasing counter
+which updates when the presentation engine&#8217;s timing properties are modified.</p>
+</div>
+<div class="paragraph">
+<p>To query the presentation engine&#8217;s current timing properties for a given
+swapchain, call:</p>
+</div>
+<div id="vkGetSwapchainTimingPropertiesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+VkResult vkGetSwapchainTimingPropertiesEXT(
+    VkDevice                                    device,
+    VkSwapchainKHR                              swapchain,
+    VkSwapchainTimingPropertiesEXT*             pSwapchainTimingProperties,
+    uint64_t*                                   pSwapchainTimingPropertiesCounter);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the device associated with <code>swapchain</code>.</p>
+</li>
+<li>
+<p><code>swapchain</code> is the swapchain to obtain timing properties for.</p>
+</li>
+<li>
+<p><code>pSwapchainTimingProperties</code> is a pointer to an instance of the
+<a href="#VkSwapchainTimingPropertiesEXT">VkSwapchainTimingPropertiesEXT</a> structure.</p>
+</li>
+<li>
+<p><code>pSwapchainTimingPropertiesCounter</code> is <code>NULL</code> or a pointer to a
+64-bit unsigned integer set by the implementation to the current value
+of the swapchain&#8217;s internal timing properties counter.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If <code>vkGetSwapchainTimingPropertiesEXT</code> returns <code>VK_NOT_READY</code>, the
+implementation was not able to determine the current refresh cycle duration.
+Some platforms <strong>may</strong> not provide timing properties until after at least one
+image has been presented to the <code>swapchain</code>.
+If timing properties change for the <code>swapchain</code>, these platforms <strong>may</strong>
+not provide updated results until after at least one additional image has
+been presented to the <code>swapchain</code>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkGetSwapchainTimingPropertiesEXT-device-parameter" href="#VUID-vkGetSwapchainTimingPropertiesEXT-device-parameter"></a> <span class="vuid">VUID-vkGetSwapchainTimingPropertiesEXT-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="../devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkGetSwapchainTimingPropertiesEXT-swapchain-parameter" href="#VUID-vkGetSwapchainTimingPropertiesEXT-swapchain-parameter"></a> <span class="vuid">VUID-vkGetSwapchainTimingPropertiesEXT-swapchain-parameter</span><br>
+ <code>swapchain</code> <strong>must</strong> be a valid <a href="#VkSwapchainKHR">VkSwapchainKHR</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkGetSwapchainTimingPropertiesEXT-pSwapchainTimingProperties-parameter" href="#VUID-vkGetSwapchainTimingPropertiesEXT-pSwapchainTimingProperties-parameter"></a> <span class="vuid">VUID-vkGetSwapchainTimingPropertiesEXT-pSwapchainTimingProperties-parameter</span><br>
+ <code>pSwapchainTimingProperties</code> <strong>must</strong> be a valid pointer to a <a href="#VkSwapchainTimingPropertiesEXT">VkSwapchainTimingPropertiesEXT</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkGetSwapchainTimingPropertiesEXT-pSwapchainTimingPropertiesCounter-parameter" href="#VUID-vkGetSwapchainTimingPropertiesEXT-pSwapchainTimingPropertiesCounter-parameter"></a> <span class="vuid">VUID-vkGetSwapchainTimingPropertiesEXT-pSwapchainTimingPropertiesCounter-parameter</span><br>
+ If <code>pSwapchainTimingPropertiesCounter</code> is not <code>NULL</code>, <code>pSwapchainTimingPropertiesCounter</code> <strong>must</strong> be a valid pointer to a <code>uint64_t</code> value</p>
+</li>
+<li>
+<p><a id="VUID-vkGetSwapchainTimingPropertiesEXT-swapchain-parent" href="#VUID-vkGetSwapchainTimingPropertiesEXT-swapchain-parent"></a> <span class="vuid">VUID-vkGetSwapchainTimingPropertiesEXT-swapchain-parent</span><br>
+ <code>swapchain</code> <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Host Synchronization</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Return Codes</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-successcodes" class="xref page">Success</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_NOT_READY</code></p>
+</li>
+<li>
+<p><code>VK_SUCCESS</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_SURFACE_LOST_KHR</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkSwapchainTimingPropertiesEXT</code> structure is defined as:</p>
+</div>
+<div id="VkSwapchainTimingPropertiesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef struct VkSwapchainTimingPropertiesEXT {
+    VkStructureType    sType;
+    void*              pNext;
+    uint64_t           refreshDuration;
+    uint64_t           refreshInterval;
+} VkSwapchainTimingPropertiesEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>refreshDuration</code> is zero or an indication of the duration of a
+refresh cycle.</p>
+</li>
+<li>
+<p><code>refreshInterval</code> is zero or a duration in nanoseconds indicating
+the interval between refresh cycle durations.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If <code>refreshDuration</code> is zero, the presentation engine is not able to
+determine the duration of the refresh cycle.
+Similarly, if <code>refreshInterval</code> is zero, the presentation engine is not
+able to determine whether it is operating in VRR mode.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise, if <code>refreshInterval</code> is the same as <code>refreshDuration</code>,
+the presentation engine is operating in FRR mode.
+In this case, <code>refreshDuration</code> is the number of nanoseconds from the
+start of one refresh cycle to the start of the next refresh cycle.</p>
+</div>
+<div class="paragraph">
+<p>If <code>refreshInterval</code> is <code>UINT64_MAX</code>, the presentation engine is
+operating in VRR mode, and <code>refreshDuration</code> is the minimum number of
+nanoseconds from the start of one refresh cycle to the start of the next
+refresh cycle.</p>
+</div>
+<div class="paragraph">
+<p>If <code>refreshDuration</code> and <code>refreshInterval</code> are not zero,
+<code>refreshInterval</code> is a factor of <code>refreshDuration</code>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkSwapchainTimingPropertiesEXT-sType-sType" href="#VUID-VkSwapchainTimingPropertiesEXT-sType-sType"></a> <span class="vuid">VUID-VkSwapchainTimingPropertiesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_SWAPCHAIN_TIMING_PROPERTIES_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkSwapchainTimingPropertiesEXT-pNext-pNext" href="#VUID-VkSwapchainTimingPropertiesEXT-pNext-pNext"></a> <span class="vuid">VUID-VkSwapchainTimingPropertiesEXT-pNext-pNext</span><br>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The rate at which an application renders and presents new images is known as
+the image present rate (IPR, a.k.a.
+frame rate).
+The inverse of IPR, or the duration between each image present, is the image
+present duration (IPD).</p>
+</div>
+<div class="paragraph">
+<p>In order to provide a smooth, stutter-free animation on non-VRR displays, an
+application needs its IPD to be a multiple of <code>refreshInterval</code> that is
+at least equal to <code>refreshDuration</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example, if a FRR display has a set 60Hz refresh rate, where
+<code>refreshDuration</code> is equal to <code>refreshInterval</code>,
+<code>refreshDuration</code> will be a value in nanoseconds that is approximately
+equal to 16.67ms.
+In such a case, an application will want an IPD of 16.67ms (1X multiplier of
+<code>refreshInterval</code>), or 33.33ms (2X multiplier of <code>refreshInterval</code>),
+or 50.0ms (3X multiplier of <code>refreshInterval</code>), etc.</p>
+</div>
+<div class="paragraph">
+<p>In order to determine a target IPD for a display (i.e. a multiple of
+<code>refreshInterval</code>), an application needs to determine when its images
+are actually displayed.</p>
+</div>
+<div class="paragraph">
+<p>Consider an application that has an initial target IPD of 16.67ms (1X
+multiplier of <code>refreshDuration</code>).
+It will therefore position the geometry of a new image 16.67ms later than
+the previous image.</p>
+</div>
+<div class="paragraph">
+<p>If this application is running on slower hardware, so that it actually takes
+20ms to render each new image, the images will not be displayed to the user
+every 16.67ms, nor every 20ms, which will create visual anomalies.
+In this case, it is better for the application to adjust its target IPD to
+33.33ms (i.e. a 2X multiplier of <code>refreshDuration</code>), and tell the
+presentation engine to not present images any sooner than every 33.33ms.
+This will allow the geometry to be correctly positioned for each presentable
+image.</p>
+</div>
+<div class="paragraph">
+<p>On VRR displays, where <code>refreshInterval</code> is <code>UINT64_MAX</code>,
+applications <strong>should</strong> target an IPD that is at least equal to
+<code>refreshDuration</code>.</p>
+</div>
+<div class="paragraph">
+<p>Adjustments to an application&#8217;s IPD may be needed because different views of
+an application&#8217;s geometry can take different amounts of time to render.
+For example, looking at the sky may take less time to render than looking at
+multiple, complex items in a room.</p>
+</div>
+<div class="paragraph">
+<p>In general, it is good to not frequently change IPD, as that can cause
+visual anomalies.</p>
+</div>
+<div class="paragraph">
+<p>Adjustments to a larger IPD because of late images should happen quickly,
+but adjustments to a smaller IPD should only happen if the periodic feedback
+of <a href="#VkPastPresentationTimingEXT">VkPastPresentationTimingEXT</a> values indicates that the target IPD
+can be durably achieved.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The implementation maintains an internal monotonically increasing counter
+which updates when the presentation engine&#8217;s list of supported time domains
+for a swapchain is modified.</p>
+</div>
+<div class="paragraph">
+<p>To query the time domains supported by the presentation engine for a given
+swapchain, call:</p>
+</div>
+<div id="vkGetSwapchainTimeDomainPropertiesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+VkResult vkGetSwapchainTimeDomainPropertiesEXT(
+    VkDevice                                    device,
+    VkSwapchainKHR                              swapchain,
+    VkSwapchainTimeDomainPropertiesEXT*         pSwapchainTimeDomainProperties,
+    uint64_t*                                   pTimeDomainsCounter);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the device associated with <code>swapchain</code>.</p>
+</li>
+<li>
+<p><code>swapchain</code> is the swapchain to obtain time domain properties for.</p>
+</li>
+<li>
+<p><code>pSwapchainTimeDomainProperties</code> is a pointer to an instance of the
+<a href="#VkSwapchainTimeDomainPropertiesEXT">VkSwapchainTimeDomainPropertiesEXT</a> structure.</p>
+</li>
+<li>
+<p><code>pTimeDomainsCounter</code> is <code>NULL</code> or a pointer to a 64-bit unsigned
+integer set by the implementation to the current value of the
+swapchain&#8217;s internal time domain properties counter.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If upon return
+<a href="#VkSwapchainTimeDomainPropertiesEXT">VkSwapchainTimeDomainPropertiesEXT</a>::<code>timeDomainCount</code> is smaller
+than the number of time domains supported for the given <code>swapchain</code>,
+<code>VK_INCOMPLETE</code> will be returned instead of <code>VK_SUCCESS</code> to indicate
+that not all the available values were returned.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkGetSwapchainTimeDomainPropertiesEXT-device-parameter" href="#VUID-vkGetSwapchainTimeDomainPropertiesEXT-device-parameter"></a> <span class="vuid">VUID-vkGetSwapchainTimeDomainPropertiesEXT-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="../devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkGetSwapchainTimeDomainPropertiesEXT-swapchain-parameter" href="#VUID-vkGetSwapchainTimeDomainPropertiesEXT-swapchain-parameter"></a> <span class="vuid">VUID-vkGetSwapchainTimeDomainPropertiesEXT-swapchain-parameter</span><br>
+ <code>swapchain</code> <strong>must</strong> be a valid <a href="#VkSwapchainKHR">VkSwapchainKHR</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkGetSwapchainTimeDomainPropertiesEXT-pSwapchainTimeDomainProperties-parameter" href="#VUID-vkGetSwapchainTimeDomainPropertiesEXT-pSwapchainTimeDomainProperties-parameter"></a> <span class="vuid">VUID-vkGetSwapchainTimeDomainPropertiesEXT-pSwapchainTimeDomainProperties-parameter</span><br>
+ <code>pSwapchainTimeDomainProperties</code> <strong>must</strong> be a valid pointer to a <a href="#VkSwapchainTimeDomainPropertiesEXT">VkSwapchainTimeDomainPropertiesEXT</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkGetSwapchainTimeDomainPropertiesEXT-pTimeDomainsCounter-parameter" href="#VUID-vkGetSwapchainTimeDomainPropertiesEXT-pTimeDomainsCounter-parameter"></a> <span class="vuid">VUID-vkGetSwapchainTimeDomainPropertiesEXT-pTimeDomainsCounter-parameter</span><br>
+ If <code>pTimeDomainsCounter</code> is not <code>NULL</code>, <code>pTimeDomainsCounter</code> <strong>must</strong> be a valid pointer to a <code>uint64_t</code> value</p>
+</li>
+<li>
+<p><a id="VUID-vkGetSwapchainTimeDomainPropertiesEXT-swapchain-parent" href="#VUID-vkGetSwapchainTimeDomainPropertiesEXT-swapchain-parent"></a> <span class="vuid">VUID-vkGetSwapchainTimeDomainPropertiesEXT-swapchain-parent</span><br>
+ <code>swapchain</code> <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Host Synchronization</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Return Codes</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-successcodes" class="xref page">Success</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_INCOMPLETE</code></p>
+</li>
+<li>
+<p><code>VK_SUCCESS</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_SURFACE_LOST_KHR</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkSwapchainTimeDomainPropertiesEXT</code> structure is defined as:</p>
+</div>
+<div id="VkSwapchainTimeDomainPropertiesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef struct VkSwapchainTimeDomainPropertiesEXT {
+    VkStructureType     sType;
+    void*               pNext;
+    uint32_t            timeDomainCount;
+    VkTimeDomainKHR*    pTimeDomains;
+    uint64_t*           pTimeDomainIds;
+} VkSwapchainTimeDomainPropertiesEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>timeDomainCount</code> is an integer related to the number of time
+domains available or queried, as described below.</p>
+</li>
+<li>
+<p><code>pTimeDomains</code> is a pointer to an array of <a href="../synchronization.html#VkTimeDomainKHR" class="xref page">VkTimeDomainKHR</a>
+values representing time domains that are available for the swapchain.</p>
+</li>
+<li>
+<p><code>pTimeDomainIds</code> is a pointer to an array of unique identifiers for
+each time domain.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When calling <a href="#vkGetSwapchainTimeDomainPropertiesEXT">vkGetSwapchainTimeDomainPropertiesEXT</a>, if
+<code>pTimeDomains</code> is <code>NULL</code> and <code>pTimeDomainIds</code> is <code>NULL</code>, then the
+number of time domains supported for the given <code>swapchain</code> is returned
+in <code>timeDomainCount</code>.
+Otherwise, <code>timeDomainCount</code> <strong>must</strong> specify the number of elements in the
+<code>pTimeDomains</code>, <code>pTimeDomainIds</code>, or both arrays, and on return the
+variable is overwritten with the number of values actually written to either
+array.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Due to the dynamic nature of their underlying <code>VkSurfaceKHR</code> properties,
+swapchains may need to expose multiple swapchain-local opaque time domains
+using the same <a href="../synchronization.html#VkTimeDomainKHR" class="xref page">VkTimeDomainKHR</a> value over time, for example when a
+surface is moved from one display hardware to another.
+Arbitrary identifiers, provided in <code>timeDomainIds</code>, are used by the
+implementation to differentiate opaque time domains of identical scopes.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkSwapchainTimeDomainPropertiesEXT-sType-sType" href="#VUID-VkSwapchainTimeDomainPropertiesEXT-sType-sType"></a> <span class="vuid">VUID-VkSwapchainTimeDomainPropertiesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkSwapchainTimeDomainPropertiesEXT-pNext-pNext" href="#VUID-VkSwapchainTimeDomainPropertiesEXT-pNext-pNext"></a> <span class="vuid">VUID-VkSwapchainTimeDomainPropertiesEXT-pNext-pNext</span><br>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+</li>
+<li>
+<p><a id="VUID-VkSwapchainTimeDomainPropertiesEXT-pTimeDomains-parameter" href="#VUID-VkSwapchainTimeDomainPropertiesEXT-pTimeDomains-parameter"></a> <span class="vuid">VUID-VkSwapchainTimeDomainPropertiesEXT-pTimeDomains-parameter</span><br>
+ If <code>pTimeDomains</code> is not <code>NULL</code>, <code>pTimeDomains</code> <strong>must</strong> be a valid pointer to an array of <code>timeDomainCount</code> <a href="../synchronization.html#VkTimeDomainKHR" class="xref page">VkTimeDomainKHR</a> values</p>
+</li>
+<li>
+<p><a id="VUID-VkSwapchainTimeDomainPropertiesEXT-pTimeDomainIds-parameter" href="#VUID-VkSwapchainTimeDomainPropertiesEXT-pTimeDomainIds-parameter"></a> <span class="vuid">VUID-VkSwapchainTimeDomainPropertiesEXT-pTimeDomainIds-parameter</span><br>
+ If <code>pTimeDomainIds</code> is not <code>NULL</code>, <code>pTimeDomainIds</code> <strong>must</strong> be a valid pointer to an array of <code>timeDomainCount</code> <code>uint64_t</code> values</p>
+</li>
+<li>
+<p><a id="VUID-VkSwapchainTimeDomainPropertiesEXT-timeDomainCount-arraylength" href="#VUID-VkSwapchainTimeDomainPropertiesEXT-timeDomainCount-arraylength"></a> <span class="vuid">VUID-VkSwapchainTimeDomainPropertiesEXT-timeDomainCount-arraylength</span><br>
+ <code>timeDomainCount</code> <strong>must</strong> be greater than <code>0</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Because of the asynchronous nature of the presentation engine, the timing
+information for a given <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> command <strong>may</strong> only becomes
+available some time after the presentation has occurred.
+These time values <strong>should</strong> be asynchronously queried, and are returned if
+available.
+All time values are in nanoseconds, according to the time-domain being used.</p>
+</div>
+<div class="paragraph">
+<p>To asynchronously query the presentation engine for newly-available timing
+information about one or more previous presents to a given swapchain, call:</p>
+</div>
+<div id="vkGetPastPresentationTimingEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+VkResult vkGetPastPresentationTimingEXT(
+    VkDevice                                    device,
+    const VkPastPresentationTimingInfoEXT*      pPastPresentationTimingInfo,
+    VkPastPresentationTimingPropertiesEXT*      pPastPresentationTimingProperties);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the device associated with <code>swapchain</code>.</p>
+</li>
+<li>
+<p><code>pPastPresentationTimingInfo</code> is a pointer to an instance of the
+<a href="#VkPastPresentationTimingInfoEXT">VkPastPresentationTimingInfoEXT</a> structure.</p>
+</li>
+<li>
+<p><code>pPastPresentationTimingProperties</code> is a pointer to an instance of
+the <a href="#VkPastPresentationTimingPropertiesEXT">VkPastPresentationTimingPropertiesEXT</a> structure.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If upon return the value of
+<code>VkPastPresentationTimingPropertiesEXT</code>::<code>presentationTimingCount</code>
+is less than the number of available timing records for the given
+<code>VkPastPresentationTimingInfoEXT</code>::<code>swapchain</code>, <code>VK_INCOMPLETE</code>
+is returned instead of <code>VK_SUCCESS</code> to indicate that not all the
+available values were returned.</p>
+</div>
+<div class="paragraph">
+<p>Upon return, zero or more slots of the <code>swapchain</code> internal timing
+results queue, equal to the number of entries written to
+<code>VkPastPresentationTimingPropertiesEXT</code>::<code>pPresentationTimings</code> for
+which <code>reportComplete</code> is <code>VK_TRUE</code>, are made available for future
+<code>vkQueuePresentKHR</code> calls.
+Elements of <code>pPresentationTimings</code> are arranged in ascending order of
+present ids.</p>
+</div>
+<div class="paragraph">
+<p>Timing information <strong>may</strong> become available out of order with regards to their
+associated <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> order.
+<code>VK_PAST_PRESENTATION_TIMING_ALLOW_OUT_OF_ORDER_RESULTS_BIT_EXT</code> <strong>can</strong> be
+set in <code>VkPastPresentationTimingInfoEXT</code>::<code>flags</code> to allow
+<code>vkGetPastPresentationTimingEXT</code> to return results in that same order.
+Otherwise, results are returned in the order of their associated
+<a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> calls.</p>
+</div>
+<div class="paragraph">
+<p>There is no requirement for any precise timing relationship between the
+completion of a present stage and the availability of any associated timing
+information.
+However, results <strong>must</strong> be made available in finite time.</p>
+</div>
+<div class="paragraph">
+<p>As an exception to the normal rules for objects which are externally
+synchronized, <code>swapchain</code> <strong>may</strong> be simultaneously used by other threads
+in calls to functions other than <a href="#vkDestroySwapchainKHR">vkDestroySwapchainKHR</a> and
+<a href="#vkCreateSwapchainKHR">vkCreateSwapchainKHR</a> with <code>swapchain</code> used as an
+<code>oldSwapchain</code>.
+Access to the swapchain timing information <strong>must</strong> be atomic within the
+implementation.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkGetPastPresentationTimingEXT-flags-12230" href="#VUID-vkGetPastPresentationTimingEXT-flags-12230"></a> <span class="vuid">VUID-vkGetPastPresentationTimingEXT-flags-12230</span><br>
+
+If <code>VK_PAST_PRESENTATION_TIMING_ALLOW_OUT_OF_ORDER_RESULTS_BIT_EXT</code>
+is set in <code>VkPastPresentationTimingInfoEXT</code>::<code>flags</code>, the
+<code>presentStageCount</code> value of each element of
+<code>VkPastPresentationTimingPropertiesEXT</code>::<code>pPresentationTimings</code>
+<strong>must</strong> be at least the maximum number of present stages set in
+<a href="#VkPresentTimingInfoEXT">VkPresentTimingInfoEXT</a>::<code>presentStageQueries</code> among all
+<a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> calls, with a non-zero
+<code>presentStageQueries</code>, for which complete results have not been
+returned yet by a previous call</p>
+</li>
+<li>
+<p><a id="VUID-vkGetPastPresentationTimingEXT-flags-12231" href="#VUID-vkGetPastPresentationTimingEXT-flags-12231"></a> <span class="vuid">VUID-vkGetPastPresentationTimingEXT-flags-12231</span><br>
+
+If <code>VK_PAST_PRESENTATION_TIMING_ALLOW_OUT_OF_ORDER_RESULTS_BIT_EXT</code>
+is not set in <code>VkPastPresentationTimingInfoEXT</code>::<code>flags</code>, the
+<code>presentStageCount</code> value of each element of
+<code>VkPastPresentationTimingPropertiesEXT</code>::<code>pPresentationTimings</code>
+<strong>must</strong> be at least the number of present stages set in
+<code>VkPresentTimingInfoEXT</code>::<code>presentStageQueries</code> for the earliest
+call to <code>vkQueuePresentKHR</code>, with a non-zero
+<code>presentStageQueries</code>, that corresponds to that element&#8217;s index and
+for which complete results have not been returned yet by a previous call</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkGetPastPresentationTimingEXT-device-parameter" href="#VUID-vkGetPastPresentationTimingEXT-device-parameter"></a> <span class="vuid">VUID-vkGetPastPresentationTimingEXT-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="../devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkGetPastPresentationTimingEXT-pPastPresentationTimingInfo-parameter" href="#VUID-vkGetPastPresentationTimingEXT-pPastPresentationTimingInfo-parameter"></a> <span class="vuid">VUID-vkGetPastPresentationTimingEXT-pPastPresentationTimingInfo-parameter</span><br>
+ <code>pPastPresentationTimingInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkPastPresentationTimingInfoEXT">VkPastPresentationTimingInfoEXT</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkGetPastPresentationTimingEXT-pPastPresentationTimingProperties-parameter" href="#VUID-vkGetPastPresentationTimingEXT-pPastPresentationTimingProperties-parameter"></a> <span class="vuid">VUID-vkGetPastPresentationTimingEXT-pPastPresentationTimingProperties-parameter</span><br>
+ <code>pPastPresentationTimingProperties</code> <strong>must</strong> be a valid pointer to a <a href="#VkPastPresentationTimingPropertiesEXT">VkPastPresentationTimingPropertiesEXT</a> structure</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Return Codes</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-successcodes" class="xref page">Success</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_INCOMPLETE</code></p>
+</li>
+<li>
+<p><code>VK_SUCCESS</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_DEVICE_LOST</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_OUT_OF_DATE_KHR</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_SURFACE_LOST_KHR</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPastPresentationTimingInfoEXT</code> structure is defined as:</p>
+</div>
+<div id="VkPastPresentationTimingInfoEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef struct VkPastPresentationTimingInfoEXT {
+    VkStructureType                     sType;
+    const void*                         pNext;
+    VkPastPresentationTimingFlagsEXT    flags;
+    VkSwapchainKHR                      swapchain;
+} VkPastPresentationTimingInfoEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>flags</code> is a bitmask of <a href="#VkPastPresentationTimingFlagBitsEXT">VkPastPresentationTimingFlagBitsEXT</a>
+specifying options for queries of past presentation timing information.</p>
+</li>
+<li>
+<p><code>swapchain</code> is the swapchain to obtain presentation timing
+information for.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPastPresentationTimingInfoEXT-sType-sType" href="#VUID-VkPastPresentationTimingInfoEXT-sType-sType"></a> <span class="vuid">VUID-VkPastPresentationTimingInfoEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_INFO_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPastPresentationTimingInfoEXT-pNext-pNext" href="#VUID-VkPastPresentationTimingInfoEXT-pNext-pNext"></a> <span class="vuid">VUID-VkPastPresentationTimingInfoEXT-pNext-pNext</span><br>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPastPresentationTimingInfoEXT-flags-parameter" href="#VUID-VkPastPresentationTimingInfoEXT-flags-parameter"></a> <span class="vuid">VUID-VkPastPresentationTimingInfoEXT-flags-parameter</span><br>
+ <code>flags</code> <strong>must</strong> be a valid combination of <a href="#VkPastPresentationTimingFlagBitsEXT">VkPastPresentationTimingFlagBitsEXT</a> values</p>
+</li>
+<li>
+<p><a id="VUID-VkPastPresentationTimingInfoEXT-swapchain-parameter" href="#VUID-VkPastPresentationTimingInfoEXT-swapchain-parameter"></a> <span class="vuid">VUID-VkPastPresentationTimingInfoEXT-swapchain-parameter</span><br>
+ <code>swapchain</code> <strong>must</strong> be a valid <a href="#VkSwapchainKHR">VkSwapchainKHR</a> handle</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Host Synchronization</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div id="VkPastPresentationTimingFlagsEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef VkFlags VkPastPresentationTimingFlagsEXT;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>VkPastPresentationTimingFlagsEXT</code> is a bitmask type for setting a mask
+of zero or more <a href="#VkPastPresentationTimingFlagBitsEXT">VkPastPresentationTimingFlagBitsEXT</a>.</p>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Bits which <strong>can</strong> be set in
+<a href="#VkPastPresentationTimingInfoEXT">VkPastPresentationTimingInfoEXT</a>::<code>flags</code>, specifying options for
+queries of past presentation timing information, are:</p>
+</div>
+<div id="VkPastPresentationTimingFlagBitsEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef enum VkPastPresentationTimingFlagBitsEXT {
+    VK_PAST_PRESENTATION_TIMING_ALLOW_PARTIAL_RESULTS_BIT_EXT = 0x00000001,
+    VK_PAST_PRESENTATION_TIMING_ALLOW_OUT_OF_ORDER_RESULTS_BIT_EXT = 0x00000002,
+} VkPastPresentationTimingFlagBitsEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_PAST_PRESENTATION_TIMING_ALLOW_PARTIAL_RESULTS_BIT_EXT</code>
+specifies that <a href="#vkGetPastPresentationTimingEXT">vkGetPastPresentationTimingEXT</a> <strong>may</strong> return partial
+results for presentation requests that have not completed all requested
+present stages.</p>
+</li>
+<li>
+<p><code>VK_PAST_PRESENTATION_TIMING_ALLOW_OUT_OF_ORDER_RESULTS_BIT_EXT</code>
+specifies that <a href="#vkGetPastPresentationTimingEXT">vkGetPastPresentationTimingEXT</a> <strong>may</strong> return results
+out of order with respect to the presentation order.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPastPresentationTimingPropertiesEXT</code> structure is defined as:</p>
+</div>
+<div id="VkPastPresentationTimingPropertiesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef struct VkPastPresentationTimingPropertiesEXT {
+    VkStructureType                 sType;
+    void*                           pNext;
+    uint64_t                        timingPropertiesCounter;
+    uint64_t                        timeDomainsCounter;
+    uint32_t                        presentationTimingCount;
+    VkPastPresentationTimingEXT*    pPresentationTimings;
+} VkPastPresentationTimingPropertiesEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>timingPropertiesCounter</code> is a 64-bit unsigned integer set by the
+implementation to the current value of the swapchain&#8217;s internal timing
+properties counter.</p>
+</li>
+<li>
+<p><code>timeDomainsCounter</code> is a 64-bit unsigned integer set by the
+implementation to the current value of the swapchain&#8217;s internal time
+domains list counter.</p>
+</li>
+<li>
+<p><code>presentationTimingCount</code> is an integer related to the number of
+<a href="#VkPastPresentationTimingEXT">VkPastPresentationTimingEXT</a> structures available or queried, as
+described below.</p>
+</li>
+<li>
+<p><code>pPresentationTimings</code> is <code>NULL</code> or a pointer to an array of
+<a href="#VkPastPresentationTimingEXT">VkPastPresentationTimingEXT</a> structures.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When calling <a href="#vkGetPastPresentationTimingEXT">vkGetPastPresentationTimingEXT</a>, if
+<code>pPresentationTimings</code> is <code>NULL</code>, then the number of available timing
+records for the given <code>swapchain</code> is returned in
+<code>presentationTimingCount</code>.
+Otherwise, <code>presentationTimingCount</code> <strong>must</strong> specify the number of
+elements in the <code>pPresentationTimings</code> array, and on return the variable
+is overwritten with the number of structures actually written to
+<code>pPresentationTimings</code>.</p>
+</div>
+<div class="paragraph">
+<p>if <code>VK_PAST_PRESENTATION_TIMING_ALLOW_PARTIAL_RESULTS_BIT_EXT</code> is
+specified in <a href="#VkPastPresentationTimingInfoEXT">VkPastPresentationTimingInfoEXT</a>::<code>flags</code>,
+<code>vkGetPastPresentationTimingEXT</code> <strong>may</strong> return incomplete results,
+containing only information for a subset of the requested present stages.
+Further calls to <code>vkGetPastPresentationTimingEXT</code> will keep providing
+all available results for a previously incomplete entry until it is
+complete.</p>
+</div>
+<div class="paragraph">
+<p>The implementation <strong>must</strong> return a <a href="#VkPastPresentationTimingEXT">VkPastPresentationTimingEXT</a> for
+every <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> referencing <code>swapchain</code> where a non-zero
+<a href="#VkPresentTimingInfoEXT">VkPresentTimingInfoEXT</a>::<code>presentStageQueries</code> was specified and at
+least one present stage has available results.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPastPresentationTimingPropertiesEXT-sType-sType" href="#VUID-VkPastPresentationTimingPropertiesEXT-sType-sType"></a> <span class="vuid">VUID-VkPastPresentationTimingPropertiesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_PROPERTIES_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPastPresentationTimingPropertiesEXT-pNext-pNext" href="#VUID-VkPastPresentationTimingPropertiesEXT-pNext-pNext"></a> <span class="vuid">VUID-VkPastPresentationTimingPropertiesEXT-pNext-pNext</span><br>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPastPresentationTimingPropertiesEXT-pPresentationTimings-parameter" href="#VUID-VkPastPresentationTimingPropertiesEXT-pPresentationTimings-parameter"></a> <span class="vuid">VUID-VkPastPresentationTimingPropertiesEXT-pPresentationTimings-parameter</span><br>
+ <code>pPresentationTimings</code> <strong>must</strong> be a valid pointer to an array of <code>presentationTimingCount</code> <a href="#VkPastPresentationTimingEXT">VkPastPresentationTimingEXT</a> structures</p>
+</li>
+<li>
+<p><a id="VUID-VkPastPresentationTimingPropertiesEXT-presentationTimingCount-arraylength" href="#VUID-VkPastPresentationTimingPropertiesEXT-presentationTimingCount-arraylength"></a> <span class="vuid">VUID-VkPastPresentationTimingPropertiesEXT-presentationTimingCount-arraylength</span><br>
+ <code>presentationTimingCount</code> <strong>must</strong> be greater than <code>0</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The presentation engine <strong>may</strong> change the timing properties of the
+<code>swapchain</code> for a variety of reasons.</p>
+</div>
+<div class="paragraph">
+<p>This <strong>may</strong> occur, for example, if the window system changes its mode,
+including the refresh rate of the display.
+Another example is if an application&#8217;s surface is being composited with
+other windows of a window system, and then the surface&#8217;s window becomes a
+borderless, full-screen window.
+While composited, the timing properties <strong>may</strong> be FRR, and while full-screen,
+the timing properties <strong>may</strong> be VRR.</p>
+</div>
+<div class="paragraph">
+<p>The available time domains for a swapchain <strong>may</strong> change for similar or
+identical reasons.
+Therefore, it is possible that the same event will cause both the
+swapchain&#8217;s internal timing properties counter and time domains list counter
+to update.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPastPresentationTimingEXT</code> structure is defined as:</p>
+</div>
+<div id="VkPastPresentationTimingEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef struct VkPastPresentationTimingEXT {
+    VkStructureType           sType;
+    void*                     pNext;
+    uint64_t                  presentId;
+    uint64_t                  targetTime;
+    uint32_t                  presentStageCount;
+    VkPresentStageTimeEXT*    pPresentStages;
+    VkTimeDomainKHR           timeDomain;
+    uint64_t                  timeDomainId;
+    VkBool32                  reportComplete;
+} VkPastPresentationTimingEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>presentId</code> is zero or a value that was given to a previous
+<code>vkQueuePresentKHR</code> command via
+<a href="#VkPresentId2KHR">VkPresentId2KHR</a>::<code>pPresentIds</code>.</p>
+</li>
+<li>
+<p><code>targetTime</code> is the application-provided target absolute time or
+duration of the associated presentation request in
+<a href="#VkPresentTimingInfoEXT">VkPresentTimingInfoEXT</a>::<code>targetTime</code>.</p>
+</li>
+<li>
+<p><code>presentStageCount</code> is a count of items contained in
+<code>pPresentStages</code>.</p>
+</li>
+<li>
+<p><code>pPresentStages</code> a pointer to an array of
+<a href="#VkPresentStageTimeEXT">VkPresentStageTimeEXT</a> providing timing information for the
+presentation request associated with <code>presentId</code>.</p>
+</li>
+<li>
+<p><code>timeDomain</code> is the time domain used by the presentation engine to
+report times in <code>pPresentStages</code>.</p>
+</li>
+<li>
+<p><code>timeDomainId</code> is the id associated with <code>timeDomain</code>.</p>
+</li>
+<li>
+<p><code>reportComplete</code> is <code>VK_TRUE</code> if the presentation engine has
+reported all the requested results in <code>pPresentStages</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When calling <a href="#vkGetPastPresentationTimingEXT">vkGetPastPresentationTimingEXT</a>, the implementation sets
+<code>presentStageCount</code> to the number of present stages it has written
+results for.
+If <code>VK_PAST_PRESENTATION_TIMING_ALLOW_PARTIAL_RESULTS_BIT_EXT</code> was
+specified in <a href="#VkPastPresentationTimingInfoEXT">VkPastPresentationTimingInfoEXT</a>::<code>flags</code>, the
+implementation <strong>may</strong> return an incomplete report containing fewer present
+stage results than were queried by the associated presentation request.
+Otherwise, results for all the present stages queried by the presentation
+request are written by the implementation.</p>
+</div>
+<div class="paragraph">
+<p>Timing information for some present stages <strong>may</strong> have a time value of 0,
+indicating that results for that present stage are not available.</p>
+</div>
+<div class="paragraph">
+<p>For systems with multiple entities operating within the presentation engine,
+such as multiple displays, <code>pPresentStages</code> will return timing results
+for one entity which has been affected by the presentation.</p>
+</div>
+<div class="paragraph">
+<p><code>timeDomainId</code> <strong>may</strong> be different than the time domain that was specified
+in <code>VkPresentTimingInfoEXT</code>::<code>timeDomainId</code> if the requirements for
+using this time domain could not be met at the time the presentation engine
+processed the presentation request.
+In such a case, the presentation engine <strong>may</strong> pick a time domain to fall back
+to, if one is available, and report results in that domain.
+Applications <strong>can</strong> continue to use this fallback time domain in future
+<code>vkQueuePresentKHR</code> calls, or they <strong>can</strong> call
+<a href="#vkGetSwapchainTimeDomainPropertiesEXT">vkGetSwapchainTimeDomainPropertiesEXT</a> to choose from the currently
+supported time domains.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPastPresentationTimingEXT-sType-sType" href="#VUID-VkPastPresentationTimingEXT-sType-sType"></a> <span class="vuid">VUID-VkPastPresentationTimingEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPastPresentationTimingEXT-pNext-pNext" href="#VUID-VkPastPresentationTimingEXT-pNext-pNext"></a> <span class="vuid">VUID-VkPastPresentationTimingEXT-pNext-pNext</span><br>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPastPresentationTimingEXT-pPresentStages-parameter" href="#VUID-VkPastPresentationTimingEXT-pPresentStages-parameter"></a> <span class="vuid">VUID-VkPastPresentationTimingEXT-pPresentStages-parameter</span><br>
+ <code>pPresentStages</code> <strong>must</strong> be a valid pointer to an array of <code>presentStageCount</code> <a href="#VkPresentStageTimeEXT">VkPresentStageTimeEXT</a> structures</p>
+</li>
+<li>
+<p><a id="VUID-VkPastPresentationTimingEXT-timeDomain-parameter" href="#VUID-VkPastPresentationTimingEXT-timeDomain-parameter"></a> <span class="vuid">VUID-VkPastPresentationTimingEXT-timeDomain-parameter</span><br>
+ <code>timeDomain</code> <strong>must</strong> be a valid <a href="../synchronization.html#VkTimeDomainKHR" class="xref page">VkTimeDomainKHR</a> value</p>
+</li>
+<li>
+<p><a id="VUID-VkPastPresentationTimingEXT-presentStageCount-arraylength" href="#VUID-VkPastPresentationTimingEXT-presentStageCount-arraylength"></a> <span class="vuid">VUID-VkPastPresentationTimingEXT-presentStageCount-arraylength</span><br>
+ <code>presentStageCount</code> <strong>must</strong> be greater than <code>0</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPresentStageTimeEXT</code> structure is defined as:</p>
+</div>
+<div id="VkPresentStageTimeEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef struct VkPresentStageTimeEXT {
+    VkPresentStageFlagsEXT    stage;
+    uint64_t                  time;
+} VkPresentStageTimeEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>stage</code> is a <a href="#VkPresentStageFlagsEXT">VkPresentStageFlagsEXT</a> value specifying a present
+stage.</p>
+</li>
+<li>
+<p><code>time</code> is a time in nanoseconds associated with the <code>stage</code>.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPresentStageTimeEXT-stage-parameter" href="#VUID-VkPresentStageTimeEXT-stage-parameter"></a> <span class="vuid">VUID-VkPresentStageTimeEXT-stage-parameter</span><br>
+ <code>stage</code> <strong>must</strong> be a valid combination of <a href="#VkPresentStageFlagBitsEXT">VkPresentStageFlagBitsEXT</a> values</p>
+</li>
+<li>
+<p><a id="VUID-VkPresentStageTimeEXT-stage-requiredbitmask" href="#VUID-VkPresentStageTimeEXT-stage-requiredbitmask"></a> <span class="vuid">VUID-VkPresentStageTimeEXT-stage-requiredbitmask</span><br>
+ <code>stage</code> <strong>must</strong> not be <code>0</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="openblock">
 <div class="content">
@@ -12425,61 +13750,6 @@ refresh cycle to the next.</p>
 </ul>
 </div>
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The rate at which an application renders and presents new images is known as
-the image present rate (IPR, aka frame rate).
-The inverse of IPR, or the duration between each image present, is the image
-present duration (IPD).
-In order to provide a smooth, stutter-free animation, an application will
-want its IPD to be a multiple of <code>refreshDuration</code>.
-For example, if a display has a 60Hz refresh rate, <code>refreshDuration</code>
-will be a value in nanoseconds that is approximately equal to 16.67ms.
-In such a case, an application will want an IPD of 16.67ms (1X multiplier of
-<code>refreshDuration</code>), or 33.33ms (2X multiplier of <code>refreshDuration</code>),
-or 50.0ms (3X multiplier of <code>refreshDuration</code>), etc.</p>
-</div>
-<div class="paragraph">
-<p>In order to determine a target IPD for a display (i.e. a multiple of
-<code>refreshDuration</code>), an application needs to determine when its images
-are actually displayed.
-Suppose an application has an initial target IPD of 16.67ms (1X multiplier
-of <code>refreshDuration</code>).
-It will therefore position the geometry of a new image 16.67ms later than
-the previous image.
-But suppose this application is running on slower hardware, so that it
-actually takes 20ms to render each new image.
-This will create visual anomalies, because the images will not be displayed
-to the user every 16.67ms, nor every 20ms.
-In this case, it is better for the application to adjust its target IPD to
-33.33ms (i.e. a 2X multiplier of <code>refreshDuration</code>), and tell the
-presentation engine to not present images any sooner than every 33.33ms.
-This will allow the geometry to be correctly positioned for each presentable
-image.</p>
-</div>
-<div class="paragraph">
-<p>Adjustments to an application&#8217;s IPD may be needed because different views of
-an application&#8217;s geometry can take different amounts of time to render.
-For example, looking at the sky may take less time to render than looking at
-multiple, complex items in a room.
-In general, it is good to not frequently change IPD, as that can cause
-visual anomalies.
-Adjustments to a larger IPD because of late images should happen quickly,
-but adjustments to a smaller IPD should only happen if the
-<code>actualPresentTime</code> and <code>earliestPresentTime</code> members of the
-<a href="#VkPastPresentationTimingGOOGLE">VkPastPresentationTimingGOOGLE</a> structure are consistently different,
-and if <code>presentMargin</code> is consistently large, over multiple images.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 <div class="openblock">
 <div class="content">
@@ -12756,8 +14026,8 @@ For example, if <code>VkPresentTimeGOOGLE</code>::<code>desiredPresentTime</code
 far enough in the future that an image is not presented before
 <code>vkQueuePresentKHR</code> is called to present another image, the first
 image will not be displayed to the user.
-If the application continues to do that, the presentation <strong>may</strong> not
-display new images.</p>
+If the application continues to do that, the presentation engine <strong>may</strong>
+not display new images.</p>
 </li>
 <li>
 <p><code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>.
@@ -13972,6 +15242,15 @@ If the <a href="../features.html#features-imageCompressionControlSwapchain" clas
 <code>pNext</code> chain <strong>must</strong> not include an
 <a href="../resources.html#VkImageCompressionControlEXT" class="xref page">VkImageCompressionControlEXT</a> structure</p>
 </li>
+<li>
+<p><a id="VUID-VkSwapchainCreateInfoKHR-presentTiming-12232" href="#VUID-VkSwapchainCreateInfoKHR-presentTiming-12232"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-presentTiming-12232</span><br>
+
+If none of the <a href="../features.html#features-presentTiming" class="xref page"><code>presentTiming</code></a>,
+<a href="../features.html#features-presentAtAbsoluteTime" class="xref page"><code>presentAtAbsoluteTime</code></a>, or
+<a href="../features.html#features-presentAtRelativeTime" class="xref page"><code>presentAtRelativeTime</code></a> features
+are enabled, <code>flags</code> <strong>must</strong> not contain
+<code>VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT</code></p>
+</li>
 </ul>
 </div>
 </div>
@@ -14078,6 +15357,8 @@ typedef enum VkSwapchainCreateFlagBitsKHR {
     VK_SWAPCHAIN_CREATE_PROTECTED_BIT_KHR = 0x00000002,
   // Provided by VK_KHR_swapchain_mutable_format
     VK_SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR = 0x00000004,
+  // Provided by VK_EXT_present_timing
+    VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT = 0x00000200,
   // Provided by VK_KHR_present_id2
     VK_SWAPCHAIN_CREATE_PRESENT_ID_2_BIT_KHR = 0x00000040,
   // Provided by VK_KHR_present_wait2
@@ -14133,6 +15414,12 @@ applications <strong>can</strong> use <code>vkWaitForPresent2KHR</code> to wait 
 presentation engine to have begun presentation of the presentation
 request associated with <a href="#VkPresentWait2InfoKHR">VkPresentWait2InfoKHR</a>::<code>presentId</code> on
 <code>swapchain</code>.</p>
+</li>
+<li>
+<p><code>VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT</code> specifies that features
+supported by the swapchain device in
+<a href="../features.html#VkPhysicalDevicePresentTimingFeaturesEXT" class="xref page">VkPhysicalDevicePresentTimingFeaturesEXT</a> <strong>can</strong> be used to collect
+timing information or schedule presentation requests at specific times.</p>
 </li>
 </ul>
 </div>
@@ -14583,12 +15870,10 @@ typedef struct VkSwapchainPresentModesCreateInfoKHR {
 } VkSwapchainPresentModesCreateInfoKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSwapchainPresentModesCreateInfoEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkSwapchainPresentModesCreateInfoKHR
 typedef VkSwapchainPresentModesCreateInfoKHR VkSwapchainPresentModesCreateInfoEXT;</code></pre>
 </div>
 </div>
@@ -14712,12 +15997,10 @@ typedef struct VkSwapchainPresentScalingCreateInfoKHR {
 } VkSwapchainPresentScalingCreateInfoKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSwapchainPresentScalingCreateInfoEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkSwapchainPresentScalingCreateInfoKHR
 typedef VkSwapchainPresentScalingCreateInfoKHR VkSwapchainPresentScalingCreateInfoEXT;</code></pre>
 </div>
 </div>
@@ -16264,6 +17547,11 @@ applying the following rules in order:</p>
 </li>
 <li>
 <p>If any of the presents would have a result of
+<code>VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT</code> if issued separately then
+<code>VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT</code> is returned.</p>
+</li>
+<li>
+<p>If any of the presents would have a result of
 <code>VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT</code> if issued separately
 then <code>VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT</code> is returned.</p>
 </li>
@@ -16526,6 +17814,9 @@ for execution</p>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
+<p><code>VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_SURFACE_LOST_KHR</code></p>
 </li>
 <li>
@@ -16711,7 +18002,7 @@ presentIds, <code>presentId2Supported</code> <strong>must</strong> be <code>VK_T
 </li>
 <li>
 <p><a id="VUID-VkPresentInfoKHR-pNext-pNext" href="#VUID-VkPresentInfoKHR-pNext-pNext"></a> <span class="vuid">VUID-VkPresentInfoKHR-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDeviceGroupPresentInfoKHR">VkDeviceGroupPresentInfoKHR</a>, <a href="#VkDisplayPresentInfoKHR">VkDisplayPresentInfoKHR</a>, <a href="../debugging.html#VkFrameBoundaryEXT" class="xref page">VkFrameBoundaryEXT</a>, <a href="../debugging.html#VkFrameBoundaryTensorsARM" class="xref page">VkFrameBoundaryTensorsARM</a>, <a href="#VkPresentFrameTokenGGP">VkPresentFrameTokenGGP</a>, <a href="#VkPresentId2KHR">VkPresentId2KHR</a>, <a href="#VkPresentIdKHR">VkPresentIdKHR</a>, <a href="#VkPresentRegionsKHR">VkPresentRegionsKHR</a>, <a href="#VkPresentTimesInfoGOOGLE">VkPresentTimesInfoGOOGLE</a>, <a href="#VkSetPresentConfigNV">VkSetPresentConfigNV</a>, <a href="#VkSwapchainPresentFenceInfoKHR">VkSwapchainPresentFenceInfoKHR</a>, or <a href="#VkSwapchainPresentModeInfoKHR">VkSwapchainPresentModeInfoKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDeviceGroupPresentInfoKHR">VkDeviceGroupPresentInfoKHR</a>, <a href="#VkDisplayPresentInfoKHR">VkDisplayPresentInfoKHR</a>, <a href="../debugging.html#VkFrameBoundaryEXT" class="xref page">VkFrameBoundaryEXT</a>, <a href="../debugging.html#VkFrameBoundaryTensorsARM" class="xref page">VkFrameBoundaryTensorsARM</a>, <a href="#VkPresentFrameTokenGGP">VkPresentFrameTokenGGP</a>, <a href="#VkPresentId2KHR">VkPresentId2KHR</a>, <a href="#VkPresentIdKHR">VkPresentIdKHR</a>, <a href="#VkPresentRegionsKHR">VkPresentRegionsKHR</a>, <a href="#VkPresentTimesInfoGOOGLE">VkPresentTimesInfoGOOGLE</a>, <a href="#VkPresentTimingsInfoEXT">VkPresentTimingsInfoEXT</a>, <a href="#VkSetPresentConfigNV">VkSetPresentConfigNV</a>, <a href="#VkSwapchainPresentFenceInfoKHR">VkSwapchainPresentFenceInfoKHR</a>, or <a href="#VkSwapchainPresentModeInfoKHR">VkSwapchainPresentModeInfoKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-VkPresentInfoKHR-sType-unique" href="#VUID-VkPresentInfoKHR-sType-unique"></a> <span class="vuid">VUID-VkPresentInfoKHR-sType-unique</span><br>
@@ -17253,6 +18544,415 @@ included in <a href="#VkDeviceGroupSwapchainCreateInfoKHR">VkDeviceGroupSwapchai
 </ul>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>When the <a href="../features.html#features-presentAtAbsoluteTime" class="xref page"><code>presentAtAbsoluteTime</code></a> or
+<a href="../features.html#features-presentAtRelativeTime" class="xref page"><code>presentAtRelativeTime</code></a> feature is
+enabled, an application <strong>can</strong> instruct the presentation engine to attempt to
+display an image at a specified time, or for a minimum duration, by
+including the <code>VkPresentTimingsInfoEXT</code> structure in the <code>pNext</code>
+chain of the <a href="#VkPresentInfoKHR">VkPresentInfoKHR</a> structure.</p>
+</div>
+<div class="paragraph">
+<p>The <code>VkPresentTimingsInfoEXT</code> structure is defined as:</p>
+</div>
+<div id="VkPresentTimingsInfoEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef struct VkPresentTimingsInfoEXT {
+    VkStructureType                  sType;
+    const void*                      pNext;
+    uint32_t                         swapchainCount;
+    const VkPresentTimingInfoEXT*    pTimingInfos;
+} VkPresentTimingsInfoEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>swapchainCount</code> is the number of swapchains being presented to by
+this command.</p>
+</li>
+<li>
+<p><code>pTimingInfos</code> is <code>NULL</code> or a pointer to an array of
+<code>VkPresentTimingInfoEXT</code> elements with <code>swapchainCount</code> entries.
+If not <code>NULL</code>, each element of <code>pTimingInfos</code> contains timing
+information for the presentation of the image corresponding to the entry
+in the <code>VkPresentInfoKHR</code>::<code>pImageIndices</code> array.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPresentTimingsInfoEXT-swapchainCount-12233" href="#VUID-VkPresentTimingsInfoEXT-swapchainCount-12233"></a> <span class="vuid">VUID-VkPresentTimingsInfoEXT-swapchainCount-12233</span><br>
+
+<code>swapchainCount</code> <strong>must</strong> be equal to
+<a href="#VkPresentInfoKHR">VkPresentInfoKHR</a>::<code>swapchainCount</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPresentTimingsInfoEXT-pSwapchains-12234" href="#VUID-VkPresentTimingsInfoEXT-pSwapchains-12234"></a> <span class="vuid">VUID-VkPresentTimingsInfoEXT-pSwapchains-12234</span><br>
+
+All swapchains in <a href="#VkPresentInfoKHR">VkPresentInfoKHR</a>::<code>pSwapchains</code> <strong>must</strong> have
+been created with the <a href="#VkSwapchainCreateInfoKHR">VkSwapchainCreateInfoKHR</a>::<code>flags</code> field
+containing <code>VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPresentTimingsInfoEXT-pSwapchains-12235" href="#VUID-VkPresentTimingsInfoEXT-pSwapchains-12235"></a> <span class="vuid">VUID-VkPresentTimingsInfoEXT-pSwapchains-12235</span><br>
+
+For each member of <code>VkPresentInfoKHR</code>::<code>pSwapchains</code>, if the
+associated <a href="#VkPresentTimingInfoEXT">VkPresentTimingInfoEXT</a>::<code>targetTime</code> is not zero,
+the swapchain&#8217;s current present mode <strong>must</strong> be
+<code>VK_PRESENT_MODE_FIFO_LATEST_READY_KHR</code>,
+<code>VK_PRESENT_MODE_FIFO_KHR</code> or <code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPresentTimingsInfoEXT-sType-sType" href="#VUID-VkPresentTimingsInfoEXT-sType-sType"></a> <span class="vuid">VUID-VkPresentTimingsInfoEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PRESENT_TIMINGS_INFO_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPresentTimingsInfoEXT-pTimingInfos-parameter" href="#VUID-VkPresentTimingsInfoEXT-pTimingInfos-parameter"></a> <span class="vuid">VUID-VkPresentTimingsInfoEXT-pTimingInfos-parameter</span><br>
+ If <code>pTimingInfos</code> is not <code>NULL</code>, <code>pTimingInfos</code> <strong>must</strong> be a valid pointer to an array of <code>swapchainCount</code> valid <a href="#VkPresentTimingInfoEXT">VkPresentTimingInfoEXT</a> structures</p>
+</li>
+<li>
+<p><a id="VUID-VkPresentTimingsInfoEXT-swapchainCount-arraylength" href="#VUID-VkPresentTimingsInfoEXT-swapchainCount-arraylength"></a> <span class="vuid">VUID-VkPresentTimingsInfoEXT-swapchainCount-arraylength</span><br>
+ <code>swapchainCount</code> <strong>must</strong> be greater than <code>0</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPresentTimingInfoEXT</code> structure is defined as:</p>
+</div>
+<div id="VkPresentTimingInfoEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef struct VkPresentTimingInfoEXT {
+    VkStructureType                sType;
+    const void*                    pNext;
+    VkPresentTimingInfoFlagsEXT    flags;
+    uint64_t                       targetTime;
+    uint64_t                       timeDomainId;
+    VkPresentStageFlagsEXT         presentStageQueries;
+    VkPresentStageFlagsEXT         targetTimeDomainPresentStage;
+} VkPresentTimingInfoEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>flags</code> is a bitmask of <a href="#VkPresentTimingInfoFlagBitsEXT">VkPresentTimingInfoFlagBitsEXT</a>
+specifying options for how to interpret the timing information.</p>
+</li>
+<li>
+<p><code>targetTime</code> is zero or a value specifying the target present time
+or duration, in nanoseconds, of the presentation request.</p>
+</li>
+<li>
+<p><code>timeDomainId</code> is the id of the time domain used to specify the
+absolute target present time and the timing results obtained in a
+subsequent <a href="#vkGetPastPresentationTimingEXT">vkGetPastPresentationTimingEXT</a> call for the current
+presentation request.</p>
+</li>
+<li>
+<p><code>presentStageQueries</code> is a valid <a href="#VkPresentStageFlagsEXT">VkPresentStageFlagsEXT</a> value
+indicating which present stages the presentation engine will collect
+timing information for.</p>
+</li>
+<li>
+<p><code>targetTimeDomainPresentStage</code> is a valid
+<a href="#VkPresentStageFlagsEXT">VkPresentStageFlagsEXT</a> specifying a single present stage used to
+interpret <code>targetTime</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If <code>targetTime</code> is not zero, the implementation attempts to align the
+<code>VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_VISIBLE_BIT_EXT</code> present stage of
+that presentation request with the time specified in <code>targetTime</code>
+according to the time domain used.
+If <code>VK_PRESENT_TIMING_INFO_PRESENT_AT_NEAREST_REFRESH_CYCLE_BIT_EXT</code> is
+not set in <code>flags</code>, it indicates that the application would strictly
+prefer the image to not be visible before <code>targetTime</code> has lapsed.</p>
+</div>
+<div class="paragraph">
+<p>If <code>targetTime</code> is not zero and <code>timeDomainId</code> is associated with a
+<code>VK_TIME_DOMAIN_PRESENT_STAGE_LOCAL_EXT</code> time domain,
+<code>targetTimeDomainPresentStage</code> is used to specify which present stage&#8217;s
+time domain <code>targetTime</code> is specified for.
+Otherwise, <code>targetTimeDomainPresentStage</code> is ignored.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Some platforms, due to hardware or system limitations, <strong>may</strong> not be able to
+accurately time <code>targetTime</code> with the actual physical event of the image
+becoming visible on the display.
+However, those timing capabilities <strong>may</strong> still be useful and result in
+improved animation quality.</p>
+</div>
+<div class="paragraph">
+<p>As such, the <a href="../features.html#features-presentAtAbsoluteTime" class="xref page"><code>presentAtAbsoluteTime</code></a>
+and <a href="../features.html#features-presentAtRelativeTime" class="xref page"><code>presentAtRelativeTime</code></a> features
+do not provide a strict guarantee regarding the completion of the
+<code>VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_VISIBLE_BIT_EXT</code> present stage
+relative to the <code>targetTime</code>, and implementations <strong>must</strong> strive to make
+it as consistent and accurate as possible.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Applications that specify an absolute present time <strong>should</strong> regularly rebase
+their calculations for their next target time on the feedback from
+<a href="#vkGetPastPresentationTimingEXT">vkGetPastPresentationTimingEXT</a> to compensate for accumulated precision
+errors or potential clock drift.
+It is recommended that when targeting the time of a vertical blanking
+period, applications set
+<code>VK_PRESENT_TIMING_INFO_PRESENT_AT_NEAREST_REFRESH_CYCLE_BIT_EXT</code> to
+allow the implementation to compensate for small precision errors that may
+cause an image to be displayed one refresh cycle later than intended.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPresentTimingInfoEXT-targetTime-12236" href="#VUID-VkPresentTimingInfoEXT-targetTime-12236"></a> <span class="vuid">VUID-VkPresentTimingInfoEXT-targetTime-12236</span><br>
+
+If <code>targetTime</code> is not zero and <code>flags</code> does not contain
+<code>VK_PRESENT_TIMING_INFO_PRESENT_AT_RELATIVE_TIME_BIT_EXT</code>, the
+<a href="../features.html#features-presentAtAbsoluteTime" class="xref page"><code>presentAtAbsoluteTime</code></a> feature
+<strong>must</strong> be enabled</p>
+</li>
+<li>
+<p><a id="VUID-VkPresentTimingInfoEXT-targetTime-12237" href="#VUID-VkPresentTimingInfoEXT-targetTime-12237"></a> <span class="vuid">VUID-VkPresentTimingInfoEXT-targetTime-12237</span><br>
+
+If <code>targetTime</code> is not zero and <code>flags</code> contains
+<code>VK_PRESENT_TIMING_INFO_PRESENT_AT_RELATIVE_TIME_BIT_EXT</code>, the
+<a href="../features.html#features-presentAtRelativeTime" class="xref page"><code>presentAtRelativeTime</code></a> feature
+<strong>must</strong> be enabled</p>
+</li>
+<li>
+<p><a id="VUID-VkPresentTimingInfoEXT-timeDomainId-12238" href="#VUID-VkPresentTimingInfoEXT-timeDomainId-12238"></a> <span class="vuid">VUID-VkPresentTimingInfoEXT-timeDomainId-12238</span><br>
+
+If <code>timeDomainId</code> is associated with a
+<code>VK_TIME_DOMAIN_PRESENT_STAGE_LOCAL_EXT</code> time domain, and
+<code>targetTime</code> is not zero, <code>targetTimeDomainPresentStage</code> <strong>must</strong>
+be a single <code>VkPresentStageFlagsEXT</code> value</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPresentTimingInfoEXT-sType-sType" href="#VUID-VkPresentTimingInfoEXT-sType-sType"></a> <span class="vuid">VUID-VkPresentTimingInfoEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PRESENT_TIMING_INFO_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPresentTimingInfoEXT-pNext-pNext" href="#VUID-VkPresentTimingInfoEXT-pNext-pNext"></a> <span class="vuid">VUID-VkPresentTimingInfoEXT-pNext-pNext</span><br>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPresentTimingInfoEXT-flags-parameter" href="#VUID-VkPresentTimingInfoEXT-flags-parameter"></a> <span class="vuid">VUID-VkPresentTimingInfoEXT-flags-parameter</span><br>
+ <code>flags</code> <strong>must</strong> be a valid combination of <a href="#VkPresentTimingInfoFlagBitsEXT">VkPresentTimingInfoFlagBitsEXT</a> values</p>
+</li>
+<li>
+<p><a id="VUID-VkPresentTimingInfoEXT-presentStageQueries-parameter" href="#VUID-VkPresentTimingInfoEXT-presentStageQueries-parameter"></a> <span class="vuid">VUID-VkPresentTimingInfoEXT-presentStageQueries-parameter</span><br>
+ <code>presentStageQueries</code> <strong>must</strong> be a valid combination of <a href="#VkPresentStageFlagBitsEXT">VkPresentStageFlagBitsEXT</a> values</p>
+</li>
+<li>
+<p><a id="VUID-VkPresentTimingInfoEXT-targetTimeDomainPresentStage-parameter" href="#VUID-VkPresentTimingInfoEXT-targetTimeDomainPresentStage-parameter"></a> <span class="vuid">VUID-VkPresentTimingInfoEXT-targetTimeDomainPresentStage-parameter</span><br>
+ <code>targetTimeDomainPresentStage</code> <strong>must</strong> be a valid combination of <a href="#VkPresentStageFlagBitsEXT">VkPresentStageFlagBitsEXT</a> values</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Bits which <strong>can</strong> be set in <a href="#VkPresentTimingInfoEXT">VkPresentTimingInfoEXT</a>::<code>flags</code>,
+specifying options for how to interpret timing information:</p>
+</div>
+<div id="VkPresentTimingInfoFlagBitsEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef enum VkPresentTimingInfoFlagBitsEXT {
+    VK_PRESENT_TIMING_INFO_PRESENT_AT_RELATIVE_TIME_BIT_EXT = 0x00000001,
+    VK_PRESENT_TIMING_INFO_PRESENT_AT_NEAREST_REFRESH_CYCLE_BIT_EXT = 0x00000002,
+} VkPresentTimingInfoFlagBitsEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_PRESENT_TIMING_INFO_PRESENT_AT_RELATIVE_TIME_BIT_EXT</code> specifies
+that <code>VkPresentTimingInfoEXT</code>::<code>targetTime</code> is to be interpreted
+as a relative time from the previous presentation&#8217;s
+<code>VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_VISIBLE_BIT_EXT</code> stage.
+If the <code>swapchain</code> has never been used to present an image, the
+provided <code>targetTime</code> is ignored.</p>
+</li>
+<li>
+<p><code>VK_PRESENT_TIMING_INFO_PRESENT_AT_NEAREST_REFRESH_CYCLE_BIT_EXT</code>
+specifies that the application would prefer the image to be presented
+earlier than the time specified in
+<code>VkPresentTimingInfoEXT</code>::<code>targetTime</code> if that time falls within
+the first half of a refresh cycle.
+In that case, the presentation engine <strong>may</strong> choose to display the image
+at the start of that refresh cycle.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div id="VkPresentTimingInfoFlagsEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef VkFlags VkPresentTimingInfoFlagsEXT;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>VkPresentTimingInfoFlagsEXT</code> is a bitmask type for setting a mask of
+zero or more <a href="#VkPresentTimingInfoFlagBitsEXT">VkPresentTimingInfoFlagBitsEXT</a>.</p>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Presenting an image to the user typically involves multiple stages.
+Bits which <strong>can</strong> be set to specify present stages are:</p>
+</div>
+<div id="VkPresentStageFlagBitsEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef enum VkPresentStageFlagBitsEXT {
+    VK_PRESENT_STAGE_QUEUE_OPERATIONS_END_BIT_EXT = 0x00000001,
+    VK_PRESENT_STAGE_REQUEST_DEQUEUED_BIT_EXT = 0x00000002,
+    VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_OUT_BIT_EXT = 0x00000004,
+    VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_VISIBLE_BIT_EXT = 0x00000008,
+} VkPresentStageFlagBitsEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_PRESENT_STAGE_QUEUE_OPERATIONS_END_BIT_EXT</code> marks the end of the
+set of queue operations enqueued by <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> on the
+provided <code>VkQueue</code> for a presentation request.</p>
+</li>
+<li>
+<p><code>VK_PRESENT_STAGE_REQUEST_DEQUEUED_BIT_EXT</code> is the stage after which
+the presentation request has been dequeued from the swapchain&#8217;s internal
+presentation request queue, if any, as specified by the present mode
+associated with that request.</p>
+</li>
+<li>
+<p><code>VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_OUT_BIT_EXT</code> is the stage after
+which data for the first pixel of the presentation request associated
+with the image has left the presentation engine for a display hardware.</p>
+</li>
+<li>
+<p><code>VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_VISIBLE_BIT_EXT</code> is the stage
+after which a display hardware has made the first pixel visible for the
+presentation request associated with the image to be presented.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The set of queue operations delimited by
+<code>VK_PRESENT_STAGE_QUEUE_OPERATIONS_END_BIT_EXT</code> includes the wait for
+the semaphores specified in <a href="#VkPresentInfoKHR">VkPresentInfoKHR</a>::<code>pWaitSemaphores</code>,
+if any, and any work implicitly enqueued by the implementation.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div id="VkPresentStageFlagsEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_timing
+typedef VkFlags VkPresentStageFlagsEXT;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>VkPresentStageFlagsEXT</code> is a bitmask type for setting a mask of zero or
+more <a href="#VkPresentStageFlagBitsEXT">VkPresentStageFlagBitsEXT</a>.</p>
 </div>
 </div>
 </div>
@@ -18109,12 +19809,10 @@ typedef struct VkSwapchainPresentModeInfoKHR {
 } VkSwapchainPresentModeInfoKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSwapchainPresentModeInfoEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkSwapchainPresentModeInfoKHR
 typedef VkSwapchainPresentModeInfoKHR VkSwapchainPresentModeInfoEXT;</code></pre>
 </div>
 </div>
@@ -18282,12 +19980,10 @@ typedef struct VkSwapchainPresentFenceInfoKHR {
 } VkSwapchainPresentFenceInfoKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSwapchainPresentFenceInfoEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkSwapchainPresentFenceInfoKHR
 typedef VkSwapchainPresentFenceInfoKHR VkSwapchainPresentFenceInfoEXT;</code></pre>
 </div>
 </div>
@@ -18425,12 +20121,10 @@ VkResult vkReleaseSwapchainImagesKHR(
     const VkReleaseSwapchainImagesInfoKHR*      pReleaseInfo);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="vkReleaseSwapchainImagesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to vkReleaseSwapchainImagesKHR
 VkResult vkReleaseSwapchainImagesEXT(
     VkDevice                                    device,
     const VkReleaseSwapchainImagesInfoKHR*      pReleaseInfo);</code></pre>
@@ -18562,12 +20256,10 @@ typedef struct VkReleaseSwapchainImagesInfoKHR {
 } VkReleaseSwapchainImagesInfoKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkReleaseSwapchainImagesInfoEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkReleaseSwapchainImagesInfoKHR
 typedef VkReleaseSwapchainImagesInfoKHR VkReleaseSwapchainImagesInfoEXT;</code></pre>
 </div>
 </div>
@@ -19903,7 +21595,7 @@ returned by <a href="#vkGetLatencyTimingsNV">vkGetLatencyTimingsNV</a></p>
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
 typedef struct VkLatencyTimingsFrameReportNV {
     VkStructureType    sType;
-    const void*        pNext;
+    void*              pNext;
     uint64_t           presentID;
     uint64_t           inputSampleTimeUs;
     uint64_t           simStartTimeUs;

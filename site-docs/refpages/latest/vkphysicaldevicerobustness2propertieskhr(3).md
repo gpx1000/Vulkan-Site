@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceRobustness2PropertiesKHR {
     VkDeviceSize       robustUniformBufferAccessSizeAlignment;
 } VkPhysicalDeviceRobustness2PropertiesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_robustness2
+// Equivalent to VkPhysicalDeviceRobustness2PropertiesKHR
 typedef VkPhysicalDeviceRobustness2PropertiesKHR VkPhysicalDeviceRobustness2PropertiesEXT;
 
 * 
@@ -67,7 +66,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR`
 
-[VK_KHR_robustness2](VK_KHR_robustness2.html), `VkDeviceSize`, [VkStructureType](VkStructureType.html)
+[VK_EXT_robustness2](VK_EXT_robustness2.html), [VK_KHR_robustness2](VK_KHR_robustness2.html), `VkDeviceSize`, [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/limits.html#VkPhysicalDeviceRobustness2PropertiesKHR).
 

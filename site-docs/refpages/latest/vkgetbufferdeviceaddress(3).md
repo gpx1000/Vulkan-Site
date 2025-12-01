@@ -28,16 +28,14 @@ VkDeviceAddress vkGetBufferDeviceAddress(
     VkDevice                                    device,
     const VkBufferDeviceAddressInfo*            pInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_buffer_device_address
+// Equivalent to vkGetBufferDeviceAddress
 VkDeviceAddress vkGetBufferDeviceAddressKHR(
     VkDevice                                    device,
     const VkBufferDeviceAddressInfo*            pInfo);
 
-or the equivalent command
-
 // Provided by VK_EXT_buffer_device_address
+// Equivalent to vkGetBufferDeviceAddress
 VkDeviceAddress vkGetBufferDeviceAddressEXT(
     VkDevice                                    device,
     const VkBufferDeviceAddressInfo*            pInfo);
@@ -118,7 +116,7 @@ Valid Usage (Implicit)
 
  `pInfo` **must** be a valid pointer to a valid [VkBufferDeviceAddressInfo](VkBufferDeviceAddressInfo.html) structure
 
-[VK_KHR_buffer_device_address](VK_KHR_buffer_device_address.html), [VK_VERSION_1_2](VK_VERSION_1_2.html), [VkBufferDeviceAddressInfo](VkBufferDeviceAddressInfo.html), [VkDevice](VkDevice.html)
+[VK_EXT_buffer_device_address](VK_EXT_buffer_device_address.html), [VK_KHR_buffer_device_address](VK_KHR_buffer_device_address.html), [VK_VERSION_1_2](VK_VERSION_1_2.html), [VkBufferDeviceAddressInfo](VkBufferDeviceAddressInfo.html), [VkDevice](VkDevice.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/resources.html#vkGetBufferDeviceAddress).
 

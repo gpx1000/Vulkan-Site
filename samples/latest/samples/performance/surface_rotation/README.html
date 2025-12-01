@@ -312,6 +312,9 @@
     <a class="nav-link" href="../../extensions/extended_dynamic_state2/README.html">Extended dynamic state2</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../extensions/fragment_density_map/README.html">Fragment density map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/fragment_shader_barycentric/README.html">Fragment shader barycentric</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -397,6 +400,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/synchronization_2/README.html">Synchronization 2</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../extensions/tensor_and_data_graph/README.html">Tensor and Data Graph</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../extensions/tensor_and_data_graph/simple_tensor_and_data_graph/README.html">Simple Tensor and Data Graph</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/timeline_semaphore/README.html">Timeline semaphore</a>
@@ -534,6 +546,9 @@
     <a class="nav-link" href="../../../docs/misc.html">Miscellaneous</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Samples" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -723,11 +738,11 @@ Note that not all devices will show obvious differences, as more and more includ
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Re-create the swapchain using the new surface dimensions i.e.
 the swapchain dimensions match the surface&#8217;s.
-Ignore the <code>preTransform</code> field in <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSwapchainCreateInfoKHR.html"><code>VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR</code></a>.
-This will not match the value returned by <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html"><code>vkGetPhysicalDeviceSurfaceCapabilitiesKHR</code></a> and therefore the Android Compositor will rotate the scene before presenting it to the display</p></td>
+Ignore the <code>preTransform</code> field in <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainCreateInfoKHR.html"><code>VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR</code></a>.
+This will not match the value returned by <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html"><code>vkGetPhysicalDeviceSurfaceCapabilitiesKHR</code></a> and therefore the Android Compositor will rotate the scene before presenting it to the display</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Re-create the swapchain using the old swapchain dimensions, i.e.
 the swapchain dimensions do not change.
-Update the <code>preTransform</code> field in <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSwapchainCreateInfoKHR.html"><code>VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR</code></a> so that it matches the <code>currentTransform</code> field of the <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSurfaceCapabilitiesKHR.html"><code>VkSurfaceCapabilitiesKHR</code></a> returned by the new surface.
+Update the <code>preTransform</code> field in <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainCreateInfoKHR.html"><code>VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR</code></a> so that it matches the <code>currentTransform</code> field of the <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesKHR.html"><code>VkSurfaceCapabilitiesKHR</code></a> returned by the new surface.
 This communicates to Android that it does not need to rotate the scene.</p></td>
 </tr>
 <tr>
@@ -839,8 +854,8 @@ pre_transform = surface_properties.currentTransform;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>currentTransform</code> is a <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/chap32.html#VkSurfaceTransformFlagBitsKHR"><code>VkSurfaceTransformFlagBitsKHR</code></a> value.
-When we re-create the swapchain, we must set the swapchain&#8217;s <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSwapchainCreateInfoKHR.html"><code>preTransform</code></a> to match this value.
+<p><code>currentTransform</code> is a <a href="https://www.khronos.org/registry/vulkan/specs/latest/html/chap32.html#VkSurfaceTransformFlagBitsKHR"><code>VkSurfaceTransformFlagBitsKHR</code></a> value.
+When we re-create the swapchain, we must set the swapchain&#8217;s <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainCreateInfoKHR.html"><code>preTransform</code></a> to match this value.
 This informs the compositor that the application has handled the required transform so it does not have to.</p>
 </div>
 <div class="paragraph">
@@ -1002,10 +1017,10 @@ Even if your scene is not memory-heavy, the extra load on the system resulting f
 <div class="ulist">
 <ul>
 <li>
-<p>To avoid presentation engine transformation passes ensure that swapchain <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSwapchainCreateInfoKHR.html"><code>preTransform</code></a> matches the <code>currentTransform</code> value returned by <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html"><code>vkGetPhysicalDeviceSurfaceCapabilitiesKHR</code></a>.</p>
+<p>To avoid presentation engine transformation passes ensure that swapchain <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainCreateInfoKHR.html"><code>preTransform</code></a> matches the <code>currentTransform</code> value returned by <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html"><code>vkGetPhysicalDeviceSurfaceCapabilitiesKHR</code></a>.</p>
 </li>
 <li>
-<p>If a swapchain image acquisition returns <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkResult.html"><code>VK_SUBOPTIMAL_KHR</code></a> or <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkResult.html"><code>VK_ERROR_OUT_OF_DATE_KHR</code></a> then recreate the swapchain taking into account any updated surface properties including potential orientation updates reported via <code>currentTransform</code>.</p>
+<p>If a swapchain image acquisition returns <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkResult.html"><code>VK_SUBOPTIMAL_KHR</code></a> or <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkResult.html"><code>VK_ERROR_OUT_OF_DATE_KHR</code></a> then recreate the swapchain taking into account any updated surface properties including potential orientation updates reported via <code>currentTransform</code>.</p>
 </li>
 </ul>
 </div>

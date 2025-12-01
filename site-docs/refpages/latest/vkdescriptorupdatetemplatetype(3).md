@@ -33,9 +33,8 @@ typedef enum VkDescriptorUpdateTemplateType {
     VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET_KHR = VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET,
 } VkDescriptorUpdateTemplateType;
 
-or the equivalent
-
 // Provided by VK_KHR_descriptor_update_template
+// Equivalent to VkDescriptorUpdateTemplateType
 typedef VkDescriptorUpdateTemplateType VkDescriptorUpdateTemplateTypeKHR;
 
 * 
@@ -48,7 +47,7 @@ only.
 the descriptor update template will be used for push descriptor updates
 only.
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDescriptorUpdateTemplateCreateInfo](VkDescriptorUpdateTemplateCreateInfo.html)
+[VK_KHR_descriptor_update_template](VK_KHR_descriptor_update_template.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDescriptorUpdateTemplateCreateInfo](VkDescriptorUpdateTemplateCreateInfo.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/descriptorsets.html#VkDescriptorUpdateTemplateType).
 

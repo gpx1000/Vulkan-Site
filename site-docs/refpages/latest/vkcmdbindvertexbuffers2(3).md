@@ -32,9 +32,8 @@ void vkCmdBindVertexBuffers2(
     const VkDeviceSize*                         pSizes,
     const VkDeviceSize*                         pStrides);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdBindVertexBuffers2
 void vkCmdBindVertexBuffers2EXT(
     VkCommandBuffer                             commandBuffer,
     uint32_t                                    firstBinding,
@@ -161,7 +160,7 @@ If `pSizes` is not `NULL`, all elements of `pOffsets` plus
 [](#VUID-vkCmdBindVertexBuffers2-pBuffers-03359) VUID-vkCmdBindVertexBuffers2-pBuffers-03359
 
 All elements of `pBuffers` **must** have been created with the
-`VK_BUFFER_USAGE_VERTEX_BUFFER_BIT` flag
+`VK_BUFFER_USAGE_VERTEX_BUFFER_BIT` usage flag set
 
 [](#VUID-vkCmdBindVertexBuffers2-pBuffers-03360) VUID-vkCmdBindVertexBuffers2-pBuffers-03360
 
@@ -229,7 +228,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindVertexBuffers2-commandBuffer-cmdpool) VUID-vkCmdBindVertexBuffers2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindVertexBuffers2-videocoding) VUID-vkCmdBindVertexBuffers2-videocoding
@@ -259,7 +258,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

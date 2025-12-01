@@ -52,7 +52,7 @@ These shaders will be automatically added to the set beginning at index
 `0`.
 
 * 
-`pSetLayoutInfos` is a pointer to an array containing a
+`pSetLayoutInfos` is NULL or a pointer to an array containing a
 [VkIndirectExecutionSetShaderLayoutInfoEXT](VkIndirectExecutionSetShaderLayoutInfoEXT.html) used by each
 corresponding `pInitialShaders` shader stage in the set.
 
@@ -73,6 +73,9 @@ shaders added to the set even if they are removed from the set or destroyed.
 
 When an Indirect Execution Set created with shader objects is used,
 `pInitialShaders` constitutes the initial shader state.
+
+If `pSetLayoutInfos` is `NULL`, the descriptor layout parameters are
+inherited from the shader object.
 
 Valid Usage
 
@@ -109,6 +112,13 @@ be unique
 
 Each member of `pInitialShaders` **must** have been created with
 `VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT`
+
+* 
+[](#VUID-VkIndirectExecutionSetShaderInfoEXT-pSetLayoutInfos-10929) VUID-VkIndirectExecutionSetShaderInfoEXT-pSetLayoutInfos-10929
+
+If `pSetLayoutInfos` is not `NULL`, the descriptor layout values
+specified **must** be compatible with the descriptor set layouts defined at
+the creation of the shader object
 
 Valid Usage (Implicit)
 

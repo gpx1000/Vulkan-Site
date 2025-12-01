@@ -30,9 +30,8 @@ typedef struct VkReleaseSwapchainImagesInfoKHR {
     const uint32_t*    pImageIndices;
 } VkReleaseSwapchainImagesInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkReleaseSwapchainImagesInfoKHR
 typedef VkReleaseSwapchainImagesInfoKHR VkReleaseSwapchainImagesInfoEXT;
 
 * 

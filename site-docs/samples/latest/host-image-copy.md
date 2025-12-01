@@ -39,7 +39,7 @@ The `VK_EXT_host_image_copy` extension aims to improve this by providing a direc
 |  | A staged upload usually has to first perform a CPU copy of data to a GPU-visible buffer and then uses the GPU to convert that data into the optimal format. A host-image copy does the copy and conversion using the CPU alone. In many circumstances this can actually be faster than the staged approach even though the GPU is not involved in the transfer. |
 | --- | --- |
 
-The `VK_EXT_host_image_copy` extension needs to be enabled at device level. Depending on the Vulkan version you target, additional extensions might need to be enabled. See the [extension and version dependencies](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_host_image_copy.html#_extension_and_version_dependencies) of the extension spec for details.
+The `VK_EXT_host_image_copy` extension needs to be enabled at device level. Depending on the Vulkan version you target, additional extensions might need to be enabled. See the [extension and version dependencies](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_host_image_copy.html#_extension_and_version_dependencies) of the extension spec for details.
 
 In addition to the extension(s) you also need to enable the `hostImageCopy` for the extension structure:
 
@@ -142,7 +142,7 @@ Aside from the use-case shown in this sample, the `VK_EXT_host_image_copy` exten
 [Extension proposal](https://docs.vulkan.org/features/latest/features/proposals/VK_EXT_host_image_copy.html)
 
 * 
-[Specification](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_host_image_copy.html)
+[Specification](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_host_image_copy.html)
 
 * 
 [Extension device support](https://vulkan.gpuinfo.org/displayextensiondetail?extension=VK_EXT_host_image_copy)

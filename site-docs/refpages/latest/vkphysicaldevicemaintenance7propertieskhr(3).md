@@ -52,8 +52,8 @@ the size of the attachment multiplied by the texel size **must** be greater
 than or equal to the size of the render area.
 If it is `VK_TRUE` and the fragment shading rate attachment was
 created with [VkImageSubresourceRange](VkImageSubresourceRange.html)::`baseMipLevel` equal to
-0, the scaled size **can** be smaller than the render area, and shading
-rates for missing texels are defined by [    texel replacement for invalid texels](../../../../spec/latest/chapters/textures.html#textures-texel-replacement).
+0, the scaled size **can** be smaller than the render area, with missing
+shading rates defined by [out    of bounds behavior](../../../../spec/latest/chapters/shaders.html#shaders-execution-memory-access-bounds).
 
 * 
 

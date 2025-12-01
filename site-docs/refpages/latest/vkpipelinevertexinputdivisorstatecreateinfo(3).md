@@ -36,14 +36,12 @@ typedef struct VkPipelineVertexInputDivisorStateCreateInfo {
     const VkVertexInputBindingDivisorDescription*    pVertexBindingDivisors;
 } VkPipelineVertexInputDivisorStateCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_vertex_attribute_divisor
+// Equivalent to VkPipelineVertexInputDivisorStateCreateInfo
 typedef VkPipelineVertexInputDivisorStateCreateInfo VkPipelineVertexInputDivisorStateCreateInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_vertex_attribute_divisor
+// Equivalent to VkPipelineVertexInputDivisorStateCreateInfo
 typedef VkPipelineVertexInputDivisorStateCreateInfo VkPipelineVertexInputDivisorStateCreateInfoEXT;
 
 * 

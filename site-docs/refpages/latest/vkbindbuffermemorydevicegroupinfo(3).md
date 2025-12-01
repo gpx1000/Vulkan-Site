@@ -29,9 +29,8 @@ typedef struct VkBindBufferMemoryDeviceGroupInfo {
     const uint32_t*    pDeviceIndices;
 } VkBindBufferMemoryDeviceGroupInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_bind_memory2 with VK_KHR_device_group
+// Equivalent to VkBindBufferMemoryDeviceGroupInfo
 typedef VkBindBufferMemoryDeviceGroupInfo VkBindBufferMemoryDeviceGroupInfoKHR;
 
 * 
@@ -94,7 +93,7 @@ Valid Usage (Implicit)
 
  If `deviceIndexCount` is not `0`, `pDeviceIndices` **must** be a valid pointer to an array of `deviceIndexCount` `uint32_t` values
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_bind_memory2](VK_KHR_bind_memory2.html), [VK_KHR_device_group](VK_KHR_device_group.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/resources.html#VkBindBufferMemoryDeviceGroupInfo).
 

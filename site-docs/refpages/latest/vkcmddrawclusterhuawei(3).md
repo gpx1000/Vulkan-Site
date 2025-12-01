@@ -315,6 +315,13 @@ command and the bound [VkPipeline](VkPipeline.html) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
 
 * 
+[](#VUID-vkCmdDrawClusterHUAWEI-imageLayout-00344) VUID-vkCmdDrawClusterHUAWEI-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](VkImageLayout.html)
+**must** match the subresource accessible from the [VkImageView](VkImageView.html) as
+defined by the [image layout    matching rules](../../../../spec/latest/chapters/resources.html#resources-image-layouts-matching-rule)
+
+* 
 [](#VUID-vkCmdDrawClusterHUAWEI-None-08115) VUID-vkCmdDrawClusterHUAWEI-None-08115
 
 If the descriptors used by the [VkPipeline](VkPipeline.html) bound to the pipeline
@@ -1800,6 +1807,20 @@ was not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the bound graphics pipeline **mus
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), the
+[`dynamicRenderingLocalRead`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](../../../../spec/latest/chapters/renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](VkRenderingAttachmentFlagsInfoKHR.html)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawClusterHUAWEI-imageView-06184) VUID-vkCmdDrawClusterHUAWEI-imageView-06184
 
 If the current render pass instance was begun with
@@ -1873,6 +1894,7 @@ or
     [VkAttachmentSampleCountInfoNV](VkAttachmentSampleCountInfoAMD.html)
     structure, and
     the [    `multisampledRenderToSingleSampled`](../../../../spec/latest/chapters/features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](vkCmdBeginRendering.html) with a
     [VkRenderingInfo](VkRenderingInfo.html)::`colorAttachmentCount` parameter greater than
@@ -1891,6 +1913,7 @@ or
     [VkAttachmentSampleCountInfoNV](VkAttachmentSampleCountInfoAMD.html)
     structure, and
     the [    `multisampledRenderToSingleSampled`](../../../../spec/latest/chapters/features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -1905,6 +1928,7 @@ or
     [VkAttachmentSampleCountInfoNV](VkAttachmentSampleCountInfoAMD.html)
     structure, and
     the [    `multisampledRenderToSingleSampled`](../../../../spec/latest/chapters/features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -1912,8 +1936,8 @@ or
 
 [](#VUID-vkCmdDrawClusterHUAWEI-pNext-07935) VUID-vkCmdDrawClusterHUAWEI-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](vkCmdBeginRendering.html), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), and the `pNext` chain of
 [VkRenderingInfo](VkRenderingInfo.html) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](VkMultisampledRenderToSingleSampledInfoEXT.html) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -1931,39 +1955,81 @@ with a [VkGraphicsPipelineCreateInfo](VkGraphicsPipelineCreateInfo.html)::`rende
 [](#VUID-vkCmdDrawClusterHUAWEI-pColorAttachments-08963) VUID-vkCmdDrawClusterHUAWEI-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](vkCmdBeginRendering.html), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), then the corresponding element of
+[vkCmdBeginRendering](vkCmdBeginRendering.html),
+[vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](VK_NULL_HANDLE.html), then the corresponding element of
 [VkPipelineRenderingCreateInfo](VkPipelineRenderingCreateInfo.html)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-pColorAttachments-11539) VUID-vkCmdDrawClusterHUAWEI-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](VK_NULL_HANDLE.html), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawClusterHUAWEI-pDepthAttachment-08964) VUID-vkCmdDrawClusterHUAWEI-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](vkCmdBeginRendering.html), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](vkCmdBeginRendering.html),
+[vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](VK_NULL_HANDLE.html), then the
 [VkPipelineRenderingCreateInfo](VkPipelineRenderingCreateInfo.html)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawClusterHUAWEI-pDepthAttachment-11540) VUID-vkCmdDrawClusterHUAWEI-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](VK_NULL_HANDLE.html), then the
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawClusterHUAWEI-pStencilAttachment-08965) VUID-vkCmdDrawClusterHUAWEI-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](vkCmdBeginRendering.html), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](vkCmdBeginRendering.html),
+[vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](VK_NULL_HANDLE.html), then the
 [VkPipelineRenderingCreateInfo](VkPipelineRenderingCreateInfo.html)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawClusterHUAWEI-flags-10582) VUID-vkCmdDrawClusterHUAWEI-flags-10582
+[](#VUID-vkCmdDrawClusterHUAWEI-pStencilAttachment-11860) VUID-vkCmdDrawClusterHUAWEI-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](vkCmdBeginRendering.html), its [VkRenderingInfo](VkRenderingInfo.html)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](vkCmdBeginRendering.html), [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), then the
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-flags-10582) VUID-vkCmdDrawClusterHUAWEI-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](vkCmdBeginRendering.html) call in `commandBuffer`, its
+[VkRenderingInfo](VkRenderingInfo.html)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -2285,8 +2351,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawClusterHUAWEI-None-07642) VUID-vkCmdDrawClusterHUAWEI-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](VK_NV_fragment_coverage_to_color.html)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](../../../../spec/latest/chapters/pipelines.html#dynamic-state-current-value) of
@@ -2298,8 +2363,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawClusterHUAWEI-None-07643) VUID-vkCmdDrawClusterHUAWEI-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](VK_NV_fragment_coverage_to_color.html)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](../../../../spec/latest/chapters/pipelines.html#dynamic-state-current-value) of
@@ -2367,8 +2431,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawClusterHUAWEI-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawClusterHUAWEI-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](../../../../spec/latest/chapters/features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](../../../../spec/latest/chapters/pipelines.html#dynamic-state-current-value) of
@@ -2993,19 +3056,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](vkCmdBeginRendering.html),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](vkCmdSetRenderingAttachmentLocations.html) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](VkRenderingAttachmentLocationInfo.html)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](vkCmdSetRenderingAttachmentLocations.html) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawClusterHUAWEI-None-09549) VUID-vkCmdDrawClusterHUAWEI-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](vkCmdBeginRendering.html),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](VkRenderingInputAttachmentIndexInfo.html)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](VkRenderingInputAttachmentIndexInfo.html)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-10927) VUID-vkCmdDrawClusterHUAWEI-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](vkCmdBeginRendering.html),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](VkRenderingInputAttachmentIndexInfo.html)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-10928) VUID-vkCmdDrawClusterHUAWEI-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](vkCmdBeginRendering.html),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](VkRenderingInputAttachmentIndexInfo.html)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawClusterHUAWEI-None-09642) VUID-vkCmdDrawClusterHUAWEI-None-09642
 
@@ -3032,6 +3113,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawClusterHUAWEI-flags-11521) VUID-vkCmdDrawClusterHUAWEI-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](vkCmdBeginRendering.html)
+with [VkRenderingInfo](VkRenderingInfo.html)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](../../../../spec/latest/chapters/primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11522) VUID-vkCmdDrawClusterHUAWEI-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](vkCmdBeginRendering.html) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11523) VUID-vkCmdDrawClusterHUAWEI-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](vkCmdBeginRendering.html) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)
+
+[](#VUID-vkCmdDrawClusterHUAWEI-customResolve-11524) VUID-vkCmdDrawClusterHUAWEI-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) and [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-customResolve-11525) VUID-vkCmdDrawClusterHUAWEI-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11861) VUID-vkCmdDrawClusterHUAWEI-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`colorAttachmentCount` equal to
+[VkRenderingInfo](VkRenderingInfo.html)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11862) VUID-vkCmdDrawClusterHUAWEI-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), it contains a custom resolve, and
+[VkRenderingInfo](VkRenderingInfo.html)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](VK_NULL_HANDLE.html) **must**
+have been created with a [VkFormat](VkFormat.html) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11863) VUID-vkCmdDrawClusterHUAWEI-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), it contains a custom resolve, and
+[VkRenderingInfo](VkRenderingInfo.html)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](VK_NULL_HANDLE.html) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](vkCmdBeginRendering.html),
+it contains a custom resolve, and
+[VkRenderingInfo](VkRenderingInfo.html)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](VK_NULL_HANDLE.html) **must**
+have been created with a [VkFormat](VkFormat.html) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11865) VUID-vkCmdDrawClusterHUAWEI-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11866) VUID-vkCmdDrawClusterHUAWEI-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](VkFormat.html)
+used to create
+[VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](VK_NULL_HANDLE.html), and the value of
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](VkFormat.html)
+used to create
+[VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11868) VUID-vkCmdDrawClusterHUAWEI-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11869) VUID-vkCmdDrawClusterHUAWEI-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](VkFormat.html) used to create
+[VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), and the value of
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](VkFormat.html) used to create
+[VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-colorAttachmentCount-11871) VUID-vkCmdDrawClusterHUAWEI-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html) with a
+[VkRenderingInfo](VkRenderingInfo.html)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](VkRenderingInfo.html)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawClusterHUAWEI-pDepthAttachment-11872) VUID-vkCmdDrawClusterHUAWEI-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](VkRenderingInfo.html)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-pStencilAttachment-11873) VUID-vkCmdDrawClusterHUAWEI-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](vkCmdBeginRendering.html), [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has been
+recorded in the render pass instance,
+[VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](VkRenderingInfo.html)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-customResolve-11529) VUID-vkCmdDrawClusterHUAWEI-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](vkCmdBeginRendering.html), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-customResolve-11530) VUID-vkCmdDrawClusterHUAWEI-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](vkCmdBeginRendering.html) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](vkCmdBeginCustomResolveEXT.html) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](VkCustomResolveCreateInfoEXT.html)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawClusterHUAWEI-stage-06480) VUID-vkCmdDrawClusterHUAWEI-stage-06480
@@ -3152,12 +3459,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawClusterHUAWEI-commandBuffer-cmdpool) VUID-vkCmdDrawClusterHUAWEI-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawClusterHUAWEI-renderpass) VUID-vkCmdDrawClusterHUAWEI-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawClusterHUAWEI-suspended) VUID-vkCmdDrawClusterHUAWEI-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawClusterHUAWEI-videocoding) VUID-vkCmdDrawClusterHUAWEI-videocoding
@@ -3177,7 +3489,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

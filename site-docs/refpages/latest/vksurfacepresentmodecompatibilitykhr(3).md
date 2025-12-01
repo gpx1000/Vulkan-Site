@@ -29,9 +29,8 @@ typedef struct VkSurfacePresentModeCompatibilityKHR {
     VkPresentModeKHR*    pPresentModes;
 } VkSurfacePresentModeCompatibilityKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_surface_maintenance1
+// Equivalent to VkSurfacePresentModeCompatibilityKHR
 typedef VkSurfacePresentModeCompatibilityKHR VkSurfacePresentModeCompatibilityEXT;
 
 * 

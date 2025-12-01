@@ -53,10 +53,8 @@ state is updated by the command.
 `pSizes` is `NULL` or a pointer to an array of `VkDeviceSize`
 buffer sizes, specifying the maximum number of bytes to capture to the
 corresponding transform feedback buffer.
-If `pSizes` is `NULL`, or the value of the `pSizes` array
-element is `VK_WHOLE_SIZE`, then the maximum number of bytes
-captured will be the size of the corresponding buffer minus the buffer
-offset.
+If `pSizes` is `NULL`, it is equivalent to setting a `pSizes`
+array where every element is `VK_WHOLE_SIZE`.
 
 The values taken from elements i of `pBuffers`, `pOffsets` and
 `pSizes` replace the current state for the transform feedback binding
@@ -64,6 +62,11 @@ The values taken from elements i of `pBuffers`, `pOffsets` and
 `bindingCount`).
 The transform feedback binding is updated to start at the offset indicated
 by `pOffsets`[i] from the start of the buffer `pBuffers`[i].
+
+When an element of `pSizes`[i] is `VK_WHOLE_SIZE`, or `pSizes`
+is `NULL`, the effective range is calculated by taking the size of
+`pBuffers`[i] minus `pOffsets`[i].
+Otherwise, the effective range is equal to the element in `pSizes`[i].
 
 Valid Usage
 
@@ -101,29 +104,15 @@ All elements of `pOffsets` **must** be a multiple of 4
 [](#VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02360) VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02360
 
 All elements of `pBuffers` **must** have been created with the
-`VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_BUFFER_BIT_EXT` flag
-
-* 
-[](#VUID-vkCmdBindTransformFeedbackBuffersEXT-pSize-02361) VUID-vkCmdBindTransformFeedbackBuffersEXT-pSize-02361
-
-If the optional `pSize` array is specified, each element of
-`pSizes` **must** either be `VK_WHOLE_SIZE`, or be less than or
-equal to
-`VkPhysicalDeviceTransformFeedbackPropertiesEXT`::`maxTransformFeedbackBufferSize`
-
-* 
-[](#VUID-vkCmdBindTransformFeedbackBuffersEXT-pSizes-02362) VUID-vkCmdBindTransformFeedbackBuffersEXT-pSizes-02362
-
-All elements of `pSizes` **must** be either `VK_WHOLE_SIZE`, or
-less than or equal to the size of the corresponding buffer in
-`pBuffers`
+`VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_BUFFER_BIT_EXT` usage flag set
 
 * 
 [](#VUID-vkCmdBindTransformFeedbackBuffersEXT-pOffsets-02363) VUID-vkCmdBindTransformFeedbackBuffersEXT-pOffsets-02363
 
-All elements of `pOffsets` plus `pSizes`, where the
-`pSizes`, element is not `VK_WHOLE_SIZE`, **must** be less than or
-equal to the size of the corresponding buffer in `pBuffers`
+All elements of `pOffsets` plus the
+[effective size](../../../../spec/latest/chapters/vertexpostproc.html#transform-feedback-effective-size) of the element,
+**must** be less than or equal to the size of the corresponding buffer in
+`pBuffers`
 
 * 
 [](#VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02364) VUID-vkCmdBindTransformFeedbackBuffersEXT-pBuffers-02364
@@ -162,7 +151,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindTransformFeedbackBuffersEXT-commandBuffer-cmdpool) VUID-vkCmdBindTransformFeedbackBuffersEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindTransformFeedbackBuffersEXT-videocoding) VUID-vkCmdBindTransformFeedbackBuffersEXT-videocoding
@@ -192,7 +181,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

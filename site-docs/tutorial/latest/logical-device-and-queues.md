@@ -33,7 +33,7 @@ same physical device if you have varying requirements.
 
 Start by adding a new class member to store the logical device handle in.
 
-vk::raii::Device device;
+vk::raii::Device device = nullptr;
 
 Next, add a `createLogicalDevice` function that is called from `initVulkan`.
 
@@ -54,7 +54,7 @@ structure describes the number of queues we want for a single queue family.
 Right now we’re only interested in a queue with graphics capabilities.
 
 std::vector queueFamilyProperties = physicalDevice.getQueueFamilyProperties();
-
+uint32_t graphicsIndex = findQueueFamilies(m_physicalDevice);
 vk::DeviceQueueCreateInfo deviceQueueCreateInfo { .queueFamilyIndex = graphicsIndex };
 
 The currently available drivers will only allow you to create a small number of
@@ -66,7 +66,7 @@ Vulkan lets you assign priorities to queues to influence the scheduling of
 command buffer execution using floating point numbers between `0.0` and `1.0`.
 This is required even if there is only a single queue:
 
-float queuePriority = 0.0f;
+float queuePriority = 0.5f;
 vk::DeviceQueueCreateInfo deviceQueueCreateInfo { .queueFamilyIndex = graphicsIndex, .queueCount = 1, .pQueuePriorities = &queuePriority };
 
 The next information to specify is the set of device features that we’ll be
@@ -158,7 +158,7 @@ extension in the swap chain chapter.
 
 Previous implementations of Vulkan made a distinction between instance and
 device-specific validation layers, but this is
-[no longer the case](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/chap40.html#extendingvulkan-layers-devicelayerdeprecation).
+[no longer the case](https://docs.vulkan.org/spec/latest/chapters/raytracing.html#extendingvulkan-layers-devicelayerdeprecation).
 That means that the `enabledLayerCount` and `ppEnabledLayerNames` fields of
 `VkDeviceCreateInfo` are ignored by up-to-date implementations.
 

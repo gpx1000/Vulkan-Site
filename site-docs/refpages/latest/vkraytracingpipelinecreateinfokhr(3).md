@@ -96,8 +96,8 @@ dynamic.
     equal to Vulkan 1.3
 or
     [VK_KHR_maintenance4](VK_KHR_maintenance4.html) is enabled
-    `layout` **must** not be accessed outside of the duration of the
-    command this structure is passed to.
+    `layout` **must** not be accessed by the implementation outside of the
+    duration of the command this structure is passed to.
 
 * 
 `basePipelineHandle` is a pipeline to derive from.
@@ -206,8 +206,9 @@ descriptor type
 [](#VUID-VkRayTracingPipelineCreateInfoKHR-layout-07991) VUID-VkRayTracingPipelineCreateInfoKHR-layout-07991
 
 If a [resource variable](../../../../spec/latest/chapters/interfaces.html#interfaces-resources) is declared in a shader
-as an array, the corresponding descriptor set in `layout` **must**
-match the descriptor count
+as an array, the corresponding descriptor binding used to create
+`layout` **must** have a `descriptorCount` that is greater than or
+equal to the length of the array
 
 * 
 [](#VUID-VkRayTracingPipelineCreateInfoKHR-None-10391) VUID-VkRayTracingPipelineCreateInfoKHR-None-10391
@@ -215,6 +216,13 @@ match the descriptor count
 If a [resource variables](../../../../spec/latest/chapters/interfaces.html#interfaces-resources) is declared in a shader
 as an array of descriptors, then the descriptor type of that variable
 **must** not be `VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK`
+
+* 
+[](#VUID-VkRayTracingPipelineCreateInfoKHR-flags-11798) VUID-VkRayTracingPipelineCreateInfoKHR-flags-11798
+
+If [shader64BitIndexing](../../../../spec/latest/chapters/features.html#features-shader64BitIndexing) feature is not
+enabled, `flags` **must** not contain
+`VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT`
 
 * 
 [](#VUID-VkRayTracingPipelineCreateInfoKHR-pStages-03426) VUID-VkRayTracingPipelineCreateInfoKHR-pStages-03426
@@ -369,7 +377,7 @@ If the `[VK_KHR_pipeline_library](VK_KHR_pipeline_library.html)` extension is no
 
 If `flags` includes
 `VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_BIT_KHR`,
-for any element of `pGroups` with a `type` of
+for each element of `pGroups` with a `type` of
 `VK_RAY_TRACING_SHADER_GROUP_TYPE_TRIANGLES_HIT_GROUP_KHR` or
 `VK_RAY_TRACING_SHADER_GROUP_TYPE_PROCEDURAL_HIT_GROUP_KHR`, the
 `anyHitShader` of that element **must** not be
@@ -380,7 +388,7 @@ for any element of `pGroups` with a `type` of
 
 If `flags` includes
 `VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_BIT_KHR`,
-for any element of `pGroups` with a `type` of
+for each element of `pGroups` with a `type` of
 `VK_RAY_TRACING_SHADER_GROUP_TYPE_TRIANGLES_HIT_GROUP_KHR` or
 `VK_RAY_TRACING_SHADER_GROUP_TYPE_PROCEDURAL_HIT_GROUP_KHR`, the
 `closestHitShader` of that element **must** not be

@@ -62,6 +62,21 @@ Host access to `dstCache` **must** be externally synchronized
 if it was not created with
 `VK_PIPELINE_CACHE_CREATE_INTERNALLY_SYNCHRONIZED_MERGE_BIT_KHR`
 
+* 
+[](#VUID-vkMergePipelineCaches-dstCache-11832) VUID-vkMergePipelineCaches-dstCache-11832
+
+`dstCache` **must** not have been created with the `headerVersion`
+member of [VkPipelineCacheCreateInfo](VkPipelineCacheCreateInfo.html)::`pInitialData` equal to
+`VK_PIPELINE_CACHE_HEADER_VERSION_DATA_GRAPH_QCOM`
+
+* 
+[](#VUID-vkMergePipelineCaches-headerVersion-11833) VUID-vkMergePipelineCaches-headerVersion-11833
+
+Each member of pSrcCaches **must** not have been created with the
+`headerVersion` member of
+[VkPipelineCacheCreateInfo](VkPipelineCacheCreateInfo.html)::`pInitialData` equal to
+`VK_PIPELINE_CACHE_HEADER_VERSION_DATA_GRAPH_QCOM`
+
 Valid Usage (Implicit)
 
 * 

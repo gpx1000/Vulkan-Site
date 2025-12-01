@@ -73,15 +73,15 @@ structures.
 [VkMicromapUsageEXT](VkMicromapUsageEXT.html) structures.
 
 * 
-`data` is the device or host address to memory which contains the
+`data` is the device or host address of memory which contains the
 data for the micromap.
 
 * 
-`scratchData` is the device or host address to memory that will be
+`scratchData` is the device or host address of memory that will be
 used as scratch memory for the build.
 
 * 
-`triangleArray` is the device or host address to memory containing
+`triangleArray` is the device or host address of memory containing
 the [VkMicromapTriangleEXT](VkMicromapTriangleEXT.html) data
 
 * 

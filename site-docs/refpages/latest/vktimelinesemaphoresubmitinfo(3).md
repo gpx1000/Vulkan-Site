@@ -37,9 +37,8 @@ typedef struct VkTimelineSemaphoreSubmitInfo {
     const uint64_t*    pSignalSemaphoreValues;
 } VkTimelineSemaphoreSubmitInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkTimelineSemaphoreSubmitInfo
 typedef VkTimelineSemaphoreSubmitInfo VkTimelineSemaphoreSubmitInfoKHR;
 
 * 

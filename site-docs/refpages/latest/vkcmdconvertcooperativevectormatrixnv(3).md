@@ -114,12 +114,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdConvertCooperativeVectorMatrixNV-commandBuffer-cmdpool) VUID-vkCmdConvertCooperativeVectorMatrixNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdConvertCooperativeVectorMatrixNV-renderpass) VUID-vkCmdConvertCooperativeVectorMatrixNV-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdConvertCooperativeVectorMatrixNV-suspended) VUID-vkCmdConvertCooperativeVectorMatrixNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdConvertCooperativeVectorMatrixNV-videocoding) VUID-vkCmdConvertCooperativeVectorMatrixNV-videocoding
@@ -144,9 +149,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

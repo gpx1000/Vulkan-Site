@@ -28,9 +28,8 @@ void vkGetImageSparseMemoryRequirements2(
     uint32_t*                                   pSparseMemoryRequirementCount,
     VkSparseImageMemoryRequirements2*           pSparseMemoryRequirements);
 
-or the equivalent command
-
 // Provided by VK_KHR_get_memory_requirements2
+// Equivalent to vkGetImageSparseMemoryRequirements2
 void vkGetImageSparseMemoryRequirements2KHR(
     VkDevice                                    device,
     const VkImageSparseMemoryRequirementsInfo2* pInfo,
@@ -76,7 +75,7 @@ Valid Usage (Implicit)
 
  If the value referenced by `pSparseMemoryRequirementCount` is not `0`, and `pSparseMemoryRequirements` is not `NULL`, `pSparseMemoryRequirements` **must** be a valid pointer to an array of `pSparseMemoryRequirementCount` [VkSparseImageMemoryRequirements2](VkSparseImageMemoryRequirements2.html) structures
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDevice](VkDevice.html), [VkImageSparseMemoryRequirementsInfo2](VkImageSparseMemoryRequirementsInfo2.html), [VkSparseImageMemoryRequirements2](VkSparseImageMemoryRequirements2.html)
+[VK_KHR_get_memory_requirements2](VK_KHR_get_memory_requirements2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkDevice](VkDevice.html), [VkImageSparseMemoryRequirementsInfo2](VkImageSparseMemoryRequirementsInfo2.html), [VkSparseImageMemoryRequirements2](VkSparseImageMemoryRequirements2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/sparsemem.html#vkGetImageSparseMemoryRequirements2).
 

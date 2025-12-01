@@ -41,7 +41,7 @@ typedef enum VkColorSpaceKHR {
   // Provided by VK_EXT_swapchain_colorspace
     VK_COLOR_SPACE_HDR10_ST2084_EXT = 1000104008,
   // Provided by VK_EXT_swapchain_colorspace
-  // VK_COLOR_SPACE_DOLBYVISION_EXT is deprecated, but no reason was given in the API XML
+  // VK_COLOR_SPACE_DOLBYVISION_EXT is legacy, but no reason was given in the API XML
     VK_COLOR_SPACE_DOLBYVISION_EXT = 1000104009,
   // Provided by VK_EXT_swapchain_colorspace
     VK_COLOR_SPACE_HDR10_HLG_EXT = 1000104010,
@@ -55,10 +55,10 @@ typedef enum VkColorSpaceKHR {
     VK_COLOR_SPACE_EXTENDED_SRGB_NONLINEAR_EXT = 1000104014,
   // Provided by VK_AMD_display_native_hdr
     VK_COLOR_SPACE_DISPLAY_NATIVE_AMD = 1000213000,
-  // VK_COLORSPACE_SRGB_NONLINEAR_KHR is a deprecated alias
+  // VK_COLORSPACE_SRGB_NONLINEAR_KHR is a legacy alias
     VK_COLORSPACE_SRGB_NONLINEAR_KHR = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR,
   // Provided by VK_EXT_swapchain_colorspace
-  // VK_COLOR_SPACE_DCI_P3_LINEAR_EXT is a deprecated alias
+  // VK_COLOR_SPACE_DCI_P3_LINEAR_EXT is a legacy alias
     VK_COLOR_SPACE_DCI_P3_LINEAR_EXT = VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT,
 } VkColorSpaceKHR;
 
@@ -152,7 +152,7 @@ The older enum is still available for backwards compatibility. |
 `VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT` was misnamed
 `VK_COLOR_SPACE_DCI_P3_LINEAR_EXT`.
 This has been updated to indicate that it uses RGB color encoding, not XYZ.
-The old name is deprecated but is maintained for backwards compatibility. |
+The old name is legacy but is maintained for backwards compatibility. |
 
 |  | In older versions of the `[VK_EXT_swapchain_colorspace](VK_EXT_swapchain_colorspace.html)` extension,
 | --- | --- |
@@ -163,7 +163,7 @@ proprietary OOTF to process the image.
 However, Dolby Vision profile 8.4 describes an encoding using the Hybrid Log
 Gamma (HLG) OETF, and there is no swapchain extension for signaling Dolby
 Vision metadata to be used by a proprietary OOTF.
-This enum is deprecated but is maintained for backwards compatibility. |
+This enum is legacy but is maintained for backwards compatibility. |
 
 |  | For a traditional “Linear” or non-gamma transfer function color space use
 | --- | --- |
@@ -181,10 +181,9 @@ The presentation engine interprets the pixel values of the R, G, and B
 components as having been encoded using an appropriate transfer function.
 Applications **should** ensure that the appropriate transfer function has been
 applied.
-[Textures Output Format Conversion](../../../../spec/latest/chapters/textures.html#textures-output-format-conversion)
-requires that all implementations implicitly apply the sRGB EOTF-1 on R,
-G, and B components when shaders write to an sRGB pixel format image, which
-is useful for sRGB color spaces.
+[Texel encode](../../../../spec/latest/chapters/images.html#images-texel-encode) requires that all implementations
+implicitly apply the sRGB EOTF-1 on R, G, and B components when shaders
+write to an sRGB pixel format image, which is useful for sRGB color spaces.
 For sRGB color spaces with other pixel formats, or other non-linear color
 spaces, applications **can** apply the transfer function explicitly in a
 shader.

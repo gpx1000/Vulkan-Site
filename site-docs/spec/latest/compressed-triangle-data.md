@@ -28,6 +28,12 @@
 
 ## Content
 
+The provisional `[VK_AMDX_dense_geometry_format](../../appendices/extensions.html#VK_AMDX_dense_geometry_format)` extension provides a
+way for applications to build acceleration structures from pre-compressed
+Dense Geometry Format (DGF) triangle geometry data, enabling improved build
+times and reducing both the storage required on disk and the memory
+footprint of acceleration structures.
+
 The dense geometry format consists of an array of 128B blocks that encode
 triangle data.
 Each block holds a maximum of 64 triangles and 64 vertices.
@@ -100,7 +106,7 @@ The optional GeomID palette (if present), starts on the next byte boundary
 following the vertex data and OMM palette.
 
 The region containing the vertex data, geomID palette, and OMM palette is
-referred to as the "front buffer".
+referred to as the “front buffer”.
 It is byte-aligned, and its total size may not exceed 96B.
 
 The optional UserData DWORD, if present, is little-endian, and located
@@ -122,7 +128,8 @@ a variable-width (1-16b) unsigned offset for each vertex component
 a power-of-2 scale factor which is used to map from the quantization grid
 to floating-point world coordinates (stored as an IEEE biased exponent).
 
-An equivalent fixed-point encoding scheme is used by Epic’s "Nanite" system.
+An equivalent fixed-point encoding scheme is used by Epic’s “Nanite”
+system.
 
 The decoded floating-point vertex position is computed as follows:
 
@@ -225,7 +232,7 @@ the control bits.
 * 
 The index buffer is organized into two sections:
 
-An array of "is-first" bits
+An array of “is-first” bits
 
 One bit per index indicating whether it is the first reference to a
 given vertex.
@@ -235,16 +242,16 @@ The first reference to a given vertex is computed by incrementing a
 counter.
 
 * 
-The first three indices are always "first", so their "is-first" bits
-are not stored.
+The first three indices are always “first”, so their “is-first”
+bits are not stored.
 
 * 
 Ordered back to front (earlier indices occupy higher bit positions).
 
-A "reuse buffer" containing the indices of reused vertices
+A “reuse buffer” containing the indices of reused vertices
 
 * 
-There is one index for each zero bit in the "is-first" bit vector.
+There is one index for each zero bit in the “is-first” bit vector.
 
 * 
 The number of bits per index is stored in the header.
@@ -267,7 +274,7 @@ There are four possible triangle control values:
 | RESTART | 0 | Start a new strip, specifying 3 vertex indices for the triangle |
 | EDGE1 | 1 | The second edge of the predecessor triangle is reused as the first edge |
 | EDGE2 | 2 | The third edge of the predecessor triangle is reused as the first edge |
-| BACKTRACK | 3 | The opposite edge of the predecessor’s predecessor is reused.  "Opposite edge" means EDGE1 if the predecessor used EDGE2, or EDGE2 if the predecessor used EDGE1.  BACKTRACK is not allowed unless the predecessor used EDGE1 or EDGE2.  A BACKTRACK triangle may not occur after a RESTART or another BACKTRACK |
+| BACKTRACK | 3 | The opposite edge of the predecessor’s predecessor is reused.  “Opposite edge” means EDGE1 if the predecessor used EDGE2, or EDGE2 if the predecessor used EDGE1.  BACKTRACK is not allowed unless the predecessor used EDGE1 or EDGE2.  A BACKTRACK triangle may not occur after a RESTART or another BACKTRACK |
 
 The behavior of the triangle control values is illustrated in the diagram
 below:
@@ -366,7 +373,7 @@ Palette mode: An array of up to 32 25b values is stored in the block, in
 compressed form, and a per-triangle index is used to select a value from
 the array.
 
-If palette mode is in use, there is no requirement that the "opaque" flags
+If palette mode is in use, there is no requirement that the “opaque” flags
 are consistent for triangles with the same geometry index.
 
 The palette mode is useful in the following circumstances:
@@ -456,7 +463,7 @@ block to collectively reference a limited number of OMMs.
 The OMM support in DGF is best suited for scenarios in which a small set of
 OMMs is repeated many times over a large mesh (e.g. tree leaves).
 For intricate alpha cutouts applied to high-poly models, it is potentially
-more efficient to tessellate the geometry and "bake in" the alpha cutout.
+more efficient to tessellate the geometry and “bake in” the alpha cutout.
 
 Because OMMs are constructed independently of acceleration structure
 content, the encoder must reserve space for a set of implementation-defined
@@ -488,7 +495,7 @@ uint get_omm_index( uint primIDBase, uint triangleIndexInBlock )
 }
 
 If an OMM index buffer is used to select OMMs, then each distinct index
-value (including "special indices") counts as one descriptor.
+value (including “special indices”) counts as one descriptor.
 If there is no OMM index buffer, then a simple linear mapping is used
 instead.
 This implies that the number of OMM descriptors equals the number of
@@ -497,17 +504,17 @@ triangles, and that neither number may exceed 7.
 DGF blocks with OMM still encode a per-triangle opaque flag.
 This opaque flag is used whenever OMMs are disabled via ray/instance flags.
 
-If `omm_descriptor_count` is non-zero, then an "OMM palette" is present.
+If `omm_descriptor_count` is non-zero, then an “OMM palette” is present.
 The OMM palette, if present, is byte-aligned.
 Pad bits are inserted as required.
 All pad bits must be zero.
 
-The OMM palette consists of a "hot-patched" section, and a "pre-computed"
-section.
-The "hot-patched" section is so named because it is expected to be patched
+The OMM palette consists of a “hot-patched” section, and a
+“pre-computed” section.
+The “hot-patched” section is so named because it is expected to be patched
 at runtime with OMM information when an acceleration structure is
 constructed.
-The "pre-computed" section is computed by the application at DGF encoding
+The “pre-computed” section is computed by the application at DGF encoding
 time.
 The size and position of the hot-patched section are exposed to applications
 through the API, but its precise contents are not.
@@ -517,13 +524,13 @@ must reserve space for the hot-patched section, and place the pre-computed
 section immediately after it.
 
 * 
-The "hot-patched" section contains 8 bytes, plus 4 bytes for each OMM
+The “hot-patched” section contains 8 bytes, plus 4 bytes for each OMM
 descriptor.
 The application must initialize this space with zeros.
 
 * 
-The "pre-computed" section contains a per-triangle index indicating which
-OMM descriptor to use.
+The “pre-computed” section contains a per-triangle index indicating
+which OMM descriptor to use.
 
 Triangles are ordered from front to back in ascending order
 
@@ -554,14 +561,14 @@ The following pseudo-code computes the size, in bits, of an OMM palette:
 int compute_palette_size( uint numDescriptors, uint numTriangles )
 {
     if( numDescriptors == 0 )
-	    return 0;
+            return 0;
 
-	uint hotPatchSize    = 64 + 32*numTriangles;
-	uint bitsPerIndex    = ceil( log2(numDescriptors) );
-	uint precomputedSize = bitsPerIndex*numTriangles;
+        uint hotPatchSize    = 64 + 32*numTriangles;
+        uint bitsPerIndex    = ceil( log2(numDescriptors) );
+        uint precomputedSize = bitsPerIndex*numTriangles;
     precomputedSize = (precomputedSize + 7) & ~7; // byte align
 
-	return hotPatchSize + precomputedSize;
+        return hotPatchSize + precomputedSize;
 }
 
 The following pseudo-code illustrates how an encoder could construct the
@@ -579,9 +586,9 @@ int build_omm_palette( uint descriptorIndices[], uint numTriangles, const int* o
     int numDescriptors=0;
 
     for( uint triangleIndex = 0; triangleIndex  spaceAvailable )
-	    return -1;
+            return -1;
 
-	return numDescriptors;
+        return numDescriptors;
 }
 
 The DGF block can optionally embed one DWORD of user-defined data, which is

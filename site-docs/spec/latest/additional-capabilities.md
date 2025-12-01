@@ -52,7 +52,7 @@ sample counts for certain image types, or additional capabilities for
 
 To query additional capabilities specific to image types, call:
 
-|  | This functionality is deprecated by [Vulkan Version 1.1](../appendices/versions.html#versions-1.1). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-gpdp2) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.1](../appendices/versions.html#versions-1.1). See [Legacy Functionality](../appendices/legacy.html#legacy-gpdp2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -512,9 +512,8 @@ VkResult vkGetPhysicalDeviceImageFormatProperties2(
     const VkPhysicalDeviceImageFormatInfo2*     pImageFormatInfo,
     VkImageFormatProperties2*                   pImageFormatProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to vkGetPhysicalDeviceImageFormatProperties2
 VkResult vkGetPhysicalDeviceImageFormatProperties2KHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceImageFormatInfo2*     pImageFormatInfo,
@@ -665,9 +664,8 @@ typedef struct VkPhysicalDeviceImageFormatInfo2 {
     VkImageCreateFlags    flags;
 } VkPhysicalDeviceImageFormatInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkPhysicalDeviceImageFormatInfo2
 typedef VkPhysicalDeviceImageFormatInfo2 VkPhysicalDeviceImageFormatInfo2KHR;
 
 * 
@@ -779,9 +777,8 @@ typedef struct VkImageFormatProperties2 {
     VkImageFormatProperties    imageFormatProperties;
 } VkImageFormatProperties2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to VkImageFormatProperties2
 typedef VkImageFormatProperties2 VkImageFormatProperties2KHR;
 
 * 
@@ -822,7 +819,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkImageFormatProperties2-pNext-pNext) VUID-VkImageFormatProperties2-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAndroidHardwareBufferUsageANDROID](#VkAndroidHardwareBufferUsageANDROID), [VkExternalImageFormatProperties](#VkExternalImageFormatProperties), [VkFilterCubicImageViewImageFormatPropertiesEXT](#VkFilterCubicImageViewImageFormatPropertiesEXT), [VkHostImageCopyDevicePerformanceQuery](#VkHostImageCopyDevicePerformanceQuery), [VkImageCompressionPropertiesEXT](resources.html#VkImageCompressionPropertiesEXT), [VkSamplerYcbcrConversionImageFormatProperties](#VkSamplerYcbcrConversionImageFormatProperties), or [VkTextureLODGatherFormatPropertiesAMD](#VkTextureLODGatherFormatPropertiesAMD)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAndroidHardwareBufferUsageANDROID](#VkAndroidHardwareBufferUsageANDROID), [VkExternalImageFormatProperties](#VkExternalImageFormatProperties), [VkFilterCubicImageViewImageFormatPropertiesEXT](#VkFilterCubicImageViewImageFormatPropertiesEXT), [VkHostImageCopyDevicePerformanceQuery](#VkHostImageCopyDevicePerformanceQuery), [VkImageCompressionPropertiesEXT](resources.html#VkImageCompressionPropertiesEXT), [VkNativeBufferUsageOHOS](resources.html#VkNativeBufferUsageOHOS), [VkSamplerYcbcrConversionImageFormatProperties](#VkSamplerYcbcrConversionImageFormatProperties), or [VkTextureLODGatherFormatPropertiesAMD](#VkTextureLODGatherFormatPropertiesAMD)
 
 * 
 [](#VUID-VkImageFormatProperties2-sType-unique) VUID-VkImageFormatProperties2-sType-unique
@@ -880,9 +877,8 @@ typedef struct VkPhysicalDeviceExternalImageFormatInfo {
     VkExternalMemoryHandleTypeFlagBits    handleType;
 } VkPhysicalDeviceExternalImageFormatInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkPhysicalDeviceExternalImageFormatInfo
 typedef VkPhysicalDeviceExternalImageFormatInfo VkPhysicalDeviceExternalImageFormatInfoKHR;
 
 * 
@@ -944,6 +940,8 @@ typedef enum VkExternalMemoryHandleTypeFlagBits {
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_ZIRCON_VMO_BIT_FUCHSIA = 0x00000800,
   // Provided by VK_NV_external_memory_rdma
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_RDMA_ADDRESS_BIT_NV = 0x00001000,
+  // Provided by VK_OHOS_external_memory
+    VK_EXTERNAL_MEMORY_HANDLE_TYPE_OH_NATIVE_BUFFER_BIT_OHOS = 0x00008000,
   // Provided by VK_QNX_external_memory_screen_buffer
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_SCREEN_BUFFER_BIT_QNX = 0x00004000,
   // Provided by VK_EXT_external_memory_metal
@@ -968,9 +966,8 @@ typedef enum VkExternalMemoryHandleTypeFlagBits {
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT_KHR = VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT,
 } VkExternalMemoryHandleTypeFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryHandleTypeFlagBits
 typedef VkExternalMemoryHandleTypeFlagBits VkExternalMemoryHandleTypeFlagBitsKHR;
 
 * 
@@ -1126,9 +1123,8 @@ prevent incompatible usage of dma-bufs (such as
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkExternalMemoryHandleTypeFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryHandleTypeFlags
 typedef VkExternalMemoryHandleTypeFlags VkExternalMemoryHandleTypeFlagsKHR;
 
 `VkExternalMemoryHandleTypeFlags` is a bitmask type for setting a mask
@@ -1143,9 +1139,8 @@ typedef struct VkExternalImageFormatProperties {
     VkExternalMemoryProperties    externalMemoryProperties;
 } VkExternalImageFormatProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalImageFormatProperties
 typedef VkExternalImageFormatProperties VkExternalImageFormatPropertiesKHR;
 
 * 
@@ -1176,9 +1171,8 @@ typedef struct VkExternalMemoryProperties {
     VkExternalMemoryHandleTypeFlags    compatibleHandleTypes;
 } VkExternalMemoryProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryProperties
 typedef VkExternalMemoryProperties VkExternalMemoryPropertiesKHR;
 
 * 
@@ -1223,9 +1217,8 @@ typedef enum VkExternalMemoryFeatureFlagBits {
     VK_EXTERNAL_MEMORY_FEATURE_IMPORTABLE_BIT_KHR = VK_EXTERNAL_MEMORY_FEATURE_IMPORTABLE_BIT,
 } VkExternalMemoryFeatureFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryFeatureFlagBits
 typedef VkExternalMemoryFeatureFlagBits VkExternalMemoryFeatureFlagBitsKHR;
 
 * 
@@ -1290,9 +1283,8 @@ images or buffers with external handle type
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkExternalMemoryFeatureFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalMemoryFeatureFlags
 typedef VkExternalMemoryFeatureFlags VkExternalMemoryFeatureFlagsKHR;
 
 `VkExternalMemoryFeatureFlags` is a bitmask type for setting a mask of
@@ -1405,9 +1397,8 @@ typedef struct VkSamplerYcbcrConversionImageFormatProperties {
     uint32_t           combinedImageSamplerDescriptorCount;
 } VkSamplerYcbcrConversionImageFormatProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrConversionImageFormatProperties
 typedef VkSamplerYcbcrConversionImageFormatProperties VkSamplerYcbcrConversionImageFormatPropertiesKHR;
 
 * 
@@ -1533,9 +1524,8 @@ typedef struct VkHostImageCopyDevicePerformanceQuery {
     VkBool32           identicalMemoryLayout;
 } VkHostImageCopyDevicePerformanceQuery;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to VkHostImageCopyDevicePerformanceQuery
 typedef VkHostImageCopyDevicePerformanceQuery VkHostImageCopyDevicePerformanceQueryEXT;
 
 * 
@@ -1549,8 +1539,8 @@ structure.
 `optimalDeviceAccess` returns `VK_TRUE` if use of host image
 copy has no adverse effect on device access performance, compared to an
 image that is created with exact same creation parameters, and bound to
-the same [VkDeviceMemory](memory.html#VkDeviceMemory), except that
-`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` is replaced with
+the same [VkDeviceMemory](memory.html#VkDeviceMemory), except that the
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` usage flag is replaced with
 `VK_IMAGE_USAGE_TRANSFER_SRC_BIT` and
 `VK_IMAGE_USAGE_TRANSFER_DST_BIT`.
 
@@ -1558,8 +1548,9 @@ the same [VkDeviceMemory](memory.html#VkDeviceMemory), except that
 `identicalMemoryLayout` returns `VK_TRUE` if use of host image
 copy has no impact on memory layout compared to an image that is created
 with exact same creation parameters, and bound to the same
-[VkDeviceMemory](memory.html#VkDeviceMemory), except that `VK_IMAGE_USAGE_HOST_TRANSFER_BIT`
-is replaced with `VK_IMAGE_USAGE_TRANSFER_SRC_BIT` and
+[VkDeviceMemory](memory.html#VkDeviceMemory), except that the
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` usage flag is replaced with
+`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` and
 `VK_IMAGE_USAGE_TRANSFER_DST_BIT`.
 
 The implementation **may** return `VK_FALSE` in `optimalDeviceAccess`
@@ -1858,9 +1849,8 @@ void vkGetPhysicalDeviceExternalBufferProperties(
     const VkPhysicalDeviceExternalBufferInfo*   pExternalBufferInfo,
     VkExternalBufferProperties*                 pExternalBufferProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to vkGetPhysicalDeviceExternalBufferProperties
 void vkGetPhysicalDeviceExternalBufferPropertiesKHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceExternalBufferInfo*   pExternalBufferInfo,
@@ -1908,9 +1898,8 @@ typedef struct VkPhysicalDeviceExternalBufferInfo {
     VkExternalMemoryHandleTypeFlagBits    handleType;
 } VkPhysicalDeviceExternalBufferInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkPhysicalDeviceExternalBufferInfo
 typedef VkPhysicalDeviceExternalBufferInfo VkPhysicalDeviceExternalBufferInfoKHR;
 
 * 
@@ -1994,9 +1983,8 @@ typedef struct VkExternalBufferProperties {
     VkExternalMemoryProperties    externalMemoryProperties;
 } VkExternalBufferProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalBufferProperties
 typedef VkExternalBufferProperties VkExternalBufferPropertiesKHR;
 
 * 
@@ -2170,9 +2158,8 @@ void vkGetPhysicalDeviceExternalSemaphoreProperties(
     const VkPhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfo,
     VkExternalSemaphoreProperties*              pExternalSemaphoreProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to vkGetPhysicalDeviceExternalSemaphoreProperties
 void vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfo,
@@ -2218,9 +2205,8 @@ typedef struct VkPhysicalDeviceExternalSemaphoreInfo {
     VkExternalSemaphoreHandleTypeFlagBits    handleType;
 } VkPhysicalDeviceExternalSemaphoreInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkPhysicalDeviceExternalSemaphoreInfo
 typedef VkPhysicalDeviceExternalSemaphoreInfo VkPhysicalDeviceExternalSemaphoreInfoKHR;
 
 * 
@@ -2283,9 +2269,8 @@ typedef enum VkExternalSemaphoreHandleTypeFlagBits {
     VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT_KHR = VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT,
 } VkExternalSemaphoreHandleTypeFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkExternalSemaphoreHandleTypeFlagBits
 typedef VkExternalSemaphoreHandleTypeFlagBits VkExternalSemaphoreHandleTypeFlagBitsKHR;
 
 * 
@@ -2379,9 +2364,8 @@ following table:
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkExternalSemaphoreHandleTypeFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkExternalSemaphoreHandleTypeFlags
 typedef VkExternalSemaphoreHandleTypeFlags VkExternalSemaphoreHandleTypeFlagsKHR;
 
 `VkExternalSemaphoreHandleTypeFlags` is a bitmask type for setting a
@@ -2398,9 +2382,8 @@ typedef struct VkExternalSemaphoreProperties {
     VkExternalSemaphoreFeatureFlags       externalSemaphoreFeatures;
 } VkExternalSemaphoreProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkExternalSemaphoreProperties
 typedef VkExternalSemaphoreProperties VkExternalSemaphorePropertiesKHR;
 
 * 
@@ -2456,9 +2439,8 @@ typedef enum VkExternalSemaphoreFeatureFlagBits {
     VK_EXTERNAL_SEMAPHORE_FEATURE_IMPORTABLE_BIT_KHR = VK_EXTERNAL_SEMAPHORE_FEATURE_IMPORTABLE_BIT,
 } VkExternalSemaphoreFeatureFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkExternalSemaphoreFeatureFlagBits
 typedef VkExternalSemaphoreFeatureFlagBits VkExternalSemaphoreFeatureFlagBitsKHR;
 
 * 
@@ -2472,9 +2454,8 @@ handles of this type **can** be imported as Vulkan semaphore objects.
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkExternalSemaphoreFeatureFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkExternalSemaphoreFeatureFlags
 typedef VkExternalSemaphoreFeatureFlags VkExternalSemaphoreFeatureFlagsKHR;
 
 `VkExternalSemaphoreFeatureFlags` is a bitmask type for setting a mask
@@ -2490,9 +2471,8 @@ void vkGetPhysicalDeviceExternalFenceProperties(
     const VkPhysicalDeviceExternalFenceInfo*    pExternalFenceInfo,
     VkExternalFenceProperties*                  pExternalFenceProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_external_fence_capabilities
+// Equivalent to vkGetPhysicalDeviceExternalFenceProperties
 void vkGetPhysicalDeviceExternalFencePropertiesKHR(
     VkPhysicalDevice                            physicalDevice,
     const VkPhysicalDeviceExternalFenceInfo*    pExternalFenceInfo,
@@ -2538,9 +2518,8 @@ typedef struct VkPhysicalDeviceExternalFenceInfo {
     VkExternalFenceHandleTypeFlagBits    handleType;
 } VkPhysicalDeviceExternalFenceInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkPhysicalDeviceExternalFenceInfo
 typedef VkPhysicalDeviceExternalFenceInfo VkPhysicalDeviceExternalFenceInfoKHR;
 
 * 
@@ -2610,9 +2589,8 @@ typedef enum VkExternalFenceHandleTypeFlagBits {
     VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT_KHR = VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT,
 } VkExternalFenceHandleTypeFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkExternalFenceHandleTypeFlagBits
 typedef VkExternalFenceHandleTypeFlagBits VkExternalFenceHandleTypeFlagBitsKHR;
 
 * 
@@ -2670,9 +2648,8 @@ following table:
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkExternalFenceHandleTypeFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkExternalFenceHandleTypeFlags
 typedef VkExternalFenceHandleTypeFlags VkExternalFenceHandleTypeFlagsKHR;
 
 `VkExternalFenceHandleTypeFlags` is a bitmask type for setting a mask of
@@ -2689,9 +2666,8 @@ typedef struct VkExternalFenceProperties {
     VkExternalFenceFeatureFlags       externalFenceFeatures;
 } VkExternalFenceProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkExternalFenceProperties
 typedef VkExternalFenceProperties VkExternalFencePropertiesKHR;
 
 * 
@@ -2739,9 +2715,8 @@ typedef enum VkExternalFenceFeatureFlagBits {
     VK_EXTERNAL_FENCE_FEATURE_IMPORTABLE_BIT_KHR = VK_EXTERNAL_FENCE_FEATURE_IMPORTABLE_BIT,
 } VkExternalFenceFeatureFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkExternalFenceFeatureFlagBits
 typedef VkExternalFenceFeatureFlagBits VkExternalFenceFeatureFlagBitsKHR;
 
 * 
@@ -2755,9 +2730,8 @@ type **can** be imported to Vulkan fence objects.
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkExternalFenceFeatureFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkExternalFenceFeatureFlags
 typedef VkExternalFenceFeatureFlags VkExternalFenceFeatureFlagsKHR;
 
 `VkExternalFenceFeatureFlags` is a bitmask type for setting a mask of
@@ -2772,9 +2746,8 @@ VkResult vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
     uint32_t*                                   pTimeDomainCount,
     VkTimeDomainKHR*                            pTimeDomains);
 
-or the equivalent command
-
 // Provided by VK_EXT_calibrated_timestamps
+// Equivalent to vkGetPhysicalDeviceCalibrateableTimeDomainsKHR
 VkResult vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(
     VkPhysicalDevice                            physicalDevice,
     uint32_t*                                   pTimeDomainCount,

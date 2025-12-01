@@ -28,9 +28,8 @@ typedef struct VkSparseImageMemoryRequirements2 {
     VkSparseImageMemoryRequirements    memoryRequirements;
 } VkSparseImageMemoryRequirements2;
 
-or the equivalent
-
 // Provided by VK_KHR_get_memory_requirements2
+// Equivalent to VkSparseImageMemoryRequirements2
 typedef VkSparseImageMemoryRequirements2 VkSparseImageMemoryRequirements2KHR;
 
 * 
@@ -56,7 +55,7 @@ Valid Usage (Implicit)
 
  `pNext` **must** be `NULL`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkSparseImageMemoryRequirements](VkSparseImageMemoryRequirements.html), [VkStructureType](VkStructureType.html), [vkGetDeviceImageSparseMemoryRequirements](vkGetDeviceImageSparseMemoryRequirements.html), [vkGetDeviceImageSparseMemoryRequirements](vkGetDeviceImageSparseMemoryRequirements.html), [vkGetImageSparseMemoryRequirements2](vkGetImageSparseMemoryRequirements2.html), [vkGetImageSparseMemoryRequirements2](vkGetImageSparseMemoryRequirements2.html)
+[VK_KHR_get_memory_requirements2](VK_KHR_get_memory_requirements2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkSparseImageMemoryRequirements](VkSparseImageMemoryRequirements.html), [VkStructureType](VkStructureType.html), [vkGetDeviceImageSparseMemoryRequirements](vkGetDeviceImageSparseMemoryRequirements.html), [vkGetDeviceImageSparseMemoryRequirements](vkGetDeviceImageSparseMemoryRequirements.html), [vkGetImageSparseMemoryRequirements2](vkGetImageSparseMemoryRequirements2.html), [vkGetImageSparseMemoryRequirements2](vkGetImageSparseMemoryRequirements2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/sparsemem.html#VkSparseImageMemoryRequirements2).
 

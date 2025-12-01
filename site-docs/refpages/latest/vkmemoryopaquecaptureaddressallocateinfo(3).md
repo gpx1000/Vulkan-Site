@@ -31,9 +31,8 @@ typedef struct VkMemoryOpaqueCaptureAddressAllocateInfo {
     uint64_t           opaqueCaptureAddress;
 } VkMemoryOpaqueCaptureAddressAllocateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_buffer_device_address
+// Equivalent to VkMemoryOpaqueCaptureAddressAllocateInfo
 typedef VkMemoryOpaqueCaptureAddressAllocateInfo VkMemoryOpaqueCaptureAddressAllocateInfoKHR;
 
 * 

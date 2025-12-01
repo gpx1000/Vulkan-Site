@@ -32,9 +32,8 @@ typedef struct VkDeviceGroupDeviceCreateInfo {
     const VkPhysicalDevice*    pPhysicalDevices;
 } VkDeviceGroupDeviceCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_device_group_creation
+// Equivalent to VkDeviceGroupDeviceCreateInfo
 typedef VkDeviceGroupDeviceCreateInfo VkDeviceGroupDeviceCreateInfoKHR;
 
 * 
@@ -100,7 +99,7 @@ Valid Usage (Implicit)
 
  If `physicalDeviceCount` is not `0`, `pPhysicalDevices` **must** be a valid pointer to an array of `physicalDeviceCount` valid [VkPhysicalDevice](VkPhysicalDevice.html) handles
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkStructureType](VkStructureType.html)
+[VK_KHR_device_group_creation](VK_KHR_device_group_creation.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/devsandqueues.html#VkDeviceGroupDeviceCreateInfo).
 

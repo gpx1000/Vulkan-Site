@@ -28,9 +28,8 @@ typedef enum VkSubmitFlagBits {
     VK_SUBMIT_PROTECTED_BIT_KHR = VK_SUBMIT_PROTECTED_BIT,
 } VkSubmitFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkSubmitFlagBits
 typedef VkSubmitFlagBits VkSubmitFlagBitsKHR;
 
 * 

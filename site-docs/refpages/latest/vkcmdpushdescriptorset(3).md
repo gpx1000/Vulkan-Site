@@ -34,9 +34,8 @@ void vkCmdPushDescriptorSet(
     uint32_t                                    descriptorWriteCount,
     const VkWriteDescriptorSet*                 pDescriptorWrites);
 
-or the equivalent command
-
 // Provided by VK_KHR_push_descriptor
+// Equivalent to vkCmdPushDescriptorSet
 void vkCmdPushDescriptorSetKHR(
     VkCommandBuffer                             commandBuffer,
     VkPipelineBindPoint                         pipelineBindPoint,
@@ -185,7 +184,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdPushDescriptorSet-commandBuffer-cmdpool) VUID-vkCmdPushDescriptorSet-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdPushDescriptorSet-videocoding) VUID-vkCmdPushDescriptorSet-videocoding
@@ -215,9 +214,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

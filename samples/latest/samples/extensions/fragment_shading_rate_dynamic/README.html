@@ -312,6 +312,9 @@
     <a class="nav-link" href="../extended_dynamic_state2/README.html">Extended dynamic state2</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../fragment_density_map/README.html">Fragment density map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../fragment_shader_barycentric/README.html">Fragment shader barycentric</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -397,6 +400,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../synchronization_2/README.html">Synchronization 2</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../tensor_and_data_graph/README.html">Tensor and Data Graph</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../tensor_and_data_graph/simple_tensor_and_data_graph/README.html">Simple Tensor and Data Graph</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../timeline_semaphore/README.html">Timeline semaphore</a>
@@ -535,6 +547,9 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Samples" target="_blank" rel="noopener">GitHub Repository</a></span>
+  </li>
 </ul>
   </li>
 </ul>
@@ -645,8 +660,8 @@ This can be useful when rendering at very high resolutions or when the frequency
 This tutorial demonstrates one way of controlling that sample rate by estimating the frequency content of each pixel of the rendered image.</p>
 </div>
 <div class="paragraph">
-<p>The fragment shading rate extension can be enabled through the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_fragment_shading_rate.html"><code>VK_KHR_fragment_shading_rate</code></a> device extension and the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShadingRateFeaturesKHR.html"><code>VkPhysicalDeviceFragmentShadingRateFeaturesKHR</code></a> device features.
-This sample demonstrates the attachment capability, in which the render pass directly references the shading rate image through a <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFragmentShadingRateAttachmentInfoKHR.html"><code>VkFragmentShadingRateAttachmentInfoKHR</code></a> struct attached to the <code>.pNext</code> of a sub-pass.</p>
+<p>The fragment shading rate extension can be enabled through the <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_KHR_fragment_shading_rate.html"><code>VK_KHR_fragment_shading_rate</code></a> device extension and the <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateFeaturesKHR.html"><code>VkPhysicalDeviceFragmentShadingRateFeaturesKHR</code></a> device features.
+This sample demonstrates the attachment capability, in which the render pass directly references the shading rate image through a <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFragmentShadingRateAttachmentInfoKHR.html"><code>VkFragmentShadingRateAttachmentInfoKHR</code></a> struct attached to the <code>.pNext</code> of a sub-pass.</p>
 </div>
 <div class="paragraph">
 <p>The image below shows the scene from this sample.
@@ -665,7 +680,7 @@ Note the areas of high image variation in the center of each cube face, and the 
 <div class="paragraph">
 <p>When used as an attachment, each pixel within the shading rate image controls a "texel", or fixed region within the output image, specified by <code>shadingRateAttachmentTexelSize</code>.
 For example, each pixel in the shading rate image might control the shading rate of a 4x4 texel within the rendered image, since all output pixels of the texel are shaded at the same rate, the shading rate image has a lower resolution.
-The number and type of possible shading rates is controlled by the device and can be queried through the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html"><code>vkGetPhysicalDeviceFragmentShadingRatesKHR</code></a> function, and may include shading rates that vary in both the x- and y-directions, for instance 1x2 or 4x2 pixel texels.
+The number and type of possible shading rates is controlled by the device and can be queried through the <a href="https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html"><code>vkGetPhysicalDeviceFragmentShadingRatesKHR</code></a> function, and may include shading rates that vary in both the x- and y-directions, for instance 1x2 or 4x2 pixel texels.
 These supported shading rate values are provided to the "compute shader" when determining the optimal shading rate.</p>
 </div>
 <div class="paragraph">

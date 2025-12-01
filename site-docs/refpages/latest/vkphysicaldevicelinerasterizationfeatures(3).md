@@ -33,14 +33,12 @@ typedef struct VkPhysicalDeviceLineRasterizationFeatures {
     VkBool32           stippledSmoothLines;
 } VkPhysicalDeviceLineRasterizationFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_line_rasterization
+// Equivalent to VkPhysicalDeviceLineRasterizationFeatures
 typedef VkPhysicalDeviceLineRasterizationFeatures VkPhysicalDeviceLineRasterizationFeaturesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_line_rasterization
+// Equivalent to VkPhysicalDeviceLineRasterizationFeatures
 typedef VkPhysicalDeviceLineRasterizationFeatures VkPhysicalDeviceLineRasterizationFeaturesEXT;
 
 This structure describes the following features:

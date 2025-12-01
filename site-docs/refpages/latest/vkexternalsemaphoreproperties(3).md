@@ -30,9 +30,8 @@ typedef struct VkExternalSemaphoreProperties {
     VkExternalSemaphoreFeatureFlags       externalSemaphoreFeatures;
 } VkExternalSemaphoreProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkExternalSemaphoreProperties
 typedef VkExternalSemaphoreProperties VkExternalSemaphorePropertiesKHR;
 
 * 
@@ -74,7 +73,7 @@ Valid Usage (Implicit)
 
  `pNext` **must** be `NULL`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalSemaphoreFeatureFlags](VkExternalSemaphoreFeatureFlags.html), [VkExternalSemaphoreHandleTypeFlags](VkExternalSemaphoreHandleTypeFlags.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceExternalSemaphoreProperties](vkGetPhysicalDeviceExternalSemaphoreProperties.html), [vkGetPhysicalDeviceExternalSemaphoreProperties](vkGetPhysicalDeviceExternalSemaphoreProperties.html)
+[VK_KHR_external_semaphore_capabilities](VK_KHR_external_semaphore_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalSemaphoreFeatureFlags](VkExternalSemaphoreFeatureFlags.html), [VkExternalSemaphoreHandleTypeFlags](VkExternalSemaphoreHandleTypeFlags.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceExternalSemaphoreProperties](vkGetPhysicalDeviceExternalSemaphoreProperties.html), [vkGetPhysicalDeviceExternalSemaphoreProperties](vkGetPhysicalDeviceExternalSemaphoreProperties.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkExternalSemaphoreProperties).
 

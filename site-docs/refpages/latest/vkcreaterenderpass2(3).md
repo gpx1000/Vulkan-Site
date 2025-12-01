@@ -21,7 +21,7 @@ vkCreateRenderPass2 - Create a new render pass object
 
 To create a render pass, call:
 
-|  | This functionality is deprecated by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -31,9 +31,8 @@ VkResult vkCreateRenderPass2(
     const VkAllocationCallbacks*                pAllocator,
     VkRenderPass*                               pRenderPass);
 
-or the equivalent command
-
 // Provided by VK_KHR_create_renderpass2
+// Equivalent to vkCreateRenderPass2
 VkResult vkCreateRenderPass2KHR(
     VkDevice                                    device,
     const VkRenderPassCreateInfo2*              pCreateInfo,

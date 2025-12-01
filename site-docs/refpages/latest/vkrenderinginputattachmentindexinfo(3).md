@@ -31,9 +31,8 @@ typedef struct VkRenderingInputAttachmentIndexInfo {
     const uint32_t*    pStencilInputAttachmentIndex;
 } VkRenderingInputAttachmentIndexInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_dynamic_rendering_local_read
+// Equivalent to VkRenderingInputAttachmentIndexInfo
 typedef VkRenderingInputAttachmentIndexInfo VkRenderingInputAttachmentIndexInfoKHR;
 
 * 

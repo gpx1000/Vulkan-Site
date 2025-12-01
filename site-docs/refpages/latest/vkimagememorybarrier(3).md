@@ -142,7 +142,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL` then `image` **must**
-have been created with `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT`
+have been created with the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01209) VUID-VkImageMemoryBarrier-oldLayout-01209
@@ -153,8 +154,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL` then `image`
-**must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+**must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01210) VUID-VkImageMemoryBarrier-oldLayout-01210
@@ -165,8 +166,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL` then `image`
-**must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+**must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01211) VUID-VkImageMemoryBarrier-oldLayout-01211
@@ -177,8 +178,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL` then `image` **must**
-have been created with `VK_IMAGE_USAGE_SAMPLED_BIT` or
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+have been created with the `VK_IMAGE_USAGE_SAMPLED_BIT` or
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01212) VUID-VkImageMemoryBarrier-oldLayout-01212
@@ -189,7 +190,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL` then `image` **must** have
-been created with `VK_IMAGE_USAGE_TRANSFER_SRC_BIT`
+been created with the `VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag
+set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01213) VUID-VkImageMemoryBarrier-oldLayout-01213
@@ -200,7 +202,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL` then `image` **must** have
-been created with `VK_IMAGE_USAGE_TRANSFER_DST_BIT`
+been created with the `VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag
+set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01197) VUID-VkImageMemoryBarrier-oldLayout-01197
@@ -244,8 +247,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL` then
-`image` **must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+`image` **must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-01659) VUID-VkImageMemoryBarrier-oldLayout-01659
@@ -256,8 +259,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL` then
-`image` **must** have been created with
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+`image` **must** have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04065) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04065
@@ -268,10 +271,10 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL` then `image` **must**
-have been created with at least one of
+have been created with at least one of the
 `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`,
 `VK_IMAGE_USAGE_SAMPLED_BIT`, or
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04066) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04066
@@ -282,8 +285,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL` then `image` **must**
-have been created with `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
-set
+have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04067) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04067
@@ -294,10 +297,10 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL` then `image` **must**
-have been created with at least one of
+have been created with at least one of the
 `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`,
 `VK_IMAGE_USAGE_SAMPLED_BIT`, or
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04068) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-04068
@@ -308,8 +311,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL` then `image` **must**
-have been created with `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
-set
+have been created with the
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-synchronization2-07793) VUID-VkImageMemoryBarrier-synchronization2-07793
@@ -336,8 +339,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL`, `image` **must** have been
-created with `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+created with the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-03939) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-03939
@@ -348,10 +351,10 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_READ_ONLY_OPTIMAL`, `image` **must** have been
-created with at least one of
+created with at least one of the
 `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`,
 `VK_IMAGE_USAGE_SAMPLED_BIT`, or
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier-oldLayout-02088) VUID-VkImageMemoryBarrier-oldLayout-02088
@@ -362,8 +365,9 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR` then
-`image` **must** have been created with
-`VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` set
+`image` **must** have been created with the
+`VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` usage flag
+set
 
 * 
 [](#VUID-VkImageMemoryBarrier-image-09117) VUID-VkImageMemoryBarrier-image-09117
@@ -432,7 +436,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_SRC_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_DECODE_SRC_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_DECODE_SRC_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07121) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07121
@@ -443,7 +448,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07122) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07122
@@ -454,7 +460,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07123) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07123
@@ -465,7 +472,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07124) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07124
@@ -476,7 +484,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_DST_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_ENCODE_DST_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_ENCODE_DST_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07125) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07125
@@ -487,7 +496,8 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR` then `image` **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-10287) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-10287
@@ -498,9 +508,9 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR` then `image`
-**must** have been created with
+**must** have been created with the
 `VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR` or
-`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR`
+`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07006) VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-07006
@@ -513,10 +523,10 @@ and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` then
 `image` **must** have been created with either the
 `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage bits, and the
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_SAMPLED_BIT` usage bits, and the
-`VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT` usage bit
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flags set, and
+the `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_SAMPLED_BIT` usage flags set, and the
+`VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT` usage flag set
 
 * 
 [](#VUID-VkImageMemoryBarrier-attachmentFeedbackLoopLayout-07313) VUID-VkImageMemoryBarrier-attachmentFeedbackLoopLayout-07313
@@ -534,10 +544,10 @@ If `srcQueueFamilyIndex` and `dstQueueFamilyIndex` define a
 [image layout transition](../../../../spec/latest/chapters/synchronization.html#synchronization-image-layout-transitions),
 and `oldLayout` or `newLayout` is
 `VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ` then `image` **must** have
-been created with either `VK_IMAGE_USAGE_STORAGE_BIT`, or with both
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` and either of
-`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+been created with either the `VK_IMAGE_USAGE_STORAGE_BIT` usage flag
+set, or with both the `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` usage
+flag and either of the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` usage flags set
 
 * 
 [](#VUID-VkImageMemoryBarrier-dynamicRenderingLocalRead-09551) VUID-VkImageMemoryBarrier-dynamicRenderingLocalRead-09551
@@ -630,8 +640,10 @@ the formula defined in [Image Mip    Level Sizing](../../../../spec/latest/chapt
 * 
 [](#VUID-VkImageMemoryBarrier-image-01932) VUID-VkImageMemoryBarrier-image-01932
 
-If `image` is non-sparse then it **must** be bound completely and
-contiguously to a single `VkDeviceMemory` object
+If `image` is non-sparse then the image
+or each specified *disjoint* plane
+**must** be bound completely and contiguously to a single
+`VkDeviceMemory` object
 
 * 
 [](#VUID-VkImageMemoryBarrier-image-09241) VUID-VkImageMemoryBarrier-image-09241

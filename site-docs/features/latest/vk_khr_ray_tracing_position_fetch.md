@@ -67,13 +67,13 @@ Exposing the positions of the triangle is more general and the application can e
 
 We choose the latter.
 
-A new SPIR-V extension [SPV_KHR_ray_tracing_position_fetch](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_ray_tracing_position_fetch.html)
+A new SPIR-V extension [SPV_KHR_ray_tracing_position_fetch](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_ray_tracing_position_fetch.html)
 adds one ray pipeline shader variable decoration:
 
 * 
 `HitTriangleVertexPositionsKHR` which indicates a builtin which contains the vertex position values for a triangle hit in any-hit or closest hit shaders
 
-A new SPIR-V extension [SPV_KHR_ray_tracing_position_fetch](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_ray_tracing_position_fetch.html)
+A new SPIR-V extension [SPV_KHR_ray_tracing_position_fetch](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_ray_tracing_position_fetch.html)
 adds one shader instruction:
 
 * 
@@ -94,7 +94,7 @@ However, it is possible to use this functionality via
 [SPIR-V Intrinsics](https://github.com/microsoft/DirectXShaderCompiler/wiki/GL_EXT_spirv_intrinsics-for-SPIR-V-code-gen).
 
 The SPIR-V values for ray tracing position fetch are obtained from
-[SPV_KHR_ray_tracing_position_fetch](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_ray_tracing_position_fetch.html).
+[SPV_KHR_ray_tracing_position_fetch](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_ray_tracing_position_fetch.html).
 
 In the core HLSL, add the following:
 

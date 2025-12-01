@@ -21,7 +21,7 @@ VkRenderPassCreateInfo - Structure specifying parameters of a newly created rend
 
 The `VkRenderPassCreateInfo` structure is defined as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -198,7 +198,7 @@ members of `pDependencies` at the same index **must** not be equal
 [](#VUID-VkRenderPassCreateInfo-pNext-02512) VUID-VkRenderPassCreateInfo-pNext-02512
 
 If the `pNext` chain includes a
-[VkRenderPassMultiviewCreateInfo](VkRenderPassMultiviewCreateInfo.html) structure, for any element of
+[VkRenderPassMultiviewCreateInfo](VkRenderPassMultiviewCreateInfo.html) structure, for each element of
 `pDependencies` with a `dependencyFlags` member that does not
 include `VK_DEPENDENCY_VIEW_LOCAL_BIT`, the corresponding element of
 the `pViewOffsets` member of that
@@ -231,7 +231,7 @@ If the `pNext` chain includes a
 * 
 [](#VUID-VkRenderPassCreateInfo-pDependencies-00837) VUID-VkRenderPassCreateInfo-pDependencies-00837
 
-For any element of `pDependencies`, if the `srcSubpass` is not
+For each element of `pDependencies`, if the `srcSubpass` is not
 `VK_SUBPASS_EXTERNAL`, all stage flags included in the
 `srcStageMask` member of that dependency **must** be
 `VK_PIPELINE_STAGE_ALL_COMMANDS_BIT` or a pipeline stage supported
@@ -241,7 +241,7 @@ the `pipelineBindPoint` member of the source subpass
 * 
 [](#VUID-VkRenderPassCreateInfo-pDependencies-00838) VUID-VkRenderPassCreateInfo-pDependencies-00838
 
-For any element of `pDependencies`, if the `dstSubpass` is not
+For each element of `pDependencies`, if the `dstSubpass` is not
 `VK_SUBPASS_EXTERNAL`, all stage flags included in the
 `dstStageMask` member of that dependency **must** be
 `VK_PIPELINE_STAGE_ALL_COMMANDS_BIT` or a pipeline stage supported
@@ -251,13 +251,13 @@ the `pipelineBindPoint` member of the destination subpass
 * 
 [](#VUID-VkRenderPassCreateInfo-pDependencies-06866) VUID-VkRenderPassCreateInfo-pDependencies-06866
 
-For any element of `pDependencies`, if its `srcSubpass` is not
+For each element of `pDependencies`, if its `srcSubpass` is not
 `VK_SUBPASS_EXTERNAL`, it **must** be less than `subpassCount`
 
 * 
 [](#VUID-VkRenderPassCreateInfo-pDependencies-06867) VUID-VkRenderPassCreateInfo-pDependencies-06867
 
-For any element of `pDependencies`, if its `dstSubpass` is not
+For each element of `pDependencies`, if its `dstSubpass` is not
 `VK_SUBPASS_EXTERNAL`, it **must** be less than `subpassCount`
 
 * 

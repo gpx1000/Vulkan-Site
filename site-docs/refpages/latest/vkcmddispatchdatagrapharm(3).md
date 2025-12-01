@@ -218,12 +218,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDispatchDataGraphARM-commandBuffer-cmdpool) VUID-vkCmdDispatchDataGraphARM-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support data_graph operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_DATA_GRAPH_BIT_ARM` operations
 
 * 
 [](#VUID-vkCmdDispatchDataGraphARM-renderpass) VUID-vkCmdDispatchDataGraphARM-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdDispatchDataGraphARM-suspended) VUID-vkCmdDispatchDataGraphARM-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDispatchDataGraphARM-videocoding) VUID-vkCmdDispatchDataGraphARM-videocoding
@@ -248,7 +253,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Data_Graph | Action |
+Secondary | Outside | Outside | VK_QUEUE_DATA_GRAPH_BIT_ARM | Action |
 
 Conditional Rendering
 

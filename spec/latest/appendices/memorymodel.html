@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../chapters/preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../chapters/images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="../chapters/VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../chapters/VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="../chapters/private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../chapters/VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="../chapters/raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../chapters/VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="../chapters/memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="deprecation.html">Deprecation</a>
+    <a class="nav-link" href="legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="boilerplate.html">API Boilerplate</a>
@@ -453,8 +462,20 @@ constitute an operation.</p>
 </div>
 <div class="paragraph">
 <p>Each operation is executed by a particular <em>agent</em>.
-Possible agents include each shader invocation, each host thread, and each
-fixed-function stage of the pipeline.</p>
+Possible agents include each:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>fixed-function stage of the pipeline,</p>
+</li>
+<li>
+<p>shader invocation, or</p>
+</li>
+<li>
+<p>host thread.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -476,8 +497,10 @@ its set of memory locations.</p>
 </div>
 <div class="paragraph">
 <p>Memory locations for buffers and images are explicitly allocated in
-<a href="../chapters/memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</a> objects, and are implicitly allocated for SPIR-V
-variables in each shader invocation.</p>
+<a href="../chapters/memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</a> objects
+, and are implicitly allocated for SPIR-V variables in each shader
+invocation
+.</p>
 </div>
 <div class="paragraph">
 <p>Variables with <code>Workgroup</code> storage class that are decorated with
@@ -490,8 +513,9 @@ locations.</p>
 <h2 id="memory-model-allocation"><a class="anchor" href="#memory-model-allocation"></a>Allocation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The values stored in newly allocated memory locations are determined by a
-SPIR-V variable&#8217;s initializer, if present, or else are <strong>undefined</strong>.
+<p>The values stored in newly allocated memory locations are
+determined by a SPIR-V variable&#8217;s initializer, if present, or else are
+<strong>undefined</strong>.
 At the time an allocation is created there have been no
 <a href="#memory-model-memory-operation">memory operations</a> to any of its memory
 locations.
@@ -573,10 +597,11 @@ If the variable is an array (or array of arrays, etc.) then each element
 of the array <strong>may</strong> be a unique reference.</p>
 </li>
 <li>
-<p>The address range for a buffer in <code>PhysicalStorageBuffer</code> storage
-class, where the base of the address range is queried with
-<a href="../chapters/resources.html#vkGetBufferDeviceAddress" class="xref page">vkGetBufferDeviceAddress</a>
-and the length of the range is the size of the buffer.</p>
+<p>The address range for a buffer
+in <code>PhysicalStorageBuffer</code> storage class,
+  where the base of the address range is queried with
+    <a href="../chapters/resources.html#vkGetBufferDeviceAddress" class="xref page">vkGetBufferDeviceAddress</a>
+    and the length of the range is the size of the buffer.</p>
 </li>
 <li>
 <p>A single common reference for all variables with <code>Workgroup</code> storage
@@ -739,8 +764,10 @@ std::atomic typed object.</p>
 <a href="#memory-model-memory-semantics">semantics</a>.
 Informally, the scope determines which other agents it is atomic with
 respect to, and the <a href="#memory-model-memory-semantics">semantics</a> constrains
-its ordering against other memory accesses.
-Device atomic operations have explicit scopes and semantics.
+its ordering against other memory accesses.</p>
+</div>
+<div class="paragraph">
+<p>Device atomic operations have explicit scopes and semantics.
 Each host atomic operation implicitly uses the <code>CrossDevice</code> scope, and
 uses a memory semantics equivalent to a C++ std::memory_order value of
 relaxed, acquire, release, acq_rel, or seq_cst.</p>
@@ -862,10 +889,10 @@ which are flags that constrain the order in which other memory accesses
 or <strong>can</strong> observe accesses by other agents.</p>
 </div>
 <div class="paragraph">
-<p>Device instructions that include semantics are <code>OpAtomic*</code>,
-<code>OpControlBarrier</code>, <code>OpMemoryBarrier</code>, and <code>OpMemoryNamedBarrier</code>.
-Host instructions that include semantics are some std::atomic methods and
-memory fences.</p>
+<p>Host instructions that include semantics are some std::atomic methods and
+memory fences.
+Device instructions that include semantics are <code>OpAtomic*</code>,
+<code>OpControlBarrier</code>, <code>OpMemoryBarrier</code>, and <code>OpMemoryNamedBarrier</code>.</p>
 </div>
 <div class="paragraph">
 <p>Vulkan supports the following memory semantics:</p>
@@ -1369,11 +1396,17 @@ has <code>CrossDevice</code> scope.</p>
 <div class="paragraph">
 <p>By default, non-atomic memory operations are treated as <em>private</em>, meaning
 such a memory operation is not intended to be used for communication with
-other agents.
-Memory operations with the <code>NonPrivatePointer</code>, <code>NonPrivateTexel</code>
+other agents.</p>
+</div>
+<div class="paragraph">
+<p><em>Non-private</em> memory operations are intended to be used for communication
+with other agents.
+Atomic operations are always considered <em>non-private</em>.</p>
+</div>
+<div class="paragraph">
+<p>Memory operations with the <code>NonPrivatePointer</code>, <code>NonPrivateTexel</code>
 , or <code>NonPrivateElementARM</code>
-bit set are treated as <em>non-private</em>, and are intended to be used for
-communication with other agents.</p>
+bit set are treated as <em>non-private</em></p>
 </div>
 <div class="paragraph">
 <p>More precisely, for private memory operations to be
@@ -1381,9 +1414,6 @@ communication with other agents.</p>
 requires using system-synchronizes-with rather than shader-based
 synchronization.
 Private memory operations still obey program-order.</p>
-</div>
-<div class="paragraph">
-<p>Atomic operations are always considered non-private.</p>
 </div>
 </div>
 </div>
@@ -1559,11 +1589,12 @@ instance domain.</p>
 <div class="paragraph">
 <p>Memory domains do not correspond to storage classes or device-local and
 host-local <a href="../chapters/memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</a> allocations, rather they indicate whether a
-write can be made visible only to agents in the same subgroup, same
-workgroup,
-overlapping fragment shader invocation,
-shader-call-related ray tracing invocation,
-in any shader invocation, or anywhere on the device, or host.
+write can be made visible only to agents
+in the same subgroup, same workgroup,
+in overlapping fragment shader invocation,
+in shader-call-related ray tracing invocation,
+in any shader invocation, or
+anywhere on the device, or host.
 The shader, queue family instance,
 fragment interlock instance,
 shader call instance,

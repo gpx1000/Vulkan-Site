@@ -55,8 +55,8 @@ describing the compute shader.
     equal to Vulkan 1.3
 or
     [VK_KHR_maintenance4](VK_KHR_maintenance4.html) is enabled
-    `layout` **must** not be accessed outside of the duration of the
-    command this structure is passed to.
+    `layout` **must** not be accessed by the implementation outside of the
+    duration of the command this structure is passed to.
 
 * 
 `basePipelineHandle` is a pipeline to derive from.
@@ -136,8 +136,9 @@ descriptor type
 [](#VUID-VkComputePipelineCreateInfo-layout-07991) VUID-VkComputePipelineCreateInfo-layout-07991
 
 If a [resource variable](../../../../spec/latest/chapters/interfaces.html#interfaces-resources) is declared in a shader
-as an array, the corresponding descriptor set in `layout` **must**
-match the descriptor count
+as an array, the corresponding descriptor binding used to create
+`layout` **must** have a `descriptorCount` that is greater than or
+equal to the length of the array
 
 * 
 [](#VUID-VkComputePipelineCreateInfo-None-10391) VUID-VkComputePipelineCreateInfo-None-10391
@@ -145,6 +146,13 @@ match the descriptor count
 If a [resource variables](../../../../spec/latest/chapters/interfaces.html#interfaces-resources) is declared in a shader
 as an array of descriptors, then the descriptor type of that variable
 **must** not be `VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK`
+
+* 
+[](#VUID-VkComputePipelineCreateInfo-flags-11798) VUID-VkComputePipelineCreateInfo-flags-11798
+
+If [shader64BitIndexing](../../../../spec/latest/chapters/features.html#features-shader64BitIndexing) feature is not
+enabled, `flags` **must** not contain
+`VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT`
 
 * 
 [](#VUID-VkComputePipelineCreateInfo-flags-03365) VUID-VkComputePipelineCreateInfo-flags-03365

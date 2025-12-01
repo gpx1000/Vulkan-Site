@@ -30,9 +30,8 @@ typedef struct VkExternalFenceProperties {
     VkExternalFenceFeatureFlags       externalFenceFeatures;
 } VkExternalFenceProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_external_fence_capabilities
+// Equivalent to VkExternalFenceProperties
 typedef VkExternalFenceProperties VkExternalFencePropertiesKHR;
 
 * 
@@ -66,7 +65,7 @@ Valid Usage (Implicit)
 
  `pNext` **must** be `NULL`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalFenceFeatureFlags](VkExternalFenceFeatureFlags.html), [VkExternalFenceHandleTypeFlags](VkExternalFenceHandleTypeFlags.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceExternalFenceProperties](vkGetPhysicalDeviceExternalFenceProperties.html), [vkGetPhysicalDeviceExternalFenceProperties](vkGetPhysicalDeviceExternalFenceProperties.html)
+[VK_KHR_external_fence_capabilities](VK_KHR_external_fence_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalFenceFeatureFlags](VkExternalFenceFeatureFlags.html), [VkExternalFenceHandleTypeFlags](VkExternalFenceHandleTypeFlags.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceExternalFenceProperties](vkGetPhysicalDeviceExternalFenceProperties.html), [vkGetPhysicalDeviceExternalFenceProperties](vkGetPhysicalDeviceExternalFenceProperties.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkExternalFenceProperties).
 

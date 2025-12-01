@@ -47,43 +47,45 @@ VK_HUAWEI_INVOCATION_MASK_SPEC_VERSION
 * 
 Extending VkAccessFlagBits2KHR:
 
-◦ VK_ACCESS_2_INVOCATION_MASK_READ_BIT_HUAWEI
+VK_ACCESS_2_INVOCATION_MASK_READ_BIT_HUAWEI
 
-* 
 Extending VkImageUsageFlagBits:
 
-◦ VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI
-
 * 
+VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI
+
 Extending VkPipelineStageFlagBits2KHR:
 
-◦ VK_PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI
-
 * 
+VK_PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI
+
 Extending VkStructureType:
 
-◦ VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI
+* 
+VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI
 
 New structure
- ◦ VkPhysicalDeviceInvocationMaskFeaturesHUAWEI
+
+* 
+VkPhysicalDeviceInvocationMaskFeaturesHUAWEI
 
 typedef enum VkImageUsageFlagBits {
 
-VK_IMAGE_USAGE_TRANSFER_SRC_BIT = 0x00000001,
-VK_IMAGE_USAGE_TRANSFER_DST_BIT = 0x00000002,
-VK_IMAGE_USAGE_SAMPLED_BIT = 0x00000004,
-VK_IMAGE_USAGE_STORAGE_BIT = 0x00000008,
-VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT = 0x00000010,
-VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT = 0x00000020,
-VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT = 0x00000040,
-VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT = 0x00000080,
-VK_IMAGE_USAGE_SHADING_RATE_IMAGE_BIT_NV = 0x00000100,
+ VK_IMAGE_USAGE_TRANSFER_SRC_BIT = 0x00000001,
+ VK_IMAGE_USAGE_TRANSFER_DST_BIT = 0x00000002,
+ VK_IMAGE_USAGE_SAMPLED_BIT = 0x00000004,
+ VK_IMAGE_USAGE_STORAGE_BIT = 0x00000008,
+ VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT = 0x00000010,
+ VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT = 0x00000020,
+ VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT = 0x00000040,
+ VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT = 0x00000080,
+ VK_IMAGE_USAGE_SHADING_RATE_IMAGE_BIT_NV = 0x00000100,
 
-// Provided by VK_EXT_fragment_density_map
-VK_IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT = 0x00000200,
+ // Provided by VK_EXT_fragment_density_map
+ VK_IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT = 0x00000200,
 
-// Provided by VK_HUAWEI_invocation_mask
-VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI = 0x00040000,
+ // Provided by VK_HUAWEI_invocation_mask
+ VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI = 0x00040000,
 
 } VkImageUsageFlagBits;
 
@@ -101,10 +103,10 @@ If imageView is not VK_NULL_HANDLE, it must be a valid VkImageView handle of typ
 If imageView is not VK_NULL_HANDLE, it must have a format of VK_FORMAT_R8_UINT
 
 * 
-If imageView is not VK_NULL_HANDLE, it must have been created with a usage value including VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI
+If imageView is not VK_NULL_HANDLE, it must have been created with the VK_IMAGE_USAGE_INVOCATION_MASK_BIT_HUAWEI usage flag set
 
 * 
-If imageView is not VK_NULL_HANDLE, imageLayout must match the actual VkImageLayou
+If imageView is not VK_NULL_HANDLE, imageLayout must match the actual VkImageLayout
 of each subresource accessible from imageView at the time the subresource is accessed
 
 * 
@@ -121,13 +123,13 @@ New structure
 * 
 Extending VkPhysicalDeviceFeatures2, VkDeviceCreateInfo:
 
-◦ VkPhysicalDeviceInvocationMaskFeaturesHUAWEI
+VkPhysicalDeviceInvocationMaskFeaturesHUAWEI
 
-typedef struct VkPhysicalDeviceInvocationMaskFeaturesHUAWEI {
- VkStructureType sType;
- void* pNext;
- VkBool32 invocationMask;
-} VkPhysicalDeviceInvocationMaskFeaturesHUAWEI;
+ typedef struct VkPhysicalDeviceInvocationMaskFeaturesHUAWEI {
+  VkStructureType sType;
+  void* pNext;
+  VkBool32 invocationMask;
+ } VkPhysicalDeviceInvocationMaskFeaturesHUAWEI;
 
 invocationMask = true mean the feature is supported
 

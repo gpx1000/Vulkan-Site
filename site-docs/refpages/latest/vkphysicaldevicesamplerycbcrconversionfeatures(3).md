@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceSamplerYcbcrConversionFeatures {
     VkBool32           samplerYcbcrConversion;
 } VkPhysicalDeviceSamplerYcbcrConversionFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkPhysicalDeviceSamplerYcbcrConversionFeatures
 typedef VkPhysicalDeviceSamplerYcbcrConversionFeatures VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR;
 
 This structure describes the following feature:

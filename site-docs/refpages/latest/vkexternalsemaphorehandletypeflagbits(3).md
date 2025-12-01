@@ -44,9 +44,8 @@ typedef enum VkExternalSemaphoreHandleTypeFlagBits {
     VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT_KHR = VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT,
 } VkExternalSemaphoreHandleTypeFlagBits;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore_capabilities
+// Equivalent to VkExternalSemaphoreHandleTypeFlagBits
 typedef VkExternalSemaphoreHandleTypeFlagBits VkExternalSemaphoreHandleTypeFlagBitsKHR;
 
 * 
@@ -137,7 +136,7 @@ following table:
 | `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT` | No restriction | No restriction |
 | `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_ZIRCON_EVENT_BIT_FUCHSIA` | No restriction | No restriction |
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalSemaphoreHandleTypeFlags](VkExternalSemaphoreHandleTypeFlags.html), [VkImportSemaphoreFdInfoKHR](VkImportSemaphoreFdInfoKHR.html), [VkImportSemaphoreWin32HandleInfoKHR](VkImportSemaphoreWin32HandleInfoKHR.html), [VkImportSemaphoreZirconHandleInfoFUCHSIA](VkImportSemaphoreZirconHandleInfoFUCHSIA.html), [VkPhysicalDeviceExternalSemaphoreInfo](VkPhysicalDeviceExternalSemaphoreInfo.html), [VkSemaphoreGetFdInfoKHR](VkSemaphoreGetFdInfoKHR.html), [VkSemaphoreGetWin32HandleInfoKHR](VkSemaphoreGetWin32HandleInfoKHR.html), [VkSemaphoreGetZirconHandleInfoFUCHSIA](VkSemaphoreGetZirconHandleInfoFUCHSIA.html)
+[VK_KHR_external_semaphore_capabilities](VK_KHR_external_semaphore_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalSemaphoreHandleTypeFlags](VkExternalSemaphoreHandleTypeFlags.html), [VkImportSemaphoreFdInfoKHR](VkImportSemaphoreFdInfoKHR.html), [VkImportSemaphoreWin32HandleInfoKHR](VkImportSemaphoreWin32HandleInfoKHR.html), [VkImportSemaphoreZirconHandleInfoFUCHSIA](VkImportSemaphoreZirconHandleInfoFUCHSIA.html), [VkPhysicalDeviceExternalSemaphoreInfo](VkPhysicalDeviceExternalSemaphoreInfo.html), [VkSemaphoreGetFdInfoKHR](VkSemaphoreGetFdInfoKHR.html), [VkSemaphoreGetWin32HandleInfoKHR](VkSemaphoreGetWin32HandleInfoKHR.html), [VkSemaphoreGetZirconHandleInfoFUCHSIA](VkSemaphoreGetZirconHandleInfoFUCHSIA.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkExternalSemaphoreHandleTypeFlagBits).
 

@@ -30,9 +30,8 @@ typedef struct VkPhysicalDeviceMultiviewFeatures {
     VkBool32           multiviewTessellationShader;
 } VkPhysicalDeviceMultiviewFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_multiview
+// Equivalent to VkPhysicalDeviceMultiviewFeatures
 typedef VkPhysicalDeviceMultiviewFeatures VkPhysicalDeviceMultiviewFeaturesKHR;
 
 This structure describes the following features:
@@ -96,7 +95,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_FEATURES`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), `VkBool32`, [VkStructureType](VkStructureType.html)
+[VK_KHR_multiview](VK_KHR_multiview.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), `VkBool32`, [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/features.html#VkPhysicalDeviceMultiviewFeatures).
 

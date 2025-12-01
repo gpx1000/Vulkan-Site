@@ -26,9 +26,8 @@ void vkGetPhysicalDeviceMemoryProperties2(
     VkPhysicalDevice                            physicalDevice,
     VkPhysicalDeviceMemoryProperties2*          pMemoryProperties);
 
-or the equivalent command
-
 // Provided by VK_KHR_get_physical_device_properties2
+// Equivalent to vkGetPhysicalDeviceMemoryProperties2
 void vkGetPhysicalDeviceMemoryProperties2KHR(
     VkPhysicalDevice                            physicalDevice,
     VkPhysicalDeviceMemoryProperties2*          pMemoryProperties);
@@ -57,7 +56,7 @@ Valid Usage (Implicit)
 
  `pMemoryProperties` **must** be a valid pointer to a [VkPhysicalDeviceMemoryProperties2](VkPhysicalDeviceMemoryProperties2.html) structure
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceMemoryProperties2](VkPhysicalDeviceMemoryProperties2.html)
+[VK_KHR_get_physical_device_properties2](VK_KHR_get_physical_device_properties2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkPhysicalDevice](VkPhysicalDevice.html), [VkPhysicalDeviceMemoryProperties2](VkPhysicalDeviceMemoryProperties2.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/memory.html#vkGetPhysicalDeviceMemoryProperties2).
 

@@ -29,9 +29,8 @@ typedef struct VkSwapchainPresentModeInfoKHR {
     const VkPresentModeKHR*    pPresentModes;
 } VkSwapchainPresentModeInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_swapchain_maintenance1
+// Equivalent to VkSwapchainPresentModeInfoKHR
 typedef VkSwapchainPresentModeInfoKHR VkSwapchainPresentModeInfoEXT;
 
 * 

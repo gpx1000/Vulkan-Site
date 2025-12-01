@@ -37,7 +37,7 @@ void pickPhysicalDevice() {
 The graphics card that we’ll end up selecting will be stored in a
 VkPhysicalDevice handle added as a new class member.
 
-vk::raii::PhysicalDevice physicalDevice;
+vk::raii::PhysicalDevice physicalDevice = nullptr;
 
 Listing the graphics cards is very similar to listing extensions and starts with
 querying just the number.
@@ -57,7 +57,7 @@ We’ll check if any of the physical devices meet the requirements that we’ll
 add to that function.
 
 for (const auto& device : devices) {
-    physicalDevice = std::make_unique(device);
+    physicalDevice = device;
     break;
 }
 
@@ -80,14 +80,15 @@ As an example, let’s say we consider our application only usable for dedicated
 graphics cards that support geometry shaders. Then the `isDeviceSuitable`
 function would look like this:
 
-bool isDeviceSuitable(VkPhysicalDevice device) {
-    auto deviceProperties = device.getProperties();
-    auto deviceFeatures = device.getFeatures();
-    if (deviceProperties.deviceType == vk::PhysicalDeviceType::eDiscreteGpu &&
-           deviceFeatures.geometryShader) {
-        physicalDevice = std::make_unique(device);
-        break;
-   }
+bool isDeviceSuitable(vk::raii::PhysicalDevice physicalDevice) {
+    auto deviceProperties = physicalDevice.getProperties();
+    auto deviceFeatures = physicalDevice.getFeatures();
+
+    if (deviceProperties.deviceType == vk::PhysicalDeviceType::eDiscreteGpu && deviceFeatures.geometryShader) {
+        return true;
+    }
+
+    return false;
 }
 
 Instead of just checking if a device is suitable or not and going with the first
@@ -101,7 +102,7 @@ something like that as follows:
 ...
 
 void pickPhysicalDevice() {
-    auto devices = vk::raii::PhysicalDevices( *instance );
+    auto devices = vk::raii::PhysicalDevices( instance );
     if (devices.empty()) {
         throw std::runtime_error( "failed to find GPUs with Vulkan support!" );
     }
@@ -130,7 +131,7 @@ void pickPhysicalDevice() {
 
     // Check if the best candidate is suitable at all
     if (candidates.rbegin()->first > 0) {
-        physicalDevice = std::make_unique(candidates.rbegin()->second);
+        physicalDevice = candidates.rbegin()->second;
     } else {
         throw std::runtime_error("failed to find a suitable GPU!");
     }
@@ -170,7 +171,6 @@ void pickPhysicalDevice() {
                 found = found &&  extensionIter != extensions.end();
             }
             isSuitable = isSuitable && found;
-            printf("\n");
             if (isSuitable) {
                 physicalDevice = device;
             }
@@ -195,9 +195,9 @@ of these supports the commands that we want to use. Right now we are only
 going to look for a queue that supports graphics commands, so the code
 could look like this:
 
-uint32_t findQueueFamilies(VkPhysicalDevice device) {
+uint32_t findQueueFamilies(vk::raii::PhysicalDevice physicalDevice) {
     // find the index of the first queue family that supports graphics
-    std::vector queueFamilyProperties = physicalDevice->getQueueFamilyProperties();
+    std::vector queueFamilyProperties = physicalDevice.getQueueFamilyProperties();
 
     // get the first index into queueFamilyProperties which supports graphics
     auto graphicsQueueFamilyProperty =

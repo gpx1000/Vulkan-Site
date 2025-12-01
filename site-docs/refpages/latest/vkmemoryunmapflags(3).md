@@ -21,9 +21,8 @@ VkMemoryUnmapFlags - Bitmask of VkMemoryUnmapFlagBits
 // Provided by VK_VERSION_1_4
 typedef VkFlags VkMemoryUnmapFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_map_memory2
+// Equivalent to VkMemoryUnmapFlags
 typedef VkMemoryUnmapFlags VkMemoryUnmapFlagsKHR;
 
 `VkMemoryUnmapFlags` is a bitmask type for setting a mask of zero or

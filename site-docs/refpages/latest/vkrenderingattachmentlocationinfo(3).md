@@ -29,9 +29,8 @@ typedef struct VkRenderingAttachmentLocationInfo {
     const uint32_t*    pColorAttachmentLocations;
 } VkRenderingAttachmentLocationInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_dynamic_rendering_local_read
+// Equivalent to VkRenderingAttachmentLocationInfo
 typedef VkRenderingAttachmentLocationInfo VkRenderingAttachmentLocationInfoKHR;
 
 * 

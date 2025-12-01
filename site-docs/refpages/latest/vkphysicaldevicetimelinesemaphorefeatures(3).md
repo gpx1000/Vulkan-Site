@@ -28,9 +28,8 @@ typedef struct VkPhysicalDeviceTimelineSemaphoreFeatures {
     VkBool32           timelineSemaphore;
 } VkPhysicalDeviceTimelineSemaphoreFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkPhysicalDeviceTimelineSemaphoreFeatures
 typedef VkPhysicalDeviceTimelineSemaphoreFeatures VkPhysicalDeviceTimelineSemaphoreFeaturesKHR;
 
 This structure describes the following feature:

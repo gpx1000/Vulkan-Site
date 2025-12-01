@@ -33,9 +33,8 @@ typedef enum VkRayTracingShaderGroupTypeKHR {
     VK_RAY_TRACING_SHADER_GROUP_TYPE_PROCEDURAL_HIT_GROUP_NV = VK_RAY_TRACING_SHADER_GROUP_TYPE_PROCEDURAL_HIT_GROUP_KHR,
 } VkRayTracingShaderGroupTypeKHR;
 
-or the equivalent
-
 // Provided by VK_NV_ray_tracing
+// Equivalent to VkRayTracingShaderGroupTypeKHR
 typedef VkRayTracingShaderGroupTypeKHR VkRayTracingShaderGroupTypeNV;
 
 * 

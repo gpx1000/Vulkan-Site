@@ -204,9 +204,8 @@ void vkCmdSetPrimitiveRestartEnable(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    primitiveRestartEnable);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state2, VK_EXT_shader_object
+// Equivalent to vkCmdSetPrimitiveRestartEnable
 void vkCmdSetPrimitiveRestartEnableEXT(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    primitiveRestartEnable);
@@ -264,7 +263,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetPrimitiveRestartEnable-commandBuffer-cmdpool) VUID-vkCmdSetPrimitiveRestartEnable-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetPrimitiveRestartEnable-videocoding) VUID-vkCmdSetPrimitiveRestartEnable-videocoding
@@ -284,7 +283,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -400,9 +399,8 @@ void vkCmdSetPrimitiveTopology(
     VkCommandBuffer                             commandBuffer,
     VkPrimitiveTopology                         primitiveTopology);
 
-or the equivalent command
-
 // Provided by VK_EXT_extended_dynamic_state, VK_EXT_shader_object
+// Equivalent to vkCmdSetPrimitiveTopology
 void vkCmdSetPrimitiveTopologyEXT(
     VkCommandBuffer                             commandBuffer,
     VkPrimitiveTopology                         primitiveTopology);
@@ -462,7 +460,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetPrimitiveTopology-commandBuffer-cmdpool) VUID-vkCmdSetPrimitiveTopology-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdSetPrimitiveTopology-videocoding) VUID-vkCmdSetPrimitiveTopology-videocoding
@@ -482,7 +480,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1022,7 +1020,7 @@ multiple of the size of the type indicated by `indexType`
 [](#VUID-vkCmdBindIndexBuffer-buffer-08784) VUID-vkCmdBindIndexBuffer-buffer-08784
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDEX_BUFFER_BIT` flag
+`VK_BUFFER_USAGE_INDEX_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdBindIndexBuffer-buffer-08785) VUID-vkCmdBindIndexBuffer-buffer-08785
@@ -1079,7 +1077,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindIndexBuffer-commandBuffer-cmdpool) VUID-vkCmdBindIndexBuffer-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindIndexBuffer-videocoding) VUID-vkCmdBindIndexBuffer-videocoding
@@ -1104,7 +1102,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1120,9 +1118,8 @@ void vkCmdBindIndexBuffer2(
     VkDeviceSize                                size,
     VkIndexType                                 indexType);
 
-or the equivalent command
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to vkCmdBindIndexBuffer2
 void vkCmdBindIndexBuffer2KHR(
     VkCommandBuffer                             commandBuffer,
     VkBuffer                                    buffer,
@@ -1176,7 +1173,7 @@ multiple of the size of the type indicated by `indexType`
 [](#VUID-vkCmdBindIndexBuffer2-buffer-08784) VUID-vkCmdBindIndexBuffer2-buffer-08784
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDEX_BUFFER_BIT` flag
+`VK_BUFFER_USAGE_INDEX_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdBindIndexBuffer2-buffer-08785) VUID-vkCmdBindIndexBuffer2-buffer-08785
@@ -1245,7 +1242,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindIndexBuffer2-commandBuffer-cmdpool) VUID-vkCmdBindIndexBuffer2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindIndexBuffer2-videocoding) VUID-vkCmdBindIndexBuffer2-videocoding
@@ -1270,7 +1267,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -1616,6 +1613,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDraw-imageLayout-00344) VUID-vkCmdDraw-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDraw-None-08115) VUID-vkCmdDraw-None-08115
@@ -3103,6 +3107,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDraw-dynamicRenderingLocalRead-11797) VUID-vkCmdDraw-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDraw-imageView-06184) VUID-vkCmdDraw-imageView-06184
 
 If the current render pass instance was begun with
@@ -3176,6 +3194,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -3194,6 +3213,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -3208,6 +3228,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -3215,8 +3236,8 @@ or
 
 [](#VUID-vkCmdDraw-pNext-07935) VUID-vkCmdDraw-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -3234,39 +3255,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDraw-pColorAttachments-08963) VUID-vkCmdDraw-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDraw-pColorAttachments-11539) VUID-vkCmdDraw-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDraw-pDepthAttachment-08964) VUID-vkCmdDraw-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDraw-pDepthAttachment-11540) VUID-vkCmdDraw-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDraw-pStencilAttachment-08965) VUID-vkCmdDraw-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDraw-flags-10582) VUID-vkCmdDraw-flags-10582
+[](#VUID-vkCmdDraw-pStencilAttachment-11860) VUID-vkCmdDraw-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDraw-flags-10582) VUID-vkCmdDraw-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -3588,8 +3651,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDraw-None-07642) VUID-vkCmdDraw-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -3601,8 +3663,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDraw-None-07643) VUID-vkCmdDraw-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -3670,8 +3731,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDraw-pipelineFragmentShadingRate-09238) VUID-vkCmdDraw-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -4296,19 +4356,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDraw-None-09549) VUID-vkCmdDraw-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDraw-None-10927) VUID-vkCmdDraw-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDraw-None-10928) VUID-vkCmdDraw-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDraw-None-09642) VUID-vkCmdDraw-None-09642
 
@@ -4335,6 +4413,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDraw-flags-11521) VUID-vkCmdDraw-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDraw-None-11522) VUID-vkCmdDraw-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDraw-None-11523) VUID-vkCmdDraw-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDraw-customResolve-11524) VUID-vkCmdDraw-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDraw-customResolve-11525) VUID-vkCmdDraw-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDraw-None-11861) VUID-vkCmdDraw-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDraw-None-11862) VUID-vkCmdDraw-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDraw-None-11863) VUID-vkCmdDraw-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDraw-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDraw-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDraw-None-11865) VUID-vkCmdDraw-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDraw-None-11866) VUID-vkCmdDraw-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDraw-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDraw-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDraw-None-11868) VUID-vkCmdDraw-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDraw-None-11869) VUID-vkCmdDraw-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDraw-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDraw-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDraw-colorAttachmentCount-11871) VUID-vkCmdDraw-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDraw-pDepthAttachment-11872) VUID-vkCmdDraw-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDraw-pStencilAttachment-11873) VUID-vkCmdDraw-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDraw-customResolve-11529) VUID-vkCmdDraw-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDraw-customResolve-11530) VUID-vkCmdDraw-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDraw-commandBuffer-02712) VUID-vkCmdDraw-commandBuffer-02712
@@ -4661,6 +4965,42 @@ called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime)
 the current command buffer prior to this drawing command
 
 * 
+[](#VUID-vkCmdDraw-OpExecutionMode-12239) VUID-vkCmdDraw-OpExecutionMode-12239
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the type
+of subdivision, they **must** be the same
+
+* 
+[](#VUID-vkCmdDraw-OpExecutionMode-12240) VUID-vkCmdDraw-OpExecutionMode-12240
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+orientation of triangles, they **must** be the same
+
+* 
+[](#VUID-vkCmdDraw-OpExecutionMode-12241) VUID-vkCmdDraw-OpExecutionMode-12241
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+segment spacing, they **must** be the same
+
+* 
+[](#VUID-vkCmdDraw-OpExecutionMode-12242) VUID-vkCmdDraw-OpExecutionMode-12242
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the output
+patch size, they **must** be the same
+
+* 
 [](#VUID-vkCmdDraw-pNext-09461) VUID-vkCmdDraw-pNext-09461
 
 If the bound graphics pipeline state was created with
@@ -4700,12 +5040,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDraw-commandBuffer-cmdpool) VUID-vkCmdDraw-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDraw-renderpass) VUID-vkCmdDraw-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDraw-suspended) VUID-vkCmdDraw-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDraw-videocoding) VUID-vkCmdDraw-videocoding
@@ -4725,7 +5070,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -5053,6 +5398,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawIndexed-imageLayout-00344) VUID-vkCmdDrawIndexed-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawIndexed-None-08115) VUID-vkCmdDrawIndexed-None-08115
@@ -6540,6 +6892,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawIndexed-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawIndexed-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawIndexed-imageView-06184) VUID-vkCmdDrawIndexed-imageView-06184
 
 If the current render pass instance was begun with
@@ -6613,6 +6979,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -6631,6 +6998,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -6645,6 +7013,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -6652,8 +7021,8 @@ or
 
 [](#VUID-vkCmdDrawIndexed-pNext-07935) VUID-vkCmdDrawIndexed-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -6671,39 +7040,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawIndexed-pColorAttachments-08963) VUID-vkCmdDrawIndexed-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexed-pColorAttachments-11539) VUID-vkCmdDrawIndexed-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawIndexed-pDepthAttachment-08964) VUID-vkCmdDrawIndexed-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawIndexed-pDepthAttachment-11540) VUID-vkCmdDrawIndexed-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawIndexed-pStencilAttachment-08965) VUID-vkCmdDrawIndexed-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawIndexed-flags-10582) VUID-vkCmdDrawIndexed-flags-10582
+[](#VUID-vkCmdDrawIndexed-pStencilAttachment-11860) VUID-vkCmdDrawIndexed-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexed-flags-10582) VUID-vkCmdDrawIndexed-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -7025,8 +7436,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndexed-None-07642) VUID-vkCmdDrawIndexed-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -7038,8 +7448,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndexed-None-07643) VUID-vkCmdDrawIndexed-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -7107,8 +7516,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndexed-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawIndexed-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -7733,19 +8141,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawIndexed-None-09549) VUID-vkCmdDrawIndexed-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawIndexed-None-10927) VUID-vkCmdDrawIndexed-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawIndexed-None-10928) VUID-vkCmdDrawIndexed-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawIndexed-None-09642) VUID-vkCmdDrawIndexed-None-09642
 
@@ -7772,6 +8198,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawIndexed-flags-11521) VUID-vkCmdDrawIndexed-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawIndexed-None-11522) VUID-vkCmdDrawIndexed-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawIndexed-None-11523) VUID-vkCmdDrawIndexed-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawIndexed-customResolve-11524) VUID-vkCmdDrawIndexed-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawIndexed-customResolve-11525) VUID-vkCmdDrawIndexed-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawIndexed-None-11861) VUID-vkCmdDrawIndexed-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawIndexed-None-11862) VUID-vkCmdDrawIndexed-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawIndexed-None-11863) VUID-vkCmdDrawIndexed-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexed-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawIndexed-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexed-None-11865) VUID-vkCmdDrawIndexed-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexed-None-11866) VUID-vkCmdDrawIndexed-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndexed-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawIndexed-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexed-None-11868) VUID-vkCmdDrawIndexed-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexed-None-11869) VUID-vkCmdDrawIndexed-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndexed-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawIndexed-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexed-colorAttachmentCount-11871) VUID-vkCmdDrawIndexed-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawIndexed-pDepthAttachment-11872) VUID-vkCmdDrawIndexed-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndexed-pStencilAttachment-11873) VUID-vkCmdDrawIndexed-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndexed-customResolve-11529) VUID-vkCmdDrawIndexed-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawIndexed-customResolve-11530) VUID-vkCmdDrawIndexed-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawIndexed-commandBuffer-02712) VUID-vkCmdDrawIndexed-commandBuffer-02712
@@ -8098,6 +8750,42 @@ called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime)
 the current command buffer prior to this drawing command
 
 * 
+[](#VUID-vkCmdDrawIndexed-OpExecutionMode-12239) VUID-vkCmdDrawIndexed-OpExecutionMode-12239
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the type
+of subdivision, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndexed-OpExecutionMode-12240) VUID-vkCmdDrawIndexed-OpExecutionMode-12240
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+orientation of triangles, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndexed-OpExecutionMode-12241) VUID-vkCmdDrawIndexed-OpExecutionMode-12241
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+segment spacing, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndexed-OpExecutionMode-12242) VUID-vkCmdDrawIndexed-OpExecutionMode-12242
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the output
+patch size, they **must** be the same
+
+* 
 [](#VUID-vkCmdDrawIndexed-None-07312) VUID-vkCmdDrawIndexed-None-07312
 
 If the [`maintenance6`](features.html#features-maintenance6) feature is not
@@ -8159,12 +8847,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawIndexed-commandBuffer-cmdpool) VUID-vkCmdDrawIndexed-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawIndexed-renderpass) VUID-vkCmdDrawIndexed-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawIndexed-suspended) VUID-vkCmdDrawIndexed-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawIndexed-videocoding) VUID-vkCmdDrawIndexed-videocoding
@@ -8184,7 +8877,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -8494,6 +9187,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawMultiEXT-imageLayout-00344) VUID-vkCmdDrawMultiEXT-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawMultiEXT-None-08115) VUID-vkCmdDrawMultiEXT-None-08115
@@ -9981,6 +10681,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawMultiEXT-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawMultiEXT-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawMultiEXT-imageView-06184) VUID-vkCmdDrawMultiEXT-imageView-06184
 
 If the current render pass instance was begun with
@@ -10054,6 +10768,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -10072,6 +10787,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -10086,6 +10802,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -10093,8 +10810,8 @@ or
 
 [](#VUID-vkCmdDrawMultiEXT-pNext-07935) VUID-vkCmdDrawMultiEXT-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -10112,39 +10829,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawMultiEXT-pColorAttachments-08963) VUID-vkCmdDrawMultiEXT-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiEXT-pColorAttachments-11539) VUID-vkCmdDrawMultiEXT-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawMultiEXT-pDepthAttachment-08964) VUID-vkCmdDrawMultiEXT-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawMultiEXT-pDepthAttachment-11540) VUID-vkCmdDrawMultiEXT-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawMultiEXT-pStencilAttachment-08965) VUID-vkCmdDrawMultiEXT-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawMultiEXT-flags-10582) VUID-vkCmdDrawMultiEXT-flags-10582
+[](#VUID-vkCmdDrawMultiEXT-pStencilAttachment-11860) VUID-vkCmdDrawMultiEXT-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiEXT-flags-10582) VUID-vkCmdDrawMultiEXT-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -10466,8 +11225,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMultiEXT-None-07642) VUID-vkCmdDrawMultiEXT-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -10479,8 +11237,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMultiEXT-None-07643) VUID-vkCmdDrawMultiEXT-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -10548,8 +11305,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMultiEXT-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawMultiEXT-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -11174,19 +11930,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawMultiEXT-None-09549) VUID-vkCmdDrawMultiEXT-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawMultiEXT-None-10927) VUID-vkCmdDrawMultiEXT-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawMultiEXT-None-10928) VUID-vkCmdDrawMultiEXT-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawMultiEXT-None-09642) VUID-vkCmdDrawMultiEXT-None-09642
 
@@ -11213,6 +11987,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawMultiEXT-flags-11521) VUID-vkCmdDrawMultiEXT-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawMultiEXT-None-11522) VUID-vkCmdDrawMultiEXT-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMultiEXT-None-11523) VUID-vkCmdDrawMultiEXT-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMultiEXT-customResolve-11524) VUID-vkCmdDrawMultiEXT-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawMultiEXT-customResolve-11525) VUID-vkCmdDrawMultiEXT-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawMultiEXT-None-11861) VUID-vkCmdDrawMultiEXT-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawMultiEXT-None-11862) VUID-vkCmdDrawMultiEXT-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawMultiEXT-None-11863) VUID-vkCmdDrawMultiEXT-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiEXT-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawMultiEXT-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiEXT-None-11865) VUID-vkCmdDrawMultiEXT-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiEXT-None-11866) VUID-vkCmdDrawMultiEXT-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMultiEXT-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawMultiEXT-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiEXT-None-11868) VUID-vkCmdDrawMultiEXT-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiEXT-None-11869) VUID-vkCmdDrawMultiEXT-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMultiEXT-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawMultiEXT-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiEXT-colorAttachmentCount-11871) VUID-vkCmdDrawMultiEXT-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawMultiEXT-pDepthAttachment-11872) VUID-vkCmdDrawMultiEXT-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMultiEXT-pStencilAttachment-11873) VUID-vkCmdDrawMultiEXT-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMultiEXT-customResolve-11529) VUID-vkCmdDrawMultiEXT-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawMultiEXT-customResolve-11530) VUID-vkCmdDrawMultiEXT-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawMultiEXT-commandBuffer-02712) VUID-vkCmdDrawMultiEXT-commandBuffer-02712
@@ -11539,6 +12539,42 @@ called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime)
 the current command buffer prior to this drawing command
 
 * 
+[](#VUID-vkCmdDrawMultiEXT-OpExecutionMode-12239) VUID-vkCmdDrawMultiEXT-OpExecutionMode-12239
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the type
+of subdivision, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawMultiEXT-OpExecutionMode-12240) VUID-vkCmdDrawMultiEXT-OpExecutionMode-12240
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+orientation of triangles, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawMultiEXT-OpExecutionMode-12241) VUID-vkCmdDrawMultiEXT-OpExecutionMode-12241
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+segment spacing, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawMultiEXT-OpExecutionMode-12242) VUID-vkCmdDrawMultiEXT-OpExecutionMode-12242
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the output
+patch size, they **must** be the same
+
+* 
 [](#VUID-vkCmdDrawMultiEXT-pNext-09461) VUID-vkCmdDrawMultiEXT-pNext-09461
 
 If the bound graphics pipeline state was created with
@@ -11603,12 +12639,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawMultiEXT-commandBuffer-cmdpool) VUID-vkCmdDrawMultiEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawMultiEXT-renderpass) VUID-vkCmdDrawMultiEXT-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawMultiEXT-suspended) VUID-vkCmdDrawMultiEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawMultiEXT-videocoding) VUID-vkCmdDrawMultiEXT-videocoding
@@ -11628,7 +12669,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -11949,6 +12990,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawMultiIndexedEXT-imageLayout-00344) VUID-vkCmdDrawMultiIndexedEXT-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawMultiIndexedEXT-None-08115) VUID-vkCmdDrawMultiIndexedEXT-None-08115
@@ -13436,6 +14484,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawMultiIndexedEXT-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawMultiIndexedEXT-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawMultiIndexedEXT-imageView-06184) VUID-vkCmdDrawMultiIndexedEXT-imageView-06184
 
 If the current render pass instance was begun with
@@ -13509,6 +14571,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -13527,6 +14590,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -13541,6 +14605,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -13548,8 +14613,8 @@ or
 
 [](#VUID-vkCmdDrawMultiIndexedEXT-pNext-07935) VUID-vkCmdDrawMultiIndexedEXT-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -13567,39 +14632,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawMultiIndexedEXT-pColorAttachments-08963) VUID-vkCmdDrawMultiIndexedEXT-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-pColorAttachments-11539) VUID-vkCmdDrawMultiIndexedEXT-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawMultiIndexedEXT-pDepthAttachment-08964) VUID-vkCmdDrawMultiIndexedEXT-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawMultiIndexedEXT-pDepthAttachment-11540) VUID-vkCmdDrawMultiIndexedEXT-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawMultiIndexedEXT-pStencilAttachment-08965) VUID-vkCmdDrawMultiIndexedEXT-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawMultiIndexedEXT-flags-10582) VUID-vkCmdDrawMultiIndexedEXT-flags-10582
+[](#VUID-vkCmdDrawMultiIndexedEXT-pStencilAttachment-11860) VUID-vkCmdDrawMultiIndexedEXT-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-flags-10582) VUID-vkCmdDrawMultiIndexedEXT-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -13921,8 +15028,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMultiIndexedEXT-None-07642) VUID-vkCmdDrawMultiIndexedEXT-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -13934,8 +15040,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMultiIndexedEXT-None-07643) VUID-vkCmdDrawMultiIndexedEXT-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -14003,8 +15108,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMultiIndexedEXT-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawMultiIndexedEXT-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -14629,19 +15733,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawMultiIndexedEXT-None-09549) VUID-vkCmdDrawMultiIndexedEXT-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-None-10927) VUID-vkCmdDrawMultiIndexedEXT-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-None-10928) VUID-vkCmdDrawMultiIndexedEXT-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawMultiIndexedEXT-None-09642) VUID-vkCmdDrawMultiIndexedEXT-None-09642
 
@@ -14668,6 +15790,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-flags-11521) VUID-vkCmdDrawMultiIndexedEXT-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-None-11522) VUID-vkCmdDrawMultiIndexedEXT-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-None-11523) VUID-vkCmdDrawMultiIndexedEXT-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-customResolve-11524) VUID-vkCmdDrawMultiIndexedEXT-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-customResolve-11525) VUID-vkCmdDrawMultiIndexedEXT-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-None-11861) VUID-vkCmdDrawMultiIndexedEXT-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-None-11862) VUID-vkCmdDrawMultiIndexedEXT-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-None-11863) VUID-vkCmdDrawMultiIndexedEXT-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawMultiIndexedEXT-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-None-11865) VUID-vkCmdDrawMultiIndexedEXT-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-None-11866) VUID-vkCmdDrawMultiIndexedEXT-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawMultiIndexedEXT-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-None-11868) VUID-vkCmdDrawMultiIndexedEXT-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-None-11869) VUID-vkCmdDrawMultiIndexedEXT-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawMultiIndexedEXT-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-colorAttachmentCount-11871) VUID-vkCmdDrawMultiIndexedEXT-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-pDepthAttachment-11872) VUID-vkCmdDrawMultiIndexedEXT-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-pStencilAttachment-11873) VUID-vkCmdDrawMultiIndexedEXT-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-customResolve-11529) VUID-vkCmdDrawMultiIndexedEXT-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawMultiIndexedEXT-customResolve-11530) VUID-vkCmdDrawMultiIndexedEXT-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawMultiIndexedEXT-commandBuffer-02712) VUID-vkCmdDrawMultiIndexedEXT-commandBuffer-02712
@@ -14994,6 +16342,42 @@ called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime)
 the current command buffer prior to this drawing command
 
 * 
+[](#VUID-vkCmdDrawMultiIndexedEXT-OpExecutionMode-12239) VUID-vkCmdDrawMultiIndexedEXT-OpExecutionMode-12239
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the type
+of subdivision, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawMultiIndexedEXT-OpExecutionMode-12240) VUID-vkCmdDrawMultiIndexedEXT-OpExecutionMode-12240
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+orientation of triangles, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawMultiIndexedEXT-OpExecutionMode-12241) VUID-vkCmdDrawMultiIndexedEXT-OpExecutionMode-12241
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+segment spacing, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawMultiIndexedEXT-OpExecutionMode-12242) VUID-vkCmdDrawMultiIndexedEXT-OpExecutionMode-12242
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the output
+patch size, they **must** be the same
+
+* 
 [](#VUID-vkCmdDrawMultiIndexedEXT-None-07312) VUID-vkCmdDrawMultiIndexedEXT-None-07312
 
 If the [`maintenance6`](features.html#features-maintenance6) feature is not
@@ -15085,12 +16469,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawMultiIndexedEXT-commandBuffer-cmdpool) VUID-vkCmdDrawMultiIndexedEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawMultiIndexedEXT-renderpass) VUID-vkCmdDrawMultiIndexedEXT-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawMultiIndexedEXT-suspended) VUID-vkCmdDrawMultiIndexedEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawMultiIndexedEXT-videocoding) VUID-vkCmdDrawMultiIndexedEXT-videocoding
@@ -15110,7 +16499,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -15457,6 +16846,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawIndirect-imageLayout-00344) VUID-vkCmdDrawIndirect-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawIndirect-None-08115) VUID-vkCmdDrawIndirect-None-08115
@@ -16944,6 +18340,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawIndirect-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawIndirect-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawIndirect-imageView-06184) VUID-vkCmdDrawIndirect-imageView-06184
 
 If the current render pass instance was begun with
@@ -17017,6 +18427,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -17035,6 +18446,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -17049,6 +18461,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -17056,8 +18469,8 @@ or
 
 [](#VUID-vkCmdDrawIndirect-pNext-07935) VUID-vkCmdDrawIndirect-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -17075,39 +18488,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawIndirect-pColorAttachments-08963) VUID-vkCmdDrawIndirect-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirect-pColorAttachments-11539) VUID-vkCmdDrawIndirect-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawIndirect-pDepthAttachment-08964) VUID-vkCmdDrawIndirect-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawIndirect-pDepthAttachment-11540) VUID-vkCmdDrawIndirect-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawIndirect-pStencilAttachment-08965) VUID-vkCmdDrawIndirect-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawIndirect-flags-10582) VUID-vkCmdDrawIndirect-flags-10582
+[](#VUID-vkCmdDrawIndirect-pStencilAttachment-11860) VUID-vkCmdDrawIndirect-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirect-flags-10582) VUID-vkCmdDrawIndirect-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -17429,8 +18884,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndirect-None-07642) VUID-vkCmdDrawIndirect-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -17442,8 +18896,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndirect-None-07643) VUID-vkCmdDrawIndirect-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -17511,8 +18964,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndirect-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawIndirect-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -18137,19 +19589,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawIndirect-None-09549) VUID-vkCmdDrawIndirect-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawIndirect-None-10927) VUID-vkCmdDrawIndirect-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawIndirect-None-10928) VUID-vkCmdDrawIndirect-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawIndirect-None-09642) VUID-vkCmdDrawIndirect-None-09642
 
@@ -18176,6 +19646,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawIndirect-flags-11521) VUID-vkCmdDrawIndirect-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawIndirect-None-11522) VUID-vkCmdDrawIndirect-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawIndirect-None-11523) VUID-vkCmdDrawIndirect-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawIndirect-customResolve-11524) VUID-vkCmdDrawIndirect-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawIndirect-customResolve-11525) VUID-vkCmdDrawIndirect-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawIndirect-None-11861) VUID-vkCmdDrawIndirect-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawIndirect-None-11862) VUID-vkCmdDrawIndirect-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawIndirect-None-11863) VUID-vkCmdDrawIndirect-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirect-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawIndirect-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirect-None-11865) VUID-vkCmdDrawIndirect-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirect-None-11866) VUID-vkCmdDrawIndirect-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndirect-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawIndirect-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirect-None-11868) VUID-vkCmdDrawIndirect-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirect-None-11869) VUID-vkCmdDrawIndirect-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndirect-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawIndirect-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirect-colorAttachmentCount-11871) VUID-vkCmdDrawIndirect-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawIndirect-pDepthAttachment-11872) VUID-vkCmdDrawIndirect-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndirect-pStencilAttachment-11873) VUID-vkCmdDrawIndirect-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndirect-customResolve-11529) VUID-vkCmdDrawIndirect-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawIndirect-customResolve-11530) VUID-vkCmdDrawIndirect-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawIndirect-None-04007) VUID-vkCmdDrawIndirect-None-04007
@@ -18475,6 +20171,42 @@ called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime)
 the current command buffer prior to this drawing command
 
 * 
+[](#VUID-vkCmdDrawIndirect-OpExecutionMode-12239) VUID-vkCmdDrawIndirect-OpExecutionMode-12239
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the type
+of subdivision, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndirect-OpExecutionMode-12240) VUID-vkCmdDrawIndirect-OpExecutionMode-12240
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+orientation of triangles, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndirect-OpExecutionMode-12241) VUID-vkCmdDrawIndirect-OpExecutionMode-12241
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+segment spacing, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndirect-OpExecutionMode-12242) VUID-vkCmdDrawIndirect-OpExecutionMode-12242
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the output
+patch size, they **must** be the same
+
+* 
 [](#VUID-vkCmdDrawIndirect-buffer-02708) VUID-vkCmdDrawIndirect-buffer-02708
 
 If `buffer` is non-sparse then it **must** be bound completely and
@@ -18484,7 +20216,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDrawIndirect-buffer-02709) VUID-vkCmdDrawIndirect-buffer-02709
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDrawIndirect-offset-02710) VUID-vkCmdDrawIndirect-offset-02710
@@ -18550,12 +20282,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawIndirect-commandBuffer-cmdpool) VUID-vkCmdDrawIndirect-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawIndirect-renderpass) VUID-vkCmdDrawIndirect-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawIndirect-suspended) VUID-vkCmdDrawIndirect-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawIndirect-videocoding) VUID-vkCmdDrawIndirect-videocoding
@@ -18580,7 +20317,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -18657,9 +20394,8 @@ void vkCmdDrawIndirectCount(
     uint32_t                                    maxDrawCount,
     uint32_t                                    stride);
 
-or the equivalent command
-
 // Provided by VK_KHR_draw_indirect_count
+// Equivalent to vkCmdDrawIndirectCount
 void vkCmdDrawIndirectCountKHR(
     VkCommandBuffer                             commandBuffer,
     VkBuffer                                    buffer,
@@ -18669,9 +20405,8 @@ void vkCmdDrawIndirectCountKHR(
     uint32_t                                    maxDrawCount,
     uint32_t                                    stride);
 
-or the equivalent command
-
 // Provided by VK_AMD_draw_indirect_count
+// Equivalent to vkCmdDrawIndirectCount
 void vkCmdDrawIndirectCountAMD(
     VkCommandBuffer                             commandBuffer,
     VkBuffer                                    buffer,
@@ -18978,6 +20713,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawIndirectCount-imageLayout-00344) VUID-vkCmdDrawIndirectCount-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawIndirectCount-None-08115) VUID-vkCmdDrawIndirectCount-None-08115
@@ -20465,6 +22207,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawIndirectCount-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawIndirectCount-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawIndirectCount-imageView-06184) VUID-vkCmdDrawIndirectCount-imageView-06184
 
 If the current render pass instance was begun with
@@ -20538,6 +22294,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -20556,6 +22313,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -20570,6 +22328,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -20577,8 +22336,8 @@ or
 
 [](#VUID-vkCmdDrawIndirectCount-pNext-07935) VUID-vkCmdDrawIndirectCount-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -20596,39 +22355,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawIndirectCount-pColorAttachments-08963) VUID-vkCmdDrawIndirectCount-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectCount-pColorAttachments-11539) VUID-vkCmdDrawIndirectCount-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawIndirectCount-pDepthAttachment-08964) VUID-vkCmdDrawIndirectCount-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawIndirectCount-pDepthAttachment-11540) VUID-vkCmdDrawIndirectCount-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawIndirectCount-pStencilAttachment-08965) VUID-vkCmdDrawIndirectCount-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawIndirectCount-flags-10582) VUID-vkCmdDrawIndirectCount-flags-10582
+[](#VUID-vkCmdDrawIndirectCount-pStencilAttachment-11860) VUID-vkCmdDrawIndirectCount-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectCount-flags-10582) VUID-vkCmdDrawIndirectCount-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -20950,8 +22751,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndirectCount-None-07642) VUID-vkCmdDrawIndirectCount-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -20963,8 +22763,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndirectCount-None-07643) VUID-vkCmdDrawIndirectCount-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -21032,8 +22831,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndirectCount-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawIndirectCount-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -21658,19 +23456,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawIndirectCount-None-09549) VUID-vkCmdDrawIndirectCount-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawIndirectCount-None-10927) VUID-vkCmdDrawIndirectCount-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawIndirectCount-None-10928) VUID-vkCmdDrawIndirectCount-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawIndirectCount-None-09642) VUID-vkCmdDrawIndirectCount-None-09642
 
@@ -21697,6 +23513,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawIndirectCount-flags-11521) VUID-vkCmdDrawIndirectCount-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawIndirectCount-None-11522) VUID-vkCmdDrawIndirectCount-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawIndirectCount-None-11523) VUID-vkCmdDrawIndirectCount-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawIndirectCount-customResolve-11524) VUID-vkCmdDrawIndirectCount-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawIndirectCount-customResolve-11525) VUID-vkCmdDrawIndirectCount-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawIndirectCount-None-11861) VUID-vkCmdDrawIndirectCount-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawIndirectCount-None-11862) VUID-vkCmdDrawIndirectCount-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawIndirectCount-None-11863) VUID-vkCmdDrawIndirectCount-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectCount-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawIndirectCount-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectCount-None-11865) VUID-vkCmdDrawIndirectCount-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectCount-None-11866) VUID-vkCmdDrawIndirectCount-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndirectCount-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawIndirectCount-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectCount-None-11868) VUID-vkCmdDrawIndirectCount-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectCount-None-11869) VUID-vkCmdDrawIndirectCount-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndirectCount-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawIndirectCount-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectCount-colorAttachmentCount-11871) VUID-vkCmdDrawIndirectCount-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawIndirectCount-pDepthAttachment-11872) VUID-vkCmdDrawIndirectCount-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndirectCount-pStencilAttachment-11873) VUID-vkCmdDrawIndirectCount-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndirectCount-customResolve-11529) VUID-vkCmdDrawIndirectCount-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawIndirectCount-customResolve-11530) VUID-vkCmdDrawIndirectCount-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawIndirectCount-None-04007) VUID-vkCmdDrawIndirectCount-None-04007
@@ -21996,6 +24038,42 @@ called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime)
 the current command buffer prior to this drawing command
 
 * 
+[](#VUID-vkCmdDrawIndirectCount-OpExecutionMode-12239) VUID-vkCmdDrawIndirectCount-OpExecutionMode-12239
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the type
+of subdivision, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndirectCount-OpExecutionMode-12240) VUID-vkCmdDrawIndirectCount-OpExecutionMode-12240
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+orientation of triangles, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndirectCount-OpExecutionMode-12241) VUID-vkCmdDrawIndirectCount-OpExecutionMode-12241
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+segment spacing, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndirectCount-OpExecutionMode-12242) VUID-vkCmdDrawIndirectCount-OpExecutionMode-12242
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the output
+patch size, they **must** be the same
+
+* 
 [](#VUID-vkCmdDrawIndirectCount-buffer-02708) VUID-vkCmdDrawIndirectCount-buffer-02708
 
 If `buffer` is non-sparse then it **must** be bound completely and
@@ -22005,7 +24083,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDrawIndirectCount-buffer-02709) VUID-vkCmdDrawIndirectCount-buffer-02709
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDrawIndirectCount-offset-02710) VUID-vkCmdDrawIndirectCount-offset-02710
@@ -22027,7 +24105,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDrawIndirectCount-countBuffer-02715) VUID-vkCmdDrawIndirectCount-countBuffer-02715
 
 `countBuffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDrawIndirectCount-countBufferOffset-02716) VUID-vkCmdDrawIndirectCount-countBufferOffset-02716
@@ -22091,12 +24169,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawIndirectCount-commandBuffer-cmdpool) VUID-vkCmdDrawIndirectCount-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawIndirectCount-renderpass) VUID-vkCmdDrawIndirectCount-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawIndirectCount-suspended) VUID-vkCmdDrawIndirectCount-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawIndirectCount-videocoding) VUID-vkCmdDrawIndirectCount-videocoding
@@ -22121,7 +24204,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -22428,6 +24511,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawIndexedIndirect-imageLayout-00344) VUID-vkCmdDrawIndexedIndirect-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawIndexedIndirect-None-08115) VUID-vkCmdDrawIndexedIndirect-None-08115
@@ -23915,6 +26005,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawIndexedIndirect-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawIndexedIndirect-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawIndexedIndirect-imageView-06184) VUID-vkCmdDrawIndexedIndirect-imageView-06184
 
 If the current render pass instance was begun with
@@ -23988,6 +26092,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -24006,6 +26111,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -24020,6 +26126,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -24027,8 +26134,8 @@ or
 
 [](#VUID-vkCmdDrawIndexedIndirect-pNext-07935) VUID-vkCmdDrawIndexedIndirect-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -24046,39 +26153,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawIndexedIndirect-pColorAttachments-08963) VUID-vkCmdDrawIndexedIndirect-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirect-pColorAttachments-11539) VUID-vkCmdDrawIndexedIndirect-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawIndexedIndirect-pDepthAttachment-08964) VUID-vkCmdDrawIndexedIndirect-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawIndexedIndirect-pDepthAttachment-11540) VUID-vkCmdDrawIndexedIndirect-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawIndexedIndirect-pStencilAttachment-08965) VUID-vkCmdDrawIndexedIndirect-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawIndexedIndirect-flags-10582) VUID-vkCmdDrawIndexedIndirect-flags-10582
+[](#VUID-vkCmdDrawIndexedIndirect-pStencilAttachment-11860) VUID-vkCmdDrawIndexedIndirect-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirect-flags-10582) VUID-vkCmdDrawIndexedIndirect-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -24400,8 +26549,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndexedIndirect-None-07642) VUID-vkCmdDrawIndexedIndirect-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -24413,8 +26561,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndexedIndirect-None-07643) VUID-vkCmdDrawIndexedIndirect-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -24482,8 +26629,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndexedIndirect-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawIndexedIndirect-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -25108,19 +27254,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawIndexedIndirect-None-09549) VUID-vkCmdDrawIndexedIndirect-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawIndexedIndirect-None-10927) VUID-vkCmdDrawIndexedIndirect-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawIndexedIndirect-None-10928) VUID-vkCmdDrawIndexedIndirect-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawIndexedIndirect-None-09642) VUID-vkCmdDrawIndexedIndirect-None-09642
 
@@ -25147,6 +27311,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawIndexedIndirect-flags-11521) VUID-vkCmdDrawIndexedIndirect-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawIndexedIndirect-None-11522) VUID-vkCmdDrawIndexedIndirect-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawIndexedIndirect-None-11523) VUID-vkCmdDrawIndexedIndirect-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawIndexedIndirect-customResolve-11524) VUID-vkCmdDrawIndexedIndirect-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawIndexedIndirect-customResolve-11525) VUID-vkCmdDrawIndexedIndirect-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawIndexedIndirect-None-11861) VUID-vkCmdDrawIndexedIndirect-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawIndexedIndirect-None-11862) VUID-vkCmdDrawIndexedIndirect-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawIndexedIndirect-None-11863) VUID-vkCmdDrawIndexedIndirect-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirect-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawIndexedIndirect-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirect-None-11865) VUID-vkCmdDrawIndexedIndirect-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirect-None-11866) VUID-vkCmdDrawIndexedIndirect-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndexedIndirect-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawIndexedIndirect-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirect-None-11868) VUID-vkCmdDrawIndexedIndirect-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirect-None-11869) VUID-vkCmdDrawIndexedIndirect-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndexedIndirect-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawIndexedIndirect-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirect-colorAttachmentCount-11871) VUID-vkCmdDrawIndexedIndirect-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawIndexedIndirect-pDepthAttachment-11872) VUID-vkCmdDrawIndexedIndirect-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndexedIndirect-pStencilAttachment-11873) VUID-vkCmdDrawIndexedIndirect-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndexedIndirect-customResolve-11529) VUID-vkCmdDrawIndexedIndirect-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawIndexedIndirect-customResolve-11530) VUID-vkCmdDrawIndexedIndirect-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawIndexedIndirect-None-04007) VUID-vkCmdDrawIndexedIndirect-None-04007
@@ -25446,6 +27836,42 @@ called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime)
 the current command buffer prior to this drawing command
 
 * 
+[](#VUID-vkCmdDrawIndexedIndirect-OpExecutionMode-12239) VUID-vkCmdDrawIndexedIndirect-OpExecutionMode-12239
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the type
+of subdivision, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndexedIndirect-OpExecutionMode-12240) VUID-vkCmdDrawIndexedIndirect-OpExecutionMode-12240
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+orientation of triangles, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndexedIndirect-OpExecutionMode-12241) VUID-vkCmdDrawIndexedIndirect-OpExecutionMode-12241
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+segment spacing, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndexedIndirect-OpExecutionMode-12242) VUID-vkCmdDrawIndexedIndirect-OpExecutionMode-12242
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the output
+patch size, they **must** be the same
+
+* 
 [](#VUID-vkCmdDrawIndexedIndirect-buffer-02708) VUID-vkCmdDrawIndexedIndirect-buffer-02708
 
 If `buffer` is non-sparse then it **must** be bound completely and
@@ -25455,7 +27881,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDrawIndexedIndirect-buffer-02709) VUID-vkCmdDrawIndexedIndirect-buffer-02709
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDrawIndexedIndirect-offset-02710) VUID-vkCmdDrawIndexedIndirect-offset-02710
@@ -25528,12 +27954,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawIndexedIndirect-commandBuffer-cmdpool) VUID-vkCmdDrawIndexedIndirect-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawIndexedIndirect-renderpass) VUID-vkCmdDrawIndexedIndirect-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawIndexedIndirect-suspended) VUID-vkCmdDrawIndexedIndirect-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawIndexedIndirect-videocoding) VUID-vkCmdDrawIndexedIndirect-videocoding
@@ -25558,7 +27989,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -25655,9 +28086,8 @@ void vkCmdDrawIndexedIndirectCount(
     uint32_t                                    maxDrawCount,
     uint32_t                                    stride);
 
-or the equivalent command
-
 // Provided by VK_KHR_draw_indirect_count
+// Equivalent to vkCmdDrawIndexedIndirectCount
 void vkCmdDrawIndexedIndirectCountKHR(
     VkCommandBuffer                             commandBuffer,
     VkBuffer                                    buffer,
@@ -25667,9 +28097,8 @@ void vkCmdDrawIndexedIndirectCountKHR(
     uint32_t                                    maxDrawCount,
     uint32_t                                    stride);
 
-or the equivalent command
-
 // Provided by VK_AMD_draw_indirect_count
+// Equivalent to vkCmdDrawIndexedIndirectCount
 void vkCmdDrawIndexedIndirectCountAMD(
     VkCommandBuffer                             commandBuffer,
     VkBuffer                                    buffer,
@@ -25976,6 +28405,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawIndexedIndirectCount-imageLayout-00344) VUID-vkCmdDrawIndexedIndirectCount-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawIndexedIndirectCount-None-08115) VUID-vkCmdDrawIndexedIndirectCount-None-08115
@@ -27463,6 +29899,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawIndexedIndirectCount-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawIndexedIndirectCount-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawIndexedIndirectCount-imageView-06184) VUID-vkCmdDrawIndexedIndirectCount-imageView-06184
 
 If the current render pass instance was begun with
@@ -27536,6 +29986,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -27554,6 +30005,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -27568,6 +30020,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -27575,8 +30028,8 @@ or
 
 [](#VUID-vkCmdDrawIndexedIndirectCount-pNext-07935) VUID-vkCmdDrawIndexedIndirectCount-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -27594,39 +30047,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawIndexedIndirectCount-pColorAttachments-08963) VUID-vkCmdDrawIndexedIndirectCount-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-pColorAttachments-11539) VUID-vkCmdDrawIndexedIndirectCount-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawIndexedIndirectCount-pDepthAttachment-08964) VUID-vkCmdDrawIndexedIndirectCount-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawIndexedIndirectCount-pDepthAttachment-11540) VUID-vkCmdDrawIndexedIndirectCount-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawIndexedIndirectCount-pStencilAttachment-08965) VUID-vkCmdDrawIndexedIndirectCount-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawIndexedIndirectCount-flags-10582) VUID-vkCmdDrawIndexedIndirectCount-flags-10582
+[](#VUID-vkCmdDrawIndexedIndirectCount-pStencilAttachment-11860) VUID-vkCmdDrawIndexedIndirectCount-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-flags-10582) VUID-vkCmdDrawIndexedIndirectCount-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -27948,8 +30443,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndexedIndirectCount-None-07642) VUID-vkCmdDrawIndexedIndirectCount-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -27961,8 +30455,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndexedIndirectCount-None-07643) VUID-vkCmdDrawIndexedIndirectCount-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -28030,8 +30523,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndexedIndirectCount-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawIndexedIndirectCount-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -28656,19 +31148,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawIndexedIndirectCount-None-09549) VUID-vkCmdDrawIndexedIndirectCount-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-None-10927) VUID-vkCmdDrawIndexedIndirectCount-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-None-10928) VUID-vkCmdDrawIndexedIndirectCount-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawIndexedIndirectCount-None-09642) VUID-vkCmdDrawIndexedIndirectCount-None-09642
 
@@ -28695,6 +31205,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-flags-11521) VUID-vkCmdDrawIndexedIndirectCount-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-None-11522) VUID-vkCmdDrawIndexedIndirectCount-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-None-11523) VUID-vkCmdDrawIndexedIndirectCount-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-customResolve-11524) VUID-vkCmdDrawIndexedIndirectCount-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-customResolve-11525) VUID-vkCmdDrawIndexedIndirectCount-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-None-11861) VUID-vkCmdDrawIndexedIndirectCount-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-None-11862) VUID-vkCmdDrawIndexedIndirectCount-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-None-11863) VUID-vkCmdDrawIndexedIndirectCount-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawIndexedIndirectCount-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-None-11865) VUID-vkCmdDrawIndexedIndirectCount-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-None-11866) VUID-vkCmdDrawIndexedIndirectCount-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawIndexedIndirectCount-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-None-11868) VUID-vkCmdDrawIndexedIndirectCount-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-None-11869) VUID-vkCmdDrawIndexedIndirectCount-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawIndexedIndirectCount-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-colorAttachmentCount-11871) VUID-vkCmdDrawIndexedIndirectCount-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-pDepthAttachment-11872) VUID-vkCmdDrawIndexedIndirectCount-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-pStencilAttachment-11873) VUID-vkCmdDrawIndexedIndirectCount-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-customResolve-11529) VUID-vkCmdDrawIndexedIndirectCount-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawIndexedIndirectCount-customResolve-11530) VUID-vkCmdDrawIndexedIndirectCount-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawIndexedIndirectCount-None-04007) VUID-vkCmdDrawIndexedIndirectCount-None-04007
@@ -28994,6 +31730,42 @@ called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime)
 the current command buffer prior to this drawing command
 
 * 
+[](#VUID-vkCmdDrawIndexedIndirectCount-OpExecutionMode-12239) VUID-vkCmdDrawIndexedIndirectCount-OpExecutionMode-12239
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the type
+of subdivision, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndexedIndirectCount-OpExecutionMode-12240) VUID-vkCmdDrawIndexedIndirectCount-OpExecutionMode-12240
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+orientation of triangles, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndexedIndirectCount-OpExecutionMode-12241) VUID-vkCmdDrawIndexedIndirectCount-OpExecutionMode-12241
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+segment spacing, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndexedIndirectCount-OpExecutionMode-12242) VUID-vkCmdDrawIndexedIndirectCount-OpExecutionMode-12242
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the output
+patch size, they **must** be the same
+
+* 
 [](#VUID-vkCmdDrawIndexedIndirectCount-buffer-02708) VUID-vkCmdDrawIndexedIndirectCount-buffer-02708
 
 If `buffer` is non-sparse then it **must** be bound completely and
@@ -29003,7 +31775,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDrawIndexedIndirectCount-buffer-02709) VUID-vkCmdDrawIndexedIndirectCount-buffer-02709
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDrawIndexedIndirectCount-offset-02710) VUID-vkCmdDrawIndexedIndirectCount-offset-02710
@@ -29025,7 +31797,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDrawIndexedIndirectCount-countBuffer-02715) VUID-vkCmdDrawIndexedIndirectCount-countBuffer-02715
 
 `countBuffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDrawIndexedIndirectCount-countBufferOffset-02716) VUID-vkCmdDrawIndexedIndirectCount-countBufferOffset-02716
@@ -29096,12 +31868,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawIndexedIndirectCount-commandBuffer-cmdpool) VUID-vkCmdDrawIndexedIndirectCount-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawIndexedIndirectCount-renderpass) VUID-vkCmdDrawIndexedIndirectCount-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawIndexedIndirectCount-suspended) VUID-vkCmdDrawIndexedIndirectCount-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawIndexedIndirectCount-videocoding) VUID-vkCmdDrawIndexedIndirectCount-videocoding
@@ -29126,7 +31903,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -29473,6 +32250,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawIndirectByteCountEXT-imageLayout-00344) VUID-vkCmdDrawIndirectByteCountEXT-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawIndirectByteCountEXT-None-08115) VUID-vkCmdDrawIndirectByteCountEXT-None-08115
@@ -30960,6 +33744,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawIndirectByteCountEXT-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawIndirectByteCountEXT-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawIndirectByteCountEXT-imageView-06184) VUID-vkCmdDrawIndirectByteCountEXT-imageView-06184
 
 If the current render pass instance was begun with
@@ -31033,6 +33831,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -31051,6 +33850,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -31065,6 +33865,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -31072,8 +33873,8 @@ or
 
 [](#VUID-vkCmdDrawIndirectByteCountEXT-pNext-07935) VUID-vkCmdDrawIndirectByteCountEXT-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -31091,39 +33892,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawIndirectByteCountEXT-pColorAttachments-08963) VUID-vkCmdDrawIndirectByteCountEXT-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-pColorAttachments-11539) VUID-vkCmdDrawIndirectByteCountEXT-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawIndirectByteCountEXT-pDepthAttachment-08964) VUID-vkCmdDrawIndirectByteCountEXT-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawIndirectByteCountEXT-pDepthAttachment-11540) VUID-vkCmdDrawIndirectByteCountEXT-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawIndirectByteCountEXT-pStencilAttachment-08965) VUID-vkCmdDrawIndirectByteCountEXT-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawIndirectByteCountEXT-flags-10582) VUID-vkCmdDrawIndirectByteCountEXT-flags-10582
+[](#VUID-vkCmdDrawIndirectByteCountEXT-pStencilAttachment-11860) VUID-vkCmdDrawIndirectByteCountEXT-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-flags-10582) VUID-vkCmdDrawIndirectByteCountEXT-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -31445,8 +34288,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndirectByteCountEXT-None-07642) VUID-vkCmdDrawIndirectByteCountEXT-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -31458,8 +34300,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndirectByteCountEXT-None-07643) VUID-vkCmdDrawIndirectByteCountEXT-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -31527,8 +34368,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawIndirectByteCountEXT-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawIndirectByteCountEXT-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -32153,19 +34993,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawIndirectByteCountEXT-None-09549) VUID-vkCmdDrawIndirectByteCountEXT-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-None-10927) VUID-vkCmdDrawIndirectByteCountEXT-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-None-10928) VUID-vkCmdDrawIndirectByteCountEXT-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawIndirectByteCountEXT-None-09642) VUID-vkCmdDrawIndirectByteCountEXT-None-09642
 
@@ -32192,6 +35050,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-flags-11521) VUID-vkCmdDrawIndirectByteCountEXT-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-None-11522) VUID-vkCmdDrawIndirectByteCountEXT-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-None-11523) VUID-vkCmdDrawIndirectByteCountEXT-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-customResolve-11524) VUID-vkCmdDrawIndirectByteCountEXT-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-customResolve-11525) VUID-vkCmdDrawIndirectByteCountEXT-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-None-11861) VUID-vkCmdDrawIndirectByteCountEXT-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-None-11862) VUID-vkCmdDrawIndirectByteCountEXT-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-None-11863) VUID-vkCmdDrawIndirectByteCountEXT-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawIndirectByteCountEXT-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-None-11865) VUID-vkCmdDrawIndirectByteCountEXT-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-None-11866) VUID-vkCmdDrawIndirectByteCountEXT-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawIndirectByteCountEXT-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-None-11868) VUID-vkCmdDrawIndirectByteCountEXT-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-None-11869) VUID-vkCmdDrawIndirectByteCountEXT-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawIndirectByteCountEXT-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-colorAttachmentCount-11871) VUID-vkCmdDrawIndirectByteCountEXT-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-pDepthAttachment-11872) VUID-vkCmdDrawIndirectByteCountEXT-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-pStencilAttachment-11873) VUID-vkCmdDrawIndirectByteCountEXT-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-customResolve-11529) VUID-vkCmdDrawIndirectByteCountEXT-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawIndirectByteCountEXT-customResolve-11530) VUID-vkCmdDrawIndirectByteCountEXT-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawIndirectByteCountEXT-None-04007) VUID-vkCmdDrawIndirectByteCountEXT-None-04007
@@ -32491,6 +35575,42 @@ called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime)
 the current command buffer prior to this drawing command
 
 * 
+[](#VUID-vkCmdDrawIndirectByteCountEXT-OpExecutionMode-12239) VUID-vkCmdDrawIndirectByteCountEXT-OpExecutionMode-12239
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the type
+of subdivision, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndirectByteCountEXT-OpExecutionMode-12240) VUID-vkCmdDrawIndirectByteCountEXT-OpExecutionMode-12240
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+orientation of triangles, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndirectByteCountEXT-OpExecutionMode-12241) VUID-vkCmdDrawIndirectByteCountEXT-OpExecutionMode-12241
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the
+segment spacing, they **must** be the same
+
+* 
+[](#VUID-vkCmdDrawIndirectByteCountEXT-OpExecutionMode-12242) VUID-vkCmdDrawIndirectByteCountEXT-OpExecutionMode-12242
+
+If a shader is bound to both the
+`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` and
+`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` stages, and if both
+stages contain an `OpExecutionMode` instruction specifying the output
+patch size, they **must** be the same
+
+* 
 [](#VUID-vkCmdDrawIndirectByteCountEXT-pNext-09461) VUID-vkCmdDrawIndirectByteCountEXT-pNext-09461
 
 If the bound graphics pipeline state was created with
@@ -32543,7 +35663,7 @@ and contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDrawIndirectByteCountEXT-counterBuffer-02290) VUID-vkCmdDrawIndirectByteCountEXT-counterBuffer-02290
 
 `counterBuffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDrawIndirectByteCountEXT-counterBufferOffset-04568) VUID-vkCmdDrawIndirectByteCountEXT-counterBufferOffset-04568
@@ -32585,12 +35705,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawIndirectByteCountEXT-commandBuffer-cmdpool) VUID-vkCmdDrawIndirectByteCountEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawIndirectByteCountEXT-renderpass) VUID-vkCmdDrawIndirectByteCountEXT-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawIndirectByteCountEXT-suspended) VUID-vkCmdDrawIndirectByteCountEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawIndirectByteCountEXT-videocoding) VUID-vkCmdDrawIndirectByteCountEXT-videocoding
@@ -32615,7 +35740,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -32633,6 +35758,9 @@ Other rendering commands remain unaffected by conditional rendering.
 The complete list of commands affected by conditional rendering is:
 
 Commands Affected by Conditional Rendering
+
+* 
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
 
 * 
 [vkCmdClearAttachments](clears.html#vkCmdClearAttachments)
@@ -32794,7 +35922,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBeginConditionalRenderingEXT-commandBuffer-cmdpool) VUID-vkCmdBeginConditionalRenderingEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
+
+* 
+[](#VUID-vkCmdBeginConditionalRenderingEXT-suspended) VUID-vkCmdBeginConditionalRenderingEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBeginConditionalRenderingEXT-videocoding) VUID-vkCmdBeginConditionalRenderingEXT-videocoding
@@ -32814,9 +35947,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action
+VK_QUEUE_GRAPHICS_BIT | Action
 
 State |
 
@@ -32875,7 +36008,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-VkConditionalRenderingBeginInfoEXT-buffer-01982) VUID-VkConditionalRenderingBeginInfoEXT-buffer-01982
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_CONDITIONAL_RENDERING_BIT_EXT` bit set
+`VK_BUFFER_USAGE_CONDITIONAL_RENDERING_BIT_EXT` usage flag set
 
 * 
 [](#VUID-VkConditionalRenderingBeginInfoEXT-offset-01983) VUID-VkConditionalRenderingBeginInfoEXT-offset-01983
@@ -32980,7 +36113,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdEndConditionalRenderingEXT-commandBuffer-cmdpool) VUID-vkCmdEndConditionalRenderingEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
+
+* 
+[](#VUID-vkCmdEndConditionalRenderingEXT-suspended) VUID-vkCmdEndConditionalRenderingEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdEndConditionalRenderingEXT-videocoding) VUID-vkCmdEndConditionalRenderingEXT-videocoding
@@ -33000,9 +36138,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action
+VK_QUEUE_GRAPHICS_BIT | Action
 
 State |
 
@@ -33299,6 +36437,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawMeshTasksNV-imageLayout-00344) VUID-vkCmdDrawMeshTasksNV-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawMeshTasksNV-None-08115) VUID-vkCmdDrawMeshTasksNV-None-08115
@@ -34786,6 +37931,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawMeshTasksNV-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawMeshTasksNV-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawMeshTasksNV-imageView-06184) VUID-vkCmdDrawMeshTasksNV-imageView-06184
 
 If the current render pass instance was begun with
@@ -34859,6 +38018,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -34877,6 +38037,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -34891,6 +38052,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -34898,8 +38060,8 @@ or
 
 [](#VUID-vkCmdDrawMeshTasksNV-pNext-07935) VUID-vkCmdDrawMeshTasksNV-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -34917,39 +38079,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawMeshTasksNV-pColorAttachments-08963) VUID-vkCmdDrawMeshTasksNV-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksNV-pColorAttachments-11539) VUID-vkCmdDrawMeshTasksNV-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawMeshTasksNV-pDepthAttachment-08964) VUID-vkCmdDrawMeshTasksNV-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawMeshTasksNV-pDepthAttachment-11540) VUID-vkCmdDrawMeshTasksNV-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawMeshTasksNV-pStencilAttachment-08965) VUID-vkCmdDrawMeshTasksNV-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawMeshTasksNV-flags-10582) VUID-vkCmdDrawMeshTasksNV-flags-10582
+[](#VUID-vkCmdDrawMeshTasksNV-pStencilAttachment-11860) VUID-vkCmdDrawMeshTasksNV-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksNV-flags-10582) VUID-vkCmdDrawMeshTasksNV-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -35271,8 +38475,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksNV-None-07642) VUID-vkCmdDrawMeshTasksNV-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -35284,8 +38487,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksNV-None-07643) VUID-vkCmdDrawMeshTasksNV-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -35353,8 +38555,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksNV-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawMeshTasksNV-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -35979,19 +39180,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawMeshTasksNV-None-09549) VUID-vkCmdDrawMeshTasksNV-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawMeshTasksNV-None-10927) VUID-vkCmdDrawMeshTasksNV-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawMeshTasksNV-None-10928) VUID-vkCmdDrawMeshTasksNV-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawMeshTasksNV-None-09642) VUID-vkCmdDrawMeshTasksNV-None-09642
 
@@ -36018,6 +39237,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawMeshTasksNV-flags-11521) VUID-vkCmdDrawMeshTasksNV-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawMeshTasksNV-None-11522) VUID-vkCmdDrawMeshTasksNV-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMeshTasksNV-None-11523) VUID-vkCmdDrawMeshTasksNV-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMeshTasksNV-customResolve-11524) VUID-vkCmdDrawMeshTasksNV-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawMeshTasksNV-customResolve-11525) VUID-vkCmdDrawMeshTasksNV-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawMeshTasksNV-None-11861) VUID-vkCmdDrawMeshTasksNV-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawMeshTasksNV-None-11862) VUID-vkCmdDrawMeshTasksNV-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawMeshTasksNV-None-11863) VUID-vkCmdDrawMeshTasksNV-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksNV-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawMeshTasksNV-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksNV-None-11865) VUID-vkCmdDrawMeshTasksNV-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksNV-None-11866) VUID-vkCmdDrawMeshTasksNV-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksNV-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawMeshTasksNV-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksNV-None-11868) VUID-vkCmdDrawMeshTasksNV-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksNV-None-11869) VUID-vkCmdDrawMeshTasksNV-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksNV-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawMeshTasksNV-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksNV-colorAttachmentCount-11871) VUID-vkCmdDrawMeshTasksNV-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawMeshTasksNV-pDepthAttachment-11872) VUID-vkCmdDrawMeshTasksNV-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksNV-pStencilAttachment-11873) VUID-vkCmdDrawMeshTasksNV-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksNV-customResolve-11529) VUID-vkCmdDrawMeshTasksNV-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawMeshTasksNV-customResolve-11530) VUID-vkCmdDrawMeshTasksNV-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawMeshTasksNV-stage-06480) VUID-vkCmdDrawMeshTasksNV-stage-06480
@@ -36117,12 +39562,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawMeshTasksNV-commandBuffer-cmdpool) VUID-vkCmdDrawMeshTasksNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawMeshTasksNV-renderpass) VUID-vkCmdDrawMeshTasksNV-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawMeshTasksNV-suspended) VUID-vkCmdDrawMeshTasksNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawMeshTasksNV-videocoding) VUID-vkCmdDrawMeshTasksNV-videocoding
@@ -36142,7 +39592,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -36449,6 +39899,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-imageLayout-00344) VUID-vkCmdDrawMeshTasksIndirectNV-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-None-08115) VUID-vkCmdDrawMeshTasksIndirectNV-None-08115
@@ -37936,6 +41393,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawMeshTasksIndirectNV-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-imageView-06184) VUID-vkCmdDrawMeshTasksIndirectNV-imageView-06184
 
 If the current render pass instance was begun with
@@ -38009,6 +41480,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -38027,6 +41499,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -38041,6 +41514,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -38048,8 +41522,8 @@ or
 
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-pNext-07935) VUID-vkCmdDrawMeshTasksIndirectNV-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -38067,39 +41541,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-pColorAttachments-08963) VUID-vkCmdDrawMeshTasksIndirectNV-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-pColorAttachments-11539) VUID-vkCmdDrawMeshTasksIndirectNV-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-pDepthAttachment-08964) VUID-vkCmdDrawMeshTasksIndirectNV-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-pDepthAttachment-11540) VUID-vkCmdDrawMeshTasksIndirectNV-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-pStencilAttachment-08965) VUID-vkCmdDrawMeshTasksIndirectNV-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawMeshTasksIndirectNV-flags-10582) VUID-vkCmdDrawMeshTasksIndirectNV-flags-10582
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-pStencilAttachment-11860) VUID-vkCmdDrawMeshTasksIndirectNV-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-flags-10582) VUID-vkCmdDrawMeshTasksIndirectNV-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -38421,8 +41937,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-None-07642) VUID-vkCmdDrawMeshTasksIndirectNV-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -38434,8 +41949,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-None-07643) VUID-vkCmdDrawMeshTasksIndirectNV-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -38503,8 +42017,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawMeshTasksIndirectNV-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -39129,19 +42642,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-None-09549) VUID-vkCmdDrawMeshTasksIndirectNV-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-None-10927) VUID-vkCmdDrawMeshTasksIndirectNV-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-None-10928) VUID-vkCmdDrawMeshTasksIndirectNV-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-None-09642) VUID-vkCmdDrawMeshTasksIndirectNV-None-09642
 
@@ -39168,6 +42699,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-flags-11521) VUID-vkCmdDrawMeshTasksIndirectNV-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-None-11522) VUID-vkCmdDrawMeshTasksIndirectNV-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-None-11523) VUID-vkCmdDrawMeshTasksIndirectNV-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-customResolve-11524) VUID-vkCmdDrawMeshTasksIndirectNV-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-customResolve-11525) VUID-vkCmdDrawMeshTasksIndirectNV-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-None-11861) VUID-vkCmdDrawMeshTasksIndirectNV-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-None-11862) VUID-vkCmdDrawMeshTasksIndirectNV-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-None-11863) VUID-vkCmdDrawMeshTasksIndirectNV-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawMeshTasksIndirectNV-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-None-11865) VUID-vkCmdDrawMeshTasksIndirectNV-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-None-11866) VUID-vkCmdDrawMeshTasksIndirectNV-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawMeshTasksIndirectNV-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-None-11868) VUID-vkCmdDrawMeshTasksIndirectNV-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-None-11869) VUID-vkCmdDrawMeshTasksIndirectNV-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawMeshTasksIndirectNV-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-colorAttachmentCount-11871) VUID-vkCmdDrawMeshTasksIndirectNV-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-pDepthAttachment-11872) VUID-vkCmdDrawMeshTasksIndirectNV-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-pStencilAttachment-11873) VUID-vkCmdDrawMeshTasksIndirectNV-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-customResolve-11529) VUID-vkCmdDrawMeshTasksIndirectNV-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-customResolve-11530) VUID-vkCmdDrawMeshTasksIndirectNV-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-stage-06480) VUID-vkCmdDrawMeshTasksIndirectNV-stage-06480
@@ -39250,7 +43007,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-buffer-02709) VUID-vkCmdDrawMeshTasksIndirectNV-buffer-02709
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-offset-02710) VUID-vkCmdDrawMeshTasksIndirectNV-offset-02710
@@ -39322,12 +43079,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-commandBuffer-cmdpool) VUID-vkCmdDrawMeshTasksIndirectNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-renderpass) VUID-vkCmdDrawMeshTasksIndirectNV-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-suspended) VUID-vkCmdDrawMeshTasksIndirectNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-videocoding) VUID-vkCmdDrawMeshTasksIndirectNV-videocoding
@@ -39352,7 +43114,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -39388,7 +43150,7 @@ Valid Usage
 To record an indirect mesh tasks drawing command with the draw count sourced
 from a buffer, call:
 
-// Provided by VK_NV_mesh_shader with VK_KHR_draw_indirect_count or VK_VERSION_1_2
+// Provided by VK_NV_mesh_shader with (VK_VERSION_1_2 or VK_KHR_draw_indirect_count) or VK_AMD_draw_indirect_count
 void vkCmdDrawMeshTasksIndirectCountNV(
     VkCommandBuffer                             commandBuffer,
     VkBuffer                                    buffer,
@@ -39695,6 +43457,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-imageLayout-00344) VUID-vkCmdDrawMeshTasksIndirectCountNV-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-08115) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-08115
@@ -41182,6 +44951,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawMeshTasksIndirectCountNV-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-imageView-06184) VUID-vkCmdDrawMeshTasksIndirectCountNV-imageView-06184
 
 If the current render pass instance was begun with
@@ -41255,6 +45038,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -41273,6 +45057,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -41287,6 +45072,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -41294,8 +45080,8 @@ or
 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-pNext-07935) VUID-vkCmdDrawMeshTasksIndirectCountNV-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -41313,39 +45099,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-pColorAttachments-08963) VUID-vkCmdDrawMeshTasksIndirectCountNV-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-pColorAttachments-11539) VUID-vkCmdDrawMeshTasksIndirectCountNV-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-pDepthAttachment-08964) VUID-vkCmdDrawMeshTasksIndirectCountNV-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-pDepthAttachment-11540) VUID-vkCmdDrawMeshTasksIndirectCountNV-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-pStencilAttachment-08965) VUID-vkCmdDrawMeshTasksIndirectCountNV-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-flags-10582) VUID-vkCmdDrawMeshTasksIndirectCountNV-flags-10582
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-pStencilAttachment-11860) VUID-vkCmdDrawMeshTasksIndirectCountNV-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-flags-10582) VUID-vkCmdDrawMeshTasksIndirectCountNV-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -41667,8 +45495,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-07642) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -41680,8 +45507,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-07643) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -41749,8 +45575,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawMeshTasksIndirectCountNV-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -42375,19 +46200,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-09549) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-10927) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-10928) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-09642) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-09642
 
@@ -42414,6 +46257,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-flags-11521) VUID-vkCmdDrawMeshTasksIndirectCountNV-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11522) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11523) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-customResolve-11524) VUID-vkCmdDrawMeshTasksIndirectCountNV-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-customResolve-11525) VUID-vkCmdDrawMeshTasksIndirectCountNV-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11861) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11862) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11863) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawMeshTasksIndirectCountNV-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11865) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11866) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawMeshTasksIndirectCountNV-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11868) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11869) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawMeshTasksIndirectCountNV-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-colorAttachmentCount-11871) VUID-vkCmdDrawMeshTasksIndirectCountNV-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-pDepthAttachment-11872) VUID-vkCmdDrawMeshTasksIndirectCountNV-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-pStencilAttachment-11873) VUID-vkCmdDrawMeshTasksIndirectCountNV-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-customResolve-11529) VUID-vkCmdDrawMeshTasksIndirectCountNV-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-customResolve-11530) VUID-vkCmdDrawMeshTasksIndirectCountNV-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-stage-06480) VUID-vkCmdDrawMeshTasksIndirectCountNV-stage-06480
@@ -42496,7 +46565,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-buffer-02709) VUID-vkCmdDrawMeshTasksIndirectCountNV-buffer-02709
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-offset-02710) VUID-vkCmdDrawMeshTasksIndirectCountNV-offset-02710
@@ -42518,7 +46587,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-countBuffer-02715) VUID-vkCmdDrawMeshTasksIndirectCountNV-countBuffer-02715
 
 `countBuffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-countBufferOffset-02716) VUID-vkCmdDrawMeshTasksIndirectCountNV-countBufferOffset-02716
@@ -42588,12 +46657,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-commandBuffer-cmdpool) VUID-vkCmdDrawMeshTasksIndirectCountNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-renderpass) VUID-vkCmdDrawMeshTasksIndirectCountNV-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-suspended) VUID-vkCmdDrawMeshTasksIndirectCountNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-videocoding) VUID-vkCmdDrawMeshTasksIndirectCountNV-videocoding
@@ -42618,7 +46692,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -42916,6 +46990,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawMeshTasksEXT-imageLayout-00344) VUID-vkCmdDrawMeshTasksEXT-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawMeshTasksEXT-None-08115) VUID-vkCmdDrawMeshTasksEXT-None-08115
@@ -44403,6 +48484,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawMeshTasksEXT-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawMeshTasksEXT-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawMeshTasksEXT-imageView-06184) VUID-vkCmdDrawMeshTasksEXT-imageView-06184
 
 If the current render pass instance was begun with
@@ -44476,6 +48571,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -44494,6 +48590,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -44508,6 +48605,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -44515,8 +48613,8 @@ or
 
 [](#VUID-vkCmdDrawMeshTasksEXT-pNext-07935) VUID-vkCmdDrawMeshTasksEXT-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -44534,39 +48632,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawMeshTasksEXT-pColorAttachments-08963) VUID-vkCmdDrawMeshTasksEXT-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-pColorAttachments-11539) VUID-vkCmdDrawMeshTasksEXT-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawMeshTasksEXT-pDepthAttachment-08964) VUID-vkCmdDrawMeshTasksEXT-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawMeshTasksEXT-pDepthAttachment-11540) VUID-vkCmdDrawMeshTasksEXT-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawMeshTasksEXT-pStencilAttachment-08965) VUID-vkCmdDrawMeshTasksEXT-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawMeshTasksEXT-flags-10582) VUID-vkCmdDrawMeshTasksEXT-flags-10582
+[](#VUID-vkCmdDrawMeshTasksEXT-pStencilAttachment-11860) VUID-vkCmdDrawMeshTasksEXT-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-flags-10582) VUID-vkCmdDrawMeshTasksEXT-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -44888,8 +49028,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksEXT-None-07642) VUID-vkCmdDrawMeshTasksEXT-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -44901,8 +49040,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksEXT-None-07643) VUID-vkCmdDrawMeshTasksEXT-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -44970,8 +49108,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksEXT-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawMeshTasksEXT-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -45596,19 +49733,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawMeshTasksEXT-None-09549) VUID-vkCmdDrawMeshTasksEXT-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawMeshTasksEXT-None-10927) VUID-vkCmdDrawMeshTasksEXT-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawMeshTasksEXT-None-10928) VUID-vkCmdDrawMeshTasksEXT-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawMeshTasksEXT-None-09642) VUID-vkCmdDrawMeshTasksEXT-None-09642
 
@@ -45635,6 +49790,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawMeshTasksEXT-flags-11521) VUID-vkCmdDrawMeshTasksEXT-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawMeshTasksEXT-None-11522) VUID-vkCmdDrawMeshTasksEXT-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMeshTasksEXT-None-11523) VUID-vkCmdDrawMeshTasksEXT-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMeshTasksEXT-customResolve-11524) VUID-vkCmdDrawMeshTasksEXT-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-customResolve-11525) VUID-vkCmdDrawMeshTasksEXT-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-None-11861) VUID-vkCmdDrawMeshTasksEXT-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-None-11862) VUID-vkCmdDrawMeshTasksEXT-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawMeshTasksEXT-None-11863) VUID-vkCmdDrawMeshTasksEXT-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawMeshTasksEXT-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-None-11865) VUID-vkCmdDrawMeshTasksEXT-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-None-11866) VUID-vkCmdDrawMeshTasksEXT-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawMeshTasksEXT-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-None-11868) VUID-vkCmdDrawMeshTasksEXT-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-None-11869) VUID-vkCmdDrawMeshTasksEXT-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawMeshTasksEXT-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-colorAttachmentCount-11871) VUID-vkCmdDrawMeshTasksEXT-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawMeshTasksEXT-pDepthAttachment-11872) VUID-vkCmdDrawMeshTasksEXT-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-pStencilAttachment-11873) VUID-vkCmdDrawMeshTasksEXT-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-customResolve-11529) VUID-vkCmdDrawMeshTasksEXT-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawMeshTasksEXT-customResolve-11530) VUID-vkCmdDrawMeshTasksEXT-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawMeshTasksEXT-stage-06480) VUID-vkCmdDrawMeshTasksEXT-stage-06480
@@ -45794,12 +50175,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawMeshTasksEXT-commandBuffer-cmdpool) VUID-vkCmdDrawMeshTasksEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawMeshTasksEXT-renderpass) VUID-vkCmdDrawMeshTasksEXT-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawMeshTasksEXT-suspended) VUID-vkCmdDrawMeshTasksEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawMeshTasksEXT-videocoding) VUID-vkCmdDrawMeshTasksEXT-videocoding
@@ -45819,7 +50205,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -46126,6 +50512,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-imageLayout-00344) VUID-vkCmdDrawMeshTasksIndirectEXT-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-08115) VUID-vkCmdDrawMeshTasksIndirectEXT-None-08115
@@ -47613,6 +52006,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawMeshTasksIndirectEXT-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-imageView-06184) VUID-vkCmdDrawMeshTasksIndirectEXT-imageView-06184
 
 If the current render pass instance was begun with
@@ -47686,6 +52093,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -47704,6 +52112,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -47718,6 +52127,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -47725,8 +52135,8 @@ or
 
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-pNext-07935) VUID-vkCmdDrawMeshTasksIndirectEXT-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -47744,39 +52154,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-pColorAttachments-08963) VUID-vkCmdDrawMeshTasksIndirectEXT-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-pColorAttachments-11539) VUID-vkCmdDrawMeshTasksIndirectEXT-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-pDepthAttachment-08964) VUID-vkCmdDrawMeshTasksIndirectEXT-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-pDepthAttachment-11540) VUID-vkCmdDrawMeshTasksIndirectEXT-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-pStencilAttachment-08965) VUID-vkCmdDrawMeshTasksIndirectEXT-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawMeshTasksIndirectEXT-flags-10582) VUID-vkCmdDrawMeshTasksIndirectEXT-flags-10582
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-pStencilAttachment-11860) VUID-vkCmdDrawMeshTasksIndirectEXT-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-flags-10582) VUID-vkCmdDrawMeshTasksIndirectEXT-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -48098,8 +52550,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-07642) VUID-vkCmdDrawMeshTasksIndirectEXT-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -48111,8 +52562,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-07643) VUID-vkCmdDrawMeshTasksIndirectEXT-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -48180,8 +52630,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawMeshTasksIndirectEXT-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -48806,19 +53255,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-09549) VUID-vkCmdDrawMeshTasksIndirectEXT-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-10927) VUID-vkCmdDrawMeshTasksIndirectEXT-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-10928) VUID-vkCmdDrawMeshTasksIndirectEXT-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-09642) VUID-vkCmdDrawMeshTasksIndirectEXT-None-09642
 
@@ -48845,6 +53312,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-flags-11521) VUID-vkCmdDrawMeshTasksIndirectEXT-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-11522) VUID-vkCmdDrawMeshTasksIndirectEXT-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-11523) VUID-vkCmdDrawMeshTasksIndirectEXT-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-customResolve-11524) VUID-vkCmdDrawMeshTasksIndirectEXT-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-customResolve-11525) VUID-vkCmdDrawMeshTasksIndirectEXT-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-11861) VUID-vkCmdDrawMeshTasksIndirectEXT-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-11862) VUID-vkCmdDrawMeshTasksIndirectEXT-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-11863) VUID-vkCmdDrawMeshTasksIndirectEXT-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawMeshTasksIndirectEXT-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-11865) VUID-vkCmdDrawMeshTasksIndirectEXT-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-11866) VUID-vkCmdDrawMeshTasksIndirectEXT-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawMeshTasksIndirectEXT-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-11868) VUID-vkCmdDrawMeshTasksIndirectEXT-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-11869) VUID-vkCmdDrawMeshTasksIndirectEXT-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawMeshTasksIndirectEXT-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-colorAttachmentCount-11871) VUID-vkCmdDrawMeshTasksIndirectEXT-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-pDepthAttachment-11872) VUID-vkCmdDrawMeshTasksIndirectEXT-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-pStencilAttachment-11873) VUID-vkCmdDrawMeshTasksIndirectEXT-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-customResolve-11529) VUID-vkCmdDrawMeshTasksIndirectEXT-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-customResolve-11530) VUID-vkCmdDrawMeshTasksIndirectEXT-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-stage-06480) VUID-vkCmdDrawMeshTasksIndirectEXT-stage-06480
@@ -48927,7 +53620,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-buffer-02709) VUID-vkCmdDrawMeshTasksIndirectEXT-buffer-02709
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-offset-02710) VUID-vkCmdDrawMeshTasksIndirectEXT-offset-02710
@@ -48999,12 +53692,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-commandBuffer-cmdpool) VUID-vkCmdDrawMeshTasksIndirectEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-renderpass) VUID-vkCmdDrawMeshTasksIndirectEXT-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-suspended) VUID-vkCmdDrawMeshTasksIndirectEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-videocoding) VUID-vkCmdDrawMeshTasksIndirectEXT-videocoding
@@ -49029,7 +53727,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -49130,7 +53828,7 @@ product of `groupCountX`, `groupCountY` and `groupCountZ`
 To record an indirect mesh tasks drawing command with the draw count sourced
 from a buffer, call:
 
-// Provided by VK_EXT_mesh_shader with VK_KHR_draw_indirect_count or VK_VERSION_1_2
+// Provided by VK_EXT_mesh_shader with (VK_VERSION_1_2 or VK_KHR_draw_indirect_count) or VK_AMD_draw_indirect_count
 void vkCmdDrawMeshTasksIndirectCountEXT(
     VkCommandBuffer                             commandBuffer,
     VkBuffer                                    buffer,
@@ -49437,6 +54135,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-imageLayout-00344) VUID-vkCmdDrawMeshTasksIndirectCountEXT-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-08115) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-08115
@@ -50924,6 +55629,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawMeshTasksIndirectCountEXT-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-imageView-06184) VUID-vkCmdDrawMeshTasksIndirectCountEXT-imageView-06184
 
 If the current render pass instance was begun with
@@ -50997,6 +55716,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -51015,6 +55735,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -51029,6 +55750,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -51036,8 +55758,8 @@ or
 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-pNext-07935) VUID-vkCmdDrawMeshTasksIndirectCountEXT-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -51055,39 +55777,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-pColorAttachments-08963) VUID-vkCmdDrawMeshTasksIndirectCountEXT-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-pColorAttachments-11539) VUID-vkCmdDrawMeshTasksIndirectCountEXT-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-pDepthAttachment-08964) VUID-vkCmdDrawMeshTasksIndirectCountEXT-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-pDepthAttachment-11540) VUID-vkCmdDrawMeshTasksIndirectCountEXT-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-pStencilAttachment-08965) VUID-vkCmdDrawMeshTasksIndirectCountEXT-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-flags-10582) VUID-vkCmdDrawMeshTasksIndirectCountEXT-flags-10582
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-pStencilAttachment-11860) VUID-vkCmdDrawMeshTasksIndirectCountEXT-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-flags-10582) VUID-vkCmdDrawMeshTasksIndirectCountEXT-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -51409,8 +56173,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-07642) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -51422,8 +56185,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-07643) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -51491,8 +56253,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawMeshTasksIndirectCountEXT-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -52117,19 +56878,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-09549) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-10927) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-10928) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-09642) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-09642
 
@@ -52156,6 +56935,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-flags-11521) VUID-vkCmdDrawMeshTasksIndirectCountEXT-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11522) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11523) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-customResolve-11524) VUID-vkCmdDrawMeshTasksIndirectCountEXT-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-customResolve-11525) VUID-vkCmdDrawMeshTasksIndirectCountEXT-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11861) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11862) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11863) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawMeshTasksIndirectCountEXT-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11865) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11866) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawMeshTasksIndirectCountEXT-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11868) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11869) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawMeshTasksIndirectCountEXT-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-colorAttachmentCount-11871) VUID-vkCmdDrawMeshTasksIndirectCountEXT-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-pDepthAttachment-11872) VUID-vkCmdDrawMeshTasksIndirectCountEXT-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-pStencilAttachment-11873) VUID-vkCmdDrawMeshTasksIndirectCountEXT-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-customResolve-11529) VUID-vkCmdDrawMeshTasksIndirectCountEXT-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-customResolve-11530) VUID-vkCmdDrawMeshTasksIndirectCountEXT-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-stage-06480) VUID-vkCmdDrawMeshTasksIndirectCountEXT-stage-06480
@@ -52238,7 +57243,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-buffer-02709) VUID-vkCmdDrawMeshTasksIndirectCountEXT-buffer-02709
 
 `buffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-offset-02710) VUID-vkCmdDrawMeshTasksIndirectCountEXT-offset-02710
@@ -52260,7 +57265,7 @@ contiguously to a single `VkDeviceMemory` object
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-countBuffer-02715) VUID-vkCmdDrawMeshTasksIndirectCountEXT-countBuffer-02715
 
 `countBuffer` **must** have been created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` bit set
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-countBufferOffset-02716) VUID-vkCmdDrawMeshTasksIndirectCountEXT-countBufferOffset-02716
@@ -52330,12 +57335,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-commandBuffer-cmdpool) VUID-vkCmdDrawMeshTasksIndirectCountEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-renderpass) VUID-vkCmdDrawMeshTasksIndirectCountEXT-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-suspended) VUID-vkCmdDrawMeshTasksIndirectCountEXT-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-videocoding) VUID-vkCmdDrawMeshTasksIndirectCountEXT-videocoding
@@ -52360,7 +57370,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -52665,6 +57675,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawClusterHUAWEI-imageLayout-00344) VUID-vkCmdDrawClusterHUAWEI-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawClusterHUAWEI-None-08115) VUID-vkCmdDrawClusterHUAWEI-None-08115
@@ -54152,6 +59169,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawClusterHUAWEI-imageView-06184) VUID-vkCmdDrawClusterHUAWEI-imageView-06184
 
 If the current render pass instance was begun with
@@ -54225,6 +59256,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -54243,6 +59275,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -54257,6 +59290,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -54264,8 +59298,8 @@ or
 
 [](#VUID-vkCmdDrawClusterHUAWEI-pNext-07935) VUID-vkCmdDrawClusterHUAWEI-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -54283,39 +59317,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawClusterHUAWEI-pColorAttachments-08963) VUID-vkCmdDrawClusterHUAWEI-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-pColorAttachments-11539) VUID-vkCmdDrawClusterHUAWEI-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawClusterHUAWEI-pDepthAttachment-08964) VUID-vkCmdDrawClusterHUAWEI-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawClusterHUAWEI-pDepthAttachment-11540) VUID-vkCmdDrawClusterHUAWEI-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawClusterHUAWEI-pStencilAttachment-08965) VUID-vkCmdDrawClusterHUAWEI-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawClusterHUAWEI-flags-10582) VUID-vkCmdDrawClusterHUAWEI-flags-10582
+[](#VUID-vkCmdDrawClusterHUAWEI-pStencilAttachment-11860) VUID-vkCmdDrawClusterHUAWEI-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-flags-10582) VUID-vkCmdDrawClusterHUAWEI-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -54637,8 +59713,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawClusterHUAWEI-None-07642) VUID-vkCmdDrawClusterHUAWEI-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -54650,8 +59725,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawClusterHUAWEI-None-07643) VUID-vkCmdDrawClusterHUAWEI-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -54719,8 +59793,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawClusterHUAWEI-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawClusterHUAWEI-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -55345,19 +60418,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawClusterHUAWEI-None-09549) VUID-vkCmdDrawClusterHUAWEI-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-10927) VUID-vkCmdDrawClusterHUAWEI-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-10928) VUID-vkCmdDrawClusterHUAWEI-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawClusterHUAWEI-None-09642) VUID-vkCmdDrawClusterHUAWEI-None-09642
 
@@ -55384,6 +60475,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawClusterHUAWEI-flags-11521) VUID-vkCmdDrawClusterHUAWEI-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11522) VUID-vkCmdDrawClusterHUAWEI-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11523) VUID-vkCmdDrawClusterHUAWEI-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawClusterHUAWEI-customResolve-11524) VUID-vkCmdDrawClusterHUAWEI-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-customResolve-11525) VUID-vkCmdDrawClusterHUAWEI-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11861) VUID-vkCmdDrawClusterHUAWEI-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11862) VUID-vkCmdDrawClusterHUAWEI-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11863) VUID-vkCmdDrawClusterHUAWEI-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11865) VUID-vkCmdDrawClusterHUAWEI-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11866) VUID-vkCmdDrawClusterHUAWEI-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11868) VUID-vkCmdDrawClusterHUAWEI-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-None-11869) VUID-vkCmdDrawClusterHUAWEI-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawClusterHUAWEI-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-colorAttachmentCount-11871) VUID-vkCmdDrawClusterHUAWEI-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawClusterHUAWEI-pDepthAttachment-11872) VUID-vkCmdDrawClusterHUAWEI-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-pStencilAttachment-11873) VUID-vkCmdDrawClusterHUAWEI-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-customResolve-11529) VUID-vkCmdDrawClusterHUAWEI-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawClusterHUAWEI-customResolve-11530) VUID-vkCmdDrawClusterHUAWEI-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawClusterHUAWEI-stage-06480) VUID-vkCmdDrawClusterHUAWEI-stage-06480
@@ -55504,12 +60821,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawClusterHUAWEI-commandBuffer-cmdpool) VUID-vkCmdDrawClusterHUAWEI-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawClusterHUAWEI-renderpass) VUID-vkCmdDrawClusterHUAWEI-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawClusterHUAWEI-suspended) VUID-vkCmdDrawClusterHUAWEI-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawClusterHUAWEI-videocoding) VUID-vkCmdDrawClusterHUAWEI-videocoding
@@ -55529,7 +60851,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -55827,6 +61149,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-imageLayout-00344) VUID-vkCmdDrawClusterIndirectHUAWEI-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-08115) VUID-vkCmdDrawClusterIndirectHUAWEI-None-08115
@@ -57314,6 +62643,20 @@ was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the bou
 been created with
 `VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-dynamicRenderingLocalRead-11797) VUID-vkCmdDrawClusterIndirectHUAWEI-dynamicRenderingLocalRead-11797
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), the
+[`dynamicRenderingLocalRead`](features.html#features-dynamicRenderingLocalRead)
+feature is enabled, the
+`VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR` flag is
+specified, and an attachment is being used as a feedback loop as
+specified by
+[`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`](renderpass.html#rendering-attachment-input-attachment-feedback),
+[VkRenderingAttachmentFlagsInfoKHR](renderpass.html#VkRenderingAttachmentFlagsInfoKHR)::`flags` for that attachment
+**must** include
+`VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR`
+
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-imageView-06184) VUID-vkCmdDrawClusterIndirectHUAWEI-imageView-06184
 
 If the current render pass instance was begun with
@@ -57387,6 +62730,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     the current render pass instance was begun with
     [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
@@ -57405,6 +62749,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -57419,6 +62764,7 @@ or
     [VkAttachmentSampleCountInfoNV](cmdbuffers.html#VkAttachmentSampleCountInfoNV)
     structure, and
     the [    `multisampledRenderToSingleSampled`](features.html#features-multisampledRenderToSingleSampled) feature is not enabled, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render pass instance, and
     [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
     [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
     bound graphics pipeline **must** be equal to the sample count used to
@@ -57426,8 +62772,8 @@ or
 
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-pNext-07935) VUID-vkCmdDrawClusterIndirectHUAWEI-pNext-07935
 
-If this command has been called inside a render pass instance started
-with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
+If this command is called inside a render pass instance started with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), and the `pNext` chain of
 [VkRenderingInfo](renderpass.html#VkRenderingInfo) includes a
 [VkMultisampledRenderToSingleSampledInfoEXT](renderpass.html#VkMultisampledRenderToSingleSampledInfoEXT) structure with
 `multisampledRenderToSingleSampledEnable` equal to `VK_TRUE`,
@@ -57445,39 +62791,81 @@ with a [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInf
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-pColorAttachments-08963) VUID-vkCmdDrawClusterIndirectHUAWEI-pColorAttachments-08963
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound with a
-fragment shader that statically writes to a color attachment, the color
-write mask is not zero, color writes are enabled, and the corresponding
-element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView`
-was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound with a fragment shader that
+statically writes to a color attachment, the color write mask is not
+zero, color writes are enabled, and the corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->imageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`pColorAttachmentFormats` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-pColorAttachments-11539) VUID-vkCmdDrawClusterIndirectHUAWEI-pColorAttachments-11539
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline bound
+with a fragment shader that statically writes to a color attachment, the
+color write mask is not zero, color writes are enabled, and the
+corresponding element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-pDepthAttachment-08964) VUID-vkCmdDrawClusterIndirectHUAWEI-pDepthAttachment-08964
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, depth
-test is enabled, depth write is enabled, and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, depth test is enabled, and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`depthAttachmentFormat` used to
 create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-pDepthAttachment-11540) VUID-vkCmdDrawClusterIndirectHUAWEI-pDepthAttachment-11540
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, depth test is enabled, and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-pStencilAttachment-08965) VUID-vkCmdDrawClusterIndirectHUAWEI-pStencilAttachment-08965
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), there is a graphics pipeline bound, stencil
-test is enabled and the
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been recorded in the render
+pass instance,
+there is a graphics pipeline bound, stencil test is enabled and the
 [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->imageView` was not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 [VkPipelineRenderingCreateInfo](pipelines.html#VkPipelineRenderingCreateInfo)::`stencilAttachmentFormat` used
 to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
 
-[](#VUID-vkCmdDrawClusterIndirectHUAWEI-flags-10582) VUID-vkCmdDrawClusterIndirectHUAWEI-flags-10582
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-pStencilAttachment-11860) VUID-vkCmdDrawClusterIndirectHUAWEI-pStencilAttachment-11860
 
 If the current render pass instance was begun with
-[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), its [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags`
-parameter **must** not have
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, there is a graphics pipeline
+bound, stencil test is enabled and the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the pipeline **must** not be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-flags-10582) VUID-vkCmdDrawClusterIndirectHUAWEI-flags-10582
+
+If the current render pass instance was begun with a
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) call in `commandBuffer`, its
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` parameter **must** not have
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` set
 unless `VK_RENDERING_CONTENTS_INLINE_BIT_KHR` is also set
 
@@ -57799,8 +63187,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-07642) VUID-vkCmdDrawClusterIndirectHUAWEI-None-07642
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV` dynamic state
 enabled, and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -57812,8 +63199,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-07643) VUID-vkCmdDrawClusterIndirectHUAWEI-None-07643
 
 If the `[VK_NV_fragment_coverage_to_color](../appendices/extensions.html#VK_NV_fragment_coverage_to_color)` extension is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV` dynamic state
 enabled, the [current value](pipelines.html#dynamic-state-current-value) of
@@ -57881,8 +63267,7 @@ command buffer prior to this drawing command
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-pipelineFragmentShadingRate-09238) VUID-vkCmdDrawClusterIndirectHUAWEI-pipelineFragmentShadingRate-09238
 
 If the [    `pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) feature is enabled,
-a shader object is bound to the `VK_SHADER_STAGE_FRAGMENT_BIT` stage
-or
+a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR` dynamic state enabled,
 and the [current value](pipelines.html#dynamic-state-current-value) of
@@ -58507,19 +63892,37 @@ either the source or destination blend factors for that attachment
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 there is no shader object bound to any graphics stage,
-and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
-the render pass instance, the value of each element of
+the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
-set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
-set for the corresponding element in the bound pipeline
+in the bound pipeline **must** match the value for the corresponding
+locations set currently in the current render pass instance
 
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-09549) VUID-vkCmdDrawClusterIndirectHUAWEI-None-09549
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
 and there is no shader object bound to any graphics stage,
-input attachment index mappings in the bound pipeline **must** match those
-set for the current render pass instance via
-[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+the value of each element of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pColorAttachmentInputIndices`
+in the bound pipeline **must** match the value for the corresponding index
+set currently in the current render pass instance
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-10927) VUID-vkCmdDrawClusterIndirectHUAWEI-None-10927
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pDepthInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-10928) VUID-vkCmdDrawClusterIndirectHUAWEI-None-10928
+
+If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+and there is no shader object bound to any graphics stage,
+the value of
+[VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)::`pStencilInputAttachmentIndex`
+in the bound pipeline **must** match the value set currently in the current
+render pass instance
 
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-09642) VUID-vkCmdDrawClusterIndirectHUAWEI-None-09642
 
@@ -58546,6 +63949,232 @@ be enabled
 
 If a shader object is bound to any graphics stage, *multiview*
 functionality **must** not be enabled in the current render pass
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-flags-11521) VUID-vkCmdDrawClusterIndirectHUAWEI-flags-11521
+
+If current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering)
+with [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`flags` which includes
+`VK_RENDERING_FRAGMENT_REGION_BIT_EXT`, and if
+[sample shading](primsrast.html#primsrast-sampleshading) is enabled (explicitly or
+implicitly), then the minimum fraction for sample shading **must** equal
+0.0
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-11522) VUID-vkCmdDrawClusterIndirectHUAWEI-None-11522
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-11523) VUID-vkCmdDrawClusterIndirectHUAWEI-None-11523
+
+    If the current render pass instance was begun with
+    [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and does not contain a custom resolve,
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled,
+    the graphics pipeline bound **must** not have been created with a
+    [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-customResolve-11524) VUID-vkCmdDrawClusterIndirectHUAWEI-customResolve-11524
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, the graphics pipeline bound **must**
+have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as `VK_TRUE`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-customResolve-11525) VUID-vkCmdDrawClusterIndirectHUAWEI-customResolve-11525
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not been recorded in the render
+pass instance, the graphics pipeline bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-11861) VUID-vkCmdDrawClusterIndirectHUAWEI-None-11861
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a custom resolve, the bound
+graphics pipeline **must** have been created with a
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount` equal to
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-11862) VUID-vkCmdDrawClusterIndirectHUAWEI-None-11862
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-11863) VUID-vkCmdDrawClusterIndirectHUAWEI-None-11863
+
+If
+the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled, and
+the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have
+the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound pipeline equal to `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-dynamicRenderingUnusedAttachments-11864) VUID-vkCmdDrawClusterIndirectHUAWEI-dynamicRenderingUnusedAttachments-11864
+
+If the [    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, the
+current render pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
+it contains a custom resolve, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` greater than `0`, then
+each element of the [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array
+with an `resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must**
+have been created with a [VkFormat](formats.html#VkFormat) equal to the corresponding
+element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats` used
+to create the bound graphics pipeline, or the corresponding element of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`pColorAttachmentFormats`, if it
+exists, **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-11865) VUID-vkCmdDrawClusterIndirectHUAWEI-None-11865
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-11866) VUID-vkCmdDrawClusterIndirectHUAWEI-None-11866
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline **must** be equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-dynamicRenderingUnusedAttachments-11867) VUID-vkCmdDrawClusterIndirectHUAWEI-dynamicRenderingUnusedAttachments-11867
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`depthAttachmentFormat` used to
+create the bound graphics pipeline was not equal to the [VkFormat](formats.html#VkFormat)
+used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-11868) VUID-vkCmdDrawClusterIndirectHUAWEI-None-11868
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to
+`VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-11869) VUID-vkCmdDrawClusterIndirectHUAWEI-None-11869
+
+If current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve,
+the
+[`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments)
+feature is not enabled,
+and [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+was not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline **must** be equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-dynamicRenderingUnusedAttachments-11870) VUID-vkCmdDrawClusterIndirectHUAWEI-dynamicRenderingUnusedAttachments-11870
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), it contains a custom resolve, the
+[    `dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and the value of
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`stencilAttachmentFormat` used
+to create the bound graphics pipeline was not equal to the
+[VkFormat](formats.html#VkFormat) used to create
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`, the
+value of the format **must** be `VK_FORMAT_UNDEFINED`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-colorAttachmentCount-11871) VUID-vkCmdDrawClusterIndirectHUAWEI-colorAttachmentCount-11871
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with a
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`colorAttachmentCount` parameter greater than
+`0` and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been recorded in the render
+pass instance, then for each element of the
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pColorAttachments` array with a
+`resolveImageView` not equal to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the
+`resolveImageView` **must** have been created with a sample count equal
+to the value of `rasterizationSamples` for the bound graphics
+pipeline
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-pDepthAttachment-11872) VUID-vkCmdDrawClusterIndirectHUAWEI-pDepthAttachment-11872
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance, and
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for the
+bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pDepthAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-pStencilAttachment-11873) VUID-vkCmdDrawClusterIndirectHUAWEI-pStencilAttachment-11873
+
+If the current render pass instance was begun with
+[vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has been
+recorded in the render pass instance,
+[VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView` was
+not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), the value of `rasterizationSamples` for
+the bound graphics pipeline **must** be equal to the sample count used to
+create [VkRenderingInfo](renderpass.html#VkRenderingInfo)::`pStencilAttachment->resolveImageView`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-customResolve-11529) VUID-vkCmdDrawClusterIndirectHUAWEI-customResolve-11529
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), a fragment
+density map attachment is active, and [vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT)
+has been called, then the fragment shader object bound **must** have been
+created with [VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_TRUE`
+
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-customResolve-11530) VUID-vkCmdDrawClusterIndirectHUAWEI-customResolve-11530
+
+If a shader object is bound to the fragment stage, the current render
+pass instance was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) and contains a
+custom resolve, a fragment density map attachment is active, and
+[vkCmdBeginCustomResolveEXT](renderpass.html#vkCmdBeginCustomResolveEXT) has not yet been called, then the
+fragment shader object bound **must** have been created with
+[VkCustomResolveCreateInfoEXT](pipelines.html#VkCustomResolveCreateInfoEXT)::`customResolve` as
+`VK_FALSE`
 
 * 
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-stage-06480) VUID-vkCmdDrawClusterIndirectHUAWEI-stage-06480
@@ -58663,12 +64292,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-commandBuffer-cmdpool) VUID-vkCmdDrawClusterIndirectHUAWEI-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-renderpass) VUID-vkCmdDrawClusterIndirectHUAWEI-renderpass
 
  This command **must** only be called inside of a render pass instance
+
+* 
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-suspended) VUID-vkCmdDrawClusterIndirectHUAWEI-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-videocoding) VUID-vkCmdDrawClusterIndirectHUAWEI-videocoding
@@ -58693,7 +64327,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | Action |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

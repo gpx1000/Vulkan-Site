@@ -34,6 +34,6 @@ Khronos Blog for [information about macOS and iOS support](https://www.khronos.o
 
 ![portability_initiative_macos.png](_images/portability_initiative_macos.png)
 
-Mozilla is currently helping drive [gfx-rs portability](https://github.com/gfx-rs/portability) to use [gfx-hal](https://gfx-rs.github.io/2017/07/24/low-level.html) as a way to interface with various other APIs.
+Mozilla is currently helping drive [gfx-rs portability](https://github.com/gfx-rs/portability) to use [wgpu-hal](https://github.com/gfx-rs/wgpu/pull/1471) as a way to interface with various other APIs.
 
 ![portability_initiative_gfxrs.png](_images/portability_initiative_gfxrs.png)

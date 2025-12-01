@@ -29,9 +29,8 @@ typedef struct VkSemaphoreSignalInfo {
     uint64_t           value;
 } VkSemaphoreSignalInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkSemaphoreSignalInfo
 typedef VkSemaphoreSignalInfo VkSemaphoreSignalInfoKHR;
 
 * 

@@ -35,9 +35,8 @@ typedef struct VkSubresourceHostMemcpySize {
     VkDeviceSize       size;
 } VkSubresourceHostMemcpySize;
 
-or the equivalent
-
 // Provided by VK_EXT_host_image_copy
+// Equivalent to VkSubresourceHostMemcpySize
 typedef VkSubresourceHostMemcpySize VkSubresourceHostMemcpySizeEXT;
 
 * 

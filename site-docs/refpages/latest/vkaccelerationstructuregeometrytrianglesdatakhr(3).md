@@ -46,7 +46,7 @@ structure.
 `vertexFormat` is the [VkFormat](VkFormat.html) of each vertex element.
 
 * 
-`vertexData` is a device or host address to memory containing vertex
+`vertexData` is a device or host address of memory containing vertex
 data for this geometry.
 
 * 
@@ -59,8 +59,9 @@ data for this geometry.
 `indexType` is the [VkIndexType](VkIndexType.html) of each index element.
 
 * 
-`indexData` is a device or host address to memory containing index
+`indexData` is a device or host address of memory containing index
 data for this geometry.
+When `indexType` is `VK_INDEX_TYPE_NONE_KHR` it **must** be `NULL`.
 
 * 
 `transformData` is a device or host address to memory containing an

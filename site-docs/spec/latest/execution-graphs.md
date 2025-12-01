@@ -270,7 +270,7 @@ shader stages in the pipeline will be executed after those shader stages as
 normal.
 Task shaders cannot be included in a graphics pipeline used for a draw node.
 
-In addition to the shader name and index, an internal "node index" is also
+In addition to the shader name and index, an internal “node index” is also
 generated for each node, which can be queried with
 [vkGetExecutionGraphPipelineNodeIndexAMDX](#vkGetExecutionGraphPipelineNodeIndexAMDX), and is used exclusively for
 initial dispatch of an execution graph.
@@ -339,8 +339,9 @@ descriptor type
 [](#VUID-VkExecutionGraphPipelineCreateInfoAMDX-layout-07991) VUID-VkExecutionGraphPipelineCreateInfoAMDX-layout-07991
 
 If a [resource variable](interfaces.html#interfaces-resources) is declared in a shader
-as an array, the corresponding descriptor set in `layout` **must**
-match the descriptor count
+as an array, the corresponding descriptor binding used to create
+`layout` **must** have a `descriptorCount` that is greater than or
+equal to the length of the array
 
 * 
 [](#VUID-VkExecutionGraphPipelineCreateInfoAMDX-None-10391) VUID-VkExecutionGraphPipelineCreateInfoAMDX-None-10391
@@ -348,6 +349,13 @@ match the descriptor count
 If a [resource variables](interfaces.html#interfaces-resources) is declared in a shader
 as an array of descriptors, then the descriptor type of that variable
 **must** not be `VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK`
+
+* 
+[](#VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-11798) VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-11798
+
+If [shader64BitIndexing](features.html#features-shader64BitIndexing) feature is not
+enabled, `flags` **must** not contain
+`VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT`
 
 * 
 [](#VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-03365) VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-03365
@@ -939,7 +947,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-cmdpool) VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
+
+* 
+[](#VUID-vkCmdInitializeGraphScratchMemoryAMDX-suspended) VUID-vkCmdInitializeGraphScratchMemoryAMDX-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdInitializeGraphScratchMemoryAMDX-videocoding) VUID-vkCmdInitializeGraphScratchMemoryAMDX-videocoding
@@ -964,9 +977,9 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Both | Outside | Graphics
+| Primary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -1287,6 +1300,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDispatchGraphAMDX-imageLayout-00344) VUID-vkCmdDispatchGraphAMDX-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDispatchGraphAMDX-None-08115) VUID-vkCmdDispatchGraphAMDX-None-08115
@@ -1696,7 +1716,7 @@ graph pipeline
 `scratch` **must** be a device address within a [VkBuffer](resources.html#VkBuffer) created
 with the `VK_BUFFER_USAGE_EXECUTION_GRAPH_SCRATCH_BIT_AMDX`
 or `VK_BUFFER_USAGE_2_EXECUTION_GRAPH_SCRATCH_BIT_AMDX`
-flag
+usage flags set
 
 * 
 [](#VUID-vkCmdDispatchGraphAMDX-scratch-10194) VUID-vkCmdDispatchGraphAMDX-scratch-10194
@@ -1803,7 +1823,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDispatchGraphAMDX-commandBuffer-cmdpool) VUID-vkCmdDispatchGraphAMDX-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
+
+* 
+[](#VUID-vkCmdDispatchGraphAMDX-suspended) VUID-vkCmdDispatchGraphAMDX-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDispatchGraphAMDX-videocoding) VUID-vkCmdDispatchGraphAMDX-videocoding
@@ -1823,9 +1848,9 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Both | Outside | Graphics
+| Primary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -2146,6 +2171,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDispatchGraphIndirectAMDX-imageLayout-00344) VUID-vkCmdDispatchGraphIndirectAMDX-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectAMDX-None-08115) VUID-vkCmdDispatchGraphIndirectAMDX-None-08115
@@ -2555,7 +2587,7 @@ graph pipeline
 `scratch` **must** be a device address within a [VkBuffer](resources.html#VkBuffer) created
 with the `VK_BUFFER_USAGE_EXECUTION_GRAPH_SCRATCH_BIT_AMDX`
 or `VK_BUFFER_USAGE_2_EXECUTION_GRAPH_SCRATCH_BIT_AMDX`
-flag
+usage flags set
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectAMDX-scratch-10194) VUID-vkCmdDispatchGraphIndirectAMDX-scratch-10194
@@ -2609,7 +2641,7 @@ this command is executed on the device
 
 `pCountInfo->infos` **must** be a device address within a
 [VkBuffer](resources.html#VkBuffer) created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` flag
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectAMDX-pCountInfo-09152) VUID-vkCmdDispatchGraphIndirectAMDX-pCountInfo-09152
@@ -2640,7 +2672,7 @@ and `payloadStride` when this command is executed on the device
 For each [VkDispatchGraphInfoAMDX](#VkDispatchGraphInfoAMDX) structure in
 `pCountInfo->infos`, `payloads` **must** be a device address within
 a [VkBuffer](resources.html#VkBuffer) created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` flag
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectAMDX-pCountInfo-09156) VUID-vkCmdDispatchGraphIndirectAMDX-pCountInfo-09156
@@ -2694,7 +2726,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDispatchGraphIndirectAMDX-commandBuffer-cmdpool) VUID-vkCmdDispatchGraphIndirectAMDX-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
+
+* 
+[](#VUID-vkCmdDispatchGraphIndirectAMDX-suspended) VUID-vkCmdDispatchGraphIndirectAMDX-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectAMDX-videocoding) VUID-vkCmdDispatchGraphIndirectAMDX-videocoding
@@ -2714,9 +2751,9 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Both | Outside | Graphics
+| Primary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -3030,6 +3067,13 @@ by
 the [VkPipeline](pipelines.html#VkPipeline) bound to the pipeline bind point used by this
 command and the bound [VkPipeline](pipelines.html#VkPipeline) was not created with
 `VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-vkCmdDispatchGraphIndirectCountAMDX-imageLayout-00344) VUID-vkCmdDispatchGraphIndirectCountAMDX-imageLayout-00344
+
+If an image descriptor is accessed by a shader, the [VkImageLayout](resources.html#VkImageLayout)
+**must** match the subresource accessible from the [VkImageView](resources.html#VkImageView) as
+defined by the [image layout    matching rules](resources.html#resources-image-layouts-matching-rule)
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-None-08115) VUID-vkCmdDispatchGraphIndirectCountAMDX-None-08115
@@ -3439,7 +3483,7 @@ graph pipeline
 `scratch` **must** be a device address within a [VkBuffer](resources.html#VkBuffer) created
 with the `VK_BUFFER_USAGE_EXECUTION_GRAPH_SCRATCH_BIT_AMDX`
 or `VK_BUFFER_USAGE_2_EXECUTION_GRAPH_SCRATCH_BIT_AMDX`
-flag
+usage flags set
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-10194) VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-10194
@@ -3492,7 +3536,8 @@ this command is executed on the device
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09160) VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09160
 
 `countInfo` **must** be a device address within a [VkBuffer](resources.html#VkBuffer)
-created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` flag
+created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag
+set
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09161) VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09161
@@ -3511,7 +3556,8 @@ this command is executed on the device
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09163) VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09163
 
 `countInfo->infos` **must** be a device address within a [VkBuffer](resources.html#VkBuffer)
-created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` flag
+created with the `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag
+set
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09164) VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09164
@@ -3542,7 +3588,7 @@ and `payloadStride` when this command is executed on the device
 For each [VkDispatchGraphInfoAMDX](#VkDispatchGraphInfoAMDX) structure in
 `countInfo->infos`, `payloads` **must** be a device address within
 a [VkBuffer](resources.html#VkBuffer) created with the
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` flag
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09168) VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09168
@@ -3596,7 +3642,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-cmdpool) VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
+
+* 
+[](#VUID-vkCmdDispatchGraphIndirectCountAMDX-suspended) VUID-vkCmdDispatchGraphIndirectCountAMDX-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-videocoding) VUID-vkCmdDispatchGraphIndirectCountAMDX-videocoding
@@ -3616,9 +3667,9 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Both | Outside | Graphics
+| Primary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

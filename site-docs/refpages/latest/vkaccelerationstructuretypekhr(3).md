@@ -35,9 +35,8 @@ typedef enum VkAccelerationStructureTypeKHR {
     VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_NV = VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR,
 } VkAccelerationStructureTypeKHR;
 
-or the equivalent
-
 // Provided by VK_NV_ray_tracing
+// Equivalent to VkAccelerationStructureTypeKHR
 typedef VkAccelerationStructureTypeKHR VkAccelerationStructureTypeNV;
 
 * 

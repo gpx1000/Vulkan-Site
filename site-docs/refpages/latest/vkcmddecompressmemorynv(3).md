@@ -17,9 +17,9 @@
 
 ## Content
 
-vkCmdDecompressMemoryNV - Decompress data between memory regions
+vkCmdDecompressMemoryNV - Decompress memory containing compressed data
 
-To decompress data between one or more memory regions call:
+To decompress memory containing compressed data, call:
 
 // Provided by VK_NV_memory_decompression
 void vkCmdDecompressMemoryNV(
@@ -41,8 +41,10 @@ decompress.
 specifying decompression parameters.
 
 Each region specified in `pDecompressMemoryRegions` is decompressed from
-the source to destination region based on the specified decompression
-method.
+the compressed to decompressed region based on the decompression method
+specified in [VkDecompressMemoryRegionNV](VkDecompressMemoryRegionNV.html)::`decompressionMethod`.
+If the regions containing compressed and decompressed data overlap, the
+decompression behavior is **undefined**.
 
 Valid Usage
 
@@ -72,12 +74,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDecompressMemoryNV-commandBuffer-cmdpool) VUID-vkCmdDecompressMemoryNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdDecompressMemoryNV-renderpass) VUID-vkCmdDecompressMemoryNV-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdDecompressMemoryNV-suspended) VUID-vkCmdDecompressMemoryNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDecompressMemoryNV-videocoding) VUID-vkCmdDecompressMemoryNV-videocoding
@@ -102,9 +109,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | Action |
+VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 
@@ -112,7 +119,7 @@ vkCmdDecompressMemoryNV is not affected by [conditional rendering](../../../../s
 
 [VK_NV_memory_decompression](VK_NV_memory_decompression.html), [VkCommandBuffer](VkCommandBuffer.html), [VkDecompressMemoryRegionNV](VkDecompressMemoryRegionNV.html)
 
-For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/VK_NV_memory_decompression.html#vkCmdDecompressMemoryNV).
+For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/memory_decompression.html#vkCmdDecompressMemoryNV).
 
 This page is extracted from the Vulkan Specification.
 Fixes and changes should be made to the Specification, not directly.

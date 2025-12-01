@@ -21,15 +21,14 @@ VkSemaphoreImportFlags - Bitmask of VkSemaphoreImportFlagBits
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkSemaphoreImportFlags;
 
-or the equivalent
-
 // Provided by VK_KHR_external_semaphore
+// Equivalent to VkSemaphoreImportFlags
 typedef VkSemaphoreImportFlags VkSemaphoreImportFlagsKHR;
 
 `VkSemaphoreImportFlags` is a bitmask type for setting a mask of zero or
 more [VkSemaphoreImportFlagBits](VkSemaphoreImportFlagBits.html).
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), `VkFlags`, [VkImportSemaphoreFdInfoKHR](VkImportSemaphoreFdInfoKHR.html), [VkImportSemaphoreWin32HandleInfoKHR](VkImportSemaphoreWin32HandleInfoKHR.html), [VkImportSemaphoreZirconHandleInfoFUCHSIA](VkImportSemaphoreZirconHandleInfoFUCHSIA.html), [VkSemaphoreImportFlagBits](VkSemaphoreImportFlagBits.html)
+[VK_KHR_external_semaphore](VK_KHR_external_semaphore.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), `VkFlags`, [VkImportSemaphoreFdInfoKHR](VkImportSemaphoreFdInfoKHR.html), [VkImportSemaphoreWin32HandleInfoKHR](VkImportSemaphoreWin32HandleInfoKHR.html), [VkImportSemaphoreZirconHandleInfoFUCHSIA](VkImportSemaphoreZirconHandleInfoFUCHSIA.html), [VkSemaphoreImportFlagBits](VkSemaphoreImportFlagBits.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/synchronization.html#VkSemaphoreImportFlags).
 

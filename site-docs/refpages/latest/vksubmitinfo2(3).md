@@ -34,9 +34,8 @@ typedef struct VkSubmitInfo2 {
     const VkSemaphoreSubmitInfo*        pSignalSemaphoreInfos;
 } VkSubmitInfo2;
 
-or the equivalent
-
 // Provided by VK_KHR_synchronization2
+// Equivalent to VkSubmitInfo2
 typedef VkSubmitInfo2 VkSubmitInfo2KHR;
 
 * 

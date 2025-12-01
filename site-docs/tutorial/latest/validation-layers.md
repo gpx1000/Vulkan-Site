@@ -322,7 +322,7 @@ class, for example.
 
 Note that there are many more ways to configure validation layer messages
 and debug callbacks, but this is a good setup to get started with for this
-tutorial. See the [extension specification](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/chap50.html#VK_EXT_debug_utils)
+tutorial. See the [extension specification](https://docs.vulkan.org/spec/latest/chapters/debugging.html#VK_EXT_debug_utils)
 for more info about the possibilities.
 
 We can now re-use this in the `createInstance` function:

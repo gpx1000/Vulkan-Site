@@ -89,7 +89,7 @@ On the right, from `3.7s`, is highlighted the two render passes technique, which
 As stated by the Vulkan reference, *Subpasses with simple framebuffer-space dependencies may be merged into a single tile rendering pass, keeping the attachment data on-chip for the duration of a renderpass.* [[2](#references)].
 
 Since subpass information is known ahead of time, the driver is able to detect if two or more subpasses can be merged together.
-The consequence of this is that [vkCmdNextSubpass](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkCmdNextSubpass.html) becomes a `NOP`.
+The consequence of this is that [vkCmdNextSubpass](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdNextSubpass.html) becomes a `NOP`.
 
 In other words, a GPU driver can optimize even more by merging two or more subpasses together as long as certain requirements are met.
 Such requirements may vary between vendors, the following are the ones for Arm GPUs:
@@ -125,7 +125,7 @@ Actually, there is not even a need to allocate them at all.
 
 ![Non-transient attachments](../../../_images/samples/performance/subpasses/images/transient-attachments.jpg)
 
-In practice, their [image usage](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkImageUsageFlagBits.html) needs to be specified as `TRANSIENT` and their [memory](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkMemoryPropertyFlagBits.html) needs to be `LAZILY_ALLOCATED`.
+In practice, their [image usage](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageUsageFlagBits.html) needs to be specified as `TRANSIENT` and their [memory](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryPropertyFlagBits.html) needs to be `LAZILY_ALLOCATED`.
 Failing to set these flags properly will lead to an increase of [fragment jobs](https://community.arm.com/developer/tools-software/graphics/b/blog/posts/mali-bifrost-family-performance-counters) as the GPU will need to write them back to external memory.
 As you can see in the above screenshot, we see roughly a double in fragment jobs per second (from `56/s` to `113/s`).
 

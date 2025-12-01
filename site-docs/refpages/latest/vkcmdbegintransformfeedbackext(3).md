@@ -134,9 +134,9 @@ If `pCounterBuffer` is `NULL`, then `pCounterBufferOffsets`
 [](#VUID-vkCmdBeginTransformFeedbackEXT-pCounterBuffers-02372) VUID-vkCmdBeginTransformFeedbackEXT-pCounterBuffers-02372
 
 For each buffer handle in the `pCounterBuffers` array that is not
-[VK_NULL_HANDLE](VK_NULL_HANDLE.html) it **must** have been created with a `usage` value
-containing
-`VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT`
+[VK_NULL_HANDLE](VK_NULL_HANDLE.html) it **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT` usage
+flag set
 
 * 
 [](#VUID-vkCmdBeginTransformFeedbackEXT-firstCounterBuffer-09630) VUID-vkCmdBeginTransformFeedbackEXT-firstCounterBuffer-09630
@@ -193,7 +193,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBeginTransformFeedbackEXT-commandBuffer-cmdpool) VUID-vkCmdBeginTransformFeedbackEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBeginTransformFeedbackEXT-renderpass) VUID-vkCmdBeginTransformFeedbackEXT-renderpass
@@ -223,7 +223,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Inside | Outside | Graphics | State |
+Secondary | Inside | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

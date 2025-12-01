@@ -38,7 +38,7 @@ typedef struct VkAccelerationStructureGeometryAabbsDataKHR {
 structure.
 
 * 
-`data` is a device or host address to memory containing
+`data` is a device or host address of memory containing
 [VkAabbPositionsKHR](VkAabbPositionsKHR.html) structures containing position data for each
 axis-aligned bounding box in the geometry.
 

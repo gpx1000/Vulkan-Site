@@ -122,15 +122,15 @@ then it **must** not have the
 * 
 [](#VUID-VkAccelerationStructureInfoNV-scratch-02781) VUID-VkAccelerationStructureInfoNV-scratch-02781
 
-`scratch` **must** have been created with
-`VK_BUFFER_USAGE_RAY_TRACING_BIT_NV` usage flag
+`scratch` **must** have been created with the
+`VK_BUFFER_USAGE_RAY_TRACING_BIT_NV` usage flag set
 
 * 
 [](#VUID-VkAccelerationStructureInfoNV-instanceData-02782) VUID-VkAccelerationStructureInfoNV-instanceData-02782
 
 If `instanceData` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), `instanceData`
-**must** have been created with `VK_BUFFER_USAGE_RAY_TRACING_BIT_NV`
-usage flag
+**must** have been created with the
+`VK_BUFFER_USAGE_RAY_TRACING_BIT_NV` usage flag set
 
 Valid Usage (Implicit)
 

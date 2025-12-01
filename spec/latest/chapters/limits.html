@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -607,8 +616,7 @@ number of layers (<code>arrayLayers</code>) for an image.</p>
 maximum number of addressable texels for a buffer view created on a
 buffer which was created with the
 <code>VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT</code> or
-<code>VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT</code> set in the <code>usage</code>
-member of the <a href="resources.html#VkBufferCreateInfo" class="xref page">VkBufferCreateInfo</a> structure.</p>
+<code>VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT</code> usage flag set.</p>
 </li>
 <li>
 <p><a id="limits-maxUniformBufferRange"></a> <code>maxUniformBufferRange</code> is the
@@ -624,7 +632,9 @@ maximum value that <strong>can</strong> be specified in the <code>range</code> m
 <a href="descriptorsets.html#VkDescriptorBufferInfo" class="xref page">VkDescriptorBufferInfo</a> structure passed to
 <a href="descriptorsets.html#vkUpdateDescriptorSets" class="xref page">vkUpdateDescriptorSets</a> for descriptors of type
 <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER</code> or
-<code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code>.</p>
+<code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code>.
+If the <a href="features.html#features-shader64BitIndexing" class="xref page"><code>shader64BitIndexing</code></a>
+feature is enabled, this limit does not apply.</p>
 </li>
 <li>
 <p><a id="limits-maxPushConstantsSize"></a> <code>maxPushConstantsSize</code> is the
@@ -1347,37 +1357,37 @@ structure <strong>must</strong> be less than or equal to this limit.</p>
 <p><a id="limits-sampledImageColorSampleCounts"></a>
 <code>sampledImageColorSampleCounts</code> is a bitmask<sup>1</sup> of
 <a href="#VkSampleCountFlagBits">VkSampleCountFlagBits</a> indicating the sample counts supported for
-all 2D images created with <code>VK_IMAGE_TILING_OPTIMAL</code>, <code>usage</code>
-containing <code>VK_IMAGE_USAGE_SAMPLED_BIT</code>, and a non-integer color
+all 2D images created with <code>VK_IMAGE_TILING_OPTIMAL</code>, the
+<code>VK_IMAGE_USAGE_SAMPLED_BIT</code> usage flag set, and a non-integer color
 format.</p>
 </li>
 <li>
 <p><a id="limits-sampledImageIntegerSampleCounts"></a>
 <code>sampledImageIntegerSampleCounts</code> is a bitmask<sup>1</sup> of
 <a href="#VkSampleCountFlagBits">VkSampleCountFlagBits</a> indicating the sample counts supported for
-all 2D images created with <code>VK_IMAGE_TILING_OPTIMAL</code>, <code>usage</code>
-containing <code>VK_IMAGE_USAGE_SAMPLED_BIT</code>, and an integer color
+all 2D images created with <code>VK_IMAGE_TILING_OPTIMAL</code>, the
+<code>VK_IMAGE_USAGE_SAMPLED_BIT</code> usage flag set, and an integer color
 format.</p>
 </li>
 <li>
 <p><a id="limits-sampledImageDepthSampleCounts"></a>
 <code>sampledImageDepthSampleCounts</code> is a bitmask<sup>1</sup> of
 <a href="#VkSampleCountFlagBits">VkSampleCountFlagBits</a> indicating the sample counts supported for
-all 2D images created with <code>VK_IMAGE_TILING_OPTIMAL</code>, <code>usage</code>
-containing <code>VK_IMAGE_USAGE_SAMPLED_BIT</code>, and a depth format.</p>
+all 2D images created with <code>VK_IMAGE_TILING_OPTIMAL</code>, the
+<code>VK_IMAGE_USAGE_SAMPLED_BIT</code> usage flag set, and a depth format.</p>
 </li>
 <li>
 <p><a id="limits-sampledImageStencilSampleCounts"></a>
 <code>sampledImageStencilSampleCounts</code> is a bitmask<sup>1</sup> of
 <a href="#VkSampleCountFlagBits">VkSampleCountFlagBits</a> indicating the sample counts supported for
-all 2D images created with <code>VK_IMAGE_TILING_OPTIMAL</code>, <code>usage</code>
-containing <code>VK_IMAGE_USAGE_SAMPLED_BIT</code>, and a stencil format.</p>
+all 2D images created with <code>VK_IMAGE_TILING_OPTIMAL</code>, the
+<code>VK_IMAGE_USAGE_SAMPLED_BIT</code> usage flag set, and a stencil format.</p>
 </li>
 <li>
 <p><a id="limits-storageImageSampleCounts"></a> <code>storageImageSampleCounts</code> is a
 bitmask<sup>1</sup> of <a href="#VkSampleCountFlagBits">VkSampleCountFlagBits</a> indicating the sample counts
 supported for all 2D images created with <code>VK_IMAGE_TILING_OPTIMAL</code>,
-and <code>usage</code> containing <code>VK_IMAGE_USAGE_STORAGE_BIT</code>.</p>
+and the <code>VK_IMAGE_USAGE_STORAGE_BIT</code> usage flag set.</p>
 </li>
 <li>
 <p><a id="limits-maxSampleMaskWords"></a> <code>maxSampleMaskWords</code> is the maximum
@@ -1604,12 +1614,10 @@ typedef struct VkPhysicalDevicePushDescriptorProperties {
 } VkPhysicalDevicePushDescriptorProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDevicePushDescriptorPropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_push_descriptor
+// Equivalent to VkPhysicalDevicePushDescriptorProperties
 typedef VkPhysicalDevicePushDescriptorProperties VkPhysicalDevicePushDescriptorPropertiesKHR;</code></pre>
 </div>
 </div>
@@ -1671,12 +1679,10 @@ typedef struct VkPhysicalDeviceMultiviewProperties {
 } VkPhysicalDeviceMultiviewProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceMultiviewPropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_multiview
+// Equivalent to VkPhysicalDeviceMultiviewProperties
 typedef VkPhysicalDeviceMultiviewProperties VkPhysicalDeviceMultiviewPropertiesKHR;</code></pre>
 </div>
 </div>
@@ -1758,12 +1764,10 @@ typedef struct VkPhysicalDeviceFloatControlsProperties {
 } VkPhysicalDeviceFloatControlsProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceFloatControlsPropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_shader_float_controls
+// Equivalent to VkPhysicalDeviceFloatControlsProperties
 typedef VkPhysicalDeviceFloatControlsProperties VkPhysicalDeviceFloatControlsPropertiesKHR;</code></pre>
 </div>
 </div>
@@ -1958,12 +1962,10 @@ typedef enum VkShaderFloatControlsIndependence {
 } VkShaderFloatControlsIndependence;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkShaderFloatControlsIndependenceKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_shader_float_controls
+// Equivalent to VkShaderFloatControlsIndependence
 typedef VkShaderFloatControlsIndependence VkShaderFloatControlsIndependenceKHR;</code></pre>
 </div>
 </div>
@@ -2303,12 +2305,10 @@ typedef struct VkPhysicalDevicePointClippingProperties {
 } VkPhysicalDevicePointClippingProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDevicePointClippingPropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance2
+// Equivalent to VkPhysicalDevicePointClippingProperties
 typedef VkPhysicalDevicePointClippingProperties VkPhysicalDevicePointClippingPropertiesKHR;</code></pre>
 </div>
 </div>
@@ -2625,12 +2625,10 @@ typedef struct VkPhysicalDeviceSubgroupSizeControlProperties {
 } VkPhysicalDeviceSubgroupSizeControlProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceSubgroupSizeControlPropertiesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_subgroup_size_control
+// Equivalent to VkPhysicalDeviceSubgroupSizeControlProperties
 typedef VkPhysicalDeviceSubgroupSizeControlProperties VkPhysicalDeviceSubgroupSizeControlPropertiesEXT;</code></pre>
 </div>
 </div>
@@ -2868,12 +2866,10 @@ typedef struct VkPhysicalDeviceVertexAttributeDivisorProperties {
 } VkPhysicalDeviceVertexAttributeDivisorProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceVertexAttributeDivisorPropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_vertex_attribute_divisor
+// Equivalent to VkPhysicalDeviceVertexAttributeDivisorProperties
 typedef VkPhysicalDeviceVertexAttributeDivisorProperties VkPhysicalDeviceVertexAttributeDivisorPropertiesKHR;</code></pre>
 </div>
 </div>
@@ -2943,12 +2939,10 @@ typedef struct VkPhysicalDeviceSamplerFilterMinmaxProperties {
 } VkPhysicalDeviceSamplerFilterMinmaxProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_sampler_filter_minmax
+// Equivalent to VkPhysicalDeviceSamplerFilterMinmaxProperties
 typedef VkPhysicalDeviceSamplerFilterMinmaxProperties VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT;</code></pre>
 </div>
 </div>
@@ -3142,12 +3136,10 @@ typedef struct VkPhysicalDeviceMaintenance3Properties {
 } VkPhysicalDeviceMaintenance3Properties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceMaintenance3PropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance3
+// Equivalent to VkPhysicalDeviceMaintenance3Properties
 typedef VkPhysicalDeviceMaintenance3Properties VkPhysicalDeviceMaintenance3PropertiesKHR;</code></pre>
 </div>
 </div>
@@ -3218,12 +3210,10 @@ typedef struct VkPhysicalDeviceMaintenance4Properties {
 } VkPhysicalDeviceMaintenance4Properties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceMaintenance4PropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance4
+// Equivalent to VkPhysicalDeviceMaintenance4Properties
 typedef VkPhysicalDeviceMaintenance4Properties VkPhysicalDeviceMaintenance4PropertiesKHR;</code></pre>
 </div>
 </div>
@@ -3287,12 +3277,10 @@ typedef struct VkPhysicalDeviceMaintenance5Properties {
 } VkPhysicalDeviceMaintenance5Properties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceMaintenance5PropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance5
+// Equivalent to VkPhysicalDeviceMaintenance5Properties
 typedef VkPhysicalDeviceMaintenance5Properties VkPhysicalDeviceMaintenance5PropertiesKHR;</code></pre>
 </div>
 </div>
@@ -3382,12 +3370,10 @@ typedef struct VkPhysicalDeviceMaintenance6Properties {
 } VkPhysicalDeviceMaintenance6Properties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceMaintenance6PropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance6
+// Equivalent to VkPhysicalDeviceMaintenance6Properties
 typedef VkPhysicalDeviceMaintenance6Properties VkPhysicalDeviceMaintenance6PropertiesKHR;</code></pre>
 </div>
 </div>
@@ -3485,8 +3471,8 @@ the size of the attachment multiplied by the texel size <strong>must</strong> be
 than or equal to the size of the render area.
 If it is <code>VK_TRUE</code> and the fragment shading rate attachment was
 created with <a href="resources.html#VkImageSubresourceRange" class="xref page">VkImageSubresourceRange</a>::<code>baseMipLevel</code> equal to
-0, the scaled size <strong>can</strong> be smaller than the render area, and shading
-rates for missing texels are defined by <a href="textures.html#textures-texel-replacement" class="xref page">    texel replacement for invalid texels</a>.</p>
+0, the scaled size <strong>can</strong> be smaller than the render area, with missing
+shading rates defined by <a href="shaders.html#shaders-execution-memory-access-bounds" class="xref page">out    of bounds behavior</a>.</p>
 </li>
 <li>
 <p><a id="limits-separateDepthStencilAttachmentAccess"></a>
@@ -3965,6 +3951,89 @@ value read for an unbound vertex attribute is (0,0,0,1).</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDeviceMaintenance10PropertiesKHR</code> structure is defined
+as:</p>
+</div>
+<div id="VkPhysicalDeviceMaintenance10PropertiesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance10
+typedef struct VkPhysicalDeviceMaintenance10PropertiesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           rgba4OpaqueBlackSwizzled;
+    VkBool32           resolveSrgbFormatAppliesTransferFunction;
+    VkBool32           resolveSrgbFormatSupportsTransferFunctionControl;
+} VkPhysicalDeviceMaintenance10PropertiesKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="limits-rgba4OpaqueBlackSwizzled"></a> <code>rgba4OpaqueBlackSwizzled</code>
+indicates whether correct swizzling is applied to the opaque black
+border color when using either the <code>VK_FORMAT_B4G4R4A4_UNORM_PACK16</code>
+or <code>VK_FORMAT_R4G4B4A4_UNORM_PACK16</code> format.
+If it is <code>VK_TRUE</code>, the implementation will correctly produce an
+opaque black border color with these formats.
+If it is <code>VK_FALSE</code>, the implementation <strong>may</strong> swap the first channel
+with the alpha channel for the border color when sampling.</p>
+</li>
+<li>
+<p><a id="limits-resolveSrgbFormatAppliesTransferFunction"></a>
+<code>resolveSrgbFormatAppliesTransferFunction</code> indicates whether
+resolving a multi-sampled sRGB format to single-sampled sRGB by a
+weighted average converts the samples to linear before averaging.
+This applies to both attachment resolves in a render pass and standalone
+resolve commands.
+If <code>VK_TRUE</code>, implementation always converts to linear before
+averaging unless overridden.
+If <code>VK_FALSE</code>, implementation never converts to linear before
+averaging unless overridden.</p>
+</li>
+<li>
+<p><a id="limits-resolveSrgbFormatSupportsTransferFunctionControl"></a>
+<code>resolveSrgbFormatSupportsTransferFunctionControl</code> indicates whether
+the implementation supports overriding the default behavior in
+<code>resolveSrgbFormatAppliesTransferFunction</code> in
+render passes and <a href="copies.html#vkCmdResolveImage2" class="xref page">vkCmdResolveImage2</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Implementations supporting <a href="features.html#features-maintenance10" class="xref page"><code>maintenance10</code></a>
+<strong>should</strong> set <code>resolveSrgbFormatAppliesTransferFunction</code> to <code>VK_TRUE</code>.</p>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceMaintenance10PropertiesKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="devsandqueues.html#VkPhysicalDeviceProperties2" class="xref page">VkPhysicalDeviceProperties2</a> structure passed to
+<a href="devsandqueues.html#vkGetPhysicalDeviceProperties2" class="xref page">vkGetPhysicalDeviceProperties2</a>, it is filled in with each
+corresponding implementation-dependent property.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceMaintenance10PropertiesKHR-sType-sType" href="#VUID-VkPhysicalDeviceMaintenance10PropertiesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceMaintenance10PropertiesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDeviceMeshShaderPropertiesNV</code> structure is defined as:</p>
 </div>
 <div id="VkPhysicalDeviceMeshShaderPropertiesNV" class="listingblock">
@@ -4429,12 +4498,10 @@ typedef struct VkPhysicalDeviceDescriptorIndexingProperties {
 } VkPhysicalDeviceDescriptorIndexingProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceDescriptorIndexingPropertiesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkPhysicalDeviceDescriptorIndexingProperties
 typedef VkPhysicalDeviceDescriptorIndexingProperties VkPhysicalDeviceDescriptorIndexingPropertiesEXT;</code></pre>
 </div>
 </div>
@@ -4703,12 +4770,10 @@ typedef struct VkPhysicalDeviceInlineUniformBlockProperties {
 } VkPhysicalDeviceInlineUniformBlockProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceInlineUniformBlockPropertiesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_inline_uniform_block
+// Equivalent to VkPhysicalDeviceInlineUniformBlockProperties
 typedef VkPhysicalDeviceInlineUniformBlockProperties VkPhysicalDeviceInlineUniformBlockPropertiesEXT;</code></pre>
 </div>
 </div>
@@ -5085,12 +5150,10 @@ typedef struct VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT {
 } VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_QCOM_fragment_density_map_offset
+// Equivalent to VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT
 typedef VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM;</code></pre>
 </div>
 </div>
@@ -5482,12 +5545,10 @@ typedef struct VkPhysicalDeviceDepthStencilResolveProperties {
 } VkPhysicalDeviceDepthStencilResolveProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceDepthStencilResolvePropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_depth_stencil_resolve
+// Equivalent to VkPhysicalDeviceDepthStencilResolveProperties
 typedef VkPhysicalDeviceDepthStencilResolveProperties VkPhysicalDeviceDepthStencilResolvePropertiesKHR;</code></pre>
 </div>
 </div>
@@ -5687,18 +5748,25 @@ corresponding implementation-dependent property.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The <code>VkPhysicalDeviceMemoryDecompressionPropertiesNV</code> structure is
+<p>The <code>VkPhysicalDeviceMemoryDecompressionPropertiesEXT</code> structure is
 defined as:</p>
+</div>
+<div id="VkPhysicalDeviceMemoryDecompressionPropertiesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_memory_decompression
+typedef struct VkPhysicalDeviceMemoryDecompressionPropertiesEXT {
+    VkStructureType                        sType;
+    void*                                  pNext;
+    VkMemoryDecompressionMethodFlagsEXT    decompressionMethods;
+    uint64_t                               maxDecompressionIndirectCount;
+} VkPhysicalDeviceMemoryDecompressionPropertiesEXT;</code></pre>
+</div>
 </div>
 <div id="VkPhysicalDeviceMemoryDecompressionPropertiesNV" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_memory_decompression
-typedef struct VkPhysicalDeviceMemoryDecompressionPropertiesNV {
-    VkStructureType                       sType;
-    void*                                 pNext;
-    VkMemoryDecompressionMethodFlagsNV    decompressionMethods;
-    uint64_t                              maxDecompressionIndirectCount;
-} VkPhysicalDeviceMemoryDecompressionPropertiesNV;</code></pre>
+// Equivalent to VkPhysicalDeviceMemoryDecompressionPropertiesEXT
+typedef VkPhysicalDeviceMemoryDecompressionPropertiesEXT VkPhysicalDeviceMemoryDecompressionPropertiesNV;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -5712,18 +5780,24 @@ structure.</p>
 </li>
 <li>
 <p><code>decompressionMethods</code> is a bitmask of
-<a href="VK_NV_memory_decompression.html#VkMemoryDecompressionMethodFlagBitsNV" class="xref page">VkMemoryDecompressionMethodFlagBitsNV</a> specifying memory
+<a href="memory_decompression.html#VkMemoryDecompressionMethodFlagBitsEXT" class="xref page">VkMemoryDecompressionMethodFlagBitsEXT</a> specifying memory
 decompression methods supported by the implementation.</p>
 </li>
 <li>
 <p><code>maxDecompressionIndirectCount</code> specifies the maximum supported
-count value in the <code>countBuffer</code> of
-<a href="VK_NV_memory_decompression.html#vkCmdDecompressMemoryIndirectCountNV" class="xref page">vkCmdDecompressMemoryIndirectCountNV</a></p>
+count value identified by either
+<a href="memory_decompression.html#vkCmdDecompressMemoryIndirectCountEXT" class="xref page">vkCmdDecompressMemoryIndirectCountEXT</a>::<code>maxDecompressionCount</code>
+or the value specified in
+<a href="memory_decompression.html#vkCmdDecompressMemoryIndirectCountEXT" class="xref page">vkCmdDecompressMemoryIndirectCountEXT</a>::<code>indirectCommandsCountAddress</code></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code>VkPhysicalDeviceMemoryDecompressionPropertiesNV</code> structure is included in the <code>pNext</code> chain of the
+<p>If <a href="features.html#features-memoryDecompression" class="xref page"><code>memoryDecompression</code></a> feature is
+supported, <code>decompressionMethods</code> <strong>must</strong> have at least one bit set.</p>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceMemoryDecompressionPropertiesEXT</code> structure is included in the <code>pNext</code> chain of the
 <a href="devsandqueues.html#VkPhysicalDeviceProperties2" class="xref page">VkPhysicalDeviceProperties2</a> structure passed to
 <a href="devsandqueues.html#vkGetPhysicalDeviceProperties2" class="xref page">vkGetPhysicalDeviceProperties2</a>, it is filled in with each
 corresponding implementation-dependent property.</p>
@@ -5734,8 +5808,8 @@ corresponding implementation-dependent property.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkPhysicalDeviceMemoryDecompressionPropertiesNV-sType-sType" href="#VUID-VkPhysicalDeviceMemoryDecompressionPropertiesNV-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceMemoryDecompressionPropertiesNV-sType-sType</span><br>
- <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_NV</code></p>
+<p><a id="VUID-VkPhysicalDeviceMemoryDecompressionPropertiesEXT-sType-sType" href="#VUID-VkPhysicalDeviceMemoryDecompressionPropertiesEXT-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceMemoryDecompressionPropertiesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT</code></p>
 </li>
 </ul>
 </div>
@@ -5876,14 +5950,21 @@ corresponding implementation-dependent property.</p>
 <p>The <code>VkPhysicalDeviceCopyMemoryIndirectPropertiesNV</code> structure is
 defined as:</p>
 </div>
-<div id="VkPhysicalDeviceCopyMemoryIndirectPropertiesNV" class="listingblock">
+<div id="VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_copy_memory_indirect
-typedef struct VkPhysicalDeviceCopyMemoryIndirectPropertiesNV {
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_copy_memory_indirect
+typedef struct VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR {
     VkStructureType    sType;
     void*              pNext;
     VkQueueFlags       supportedQueues;
-} VkPhysicalDeviceCopyMemoryIndirectPropertiesNV;</code></pre>
+} VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR;</code></pre>
+</div>
+</div>
+<div id="VkPhysicalDeviceCopyMemoryIndirectPropertiesNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_copy_memory_indirect
+// Equivalent to VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR
+typedef VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR VkPhysicalDeviceCopyMemoryIndirectPropertiesNV;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -5897,17 +5978,21 @@ structure.</p>
 </li>
 <li>
 <p><code>supportedQueues</code> is a bitmask of <a href="devsandqueues.html#VkQueueFlagBits" class="xref page">VkQueueFlagBits</a> indicating
-the queues on which <a href="copies.html#indirect-copies" class="xref page">indirect copy commands</a> are
-supported.</p>
+the types of queues on which <a href="copies.html#indirect-copies" class="xref page">indirect copy commands</a>
+are supported.
+If a queue family supports any of the bits set in <code>supportedQueues</code>,
+then it <strong>must</strong> support at least one <a href="copies.html#indirect-copies" class="xref page">indirect copy    command</a>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <a href="features.html#features-indirectCopy" class="xref page"><code>indirectCopy</code></a> feature is supported,
-<code>supportedQueues</code> <strong>must</strong> return at least one supported queue.</p>
+<p>If the <a href="features.html#features-indirectMemoryCopy" class="xref page"><code>indirectMemoryCopy</code></a> or
+<a href="features.html#features-indirectMemoryToImageCopy" class="xref page"><code>indirectMemoryToImageCopy</code></a>
+feature is supported, <code>supportedQueues</code> <strong>must</strong> return at least one
+supported queue type.</p>
 </div>
 <div class="paragraph">
-<p>If the <code>VkPhysicalDeviceCopyMemoryIndirectPropertiesNV</code> structure is included in the <code>pNext</code> chain of the
+<p>If the <code>VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR</code> structure is included in the <code>pNext</code> chain of the
 <a href="devsandqueues.html#VkPhysicalDeviceProperties2" class="xref page">VkPhysicalDeviceProperties2</a> structure passed to
 <a href="devsandqueues.html#vkGetPhysicalDeviceProperties2" class="xref page">vkGetPhysicalDeviceProperties2</a>, it is filled in with each
 corresponding implementation-dependent property.</p>
@@ -5918,8 +6003,8 @@ corresponding implementation-dependent property.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkPhysicalDeviceCopyMemoryIndirectPropertiesNV-sType-sType" href="#VUID-VkPhysicalDeviceCopyMemoryIndirectPropertiesNV-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceCopyMemoryIndirectPropertiesNV-sType-sType</span><br>
- <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV</code></p>
+<p><a id="VUID-VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR-sType-sType" href="#VUID-VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -6584,12 +6669,10 @@ typedef struct VkPhysicalDeviceTexelBufferAlignmentProperties {
 } VkPhysicalDeviceTexelBufferAlignmentProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_texel_buffer_alignment
+// Equivalent to VkPhysicalDeviceTexelBufferAlignmentProperties
 typedef VkPhysicalDeviceTexelBufferAlignmentProperties VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT;</code></pre>
 </div>
 </div>
@@ -6685,12 +6768,10 @@ typedef struct VkPhysicalDeviceTimelineSemaphoreProperties {
 } VkPhysicalDeviceTimelineSemaphoreProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceTimelineSemaphorePropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_timeline_semaphore
+// Equivalent to VkPhysicalDeviceTimelineSemaphoreProperties
 typedef VkPhysicalDeviceTimelineSemaphoreProperties VkPhysicalDeviceTimelineSemaphorePropertiesKHR;</code></pre>
 </div>
 </div>
@@ -6752,21 +6833,17 @@ typedef struct VkPhysicalDeviceLineRasterizationProperties {
 } VkPhysicalDeviceLineRasterizationProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceLineRasterizationPropertiesKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_line_rasterization
+// Equivalent to VkPhysicalDeviceLineRasterizationProperties
 typedef VkPhysicalDeviceLineRasterizationProperties VkPhysicalDeviceLineRasterizationPropertiesKHR;</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>or the equivalent</p>
 </div>
 <div id="VkPhysicalDeviceLineRasterizationPropertiesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_line_rasterization
+// Equivalent to VkPhysicalDeviceLineRasterizationProperties
 typedef VkPhysicalDeviceLineRasterizationProperties VkPhysicalDeviceLineRasterizationPropertiesEXT;</code></pre>
 </div>
 </div>
@@ -6828,12 +6905,10 @@ typedef struct VkPhysicalDeviceRobustness2PropertiesKHR {
 } VkPhysicalDeviceRobustness2PropertiesKHR;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceRobustness2PropertiesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_robustness2
+// Equivalent to VkPhysicalDeviceRobustness2PropertiesKHR
 typedef VkPhysicalDeviceRobustness2PropertiesKHR VkPhysicalDeviceRobustness2PropertiesEXT;</code></pre>
 </div>
 </div>
@@ -7805,15 +7880,15 @@ structure.</p>
 <p><a id="limits-combinedImageSamplerDescriptorSingleArray"></a>
 <code>combinedImageSamplerDescriptorSingleArray</code> indicates that the
 implementation does not require an array of
-<code>VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</code> descriptors to be written
-into a descriptor buffer as an array of image descriptors, immediately
-followed by an array of sampler descriptors.</p>
+<code>VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</code> descriptors to be
+written into a descriptor buffer as an array of image descriptors,
+immediately followed by an array of sampler descriptors.</p>
 </li>
 <li>
 <p><a id="limits-bufferlessPushDescriptors"></a> <code>bufferlessPushDescriptors</code>
 indicates that the implementation does not require a buffer created with
-<code>VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT</code> to be bound
-when using push descriptors.</p>
+the <code>VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT</code>
+usage flag set to be bound when using push descriptors.</p>
 </li>
 <li>
 <p><a id="limits-allowSamplerImageViewPostSubmitCreation"></a>
@@ -7989,20 +8064,23 @@ accessible to a shader.</p>
 <p><a id="limits-samplerDescriptorBufferAddressSpaceSize"></a>
 <code>samplerDescriptorBufferAddressSpaceSize</code> indicates the total size
 in bytes of the address space available for descriptor buffers created
-with <code>VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT</code>.</p>
+with the <code>VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT</code> usage
+flag set.</p>
 </li>
 <li>
 <p><a id="limits-resourceDescriptorBufferAddressSpaceSize"></a>
 <code>resourceDescriptorBufferAddressSpaceSize</code> indicates the total size
 in bytes of the address space available for descriptor buffers created
-with <code>VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT</code>.</p>
+with the <code>VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT</code> usage
+flag set.</p>
 </li>
 <li>
 <p><a id="limits-descriptorBufferAddressSpaceSize"></a>
 <code>descriptorBufferAddressSpaceSize</code> indicates the total size in bytes
 of the address space available for descriptor buffers created with both
-<code>VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT</code> and
-<code>VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT</code>.</p>
+the <code>VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT</code> and
+<code>VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT</code> usage flags
+set.</p>
 </li>
 </ul>
 </div>
@@ -8178,12 +8256,10 @@ typedef struct VkPhysicalDeviceHostImageCopyProperties {
 } VkPhysicalDeviceHostImageCopyProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDeviceHostImageCopyPropertiesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_host_image_copy
+// Equivalent to VkPhysicalDeviceHostImageCopyProperties
 typedef VkPhysicalDeviceHostImageCopyProperties VkPhysicalDeviceHostImageCopyPropertiesEXT;</code></pre>
 </div>
 </div>
@@ -8255,8 +8331,9 @@ written to <code>pCopyDstLayouts</code>.
 The implementation <strong>must</strong> include the <code>VK_IMAGE_LAYOUT_GENERAL</code> image
 layout in <code>pCopyDstLayouts</code>.
 If the <a href="features.html#features-unifiedImageLayouts" class="xref page"><code>unifiedImageLayouts</code></a> feature
-is enabled, the implementation <strong>must</strong> include all the image layouts that are
-interchangeable with <code>VK_IMAGE_LAYOUT_GENERAL</code> in <code>pCopyDstLayouts</code>.</p>
+is supported, the implementation <strong>must</strong> include all the image layouts that
+are interchangeable with <code>VK_IMAGE_LAYOUT_GENERAL</code> in
+<code>pCopyDstLayouts</code>.</p>
 </div>
 <div class="paragraph">
 <p>If <code>pCopySrcLayouts</code> is <code>NULL</code>, then the number of image layouts that
@@ -8273,8 +8350,9 @@ written to <code>pCopySrcLayouts</code>.
 The implementation <strong>must</strong> include the <code>VK_IMAGE_LAYOUT_GENERAL</code> image
 layout in <code>pCopySrcLayouts</code>.
 If the <a href="features.html#features-unifiedImageLayouts" class="xref page"><code>unifiedImageLayouts</code></a> feature
-is enabled, the implementation <strong>must</strong> include all the image layouts that are
-interchangeable with <code>VK_IMAGE_LAYOUT_GENERAL</code> in <code>pCopySrcLayouts</code>.</p>
+is supported, the implementation <strong>must</strong> include all the image layouts that
+are interchangeable with <code>VK_IMAGE_LAYOUT_GENERAL</code> in
+<code>pCopySrcLayouts</code>.</p>
 </div>
 <div class="paragraph">
 <p>The <code>optimalTilingLayoutUUID</code> value can be used to ensure compatible
@@ -8679,12 +8757,10 @@ typedef struct VkPhysicalDevicePipelineRobustnessProperties {
 } VkPhysicalDevicePipelineRobustnessProperties;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkPhysicalDevicePipelineRobustnessPropertiesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_pipeline_robustness
+// Equivalent to VkPhysicalDevicePipelineRobustnessProperties
 typedef VkPhysicalDevicePipelineRobustnessProperties VkPhysicalDevicePipelineRobustnessPropertiesEXT;</code></pre>
 </div>
 </div>
@@ -9091,28 +9167,148 @@ corresponding implementation-dependent property.</p>
 <div class="paragraph">
 <p>Values which <strong>may</strong> be returned in the
 <code>rayTracingInvocationReorderReorderingHint</code> field of
-<code>VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV</code> are:</p>
+<code>VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT</code>
+or
+<code>VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV</code>
+are:</p>
+</div>
+<div id="VkRayTracingInvocationReorderModeEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_ray_tracing_invocation_reorder
+typedef enum VkRayTracingInvocationReorderModeEXT {
+    VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_EXT = 0,
+    VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_EXT = 1,
+  // Provided by VK_NV_ray_tracing_invocation_reorder
+    VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_NV = VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_EXT,
+  // Provided by VK_NV_ray_tracing_invocation_reorder
+    VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_NV = VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_EXT,
+} VkRayTracingInvocationReorderModeEXT;</code></pre>
+</div>
 </div>
 <div id="VkRayTracingInvocationReorderModeNV" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_ray_tracing_invocation_reorder
-typedef enum VkRayTracingInvocationReorderModeNV {
-    VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_NV = 0,
-    VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_NV = 1,
-} VkRayTracingInvocationReorderModeNV;</code></pre>
+// Equivalent to VkRayTracingInvocationReorderModeEXT
+typedef VkRayTracingInvocationReorderModeEXT VkRayTracingInvocationReorderModeNV;</code></pre>
 </div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_NV</code> specifies that the
-implementation is likely to not reorder at reorder calls.</p>
+<p><code>VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_EXT</code> specifies that the
+implementation does not reorder at reorder calls.</p>
 </li>
 <li>
-<p><code>VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_NV</code> specifies that
-the implementation is likely to reorder at reorder calls.</p>
+<p><code>VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_EXT</code> specifies that
+the implementation <strong>may</strong> reorder at reorder calls.</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT</code> structure
+is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_ray_tracing_invocation_reorder
+typedef struct VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT {
+    VkStructureType                         sType;
+    void*                                   pNext;
+    VkRayTracingInvocationReorderModeEXT    rayTracingInvocationReorderReorderingHint;
+    uint32_t                                maxShaderBindingTableRecordIndex;
+} VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>rayTracingInvocationReorderReorderingHint</code> is a hint indicating if
+the implementation <strong>may</strong> reorder at the reorder calls.</p>
+</li>
+<li>
+<p><code>maxShaderBindingTableRecordIndex</code> is the maximum shader binding
+table record index allowed to be passed in to
+<code>OpHitObjectSetShaderBindingTableRecordIndexEXT</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If <code>rayTracingInvocationReorderReorderingHint</code> is
+<code>VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_EXT</code> there <strong>must</strong> exist
+conditions under which the ordered set of invocations before a reorder
+instruction is different than the ordered set of invocations after the
+reorder instruction.
+The ordering of a set of invocations is determined by the <code>SubgroupId</code> of
+an invocation&#8217;s subgroup and the <code>SubGroupInvocationId</code> of an invocation
+within that subgroup.</p>
+</div>
+<div class="paragraph">
+<p>The reorder instructions are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>OpReorderThreadWithHintEXT</code></p>
+</li>
+<li>
+<p><code>OpReorderThreadWithHitObjectEXT</code></p>
+</li>
+<li>
+<p><code>OpHitObjectReorderExecuteShaderEXT</code></p>
+</li>
+<li>
+<p><code>OpHitObjectTraceReorderExecuteEXT</code></p>
+</li>
+<li>
+<p><code>OpHitObjectTraceMotionReorderExecuteEXT</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Because the extension changes how hits are managed there is a compatibility
+reason to expose the extension even when an implementation does not have
+sorting active.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT</code> structure is included in the <code>pNext</code> chain of the
+<a href="devsandqueues.html#VkPhysicalDeviceProperties2" class="xref page">VkPhysicalDeviceProperties2</a> structure passed to
+<a href="devsandqueues.html#vkGetPhysicalDeviceProperties2" class="xref page">vkGetPhysicalDeviceProperties2</a>, it is filled in with each
+corresponding implementation-dependent property.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT-sType-sType" href="#VUID-VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT</code></p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -9126,9 +9322,9 @@ is defined as:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_ray_tracing_invocation_reorder
 typedef struct VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV {
-    VkStructureType                        sType;
-    void*                                  pNext;
-    VkRayTracingInvocationReorderModeNV    rayTracingInvocationReorderReorderingHint;
+    VkStructureType                         sType;
+    void*                                   pNext;
+    VkRayTracingInvocationReorderModeEXT    rayTracingInvocationReorderReorderingHint;
 } VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV;</code></pre>
 </div>
 </div>
@@ -10258,6 +10454,76 @@ corresponding implementation-dependent property.</p>
 <li>
 <p><a id="VUID-VkPhysicalDeviceTensorPropertiesARM-sType-sType" href="#VUID-VkPhysicalDeviceTensorPropertiesARM-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceTensorPropertiesARM-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDevicePerformanceCountersByRegionPropertiesARM</code> structure
+is defined as:</p>
+</div>
+<div id="VkPhysicalDevicePerformanceCountersByRegionPropertiesARM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_ARM_performance_counters_by_region
+typedef struct VkPhysicalDevicePerformanceCountersByRegionPropertiesARM {
+    VkStructureType    sType;
+    void*              pNext;
+    uint32_t           maxPerRegionPerformanceCounters;
+    VkExtent2D         performanceCounterRegionSize;
+    uint32_t           rowStrideAlignment;
+    uint32_t           regionAlignment;
+    VkBool32           identityTransformOrder;
+} VkPhysicalDevicePerformanceCountersByRegionPropertiesARM;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The members of the
+<code>VkPhysicalDevicePerformanceCountersByRegionPropertiesARM</code> structure
+describe the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>maxPerRegionPerformanceCounters</code> is the maximum number of
+performance counters that <strong>can</strong> be captured per region.</p>
+</li>
+<li>
+<p><code>performanceCounterRegionSize</code> is the width and height of each
+region for which performance counters <strong>can</strong> be captured.</p>
+</li>
+<li>
+<p><code>rowStrideAlignment</code> indicates the minimum row alignment for by
+region counters.</p>
+</li>
+<li>
+<p><code>regionAlignment</code> indicates the alignment between each region&#8217;s
+counter values.</p>
+</li>
+<li>
+<p><code>identityTransformOrder</code> is a boolean value indicating whether per
+region counters are output in framebuffer-space order.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDevicePerformanceCountersByRegionPropertiesARM</code> structure is included in the <code>pNext</code> chain of the
+<a href="devsandqueues.html#VkPhysicalDeviceProperties2" class="xref page">VkPhysicalDeviceProperties2</a> structure passed to
+<a href="devsandqueues.html#vkGetPhysicalDeviceProperties2" class="xref page">vkGetPhysicalDeviceProperties2</a>, it is filled in with each
+corresponding implementation-dependent property.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDevicePerformanceCountersByRegionPropertiesARM-sType-sType" href="#VUID-VkPhysicalDevicePerformanceCountersByRegionPropertiesARM-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDevicePerformanceCountersByRegionPropertiesARM-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM</code></p>
 </li>
 </ul>
 </div>
@@ -11801,7 +12067,7 @@ whether or not the feature is enabled.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint64_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDecompressionIndirectCount</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_NV_memory_decompression" class="xref page">VK_NV_memory_decompression</a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_NV_memory_decompression" class="xref page">VK_NV_memory_decompression</a></code>, <code><a href="../appendices/extensions.html#VK_EXT_memory_decompression" class="xref page">VK_EXT_memory_decompression</a></code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
@@ -11962,6 +12228,21 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxTileShadingRate</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-tileShadingDispatchTile" class="xref page"><code>tileShadingDispatchTile</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxShaderBindingTableRecordIndex</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_ray_tracing_invocation_reorder" class="xref page">VK_EXT_ray_tracing_invocation_reorder</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkBool32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>resolveSrgbFormatAppliesTransferFunction</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-maintenance10" class="xref page"><code>maintenance10</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkBool32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>resolveSrgbFormatSupportsTransferFunctionControl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-maintenance10" class="xref page"><code>maintenance10</code></a></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -14391,6 +14672,24 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_SHADER_STAGE_COMPUTE_BIT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">bitfield</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxShaderBindingTableRecordIndex</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2<sup>28</sup>-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>resolveSrgbFormatAppliesTransferFunction</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">implementation-depdendent</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>resolveSrgbFormatSupportsTransferFunctionControl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FALSE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FALSE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 </tbody>
 </table>

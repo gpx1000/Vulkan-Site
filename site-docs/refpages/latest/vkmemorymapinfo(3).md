@@ -31,9 +31,8 @@ typedef struct VkMemoryMapInfo {
     VkDeviceSize        size;
 } VkMemoryMapInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_map_memory2
+// Equivalent to VkMemoryMapInfo
 typedef VkMemoryMapInfo VkMemoryMapInfoKHR;
 
 * 

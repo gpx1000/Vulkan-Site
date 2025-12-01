@@ -144,15 +144,15 @@ set to `dst` and
 * 
 [](#VUID-vkCmdBuildAccelerationStructureNV-scratch-03522) VUID-vkCmdBuildAccelerationStructureNV-scratch-03522
 
-`scratch` **must** have been created with
-`VK_BUFFER_USAGE_RAY_TRACING_BIT_NV` usage flag
+`scratch` **must** have been created with the
+`VK_BUFFER_USAGE_RAY_TRACING_BIT_NV` usage flag set
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructureNV-instanceData-03523) VUID-vkCmdBuildAccelerationStructureNV-instanceData-03523
 
 If `instanceData` is not [VK_NULL_HANDLE](VK_NULL_HANDLE.html), `instanceData`
-**must** have been created with `VK_BUFFER_USAGE_RAY_TRACING_BIT_NV`
-usage flag
+**must** have been created with the
+`VK_BUFFER_USAGE_RAY_TRACING_BIT_NV` usage flag set
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructureNV-accelerationStructureReference-03786) VUID-vkCmdBuildAccelerationStructureNV-accelerationStructureReference-03786
@@ -230,12 +230,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-cmdpool) VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructureNV-renderpass) VUID-vkCmdBuildAccelerationStructureNV-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-suspended) VUID-vkCmdBuildAccelerationStructureNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructureNV-videocoding) VUID-vkCmdBuildAccelerationStructureNV-videocoding
@@ -260,7 +265,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | Action |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | Action |
 
 Conditional Rendering
 

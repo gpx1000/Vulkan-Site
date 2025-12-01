@@ -21,7 +21,7 @@ VkAttachmentDescription - Structure specifying an attachment description
 
 The `VkAttachmentDescription` structure is defined as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -332,6 +332,51 @@ If the [    `dynamicRenderingLocalRead`](../../../../spec/latest/chapters/featur
 If the [    `dynamicRenderingLocalRead`](../../../../spec/latest/chapters/features.html#features-dynamicRenderingLocalRead) feature is not enabled,
 `finalLayout` **must** not be
 `VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ`
+
+* 
+[](#VUID-VkAttachmentDescription-flags-11773) VUID-VkAttachmentDescription-flags-11773
+
+If `flags` includes
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR`,
+`flags` **must** not include
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`
+
+* 
+[](#VUID-VkAttachmentDescription-flags-11774) VUID-VkAttachmentDescription-flags-11774
+
+If `flags` includes
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR`
+or
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`,
+[`resolveSrgbFormatSupportsTransferFunctionControl`](../../../../spec/latest/chapters/limits.html#limits-resolveSrgbFormatSupportsTransferFunctionControl)
+**must** be `VK_TRUE`
+
+* 
+[](#VUID-VkAttachmentDescription-flags-11775) VUID-VkAttachmentDescription-flags-11775
+
+If `flags` includes
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR`
+or
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`,
+[`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) **must** be enabled
+
+* 
+[](#VUID-VkAttachmentDescription-flags-11776) VUID-VkAttachmentDescription-flags-11776
+
+If `flags` includes
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR`
+or
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`,
+`format` **must** use sRGB encoding
+
+* 
+[](#VUID-VkAttachmentDescription-flags-11777) VUID-VkAttachmentDescription-flags-11777
+
+If `flags` includes
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR`
+or
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`,
+`samples` **must** be `VK_SAMPLE_COUNT_1_BIT`
 
 * 
 [](#VUID-VkAttachmentDescription-format-06698) VUID-VkAttachmentDescription-format-06698

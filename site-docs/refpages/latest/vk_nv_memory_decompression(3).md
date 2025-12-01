@@ -63,6 +63,13 @@ or
 
 [Vulkan Version 1.2](../../../../spec/latest/appendices/versions.html#versions-1.2)
 
+**Deprecation State**
+
+* 
+*Promoted* to
+[VK_EXT_memory_decompression](VK_EXT_memory_decompression.html)
+extension
+
 **Contact**
 
 * 
@@ -100,18 +107,18 @@ This extension adds support for performing memory to memory decompression.
 * 
 Extending [VkPhysicalDeviceFeatures2](VkPhysicalDeviceFeatures2.html), [VkDeviceCreateInfo](VkDeviceCreateInfo.html):
 
-[VkPhysicalDeviceMemoryDecompressionFeaturesNV](VkPhysicalDeviceMemoryDecompressionFeaturesNV.html)
+[VkPhysicalDeviceMemoryDecompressionFeaturesNV](VkPhysicalDeviceMemoryDecompressionFeaturesEXT.html)
 
 Extending [VkPhysicalDeviceProperties2](VkPhysicalDeviceProperties2.html):
 
 * 
-[VkPhysicalDeviceMemoryDecompressionPropertiesNV](VkPhysicalDeviceMemoryDecompressionPropertiesNV.html)
+[VkPhysicalDeviceMemoryDecompressionPropertiesNV](VkPhysicalDeviceMemoryDecompressionPropertiesEXT.html)
 
 * 
-[VkMemoryDecompressionMethodFlagBitsNV](VkMemoryDecompressionMethodFlagBitsNV.html)
+[VkMemoryDecompressionMethodFlagBitsNV](VkMemoryDecompressionMethodFlagBitsEXT.html)
 
 * 
-[VkMemoryDecompressionMethodFlagsNV](VkMemoryDecompressionMethodFlagsNV.html)
+[VkMemoryDecompressionMethodFlagsNV](VkMemoryDecompressionMethodFlagsEXT.html)
 
 * 
 `VK_NV_MEMORY_DECOMPRESSION_EXTENSION_NAME`

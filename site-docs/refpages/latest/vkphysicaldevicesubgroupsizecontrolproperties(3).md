@@ -32,9 +32,8 @@ typedef struct VkPhysicalDeviceSubgroupSizeControlProperties {
     VkShaderStageFlags    requiredSubgroupSizeStages;
 } VkPhysicalDeviceSubgroupSizeControlProperties;
 
-or the equivalent
-
 // Provided by VK_EXT_subgroup_size_control
+// Equivalent to VkPhysicalDeviceSubgroupSizeControlProperties
 typedef VkPhysicalDeviceSubgroupSizeControlProperties VkPhysicalDeviceSubgroupSizeControlPropertiesEXT;
 
 * 

@@ -30,9 +30,8 @@ typedef struct VkPhysicalDeviceSubgroupSizeControlFeatures {
     VkBool32           computeFullSubgroups;
 } VkPhysicalDeviceSubgroupSizeControlFeatures;
 
-or the equivalent
-
 // Provided by VK_EXT_subgroup_size_control
+// Equivalent to VkPhysicalDeviceSubgroupSizeControlFeatures
 typedef VkPhysicalDeviceSubgroupSizeControlFeatures VkPhysicalDeviceSubgroupSizeControlFeaturesEXT;
 
 This structure describes the following features:

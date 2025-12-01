@@ -45,7 +45,7 @@ void createTextureImageView() {
 The code for this function can be based directly on `createImageViews`.
 The only two changes you have to make are the `format` and the `image`:
 
-vk::ImageViewCreateInfo viewInfo({}, image, vk::ImageViewType::e2D, format, {}, { vk::ImageAspectFlagBits::eColor, 0, 1, 0, 1 });
+vk::ImageViewCreateInfo viewInfo{ .image = image, .viewType = vk::ImageViewType::e2D, .format = format, .subresourceRange = { vk::ImageAspectFlagBits::eColor, 0, 1, 0, 1 }};
 
 I’ve left out the explicit `viewInfo.components` initialization, because `VK_COMPONENT_SWIZZLE_IDENTITY` is defined as `0` anyway.
 Finish creating the image view by calling `vkCreateImageView`:
@@ -55,7 +55,8 @@ vk::raii::ImageView( device, viewInfo );
 Because so much of the logic is duplicated from `createImageViews`, you may wish to abstract it into a new `createImageView` function:
 
 vk::raii::ImageView createImageView(vk::raii::Image& image, vk::Format format) {
-    vk::ImageViewCreateInfo viewInfo({}, image, vk::ImageViewType::e2D, format, {}, { vk::ImageAspectFlagBits::eColor, 0, 1, 0, 1 });
+    vk::ImageViewCreateInfo viewInfo{ .image = image, .viewType = vk::ImageViewType::e2D,
+        .format = format, .subresourceRange = { vk::ImageAspectFlagBits::eColor, 0, 1, 0, 1 } };
     return vk::raii::ImageView( device, viewInfo );
 }
 
@@ -118,14 +119,14 @@ void createTextureSampler() {
 
 Samplers are configured through a `VkSamplerCreateInfo` structure, which specifies all filters and transformations that it should apply.
 
-vk::SamplerCreateInfo samplerInfo( {}, vk::Filter::eLinear, vk::Filter::eLinear);
+vk::SamplerCreateInfo samplerInfo{.magFilter = vk::Filter::eLinear, .minFilter = vk::Filter::eLinear};
 
 The `magFilter` and `minFilter` fields specify how to interpolate texels that are magnified or minified.
 Magnification concerns the oversampling problem describes above, and minification concerns undersampling.
 The choices are `VK_FILTER_NEAREST` and `VK_FILTER_LINEAR`, corresponding to the modes demonstrated in the images above.
 
-vk::SamplerCreateInfo samplerInfo( {}, vk::Filter::eLinear, vk::Filter::eLinear, vk::SamplerMipmapMode::eLinear, vk::SamplerAddressMode::eRepeat,
-                                    vk::SamplerAddressMode::eRepeat);
+vk::SamplerCreateInfo samplerInfo{.magFilter = vk::Filter::eLinear, .minFilter = vk::Filter::eLinear,  .mipmapMode = vk::SamplerMipmapMode::eLinear,
+    .addressModeU = vk::SamplerAddressMode::eRepeat, .addressModeV = vk::SamplerAddressMode::eRepeat };
 
 The addressing mode can be specified per axis using the `addressMode` fields.
 The available values are listed below.
@@ -152,10 +153,11 @@ It doesn’t really matter which addressing mode we use here, because we’re no
 However, the repeat mode is probably the most common mode, because it can be used to tile textures like floors and walls.
 
 vk::PhysicalDeviceProperties properties = physicalDevice.getProperties();
-        vk::SamplerCreateInfo samplerInfo( {}, vk::Filter::eLinear, vk::Filter::eLinear, vk::SamplerMipmapMode::eLinear, vk::SamplerAddressMode::eRepeat,
-                                            vk::SamplerAddressMode::eRepeat, vk::SamplerAddressMode::eRepeat, 0);
+vk::SamplerCreateInfo samplerInfo{.magFilter = vk::Filter::eLinear, .minFilter = vk::Filter::eLinear,  .mipmapMode = vk::SamplerMipmapMode::eLinear,
+    .addressModeU = vk::SamplerAddressMode::eRepeat, .addressModeV = vk::SamplerAddressMode::eRepeat, .addressModeW = vk::SamplerAddressMode::eRepeat,
+    .anisotropyEnable = vk::True, .maxAnisotropy = properties.limits.maxSamplerAnisotropy};
 
-These two fields specify if anisotropic filtering should be used.
+The `anisotropyEnable` field specifies if anisotropic filtering should be used.
 There is no reason not to use this unless performance is a concern.
 The `maxAnisotropy` field limits the number of texel samples that can be used to calculate the final color.
 A lower value results in better performance, but lower quality results.
@@ -168,9 +170,10 @@ This struct in turn has a member called `maxSamplerAnisotropy` and this is the m
 If we want to go for maximum quality, we can simply use that value directly:
 
 vk::PhysicalDeviceProperties properties = physicalDevice.getProperties();
-vk::SamplerCreateInfo samplerInfo( {}, vk::Filter::eLinear, vk::Filter::eLinear, vk::SamplerMipmapMode::eLinear, vk::SamplerAddressMode::eRepeat,
-                                    vk::SamplerAddressMode::eRepeat, vk::SamplerAddressMode::eRepeat, 0, 1,
-                                    properties.limits.maxSamplerAnisotropy, vk::False, vk::CompareOp::eAlways);
+vk::SamplerCreateInfo samplerInfo{.magFilter = vk::Filter::eLinear, .minFilter = vk::Filter::eLinear,  .mipmapMode = vk::SamplerMipmapMode::eLinear,
+    .addressModeU = vk::SamplerAddressMode::eRepeat, .addressModeV = vk::SamplerAddressMode::eRepeat, .addressModeW = vk::SamplerAddressMode::eRepeat,
+    .anisotropyEnable = vk::True, .maxAnisotropy = properties.limits.maxSamplerAnisotropy,
+    .compareEnable = vk::False, .compareOp = vk::CompareOp::eAlways};
 
 You can either query the properties at the beginning of your program and pass them around to the functions that need them, or query them in the `createTextureSampler` function itself.
 
@@ -228,8 +231,11 @@ If you run your program right now, you’ll see a validation layer message like 
 That’s because anisotropic filtering is actually an optional device feature.
 We need to update the `createLogicalDevice` function to request it:
 
-vk::PhysicalDeviceFeatures deviceFeatures;
-deviceFeatures.samplerAnisotropy = vk::True;
+vk::StructureChain featureChain = {
+    {.features = {.samplerAnisotropy = true } },            // vk::PhysicalDeviceFeatures2
+    {.synchronization2 = true, .dynamicRendering = true },  // vk::PhysicalDeviceVulkan13Features
+    {.extendedDynamicState = true }                         // vk::PhysicalDeviceExtendedDynamicStateFeaturesEXT
+};
 
 And even though it is very unlikely that a modern graphics card will not support it, we should update `isDeviceSuitable` to check if it is available:
 

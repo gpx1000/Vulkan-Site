@@ -34,9 +34,8 @@ typedef struct VkBindDescriptorSetsInfo {
     const uint32_t*           pDynamicOffsets;
 } VkBindDescriptorSetsInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance6
+// Equivalent to VkBindDescriptorSetsInfo
 typedef VkBindDescriptorSetsInfo VkBindDescriptorSetsInfoKHR;
 
 * 

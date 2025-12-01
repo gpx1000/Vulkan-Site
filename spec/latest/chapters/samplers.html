@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="preamble.html">Preamble</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -162,6 +165,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="resources.html">Resource Creation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="samplers.html">Samplers</a>
@@ -236,10 +242,13 @@
     <a class="nav-link" href="VK_KHR_deferred_host_operations/deferred_host_operations.html">Deferred Host Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_EXT_private_data.html">Private Data</a>
+    <a class="nav-link" href="private_data.html">Private Data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="accelstructures.html">Acceleration Structures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format/dense_geometry_format.html">Compressed triangle data</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_EXT_opacity_micromap/micromaps.html">Micromap</a>
@@ -251,7 +260,7 @@
     <a class="nav-link" href="raytracing.html">Ray Tracing</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
+    <a class="nav-link" href="memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="videocoding.html">Video Coding</a>
@@ -305,7 +314,7 @@
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
+    <a class="nav-link" href="../appendices/legacy.html">Legacy and Superseded Functionality</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -609,15 +618,20 @@ mipmap filter to apply to lookups.</p>
 </li>
 <li>
 <p><code>addressModeU</code> is a <a href="#VkSamplerAddressMode">VkSamplerAddressMode</a> value specifying the
-addressing mode for U coordinates outside <span class="eq">[0,1)</span>.</p>
+<a href="textures.html#textures-wrapping-operation" class="xref page">wrapping operation</a> used when the <span class="eq">i</span>
+coordinate used to sample the image would be out of bounds.</p>
 </li>
 <li>
 <p><code>addressModeV</code> is a <a href="#VkSamplerAddressMode">VkSamplerAddressMode</a> value specifying the
-addressing mode for V coordinates outside <span class="eq">[0,1)</span>.</p>
+<a href="textures.html#textures-wrapping-operation" class="xref page">wrapping operation</a> used when the <span class="eq">j</span>
+coordinate used to sample the image would be out of bounds.</p>
 </li>
 <li>
 <p><code>addressModeW</code> is a <a href="#VkSamplerAddressMode">VkSamplerAddressMode</a> value specifying the
-addressing mode for W coordinates outside <span class="eq">[0,1)</span>.</p>
+<a href="textures.html#textures-wrapping-operation" class="xref page">wrapping operation</a> used when the <span class="eq">k</span>
+coordinate used to sample the image would be out of bounds.
+If <code>unnormalizedCoordinates</code> is <code>VK_TRUE</code>, <code>addressModeW</code> is
+ignored.</p>
 </li>
 <li>
 <p><a id="samplers-mipLodBias"></a> <code>mipLodBias</code> is the bias to be added to
@@ -1262,12 +1276,10 @@ typedef struct VkSamplerReductionModeCreateInfo {
 } VkSamplerReductionModeCreateInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSamplerReductionModeCreateInfoEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_sampler_filter_minmax
+// Equivalent to VkSamplerReductionModeCreateInfo
 typedef VkSamplerReductionModeCreateInfo VkSamplerReductionModeCreateInfoEXT;</code></pre>
 </div>
 </div>
@@ -1338,12 +1350,10 @@ typedef enum VkSamplerReductionMode {
 } VkSamplerReductionMode;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSamplerReductionModeEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_sampler_filter_minmax
+// Equivalent to VkSamplerReductionMode
 typedef VkSamplerReductionMode VkSamplerReductionModeEXT;</code></pre>
 </div>
 </div>
@@ -1544,10 +1554,7 @@ typedef enum VkSamplerMipmapMode {
 <div class="content">
 <div class="paragraph">
 <p>Possible values of the <a href="#VkSamplerCreateInfo">VkSamplerCreateInfo</a>::<code>addressMode*</code>
-parameters, specifying the behavior of sampling with coordinates outside the
-range <span class="eq">[0,1]</span> for the respective <span class="eq">u</span>, <span class="eq">v</span>, or <span class="eq">w</span> coordinate
-as defined in the <a href="textures.html#textures-wrapping-operation" class="xref page">Wrapping Operation</a>
-section, are:</p>
+parameters, corresponding to different <a href="textures.html#textures-wrapping-operation" class="xref page">wrapping operations</a> used during sampling, are:</p>
 </div>
 <div id="VkSamplerAddressMode" class="listingblock">
 <div class="content">
@@ -1560,7 +1567,7 @@ typedef enum VkSamplerAddressMode {
   // Provided by VK_VERSION_1_2, VK_KHR_sampler_mirror_clamp_to_edge
     VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE = 4,
   // Provided by VK_KHR_sampler_mirror_clamp_to_edge
-  // VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE_KHR is a deprecated alias
+  // VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE_KHR is a legacy alias
     VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE_KHR = VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE,
 } VkSamplerAddressMode;</code></pre>
 </div>
@@ -1746,7 +1753,7 @@ data in integer format.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>These colors are described in detail in <a href="textures.html#textures-texel-replacement" class="xref page">Texel Replacement</a>.</p>
+<p>These colors are described in detail in <a href="textures.html#textures-border-replacement" class="xref page">Border Replacement</a>.</p>
 </div>
 </div>
 </div>
@@ -1883,12 +1890,10 @@ typedef struct VkSamplerYcbcrConversionInfo {
 } VkSamplerYcbcrConversionInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSamplerYcbcrConversionInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrConversionInfo
 typedef VkSamplerYcbcrConversionInfo VkSamplerYcbcrConversionInfoKHR;</code></pre>
 </div>
 </div>
@@ -1939,12 +1944,10 @@ device-specific sampler Y′C<sub>B</sub>C<sub>R</sub> conversion description, r
 VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkSamplerYcbcrConversion)</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSamplerYcbcrConversionKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrConversion
 typedef VkSamplerYcbcrConversion VkSamplerYcbcrConversionKHR;</code></pre>
 </div>
 </div>
@@ -1965,12 +1968,10 @@ VkResult vkCreateSamplerYcbcrConversion(
     VkSamplerYcbcrConversion*                   pYcbcrConversion);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkCreateSamplerYcbcrConversionKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to vkCreateSamplerYcbcrConversion
 VkResult vkCreateSamplerYcbcrConversionKHR(
     VkDevice                                    device,
     const VkSamplerYcbcrConversionCreateInfo*   pCreateInfo,
@@ -2105,12 +2106,10 @@ typedef struct VkSamplerYcbcrConversionCreateInfo {
 } VkSamplerYcbcrConversionCreateInfo;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSamplerYcbcrConversionCreateInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrConversionCreateInfo
 typedef VkSamplerYcbcrConversionCreateInfo VkSamplerYcbcrConversionCreateInfoKHR;</code></pre>
 </div>
 </div>
@@ -2288,7 +2287,7 @@ correspond to components of the <code>format</code>; that is,
 <code>components.r</code>, <code>components.g</code>, and <code>components.b</code> <strong>must</strong> not
 be <code>VK_COMPONENT_SWIZZLE_ZERO</code> or <code>VK_COMPONENT_SWIZZLE_ONE</code>,
 and <strong>must</strong> not correspond to a component containing zero or one as a
-consequence of <a href="textures.html#textures-conversion-to-rgba" class="xref page">conversion to RGBA</a></p>
+consequence of <a href="images.html#images-component-substitution" class="xref page">component substitution</a></p>
 </li>
 <li>
 <p><a id="VUID-VkSamplerYcbcrConversionCreateInfo-ycbcrRange-02748" href="#VUID-VkSamplerYcbcrConversionCreateInfo-ycbcrRange-02748"></a> <span class="vuid">VUID-VkSamplerYcbcrConversionCreateInfo-ycbcrRange-02748</span><br>
@@ -2355,7 +2354,7 @@ If the <code>pNext</code> chain includes a
 </li>
 <li>
 <p><a id="VUID-VkSamplerYcbcrConversionCreateInfo-pNext-pNext" href="#VUID-VkSamplerYcbcrConversionCreateInfo-pNext-pNext"></a> <span class="vuid">VUID-VkSamplerYcbcrConversionCreateInfo-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="resources.html#VkExternalFormatANDROID" class="xref page">VkExternalFormatANDROID</a>, <a href="resources.html#VkExternalFormatQNX" class="xref page">VkExternalFormatQNX</a>, or <a href="#VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM">VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="resources.html#VkExternalFormatANDROID" class="xref page">VkExternalFormatANDROID</a>, <a href="resources.html#VkExternalFormatOHOS" class="xref page">VkExternalFormatOHOS</a>, <a href="resources.html#VkExternalFormatQNX" class="xref page">VkExternalFormatQNX</a>, or <a href="#VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM">VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM</a></p>
 </li>
 <li>
 <p><a id="VUID-VkSamplerYcbcrConversionCreateInfo-sType-unique" href="#VUID-VkSamplerYcbcrConversionCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkSamplerYcbcrConversionCreateInfo-sType-unique</span><br>
@@ -2430,12 +2429,10 @@ typedef enum VkSamplerYcbcrModelConversion {
 } VkSamplerYcbcrModelConversion;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSamplerYcbcrModelConversionKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrModelConversion
 typedef VkSamplerYcbcrModelConversion VkSamplerYcbcrModelConversionKHR;</code></pre>
 </div>
 </div>
@@ -2552,12 +2549,10 @@ typedef enum VkSamplerYcbcrRange {
 } VkSamplerYcbcrRange;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkSamplerYcbcrRangeKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkSamplerYcbcrRange
 typedef VkSamplerYcbcrRange VkSamplerYcbcrRangeKHR;</code></pre>
 </div>
 </div>
@@ -2606,12 +2601,10 @@ typedef enum VkChromaLocation {
 } VkChromaLocation;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
 <div id="VkChromaLocationKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to VkChromaLocation
 typedef VkChromaLocation VkChromaLocationKHR;</code></pre>
 </div>
 </div>
@@ -2634,9 +2627,9 @@ nearest higher odd luma sample.</p>
 <div class="content">
 <div class="paragraph">
 <p>Applications <strong>can</strong> enable sRGB to linear conversion for the R, G, and B
-components of a Y′C<sub>B</sub>C<sub>R</sub> image during <a href="textures.html#textures-ycbcr-degamma" class="xref page">format conversion</a> by including
-<code>VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM</code> structure in the
-<code>pNext</code> chain of <a href="#VkSamplerYcbcrConversionCreateInfo">VkSamplerYcbcrConversionCreateInfo</a>.</p>
+components of a Y′C<sub>B</sub>C<sub>R</sub> image during <a href="textures.html#textures-YCbCr-degamma" class="xref page">sampling</a> by
+including <code>VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM</code> structure
+in the <code>pNext</code> chain of <a href="#VkSamplerYcbcrConversionCreateInfo">VkSamplerYcbcrConversionCreateInfo</a>.</p>
 </div>
 <div class="paragraph">
 <p>The <code>VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM</code> structure is
@@ -2663,11 +2656,10 @@ typedef struct VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM {
 structure.</p>
 </li>
 <li>
-<p><code>enableYDegamma</code> indicates <a href="textures.html#textures-ycbcr-degamma" class="xref page">sRGB to linear</a>
-conversion is enabled for the G component.</p>
+<p><code>enableYDegamma</code> indicates <a href="textures.html#textures-YCbCr-degamma" class="xref page">sRGB to    linear</a> conversion is enabled for the G component.</p>
 </li>
 <li>
-<p><code>enableCbCrDegamma</code> indicates <a href="textures.html#textures-ycbcr-degamma" class="xref page">sRGB to    linear</a> conversion is enabled for the R and B components.</p>
+<p><code>enableCbCrDegamma</code> indicates <a href="textures.html#textures-YCbCr-degamma" class="xref page">sRGB to    linear</a> conversion is enabled for the R and B components.</p>
 </li>
 </ul>
 </div>
@@ -2700,12 +2692,10 @@ void vkDestroySamplerYcbcrConversion(
     const VkAllocationCallbacks*                pAllocator);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>or the equivalent command</p>
-</div>
 <div id="vkDestroySamplerYcbcrConversionKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to vkDestroySamplerYcbcrConversion
 void vkDestroySamplerYcbcrConversionKHR(
     VkDevice                                    device,
     VkSamplerYcbcrConversion                    ycbcrConversion,

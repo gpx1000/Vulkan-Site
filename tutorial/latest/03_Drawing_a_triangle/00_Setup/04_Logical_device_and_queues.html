@@ -302,7 +302,40 @@
     <a class="nav-link" href="../../17_Multithreading.html">Multithreading</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../courses/18_Ray_tracing/00_Overview.html">Ray Tracing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/00_Overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/01_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/02_Acceleration_structures.html">Acceleration structures</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/03_Ray_query_shadows.html">Ray query shadows</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/04_TLAS_animation.html">TLAS animation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/05_Shadow_transparency.html">Shadow transparency</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/06_Reflections.html">Reflections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/07_Conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../90_FAQ.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial" target="_blank" rel="noopener">GitHub Repository</a></span>
   </li>
 </ul>
   </li>
@@ -411,7 +444,7 @@ same physical device if you have varying requirements.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::raii::Device device;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">vk::raii::Device device = nullptr;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -445,7 +478,7 @@ Right now we&#8217;re only interested in a queue with graphics capabilities.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">std::vector&lt;vk::QueueFamilyProperties&gt; queueFamilyProperties = physicalDevice.getQueueFamilyProperties();
-
+uint32_t graphicsIndex = findQueueFamilies(m_physicalDevice);
 vk::DeviceQueueCreateInfo deviceQueueCreateInfo { .queueFamilyIndex = graphicsIndex };</code></pre>
 </div>
 </div>
@@ -462,7 +495,7 @@ This is required even if there is only a single queue:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">float queuePriority = 0.0f;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">float queuePriority = 0.5f;
 vk::DeviceQueueCreateInfo deviceQueueCreateInfo { .queueFamilyIndex = graphicsIndex, .queueCount = 1, .pQueuePriorities = &amp;queuePriority };</code></pre>
 </div>
 </div>
@@ -620,7 +653,7 @@ extension in the swap chain chapter.</p>
 <div class="paragraph">
 <p>Previous implementations of Vulkan made a distinction between instance and
 device-specific validation layers, but this is
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/chap40.html#extendingvulkan-layers-devicelayerdeprecation">no longer the case</a>.
+<a href="https://docs.vulkan.org/spec/latest/chapters/raytracing.html#extendingvulkan-layers-devicelayerdeprecation">no longer the case</a>.
 That means that the <code>enabledLayerCount</code> and <code>ppEnabledLayerNames</code> fields of
 <code>VkDeviceCreateInfo</code> are ignored by up-to-date implementations.</p>
 </div>

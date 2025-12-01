@@ -49,8 +49,7 @@ Aditi Verma, Qualcomm Technologies, Inc.
 Ahmed Abdelkhalek, AMD (versions 1.3, 1.4) (video subgroup chair)
 
 * 
-Aidan Fabius, Core Avionics & Industrial Inc.
-(version 1.2)
+Aidan Fabius, Lynx (version 1.2)
 
 * 
 Aitor Camacho, LunarG (version 1.4)

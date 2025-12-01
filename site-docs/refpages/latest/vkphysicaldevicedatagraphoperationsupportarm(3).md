@@ -59,9 +59,9 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkPhysicalDeviceDataGraphOperationSupportARM-name-parameter) VUID-VkPhysicalDeviceDataGraphOperationSupportARM-name-parameter
 
- `name` **must** be a null-terminated UTF-8 string whose length is less than or equal to VK_MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM
+ `name` **must** be a null-terminated UTF-8 string whose length is less than or equal to `VK_MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM`
 
-[VK_ARM_data_graph](VK_ARM_data_graph.html), [VkPhysicalDeviceDataGraphOperationTypeARM](VkPhysicalDeviceDataGraphOperationTypeARM.html), [VkQueueFamilyDataGraphPropertiesARM](VkQueueFamilyDataGraphPropertiesARM.html)
+[VK_ARM_data_graph](VK_ARM_data_graph.html), [VkDataGraphPipelineBuiltinModelCreateInfoQCOM](VkDataGraphPipelineBuiltinModelCreateInfoQCOM.html), [VkPhysicalDeviceDataGraphOperationTypeARM](VkPhysicalDeviceDataGraphOperationTypeARM.html), [VkQueueFamilyDataGraphPropertiesARM](VkQueueFamilyDataGraphPropertiesARM.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/VK_ARM_data_graph/graphs.html#VkPhysicalDeviceDataGraphOperationSupportARM).
 

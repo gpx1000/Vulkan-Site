@@ -27,9 +27,8 @@ void vkDestroySamplerYcbcrConversion(
     VkSamplerYcbcrConversion                    ycbcrConversion,
     const VkAllocationCallbacks*                pAllocator);
 
-or the equivalent command
-
 // Provided by VK_KHR_sampler_ycbcr_conversion
+// Equivalent to vkDestroySamplerYcbcrConversion
 void vkDestroySamplerYcbcrConversionKHR(
     VkDevice                                    device,
     VkSamplerYcbcrConversion                    ycbcrConversion,
@@ -72,7 +71,7 @@ Host Synchronization
 * 
 Host access to `ycbcrConversion` **must** be externally synchronized
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkAllocationCallbacks](VkAllocationCallbacks.html), [VkDevice](VkDevice.html), [VkSamplerYcbcrConversion](VkSamplerYcbcrConversion.html)
+[VK_KHR_sampler_ycbcr_conversion](VK_KHR_sampler_ycbcr_conversion.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkAllocationCallbacks](VkAllocationCallbacks.html), [VkDevice](VkDevice.html), [VkSamplerYcbcrConversion](VkSamplerYcbcrConversion.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/samplers.html#vkDestroySamplerYcbcrConversion).
 

@@ -38,12 +38,13 @@ typedef struct VkBufferConstraintsInfoFUCHSIA {
 structure
 
 * 
-`createInfo` a pointer to a [VkBufferCreateInfo](VkBufferCreateInfo.html) struct
+`createInfo` is a pointer to a [VkBufferCreateInfo](VkBufferCreateInfo.html) struct
 describing the buffer attributes for the buffer collection
 
 * 
-`requiredFormatFeatures` bitmask of `VkFormatFeatureFlagBits`
-required features of the buffers in the buffer collection
+`requiredFormatFeatures` is a bitmask of
+`VkFormatFeatureFlagBits` required features of the buffers in the
+buffer collection
 
 * 
 `bufferCollectionConstraints` is used to supply parameters for the

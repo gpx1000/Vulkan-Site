@@ -31,9 +31,8 @@ typedef struct VkDescriptorSetVariableDescriptorCountLayoutSupport {
     uint32_t           maxVariableDescriptorCount;
 } VkDescriptorSetVariableDescriptorCountLayoutSupport;
 
-or the equivalent
-
 // Provided by VK_EXT_descriptor_indexing
+// Equivalent to VkDescriptorSetVariableDescriptorCountLayoutSupport
 typedef VkDescriptorSetVariableDescriptorCountLayoutSupport VkDescriptorSetVariableDescriptorCountLayoutSupportEXT;
 
 * 

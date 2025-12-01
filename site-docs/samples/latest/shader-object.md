@@ -308,7 +308,7 @@ The same code as above can be used.
 
 This sample does not enable the `tessellationShader` device feature, so it’s not necessary to bind anything to either tessellation stage.
 
-The [Setting State](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects-state) subsection of the [Shader Objects](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects) section of the Vulkan specification lists the graphics state that needs to be set on a command buffer before `vkCmdDraw*` can be called with graphics shader objects bound.
+The [Setting State](https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects-state) subsection of the [Shader Objects](https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects) section of the Vulkan specification lists the graphics state that needs to be set on a command buffer before `vkCmdDraw*` can be called with graphics shader objects bound.
 
 This sample demonstrates one possible way to take advantage of these rules to minimize calls into the Vulkan driver.
 
@@ -391,7 +391,7 @@ Because of this the layer’s files will always need to be somewhere accessible 
 [Extension Proposal](https://docs.vulkan.org/features/latest/features/proposals/VK_EXT_shader_object.html)
 
 * 
-[Specification](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects)
+[Specification](https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects)
 
 * 
 [Emulation Layer](https://github.com/KhronosGroup/Vulkan-ExtensionLayer/blob/main/docs/shader_object_layer.md)

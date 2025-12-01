@@ -169,6 +169,18 @@
 - [Quantization_Map_Format_Properties](#_quantization_map_format_properties)
 - [Encoding with Quantization Maps](#_encoding_with_quantization_maps)
 - [Encoding_with_Quantization_Maps](#_encoding_with_quantization_maps)
+- [Video Encode R′G′B′ Conversion](#encode-rgb-conversion)
+- [Video_Encode_R′G′B′_Conversion](#encode-rgb-conversion)
+- [R′G′B′ Conversion Capabilities](#encode-rgb-conversion-capabilities)
+- [R′G′B′_Conversion_Capabilities](#encode-rgb-conversion-capabilities)
+- [R′G′B′ Range Compression](#encode-rgb-conversion-range-compression)
+- [R′G′B′_Range_Compression](#encode-rgb-conversion-range-compression)
+- [R′G′B′ Model Conversion](#encode-rgb-conversion-model-conversion)
+- [R′G′B′_Model_Conversion](#encode-rgb-conversion-model-conversion)
+- [R′G′B′ Chroma Subsampling and Quantization](#encode-rgb-conversion-chroma-subsampling-and-quantization)
+- [R′G′B′_Chroma_Subsampling_and_Quantization](#encode-rgb-conversion-chroma-subsampling-and-quantization)
+- [Encoding Pictures with R′G′B′ Conversion](#_encoding_pictures_with_rgb_conversion)
+- [Encoding_Pictures_with_R′G′B′_Conversion](#_encoding_pictures_with_rgb_conversion)
 - [H.264 Encode Operations](#encode-h264)
 - [H.264_Encode_Operations](#encode-h264)
 - [H.264 Encode Parameter Overrides](#encode-h264-overrides)
@@ -1331,6 +1343,14 @@ If `pVideoProfile->videoCodecOperation` is
 chain of `pCapabilities` **must** include a
 [VkVideoEncodeAV1CapabilitiesKHR](#VkVideoEncodeAV1CapabilitiesKHR) structure
 
+* 
+[](#VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pNext-10921) VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pNext-10921
+
+If the `pNext` chain of `pVideoProfile` includes a
+[VkVideoEncodeProfileRgbConversionInfoVALVE](#VkVideoEncodeProfileRgbConversionInfoVALVE) structure, then the
+[`videoEncodeRgbConversion`](features.html#features-videoEncodeRgbConversion)
+feature **must** be supported
+
 Valid Usage (Implicit)
 
 * 
@@ -1462,7 +1482,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkVideoCapabilitiesKHR-pNext-pNext) VUID-VkVideoCapabilitiesKHR-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoDecodeAV1CapabilitiesKHR](#VkVideoDecodeAV1CapabilitiesKHR), [VkVideoDecodeCapabilitiesKHR](#VkVideoDecodeCapabilitiesKHR), [VkVideoDecodeH264CapabilitiesKHR](#VkVideoDecodeH264CapabilitiesKHR), [VkVideoDecodeH265CapabilitiesKHR](#VkVideoDecodeH265CapabilitiesKHR), [VkVideoDecodeVP9CapabilitiesKHR](#VkVideoDecodeVP9CapabilitiesKHR), [VkVideoEncodeAV1CapabilitiesKHR](#VkVideoEncodeAV1CapabilitiesKHR), [VkVideoEncodeAV1QuantizationMapCapabilitiesKHR](#VkVideoEncodeAV1QuantizationMapCapabilitiesKHR), [VkVideoEncodeCapabilitiesKHR](#VkVideoEncodeCapabilitiesKHR), [VkVideoEncodeH264CapabilitiesKHR](#VkVideoEncodeH264CapabilitiesKHR), [VkVideoEncodeH264QuantizationMapCapabilitiesKHR](#VkVideoEncodeH264QuantizationMapCapabilitiesKHR), [VkVideoEncodeH265CapabilitiesKHR](#VkVideoEncodeH265CapabilitiesKHR), [VkVideoEncodeH265QuantizationMapCapabilitiesKHR](#VkVideoEncodeH265QuantizationMapCapabilitiesKHR), [VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR), or [VkVideoEncodeQuantizationMapCapabilitiesKHR](#VkVideoEncodeQuantizationMapCapabilitiesKHR)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoDecodeAV1CapabilitiesKHR](#VkVideoDecodeAV1CapabilitiesKHR), [VkVideoDecodeCapabilitiesKHR](#VkVideoDecodeCapabilitiesKHR), [VkVideoDecodeH264CapabilitiesKHR](#VkVideoDecodeH264CapabilitiesKHR), [VkVideoDecodeH265CapabilitiesKHR](#VkVideoDecodeH265CapabilitiesKHR), [VkVideoDecodeVP9CapabilitiesKHR](#VkVideoDecodeVP9CapabilitiesKHR), [VkVideoEncodeAV1CapabilitiesKHR](#VkVideoEncodeAV1CapabilitiesKHR), [VkVideoEncodeAV1QuantizationMapCapabilitiesKHR](#VkVideoEncodeAV1QuantizationMapCapabilitiesKHR), [VkVideoEncodeCapabilitiesKHR](#VkVideoEncodeCapabilitiesKHR), [VkVideoEncodeH264CapabilitiesKHR](#VkVideoEncodeH264CapabilitiesKHR), [VkVideoEncodeH264QuantizationMapCapabilitiesKHR](#VkVideoEncodeH264QuantizationMapCapabilitiesKHR), [VkVideoEncodeH265CapabilitiesKHR](#VkVideoEncodeH265CapabilitiesKHR), [VkVideoEncodeH265QuantizationMapCapabilitiesKHR](#VkVideoEncodeH265QuantizationMapCapabilitiesKHR), [VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR), [VkVideoEncodeQuantizationMapCapabilitiesKHR](#VkVideoEncodeQuantizationMapCapabilitiesKHR), or [VkVideoEncodeRgbConversionCapabilitiesVALVE](#VkVideoEncodeRgbConversionCapabilitiesVALVE)
 
 * 
 [](#VUID-VkVideoCapabilitiesKHR-sType-unique) VUID-VkVideoCapabilitiesKHR-sType-unique
@@ -1562,38 +1582,27 @@ includes any image usage flags not supported by the specified video
 profiles, then this command returns
 `VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`.
 
-This command also returns `VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR` if
-[VkPhysicalDeviceVideoFormatInfoKHR](#VkPhysicalDeviceVideoFormatInfoKHR)::`imageUsage` does not include
-the appropriate flags as dictated by the decode capability flags returned in
-[VkVideoDecodeCapabilitiesKHR](#VkVideoDecodeCapabilitiesKHR)::`flags` for any of the profiles
-specified in the [VkVideoProfileListInfoKHR](#VkVideoProfileListInfoKHR) structure provided in the
-`pNext` chain of `pVideoFormatInfo`.
-
 If the decode capability flags include
-`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR` but not
-`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR`, then in
-order to query video format properties for decode DPB and output usage,
-[VkPhysicalDeviceVideoFormatInfoKHR](#VkPhysicalDeviceVideoFormatInfoKHR)::`imageUsage` **must** include
-both `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` and
-`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`.
-Otherwise, the call will fail with
-`VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`.
+`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR`, then
+querying video format properties that support both decode DPB and output
+usage **can** be done by including both
+`VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` and
+`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` in
+[VkPhysicalDeviceVideoFormatInfoKHR](#VkPhysicalDeviceVideoFormatInfoKHR)::`imageUsage`.
+However, even in this case, querying video format properties with
+[VkPhysicalDeviceVideoFormatInfoKHR](#VkPhysicalDeviceVideoFormatInfoKHR)::`imageUsage` including only
+`VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` or
+`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` will also return formats
+supporting both.
 
-If the decode capability flags include
-`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR` but not
-`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR`, then in
-order to query video format properties for decode DPB usage,
-[VkPhysicalDeviceVideoFormatInfoKHR](#VkPhysicalDeviceVideoFormatInfoKHR)::`imageUsage` **must** include
-`VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`, but not
-`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`.
-Otherwise, the call will fail with
-`VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`.
-Similarly, to query video format properties for decode output usage,
-[VkPhysicalDeviceVideoFormatInfoKHR](#VkPhysicalDeviceVideoFormatInfoKHR)::`imageUsage` **must** include
-`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`, but not
-`VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`.
-Otherwise, the call will fail with
-`VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`.
+|  | This enables application to be able to query all formats supporting
+| --- | --- |
+`VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` and/or
+`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` by just including one of the
+flags, respectively, regardless of whether the implementation supports
+`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR`,
+`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR`, or both.
+This makes enumerating decode DPB and output formats simpler and unified. |
 
 The `imageUsage` member of the [VkPhysicalDeviceVideoFormatInfoKHR](#VkPhysicalDeviceVideoFormatInfoKHR)
 structure specifies the expected video usage flags that the returned video
@@ -1724,6 +1733,14 @@ Valid Usage
 The `pNext` chain of `pVideoFormatInfo` **must** include a
 [VkVideoProfileListInfoKHR](#VkVideoProfileListInfoKHR) structure with `profileCount`
 greater than `0`
+
+* 
+[](#VUID-vkGetPhysicalDeviceVideoFormatPropertiesKHR-pNext-10922) VUID-vkGetPhysicalDeviceVideoFormatPropertiesKHR-pNext-10922
+
+If the `pNext` chain of `pVideoFormatInfo` includes a
+[VkVideoEncodeProfileRgbConversionInfoVALVE](#VkVideoEncodeProfileRgbConversionInfoVALVE) structure, then the
+[`videoEncodeRgbConversion`](features.html#features-videoEncodeRgbConversion)
+feature **must** be supported
 
 Valid Usage (Implicit)
 
@@ -2223,6 +2240,13 @@ specified by `pVideoProfile`, then `flags` **must** not include
 `VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR`
 
 * 
+[](#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-11759) VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-11759
+
+`pVideoProfile->videoCodecOperation` **must** be supported by the queue
+family index specified in `queueFamilyIndex`, as reported in
+[VkQueueFamilyVideoPropertiesKHR](devsandqueues.html#VkQueueFamilyVideoPropertiesKHR)::`videoCodecOperations`
+
+* 
 [](#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-04845) VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-04845
 
 `pVideoProfile` **must** be a [supported video    profile](#video-profile-support)
@@ -2409,6 +2433,24 @@ chain of this structure includes a
 [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the video profile
 specified in `pVideoProfile`
 
+* 
+[](#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10923) VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10923
+
+If the `pVideoProfile->pNext` chain includes a
+[VkVideoEncodeProfileRgbConversionInfoVALVE](#VkVideoEncodeProfileRgbConversionInfoVALVE) structure, then the
+[`videoEncodeRgbConversion`](features.html#features-videoEncodeRgbConversion)
+feature **must** be enabled
+
+* 
+[](#VUID-VkVideoSessionCreateInfoKHR-pNext-10924) VUID-VkVideoSessionCreateInfoKHR-pNext-10924
+
+If a [VkVideoEncodeProfileRgbConversionInfoVALVE](#VkVideoEncodeProfileRgbConversionInfoVALVE) structure is
+included in the `pNext` chain of `pVideoProfile` and
+`VkVideoEncodeProfileRgbConversionInfoVALVE`::`performEncodeRgbConversion`
+is enabled, a [VkVideoEncodeSessionRgbConversionCreateInfoVALVE](#VkVideoEncodeSessionRgbConversionCreateInfoVALVE)
+structure **must** be included in the `pNext` chain of
+[VkVideoSessionCreateInfoKHR](#VkVideoSessionCreateInfoKHR).
+
 Valid Usage (Implicit)
 
 * 
@@ -2419,7 +2461,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkVideoSessionCreateInfoKHR-pNext-pNext) VUID-VkVideoSessionCreateInfoKHR-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoEncodeAV1SessionCreateInfoKHR](#VkVideoEncodeAV1SessionCreateInfoKHR), [VkVideoEncodeH264SessionCreateInfoKHR](#VkVideoEncodeH264SessionCreateInfoKHR), [VkVideoEncodeH265SessionCreateInfoKHR](#VkVideoEncodeH265SessionCreateInfoKHR), or [VkVideoEncodeSessionIntraRefreshCreateInfoKHR](#VkVideoEncodeSessionIntraRefreshCreateInfoKHR)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoEncodeAV1SessionCreateInfoKHR](#VkVideoEncodeAV1SessionCreateInfoKHR), [VkVideoEncodeH264SessionCreateInfoKHR](#VkVideoEncodeH264SessionCreateInfoKHR), [VkVideoEncodeH265SessionCreateInfoKHR](#VkVideoEncodeH265SessionCreateInfoKHR), [VkVideoEncodeSessionIntraRefreshCreateInfoKHR](#VkVideoEncodeSessionIntraRefreshCreateInfoKHR), or [VkVideoEncodeSessionRgbConversionCreateInfoVALVE](#VkVideoEncodeSessionRgbConversionCreateInfoVALVE)
 
 * 
 [](#VUID-VkVideoSessionCreateInfoKHR-sType-unique) VUID-VkVideoSessionCreateInfoKHR-sType-unique
@@ -4884,13 +4926,11 @@ and [Rate Control State](#encode-rate-control-state) sections. |
 Valid Usage
 
 * 
-[](#VUID-vkCmdBeginVideoCodingKHR-commandBuffer-07231) VUID-vkCmdBeginVideoCodingKHR-commandBuffer-07231
+[](#VUID-vkCmdBeginVideoCodingKHR-commandBuffer-11760) VUID-vkCmdBeginVideoCodingKHR-commandBuffer-11760
 
 The `VkCommandPool` that `commandBuffer` was allocated from
-**must** support the video codec operation `pBeginInfo->videoSession`
-was created with, as returned by
-[vkGetPhysicalDeviceQueueFamilyProperties2](devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2) in
-[VkQueueFamilyVideoPropertiesKHR](devsandqueues.html#VkQueueFamilyVideoPropertiesKHR)::`videoCodecOperations`
+**must** have been created with the same queue family index that
+`pBeginInfo->videoSession` was created with
 
 * 
 [](#VUID-vkCmdBeginVideoCodingKHR-None-07232) VUID-vkCmdBeginVideoCodingKHR-None-07232
@@ -5041,12 +5081,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBeginVideoCodingKHR-commandBuffer-cmdpool) VUID-vkCmdBeginVideoCodingKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdBeginVideoCodingKHR-renderpass) VUID-vkCmdBeginVideoCodingKHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdBeginVideoCodingKHR-suspended) VUID-vkCmdBeginVideoCodingKHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdBeginVideoCodingKHR-videocoding) VUID-vkCmdBeginVideoCodingKHR-videocoding
@@ -5069,9 +5114,9 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Outside | Outside | Decode
+| Primary | Outside | Outside | VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Action
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action
 
 State |
 
@@ -5216,7 +5261,8 @@ If `videoSession` was created with a decode operation and the
 `slotIndex` member of any element of `pReferenceSlots` is not
 negative, then the image view specified in
 `pPictureResource->imageViewBinding` for that element **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkVideoBeginCodingInfoKHR-slotIndex-07246) VUID-VkVideoBeginCodingInfoKHR-slotIndex-07246
@@ -5225,7 +5271,8 @@ If `videoSession` was created with an encode operation and the
 `slotIndex` member of any element of `pReferenceSlots` is not
 negative, then the image view specified in
 `pPictureResource->imageViewBinding` for that element **must** have
-been created with `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`
+been created with the `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`
+usage flag set
 
 * 
 [](#VUID-VkVideoBeginCodingInfoKHR-videoSession-07247) VUID-VkVideoBeginCodingInfoKHR-videoSession-07247
@@ -5432,12 +5479,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdEndVideoCodingKHR-commandBuffer-cmdpool) VUID-vkCmdEndVideoCodingKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdEndVideoCodingKHR-renderpass) VUID-vkCmdEndVideoCodingKHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdEndVideoCodingKHR-suspended) VUID-vkCmdEndVideoCodingKHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdEndVideoCodingKHR-videocoding) VUID-vkCmdEndVideoCodingKHR-videocoding
@@ -5460,9 +5512,9 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Outside | Inside | Decode
+| Primary | Outside | Inside | VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Action
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action
 
 State |
 
@@ -5603,12 +5655,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdControlVideoCodingKHR-commandBuffer-cmdpool) VUID-vkCmdControlVideoCodingKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support decode, or encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_VIDEO_DECODE_BIT_KHR`, or `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdControlVideoCodingKHR-renderpass) VUID-vkCmdControlVideoCodingKHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdControlVideoCodingKHR-suspended) VUID-vkCmdControlVideoCodingKHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdControlVideoCodingKHR-videocoding) VUID-vkCmdControlVideoCodingKHR-videocoding
@@ -5631,9 +5688,9 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Outside | Inside | Decode
+| Primary | Outside | Inside | VK_QUEUE_VIDEO_DECODE_BIT_KHR
 
-Encode | Action |
+VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action |
 
 Conditional Rendering
 
@@ -5969,7 +6026,7 @@ is [activated](#dpb-slot-states) with the
 
 When [reconstructed picture information](#decode-reconstructed-picture-info)
 is provided, the specified [DPB slot](#dpb-slot) index is associated with
-the corresponding [bound reference picture resource](#bound-reference-picture-resources), indifferent of whether [reference picture setup](#decode-ref-pic-setup) is requested.
+the corresponding [bound reference picture resource](#bound-reference-picture-resources), regardless of whether [reference picture setup](#decode-ref-pic-setup) is requested.
 
 When calling [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) with
 `pVideoProfile->videoCodecOperation` specifying a decode operation, the
@@ -6462,7 +6519,8 @@ video session was created with
 [](#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07146) VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07146
 
 `pDecodeInfo->dstPictureResource.imageViewBinding` **must** have been
-created with `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`
+created with the `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` usage
+flag set
 
 [](#VUID-vkCmdDecodeVideoKHR-commandBuffer-07147) VUID-vkCmdDecodeVideoKHR-commandBuffer-07147
 
@@ -7159,12 +7217,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDecodeVideoKHR-commandBuffer-cmdpool) VUID-vkCmdDecodeVideoKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support decode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_VIDEO_DECODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdDecodeVideoKHR-renderpass) VUID-vkCmdDecodeVideoKHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdDecodeVideoKHR-suspended) VUID-vkCmdDecodeVideoKHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdDecodeVideoKHR-videocoding) VUID-vkCmdDecodeVideoKHR-videocoding
@@ -7187,7 +7250,7 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Outside | Inside | Decode | Action |
+| Primary | Outside | Inside | VK_QUEUE_VIDEO_DECODE_BIT_KHR | Action |
 
 Conditional Rendering
 
@@ -7256,8 +7319,8 @@ Valid Usage
 * 
 [](#VUID-VkVideoDecodeInfoKHR-srcBuffer-07165) VUID-VkVideoDecodeInfoKHR-srcBuffer-07165
 
-`srcBuffer` **must** have been created with
-`VK_BUFFER_USAGE_VIDEO_DECODE_SRC_BIT_KHR` set
+`srcBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_VIDEO_DECODE_SRC_BIT_KHR` usage flag set
 
 * 
 [](#VUID-VkVideoDecodeInfoKHR-srcBufferOffset-07166) VUID-VkVideoDecodeInfoKHR-srcBufferOffset-07166
@@ -10808,7 +10871,7 @@ Writes the reconstructed picture data to the [     reconstructed picture](#recon
 
 When [reconstructed picture information](#encode-reconstructed-picture-info)
 is provided, the specified [DPB slot](#dpb-slot) index is associated with
-the corresponding [bound reference picture resource](#bound-reference-picture-resources), indifferent of whether [reference picture setup](#encode-ref-pic-setup) is requested.
+the corresponding [bound reference picture resource](#bound-reference-picture-resources), regardless of whether [reference picture setup](#encode-ref-pic-setup) is requested.
 
 When calling [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) with
 `pVideoProfile->videoCodecOperation` specifying an encode operation, the
@@ -12051,7 +12114,8 @@ video session was created with
 [](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08210) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08210
 
 `pEncodeInfo->srcPictureResource.imageViewBinding` **must** have been
-created with `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR`
+created with the `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR` usage
+flag set
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-commandBuffer-08211) VUID-vkCmdEncodeVideoKHR-commandBuffer-08211
@@ -12223,8 +12287,9 @@ If `pEncodeInfo->flags` includes
 `VK_VIDEO_ENCODE_WITH_QUANTIZATION_DELTA_MAP_BIT_KHR`, then the
 `VkImageView` specified by the `quantizationMap` member of the
 [VkVideoEncodeQuantizationMapInfoKHR](#VkVideoEncodeQuantizationMapInfoKHR) structure included in the
-`pNext` chain of `pEncodeInfo` **must** have been created with
-`VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR`
+`pNext` chain of `pEncodeInfo` **must** have been created with the
+`VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR` usage
+flag set
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10312) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10312
@@ -12233,8 +12298,8 @@ If `pEncodeInfo->flags` includes
 `VK_VIDEO_ENCODE_WITH_EMPHASIS_MAP_BIT_KHR`, then the
 `VkImageView` specified by the `quantizationMap` member of the
 [VkVideoEncodeQuantizationMapInfoKHR](#VkVideoEncodeQuantizationMapInfoKHR) structure included in the
-`pNext` chain of `pEncodeInfo` **must** have been created with
-`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR`
+`pNext` chain of `pEncodeInfo` **must** have been created with the
+`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` usage flag set
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-pNext-10313) VUID-vkCmdEncodeVideoKHR-pNext-10313
@@ -13446,12 +13511,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdEncodeVideoKHR-commandBuffer-cmdpool) VUID-vkCmdEncodeVideoKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support encode operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` operations
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-renderpass) VUID-vkCmdEncodeVideoKHR-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-suspended) VUID-vkCmdEncodeVideoKHR-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-videocoding) VUID-vkCmdEncodeVideoKHR-videocoding
@@ -13474,7 +13544,7 @@ Host access to the `VkCommandPool` that `commandBuffer` was allocated from **mus
 Command Properties
 | [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
-| Primary | Outside | Inside | Encode | Action |
+| Primary | Outside | Inside | VK_QUEUE_VIDEO_ENCODE_BIT_KHR | Action |
 
 Conditional Rendering
 
@@ -13550,8 +13620,8 @@ Valid Usage
 * 
 [](#VUID-VkVideoEncodeInfoKHR-dstBuffer-08236) VUID-VkVideoEncodeInfoKHR-dstBuffer-08236
 
-`dstBuffer` **must** have been created with
-`VK_BUFFER_USAGE_VIDEO_ENCODE_DST_BIT_KHR` set
+`dstBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_VIDEO_ENCODE_DST_BIT_KHR` usage flag set
 
 * 
 [](#VUID-VkVideoEncodeInfoKHR-dstBufferOffset-08237) VUID-VkVideoEncodeInfoKHR-dstBufferOffset-08237
@@ -15257,6 +15327,381 @@ Valid Usage (Implicit)
 [](#VUID-VkVideoEncodeQuantizationMapInfoKHR-quantizationMap-parameter) VUID-VkVideoEncodeQuantizationMapInfoKHR-quantizationMap-parameter
 
  If `quantizationMap` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), `quantizationMap` **must** be a valid [VkImageView](resources.html#VkImageView) handle
+
+R′G′B′ to Y′CBCR conversion performs the following operations to the
+[encode input picture](#encode-input-picture) before video coding:
+
+* 
+[R′G′B′ Range Compression](#encode-rgb-conversion-range-compression)
+
+* 
+[R′G′B′ Model Conversion](#encode-rgb-conversion-model-conversion)
+
+* 
+[R′G′B′  Chroma Subsampling and Quantization](#encode-rgb-conversion-chroma-subsampling-and-quantization)
+
+When calling [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) with
+`pVideoProfile->videoCodecOperation` specifying an encode operation, the
+[VkVideoEncodeRgbConversionCapabilitiesVALVE](#VkVideoEncodeRgbConversionCapabilitiesVALVE) structure **can** be included
+in the `pNext` chain of the [VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR) structure to
+retrieve capabilities specific to video encode R′G′B′ conversion.
+
+The `VkVideoEncodeRgbConversionCapabilitiesVALVE` structure is defined
+as:
+
+// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef struct VkVideoEncodeRgbConversionCapabilitiesVALVE {
+    VkStructureType                               sType;
+    void*                                         pNext;
+    VkVideoEncodeRgbModelConversionFlagsVALVE     rgbModels;
+    VkVideoEncodeRgbRangeCompressionFlagsVALVE    rgbRanges;
+    VkVideoEncodeRgbChromaOffsetFlagsVALVE        xChromaOffsets;
+    VkVideoEncodeRgbChromaOffsetFlagsVALVE        yChromaOffsets;
+} VkVideoEncodeRgbConversionCapabilitiesVALVE;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`rgbModels` is a bitmask of
+[VkVideoEncodeRgbModelConversionFlagBitsVALVE](#VkVideoEncodeRgbModelConversionFlagBitsVALVE) describing supported
+[model conversions](#encode-rgb-conversion-model-conversion) for video
+encode R′G′B′ conversion.
+
+* 
+`rgbRanges` is a bitmask of
+[VkVideoEncodeRgbRangeCompressionFlagBitsVALVE](#VkVideoEncodeRgbRangeCompressionFlagBitsVALVE) describing supported
+[range compressions](#encode-rgb-conversion-range-compression) for video
+encode R′G′B′ conversion.
+
+* 
+`xChromaOffsets` is a bitmask of
+[VkVideoEncodeRgbChromaOffsetFlagBitsVALVE](#VkVideoEncodeRgbChromaOffsetFlagBitsVALVE) describing supported
+offsets of the output location of the downsampled chroma component on
+the X axis for video encode R′G′B′ conversion.
+
+* 
+`yChromaOffsets` is a bitmask of
+[VkVideoEncodeRgbChromaOffsetFlagBitsVALVE](#VkVideoEncodeRgbChromaOffsetFlagBitsVALVE) describing supported
+offsets of the output location of the downsampled chroma component on
+the Y axis for video encode R′G′B′ conversion.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkVideoEncodeRgbConversionCapabilitiesVALVE-sType-sType) VUID-VkVideoEncodeRgbConversionCapabilitiesVALVE-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE`
+
+The video encode R′G′B′ range compression to be applied to color
+component values of the [encode input picture](#encode-input-picture) before
+video coding is defined by the `rgbRange` member of the
+[VkVideoEncodeSessionRgbConversionCreateInfoVALVE](#VkVideoEncodeSessionRgbConversionCreateInfoVALVE) structure.
+
+The [VkVideoEncodeRgbRangeCompressionFlagBitsVALVE](#VkVideoEncodeRgbRangeCompressionFlagBitsVALVE) enum describes
+whether color components are encoded using the full range of numerical
+values or whether values are reserved for headroom and foot room:
+
+// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef enum VkVideoEncodeRgbRangeCompressionFlagBitsVALVE {
+    VK_VIDEO_ENCODE_RGB_RANGE_COMPRESSION_FULL_RANGE_BIT_VALVE = 0x00000001,
+    VK_VIDEO_ENCODE_RGB_RANGE_COMPRESSION_NARROW_RANGE_BIT_VALVE = 0x00000002,
+} VkVideoEncodeRgbRangeCompressionFlagBitsVALVE;
+
+* 
+`VK_VIDEO_ENCODE_RGB_RANGE_COMPRESSION_FULL_RANGE_BIT_VALVE`
+specifies the following transformations are applied:
+
+  
+
+  
+
+|  | These formulae correspond to the “full range” encoding in the
+| --- | --- |
+“Quantization schemes” chapter of the [Khronos Data Format Specification](introduction.html#data-format).
+
+Should any future amendments be made to the ITU specifications from which
+these equations are derived, the formulae used by Vulkan **may** also be
+updated to maintain parity. |
+
+* 
+`VK_VIDEO_ENCODE_RGB_RANGE_COMPRESSION_NARROW_RANGE_BIT_VALVE`
+specifies the following transformations are applied:
+
+  
+
+  
+
+|  | These formulae correspond to the “narrow range” encoding in the
+| --- | --- |
+“Quantization schemes” chapter of the [Khronos Data Format Specification](introduction.html#data-format).
+
+Unlike [sampler Y′CBCR range expansion](textures.html#textures-sampler-YCbCr-conversion-rangeexpand), no precision guarantees are made for video encode
+R′G′B′ range compression. |
+
+* 
+*n* is the bit-depth of the components in the bound video session’s
+`pictureFormat`.
+
+|  | Video encode R′G′B′ range compression transformations have the inverse
+| --- | --- |
+definition of the [sampler Y′CBCR range expansion](textures.html#textures-sampler-YCbCr-conversion-rangeexpand) transformations. |
+
+// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef VkFlags VkVideoEncodeRgbRangeCompressionFlagsVALVE;
+
+[VkVideoEncodeRgbRangeCompressionFlagsVALVE](#VkVideoEncodeRgbRangeCompressionFlagsVALVE) is a bitmask type for
+setting a mask of zero or more
+[VkVideoEncodeRgbRangeCompressionFlagBitsVALVE](#VkVideoEncodeRgbRangeCompressionFlagBitsVALVE).
+
+The range-compressed values are converted between color models, according to
+the color model conversion specified in the `rgbModel` member of the
+[VkVideoEncodeSessionRgbConversionCreateInfoVALVE](#VkVideoEncodeSessionRgbConversionCreateInfoVALVE) structure.
+
+[VkVideoEncodeRgbModelConversionFlagBitsVALVE](#VkVideoEncodeRgbModelConversionFlagBitsVALVE) defines the conversion
+from the [encode input picture](#encode-input-picture-info)'s color model to
+the encode color model.
+
+// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef enum VkVideoEncodeRgbModelConversionFlagBitsVALVE {
+    VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_RGB_IDENTITY_BIT_VALVE = 0x00000001,
+    VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_IDENTITY_BIT_VALVE = 0x00000002,
+    VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_709_BIT_VALVE = 0x00000004,
+    VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_601_BIT_VALVE = 0x00000008,
+    VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_2020_BIT_VALVE = 0x00000010,
+} VkVideoEncodeRgbModelConversionFlagBitsVALVE;
+
+* 
+`VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_RGB_IDENTITY_BIT_VALVE`
+specifies the color components are not modified by the color model
+conversion since they are assumed to represent the desired color model
+for video coding; R′G′B′ range compression is applied to the
+components.
+
+* 
+`VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_IDENTITY_BIT_VALVE`
+specifies the color components are not modified by the color model
+conversion are assumed to be treated as though in Y′CBCR form; video
+encode R′G′B′ range compression and video encode R′G′B′ chroma
+subsampling is also ignored.
+
+* 
+`VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_709_BIT_VALVE` specifies
+the color components are transformed from an R′G′B′ representation
+to a Y′CBCR representation as described in the “BT.709 Y′CBCR
+conversion” section of the [Khronos Data Format    Specification](introduction.html#data-format).
+
+* 
+`VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_601_BIT_VALVE` specifies
+the color components are transformed from an R′G′B′ representation
+to a Y′CBCR representation as described in the “BT.601 Y′CBCR
+conversion” section of the [Khronos Data Format    Specification](introduction.html#data-format).
+
+* 
+`VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_2020_BIT_VALVE`
+specifies the color components are transformed from an R′G′B′
+representation to a Y′CBCR representation as described in the “BT.2020
+Y′CBCR conversion” section of the [Khronos Data Format    Specification](introduction.html#data-format).
+
+|  | Video encode R′G′B′ model conversion transformations have the inverse
+| --- | --- |
+definition of [sampler Y′CBCR model conversion](textures.html#textures-sampler-YCbCr-conversion-modelconversion) transformations. |
+
+|  | The video encode R′G′B′ model conversion step does not apply any
+| --- | --- |
+transfer function, only converting from R′G′B′ to Y′CBCR using the
+primaries of the specified `rgbModel` color model. |
+
+// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef VkFlags VkVideoEncodeRgbModelConversionFlagsVALVE;
+
+[VkVideoEncodeRgbModelConversionFlagsVALVE](#VkVideoEncodeRgbModelConversionFlagsVALVE) is a bitmask type for
+setting a mask of zero or more
+[VkVideoEncodeRgbModelConversionFlagBitsVALVE](#VkVideoEncodeRgbModelConversionFlagBitsVALVE).
+
+The model-converted values are chroma subsampled and quantized, according to
+the `chromaSubsampling`, `lumaBitDepth` and `chromaBitDepth`
+values specified by the bound video session.
+
+The [VkVideoEncodeRgbChromaOffsetFlagBitsVALVE](#VkVideoEncodeRgbChromaOffsetFlagBitsVALVE) enum defines the
+location of downsampled chroma component samples relative to the luma
+samples for video encode R′G′B′ conversion, and is defined as:
+
+// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef enum VkVideoEncodeRgbChromaOffsetFlagBitsVALVE {
+    VK_VIDEO_ENCODE_RGB_CHROMA_OFFSET_COSITED_EVEN_BIT_VALVE = 0x00000001,
+    VK_VIDEO_ENCODE_RGB_CHROMA_OFFSET_MIDPOINT_BIT_VALVE = 0x00000002,
+} VkVideoEncodeRgbChromaOffsetFlagBitsVALVE;
+
+* 
+`VK_VIDEO_ENCODE_RGB_CHROMA_OFFSET_COSITED_EVEN_BIT_VALVE` specifies
+that downsampled chroma samples are aligned with luma samples with even
+coordinates.
+
+* 
+`VK_VIDEO_ENCODE_RGB_CHROMA_OFFSET_MIDPOINT_BIT_VALVE` specifies
+that downsampled chroma samples are located half way between each even
+luma sample and the nearest higher odd luma sample.
+
+The output location of downsampled chroma components are specified by the
+`xChromaOffset` and `yChromaOffset` values of the
+[VkVideoEncodeSessionRgbConversionCreateInfoVALVE](#VkVideoEncodeSessionRgbConversionCreateInfoVALVE) structure:
+
+Chroma subsampling is described in more detail in the
+[Chroma Reconstruction](textures.html#textures-chroma-reconstruction) section.
+
+// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef VkFlags VkVideoEncodeRgbChromaOffsetFlagsVALVE;
+
+[VkVideoEncodeRgbChromaOffsetFlagsVALVE](#VkVideoEncodeRgbChromaOffsetFlagsVALVE) is a bitmask type for setting a
+mask of zero or more [VkVideoEncodeRgbChromaOffsetFlagBitsVALVE](#VkVideoEncodeRgbChromaOffsetFlagBitsVALVE).
+
+A video profile supporting video encode R′G′B′ conversion is specified
+by an `pVideoProfile->videoCodecOperation` specifying an encode
+operation and including a `VkVideoEncodeProfileRgbConversionInfoVALVE`
+structure in the `pNext` chain of the [VkVideoProfileInfoKHR](#VkVideoProfileInfoKHR)
+structure and enabling `performEncodeRgbConversion`.
+
+The `VkVideoEncodeProfileRgbConversionInfoVALVE` structure is defined
+as:
+
+// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef struct VkVideoEncodeProfileRgbConversionInfoVALVE {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkBool32           performEncodeRgbConversion;
+} VkVideoEncodeProfileRgbConversionInfoVALVE;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`performEncodeRgbConversion` is a boolean value indicating whether
+video encode R′G′B′ conversion will be used for the encode
+operation.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkVideoEncodeProfileRgbConversionInfoVALVE-sType-sType) VUID-VkVideoEncodeProfileRgbConversionInfoVALVE-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE`
+
+The `VkVideoEncodeSessionRgbConversionCreateInfoVALVE` structure **can** be
+included in the `pNext` chain of the [VkVideoSessionCreateInfoKHR](#VkVideoSessionCreateInfoKHR)
+to specify the R′G′B′ conversion parameters used by the issued video
+encode operations of the video session.
+
+The `VkVideoEncodeSessionRgbConversionCreateInfoVALVE` structure is
+defined as:
+
+// Provided by VK_VALVE_video_encode_rgb_conversion
+typedef struct VkVideoEncodeSessionRgbConversionCreateInfoVALVE {
+    VkStructureType                                  sType;
+    const void*                                      pNext;
+    VkVideoEncodeRgbModelConversionFlagBitsVALVE     rgbModel;
+    VkVideoEncodeRgbRangeCompressionFlagBitsVALVE    rgbRange;
+    VkVideoEncodeRgbChromaOffsetFlagBitsVALVE        xChromaOffset;
+    VkVideoEncodeRgbChromaOffsetFlagBitsVALVE        yChromaOffset;
+} VkVideoEncodeSessionRgbConversionCreateInfoVALVE;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`rgbModel` is the used
+[R′G′B′ model conversion](#encode-rgb-conversion-model-conversion)
+for the R′G′B′ conversion.
+
+* 
+`rgbRange` is the used
+[R′G′B′ range compression](#encode-rgb-conversion-range-compression)
+for the R′G′B′ conversion.
+
+* 
+`xChromaOffset` describes the output location of downsampled chroma
+components in the x dimension for the R′G′B′ conversion.
+
+* 
+`yChromaOffset` describes the output location of downsampled chroma
+components in the y dimension for the R′G′B′ conversion.
+
+Valid Usage
+
+* 
+[](#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbModel-10930) VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbModel-10930
+
+`rgbModel` **must** only be a bit set in
+[VkVideoEncodeRgbConversionCapabilitiesVALVE](#VkVideoEncodeRgbConversionCapabilitiesVALVE)::`rgbModels` as
+returned by [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) with
+`VkVideoEncodeRgbConversionCapabilitiesVALVE` in the `pNext`
+chain of `VkVideoCapabilitiesKHR` with the given `pVideoProfile`
+
+* 
+[](#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbRange-10931) VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbRange-10931
+
+`rgbRange` **must** only be a bit set in
+[VkVideoEncodeRgbConversionCapabilitiesVALVE](#VkVideoEncodeRgbConversionCapabilitiesVALVE)::`rgbRanges` as
+returned by [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) with
+`VkVideoEncodeRgbConversionCapabilitiesVALVE` in the `pNext`
+chain of `VkVideoCapabilitiesKHR` with the given `pVideoProfile`
+
+* 
+[](#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-xChromaOffset-10932) VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-xChromaOffset-10932
+
+`xChromaOffset` **must** only be a bit set in
+[VkVideoEncodeRgbConversionCapabilitiesVALVE](#VkVideoEncodeRgbConversionCapabilitiesVALVE)::`xChromaOffsets`
+as returned by [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) with
+`VkVideoEncodeRgbConversionCapabilitiesVALVE` in the `pNext`
+chain of `VkVideoCapabilitiesKHR` with the given `pVideoProfile`
+
+* 
+[](#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-yChromaOffset-10933) VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-yChromaOffset-10933
+
+`yChromaOffset` **must** only be a bit set in
+[VkVideoEncodeRgbConversionCapabilitiesVALVE](#VkVideoEncodeRgbConversionCapabilitiesVALVE)::`yChromaOffsets`
+as returned by [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) with
+`VkVideoEncodeRgbConversionCapabilitiesVALVE` in the `pNext`
+chain of `VkVideoCapabilitiesKHR` with the given `pVideoProfile`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-sType-sType) VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE`
+
+* 
+[](#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbModel-parameter) VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbModel-parameter
+
+ `rgbModel` **must** be a valid [VkVideoEncodeRgbModelConversionFlagBitsVALVE](#VkVideoEncodeRgbModelConversionFlagBitsVALVE) value
+
+* 
+[](#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbRange-parameter) VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-rgbRange-parameter
+
+ `rgbRange` **must** be a valid [VkVideoEncodeRgbRangeCompressionFlagBitsVALVE](#VkVideoEncodeRgbRangeCompressionFlagBitsVALVE) value
+
+* 
+[](#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-xChromaOffset-parameter) VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-xChromaOffset-parameter
+
+ `xChromaOffset` **must** be a valid [VkVideoEncodeRgbChromaOffsetFlagBitsVALVE](#VkVideoEncodeRgbChromaOffsetFlagBitsVALVE) value
+
+* 
+[](#VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-yChromaOffset-parameter) VUID-VkVideoEncodeSessionRgbConversionCreateInfoVALVE-yChromaOffset-parameter
+
+ `yChromaOffset` **must** be a valid [VkVideoEncodeRgbChromaOffsetFlagBitsVALVE](#VkVideoEncodeRgbChromaOffsetFlagBitsVALVE) value
 
 Video encode operations using an [H.264 encode profile](#encode-h264-profile) **can** be used to encode elementary video stream sequences compliant
 to the [ITU-T H.264 Specification](introduction.html#itu-t-h264).
@@ -21549,7 +21994,7 @@ specifies whether the implementation supports using the
 application-provided value for
 `StdVideoAV1TileInfoFlags`::`uniform_tile_spacing_flag` in the
 [AV1 tile parameters](#encode-av1-tile-params) when that value is `1`,
-indifferent of the coded extent of the [encode    input picture](#encode-input-picture) and the number of tile columns and rows requested in the
+regardless of the coded extent of the [encode    input picture](#encode-input-picture) and the number of tile columns and rows requested in the
 `TileCols` and `TileRows` members of `StdVideoAV1TileInfo`.
 
 * 
@@ -22460,7 +22905,7 @@ display order.
 
 |  | While the application can specify any rate control group for any frame,
 | --- | --- |
-indifferent of the frame type, prediction mode, or prediction direction,
+regardless of the frame type, prediction mode, or prediction direction,
 specifying a rate control group that does not reflect the prediction
 direction used by the encoded frame may result in unexpected behavior of the
 implementation’s rate control algorithm. |

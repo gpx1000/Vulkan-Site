@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures {
     VkBool32           shaderZeroInitializeWorkgroupMemory;
 } VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_zero_initialize_workgroup_memory
+// Equivalent to VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures
 typedef VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR;
 
 This structure describes the following feature:

@@ -21,7 +21,7 @@ VkAttachmentDescription2 - Structure specifying an attachment description
 
 The `VkAttachmentDescription2` structure is defined as:
 
-|  | This functionality is deprecated by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Deprecated Functionality](../../../../spec/latest/appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is superseded by [Vulkan Version 1.4](../../../../spec/latest/appendices/versions.html#versions-1.4). See [Legacy Functionality](../../../../spec/latest/appendices/legacy.html#legacy-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -39,9 +39,8 @@ typedef struct VkAttachmentDescription2 {
     VkImageLayout                   finalLayout;
 } VkAttachmentDescription2;
 
-or the equivalent
-
 // Provided by VK_KHR_create_renderpass2
+// Equivalent to VkAttachmentDescription2
 typedef VkAttachmentDescription2 VkAttachmentDescription2KHR;
 
 * 
@@ -304,6 +303,51 @@ If the [    `dynamicRenderingLocalRead`](../../../../spec/latest/chapters/featur
 `VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ`
 
 * 
+[](#VUID-VkAttachmentDescription2-flags-11773) VUID-VkAttachmentDescription2-flags-11773
+
+If `flags` includes
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR`,
+`flags` **must** not include
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`
+
+* 
+[](#VUID-VkAttachmentDescription2-flags-11774) VUID-VkAttachmentDescription2-flags-11774
+
+If `flags` includes
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR`
+or
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`,
+[`resolveSrgbFormatSupportsTransferFunctionControl`](../../../../spec/latest/chapters/limits.html#limits-resolveSrgbFormatSupportsTransferFunctionControl)
+**must** be `VK_TRUE`
+
+* 
+[](#VUID-VkAttachmentDescription2-flags-11775) VUID-VkAttachmentDescription2-flags-11775
+
+If `flags` includes
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR`
+or
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`,
+[`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) **must** be enabled
+
+* 
+[](#VUID-VkAttachmentDescription2-flags-11776) VUID-VkAttachmentDescription2-flags-11776
+
+If `flags` includes
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR`
+or
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`,
+`format` **must** use sRGB encoding
+
+* 
+[](#VUID-VkAttachmentDescription2-flags-11777) VUID-VkAttachmentDescription2-flags-11777
+
+If `flags` includes
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR`
+or
+`VK_ATTACHMENT_DESCRIPTION_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR`,
+`samples` **must** be `VK_SAMPLE_COUNT_1_BIT`
+
+* 
 [](#VUID-VkAttachmentDescription2-pNext-06704) VUID-VkAttachmentDescription2-pNext-06704
 
 If
@@ -383,7 +427,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkAttachmentDescription2-pNext-pNext) VUID-VkAttachmentDescription2-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAttachmentDescriptionStencilLayout](VkAttachmentDescriptionStencilLayout.html) or [VkExternalFormatANDROID](VkExternalFormatANDROID.html)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAttachmentDescriptionStencilLayout](VkAttachmentDescriptionStencilLayout.html), [VkExternalFormatANDROID](VkExternalFormatANDROID.html), or [VkExternalFormatOHOS](VkExternalFormatOHOS.html)
 
 * 
 [](#VUID-VkAttachmentDescription2-sType-unique) VUID-VkAttachmentDescription2-sType-unique

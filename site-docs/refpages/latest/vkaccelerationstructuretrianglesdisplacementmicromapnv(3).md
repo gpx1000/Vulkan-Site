@@ -88,7 +88,9 @@ primitive flag values.
 micromap.
 
 * 
-`indexBuffer` is the address containing the triangle indices.
+`indexBuffer` is a device or host address of memory containing the
+triangle indices.
+When `indexType` is `VK_INDEX_TYPE_NONE_KHR` it **must** be `NULL`.
 
 * 
 `indexStride` is the byte stride between triangle indices.

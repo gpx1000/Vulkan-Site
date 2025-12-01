@@ -188,10 +188,10 @@ Update-after-bind Descriptor Sets
 Buffer array with dynamic indexing
 
 * 
-[Inline uniform buffer objects](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_inline_uniform_block.html) (click to read more)
+[Inline uniform buffer objects](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_EXT_inline_uniform_block.html) (click to read more)
 
 * 
-[Push descriptors](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_push_descriptor.html) (click to read more)
+[Push descriptors](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_KHR_push_descriptor.html) (click to read more)
 
 **Inline uniform buffer objects** and **push descriptors** are not covered by this tutorial, please use the links above to learn more about them.
 
@@ -241,7 +241,7 @@ layout(push_constant) uniform MeshData
 	mat4 model;
 } mesh_data;
 
-To then send the push constant data to the shader we use the [`vkCmdPushConstants`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#vkCmdPushConstants) function:
+To then send the push constant data to the shader we use the [`vkCmdPushConstants`](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html#vkCmdPushConstants) function:
 
 void vkCmdPushConstants(
     VkCommandBuffer                             commandBuffer,
@@ -282,7 +282,7 @@ So therefore we can deduce that for this shader we’d need a pipeline that has 
 To create a **descriptor set**, we need to allocate it from a **descriptor set pool** and give it a specific **descriptor set layout**.
 
 After a **descriptor set** is allocated, it needs to be updated with the **descriptors**.
-The update process requires us to specify a list of **write operations**, where a write operation is a [`VkWriteDescriptorSet`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkWriteDescriptorSet.html) struct.
+The update process requires us to specify a list of **write operations**, where a write operation is a [`VkWriteDescriptorSet`](https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWriteDescriptorSet.html) struct.
 
 Then the valid **descriptor set** is bound to a command buffer so that when `vkCmdDraw*()` commands are run, the right resources are made available in the GPU.
 
@@ -359,7 +359,7 @@ To control the value of `gl_InstanceIndex` we use the `uint32_t firstInstance` p
 
 It’s important to note that we can use other mechanisms to push this index to the shader, such as push constants.
 
-For example, this `vkCmdDrawIndexed` is taken from the [Vulkan spec](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexed.html):
+For example, this `vkCmdDrawIndexed` is taken from the [Vulkan spec](https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawIndexed.html):
 
 void vkCmdDrawIndexed(
     VkCommandBuffer                             commandBuffer,
@@ -398,7 +398,7 @@ To show this here is a Streamline capture of a Mali G76, showing the read cycles
 A few different stats are affected in the Mali GPU by using this, but the main thing is the **full read** in the **Mali Core Load/Store Cycles**.
 
 * 
-The [Vulkan 1.2 spec](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html)
+The [Vulkan 1.2 spec](https://www.khronos.org/registry/vulkan/specs/latest/html/vkspec.html)
 
 * 
 "Writing an efficient Vulkan renderer" by Arseny Kapoulkine [https://zeux.io/2020/02/27/writing-an-efficient-vulkan-renderer/](https://zeux.io/2020/02/27/writing-an-efficient-vulkan-renderer/)

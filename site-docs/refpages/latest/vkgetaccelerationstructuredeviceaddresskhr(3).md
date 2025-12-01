@@ -88,7 +88,7 @@ single `VkDeviceMemory` object
 
 The buffer on which `pInfo->accelerationStructure` was placed **must**
 have been created with the
-`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` usage flag
+`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` usage flag set
 
 Valid Usage (Implicit)
 

@@ -25,7 +25,7 @@
 Unlike earlier APIs, shader code in Vulkan has to be specified in a bytecode
 format as opposed to human-readable syntax like
 [GLSL](https://en.wikipedia.org/wiki/OpenGL_Shading_Language)
-[SLANG](https://shader-slang.org/slang/user-guide/), and
+[Slang](https://shader-slang.org/slang/user-guide/), and
 [HLSL](https://en.wikipedia.org/wiki/High-Level_Shading_Language).
 This bytecode format is called [SPIR-V](https://www.khronos.org/spir) and is designed
 to be used with Vulkan (a Khronos API). It is a format that

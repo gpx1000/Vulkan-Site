@@ -65,10 +65,11 @@ Some Vulkan commands specify geometric objects to be drawn or computational
 work to be performed, while others specify state controlling how objects are
 handled by the various pipeline stages, or control data transfer between
 memory organized as images and buffers.
-Commands are effectively sent through a processing pipeline, either a
-*graphics pipeline*,
+Commands are effectively sent through a processing pipeline, such as
+a *graphics pipeline*,
 a *ray tracing pipeline*,
-or a *compute pipeline*.
+or
+a *compute pipeline*.
 
 The graphics pipeline can be operated in two modes, as either *primitive
 shading* or *mesh shading* pipeline.
@@ -126,9 +127,10 @@ attachments of the framebuffer for a given subpass of a [render pass instance](r
 The attachments **can** be used as input attachments in the fragment shader in
 a later subpass of the same render pass.
 
-The [compute pipeline](#pipelines-compute) is a separate pipeline from the
-graphics pipeline, which operates on one-, two-, or three-dimensional
-workgroups which **can** read from and write to buffer and image memory.
+The [compute pipeline](#pipelines-compute)
+is a separate pipeline from the graphics pipeline, which
+operates on one-, two-, or three-dimensional workgroups which **can** read from
+and write to buffer and image memory.
 
 This ordering is meant only as a tool for describing Vulkan, not as a strict
 rule of how Vulkan is implemented, and we present it only as a means to
@@ -172,17 +174,32 @@ buffers executed in another queue.
 
 Compute,
 ray tracing,
-and graphics pipelines are each represented by `VkPipeline` handles:
+and
+graphics
+pipelines are each represented by `VkPipeline` handles:
 
 // Provided by VK_VERSION_1_0
 VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkPipeline)
 
-Multiple pipelines **can** be created in a single call by commands such as
+Multiple pipelines **can** be created in a single call by commands such as:
+
+* 
 [vkCreateExecutionGraphPipelinesAMDX](executiongraphs.html#vkCreateExecutionGraphPipelinesAMDX),
+
+* 
 [vkCreateRayTracingPipelinesKHR](#vkCreateRayTracingPipelinesKHR),
+
+* 
 [vkCreateRayTracingPipelinesNV](#vkCreateRayTracingPipelinesNV),
+
+* 
 [vkCreateDataGraphPipelinesARM](VK_ARM_data_graph/graphs.html#vkCreateDataGraphPipelinesARM),
-[vkCreateComputePipelines](#vkCreateComputePipelines), and [vkCreateGraphicsPipelines](#vkCreateGraphicsPipelines).
+
+* 
+[vkCreateGraphicsPipelines](#vkCreateGraphicsPipelines),
+
+* 
+[vkCreateComputePipelines](#vkCreateComputePipelines).
 
 The creation commands are passed an array `pCreateInfos` of
 `Vk*PipelineCreateInfo` structures specifying parameters of each
@@ -239,9 +256,8 @@ typedef struct VkPipelineCreateFlags2CreateInfo {
     VkPipelineCreateFlags2    flags;
 } VkPipelineCreateFlags2CreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkPipelineCreateFlags2CreateInfo
 typedef VkPipelineCreateFlags2CreateInfo VkPipelineCreateFlags2CreateInfoKHR;
 
 * 
@@ -271,11 +287,6 @@ Valid Usage (Implicit)
 [](#VUID-VkPipelineCreateFlags2CreateInfo-flags-parameter) VUID-VkPipelineCreateFlags2CreateInfo-flags-parameter
 
  `flags` **must** be a valid combination of [VkPipelineCreateFlagBits2](#VkPipelineCreateFlagBits2) values
-
-* 
-[](#VUID-VkPipelineCreateFlags2CreateInfo-flags-requiredbitmask) VUID-VkPipelineCreateFlags2CreateInfo-flags-requiredbitmask
-
- `flags` **must** not be `0`
 
 Bits which **can** be set in
 [VkPipelineCreateFlags2CreateInfo](#VkPipelineCreateFlags2CreateInfo)::`flags`, specifying how a
@@ -373,10 +384,11 @@ static const VkPipelineCreateFlagBits2 VK_PIPELINE_CREATE_2_CAPTURE_DATA_BIT_KHR
 static const VkPipelineCreateFlagBits2 VK_PIPELINE_CREATE_2_INDIRECT_BINDABLE_BIT_EXT = 0x4000000000ULL;
 // Provided by VK_VALVE_fragment_density_map_layered
 static const VkPipelineCreateFlagBits2 VK_PIPELINE_CREATE_2_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE = 0x10000000000ULL;
-
-or the equivalent
+// Provided by VK_EXT_shader_64bit_indexing
+static const VkPipelineCreateFlagBits2 VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT = 0x80000000000ULL;
 
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkPipelineCreateFlagBits2
 typedef VkPipelineCreateFlagBits2 VkPipelineCreateFlagBits2KHR;
 
 * 
@@ -616,6 +628,10 @@ pipeline will be used in an [execution graph](executiongraphs.html#executiongrap
 that the pipeline **must** not be used with acceleration structures which
 reference an opacity micromap array.
 
+* 
+`VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT` specifies that the
+pipeline enables [64-bit indexing](../appendices/spirvenv.html#spirvenv-64bindexing).
+
 It is valid to set both `VK_PIPELINE_CREATE_2_ALLOW_DERIVATIVES_BIT` and
 `VK_PIPELINE_CREATE_2_DERIVATIVE_BIT`.
 This allows a pipeline to be both a parent and possibly a child in a
@@ -647,9 +663,8 @@ as soon as it is available. |
 // Provided by VK_VERSION_1_4
 typedef VkFlags64 VkPipelineCreateFlags2;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance5
+// Equivalent to VkPipelineCreateFlags2
 typedef VkPipelineCreateFlags2 VkPipelineCreateFlags2KHR;
 
 `VkPipelineCreateFlags2` is a bitmask type for setting a mask of zero or
@@ -677,9 +692,9 @@ typedef enum VkPipelineCreateFlagBits {
     VK_PIPELINE_CREATE_ALLOW_DERIVATIVES_BIT = 0x00000002,
     VK_PIPELINE_CREATE_DERIVATIVE_BIT = 0x00000004,
   // Provided by VK_VERSION_1_1
-    VK_PIPELINE_CREATE_VIEW_INDEX_FROM_DEVICE_INDEX_BIT = 0x00000008,
-  // Provided by VK_VERSION_1_1
     VK_PIPELINE_CREATE_DISPATCH_BASE_BIT = 0x00000010,
+  // Provided by VK_VERSION_1_1
+    VK_PIPELINE_CREATE_VIEW_INDEX_FROM_DEVICE_INDEX_BIT = 0x00000008,
   // Provided by VK_VERSION_1_3
     VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT = 0x00000100,
   // Provided by VK_VERSION_1_3
@@ -735,20 +750,20 @@ typedef enum VkPipelineCreateFlagBits {
     VK_PIPELINE_CREATE_RAY_TRACING_DISPLACEMENT_MICROMAP_BIT_NV = 0x10000000,
 #endif
   // Provided by VK_VERSION_1_1
-  // VK_PIPELINE_CREATE_DISPATCH_BASE is a deprecated alias
+  // VK_PIPELINE_CREATE_DISPATCH_BASE is a legacy alias
     VK_PIPELINE_CREATE_DISPATCH_BASE = VK_PIPELINE_CREATE_DISPATCH_BASE_BIT,
   // Provided by VK_KHR_device_group
     VK_PIPELINE_CREATE_VIEW_INDEX_FROM_DEVICE_INDEX_BIT_KHR = VK_PIPELINE_CREATE_VIEW_INDEX_FROM_DEVICE_INDEX_BIT,
   // Provided by VK_KHR_device_group
     VK_PIPELINE_CREATE_DISPATCH_BASE_BIT_KHR = VK_PIPELINE_CREATE_DISPATCH_BASE_BIT,
   // Provided by VK_KHR_device_group
-  // VK_PIPELINE_CREATE_DISPATCH_BASE_KHR is a deprecated alias
+  // VK_PIPELINE_CREATE_DISPATCH_BASE_KHR is a legacy alias
     VK_PIPELINE_CREATE_DISPATCH_BASE_KHR = VK_PIPELINE_CREATE_DISPATCH_BASE_BIT,
   // Provided by VK_EXT_fragment_density_map with VK_VERSION_1_3 or VK_KHR_dynamic_rendering
-  // VK_PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT is a deprecated alias
+  // VK_PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT is a legacy alias
     VK_PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT = VK_PIPELINE_CREATE_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT,
   // Provided by VK_KHR_fragment_shading_rate with VK_VERSION_1_3 or VK_KHR_dynamic_rendering
-  // VK_PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR is a deprecated alias
+  // VK_PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR is a legacy alias
     VK_PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR = VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR,
   // Provided by VK_EXT_pipeline_creation_cache_control
     VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT_EXT = VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT,
@@ -1214,8 +1229,8 @@ describing the compute shader.
     equal to Vulkan 1.3
 or
     [VK_KHR_maintenance4](../appendices/extensions.html#VK_KHR_maintenance4) is enabled
-    `layout` **must** not be accessed outside of the duration of the
-    command this structure is passed to.
+    `layout` **must** not be accessed by the implementation outside of the
+    duration of the command this structure is passed to.
 
 * 
 `basePipelineHandle` is a pipeline to derive from.
@@ -1295,8 +1310,9 @@ descriptor type
 [](#VUID-VkComputePipelineCreateInfo-layout-07991) VUID-VkComputePipelineCreateInfo-layout-07991
 
 If a [resource variable](interfaces.html#interfaces-resources) is declared in a shader
-as an array, the corresponding descriptor set in `layout` **must**
-match the descriptor count
+as an array, the corresponding descriptor binding used to create
+`layout` **must** have a `descriptorCount` that is greater than or
+equal to the length of the array
 
 * 
 [](#VUID-VkComputePipelineCreateInfo-None-10391) VUID-VkComputePipelineCreateInfo-None-10391
@@ -1304,6 +1320,13 @@ match the descriptor count
 If a [resource variables](interfaces.html#interfaces-resources) is declared in a shader
 as an array of descriptors, then the descriptor type of that variable
 **must** not be `VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK`
+
+* 
+[](#VUID-VkComputePipelineCreateInfo-flags-11798) VUID-VkComputePipelineCreateInfo-flags-11798
+
+If [shader64BitIndexing](features.html#features-shader64BitIndexing) feature is not
+enabled, `flags` **must** not contain
+`VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT`
 
 * 
 [](#VUID-VkComputePipelineCreateInfo-flags-03365) VUID-VkComputePipelineCreateInfo-flags-03365
@@ -2068,18 +2091,18 @@ defined as:
 // Provided by VK_VERSION_1_3
 typedef struct VkPipelineShaderStageRequiredSubgroupSizeCreateInfo {
     VkStructureType    sType;
-    void*              pNext;
+    const void*        pNext;
     uint32_t           requiredSubgroupSize;
 } VkPipelineShaderStageRequiredSubgroupSizeCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_subgroup_size_control
+// Equivalent to VkPipelineShaderStageRequiredSubgroupSizeCreateInfo
 typedef VkPipelineShaderStageRequiredSubgroupSizeCreateInfo VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT;
 
 or the equiavlent
 
 // Provided by VK_EXT_shader_object
+// Equivalent to VkPipelineShaderStageRequiredSubgroupSizeCreateInfo
 typedef VkPipelineShaderStageRequiredSubgroupSizeCreateInfo VkShaderRequiredSubgroupSizeCreateInfoEXT;
 
 * 
@@ -2276,9 +2299,8 @@ typedef struct VkPipelineRobustnessCreateInfo {
     VkPipelineRobustnessImageBehavior     images;
 } VkPipelineRobustnessCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_robustness
+// Equivalent to VkPipelineRobustnessCreateInfo
 typedef VkPipelineRobustnessCreateInfo VkPipelineRobustnessCreateInfoEXT;
 
 * 
@@ -2504,9 +2526,8 @@ typedef enum VkPipelineRobustnessBufferBehavior {
     VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2_EXT = VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2,
 } VkPipelineRobustnessBufferBehavior;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_robustness
+// Equivalent to VkPipelineRobustnessBufferBehavior
 typedef VkPipelineRobustnessBufferBehavior VkPipelineRobustnessBufferBehaviorEXT;
 
 * 
@@ -2548,9 +2569,8 @@ typedef enum VkPipelineRobustnessImageBehavior {
     VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS_2_EXT = VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS_2,
 } VkPipelineRobustnessImageBehavior;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_robustness
+// Equivalent to VkPipelineRobustnessImageBehavior
 typedef VkPipelineRobustnessImageBehavior VkPipelineRobustnessImageBehaviorEXT;
 
 * 
@@ -2720,8 +2740,8 @@ returned by [vkGetPipelineIndirectMemoryRequirementsNV](device_generated_command
 [](#VUID-VkComputePipelineIndirectBufferInfoNV-deviceAddress-09012) VUID-VkComputePipelineIndirectBufferInfoNV-deviceAddress-09012
 
 `deviceAddress` **must** have been allocated from a buffer that was
-created with usage `VK_BUFFER_USAGE_TRANSFER_DST_BIT` and
-`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT`
+created with both the `VK_BUFFER_USAGE_TRANSFER_DST_BIT` and
+`VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` usage flags set
 
 * 
 [](#VUID-VkComputePipelineIndirectBufferInfoNV-size-09013) VUID-VkComputePipelineIndirectBufferInfoNV-size-09013
@@ -2855,12 +2875,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdUpdatePipelineIndirectBufferNV-commandBuffer-cmdpool) VUID-vkCmdUpdatePipelineIndirectBufferNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdUpdatePipelineIndirectBufferNV-renderpass) VUID-vkCmdUpdatePipelineIndirectBufferNV-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdUpdatePipelineIndirectBufferNV-suspended) VUID-vkCmdUpdatePipelineIndirectBufferNV-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdUpdatePipelineIndirectBufferNV-videocoding) VUID-vkCmdUpdatePipelineIndirectBufferNV-videocoding
@@ -2885,11 +2910,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 
@@ -3244,8 +3269,8 @@ dynamic.
     equal to Vulkan 1.3
 or
     [VK_KHR_maintenance4](../appendices/extensions.html#VK_KHR_maintenance4) is enabled
-    `layout` **must** not be accessed outside of the duration of the
-    command this structure is passed to.
+    `layout` **must** not be accessed by the implementation outside of the
+    duration of the command this structure is passed to.
 
 * 
 `renderPass` is a handle to a render pass object describing the
@@ -3414,6 +3439,11 @@ flag
 Inclusion/omission of the
 `VK_PIPELINE_CREATE_2_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE` flag
 
+The `customResolve` parameter of [VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT).
+Formats are ignored, and not including the structure behaves identically
+to setting `customResolve` to `VK_FALSE`, unlike in
+[fragment output interface    state](#pipelines-graphics-subsets-fragment-output).
+
 If
 a pipeline specifies
 [pre-rasterization state](#pipelines-graphics-subsets-pre-rasterization)
@@ -3455,6 +3485,9 @@ Fragment output state is defined by:
 
 * 
 [VkExternalFormatANDROID](resources.html#VkExternalFormatANDROID)
+
+* 
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT)
 
 * 
 Inclusion/omission of the
@@ -3590,8 +3623,9 @@ descriptor type
 [](#VUID-VkGraphicsPipelineCreateInfo-layout-07991) VUID-VkGraphicsPipelineCreateInfo-layout-07991
 
 If a [resource variable](interfaces.html#interfaces-resources) is declared in a shader
-as an array, the corresponding descriptor set in `layout` **must**
-match the descriptor count
+as an array, the corresponding descriptor binding used to create
+`layout` **must** have a `descriptorCount` that is greater than or
+equal to the length of the array
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-None-10391) VUID-VkGraphicsPipelineCreateInfo-None-10391
@@ -3599,6 +3633,13 @@ match the descriptor count
 If a [resource variables](interfaces.html#interfaces-resources) is declared in a shader
 as an array of descriptors, then the descriptor type of that variable
 **must** not be `VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK`
+
+* 
+[](#VUID-VkGraphicsPipelineCreateInfo-flags-11798) VUID-VkGraphicsPipelineCreateInfo-flags-11798
+
+If [shader64BitIndexing](features.html#features-shader64BitIndexing) feature is not
+enabled, `flags` **must** not contain
+`VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT`
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-stage-02096) VUID-VkGraphicsPipelineCreateInfo-stage-02096
@@ -3748,13 +3789,6 @@ is `VK_FALSE`,
 a `PointSize` decorated variable **must** be written to
 if the [`maintenance5`](features.html#features-maintenance5) feature is not
 enabled
-
-* 
-[](#VUID-VkGraphicsPipelineCreateInfo-maintenance5-08775) VUID-VkGraphicsPipelineCreateInfo-maintenance5-08775
-
-If the [`maintenance5`](features.html#features-maintenance5) feature is enabled
-and a `PointSize` decorated variable is written to, all execution
-paths **must** write to a `PointSize` decorated variable
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-TessellationEvaluation-07724) VUID-VkGraphicsPipelineCreateInfo-TessellationEvaluation-07724
@@ -4963,21 +4997,25 @@ member of `pDynamicState` set to
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-rasterizationSamples-04899) VUID-VkGraphicsPipelineCreateInfo-rasterizationSamples-04899
 
-If the pipeline requires [    fragment shader state](#pipelines-graphics-subsets-fragment-shader), and the
-`[VK_QCOM_render_pass_shader_resolve](../appendices/extensions.html#VK_QCOM_render_pass_shader_resolve)` extension is enabled,
-`rasterizationSamples` is not dynamic, and if subpass has any input
-attachments, and if the subpass description contains
-`VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_QCOM`, then the sample
-count of the input attachments **must** equal `rasterizationSamples`
+    If the pipeline requires [    fragment shader state](#pipelines-graphics-subsets-fragment-shader), and
+    the `[VK_QCOM_render_pass_shader_resolve](../appendices/extensions.html#VK_QCOM_render_pass_shader_resolve)` extension
+or
+    the [`customResolve`](features.html#features-customResolve) feature
+    is enabled, `rasterizationSamples` is not dynamic, and if subpass
+    has any input attachments, and if the subpass description contains
+    `VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_EXT`, then the sample
+    count of the input attachments **must** equal `rasterizationSamples`
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-sampleShadingEnable-04900) VUID-VkGraphicsPipelineCreateInfo-sampleShadingEnable-04900
 
-If the pipeline requires [    fragment shader state](#pipelines-graphics-subsets-fragment-shader), and the
-`[VK_QCOM_render_pass_shader_resolve](../appendices/extensions.html#VK_QCOM_render_pass_shader_resolve)` extension is enabled, and if
-the subpass description contains
-`VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_QCOM`, then
-`sampleShadingEnable` **must** be false
+    If the pipeline requires [    fragment shader state](#pipelines-graphics-subsets-fragment-shader), and
+    the `[VK_QCOM_render_pass_shader_resolve](../appendices/extensions.html#VK_QCOM_render_pass_shader_resolve)` extension
+or
+    the [`customResolve`](features.html#features-customResolve) feature
+    is enabled, and if the subpass description contains
+    `VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_EXT`, then
+    `sampleShadingEnable` **must** be false
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-dynamicRendering-06576) VUID-VkGraphicsPipelineCreateInfo-dynamicRendering-06576
@@ -5177,6 +5215,16 @@ If `renderPass` is [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDL
 not dynamic, and the pipeline is being created with
 [fragment output interface    state](#pipelines-graphics-subsets-fragment-output), `pColorBlendState->attachmentCount` **must** be equal to
 [VkPipelineRenderingCreateInfo](#VkPipelineRenderingCreateInfo)::`colorAttachmentCount`
+
+* 
+[](#VUID-VkGraphicsPipelineCreateInfo-renderPass-11504) VUID-VkGraphicsPipelineCreateInfo-renderPass-11504
+
+If `renderPass` is [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), a
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT) is in the pNext chain, and the
+pipeline is being created with
+[fragment output interface    state](#pipelines-graphics-subsets-fragment-output), [VkPipelineRenderingCreateInfo](#VkPipelineRenderingCreateInfo)::`colorAttachmentCount`
+**must** be equal to
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT)::`colorAttachmentCount`
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-renderPass-06057) VUID-VkGraphicsPipelineCreateInfo-renderPass-06057
@@ -5853,6 +5901,76 @@ not set, or the [alphaToOne](features.html#features-alphaToOne) feature is enabl
 and `VK_DYNAMIC_STATE_ALPHA_TO_ONE_ENABLE_EXT` is not set,
 then `pMultisampleState` **must** be a valid pointer to a valid
 [VkPipelineMultisampleStateCreateInfo](primsrast.html#VkPipelineMultisampleStateCreateInfo) structure
+
+* 
+[](#VUID-VkGraphicsPipelineCreateInfo-flags-11856) VUID-VkGraphicsPipelineCreateInfo-flags-11856
+
+If [VkGraphicsPipelineLibraryCreateInfoEXT](#VkGraphicsPipelineLibraryCreateInfoEXT)::`flags` includes
+either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`,
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT) is included and
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT)::`customResolve` is
+`VK_TRUE`, and an element of
+[VkPipelineLibraryCreateInfoKHR](#VkPipelineLibraryCreateInfoKHR)::`pLibraries` also includes
+either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`, the library
+**must** also include [VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT) and the
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT)::`customResolve` specified by the
+library **must** be `VK_TRUE`
+
+* 
+[](#VUID-VkGraphicsPipelineCreateInfo-flags-11857) VUID-VkGraphicsPipelineCreateInfo-flags-11857
+
+If [VkGraphicsPipelineLibraryCreateInfoEXT](#VkGraphicsPipelineLibraryCreateInfoEXT)::`flags` includes
+either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`,
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT) is not included or
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT)::`customResolve` is
+`VK_FALSE`, and an element of
+[VkPipelineLibraryCreateInfoKHR](#VkPipelineLibraryCreateInfoKHR)::`pLibraries` also includes
+either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`, either the
+library **must** not include [VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT) or the
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT)::`customResolve` specified by the
+library **must** be `VK_FALSE`
+
+* 
+[](#VUID-VkGraphicsPipelineCreateInfo-customResolve-11858) VUID-VkGraphicsPipelineCreateInfo-customResolve-11858
+
+If one element of [VkPipelineLibraryCreateInfoKHR](#VkPipelineLibraryCreateInfoKHR) includes either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`,
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT) is included and
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT)::`customResolve` is
+`VK_TRUE`, and another element of
+[VkPipelineLibraryCreateInfoKHR](#VkPipelineLibraryCreateInfoKHR)::`pLibraries` also includes
+either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`, the other
+library **must** also include [VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT) and the
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT)::`customResolve` specified by the
+library **must** be `VK_TRUE`
+
+* 
+[](#VUID-VkGraphicsPipelineCreateInfo-customResolve-11859) VUID-VkGraphicsPipelineCreateInfo-customResolve-11859
+
+If one element of [VkPipelineLibraryCreateInfoKHR](#VkPipelineLibraryCreateInfoKHR) includes either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`,
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT) is not included or
+[VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT)::`customResolve` is
+`VK_FALSE`, and another element of
+[VkPipelineLibraryCreateInfoKHR](#VkPipelineLibraryCreateInfoKHR)::`pLibraries` also includes
+either
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT` or
+`VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT`, either the
+other library **must** not include [VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT) or
+the [VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT)::`customResolve` specified by
+the library **must** be `VK_FALSE`
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-flags-06633) VUID-VkGraphicsPipelineCreateInfo-flags-06633
@@ -6712,7 +6830,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-pNext-pNext) VUID-VkGraphicsPipelineCreateInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAttachmentSampleCountInfoAMD](cmdbuffers.html#VkAttachmentSampleCountInfoAMD), [VkExternalFormatANDROID](resources.html#VkExternalFormatANDROID), [VkGraphicsPipelineLibraryCreateInfoEXT](#VkGraphicsPipelineLibraryCreateInfoEXT), [VkGraphicsPipelineShaderGroupsCreateInfoNV](#VkGraphicsPipelineShaderGroupsCreateInfoNV), [VkMultiviewPerViewAttributesInfoNVX](renderpass.html#VkMultiviewPerViewAttributesInfoNVX), [VkPipelineBinaryInfoKHR](#VkPipelineBinaryInfoKHR), [VkPipelineCompilerControlCreateInfoAMD](#VkPipelineCompilerControlCreateInfoAMD), [VkPipelineCreateFlags2CreateInfo](#VkPipelineCreateFlags2CreateInfo), [VkPipelineCreationFeedbackCreateInfo](#VkPipelineCreationFeedbackCreateInfo), [VkPipelineDiscardRectangleStateCreateInfoEXT](fragops.html#VkPipelineDiscardRectangleStateCreateInfoEXT), [VkPipelineFragmentDensityMapLayeredCreateInfoVALVE](#VkPipelineFragmentDensityMapLayeredCreateInfoVALVE), [VkPipelineFragmentShadingRateEnumStateCreateInfoNV](primsrast.html#VkPipelineFragmentShadingRateEnumStateCreateInfoNV), [VkPipelineFragmentShadingRateStateCreateInfoKHR](primsrast.html#VkPipelineFragmentShadingRateStateCreateInfoKHR), [VkPipelineLibraryCreateInfoKHR](#VkPipelineLibraryCreateInfoKHR), [VkPipelineRenderingCreateInfo](#VkPipelineRenderingCreateInfo), [VkPipelineRepresentativeFragmentTestStateCreateInfoNV](fragops.html#VkPipelineRepresentativeFragmentTestStateCreateInfoNV), [VkPipelineRobustnessCreateInfo](#VkPipelineRobustnessCreateInfo), [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo), or [VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAttachmentSampleCountInfoAMD](cmdbuffers.html#VkAttachmentSampleCountInfoAMD), [VkCustomResolveCreateInfoEXT](#VkCustomResolveCreateInfoEXT), [VkExternalFormatANDROID](resources.html#VkExternalFormatANDROID), [VkExternalFormatOHOS](resources.html#VkExternalFormatOHOS), [VkGraphicsPipelineLibraryCreateInfoEXT](#VkGraphicsPipelineLibraryCreateInfoEXT), [VkGraphicsPipelineShaderGroupsCreateInfoNV](#VkGraphicsPipelineShaderGroupsCreateInfoNV), [VkMultiviewPerViewAttributesInfoNVX](renderpass.html#VkMultiviewPerViewAttributesInfoNVX), [VkPipelineBinaryInfoKHR](#VkPipelineBinaryInfoKHR), [VkPipelineCompilerControlCreateInfoAMD](#VkPipelineCompilerControlCreateInfoAMD), [VkPipelineCreateFlags2CreateInfo](#VkPipelineCreateFlags2CreateInfo), [VkPipelineCreationFeedbackCreateInfo](#VkPipelineCreationFeedbackCreateInfo), [VkPipelineDiscardRectangleStateCreateInfoEXT](fragops.html#VkPipelineDiscardRectangleStateCreateInfoEXT), [VkPipelineFragmentDensityMapLayeredCreateInfoVALVE](#VkPipelineFragmentDensityMapLayeredCreateInfoVALVE), [VkPipelineFragmentShadingRateEnumStateCreateInfoNV](primsrast.html#VkPipelineFragmentShadingRateEnumStateCreateInfoNV), [VkPipelineFragmentShadingRateStateCreateInfoKHR](primsrast.html#VkPipelineFragmentShadingRateStateCreateInfoKHR), [VkPipelineLibraryCreateInfoKHR](#VkPipelineLibraryCreateInfoKHR), [VkPipelineRenderingCreateInfo](#VkPipelineRenderingCreateInfo), [VkPipelineRepresentativeFragmentTestStateCreateInfoNV](fragops.html#VkPipelineRepresentativeFragmentTestStateCreateInfoNV), [VkPipelineRobustnessCreateInfo](#VkPipelineRobustnessCreateInfo), [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo), or [VkRenderingInputAttachmentIndexInfo](interfaces.html#VkRenderingInputAttachmentIndexInfo)
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-sType-unique) VUID-VkGraphicsPipelineCreateInfo-sType-unique
@@ -6778,9 +6896,8 @@ typedef struct VkPipelineRenderingCreateInfo {
     VkFormat           stencilAttachmentFormat;
 } VkPipelineRenderingCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_dynamic_rendering
+// Equivalent to VkPipelineRenderingCreateInfo
 typedef VkPipelineRenderingCreateInfo VkPipelineRenderingCreateInfoKHR;
 
 * 
@@ -6848,6 +6965,166 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO`
 
+The `VkCustomResolveCreateInfoEXT` structure is defined as:
+
+// Provided by VK_EXT_custom_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
+typedef struct VkCustomResolveCreateInfoEXT {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkBool32           customResolve;
+    uint32_t           colorAttachmentCount;
+    const VkFormat*    pColorAttachmentFormats;
+    VkFormat           depthAttachmentFormat;
+    VkFormat           stencilAttachmentFormat;
+} VkCustomResolveCreateInfoEXT;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`customResolve` indicates whether this pipeline will be used for a
+resolve operation.
+
+* 
+`colorAttachmentCount` is the number of entries in
+`pColorAttachmentFormats`.
+
+* 
+`pColorAttachmentFormats` is a pointer to an array of [VkFormat](formats.html#VkFormat)
+values defining the format of color resolve attachments used in custom
+resolves in the same render pass.
+
+* 
+`depthAttachmentFormat` is a [VkFormat](formats.html#VkFormat) value defining the
+format of the depth resolve attachment used in custom resolves in the
+same render pass.
+
+* 
+`stencilAttachmentFormat` is a [VkFormat](formats.html#VkFormat) value defining the
+format of the stencil resolve attachment used in custom resolves in the
+same render pass.
+
+If the `pNext` chain includes this structure for one of:
+
+* 
+a [VkGraphicsPipelineCreateInfo](#VkGraphicsPipelineCreateInfo) for a pipeline created without a
+[VkRenderPass](renderpass.html#VkRenderPass)
+
+* 
+a [VkCommandBufferInheritanceInfo](cmdbuffers.html#VkCommandBufferInheritanceInfo) for a secondary command buffer
+within a render pass instance begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering).
+
+it specifies the formats used in custom resolves within the same render
+pass.
+It also specifies that the corresponding object will be used in a render
+pass which contains a custom resolve operation.
+
+If the `pNext` chain includes this structure for a
+[VkShaderCreateInfoEXT](shaders.html#VkShaderCreateInfoEXT) for a fragment shader object, it only specifies
+that the fragment shader will be used in a custom resolve operation.
+
+If a graphics pipeline is created with a valid [VkRenderPass](renderpass.html#VkRenderPass),
+parameters of this structure are ignored.
+
+If `customResolve` is `VK_FALSE`, the pipeline **can** only be used
+outside the custom resolve section.
+If `customResolve` is `VK_TRUE`, the pipeline **can** only be used
+inside the custom resolve section.
+
+When a dynamic render pass instance contains a custom resolve operation
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled
+, all pipelines used to draw in such render pass **must** include this
+structure and have identical format information in it.
+When a dynamic render pass does not contain a custom resolve operation
+and the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is not enabled
+, all pipelines used to draw in such render pass **must** not include this
+structure.
+
+If the [`dynamicRenderingUnusedAttachments`](features.html#features-dynamicRenderingUnusedAttachments) feature is enabled, then when this
+structure is not included in the `pNext` chain for
+[VkGraphicsPipelineCreateInfo](#VkGraphicsPipelineCreateInfo), `customResolve` is `VK_FALSE`,
+`colorAttachmentCount` is `0`, and `depthAttachmentFormat` and
+`stencilAttachmentFormat` are `VK_FORMAT_UNDEFINED`.
+
+If `depthAttachmentFormat`, `stencilAttachmentFormat`, or any
+element of `pColorAttachmentFormats` is `VK_FORMAT_UNDEFINED`, it
+indicates that the corresponding attachment is unused within the resolve
+portion of the render pass.
+Valid formats indicate that an attachment **can** be used - but it is still
+valid to set the attachment to `NULL` when beginning rendering.
+
+Overdraw during a custom resolve will produce **undefined** behavior.
+
+When passed as a `pNext` member to a [VkShaderCreateInfoEXT](shaders.html#VkShaderCreateInfoEXT) struct
+for use with fragment density maps, the `colorAttachmentCount`,
+`pColorAttachmentFormats`, `depthAttachmentFormat`, and
+`stencilAttachmentFormat` members of this struct are ignored.
+When not passed as a `pNext` member, `customResolve` is
+`VK_FALSE`.
+
+Valid Usage
+
+* 
+[](#VUID-VkCustomResolveCreateInfoEXT-colorAttachmentCount-11507) VUID-VkCustomResolveCreateInfoEXT-colorAttachmentCount-11507
+
+`colorAttachmentCount` **must** be less than or equal to
+[`maxColorAttachments`](limits.html#limits-maxColorAttachments)
+
+* 
+[](#VUID-VkCustomResolveCreateInfoEXT-depthAttachmentFormat-11508) VUID-VkCustomResolveCreateInfoEXT-depthAttachmentFormat-11508
+
+If `depthAttachmentFormat` is not `VK_FORMAT_UNDEFINED`, it
+**must** be a format that includes a depth component
+
+* 
+[](#VUID-VkCustomResolveCreateInfoEXT-depthAttachmentFormat-11509) VUID-VkCustomResolveCreateInfoEXT-depthAttachmentFormat-11509
+
+If `depthAttachmentFormat` is not `VK_FORMAT_UNDEFINED`, it
+**must** be a format with [potential format    features](formats.html#potential-format-features) that include
+`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
+
+* 
+[](#VUID-VkCustomResolveCreateInfoEXT-pColorAttachmentFormats-11510) VUID-VkCustomResolveCreateInfoEXT-pColorAttachmentFormats-11510
+
+If any element of `pColorAttachmentFormats` is not
+`VK_FORMAT_UNDEFINED`, it **must** be a format with
+[potential format features](formats.html#potential-format-features) that include
+`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
+, or `VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV` if the
+[`linearColorAttachment`](features.html#features-linearColorAttachment) feature
+is enabled
+
+* 
+[](#VUID-VkCustomResolveCreateInfoEXT-stencilAttachmentFormat-11511) VUID-VkCustomResolveCreateInfoEXT-stencilAttachmentFormat-11511
+
+If `stencilAttachmentFormat` is not `VK_FORMAT_UNDEFINED`, it
+**must** be a format that includes a stencil aspect
+
+* 
+[](#VUID-VkCustomResolveCreateInfoEXT-stencilAttachmentFormat-11512) VUID-VkCustomResolveCreateInfoEXT-stencilAttachmentFormat-11512
+
+If `stencilAttachmentFormat` is not `VK_FORMAT_UNDEFINED`, it
+**must** be a format with [potential format    features](formats.html#potential-format-features) that include
+`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
+
+* 
+[](#VUID-VkCustomResolveCreateInfoEXT-depthAttachmentFormat-11513) VUID-VkCustomResolveCreateInfoEXT-depthAttachmentFormat-11513
+
+If `depthAttachmentFormat` is not `VK_FORMAT_UNDEFINED` and
+`stencilAttachmentFormat` is not `VK_FORMAT_UNDEFINED`,
+`depthAttachmentFormat` **must** equal `stencilAttachmentFormat`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkCustomResolveCreateInfoEXT-sType-sType) VUID-VkCustomResolveCreateInfoEXT-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_CUSTOM_RESOLVE_CREATE_INFO_EXT`
+
 The `VkPipelineBinaryInfoKHR` structure is defined as:
 
 // Provided by VK_KHR_pipeline_binary
@@ -6878,8 +7155,9 @@ greater than 0 is included in the `pNext` chain of any
 `Vk*PipelineCreateInfo` structure when creating a pipeline,
 implementations **must** use the data in `pPipelineBinaries` instead of
 recalculating it.
-Any shader module identifiers or shader modules declared in
-[VkPipelineShaderStageCreateInfo](#VkPipelineShaderStageCreateInfo) instances are ignored.
+Any shader module identifiers, shader modules, or chained
+[VkShaderModuleCreateInfo](shaders.html#VkShaderModuleCreateInfo) structures declared in
+[VkPipelineShaderStageCreateInfo](#VkPipelineShaderStageCreateInfo) instances, are ignored.
 
 If this structure is not included in the `pNext` chain, it is equivalent
 to specifying this structure with a `binaryCount` of `0`.
@@ -6895,8 +7173,9 @@ Valid Usage
 `Vk*PipelineCreateInfo` structure and its `pNext` chain,
 ignoring the presence of the `VkPipelineBinaryInfoKHR` structure,
 the presence of the `VK_PIPELINE_CREATE_2_CAPTURE_DATA_BIT_KHR`
-flag, and absence of any shader module identifiers or shader modules,
-for the same [global pipeline key](#global-pipeline-key), from either:
+flag, and absence of any shader module identifiers, shader modules, or
+`VkShaderModuleCreateInfo` structures, for the same
+[global pipeline key](#global-pipeline-key), from either:
 
 [VkPipelineBinaryCreateInfoKHR](#VkPipelineBinaryCreateInfoKHR)::`pPipelineCreateInfo`, or
 
@@ -8178,8 +8457,6 @@ ray generation, miss, or callable shader member is not used.
 
 #define VK_SHADER_UNUSED_KHR              (~0U)
 
-or the equivalent
-
 #define VK_SHADER_UNUSED_NV               VK_SHADER_UNUSED_KHR
 
 To create ray tracing pipelines, call:
@@ -8658,8 +8935,8 @@ tracing pipeline.
     equal to Vulkan 1.3
 or
     [VK_KHR_maintenance4](../appendices/extensions.html#VK_KHR_maintenance4) is enabled
-    `layout` **must** not be accessed outside of the duration of the
-    command this structure is passed to.
+    `layout` **must** not be accessed by the implementation outside of the
+    duration of the command this structure is passed to.
 
 * 
 `basePipelineHandle` is a pipeline to derive from.
@@ -8739,8 +9016,9 @@ descriptor type
 [](#VUID-VkRayTracingPipelineCreateInfoNV-layout-07991) VUID-VkRayTracingPipelineCreateInfoNV-layout-07991
 
 If a [resource variable](interfaces.html#interfaces-resources) is declared in a shader
-as an array, the corresponding descriptor set in `layout` **must**
-match the descriptor count
+as an array, the corresponding descriptor binding used to create
+`layout` **must** have a `descriptorCount` that is greater than or
+equal to the length of the array
 
 * 
 [](#VUID-VkRayTracingPipelineCreateInfoNV-None-10391) VUID-VkRayTracingPipelineCreateInfoNV-None-10391
@@ -8748,6 +9026,13 @@ match the descriptor count
 If a [resource variables](interfaces.html#interfaces-resources) is declared in a shader
 as an array of descriptors, then the descriptor type of that variable
 **must** not be `VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK`
+
+* 
+[](#VUID-VkRayTracingPipelineCreateInfoNV-flags-11798) VUID-VkRayTracingPipelineCreateInfoNV-flags-11798
+
+If [shader64BitIndexing](features.html#features-shader64BitIndexing) feature is not
+enabled, `flags` **must** not contain
+`VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT`
 
 * 
 [](#VUID-VkRayTracingPipelineCreateInfoNV-pStages-03426) VUID-VkRayTracingPipelineCreateInfoNV-pStages-03426
@@ -9011,8 +9296,8 @@ dynamic.
     equal to Vulkan 1.3
 or
     [VK_KHR_maintenance4](../appendices/extensions.html#VK_KHR_maintenance4) is enabled
-    `layout` **must** not be accessed outside of the duration of the
-    command this structure is passed to.
+    `layout` **must** not be accessed by the implementation outside of the
+    duration of the command this structure is passed to.
 
 * 
 `basePipelineHandle` is a pipeline to derive from.
@@ -9121,8 +9406,9 @@ descriptor type
 [](#VUID-VkRayTracingPipelineCreateInfoKHR-layout-07991) VUID-VkRayTracingPipelineCreateInfoKHR-layout-07991
 
 If a [resource variable](interfaces.html#interfaces-resources) is declared in a shader
-as an array, the corresponding descriptor set in `layout` **must**
-match the descriptor count
+as an array, the corresponding descriptor binding used to create
+`layout` **must** have a `descriptorCount` that is greater than or
+equal to the length of the array
 
 * 
 [](#VUID-VkRayTracingPipelineCreateInfoKHR-None-10391) VUID-VkRayTracingPipelineCreateInfoKHR-None-10391
@@ -9130,6 +9416,13 @@ match the descriptor count
 If a [resource variables](interfaces.html#interfaces-resources) is declared in a shader
 as an array of descriptors, then the descriptor type of that variable
 **must** not be `VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK`
+
+* 
+[](#VUID-VkRayTracingPipelineCreateInfoKHR-flags-11798) VUID-VkRayTracingPipelineCreateInfoKHR-flags-11798
+
+If [shader64BitIndexing](features.html#features-shader64BitIndexing) feature is not
+enabled, `flags` **must** not contain
+`VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT`
 
 * 
 [](#VUID-VkRayTracingPipelineCreateInfoKHR-pStages-03426) VUID-VkRayTracingPipelineCreateInfoKHR-pStages-03426
@@ -9284,7 +9577,7 @@ If the `[VK_KHR_pipeline_library](../appendices/extensions.html#VK_KHR_pipeline_
 
 If `flags` includes
 `VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_BIT_KHR`,
-for any element of `pGroups` with a `type` of
+for each element of `pGroups` with a `type` of
 `VK_RAY_TRACING_SHADER_GROUP_TYPE_TRIANGLES_HIT_GROUP_KHR` or
 `VK_RAY_TRACING_SHADER_GROUP_TYPE_PROCEDURAL_HIT_GROUP_KHR`, the
 `anyHitShader` of that element **must** not be
@@ -9295,7 +9588,7 @@ for any element of `pGroups` with a `type` of
 
 If `flags` includes
 `VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_BIT_KHR`,
-for any element of `pGroups` with a `type` of
+for each element of `pGroups` with a `type` of
 `VK_RAY_TRACING_SHADER_GROUP_TYPE_TRIANGLES_HIT_GROUP_KHR` or
 `VK_RAY_TRACING_SHADER_GROUP_TYPE_PROCEDURAL_HIT_GROUP_KHR`, the
 `closestHitShader` of that element **must** not be
@@ -9785,9 +10078,8 @@ typedef enum VkRayTracingShaderGroupTypeKHR {
     VK_RAY_TRACING_SHADER_GROUP_TYPE_PROCEDURAL_HIT_GROUP_NV = VK_RAY_TRACING_SHADER_GROUP_TYPE_PROCEDURAL_HIT_GROUP_KHR,
 } VkRayTracingShaderGroupTypeKHR;
 
-or the equivalent
-
 // Provided by VK_NV_ray_tracing
+// Equivalent to VkRayTracingShaderGroupTypeKHR
 typedef VkRayTracingShaderGroupTypeKHR VkRayTracingShaderGroupTypeNV;
 
 * 
@@ -9842,7 +10134,9 @@ size in bytes used by any shader in the pipeline.
 block (in bytes) declared in the `RayPayloadKHR` or
 `IncomingRayPayloadKHR` storage classes.
 `maxPipelineRayHitAttributeSize` is calculated as the maximum size of
-any block (in bytes) declared in the `HitAttributeKHR` storage class.
+any block (in bytes) declared in the `HitAttributeKHR`
+or `HitObjectAttributeEXT`
+storage class.
 As variables in these storage classes do not have explicit offsets, the size
 should be calculated as if each variable has a
 [scalar alignment](interfaces.html#interfaces-alignment-requirements) equal to the largest
@@ -9886,9 +10180,8 @@ VkResult vkGetRayTracingShaderGroupHandlesKHR(
     size_t                                      dataSize,
     void*                                       pData);
 
-or the equivalent command
-
 // Provided by VK_NV_ray_tracing
+// Equivalent to vkGetRayTracingShaderGroupHandlesKHR
 VkResult vkGetRayTracingShaderGroupHandlesNV(
     VkDevice                                    device,
     VkPipeline                                  pipeline,
@@ -10390,7 +10683,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetRayTracingPipelineStackSizeKHR-commandBuffer-cmdpool) VUID-vkCmdSetRayTracingPipelineStackSizeKHR-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT` operations
 
 * 
 [](#VUID-vkCmdSetRayTracingPipelineStackSizeKHR-renderpass) VUID-vkCmdSetRayTracingPipelineStackSizeKHR-renderpass
@@ -10415,7 +10708,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Compute | State |
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT | State |
 
 Conditional Rendering
 
@@ -10798,6 +11091,21 @@ Host access to `dstCache` **must** be externally synchronized
 if it was not created with
 `VK_PIPELINE_CACHE_CREATE_INTERNALLY_SYNCHRONIZED_MERGE_BIT_KHR`
 
+* 
+[](#VUID-vkMergePipelineCaches-dstCache-11832) VUID-vkMergePipelineCaches-dstCache-11832
+
+`dstCache` **must** not have been created with the `headerVersion`
+member of [VkPipelineCacheCreateInfo](#VkPipelineCacheCreateInfo)::`pInitialData` equal to
+`VK_PIPELINE_CACHE_HEADER_VERSION_DATA_GRAPH_QCOM`
+
+* 
+[](#VUID-vkMergePipelineCaches-headerVersion-11833) VUID-vkMergePipelineCaches-headerVersion-11833
+
+Each member of pSrcCaches **must** not have been created with the
+`headerVersion` member of
+[VkPipelineCacheCreateInfo](#VkPipelineCacheCreateInfo)::`pInitialData` equal to
+`VK_PIPELINE_CACHE_HEADER_VERSION_DATA_GRAPH_QCOM`
+
 Valid Usage (Implicit)
 
 * 
@@ -10909,6 +11217,16 @@ If the amount of data available is larger than the passed `pDataSize`,
 the query returns up to the size of the passed buffer, and signals overflow
 with a `VK_INCOMPLETE` success status instead of returning a
 `VK_ERROR_NOT_ENOUGH_SPACE_KHR` error status. |
+
+Valid Usage
+
+* 
+[](#VUID-vkGetPipelineCacheData-pipelineCache-11834) VUID-vkGetPipelineCacheData-pipelineCache-11834
+
+`pipelineCache` **must** not have been created with the
+`headerVersion` member of
+[VkPipelineCacheCreateInfo](#VkPipelineCacheCreateInfo)::`pInitialData` equal to
+`VK_PIPELINE_CACHE_HEADER_VERSION_DATA_GRAPH_QCOM`
 
 Valid Usage (Implicit)
 
@@ -11056,11 +11374,125 @@ header are:
 // Provided by VK_VERSION_1_0
 typedef enum VkPipelineCacheHeaderVersion {
     VK_PIPELINE_CACHE_HEADER_VERSION_ONE = 1,
+  // Provided by VK_QCOM_data_graph_model
+    VK_PIPELINE_CACHE_HEADER_VERSION_DATA_GRAPH_QCOM = 1000629000,
 } VkPipelineCacheHeaderVersion;
 
 * 
 `VK_PIPELINE_CACHE_HEADER_VERSION_ONE` specifies version one of the
 pipeline cache, described by [VkPipelineCacheHeaderVersionOne](#VkPipelineCacheHeaderVersionOne).
+
+* 
+`VK_PIPELINE_CACHE_HEADER_VERSION_DATA_GRAPH_QCOM` specifies a
+pipeline cache for offline built data graph models, described by
+[VkPipelineCacheHeaderVersionDataGraphQCOM](#VkPipelineCacheHeaderVersionDataGraphQCOM).
+
+The data graph pipeline cache header is defined as:
+
+// Provided by VK_QCOM_data_graph_model
+typedef struct VkPipelineCacheHeaderVersionDataGraphQCOM {
+    uint32_t                         headerSize;
+    VkPipelineCacheHeaderVersion     headerVersion;
+    VkDataGraphModelCacheTypeQCOM    cacheType;
+    uint32_t                         cacheVersion;
+    uint32_t                         toolchainVersion[VK_DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM];
+} VkPipelineCacheHeaderVersionDataGraphQCOM;
+
+* 
+`headerSize` is the length in bytes of the pipeline cache header.
+
+* 
+`headerVersion` is a [VkPipelineCacheHeaderVersion](#VkPipelineCacheHeaderVersion) value
+specifying the version of the header.
+A consumer of the pipeline cache **should** use the cache version to
+interpret the remainder of the cache header.
+`headerVersion` **must** be written as exactly 4 bytes.
+
+* 
+`cacheType` is the [VkDataGraphModelCacheTypeQCOM](#VkDataGraphModelCacheTypeQCOM) type of data
+graph cache encoded in the data.
+
+* 
+`cacheVersion` is the version of the encoding of the data graph
+cache.
+
+* 
+`toolchainVersion` is the version of the compiler that built the
+data graph cache.
+
+The application **should** verify that the header info is compatible with the
+[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) passed during pipeline
+creation.
+Implementations **may** return `VK_PIPELINE_COMPILE_REQUIRED_EXT` from
+[vkCreateDataGraphPipelinesARM](VK_ARM_data_graph/graphs.html#vkCreateDataGraphPipelinesARM) if the cache is not compatible.
+
+|  | This cache type is built using offline compilation, therefore Vulkan does
+| --- | --- |
+not define engine compatibility.
+The application should refer to the offline compiler used to create the
+cache for guidance on compatibility. |
+
+Unlike most structures declared by the Vulkan API, all fields of this
+structure are written with the least significant byte first, regardless of
+host byte-order.
+
+The C language specification does not define the packing of structure
+members.
+This layout assumes tight structure member packing, with members laid out in
+the order listed in the structure, and the intended size of the structure is
+28 bytes.
+If a compiler produces code that diverges from that pattern, applications
+**must** employ another method to set values at the correct offsets.
+
+Valid Usage
+
+* 
+[](#VUID-VkPipelineCacheHeaderVersionDataGraphQCOM-None-11835) VUID-VkPipelineCacheHeaderVersionDataGraphQCOM-None-11835
+
+The [dataGraphModel](features.html#features-dataGraphModelQCOM) feature **must** be
+enabled
+
+* 
+[](#VUID-VkPipelineCacheHeaderVersionDataGraphQCOM-headerSize-11836) VUID-VkPipelineCacheHeaderVersionDataGraphQCOM-headerSize-11836
+
+`headerSize` **must** be 28
+
+* 
+[](#VUID-VkPipelineCacheHeaderVersionDataGraphQCOM-headerVersion-11837) VUID-VkPipelineCacheHeaderVersionDataGraphQCOM-headerVersion-11837
+
+`headerVersion` **must** be
+`VK_PIPELINE_CACHE_HEADER_VERSION_DATA_GRAPH_QCOM`
+
+* 
+[](#VUID-VkPipelineCacheHeaderVersionDataGraphQCOM-headerSize-11838) VUID-VkPipelineCacheHeaderVersionDataGraphQCOM-headerSize-11838
+
+`headerSize` **must** not exceed the size of the pipeline cache
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPipelineCacheHeaderVersionDataGraphQCOM-headerVersion-parameter) VUID-VkPipelineCacheHeaderVersionDataGraphQCOM-headerVersion-parameter
+
+ `headerVersion` **must** be a valid [VkPipelineCacheHeaderVersion](#VkPipelineCacheHeaderVersion) value
+
+* 
+[](#VUID-VkPipelineCacheHeaderVersionDataGraphQCOM-cacheType-parameter) VUID-VkPipelineCacheHeaderVersionDataGraphQCOM-cacheType-parameter
+
+ `cacheType` **must** be a valid [VkDataGraphModelCacheTypeQCOM](#VkDataGraphModelCacheTypeQCOM) value
+
+The [VkDataGraphModelCacheTypeQCOM](#VkDataGraphModelCacheTypeQCOM) enumeration determines the contents
+of the pipeline data graph cache.
+
+Possible values are:
+
+// Provided by VK_QCOM_data_graph_model
+typedef enum VkDataGraphModelCacheTypeQCOM {
+    VK_DATA_GRAPH_MODEL_CACHE_TYPE_GENERIC_BINARY_QCOM = 0,
+} VkDataGraphModelCacheTypeQCOM;
+
+* 
+`VK_DATA_GRAPH_MODEL_CACHE_TYPE_GENERIC_BINARY_QCOM` specifies a
+general binary layout type.
 
 To destroy a pipeline cache, call:
 
@@ -12570,7 +13002,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindPipeline-commandBuffer-cmdpool) VUID-vkCmdBindPipeline-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or data_graph operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_DATA_GRAPH_BIT_ARM`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindPipeline-videocoding) VUID-vkCmdBindPipeline-videocoding
@@ -12595,11 +13027,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute
+VK_QUEUE_DATA_GRAPH_BIT_ARM
 
-Data_Graph | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -12725,7 +13157,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindPipelineShaderGroupNV-commandBuffer-cmdpool) VUID-vkCmdBindPipelineShaderGroupNV-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, or `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindPipelineShaderGroupNV-videocoding) VUID-vkCmdBindPipelineShaderGroupNV-videocoding
@@ -12750,9 +13182,9 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Outside | VK_QUEUE_COMPUTE_BIT
 
-Compute | State |
+VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 
@@ -13098,9 +13530,8 @@ typedef struct VkPipelineInfoKHR {
     VkPipeline         pipeline;
 } VkPipelineInfoKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_properties
+// Equivalent to VkPipelineInfoKHR
 typedef VkPipelineInfoKHR VkPipelineInfoEXT;
 
 * 
@@ -13907,9 +14338,8 @@ typedef struct VkPipelineCreationFeedbackCreateInfo {
     VkPipelineCreationFeedback*    pPipelineStageCreationFeedbacks;
 } VkPipelineCreationFeedbackCreateInfo;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_creation_feedback
+// Equivalent to VkPipelineCreationFeedbackCreateInfo
 typedef VkPipelineCreationFeedbackCreateInfo VkPipelineCreationFeedbackCreateInfoEXT;
 
 * 
@@ -13985,9 +14415,8 @@ typedef struct VkPipelineCreationFeedback {
     uint64_t                           duration;
 } VkPipelineCreationFeedback;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_creation_feedback
+// Equivalent to VkPipelineCreationFeedback
 typedef VkPipelineCreationFeedback VkPipelineCreationFeedbackEXT;
 
 * 
@@ -14020,9 +14449,8 @@ typedef enum VkPipelineCreationFeedbackFlagBits {
     VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT_EXT = VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT,
 } VkPipelineCreationFeedbackFlagBits;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_creation_feedback
+// Equivalent to VkPipelineCreationFeedbackFlagBits
 typedef VkPipelineCreationFeedbackFlagBits VkPipelineCreationFeedbackFlagBitsEXT;
 
 * 
@@ -14076,9 +14504,8 @@ while a 50% reduction would. |
 // Provided by VK_VERSION_1_3
 typedef VkFlags VkPipelineCreationFeedbackFlags;
 
-or the equivalent
-
 // Provided by VK_EXT_pipeline_creation_feedback
+// Equivalent to VkPipelineCreationFeedbackFlags
 typedef VkPipelineCreationFeedbackFlags VkPipelineCreationFeedbackFlagsEXT;
 
 `VkPipelineCreationFeedbackFlags` is a bitmask type for providing zero

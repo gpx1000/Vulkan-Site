@@ -31,9 +31,8 @@ typedef struct VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT {
     VkBool32           rasterizationOrderStencilAttachmentAccess;
 } VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT;
 
-or the equivalent
-
 // Provided by VK_ARM_rasterization_order_attachment_access
+// Equivalent to VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT
 typedef VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM;
 
 This structure describes the following features:
@@ -79,7 +78,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT`
 
-[VK_EXT_rasterization_order_attachment_access](VK_EXT_rasterization_order_attachment_access.html), `VkBool32`, [VkStructureType](VkStructureType.html)
+[VK_ARM_rasterization_order_attachment_access](VK_ARM_rasterization_order_attachment_access.html), [VK_EXT_rasterization_order_attachment_access](VK_EXT_rasterization_order_attachment_access.html), `VkBool32`, [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/features.html#VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT).
 

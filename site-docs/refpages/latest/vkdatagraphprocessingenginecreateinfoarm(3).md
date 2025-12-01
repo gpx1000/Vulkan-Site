@@ -58,6 +58,26 @@ The [`dataGraph`](../../../../spec/latest/chapters/features.html#features-dataGr
 `pProcessingEngines` **must** not contain identical
 [VkPhysicalDeviceDataGraphProcessingEngineARM](VkPhysicalDeviceDataGraphProcessingEngineARM.html) structures
 
+* 
+[](#VUID-VkDataGraphProcessingEngineCreateInfoARM-pProcessingEngines-11843) VUID-VkDataGraphProcessingEngineCreateInfoARM-pProcessingEngines-11843
+
+If any element of `pProcessingEngines` has a `type` of
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_NEURAL_QCOM`
+or
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_COMPUTE_QCOM`
+and `isForeign` set to `VK_TRUE`, `processingEngineCount`
+**must** equal `1`
+
+* 
+[](#VUID-VkDataGraphProcessingEngineCreateInfoARM-pProcessingEngines-11844) VUID-VkDataGraphProcessingEngineCreateInfoARM-pProcessingEngines-11844
+
+If any element of `pProcessingEngines` has a `type` of
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_NEURAL_QCOM`
+or
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_COMPUTE_QCOM`,
+the [dataGraphModel](../../../../spec/latest/chapters/features.html#features-dataGraphModelQCOM) feature **must** be
+enabled
+
 Valid Usage (Implicit)
 
 * 

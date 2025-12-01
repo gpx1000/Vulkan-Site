@@ -26,9 +26,8 @@ void vkCmdCopyBuffer2(
     VkCommandBuffer                             commandBuffer,
     const VkCopyBufferInfo2*                    pCopyBufferInfo);
 
-or the equivalent command
-
 // Provided by VK_KHR_copy_commands2
+// Equivalent to vkCmdCopyBuffer2
 void vkCmdCopyBuffer2KHR(
     VkCommandBuffer                             commandBuffer,
     const VkCopyBufferInfo2*                    pCopyBufferInfo);
@@ -91,12 +90,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyBuffer2-commandBuffer-cmdpool) VUID-vkCmdCopyBuffer2-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyBuffer2-renderpass) VUID-vkCmdCopyBuffer2-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyBuffer2-suspended) VUID-vkCmdCopyBuffer2-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyBuffer2-videocoding) VUID-vkCmdCopyBuffer2-videocoding
@@ -116,11 +120,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 

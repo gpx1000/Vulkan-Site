@@ -28,9 +28,8 @@ VkResult vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
     uint32_t*                                   pTimeDomainCount,
     VkTimeDomainKHR*                            pTimeDomains);
 
-or the equivalent command
-
 // Provided by VK_EXT_calibrated_timestamps
+// Equivalent to vkGetPhysicalDeviceCalibrateableTimeDomainsKHR
 VkResult vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(
     VkPhysicalDevice                            physicalDevice,
     uint32_t*                                   pTimeDomainCount,

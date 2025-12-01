@@ -75,6 +75,10 @@ samples as described in the “sRGB EOTF” section of the
 [Khronos Data Format Specification](../../../../spec/latest/chapters/introduction.html#data-format).
 In this case, the implementation **must** convert the linear averaged value to
 nonlinear before writing the resolved result to `dstImage`.
+If the [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is enabled,
+whether a nonlinear to linear conversion happens for sRGB encoded resolve is
+controlled by
+[`resolveSrgbFormatAppliesTransferFunction`](../../../../spec/latest/chapters/limits.html#limits-resolveSrgbFormatAppliesTransferFunction).
 
 If the source format is an integer type, a single sample’s value is selected
 for each pixel.
@@ -177,11 +181,22 @@ is executed on a `VkDevice`
 `VK_IMAGE_LAYOUT_GENERAL`
 
 * 
+[](#VUID-vkCmdResolveImage-maintenance10-11799) VUID-vkCmdResolveImage-maintenance10-11799
+
+If the [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is
+enabled, the [format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of
+`dstImage` **must** contain
+`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` or
+`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
+
+* 
 [](#VUID-vkCmdResolveImage-dstImage-02003) VUID-vkCmdResolveImage-dstImage-02003
 
 The [format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of
 `dstImage` **must** contain
 `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
+if the [`maintenance10`](../../../../spec/latest/chapters/features.html#features-maintenance10) feature is not
+enabled
 
 * 
 [](#VUID-vkCmdResolveImage-linearColorAttachment-06519) VUID-vkCmdResolveImage-linearColorAttachment-06519
@@ -330,8 +345,8 @@ If `dstImage` is of type `VK_IMAGE_TYPE_1D` or
 * 
 [](#VUID-vkCmdResolveImage-srcImage-06762) VUID-vkCmdResolveImage-srcImage-06762
 
-`srcImage` **must** have been created with
-`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag
+`srcImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_SRC_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdResolveImage-srcImage-06763) VUID-vkCmdResolveImage-srcImage-06763
@@ -342,14 +357,34 @@ The [format features](../../../../spec/latest/chapters/resources.html#resources-
 * 
 [](#VUID-vkCmdResolveImage-dstImage-06764) VUID-vkCmdResolveImage-dstImage-06764
 
-`dstImage` **must** have been created with
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag
+`dstImage` **must** have been created with the
+`VK_IMAGE_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdResolveImage-dstImage-06765) VUID-vkCmdResolveImage-dstImage-06765
 
 The [format features](../../../../spec/latest/chapters/resources.html#resources-image-format-features) of
 `dstImage` **must** contain `VK_FORMAT_FEATURE_TRANSFER_DST_BIT`
+
+* 
+[](#VUID-vkCmdResolveImage-srcSubresource-11800) VUID-vkCmdResolveImage-srcSubresource-11800
+
+`srcSubresource.aspectMask` for each element in `pRegions` **must**
+not specify an aspect which is not part of the image format of
+`srcImage`
+
+* 
+[](#VUID-vkCmdResolveImage-dstSubresource-11801) VUID-vkCmdResolveImage-dstSubresource-11801
+
+`dstSubresource.aspectMask` for each element in `pRegions` **must**
+not specify an aspect which is not part of the image format of
+`dstImage`
+
+* 
+[](#VUID-vkCmdResolveImage-srcSubresource-11802) VUID-vkCmdResolveImage-srcSubresource-11802
+
+`srcSubresource.aspectMask` **must** equal
+`dstSubresource.aspectMask` for each element in `pRegions`
 
 Valid Usage (Implicit)
 
@@ -391,12 +426,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdResolveImage-commandBuffer-cmdpool) VUID-vkCmdResolveImage-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdResolveImage-renderpass) VUID-vkCmdResolveImage-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdResolveImage-suspended) VUID-vkCmdResolveImage-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdResolveImage-videocoding) VUID-vkCmdResolveImage-videocoding
@@ -426,7 +466,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Graphics | Action |
+Secondary | Outside | Outside | VK_QUEUE_GRAPHICS_BIT | Action |
 
 Conditional Rendering
 

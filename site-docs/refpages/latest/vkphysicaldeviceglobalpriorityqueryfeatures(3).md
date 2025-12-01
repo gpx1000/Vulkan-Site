@@ -29,14 +29,12 @@ typedef struct VkPhysicalDeviceGlobalPriorityQueryFeatures {
     VkBool32           globalPriorityQuery;
 } VkPhysicalDeviceGlobalPriorityQueryFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_global_priority
+// Equivalent to VkPhysicalDeviceGlobalPriorityQueryFeatures
 typedef VkPhysicalDeviceGlobalPriorityQueryFeatures VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR;
 
-or the equivalent
-
 // Provided by VK_EXT_global_priority_query
+// Equivalent to VkPhysicalDeviceGlobalPriorityQueryFeatures
 typedef VkPhysicalDeviceGlobalPriorityQueryFeatures VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT;
 
 This structure describes the following feature:

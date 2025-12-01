@@ -29,9 +29,8 @@ typedef struct VkPhysicalDeviceMaintenance3Properties {
     VkDeviceSize       maxMemoryAllocationSize;
 } VkPhysicalDeviceMaintenance3Properties;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance3
+// Equivalent to VkPhysicalDeviceMaintenance3Properties
 typedef VkPhysicalDeviceMaintenance3Properties VkPhysicalDeviceMaintenance3PropertiesKHR;
 
 * 
@@ -69,7 +68,7 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), `VkDeviceSize`, [VkStructureType](VkStructureType.html)
+[VK_KHR_maintenance3](VK_KHR_maintenance3.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), `VkDeviceSize`, [VkStructureType](VkStructureType.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/limits.html#VkPhysicalDeviceMaintenance3Properties).
 

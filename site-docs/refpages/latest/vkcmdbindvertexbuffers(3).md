@@ -89,7 +89,7 @@ corresponding element in `pBuffers`
 [](#VUID-vkCmdBindVertexBuffers-pBuffers-00627) VUID-vkCmdBindVertexBuffers-pBuffers-00627
 
 All elements of `pBuffers` **must** have been created with the
-`VK_BUFFER_USAGE_VERTEX_BUFFER_BIT` flag
+`VK_BUFFER_USAGE_VERTEX_BUFFER_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdBindVertexBuffers-pBuffers-00628) VUID-vkCmdBindVertexBuffers-pBuffers-00628
@@ -135,7 +135,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindVertexBuffers-commandBuffer-cmdpool) VUID-vkCmdBindVertexBuffers-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_GRAPHICS_BIT` operations
 
 * 
 [](#VUID-vkCmdBindVertexBuffers-videocoding) VUID-vkCmdBindVertexBuffers-videocoding
@@ -165,7 +165,7 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics | State |
+Secondary | Both | Outside | VK_QUEUE_GRAPHICS_BIT | State |
 
 Conditional Rendering
 

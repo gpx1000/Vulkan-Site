@@ -45,6 +45,11 @@ address defining the descriptor buffer to be bound.
 `usage` is a bitmask of [VkBufferUsageFlagBits](VkBufferUsageFlagBits.html) specifying the
 [VkBufferCreateInfo](VkBufferCreateInfo.html)::`usage` for the buffer from which
 `address` was queried.
+Usage flags other than
+`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`,
+`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT`, and
+`VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT` are
+ignored.
 
 If the `pNext` chain includes a [VkBufferUsageFlags2CreateInfo](VkBufferUsageFlags2CreateInfo.html)
 structure, [VkBufferUsageFlags2CreateInfo](VkBufferUsageFlags2CreateInfo.html)::`usage` from that
@@ -68,6 +73,14 @@ If the `pNext` chain does not include a
 `usage` **must** not be 0
 
 * 
+[](#VUID-VkDescriptorBufferBindingInfoEXT-usage-10998) VUID-VkDescriptorBufferBindingInfoEXT-usage-10998
+
+The `usage` must include at least one of
+`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`,
+`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT`, or
+`VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
 [](#VUID-VkDescriptorBufferBindingInfoEXT-bufferlessPushDescriptors-08056) VUID-VkDescriptorBufferBindingInfoEXT-bufferlessPushDescriptors-08056
 
 If [    `VkPhysicalDeviceDescriptorBufferPropertiesEXT`::`bufferlessPushDescriptors`](../../../../spec/latest/chapters/limits.html#limits-bufferlessPushDescriptors)
@@ -87,16 +100,16 @@ the `pNext` chain **must** include a
 
 If `usage` includes
 `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT`, `address`
-**must** be an address within a valid buffer that was created with
-`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT`
+**must** be an address within a valid buffer that was created with the
+`VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` usage flag set
 
 * 
 [](#VUID-VkDescriptorBufferBindingInfoEXT-usage-08123) VUID-VkDescriptorBufferBindingInfoEXT-usage-08123
 
 If `usage` includes
 `VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`, `address`
-**must** be an address within a valid buffer that was created with
-`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`
+**must** be an address within a valid buffer that was created with the
+`VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT` usage flag set
 
 * 
 [](#VUID-VkDescriptorBufferBindingInfoEXT-usage-08124) VUID-VkDescriptorBufferBindingInfoEXT-usage-08124
@@ -104,7 +117,9 @@ If `usage` includes
 If `usage` includes
 `VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT`,
 `address` **must** be an address within a valid buffer that was created
-with `VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT`
+with the
+`VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT` usage
+flag set
 
 Valid Usage (Implicit)
 

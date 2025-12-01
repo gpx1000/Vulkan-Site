@@ -109,8 +109,8 @@ in memory
 * 
 [](#VUID-vkCmdCopyBuffer-srcBuffer-00118) VUID-vkCmdCopyBuffer-srcBuffer-00118
 
-`srcBuffer` **must** have been created with
-`VK_BUFFER_USAGE_TRANSFER_SRC_BIT` usage flag
+`srcBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFER_SRC_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdCopyBuffer-srcBuffer-00119) VUID-vkCmdCopyBuffer-srcBuffer-00119
@@ -121,8 +121,8 @@ contiguously to a single `VkDeviceMemory` object
 * 
 [](#VUID-vkCmdCopyBuffer-dstBuffer-00120) VUID-vkCmdCopyBuffer-dstBuffer-00120
 
-`dstBuffer` **must** have been created with
-`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag
+`dstBuffer` **must** have been created with the
+`VK_BUFFER_USAGE_TRANSFER_DST_BIT` usage flag set
 
 * 
 [](#VUID-vkCmdCopyBuffer-dstBuffer-00121) VUID-vkCmdCopyBuffer-dstBuffer-00121
@@ -160,12 +160,17 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdCopyBuffer-commandBuffer-cmdpool) VUID-vkCmdCopyBuffer-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support `VK_QUEUE_COMPUTE_BIT`, `VK_QUEUE_GRAPHICS_BIT`, or `VK_QUEUE_TRANSFER_BIT` operations
 
 * 
 [](#VUID-vkCmdCopyBuffer-renderpass) VUID-vkCmdCopyBuffer-renderpass
 
  This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyBuffer-suspended) VUID-vkCmdCopyBuffer-suspended
+
+ This command **must** not be called between suspended render pass instances
 
 * 
 [](#VUID-vkCmdCopyBuffer-videocoding) VUID-vkCmdCopyBuffer-videocoding
@@ -195,11 +200,11 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Outside | Outside | Transfer
+Secondary | Outside | Outside | VK_QUEUE_COMPUTE_BIT
 
-Graphics
+VK_QUEUE_GRAPHICS_BIT
 
-Compute | Action |
+VK_QUEUE_TRANSFER_BIT | Action |
 
 Conditional Rendering
 

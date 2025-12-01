@@ -46,7 +46,7 @@ surface object when there is no more specific allocator available (see
 `pSurface` is a pointer to a [VkSurfaceKHR](VkSurfaceKHR.html) handle in which the
 created surface object is returned.
 
-|  | The `vkCreateIOSSurfaceMVK` function is considered deprecated and has been
+|  | The `vkCreateIOSSurfaceMVK` function is considered legacy and has been
 | --- | --- |
 superseded by [vkCreateMetalSurfaceEXT](vkCreateMetalSurfaceEXT.html) from the
 `[VK_EXT_metal_surface](VK_EXT_metal_surface.html)` extension. |

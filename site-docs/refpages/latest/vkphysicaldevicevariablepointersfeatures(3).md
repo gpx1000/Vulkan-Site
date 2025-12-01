@@ -30,14 +30,15 @@ typedef struct VkPhysicalDeviceVariablePointersFeatures {
 } VkPhysicalDeviceVariablePointersFeatures;
 
 // Provided by VK_VERSION_1_1
+// Equivalent to VkPhysicalDeviceVariablePointersFeatures
 typedef VkPhysicalDeviceVariablePointersFeatures VkPhysicalDeviceVariablePointerFeatures;
 
-or the equivalent
-
 // Provided by VK_KHR_variable_pointers
+// Equivalent to VkPhysicalDeviceVariablePointersFeatures
 typedef VkPhysicalDeviceVariablePointersFeatures VkPhysicalDeviceVariablePointersFeaturesKHR;
 
 // Provided by VK_KHR_variable_pointers
+// Equivalent to VkPhysicalDeviceVariablePointersFeatures
 typedef VkPhysicalDeviceVariablePointersFeatures VkPhysicalDeviceVariablePointerFeaturesKHR;
 
 This structure describes the following features:

@@ -28,9 +28,8 @@ typedef struct VkExternalBufferProperties {
     VkExternalMemoryProperties    externalMemoryProperties;
 } VkExternalBufferProperties;
 
-or the equivalent
-
 // Provided by VK_KHR_external_memory_capabilities
+// Equivalent to VkExternalBufferProperties
 typedef VkExternalBufferProperties VkExternalBufferPropertiesKHR;
 
 * 
@@ -57,7 +56,7 @@ Valid Usage (Implicit)
 
  `pNext` **must** be `NULL`
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalMemoryProperties](VkExternalMemoryProperties.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceExternalBufferProperties](vkGetPhysicalDeviceExternalBufferProperties.html), [vkGetPhysicalDeviceExternalBufferProperties](vkGetPhysicalDeviceExternalBufferProperties.html)
+[VK_KHR_external_memory_capabilities](VK_KHR_external_memory_capabilities.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkExternalMemoryProperties](VkExternalMemoryProperties.html), [VkStructureType](VkStructureType.html), [vkGetPhysicalDeviceExternalBufferProperties](vkGetPhysicalDeviceExternalBufferProperties.html), [vkGetPhysicalDeviceExternalBufferProperties](vkGetPhysicalDeviceExternalBufferProperties.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/capabilities.html#VkExternalBufferProperties).
 

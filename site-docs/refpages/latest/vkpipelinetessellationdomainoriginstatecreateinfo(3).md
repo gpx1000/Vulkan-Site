@@ -29,9 +29,8 @@ typedef struct VkPipelineTessellationDomainOriginStateCreateInfo {
     VkTessellationDomainOrigin    domainOrigin;
 } VkPipelineTessellationDomainOriginStateCreateInfo;
 
-or the equivalent
-
 // Provided by VK_KHR_maintenance2
+// Equivalent to VkPipelineTessellationDomainOriginStateCreateInfo
 typedef VkPipelineTessellationDomainOriginStateCreateInfo VkPipelineTessellationDomainOriginStateCreateInfoKHR;
 
 * 
@@ -64,7 +63,7 @@ Valid Usage (Implicit)
 
  `domainOrigin` **must** be a valid [VkTessellationDomainOrigin](VkTessellationDomainOrigin.html) value
 
-[VK_VERSION_1_1](VK_VERSION_1_1.html), [VkStructureType](VkStructureType.html), [VkTessellationDomainOrigin](VkTessellationDomainOrigin.html)
+[VK_KHR_maintenance2](VK_KHR_maintenance2.html), [VK_VERSION_1_1](VK_VERSION_1_1.html), [VkStructureType](VkStructureType.html), [VkTessellationDomainOrigin](VkTessellationDomainOrigin.html)
 
 For more information, see the [Vulkan Specification](../../../../spec/latest/chapters/tessellation.html#VkPipelineTessellationDomainOriginStateCreateInfo).
 
