@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "@antora/cli": "3.1.4",
-    "@antora/lunr-extension": "gpx1000/antora-lunr-extension#60d7fd884a2949503030c2bec40fe4dec03fbb5d",
+    "@antora/lunr-extension": "gpx1000/antora-lunr-extension#eb91b3a32a66584b9dbaf23af928d7d553132c16",
     "@antora/site-generator": "3.1.10",
     "@djencks/asciidoctor-mathjax": "0.0.9",
     "escape-string-regexp": "^5.0.0",
