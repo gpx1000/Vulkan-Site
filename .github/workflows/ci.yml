@@ -76,21 +76,58 @@ jobs:
             local REF="$DEF_REF"
 
             if [[ -n "${SRC}" ]]; then
-              # Accept https://github.com/owner/repo@ref (or #ref)
-              if [[ "$SRC" =~ ^https?://github.com/([^/]+/[^@#]+)[@#]([^[:space:]]+)$ ]]; then
-                REPO="${BASH_REMATCH[1]}"
-                REF="${BASH_REMATCH[2]}"
-              # Accept git@github.com:owner/repo@ref (or #ref)
-              elif [[ "$SRC" =~ ^git@github.com:([^/]+/[^@#]+)[@#]([^[:space:]]+)$ ]]; then
-                REPO="${BASH_REMATCH[1]}"
-                REF="${BASH_REMATCH[2]}"
-              # Accept owner/repo@ref (or #ref)
-              elif [[ "$SRC" =~ ^([^/[:space:]]+/[^@#[:space:]]+)[@#]([^[:space:]]+)$ ]]; then
-                REPO="${BASH_REMATCH[1]}"
-                REF="${BASH_REMATCH[2]}"
-              # Accept just branch or sha → use default repo
+              # Normalize common GitHub notations into OWNER/REPO and REF
+              # Supported forms:
+              #  - owner/repo@ref
+              #  - owner/repo#ref
+              #  - owner/repo/branch@ref (branch path ignored, ref used)
+              #  - owner/repo/branch (no @/# → use branch as ref)
+              #  - https://github.com/owner/repo@ref
+              #  - https://github.com/owner/repo/branch@ref
+              #  - git@github.com:owner/repo@ref
+              #  - plain "branchOrSha" (no /) → use default repo with given ref
+
+              local VAL="$SRC"
+              # Strip URL/SSH prefixes if present
+              if [[ "$VAL" =~ ^https?://github.com/ ]]; then
+                VAL="${VAL#*github.com/}"
+              elif [[ "$VAL" =~ ^git@github.com: ]]; then
+                VAL="${VAL#git@github.com:}"
+              fi
+
+              # Split at @ or # if present
+              local BASE="$VAL"
+              if [[ "$VAL" == *"@"* ]]; then
+                BASE="${VAL%%@*}"
+                REF="${VAL#*@}"
+              elif [[ "$VAL" == *"#"* ]]; then
+                BASE="${VAL%%#*}"
+                REF="${VAL#*#}"
+              fi
+
+              # If BASE contains owner/repo[/...]
+              if [[ "$BASE" == */* ]]; then
+                # Extract first two segments as owner/repo
+                local OWNER="${BASE%%/*}"
+                local REST="${BASE#*/}"
+                local REPO_NAME="${REST%%/*}"
+                # remove potential .git suffix from repo name
+                REPO_NAME="${REPO_NAME%.git}"
+                if [[ -n "$OWNER" && -n "$REPO_NAME" ]]; then
+                  REPO="$OWNER/$REPO_NAME"
+                  # If no explicit @/# ref was provided and there is a third segment, use it as ref
+                  if [[ "$VAL" != *"@"* && "$VAL" != *"#"* ]]; then
+                    local REMREST="${REST#*/}"
+                    if [[ "$REMREST" != "$REST" && -n "$REMREST" ]]; then
+                      REF="${REMREST%%/*}"
+                    fi
+                  fi
+                fi
               else
-                REF="$SRC"
+                # No slash → treat as branch/SHA on default repo
+                if [[ -n "$BASE" ]]; then
+                  REF="$BASE"
+                fi
               fi
             fi
 
