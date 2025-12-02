@@ -61,51 +61,102 @@ jobs:
         with:
           ruby-version: '3.0'
 
+      - name: Resolve repository/ref overrides
+        id: resolve
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          parse() {
+            local SRC="$1"; shift
+            local DEF_REPO="$1"; shift
+            local DEF_REF="$1"; shift
+            local PREFIX="$1"; shift
+            local REPO="$DEF_REPO"
+            local REF="$DEF_REF"
+
+            if [[ -n "${SRC}" ]]; then
+              # Accept https://github.com/owner/repo@ref (or #ref)
+              if [[ "$SRC" =~ ^https?://github.com/([^/]+/[^@#]+)[@#]([^[:space:]]+)$ ]]; then
+                REPO="${BASH_REMATCH[1]}"
+                REF="${BASH_REMATCH[2]}"
+              # Accept git@github.com:owner/repo@ref (or #ref)
+              elif [[ "$SRC" =~ ^git@github.com:([^/]+/[^@#]+)[@#]([^[:space:]]+)$ ]]; then
+                REPO="${BASH_REMATCH[1]}"
+                REF="${BASH_REMATCH[2]}"
+              # Accept owner/repo@ref (or #ref)
+              elif [[ "$SRC" =~ ^([^/[:space:]]+/[^@#[:space:]]+)[@#]([^[:space:]]+)$ ]]; then
+                REPO="${BASH_REMATCH[1]}"
+                REF="${BASH_REMATCH[2]}"
+              # Accept just branch or sha → use default repo
+              else
+                REF="$SRC"
+              fi
+            fi
+
+            echo "${PREFIX}_REPO=${REPO}" >> "$GITHUB_OUTPUT"
+            echo "${PREFIX}_REF=${REF}" >> "$GITHUB_OUTPUT"
+            echo "Resolved ${PREFIX}: ${REPO}@${REF}"
+          }
+
+          # Antora UI
+          parse "${{ inputs.Antora_UI_Hash }}" "KhronosGroup/antora-ui-khronos" "main" "UI"
+          # GLSL
+          parse "${{ inputs.GLSL_Commit_Hash }}" "KhronosGroup/GLSL" "main" "GLSL"
+          # Vulkan Guide
+          parse "${{ inputs.Guide_Commit_Hash }}" "KhronosGroup/Vulkan-Guide" "main" "GUIDE"
+          # Vulkan Docs
+          parse "${{ inputs.DOC_Commit_Hash }}" "KhronosGroup/Vulkan-Docs" "main" "DOCS"
+          # Vulkan Samples
+          parse "${{ inputs.Samples_Commit_Hash }}" "KhronosGroup/Vulkan-Samples" "main" "SAMPLES"
+          # Vulkan Tutorial
+          parse "${{ inputs.Tutorial_Commit_Hash }}" "KhronosGroup/Vulkan-Tutorial" "main" "TUTORIAL"
+
       - name: "checkout Antora UI"
         uses: actions/checkout@v4
         with:
-          repository: KhronosGroup/antora-ui-khronos
+          repository: ${{ steps.resolve.outputs.UI_REPO }}
           path: ./antora-ui-khronos
-          ref: ${{ inputs.Antora_UI_Hash > '' && inputs.Antora_UI_Hash || 'main' }}
+          ref: ${{ steps.resolve.outputs.UI_REF }}
 
       - name: "checkout GLSL"
         uses: actions/checkout@v4
         with:
-          repository: KhronosGroup/GLSL
+          repository: ${{ steps.resolve.outputs.GLSL_REPO }}
           path: ./GLSL
-          ref: ${{ inputs.GLSL_Commit_Hash > '' && inputs.GLSL_Commit_Hash || 'main' }}
+          ref: ${{ steps.resolve.outputs.GLSL_REF }}
           submodules: recursive
 
       - name: "checkout Vulkan Guide"
         uses: actions/checkout@v4
         with:
-          repository: KhronosGroup/Vulkan-Guide
+          repository: ${{ steps.resolve.outputs.GUIDE_REPO }}
           path: ./Vulkan-Guide
-          ref: ${{ inputs.Guide_Commit_Hash > '' && inputs.Guide_Commit_Hash || 'main' }}
+          ref: ${{ steps.resolve.outputs.GUIDE_REF }}
           submodules: recursive
 
       - name: "Checkout Vulkan Docs"
         uses: actions/checkout@v4
         with:
-          repository: KhronosGroup/Vulkan-Docs
+          repository: ${{ steps.resolve.outputs.DOCS_REPO }}
           path: ./Vulkan-Docs
-          ref: ${{ inputs.DOC_Commit_Hash > '' && inputs.DOC_Commit_Hash || 'main' }}
+          ref: ${{ steps.resolve.outputs.DOCS_REF }}
           submodules: recursive
 
       - name: "Checkout Vulkan Samples"
         uses: actions/checkout@v4
         with:
-          repository: KhronosGroup/Vulkan-Samples
+          repository: ${{ steps.resolve.outputs.SAMPLES_REPO }}
           path: ./Vulkan-Samples
-          ref: ${{ inputs.Samples_Commit_Hash > '' && inputs.Samples_Commit_Hash || 'main' }}
+          ref: ${{ steps.resolve.outputs.SAMPLES_REF }}
           submodules: recursive
 
       - name: "Checkout Vulkan Tutorial"
         uses: actions/checkout@v4
         with:
-          repository: KhronosGroup/Vulkan-Tutorial
+          repository: ${{ steps.resolve.outputs.TUTORIAL_REPO }}
           path: ./Vulkan-Tutorial
-          ref: ${{ inputs.Tutorial_Commit_Hash > '' && inputs.Tutorial_Commit_Hash || 'main' }}
+          ref: ${{ steps.resolve.outputs.TUTORIAL_REF }}
           submodules: recursive
 
       - name: "setup npm"
