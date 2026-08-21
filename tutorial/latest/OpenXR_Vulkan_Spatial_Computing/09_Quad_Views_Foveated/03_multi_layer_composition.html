@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Multi-Layer Composition :: Vulkan Documentation Project</title>
+    <meta name="generator" content="Antora 3.1.10">
+    <script>
+      !function (theme) {
+        if (theme === 'dark') document.documentElement.classList.add('dark')
+        else document.documentElement.classList.add('light')
+      }(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+    </script>
+    <link rel="stylesheet" href="../../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../../_/css/vendor/tabs.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../../_/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../../_/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../../_/img/favicon-16x16.png">
+    <link rel="manifest" href="../../../../_/site.webmanifest">
+    <link rel="mask-icon" href="../../../../_/img/safari-pinned-tab.svg" color="#a41e22">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../../_/Vulkan_Docs.svg" /></a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs" aria-label="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:tutorial" checked> In this component
+          </label>
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <!-- <a class="navbar-item" href="#">Home</a> -->
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Specs</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../../spec/latest/chapters/introduction.html">Vulkan API</a>
+            <a class="navbar-item" href="../../../../glsl/latest/index.html">GLSL</a>
+            <a class="navbar-item" href="../../../../guide/latest/hlsl.html">HLSL</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Education</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../../refpages/latest/refpages/index.html">Vulkan Reference Pages</a>
+            <a class="navbar-item" href="../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
+            <a class="navbar-item" href="../../../../guide/latest/index.html">Vulkan Guide</a>
+            <a class="navbar-item" href="../../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../../tutorial/latest/index.html">Vulkan Tutorial</a>
+            <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
+            <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Community</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
+            <a class="navbar-item" href="https://reddit.com/r/vulkan">Reddit</a>
+            <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/vulkan">Stack Overflow</a>
+            <a class="navbar-item" href="https://fosstodon.org/@vulkan">Mastodon</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input type="checkbox" id="switch-theme-checkbox" name="switch-theme-checkbox" aria-label="Toggle color theme" title="Toggle color theme"/>
+      <span class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" class="svg-inline--fa fa-moon moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
+        </svg>
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun" class="svg-inline--fa fa-sun sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"></path>
+        </svg></span>
+    </label>
+  </nav>
+</header>
+<script>
+  window.onload = function() {
+    let e = document.getElementById("switch-theme-checkbox")
+    e.checked = document.documentElement.classList.contains("dark");
+    e.checked ? e.parentElement.classList.add("active") : e.parentElement.classList.remove("active")
+  }
+  !function() {
+    let e = document.getElementById("switch-theme-checkbox")
+    e.checked = document.documentElement.classList.contains("dark")
+    e.addEventListener("change", function() {
+      if (document.documentElement.classList.contains("light")) {
+        document.documentElement.classList.remove("light")
+        document.documentElement.classList.add("dark")
+      } else if (document.documentElement.classList.contains("dark")) {
+        document.documentElement.classList.remove("dark")
+        document.documentElement.classList.add("light")
+      } else {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add("dark")
+        } else {
+          document.documentElement.classList.add("light")
+        }
+      }
+      document.documentElement.setAttribute("data-theme", this.checked ? "dark" : "light"),
+        function(e) {
+          window.localStorage && window.localStorage.setItem("theme", e)
+        }(this.checked ? "dark" : "light"), this.checked ? this.parentElement.classList.add("active") : this.parentElement.classList.remove("active")
+    }.bind(e))
+  }();
+</script>
+<div class="body">
+<div class="nav-container" data-component="tutorial" data-version="latest" id="split-0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../../00_Introduction.html">Khronos Vulkan Tutorial</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../00_Introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../01_Overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../02_Development_environment.html">Development environment</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../03_Drawing_a_triangle/00_Setup/00_Base_code.html">Drawing a triangle</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../03_Drawing_a_triangle/00_Setup/00_Base_code.html">Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/00_Setup/00_Base_code.html">Base Code</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/00_Setup/01_Instance.html">Instance</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/00_Setup/02_Validation_layers.html">Validation layers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/00_Setup/03_Physical_devices_and_queue_families.html">Physical devices and queue families</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/00_Setup/04_Logical_device_and_queues.html">Logical device and queues</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../03_Drawing_a_triangle/01_Presentation/00_Window_surface.html">Presentation</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/01_Presentation/00_Window_surface.html">Window surface</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/01_Presentation/01_Swap_chain.html">Swap chain</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/01_Presentation/02_Image_views.html">Image views</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../03_Drawing_a_triangle/02_Graphics_pipeline_basics/00_Introduction.html">Graphics pipeline basics</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/02_Graphics_pipeline_basics/00_Introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/02_Graphics_pipeline_basics/01_Shader_modules.html">Shader modules</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/02_Graphics_pipeline_basics/02_Fixed_functions.html">Fixed functions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/02_Graphics_pipeline_basics/03_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/02_Graphics_pipeline_basics/04_Conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../03_Drawing_a_triangle/03_Drawing/00_Dynamic_rendering.html">Drawing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/03_Drawing/00_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/03_Drawing/01_Command_buffers.html">Command buffers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/03_Drawing/02_Rendering_and_presentation.html">Rendering and presentation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/03_Drawing/03_Frames_in_flight.html">Frames in flight</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../03_Drawing_a_triangle/04_Swap_chain_recreation.html">Swap chain recreation</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../04_Vertex_buffers/00_Vertex_input_description.html">Vertex buffers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../04_Vertex_buffers/00_Vertex_input_description.html">Vertex input description</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../04_Vertex_buffers/01_Vertex_buffer_creation.html">Vertex buffer creation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../04_Vertex_buffers/02_Staging_buffer.html">Staging buffer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../04_Vertex_buffers/03_Index_buffer.html">Index buffer</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../05_Uniform_buffers/00_Descriptor_set_layout_and_buffer.html">Uniform buffers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../05_Uniform_buffers/00_Descriptor_set_layout_and_buffer.html">Descriptor layout and buffer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../05_Uniform_buffers/01_Descriptor_pool_and_sets.html">Descriptor pool and sets</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../06_Texture_mapping/00_Images.html">Texture mapping</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../06_Texture_mapping/00_Images.html">Images</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../06_Texture_mapping/01_Image_view_and_sampler.html">Image view and sampler</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../06_Texture_mapping/02_Combined_image_sampler.html">Combined image sampler</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../07_Depth_buffering.html">Depth buffering</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../08_Loading_models.html">Loading models</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../09_Generating_Mipmaps.html">Generating Mipmaps</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../10_Multisampling.html">Multisampling</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../11_Compute_Shader.html">Compute Shader</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../12_Ecosystem_Utilities_and_Compatibility.html">Ecosystem Utilities and GPU Compatibility</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../13_Vulkan_Profiles.html">Vulkan Profiles</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../14_Android.html">Android</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../15_GLTF_KTX2_Migration.html">Migrating to Modern Asset Formats: glTF and KTX2</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../16_Multiple_Objects.html">Rendering Multiple Objects</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../17_Multithreading.html">Multithreading</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../courses/18_Ray_tracing/00_Overview.html">Ray Tracing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/00_Overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/01_Dynamic_rendering.html">Dynamic rendering</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/02_Acceleration_structures.html">Acceleration structures</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/03_Ray_query_shadows.html">Ray query shadows</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/04_TLAS_animation.html">TLAS animation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/05_Shadow_transparency.html">Shadow transparency</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/06_Reflections.html">Reflections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../courses/18_Ray_tracing/07_Conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../courses/siggraph2026_vk_tutorial/00_Overview.html">How to write a Vulkan application in 2026</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Building a Simple Engine</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Engine Architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Engine_Architecture/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Engine_Architecture/02_architectural_patterns.html">Architectural patterns</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Engine_Architecture/03_component_systems.html">Component systems</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Engine_Architecture/04_resource_management.html">Resource management</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Engine_Architecture/05_rendering_pipeline.html">Rendering pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Engine_Architecture/06_event_systems.html">Event systems</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Engine_Architecture/conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Camera Transformations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Camera_Transformations/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Camera_Transformations/02_math_foundations.html">Math foundations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Camera_Transformations/03_transformation_matrices.html">Transformation matrices</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Camera_Transformations/04_camera_implementation.html">Camera implementation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Camera_Transformations/05_vulkan_integration.html">Vulkan integration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Camera_Transformations/06_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Lighting &amp; Materials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Lighting_Materials/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Lighting_Materials/02_lighting_models.html">Lighting models</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Lighting_Materials/03_push_constants.html">Push constants</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Lighting_Materials/04_lighting_implementation.html">Lighting implementation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Lighting_Materials/05_vulkan_integration.html">Vulkan integration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Lighting_Materials/07_shadows.html">Shadows</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Lighting_Materials/06_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">GUI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/GUI/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/GUI/02_imgui_setup.html">ImGui setup</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/GUI/03_input_handling.html">Input handling</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/GUI/04_ui_elements.html">UI elements</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/GUI/05_vulkan_integration.html">Vulkan integration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/GUI/06_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Loading Models</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Loading_Models/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Loading_Models/02_project_setup.html">Project setup</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Loading_Models/03_model_system.html">Model system</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Loading_Models/04_loading_gltf.html">Loading glTF</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Loading_Models/05_pbr_rendering.html">PBR rendering</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Loading_Models/06_multiple_objects.html">Multiple objects</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Loading_Models/07_scene_rendering.html">Scene rendering</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Loading_Models/08_animations.html">Animations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Loading_Models/09_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Subsystems</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Subsystems/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Subsystems/02_audio_basics.html">Audio basics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Subsystems/03_vulkan_audio.html">Vulkan audio</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Subsystems/04_physics_basics.html">Physics basics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Subsystems/05_vulkan_physics.html">Vulkan physics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Subsystems/06_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tooling</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Tooling/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Tooling/02_cicd.html">CI/CD</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Tooling/03_debugging_and_renderdoc.html">Debugging &amp; RenderDoc</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Tooling/04_crash_minidump.html">Crash minidumps</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Tooling/05_extensions.html">Extensions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Tooling/06_packaging_and_distribution.html">Packaging &amp; distribution</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Tooling/07_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Mobile Development</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Mobile_Development/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Mobile_Development/02_platform_considerations.html">Platform considerations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Mobile_Development/03_performance_optimizations.html">Performance optimizations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Mobile_Development/04_rendering_approaches.html">Rendering approaches</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Mobile_Development/05_vulkan_extensions.html">Vulkan extensions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Mobile_Development/06_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Extra Courses</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Opacity Micromaps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Courses/Opacity_Micromaps/00_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Courses/Opacity_Micromaps/01_the_shadow_problem.html">The shadow problem</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Courses/Opacity_Micromaps/02_why_alpha_testing_is_expensive.html">Why alpha testing is expensive</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Courses/Opacity_Micromaps/03_what_are_micromaps.html">What are micromaps</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Courses/Opacity_Micromaps/04_hardware_traversal_with_omm.html">Hardware traversal with OMM</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Courses/Opacity_Micromaps/05_implementation_overview.html">Implementation overview</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Courses/Opacity_Micromaps/06_results_guidance_and_tradeoffs.html">Results, guidance and tradeoffs</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Courses/Opacity_Micromaps/07_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Advanced Topics</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Rendering_Pipeline_Overview.html">Rendering pipeline overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Forward_ForwardPlus_Deferred.html">Forward vs Forward+ vs Deferred</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/ForwardPlus_Rendering.html">Forward+ rendering</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Culling.html">Culling</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Mipmaps_and_LOD.html">Mipmaps &amp; LOD</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Push_Constants_Per_Object.html">Push constants per object</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Synchronization_and_Streaming.html">Synchronization &amp; streaming</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Synchronization_2_Frame_Pacing.html">Synchronization2 &amp; frame pacing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Descriptor_Indexing_UpdateAfterBind.html">Descriptor indexing (UpdateAfterBind)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Separate_Image_Sampler_Descriptors.html">Separate image/sampler descriptors</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Shader_Tile_Image.html">Shader tile image</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/GLTF_Animation.html">glTF animation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Planar_Reflections.html">Planar reflections</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Ray_Query_Rendering.html">Ray query rendering</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Ray_Query_Reflections_and_Transparency.html">Ray query: reflections &amp; transparency</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Dynamic_Rendering_Local_Read.html">Dynamic rendering local read</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Advanced_Topics/Robustness2.html">Robustness2</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Appendix</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Building_a_Simple_Engine/Appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">AI-Assisted Vulkan Development</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Environment Setup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/02_environment_setup/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/02_environment_setup/02_jetbrains_clion_android_studio.html">JetBrains CLion &amp; Android Studio</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/02_environment_setup/03_visual_studio.html">Visual Studio</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/02_environment_setup/04_xcode_apple.html">Xcode &amp; Apple Silicon</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/02_environment_setup/05_goose_native_agent.html">Goose &amp; local agents</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/02_environment_setup/06_mcp_context_bridge.html">Model Context Protocol (MCP)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Model Selection &amp; Specialization</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/03_model_selection_specialization/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/03_model_selection_specialization/02_base_models.html">Selecting the base model</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/03_model_selection_specialization/03_hardware_vram.html">Hardware &amp; VRAM budgeting</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/03_model_selection_specialization/04_rag_mcp_specialization.html">MCP &amp; RAG specialization</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/03_model_selection_specialization/05_fine_tuning_lora.html">Fine-tuning for your engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Multimodal AI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/04_multimodal_ai/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/04_multimodal_ai/02_multimodal_models.html">Multimodal models</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/04_multimodal_ai/03_visual_bug_diagnosis.html">Visual bug diagnosis</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/04_multimodal_ai/04_expectations_limits.html">Expectations &amp; limits</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Workflow</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/05_workflow/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/05_workflow/02_phase_1_planning.html">Phase 1: Planning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/05_workflow/03_phase_2_implementation.html">Phase 2: Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/05_workflow/04_phase_3_refactoring.html">Phase 3: Refactoring</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Debugging</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/06_debugging/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/06_debugging/02_vuid_autofix.html">The VUID auto-fix</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/06_debugging/03_renderdoc_ai_integration.html">AI + RenderDoc integration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/06_debugging/04_shader_debugging_logs.html">Shader debugging &amp; log parsing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/06_debugging/05_gfxreconstruct_ai.html">AI-assisted trace analysis: GFXReconstruct</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Advanced MCP Tooling</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/07_advanced_mcp/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/07_advanced_mcp/02_vulkan_registry_mcp.html">Vulkan Registry &amp; GPUInfo MCP</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/07_advanced_mcp/03_agentic_automation_qa.html">Agentic automation &amp; performance audits</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Deployment</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/08_deployment/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/08_deployment/02_android_ios_mobile.html">Android &amp; iOS</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/08_deployment/03_embedded_safety_critical.html">Embedded &amp; safety critical</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/09_faq.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../AI_Assisted_Vulkan/10_final_project.html">Final project: the AI-driven graphics lab</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Advanced Vulkan Compute</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">The Compute Architecture and Execution Model</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/02_Compute_Architecture/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/02_Compute_Architecture/02_workgroups_and_invocations.html">Workgroups and Invocations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/02_Compute_Architecture/03_occupancy_and_latency_hiding.html">Occupancy and Latency Hiding</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/02_Compute_Architecture/04_vulkan_1_4_scalar_layouts.html">Vulkan 1.4 Scalar Layouts</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Memory Models and Consistency</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/03_Memory_Models/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/03_Memory_Models/02_vulkan_memory_model.html">The Vulkan Memory Model</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/03_Memory_Models/03_shared_memory_lds.html">Shared Memory (LDS)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/03_Memory_Models/04_memory_consistency.html">Memory Consistency</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Subgroup Operations: The Hidden Power</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/04_Subgroup_Operations/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/04_Subgroup_Operations/02_cross_invocation_communication.html">Cross-Invocation Communication</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/04_Subgroup_Operations/03_subgroup_partitioning.html">Subgroup Partitioning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/04_Subgroup_Operations/04_non_uniform_indexing.html">Non-Uniform Indexing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Heterogeneous Ecosystem: OpenCL on Vulkan</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/05_OpenCL_on_Vulkan/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/05_OpenCL_on_Vulkan/02_setup_and_installation.html">Setup and Installation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/05_OpenCL_on_Vulkan/03_clspv_pipeline.html">The clspv Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/05_OpenCL_on_Vulkan/04_kernel_portability.html">Kernel Portability</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/05_OpenCL_on_Vulkan/05_clvk_and_layering.html">clvk and Layering</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/05_OpenCL_on_Vulkan/06_a_practical_sample.html">A Practical Sample</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/05_OpenCL_on_Vulkan/07_clspv_for_production.html">Developing with clspv</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Advanced Data Structures on the GPU</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/06_Advanced_Data_Structures/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/06_Advanced_Data_Structures/02_gpu_resident_trees.html">GPU-Resident Trees</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/06_Advanced_Data_Structures/03_global_atomic_management.html">Global Atomic Management</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/06_Advanced_Data_Structures/04_device_addressable_buffers.html">Device-Addressable Buffers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Indirect Dispatch and GPU-Driven Pipelines</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/07_GPU_Driven_Pipelines/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/07_GPU_Driven_Pipelines/02_indirect_dispatch.html">Indirect Dispatch</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/07_GPU_Driven_Pipelines/03_gpu_side_command_generation.html">GPU-Side Command Generation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/07_GPU_Driven_Pipelines/04_multi_draw_indirect_mdi.html">Multi-Draw Indirect (MDI)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Asynchronous Compute Orchestration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/08_Asynchronous_Compute/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/08_Asynchronous_Compute/02_concurrent_execution.html">Concurrent Execution</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/08_Asynchronous_Compute/03_timeline_semaphores.html">Timeline Semaphores</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/08_Asynchronous_Compute/04_queue_priority.html">Queue Priority</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Cooperative Matrices and Specialized Math</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/09_Specialized_Math/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/09_Specialized_Math/02_cooperative_matrices.html">Cooperative Matrices</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/09_Specialized_Math/03_mixed_precision.html">Mixed Precision</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Performance Auditing and Optimization</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/10_Performance_Optimization/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/10_Performance_Optimization/02_instruction_throughput.html">Instruction Throughput Analysis</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/10_Performance_Optimization/03_divergence_audit.html">The "Divergence" Audit</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Diagnostics and AI-Assisted Compute Refinement</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/11_Diagnostics_and_Refinement/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/11_Diagnostics_and_Refinement/02_compute_validation.html">Compute Validation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/11_Diagnostics_and_Refinement/03_assistant_led_optimization.html">Assistant-Led Optimization</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Mobile and Embedded Compute</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/12_Mobile_and_Embedded_Compute/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/12_Mobile_and_Embedded_Compute/02_android_compute.html">Compute on Android</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/12_Mobile_and_Embedded_Compute/03_mobile_optimization.html">Optimizing for Mobile GPUs</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/12_Mobile_and_Embedded_Compute/04_embedded_beyond_mobile.html">Beyond Mobile: Embedded and Headless Compute</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../Advanced_Vulkan_Compute/conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Synchronization 2</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../Synchronization/introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Anatomy of a Dependency</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Anatomy_of_a_Dependency/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Anatomy_of_a_Dependency/02_execution_vs_memory.html">Execution vs. Memory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Anatomy_of_a_Dependency/03_sync2_advantage.html">Sync 2 Advantage</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Anatomy_of_a_Dependency/04_refined_pipeline_stages.html">Refined Pipeline Stages</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Anatomy_of_a_Dependency/05_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Pipeline Barriers and Transitions</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Pipeline_Barriers_Transitions/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Pipeline_Barriers_Transitions/02_image_barrier.html">The Image Barrier</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Pipeline_Barriers_Transitions/03_queue_family_ownership.html">Queue Family Ownership</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Pipeline_Barriers_Transitions/04_global_vs_local_barriers.html">Global vs. Local Barriers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Timeline Semaphores</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Timeline_Semaphores/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Timeline_Semaphores/02_unifying_sync.html">Unifying Sync</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Timeline_Semaphores/03_monotonic_counter.html">Monotonic Counter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Timeline_Semaphores/04_wait_before_signal.html">Wait Before Signal</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Frame-in-Flight Architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Frame_in_Flight/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Frame_in_Flight/02_managing_concurrent_frames.html">Managing Concurrent Frames</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Frame_in_Flight/03_resource_lifetimes.html">Resource Lifetimes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Asynchronous Compute &amp; Overlap</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Async_Compute_Overlap/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Async_Compute_Overlap/02_maximizing_throughput.html">Maximizing Throughput</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Async_Compute_Overlap/03_async_post_processing.html">Async Post-processing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Async_Compute_Overlap/04_bubble_problem.html">The Bubble Problem</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Transfer Queues &amp; Asset Streaming Sync</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Transfer_Queues_Streaming/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Transfer_Queues_Streaming/02_non_blocking_uploads.html">Non-blocking Uploads</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Transfer_Queues_Streaming/03_staging_sync.html">Staging Sync</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Synchronization in Dynamic Rendering</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Dynamic_Rendering_Sync/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Dynamic_Rendering_Sync/02_subpass_replacement.html">Subpass Replacement</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Dynamic_Rendering_Sync/03_local_read_sync.html">Local Read Sync</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Host Image Copies &amp; Memory Mapped Sync</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Host_Image_Copies_Memory_Sync/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Host_Image_Copies_Memory_Sync/02_cpu_to_image_access.html">CPU-to-Image Access</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Host_Image_Copies_Memory_Sync/03_visibility_flushes.html">Visibility Flushes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Debugging with Synchronization Validation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Synchronization_Validation/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Synchronization_Validation/02_validation_layer.html">Validation Layer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Synchronization_Validation/03_interpreting_vuids.html">Interpreting VUIDs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Profiling, Batching, and Optimization</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Profiling_Optimization/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Profiling_Optimization/02_barrier_batching.html">Barrier Batching</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Synchronization/Profiling_Optimization/03_visualizing_stalls.html">Visualizing Stalls</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Advanced glTF: High-Performance Character Pipelines</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../Advanced_glTF/introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Scene Graph &amp; Transform Hierarchy</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Scene_Graph_Hierarchy/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Scene_Graph_Hierarchy/02_engine_expansion.html">Engine expansion</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Scene_Graph_Hierarchy/03_physics_syncing.html">Physics syncing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Scene_Graph_Hierarchy/04_metadata_and_physics_extras.html">Metadata &amp; physics extras</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Scene_Graph_Hierarchy/05_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Skeletal &amp; Compute Skinning</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Skeletal_Compute_Skinning/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Skeletal_Compute_Skinning/02_skinning_math.html">The mathematics of skinning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Skeletal_Compute_Skinning/03_compute_skinning.html">The compute skinning pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Skeletal_Compute_Skinning/04_shared_vertex_buffer.html">Skin once, use everywhere</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Skeletal_Compute_Skinning/05_interpolation_blending.html">Interpolation &amp; blending</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Skeletal_Compute_Skinning/06_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Physics Integration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Physics_Integration/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Physics_Integration/02_bone_proxy_colliders.html">Bone proxy colliders</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Physics_Integration/03_constraints_and_joint_limits.html">Constraints &amp; joint limits</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Physics_Integration/04_ragdoll_handoff.html">Ragdoll handoff</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Physics_Integration/05_self_collision_filtering.html">Self-collision filtering</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Physics_Integration/06_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Procedural Animation &amp; IK</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Procedural_Animation_IK/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Procedural_Animation_IK/02_ccd_ik.html">CCD IK</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Procedural_Animation_IK/03_fabrik.html">FABRIK</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Procedural_Animation_IK/04_foot_placement.html">Foot placement</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Procedural_Animation_IK/05_look_at.html">Look-at</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Procedural_Animation_IK/06_physics_driven_lean.html">Physics-driven lean</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Procedural_Animation_IK/07_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Morph Targets &amp; Facial Animation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Morph_Targets_Facial_Animation/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Morph_Targets_Facial_Animation/02_shape_key_ingestion.html">Shape key ingestion</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Morph_Targets_Facial_Animation/03_bindless_morph_buffers.html">Bindless morph buffers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Morph_Targets_Facial_Animation/04_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tooling &amp; Production Pipeline</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Tooling_Production_Pipeline/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Tooling_Production_Pipeline/02_blender_workflow.html">Blender workflow</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Tooling_Production_Pipeline/03_validation.html">Validation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Tooling_Production_Pipeline/04_gltf_viewer_audit.html">glTF viewer audit</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Tooling_Production_Pipeline/05_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Debugging &amp; Visual Auditing</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Debugging_Visual_Auditing/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Debugging_Visual_Auditing/02_debug_drawers.html">Debug drawers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Debugging_Visual_Auditing/03_skinning_heatmaps.html">Skinning heatmaps</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Debugging_Visual_Auditing/04_renderdoc_analysis.html">RenderDoc analysis</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../Advanced_glTF/Debugging_Visual_Auditing/05_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../Advanced_glTF/appendix_types.html">Appendix: Common Types Reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Machine Learning Inference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../ML_Inference/introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ML Inference Pipeline</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/ML_Inference_Pipeline/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/ML_Inference_Pipeline/02_what_is_machine_learning.html">What is Machine Learning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/ML_Inference_Pipeline/03_neural_networks_fundamentals.html">Neural Networks Fundamentals</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/ML_Inference_Pipeline/04_inference_explained.html">Inference Explained</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/ML_Inference_Pipeline/05_transfer_learning.html">Transfer Learning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/ML_Inference_Pipeline/06_model_formats.html">Model Formats</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/ML_Inference_Pipeline/07_mental_model_gpu_execution.html">Mental Model: GPU Execution</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Integrating Third-Party ML Libraries</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/02_onnx_runtime.html">ONNX Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/03_tensorflow_lite.html">TensorFlow Lite</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/04_pytorch_mobile.html">PyTorch Mobile</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/05_directml.html">DirectML</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/06_integration_patterns.html">Integration Patterns</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/07_gpu_resource_sharing.html">GPU Resource Sharing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/08_data_transfer_optimization.html">Data Transfer Optimization</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/09_practical_examples.html">Practical Examples</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/10_choosing_library.html">Choosing the Right Library</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/11_ML_Compilers.html">ML Compilers Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/12_iree.html">IREE</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/13_apache_tvm.html">Apache TVM</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/14_mojo_max.html">Mojo / MAX</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/15_openxla.html">OpenXLA</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Third_Party_Libraries/16_choosing_compiler.html">Choosing the Right ML Compiler</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Vulkan Compute for ML</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Vulkan_Compute_for_ML/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Vulkan_Compute_for_ML/02_compute_pipeline_review.html">Compute Pipeline Review</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Vulkan_Compute_for_ML/03_element_wise_operations.html">Element-wise Operations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Vulkan_Compute_for_ML/04_matrix_operations.html">Matrix Operations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Vulkan_Compute_for_ML/05_data_management.html">Data Management</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Vulkan_Compute_for_ML/06_synchronization.html">Synchronization</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Vulkan_Compute_for_ML/07_vector_addition_example.html">Vector Addition Example</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Building the Inference Engine</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Building_the_Inference_Engine/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Building_the_Inference_Engine/02_hardcoded_forward_prop.html">Hardcoded Forward Prop</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Building_the_Inference_Engine/03_from_hardcoded_to_flexible.html">From Hardcoded to Flexible</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Building_the_Inference_Engine/04_model_representation.html">Model Representation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Building_the_Inference_Engine/05_model_formats_as_input.html">Model Formats as Input</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Building_the_Inference_Engine/06_nnef_introduction.html">NNEF Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Building_the_Inference_Engine/07_putting_it_together.html">Putting it Together</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Debugging and Performance</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Debugging_and_Performance/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Debugging_and_Performance/02_debugging_vulkan_compute.html">Debugging Vulkan Compute</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Debugging_and_Performance/03_verifying_correctness.html">Verifying Correctness</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Debugging_and_Performance/04_performance_profiling.html">Performance Profiling</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Debugging_and_Performance/05_optimization_techniques.html">Optimization Techniques</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Desktop Applications</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Desktop_Applications/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Desktop_Applications/02_image_classification.html">Image Classification</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Desktop_Applications/03_practical_implementation.html">Practical Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Desktop_Applications/04_ci_render_validation.html">CI/CD Render Validation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Desktop_Applications/05_real_time_camera.html">Real-time Camera</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Desktop_Applications/06_rl_automated_exploration.html">RL Automated Exploration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Desktop_Applications/07_ray_tracing_optimization.html">Ray Tracing Optimization</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Desktop_Applications/08_future_directions.html">Future Directions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Advanced Topics</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Advanced_Topics/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Advanced_Topics/02_quantization_strategies.html">Quantization Strategies</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Advanced_Topics/03_vendor_optimizations.html">Vendor Optimizations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Advanced_Topics/04_memory_management.html">Memory Management</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Advanced_Topics/05_model_optimization.html">Model Optimization</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Embedded Applications</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Embedded_Applications/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Embedded_Applications/02_cross_compilation.html">Cross Compilation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Embedded_Applications/03_camera_integration.html">Camera Integration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Embedded_Applications/04_power_optimization.html">Power Optimization</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Embedded_Applications/05_complete_example.html">Complete Example</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Embedded_Applications/06_scene_understanding_openxr.html">Scene Understanding with OpenXR</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Embedded_Applications/07_ml_compiler.html">ML Compilers on Embedded Devices</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Embedded_Applications/08_nnef_example.html">NNEF on Embedded: Example</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../ML_Inference/Embedded_Applications/09_conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../ML_Inference/glossary.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">OpenXR and Vulkan 1.3 Spatial Computing</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">The OpenXR-Vulkan 1.3 Handshake</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../02_OpenXR_Vulkan_Handshake/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../02_OpenXR_Vulkan_Handshake/02_system_integration.html">System Integration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../02_OpenXR_Vulkan_Handshake/03_hardware_alignment_luid.html">Hardware Alignment</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../02_OpenXR_Vulkan_Handshake/04_vulkan_1_3_feature_requirements.html">Vulkan 1.3 Feature Requirements</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../02_OpenXR_Vulkan_Handshake/05_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Runtime-Owned Swapchains</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03_Runtime_Owned_Swapchains/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03_Runtime_Owned_Swapchains/02_external_image_negotiation.html">External Image Negotiation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03_Runtime_Owned_Swapchains/03_raii_resource_integration.html">RAII Resource Integration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03_Runtime_Owned_Swapchains/04_memory_ownership_lifecycle.html">Memory Ownership Lifecycle</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03_Runtime_Owned_Swapchains/05_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Dynamic Rendering for Spatial Views</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../04_Dynamic_Rendering/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../04_Dynamic_Rendering/02_rendering_to_spatial_swapchains.html">Rendering into Spatial Swapchains</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../04_Dynamic_Rendering/03_stereo_viewport_scissor.html">Stereo Viewport &amp; Scissor Management</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../04_Dynamic_Rendering/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">The Predictive Frame Loop</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05_Predictive_Frame_Loop/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05_Predictive_Frame_Loop/02_xr_lifecycle.html">The XR Lifecycle</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05_Predictive_Frame_Loop/03_display_time_prediction.html">Display Time Prediction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05_Predictive_Frame_Loop/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Late Latching</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../06_Late_Latching/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../06_Late_Latching/02_last_second_update.html">The Last-Second Update</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../06_Late_Latching/03_implementation.html">Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../06_Late_Latching/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Action Spaces and Input</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../07_Action_Spaces_Input/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../07_Action_Spaces_Input/02_openxr_action_system.html">The OpenXR Action System</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../07_Action_Spaces_Input/03_space_manifolds.html">Space Manifolds</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../07_Action_Spaces_Input/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Slang for Spatial Shaders</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../08_Slang_Spatial_Shaders/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../08_Slang_Spatial_Shaders/02_native_multiview.html">Native Multiview (N=2)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../08_Slang_Spatial_Shaders/03_slang_architecture.html">Slang Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../08_Slang_Spatial_Shaders/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Quad-Views and Foveated Rendering</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02_primary_stereo_with_insets.html">Primary Stereo with Insets</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="03_multi_layer_composition.html">Multi-Layer Composition</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Variable Rate Shading</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../10_Variable_Rate_Shading/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../10_Variable_Rate_Shading/02_fragment_density_control.html">Fragment Density Control</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../10_Variable_Rate_Shading/03_gaze_driven_logic.html">Gaze-Driven Logic</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../10_Variable_Rate_Shading/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Canted Displays</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../11_Canted_Displays/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../11_Canted_Displays/02_non_parallel_projections.html">Non-Parallel Projections</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../11_Canted_Displays/03_viewport_swizzling.html">Viewport Swizzling</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../11_Canted_Displays/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAVE Architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../12_CAVE_Architecture/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../12_CAVE_Architecture/02_projector_based_spatial_tech.html">Projector-Based Spatial Tech</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../12_CAVE_Architecture/03_hardware_sync.html">Hardware Sync</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../12_CAVE_Architecture/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Warp and Blend</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../13_Warp_and_Blend/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../13_Warp_and_Blend/02_geometric_correction.html">Geometric Correction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../13_Warp_and_Blend/03_post_process_warping.html">Post-Process Warping</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../13_Warp_and_Blend/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">LightField Theory</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../14_LightField_Theory/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../14_LightField_Theory/02_4d_lightfield_representation.html">4D LightField Representation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../14_LightField_Theory/03_high_density_view_arrays.html">High-Density View Arrays</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../14_LightField_Theory/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Plenoptic Synthesis</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../15_Plenoptic_Synthesis/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../15_Plenoptic_Synthesis/02_synthesis_shaders.html">Synthesis Shaders</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../15_Plenoptic_Synthesis/03_ray_traced_synthesis.html">Ray Traced Synthesis</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../15_Plenoptic_Synthesis/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Scene Understanding</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../16_Scene_Understanding/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../16_Scene_Understanding/02_environmental_ingestion.html">Environmental Ingestion</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../16_Scene_Understanding/03_zero_copy_hand_off.html">Zero-Copy Hand-off</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../16_Scene_Understanding/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ML Inference for Spatial Data</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../17_ML_Inference_Spatial/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../17_ML_Inference_Spatial/02_on_gpu_inference.html">On-GPU Inference</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../17_ML_Inference_Spatial/03_refining_spatial_data.html">Refining Spatial Data</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../17_ML_Inference_Spatial/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Semantic Occlusion</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../18_Semantic_Occlusion/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../18_Semantic_Occlusion/02_ml_driven_segmentation.html">ML-Driven Segmentation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../18_Semantic_Occlusion/03_per_pixel_masking.html">Per-Pixel Masking</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../18_Semantic_Occlusion/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Platform Divergence</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../19_Platform_Divergence/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../19_Platform_Divergence/02_desktop_high_end.html">Desktop High-End</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../19_Platform_Divergence/03_mobile_mastery.html">Mobile Mastery</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../19_Platform_Divergence/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spatial Diagnostics</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../20_Spatial_Diagnostics_CI_CD/01_introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../20_Spatial_Diagnostics_CI_CD/02_spatial_debugging.html">Spatial Debugging</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../20_Spatial_Diagnostics_CI_CD/03_automated_qa.html">Automated QA</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../20_Spatial_Diagnostics_CI_CD/04_incorporating_into_the_engine.html">Incorporating into the Engine</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../conclusion.html">Conclusion</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../90_FAQ.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial" target="_blank" rel="noopener">GitHub Repository</a></span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Khronos Vulkan Tutorial</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../00_Introduction.html">Khronos Vulkan Tutorial</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../../00_Introduction.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../../glsl/latest/index.html">OpenGL Shading Language Specification</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../../refpages/latest/refpages/index.html">Vulkan API Reference Pages</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../refpages/latest/refpages/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../../guide/latest/index.html">Vulkan Guide</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../guide/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../../samples/latest/README.html">Vulkan Samples</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../samples/latest/README.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../../spec/latest/index.html">Vulkan Specification</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../spec/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article" id="split-1">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../../../spec/latest/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../00_Introduction.html">Khronos Vulkan Tutorial</a></li>
+    <li>OpenXR and Vulkan 1.3 Spatial Computing</li>
+    <li>Quad-Views and Foveated Rendering</li>
+    <li><a href="03_multi_layer_composition.html">Multi-Layer Composition</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Multi-Layer Composition</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Rendering a <strong>Quad-View</strong> is only half the battle. Once we have our four views (base eyes and high-detail insets), we need to get them to the <strong>OpenXR Compositor</strong> for the final display. This is where <strong>Multi-Layer Composition</strong> comes in.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ecosystem_perspective"><a class="anchor" href="#_ecosystem_perspective"></a>Ecosystem Perspective</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This chapter falls under the category: <strong>Using Vulkan with an OpenXR Runtime</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Submitting multiple composition layers is a standard process in OpenXR. You must use the runtime&#8217;s layer APIs and Vulkan&#8217;s synchronization primitives to correctly hand off each projection layer to the compositor.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_layer_stack_modular_imagery"><a class="anchor" href="#_the_layer_stack_modular_imagery"></a>The Layer Stack: Modular Imagery</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In OpenXR, you don&#8217;t just submit a single image. You submit an array of <strong>Composition Layers</strong>. The compositor performs a final, high-priority pass to stack these images together before they hit the display.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Base Layer</strong>: Your standard 3D world (indices 0 and 1 of your quad-view).</p>
+</li>
+<li>
+<p><strong>Inset Layer</strong>: The high-detail foveal data (indices 2 and 3).</p>
+</li>
+<li>
+<p><strong>Overlay Layer</strong>: A flat HUD or menu that stays perfectly sharp.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">// 1. Defining Composition Layers in OpenXR using designated initializers
+XrCompositionLayerProjection baseLayer{
+    .type = XR_TYPE_COMPOSITION_LAYER_PROJECTION,
+    .layerFlags = XR_COMPOSITION_LAYER_CORRECT_CHROMATIC_ABERRATION_BIT,
+    .space = worldSpace,
+    .viewCount = 2,
+    .views = baseViewsPtr
+};
+
+XrCompositionLayerProjection insetLayer{
+    .type = XR_TYPE_COMPOSITION_LAYER_PROJECTION,
+    .layerFlags = XR_COMPOSITION_LAYER_CORRECT_CHROMATIC_ABERRATION_BIT,
+    .space = worldSpace,
+    .viewCount = 2,
+    .views = insetViewsPtr
+};
+
+// 2. Submitting layers to xrEndFrame
+std::vector&lt;XrCompositionLayerBaseHeader*&gt; layers = {
+    reinterpret_cast&lt;XrCompositionLayerBaseHeader*&gt;(&amp;baseLayer),
+    reinterpret_cast&lt;XrCompositionLayerBaseHeader*&gt;(&amp;insetLayer)
+};
+
+XrFrameEndInfo frameEndInfo{
+    .type = XR_TYPE_FRAME_END_INFO,
+    .displayTime = frameState.predictedDisplayTime,
+    .layerCount = static_cast&lt;uint32_t&gt;(layers.size()),
+    .layers = layers.data()
+};
+xrEndFrame(session, &amp;frameEndInfo);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The order matters: the last layer in the list is drawn on top.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_masking_and_blending"><a class="anchor" href="#_masking_and_blending"></a>Masking and Blending</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>How does the compositor know where to show the high-detail inset? Each layer specifies a <strong>Projection View</strong>. For quad-views, the inset layer&#8217;s views have a smaller FOV but the same camera pose.</p>
+</div>
+<div class="paragraph">
+<p>The compositor uses the FOV tangents to mathematically "place" the high-detail image over the low-detail one. It then performs a <strong>Soft Edge Blend</strong> to ensure the transition between the 20 PPD and 60 PPD regions is invisible to the user.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_advanced_physically_based_compositing_and_alpha_blending"><a class="anchor" href="#_advanced_physically_based_compositing_and_alpha_blending"></a>Advanced: Physically-Based Compositing and Alpha Blending</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vulkan allows you to perform your own depth-aware layer merging beyond the runtime&#8217;s defaults:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Custom Layer Merging</strong>: While runtimes are often limited to a few layers, you can use Vulkan&#8217;s <strong>Subgroup Operations</strong> and <strong>Input Attachments</strong> to merge your own layers into a single consolidated image before hand-off, bypassing runtime restrictions.</p>
+</li>
+<li>
+<p><strong>Shared Depth Buffers</strong>: Unless you use specific extensions, the runtime doesn&#8217;t know about the depth values of your layers. You can use Vulkan to create a <strong>Shared Depth Buffer</strong> across all composition layers, enabling perfect per-pixel occlusion between your HUD, world, and insets.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resource_synchronization_multi_swapchain_pacing"><a class="anchor" href="#_resource_synchronization_multi_swapchain_pacing"></a>Resource Synchronization: Multi-Swapchain Pacing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From an engine perspective, this means we are now managing <strong>Multiple Swapchains</strong> per frame.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pacing</strong>: We must call <code>xrWaitSwapchainImage</code> and <code>xrAcquireSwapchainImage</code> for <strong>each</strong> swapchain (Base and Inset).</p>
+</li>
+<li>
+<p><strong>Vulkan Sync</strong>: Our command buffer recording must ensure all four views are rendered and transitioned before calling <code>xrReleaseSwapchainImage</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This multi-layer approach allows each layer to have its own resolution and bit-depth, letting the compositor optimize the final image based on the specific needs of each part of the scene.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For more details, consult the official <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xpspec.html#composition_layers">OpenXR Specification</a>, the <a href="https://docs.vulkan.org/guide/latest/index.html">Vulkan Guide</a>, and our <a href="00_introduction.adoc">main tutorial series</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a href="02_primary_stereo_with_insets.html" class="xref page">Previous</a> | <a href="04_incorporating_into_the_engine.html" class="xref page">Next</a></p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
+<script async src="../../../../_/js/vendor/highlight.js"></script>
+<script src="../../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
+<script src="../../../../_/js/vendor/lunr.js" defer></script>
+<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js" defer></script>
+<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../../search-index.js';
+    document.head.appendChild(s);
+  }
+});
+</script>
+<script async src="../../../../_/js/vendor/tabs.js"></script>
+  </body>
+</html>
